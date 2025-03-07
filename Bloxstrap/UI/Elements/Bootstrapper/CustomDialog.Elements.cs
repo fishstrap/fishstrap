@@ -677,6 +677,15 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, textBinding);
             }
 
+            if (xmlElement.Attribute("Name")?.Value == "Version")
+                textBlock.Text = String.IsNullOrEmpty(Utilities.GetRobloxVersion(App.Bootstrapper?.IsStudioLaunch ?? false)) ? "None" : Utilities.GetRobloxVersion(App.Bootstrapper?.IsStudioLaunch ?? false);
+
+            if (xmlElement.Attribute("Name")?.Value == "ChannelName")
+                textBlock.Text = App.Settings.Prop.Channel;
+
+            if (xmlElement.Attribute("Name")?.Value == "ChannelHash")
+                textBlock.Text = App.Settings.Prop.ChannelHash;
+
             return textBlock;
         }
 
