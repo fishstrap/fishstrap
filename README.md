@@ -38,7 +38,6 @@ Found any bugs? [Submit an issue](https://github.com/returnrqt/fishstrap/issues/
 - Channels
   - Channel changer
   - Cancelling Roblox upgrades
-  - Downloading channels with version hash
 - Bootstrapper
   - Ansel support for Roblox client
   - Multi-instance launching
