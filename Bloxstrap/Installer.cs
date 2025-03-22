@@ -723,10 +723,9 @@ namespace Bloxstrap
 
             App.Logger.WriteLine(LOG_IDENT, $"Importing succeded");
 
-            // these happen later on in installation process
-            // App.Settings.Load(false);
-            // App.State.Load(false);
-            // App.FastFlags.Load(false);
+            // added necessary directory for compatibility with the roblox game fisch
+            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Fischstrap"));
+
         }
     }
 }
