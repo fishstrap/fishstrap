@@ -29,7 +29,7 @@ namespace Bloxstrap
         public bool CreateStartMenuShortcuts = true;
 
         public bool ImportSettings = Directory.Exists(Path.Combine(Paths.LocalAppData, "Bloxstrap")); // if bloxstrap isnt detected this will be set to false
-                                                                                                      // another scenerio is user simply toggling it off
+                                                                                                      // another scenario is user simply toggling it off
 
         public bool IsImplicitInstall = false;
 
@@ -109,7 +109,7 @@ namespace Bloxstrap
             if (ImportSettings)
             {
                 // we dont have to worry about directories messing up
-                // if something doenst exist fishstrap will recreate the file/directory
+                // if something doesn't exist fishstrap will recreate the file/directory
                 try
                 {
                     ImportSettingsFromBloxstrap();
