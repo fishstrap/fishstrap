@@ -118,1126 +118,1128 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bootstrapper.AutoUpdateFailed" xml:space="preserve">
-    <value>„Bloxstrap“ nepavyko automatiškai atnaujinti į {0} versiją. Atnaujinkite ją rankiniu būdu atsisiųsdami ir paleisdami iš svetainės.</value>
+    <value>Fishstrap không thể tự động cập nhật lên phiên bản {0}. Xin hãy tải về chương trình cài đặt và cập nhật thủ công.</value>
   </data>
   <data name="Bootstrapper.ConfirmLaunch" xml:space="preserve">
-    <value>„Roblox“ šiuo metu paleista, o paleidus kitą serverį jis bus uždarytas. Ar tikrai norite tęsti paleidimą?</value>
+    <value>Tiến trình Roblox hiện tại đang chạy, và việc khởi động tiến trình Roblox khác sẽ đóng nó. Bạn có chắc chắn muốn tiếp tục khởi động không?</value>
   </data>
   <data name="Dialog.Connectivity.RobloxDown" xml:space="preserve">
-    <value>„Roblox“ šiuo metu gali būti neveikiantis. Žiūrėkite {0} dėl daugiau informacijos.</value>
+    <value>Roblox có thể đang có vấn đề. Xem {0} để có thêm thông tin.</value>
   </data>
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
-    <value>Ryšio užmegzti nepavyko, o tai greičiausiai reiškia prastą interneto ryšį arba užkardos blokavimą. Jei ryšys veikia gerai, įsitikinkite, kad jūsų antivirusinė programa neblokuoja „Bloxstrap“.</value>
+    <value>Không thể kết nối, có thể là do kết nối internet kém hoặc bị chặn bởi tường lửa. Nếu kết nối của bạn bình thường, vui lòng kiểm tra lại xem phần mềm diệt virus có chặn Fishstrap không.</value>
   </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
-    <value>Prieš išdiegdami „Bloxstrap“, pirmiausia turite įdiegti „Bloxstrap“.</value>
+    <value>Bạn phải cài đặt Fishstrap trước khi gỡ cài đặt nó.</value>
   </data>
   <data name="Bootstrapper.NotEnoughSpace" xml:space="preserve">
-    <value>„Bloxstrap“ neturi pakankamai vietos diske, kad galėtų atsisiųsti ir įdiegti „Roblox“. Atlaisvinkite šiek tiek vietos diske ir bandykite dar kartą.</value>
+    <value>Fishstrap không có đủ dung lượng ổ cứng để tải và cài đặt Roblox. Hãy giải phóng dung lượng và thử lại.</value>
   </data>
   <data name="Bootstrapper.Status.ApplyingModifications" xml:space="preserve">
-    <value>Taikomos „Roblox“ modifikacijos...</value>
+    <value>Đang áp dụng những chỉnh sửa cho Roblox...</value>
   </data>
   <data name="Bootstrapper.Status.Configuring" xml:space="preserve">
-    <value>Konfigūruojamas „{product}“...</value>
+    <value>Đang cấu hình {product}...</value>
   </data>
   <data name="Bootstrapper.Status.Connecting" xml:space="preserve">
-    <value>Prisijungiama prie „Roblox“...</value>
+    <value>Đang kết nối đến Roblox...</value>
   </data>
   <data name="Bootstrapper.Status.Installing" xml:space="preserve">
-    <value>Diegiamas „{product}“...</value>
+    <value>Đang cài đặt {product}...</value>
   </data>
   <data name="Bootstrapper.Status.InstallingWebView2" xml:space="preserve">
-    <value>Diegiamas „WebView2“. Palaukite...</value>
+    <value>Đang cài đặt WebView2, xin hãy chờ đợi...</value>
   </data>
   <data name="Bootstrapper.Status.Starting" xml:space="preserve">
-    <value>Pradedamas „{product}“...</value>
+    <value>Đang khởi động {product}...</value>
     <comment>"Starting Roblox" or "Starting Roblox Studio"</comment>
   </data>
   <data name="Bootstrapper.Status.Upgrading" xml:space="preserve">
-    <value>Atnaujinamas „{product}“...</value>
+    <value>Đang cập nhật {product}...</value>
   </data>
   <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
-    <value>Gaunamas naujausias „Bloxstrap“...</value>
+    <value>Đang tải xuống phiên bản mới nhất của Fishstrap...</value>
   </data>
   <data name="Bootstrapper.Status.WaitingOtherInstances" xml:space="preserve">
-    <value>Laukiama kitų serverių...</value>
+    <value>Đang đợi các tiến trình khác...</value>
   </data>
   <data name="Bootstrapper.StylePreview.ImageCancel" xml:space="preserve">
-    <value>Stiliaus peržiūra. Spustelėkite mygtuką X viršuje dešinėje, kad uždarytumėte</value>
+    <value>Đang xem trước thiết kế - Nhấn vào nút X ở trên góc phải để đóng</value>
     <comment>Text for style previews that use an X button. Currently only applies to Byfron</comment>
   </data>
   <data name="Bootstrapper.StylePreview.TextCancel" xml:space="preserve">
-    <value>Stiliaus peržiūra. Spustelėkite Atšaukti, kad uždarytumėte</value>
+    <value>Xem trước thiết kế - Bấm Hủy để đóng</value>
     <comment>Text for style previews that use text button that says "Cancel"</comment>
   </data>
   <data name="Bootstrapper.SuccessfullyUninstalled" xml:space="preserve">
-    <value>„Bloxstrap“ buvo sėkmingai išdiegtas</value>
+    <value>Fishstrap đã được gỡ cài đặt thành công</value>
   </data>
   <data name="Bootstrapper.Uninstall.RobloxRunning" xml:space="preserve">
-    <value>„Roblox“ šiuo metu paleista, bet prieš išdiegiant „Bloxstrap“ turi būti uždarytas. Ar norėtumėte dabar uždaryti „Roblox“?</value>
+    <value>Bạn phải tắt Roblox trước khi gỡ cài đặt Fishstrap. Bạn có muốn đóng Roblox ngay bây giờ không?</value>
   </data>
   <data name="Bootstrapper.WMFNotFound" xml:space="preserve">
-    <value>„Roblox“ reikia naudoti „Windows Media Foundation“ komponentus. Atrodo, kad jų trūksta, greičiausiai dėl to, kad naudojate „Windows“ N laidą. Pirmiausia juos įdiekite, tada paleiskite „Roblox“.</value>
+    <value>Roblox yêu cầu sử dụng các thành phần của Windows Media Foundation. Có vẻ như bạn đang thiếu chúng, có thể là do bạn đang sử dụng phiên bản N của Windows. Vui lòng cài đặt chúng trước, sau đó khởi chạy Roblox.</value>
   </data>
   <data name="Common.AddSingle" xml:space="preserve">
-    <value>Pridėti vieną</value>
+    <value>Thêm</value>
   </data>
   <data name="Common.Browse" xml:space="preserve">
-    <value>Naršyti</value>
+    <value>Chọn</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
-    <value>Atšaukti</value>
+    <value>Huỷ</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Uždaryti</value>
+    <value>Đóng</value>
   </data>
   <data name="Common.Delete" xml:space="preserve">
-    <value>Ištrinti</value>
+    <value>Xoá</value>
   </data>
   <data name="Common.DiscordRichPresence" xml:space="preserve">
-    <value>„Discord Rich Presence“</value>
+    <value>Trạng thái hoạt động Discord</value>
   </data>
   <data name="Common.Help" xml:space="preserve">
-    <value>Pagalba</value>
+    <value>Trợ giúp</value>
   </data>
   <data name="Common.ImportJson" xml:space="preserve">
-    <value>Importuoti JSON</value>
+    <value>Nhập JSON</value>
   </data>
   <data name="Common.OpenLogFile" xml:space="preserve">
-    <value>Atidaryti žurnalo failą</value>
+    <value>Mở tệp log</value>
   </data>
   <data name="Common.Miscellaneous" xml:space="preserve">
-    <value>Įvairus</value>
+    <value>Khác</value>
   </data>
   <data name="Common.Name" xml:space="preserve">
-    <value>Pavadinimas</value>
+    <value>Tên </value>
   </data>
   <data name="Common.New" xml:space="preserve">
-    <value>Naujas</value>
+    <value>Mới</value>
   </data>
   <data name="Common.No" xml:space="preserve">
-    <value>Ne</value>
+    <value>Không</value>
   </data>
   <data name="Common.OK" xml:space="preserve">
-    <value>Gerai</value>
+    <value>OK</value>
   </data>
   <data name="Common.Presets" xml:space="preserve">
-    <value>Išankstiniai nustatymai</value>
+    <value>Các cài đặt định sẵn</value>
   </data>
   <data name="Common.Reset" xml:space="preserve">
-    <value>Atkurti</value>
+    <value>Cài đặt lại</value>
     <comment>In the context of resetting something to a default value</comment>
   </data>
   <data name="Common.Value" xml:space="preserve">
-    <value>Reikšmė</value>
+    <value>Giá trị</value>
   </data>
   <data name="Common.Warning" xml:space="preserve">
-    <value>Įspėjimas</value>
+    <value>Cảnh báo</value>
   </data>
   <data name="Common.Yes" xml:space="preserve">
-    <value>Taip</value>
+    <value>Có</value>
   </data>
   <data name="ContextMenu.CloseRoblox" xml:space="preserve">
-    <value>Uždaryti „Roblox“</value>
+    <value>Đóng Roblox</value>
   </data>
   <data name="ContextMenu.CloseRobloxMessage" xml:space="preserve">
-    <value>Ar tikrai norite uždaryti „Roblox“? Tai priverstinai užbaigs procesą.</value>
+    <value>Bạn có thật sự muốn đóng Roblox? Điều này sẽ buộc kết thúc tiến trình.</value>
   </data>
   <data name="ContextMenu.CopyDeeplinkInvite" xml:space="preserve">
-    <value>Kopijuoti kvietimo gilų nuorodą</value>
+    <value>Sao chép liên kết lời mời trực tiếp</value>
   </data>
   <data name="ContextMenu.ServerInformation.CopyInstanceId" xml:space="preserve">
-    <value>Kopijuoti serverio ID</value>
+    <value>Sao chép ID máy chủ</value>
   </data>
   <data name="ContextMenu.ServerInformation.InstanceId" xml:space="preserve">
-    <value>Serverio ID</value>
+    <value>ID máy chủ</value>
   </data>
   <data name="ContextMenu.ServerInformation.Location" xml:space="preserve">
-    <value>Vieta</value>
+    <value>Vị trí</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Text" xml:space="preserve">
-    <value>Vieta: {0}
-Spustelėkite norėdami gauti daugiau informacijos.</value>
+    <value>Được đặt tại: {0}
+Bấm để biết thêm thông tin</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Public" xml:space="preserve">
-    <value>Prisijungta prie viešojo serverio</value>
+    <value>Đã kết nối đến máy chủ công khai</value>
   </data>
   <data name="ContextMenu.ServerInformation.Title" xml:space="preserve">
-    <value>Serverio informacija</value>
+    <value>Thông tin máy chủ</value>
   </data>
   <data name="ContextMenu.ServerInformation.Type" xml:space="preserve">
-    <value>Tipas</value>
+    <value>Loại</value>
   </data>
   <data name="Dialog.AddFastFlag.Title" xml:space="preserve">
-    <value>Pridėti „Fast Flag“</value>
+    <value>Thêm Fast Flag</value>
   </data>
   <data name="Dialog.Connectivity.MoreInfo" xml:space="preserve">
-    <value>Daugiau informacijos:</value>
+    <value>Thông tin thêm:</value>
   </data>
   <data name="Dialog.Connectivity.Title" xml:space="preserve">
-    <value>Ryšio klaida</value>
+    <value>Lỗi kết nối</value>
   </data>
   <data name="Dialog.Connectivity.UnableToConnect" xml:space="preserve">
-    <value>„Bloxstrap“ nepavyksta prisijungti prie {0}.</value>
+    <value>Fishstrap không thể kết nối tới {0}</value>
     <comment>{0} is the name of a service (i.e. Roblox, GitHub)</comment>
   </data>
   <data name="Dialog.Exception.CopyLogContents" xml:space="preserve">
-    <value>Kopijuoti žurnalo turinį</value>
+    <value>Sao chép dữ liệu log</value>
   </data>
   <data name="Dialog.Exception.Info.1" xml:space="preserve">
-    <value>Įvyko išimtis paleidžiant „Bloxstrap“</value>
+    <value>Một trường hợp ngoại lệ đã xảy ra khi đang chạy Fishstrap</value>
   </data>
   <data name="Dialog.Exception.Info.2" xml:space="preserve">
-    <value>Pirmiausia patikrinkite [„Bloxstrap“ viki]({0}), kad sužinotumėte, ar ši problema jau išspręsta.
+    <value>Hãy xem qua [Fishstrap Wiki]({0}) trước để xem nếu vấn đề này đã được khắc phục chưa
 
-Jei ne, praneškite apie šią išimtį per [„GitHub“ problemą]({1}) kartu su sukurto žurnalo failo kopija.</value>
+Nếu chưa, xin hay báo cáo lỗi này qua [GitHub issue]({1}) với bản copy của tệp log vừa được tạo.</value>
   </data>
   <data name="Dialog.Exception.Title" xml:space="preserve">
-    <value>„Bloxstrap“ išimtis</value>
+    <value>Lỗi ngoại lệ Fishstrap</value>
   </data>
   <data name="Common.Custom" xml:space="preserve">
-    <value>Pasirinktinis</value>
+    <value>Tuỳ chỉnh</value>
   </data>
   <data name="Enums.BootstrapperIcon.IconEarly2015" xml:space="preserve">
-    <value>2015 m. pradžia</value>
+    <value>Đầu năm 2015</value>
   </data>
   <data name="Enums.BootstrapperIcon.IconLate2015" xml:space="preserve">
-    <value>2015 m. pabaiga</value>
+    <value>Cuối năm 2015</value>
   </data>
   <data name="Enums.BootstrapperStyle.ByfronDialog" xml:space="preserve">
-    <value>Netikras „Byfron“ (2023 m.)</value>
+    <value>Giả lập Byfron (2023)</value>
   </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
-    <value>„Bloxstrap“ (klasikinis)</value>
+    <value>Fishstrap (Cổ điển)</value>
   </data>
   <data name="Enums.BootstrapperStyle.FluentAeroDialog" xml:space="preserve">
-    <value>„Bloxstrap“ (stiklinis)</value>
+    <value>Fishstrap (Xuyên thấu)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2008" xml:space="preserve">
-    <value>„Legacy“ (2008-2011 m.)</value>
+    <value>Legacy (2008-2011)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2011" xml:space="preserve">
-    <value>„Legacy“ (2011-2014 m.)</value>
+    <value>Legacy (2011 - 2014)</value>
   </data>
   <data name="Enums.BootstrapperStyle.ProgressDialog" xml:space="preserve">
-    <value>„Roblox“ (t. 2014 m.)</value>
+    <value>Roblox (~2014)</value>
   </data>
   <data name="Enums.BootstrapperStyle.VistaDialog" xml:space="preserve">
-    <value>„Vista“ (2008-2011 m.)</value>
+    <value>Vista (2008 - 2011)</value>
   </data>
   <data name="Enums.CursorType.From2006" xml:space="preserve">
-    <value>2006 m. („Cartoony“)</value>
+    <value>2006 (Cartoony)</value>
   </data>
   <data name="Enums.CursorType.From2013" xml:space="preserve">
-    <value>2013 m. („Angular“)</value>
+    <value>2013 (Angular)</value>
   </data>
   <data name="Enums.EmojiType.Catmoji" xml:space="preserve">
-    <value>„Catmoji“</value>
+    <value>Catmoji</value>
   </data>
   <data name="Enums.EmojiType.Default" xml:space="preserve">
-    <value>Numatytasis („Twemoji“)</value>
+    <value>Mặc định (Twemoji)</value>
   </data>
   <data name="Enums.EmojiType.Windows10" xml:space="preserve">
-    <value>„Windows 10“</value>
+    <value>Windows 10</value>
   </data>
   <data name="Enums.EmojiType.Windows11" xml:space="preserve">
-    <value>„Windows 11“</value>
+    <value>Windows 11</value>
   </data>
   <data name="Enums.EmojiType.Windows8" xml:space="preserve">
-    <value>„Windows 8“</value>
+    <value>Windows 8</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V1" xml:space="preserve">
-    <value>2015 m. (1 ver.)</value>
+    <value>2015 (Phiên bản 1)</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V2" xml:space="preserve">
-    <value>2022 m. (2 ver.)</value>
+    <value>2020 (Phiên bản 2)</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V4" xml:space="preserve">
-    <value>2023 m. (4 ver.)</value>
+    <value>2023 (Phiên bản 4)</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Default" xml:space="preserve">
-    <value>Pasirinkta pagal žaidimą</value>
+    <value>Được chọn bởi trò chơi</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Future" xml:space="preserve">
-    <value>„Future“ (3 fazė)</value>
+    <value>Future (Giai Đoạn 3)</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.ShadowMap" xml:space="preserve">
-    <value>„Shadow Map“ (2 fazė)</value>
+    <value>Shadow Map (Giai Đoạn 2)</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Voxel" xml:space="preserve">
-    <value>„Voxel“ (1 fazė)</value>
+    <value>Voxel (Giai đoạn 1)</value>
   </data>
   <data name="Enums.FlagPresets.RenderingMode.D3D10" xml:space="preserve">
-    <value>„Direct3D 10“</value>
+    <value>Direct3D 10</value>
   </data>
   <data name="Enums.FlagPresets.RenderingMode.D3D11" xml:space="preserve">
-    <value>„Direct3D 11“</value>
+    <value>Direct3D 11</value>
   </data>
   <data name="Enums.ServerType.Private" xml:space="preserve">
-    <value>Privatus serveris</value>
+    <value>Máy chủ riêng</value>
   </data>
   <data name="Enums.ServerType.Public" xml:space="preserve">
-    <value>Viešasis serveris</value>
+    <value>Máy chủ công khai</value>
   </data>
   <data name="Enums.ServerType.Reserved" xml:space="preserve">
-    <value>Rezervuotas serveris</value>
+    <value>Máy chủ dự phòng</value>
   </data>
   <data name="Enums.Theme.Dark" xml:space="preserve">
-    <value>Tamsi</value>
+    <value>Tối</value>
   </data>
   <data name="Enums.Theme.Light" xml:space="preserve">
-    <value>Šviesi</value>
+    <value>Sáng</value>
   </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
-    <value>„Bloxstrap“ buvo atnaujintas į v{0}.</value>
+    <value>Fishstrap đã được cập nhật lên phiên bản v{0}</value>
   </data>
   <data name="InstallChecker.VersionDifferentThanInstalled" xml:space="preserve">
-    <value>Paleista „Bloxstrap“ versija skiriasi nuo šiuo metu įdiegtos versijos.
-Ar norėtumėte atnaujinti šiuo metu įdiegtą versiją?</value>
+    <value>Phiên bản Fishstrap bạn đã mở khác với phiên bản đã cài đặt hiện tại.
+Bạn có muốn nâng cấp phiên bản đã cài đặt không?</value>
   </data>
   <data name="Menu.About.Contributors" xml:space="preserve">
-    <value>Bendradarbiai</value>
+    <value>Những người đóng góp</value>
   </data>
   <data name="Menu.About.Contributors.Code" xml:space="preserve">
-    <value>Programuotojai</value>
+    <value>Lập trình</value>
   </data>
   <data name="Menu.About.Contributors.Description" xml:space="preserve">
-    <value>Tai – žmonės, kurie labai prisidėjo indėlį į „Bloxstrap“ ir padėjo jai tapti tuo, kuo ji yra.</value>
+    <value>Đây là những người có đóng góp nổi bật cho Fishstrap, giúp nó được như bây giờ.</value>
   </data>
   <data name="Menu.About.Contributors.FeatureIdeas" xml:space="preserve">
-    <value>Funkcijų idėjos</value>
+    <value>Quyên góp ý tưởng</value>
   </data>
   <data name="Menu.About.Contributors.SpecialThanks" xml:space="preserve">
-    <value>Ypatingai dėkojame</value>
+    <value>Lời cảm ơn sâu sắc</value>
   </data>
   <data name="Menu.About.Description" xml:space="preserve">
-    <value>Alternatyvus „Roblox“ pakopinė paleidyklę su daugybe papildomų funkcijų.</value>
+    <value>Một chương trình khởi động phụ dành cho Roblox với các tính năng đa dạng.</value>
   </data>
   <data name="Menu.About.DiscordServer" xml:space="preserve">
-    <value>„Discord“ serveris</value>
+    <value>Máy chủ Discord</value>
   </data>
   <data name="Menu.About.GithubRepository" xml:space="preserve">
-    <value>„GitHub“ saugykla</value>
+    <value>Trang GitHub</value>
   </data>
   <data name="Menu.About.HelpInformation" xml:space="preserve">
-    <value>Pagalba ir informacija</value>
+    <value>Trợ giúp và thông tin</value>
   </data>
   <data name="Menu.About.Licenses" xml:space="preserve">
-    <value>Licencijos</value>
+    <value>Các giấy phép</value>
   </data>
   <data name="Menu.About.Licenses.BSD2" xml:space="preserve">
-    <value>BSD 2-Clause licencija</value>
+    <value>Giấy phép BSD 2-Clause</value>
   </data>
   <data name="Menu.About.Licenses.MIT" xml:space="preserve">
-    <value>MIT licencija</value>
+    <value>Giấy phép MIT</value>
   </data>
   <data name="Menu.About.ReportIssue" xml:space="preserve">
-    <value>Pranešti apie problemą</value>
+    <value>Báo cáo một vấn đề</value>
   </data>
   <data name="Menu.About.Title" xml:space="preserve">
-    <value>Apie</value>
+    <value>Thông tin</value>
   </data>
   <data name="Menu.About.Version" xml:space="preserve">
-    <value>{0} versija</value>
+    <value>Phiên bản {0}</value>
     <comment>{0} is replaced with the version, i.e. "Version 2.8.0"</comment>
   </data>
   <data name="Menu.AllFiles" xml:space="preserve">
-    <value>Visi failai</value>
+    <value>Tất cả các tệp</value>
   </data>
   <data name="Menu.AlreadyRunning.Caption" xml:space="preserve">
-    <value>Atkreipkite dėmesį, kad ne visi pakeitimai bus taikomi iš karto, kol neuždarysite visų šiuo metu atidarytų „Roblox“ serverių.</value>
+    <value>Hãy nhớ rằng tất cả những sửa đổi của bạn sẽ không lập tức được áp dụng cho đến khi bạn đóng tất cả các tiến trình Roblox đang chạy hiện tại.</value>
   </data>
   <data name="Menu.AlreadyRunning.Title" xml:space="preserve">
-    <value>„Bloxstrap“ jau paleista</value>
+    <value>Fishstrap đang hoạt động</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Description" xml:space="preserve">
-    <value>Galite padaryti jį kitaip, retro ar net kaip „Roblox“.</value>
+    <value>Bạn có thể làm nó khác biệt, có thể theo phong cách cổ điển, hoặc có thể làm nó nhìn y hệt như Roblox.</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Title" xml:space="preserve">
-    <value>Pakopinė paleidyklė</value>
+    <value>Trình khởi động</value>
   </data>
   <data name="Menu.Appearance.Customisation.Description" xml:space="preserve">
-    <value>Konfigūruokite kitas įvairias tinkinamas parinktis.</value>
+    <value>Tùy chỉnh những lựa chọn khác có thể chỉnh sửa.</value>
   </data>
   <data name="Menu.Appearance.Customisation.Title" xml:space="preserve">
-    <value>Tinkinimas</value>
+    <value>Tùy chỉnh</value>
   </data>
   <data name="Menu.Appearance.CustomisationIcon.Description" xml:space="preserve">
-    <value>Turi būti daugiadydžių .ico failas, kurio dydis yra 16 tšk. iki 128 tšk.. Norėdami ją naudoti, nustatykite piktogramą kaip Pasirinktinis.</value>
+    <value>Phải là tệp .ico đa dạng về kích thước từ 16px đến 128px. Đặt biểu tượng thành 'Tùy chỉnh' để sử dụng.</value>
   </data>
   <data name="Menu.Appearance.CustomisationIcon.Title" xml:space="preserve">
-    <value>Pasirin. piktograma</value>
+    <value>Biểu tượng</value>
   </data>
   <data name="Menu.Appearance.CustomisationTitle.Description" xml:space="preserve">
-    <value>Tekstas, kuris rodomas kaip pakopinio paleidyklės pavadinimas.</value>
+    <value>Văn bản sẽ được hiển thị trên tiêu đề của trình khởi động.</value>
   </data>
   <data name="Menu.Appearance.CustomisationTitle.Title" xml:space="preserve">
-    <value>Pavadinimas</value>
+    <value>Tiêu đề</value>
   </data>
   <data name="Menu.Appearance.Description" xml:space="preserve">
-    <value>Konfigūruokite, kaip turėtų atrodyti „Bloxstrap“.</value>
+    <value>Chỉnh sửa giao diện của Fishstrap.</value>
   </data>
   <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
-    <value>Visuotinė tema</value>
+    <value>Giao diện chung</value>
   </data>
   <data name="Menu.Appearance.Icon.Description" xml:space="preserve">
-    <value>Pasirinkite, kokią piktogramą ji turėtų naudoti.</value>
+    <value>Chọn biểu tượng nên được sử dụng.</value>
   </data>
   <data name="Menu.Appearance.Icon.Title" xml:space="preserve">
-    <value>Piktograma</value>
+    <value>Biểu tượng</value>
   </data>
   <data name="Menu.Appearance.Preview" xml:space="preserve">
-    <value>Peržiurėti</value>
+    <value>Xem trước</value>
   </data>
   <data name="Menu.Appearance.Style.Description" xml:space="preserve">
-    <value>Pasirinkite, kaip jis turėtų atrodyti. Tamsi tema netaikoma „Legacy“ / „Vista“.</value>
+    <value>Chọn cách hiển thị. Giao diện tối không áp dụng cho Legacy và Vista.</value>
   </data>
   <data name="Menu.Appearance.Style.Title" xml:space="preserve">
-    <value>Stilius</value>
+    <value>Giao diện</value>
   </data>
   <data name="Menu.Appearance.Title" xml:space="preserve">
-    <value>Išvaizda</value>
+    <value>Giao diện</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Description" xml:space="preserve">
-    <value>„Bloxstrap“ automatiškai patikrins ir atnaujins save paleidus „Roblox“.</value>
+    <value>Fishstrap sẽ tự động kiểm tra và cập nhật khi chạy Roblox.</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
-    <value>Automatiškai atnaujinti „Bloxstrap“</value>
+    <value>Tự động cập nhật Fishstrap</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Description" xml:space="preserve">
-    <value>Užkirskite kelią atsitiktiniam esamo žaidimo uždarymui, kad netyčia nebūtų paleistas kitas žaidimas.</value>
+    <value>Ngăn chặn việc tắt trò chơi hiện tại khi bạn vô tình khởi động trò chơi khác.</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Title" xml:space="preserve">
-    <value>Raginti patvirtinti paleidžiant kitą „Roblox“ serverį</value>
+    <value>Hiển thị thông báo xác nhận khi mở một tiến trình Roblox khác</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
-    <value>Konfigūruokite, ką „Bloxstrap“ turėtų daryti paleidžiant „Roblox“.</value>
+    <value>Tùy chỉnh Fishstrap sẽ làm gì khi khởi động Roblox.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Description" xml:space="preserve">
-    <value>Kitą kartą paleidus „Roblox“ bus įdiegta nauja.</value>
+    <value>Roblox sẽ cài đặt lại vào lần khởi động tiếp theo.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Title" xml:space="preserve">
-    <value>Priversti „Roblox“ diegti iš naujo</value>
+    <value>Bắt buộc cài đặt lại Roblox</value>
   </data>
   <data name="Menu.Behaviour.Title" xml:space="preserve">
-    <value>Pakopinė paleidyklė</value>
+    <value>Trình khởi động</value>
   </data>
   <data name="Menu.FastFlagEditor.AddNew" xml:space="preserve">
-    <value>Pridėti naują</value>
+    <value>Thêm mới</value>
   </data>
   <data name="Menu.FastFlagEditor.AlreadyExists" xml:space="preserve">
-    <value>Šio gairelės pavadinimo įrašas jau egzistuoja.</value>
+    <value>Flag này đã tồn tại.</value>
   </data>
   <data name="Menu.FastFlagEditor.Back" xml:space="preserve">
-    <value>Atgal</value>
+    <value>Quay lại</value>
   </data>
   <data name="Menu.FastFlagEditor.BannerText" xml:space="preserve">
-    <value>Netinkamai naudojant šią funkciją, gali atsirasti nestabilumas arba įvykti netikėtų dalykų.</value>
+    <value>Sử dụng sai cách có thể dẫn đến mất ổn định hay những điều không mong muốn.</value>
     <comment>The element that this string is rendered in *cannot be wrapped* and may be truncated when displayed if too long. If so, try and paraphrase a shortened version.</comment>
   </data>
   <data name="Menu.FastFlagEditor.BannerTitle" xml:space="preserve">
-    <value>Naudoti atsargiai.</value>
+    <value>Sử dụng một cách cẩn thận.</value>
   </data>
   <data name="Menu.FastFlagEditor.ConflictingImport" xml:space="preserve">
-    <value>Kai kurių gairelių, kurias bandote importuoti, reikšmės jau turi nustatytos. Ar norėtumėte dabartines jų reikšmes perrašyti importuojant nustatytomis reikšmėmis?
+    <value>Một số Flag bạn đang nhập vào đã có những giá trị được định sẵn. Bạn có muốn ghi đè giá trị hiện tại của chúng với những giá trị sau đây được đề ra trong bản nhập vào?
 
-Yra {0} konfliktuojančių gairelių apibrėžčių:
+Có {0} Flag đang xung đột:
 {1}</value>
     <comment>{0} is a number, {1} is a comma-separated list</comment>
   </data>
   <data name="Menu.FastFlagEditor.DeleteSelected" xml:space="preserve">
-    <value>Ištrinti pasirinktą</value>
+    <value>Xoá</value>
   </data>
   <data name="Menu.FastFlagEditor.Description" xml:space="preserve">
-    <value>Tvarkykite savo „Fast Flags“. Norėdami redaguoti, du kartus spustelėkite stulpelį.</value>
+    <value>Quản lý Fast Flag của bạn. Nhấn đúp chuột vào một cột để chỉnh sửa.</value>
   </data>
   <data name="Menu.FastFlagEditor.ExportJson" xml:space="preserve">
-    <value>Eksportuoti JSON</value>
+    <value>Xuất JSON</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidCharacter" xml:space="preserve">
-    <value>Elementas „{0}“ netinkamas, nes pavadinimą gali sudaryti tik raidės, skaičiai ir pabraukimai.</value>
+    <value>Flag '{0}' không hợp lệ vì tên chỉ có thể chứa chữ cái, số và dấu gạch dưới</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidJSON" xml:space="preserve">
-    <value>Jūsų įvestas JSON neatrodo netinkamas. Patikrinkite jį dar kartą ir bandykite dar kartą.
+    <value>JSON mà bạn đã nhập có vẻ không hợp lệ. Vui lòng kiểm tra lần nữa và thử lại.
 
-Daugiau informacijos:
+Thông tin thêm:
 {0}</value>
     <comment>{0} is an exception message</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidPrefix" xml:space="preserve">
-    <value>Elementas „{0}“ netinkamas, nes pavadinimas turi prasidėti raidėmis FFlag, DFInt ir t. t.</value>
+    <value>Flag '{0}' không hợp lệ vì tên phải bắt đầu với FFlag, DFInt, v. v</value>
   </data>
   <data name="Menu.FastFlagEditor.JsonCopiedToClipboard" xml:space="preserve">
-    <value>Nukopijuota į iškarpinę.</value>
+    <value>Đã sao chép vào bộ nhớ tạm.</value>
   </data>
   <data name="Menu.FastFlagEditor.LargeConfig" xml:space="preserve">
-    <value>Atrodo, kad importuojate labai didelę konfigūraciją. Turėtumėte importuoti tik tas konfigūracijas, kurias visiškai suprantate. Negalite aklai įklijuoti kitų žmonių sukurtų konfigūracijų. Jei tęsite toliau, labai tikėtina, kad susidursite su stabilumo problemomis ir netikėtais pakeitimais.
+    <value>Có vẻ như bạn đang nhập một cấu hình rất lớn. Bạn chỉ nên nhập những cấu hình mà bạn chắc chắn hiểu. KHÔNG dán một cách bừa bãi các cấu hình do người khác tạo. Nếu tiếp tục, rất có thể bạn sẽ gặp phải vấn đề về độ ổn định và gặp phải những thay đổi không mong muốn.
 
-Ar tikrai norite tęsti?</value>
+Bạn có chắc chắn muốn tiếp tục không?</value>
   </data>
   <data name="Menu.FastFlagEditor.Search" xml:space="preserve">
-    <value>Ieškoti</value>
+    <value>Tìm kiếm</value>
   </data>
   <data name="Menu.FastFlagEditor.ShowPresetFlags" xml:space="preserve">
-    <value>Rodyti išankstinių nustatytų gairelių</value>
+    <value>Hiển thị các flag cài sẵn</value>
   </data>
   <data name="Menu.FastFlagEditor.Title" xml:space="preserve">
-    <value>„Fast Flag“ rengyklė</value>
+    <value>Trình chỉnh sửa Fast Flag</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Back" xml:space="preserve">
-    <value>Eiti atgal</value>
+    <value>Quay lại</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Continue" xml:space="preserve">
-    <value>Žinau, ką darau</value>
+    <value>Tôi biết tôi đang làm gì</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Header" xml:space="preserve">
-    <value>Ar žinote, ką darote?</value>
+    <value>Bạn có biết bạn đang làm gì không?</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Text" xml:space="preserve">
-    <value>„Fast Flags“ yra labai galingos, nes jos skirtos naudoti tik „Roblox“ inžinieriams. Nors jos gali būti labai naudingos, rankiniai jų konfigūruoti gali sukelti rimtų stabilumo ir funkcionalumo problemų. Nenaudokite rengyklės, jei nesate tikri, ką darote.
+    <value>Fast Flag vô cùng mạnh mẽ vì chúng được thiết kế chỉ dành cho các kỹ sư Roblox sử dụng. Mặc dù có thể rất hữu ích, việc tự mình cài đặt cấu hình và chỉnh sửa có thể gây ra các vấn đề nghiêm trọng về tính ổn định và chức năng. ĐỪNG sử dụng trình chỉnh sửa nếu bạn không biết mình đang làm gì. 
 
-Nenaudokite jo importuoti didelių kitų žmonių sudarytų „gairelių sąrašų“, kurie žada pagerinti našumą ar pan. Jiems gali kilti anksčiau minėtų problemų, be to, jie sukels jums problemų, nes jūs iki galo nežinosite, ką jie keičia. Jei ketinate tai daryti, grįžkite atgal.</value>
+ĐỪNG sử dùng chức năng này để nhập những "danh sách flag" lớn được tạo nên bởi người khác với lời hứa cải thiện hiệu năng, chạy mượt hơn hoặc tương tự. Chúng có thể gặp những vấn đề được nêu ở trên và sẽ gây ra vấn đề nếu bạn thực sự không biết chúng đang thay đổi gì. Nếu bạn đang định làm điều đó, HÃY QUAY TRỞ LẠI.</value>
   </data>
   <data name="Menu.FastFlags.Description" xml:space="preserve">
-    <value>Valdykite, kaip konfigūruojami konkretūs „Roblox“ variklio parametrai ir funkcijos.</value>
+    <value>Kiểm soát cụ thể các cấu hình, các thông số và tính năng của Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Editor.Description" xml:space="preserve">
-    <value>Tvarkykite savo „Fast Flags“. Naudokite atsargiai.</value>
+    <value>Quản lý Fast Flag của bạn. Sử dụng với sự thận trọng.</value>
     <comment>Title is Menu.FastFlagEditor.Title</comment>
   </data>
   <data name="Menu.FastFlags.Help.Description" xml:space="preserve">
-    <value>Sužinokite daugiau apie „Fast Flags“, ką šie išankstiniai nustatymai daro ir kaip juos naudoti.</value>
+    <value>Tìm hiểu thêm về Fast Flag, tác dụng của các cài đặt này và cách sử dụng chúng.</value>
     <comment>Title is Common.Help</comment>
   </data>
   <data name="Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo" xml:space="preserve">
-    <value>„Direct3D“ [išskirtinis visas ekranas]({0}) naudojant Alt+Enter jau įjungtas pagal numatytuosius nustatymus.</value>
+    <value>Direct3D [toàn màn hình]({0}) bằng Alt+Enter đã được bật theo mặc định.</value>
   </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
-    <value>Pageidaujama grįžimo meniu versija</value>
+    <value>Phiên bản menu thoát ưa thích</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Description" xml:space="preserve">
-    <value>„Roblox“ sumažina atvaizdavimo kokybę, priklausomai nuo to, kaip „Windows“ ekrane yra keičiamas mastelis.</value>
+    <value>Roblox giảm chất lượng hiển thị của bạn tùy thuộc vào cách hiển thị được điều chỉnh trong Windows.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Title" xml:space="preserve">
-    <value>Išsaugoti atvaizdavimo kokybę su ekrano masteliu</value>
+    <value>Giữ chất lượng hiển thị với tỷ lệ hiển thị</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
-    <value>Nustatykite 0 kaip numatytąsias reikšmes, jei norite naudoti „Roblox“ vietinį kadrų spartos atsklęsdyklę.</value>
+    <value>Đặt thành 0 nếu muốn sử dụng bộ mở khóa khung hình mặc định của Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
-    <value>Kadrų dažnio riba</value>
+    <value>Giới hạn tốc độ khung hình</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
-    <value>Perjungta su [spartiečiais klavišais]({0}). Veikia tik jei esate [„Bloxstrap“ grupėje]({1}).</value>
+    <value>Bật/Tắt bằng [tổ hợp phím]({0}). Chỉ hoạt động nếu đang ở trong [Nhóm Fishstrap]({1}).</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
-    <value>Įjungti galimybę paslėpti grafinės sąsajas</value>
+    <value>Bật tính năng ẩn giao diện người dùng</value>
   </data>
   <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
-    <value>Išrinktasis bus priverstiniai įjungtas visuose žaidimuose. [Saugokitės, gali kilti apšvietimo problemų!]({0})</value>
+    <value>Chọn một cái sẽ bắc buộc bật trong tất cả các trò chơi. [Hãy cẩn thận, có thể gây ra các lỗi ánh sáng!]({0})</value>
   </data>
   <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
-    <value>Pageidaujama apšvietimo technologija</value>
+    <value>Công nghệ ánh sáng ưa thích</value>
   </data>
   <data name="Menu.FastFlags.Presets.RenderingMode.Title" xml:space="preserve">
-    <value>Atvaizdavimo režimas</value>
+    <value>Chế độ kết xuất</value>
   </data>
   <data name="Menu.FastFlags.Title" xml:space="preserve">
-    <value>Variklio nustatymai</value>
+    <value>Cài đặt Engine</value>
   </data>
   <data name="Menu.FontFiles" xml:space="preserve">
-    <value>Sriftų failai</value>
+    <value>Các tệp phông chữ</value>
   </data>
   <data name="Menu.IconFiles" xml:space="preserve">
-    <value>Piktogramų failai</value>
+    <value>Các tệp biểu tượng</value>
   </data>
   <data name="Menu.InstallLocation.CantInstall" xml:space="preserve">
-    <value>Čia negalima įdiegti „Bloxstrap“. Pasirinkite kitą vietą arba naudokite numatytąją vietą spustelėdami mygtuką Atkurti.</value>
+    <value>Fishstrap không thể được cài đặt ở đây. Vui lòng chọn một vị trí khác, hoặc sử dụng vị trí mặc định bằng cách nhấp vào nút đặt lại.</value>
   </data>
   <data name="Menu.InstallLocation.NotEmpty" xml:space="preserve">
-    <value>Aplankas, į kurį pasirinkote įdiegti „Bloxstrap“, jau egzistuoja ir nėra tuščias. Labai rekomenduojama „Bloxstrap“ įdiegti į atskirą aplanką.
+    <value>Thư mục bạn chọn cài đặt Fishstrap đã tồn tại và KHÔNG trống rỗng. Chúng tôi đặc biệt khuyến khích cài đặt Fishstrap vào thư mục độc lập của riêng nó.
 
-Siūloma pakeisti šią vietą:
+Đề xuất thay đổi sang vị trí như này:
 {0}
 
-Ar norite pakeisti į siūlomą vietą?
-Pasirinkus Ne, šis įspėjimas bus ignoruojamas ir diegimas bus tęsiamas.</value>
+Bạn có muốn thay đổi đến vị trí được đề xuất không?
+Chọn 'Không' sẽ bỏ qua cảnh báo này và tiếp tục cài đặt.</value>
     <comment>{0} is a file path</comment>
   </data>
   <data name="Menu.InstallLocation.NotSet" xml:space="preserve">
-    <value>Turite nustatyti diegimo vietą.</value>
+    <value>Bạn phải chọn địa điểm cài đặt</value>
   </data>
   <data name="Menu.InstallLocation.NoWritePerms" xml:space="preserve">
-    <value>„Bloxstrap“ neturi rašymo prieigos prie pasirinktos diegimo vietos. Pasirinkite kitą vietą.</value>
+    <value>Fishstrap không có quyền ghi vào vị trí cài đặt mà bạn đã chọn. Vui lòng chọn địa điểm khác.</value>
   </data>
   <data name="Menu.Integrations.ActivityTracking" xml:space="preserve">
-    <value>Veiklos sekimas</value>
+    <value>Theo dõi hoạt động</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Description" xml:space="preserve">
-    <value>Leidžia bet kam prisijungti prie žaidimo, kuriame šiuo metu žaidžiate, per „Discord“ profilį.</value>
+    <value>Cho phép mọi người tham gia trò chơi bạn đang chơi hiện tại thông qua Discord của bạn.</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Title" xml:space="preserve">
-    <value>Leisti prisijungti prie veiklos</value>
+    <value>Cho phép tham gia hoạt động</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Description" xml:space="preserve">
-    <value>Rodo „Roblox“ paskyrą, su kuria žaidžiate „Discord“ profilyje.</value>
+    <value>Hiển thị tài khoản Roblox bạn đang sử dụng lên trang cá nhân Discord của bạn.</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Title" xml:space="preserve">
-    <value>Rodyti „Roblox“ paskyrą</value>
+    <value>Hiển thị tài khoản Roblox</value>
   </data>
   <data name="Menu.Integrations.Custom.AppLocation" xml:space="preserve">
-    <value>Programos vieta</value>
+    <value>Vị trí ứng dụng</value>
   </data>
   <data name="Menu.Integrations.Custom.AutoClose" xml:space="preserve">
-    <value>Automatiškai uždaryti, kai „Roblox“ užsidaro</value>
+    <value>Tự động đóng khi Roblox đóng</value>
   </data>
   <data name="Menu.Integrations.Custom.Description" xml:space="preserve">
-    <value>Čia galite automatiškai paleisti kitas programas kartu su „Roblox“.</value>
+    <value>Tại đây, bạn có thể chỉnh sửa các phần mềm sẽ được khởi động cùng Roblox khi Roblox khởi động.</value>
   </data>
   <data name="Menu.Integrations.Custom.LaunchArgs" xml:space="preserve">
-    <value>Paleisti argumentus</value>
+    <value>Giá trị khởi chạy</value>
   </data>
   <data name="Menu.Integrations.Custom.LaunchArgs.Placeholder" xml:space="preserve">
-    <value>„Roblox“ paleistas!</value>
+    <value>Roblox hiện đang chạy!</value>
   </data>
   <data name="Menu.Integrations.Custom.NewIntegration" xml:space="preserve">
-    <value>Nauja integracija</value>
+    <value>Tích hợp mới</value>
   </data>
   <data name="Menu.Integrations.Custom.NoneSelected" xml:space="preserve">
-    <value>Integracija nepasirinkta. Pasirinkite arba pridėkite naują integraciją.</value>
+    <value>Không có tích hợp nào được lựa chọn, xin hãy chọn hoặc thêm một cái mới</value>
   </data>
   <data name="Menu.Integrations.Custom.Title" xml:space="preserve">
-    <value>Pasirinktinės integracijos</value>
+    <value>Tích hợp tùy chỉnh</value>
   </data>
   <data name="Menu.Integrations.Description" xml:space="preserve">
-    <value>Sukonfigūruokite papildomas funkcijas, kurios būtų naudojamos kartu su „Roblox“.</value>
+    <value>Cấu hình chức năng bổ sung để đi kèm với Roblox.</value>
   </data>
   <data name="Menu.Integrations.DesktopApp.Description" xml:space="preserve">
-    <value>„Roblox“ visiškai užsidarys, kai paliksite žaidimą, vietoj grįžti atgal į programą. [Sugadins kai kuriuos dalykus.]({0})</value>
+    <value>Roblox sẽ đóng hoàn toàn khi thoát game thay vì về màn hình chính. [Có thể sẽ xảy ra lỗi!]({0})</value>
   </data>
   <data name="Menu.Integrations.DesktopApp.Title" xml:space="preserve">
-    <value>Neišeiti iki darbalaukio programos</value>
+    <value>Không thoát ra màn hình chính của Roblox</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
-    <value>Leidžia „Bloxstrap“ nustatyti, kokį „Roblox“ žaidimą žaidžiate. Tam tikroms funkcijoms to gali prireikti.</value>
+    <value>Cho phép Fishstrap phát hiện bạn đang chơi trò Roblox gì. Một vài chức năng yêu cầu tính năng này.</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
-    <value>Įjungti veiklos sekimą</value>
+    <value>Bật theo dõi hoạt động</value>
   </data>
   <data name="Menu.Integrations.RequiresActivityTracking" xml:space="preserve">
-    <value>Šiai funkcijai reikia, kad būtų įjungtas veiklos sekimas ir įdiegta bei paleista „Discord“ darbalaukio programėlė. [Sužinoti daugiau]({0}).</value>
+    <value>Tính năng này yêu cầu phải bật theo dõi hoạt động và ứng dụng Discord đã được cài đặt và đang chạy.
+[Tìm hiểu thêm]({0}).</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Description" xml:space="preserve">
-    <value>Jūsų „Discord“ profilyje bus rodomas „Roblox“ žaidimas, kurį žaidžiate. [Neveikia?]({0})</value>
+    <value>Trò chơi Roblox mà bạn đang chơi sẽ hiện trên trang cá nhân Discord của bạn. [Không hoạt động?]({0})</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Title" xml:space="preserve">
-    <value>Rodyti žaidimo veiklą</value>
+    <value>Hiển thị trò chơi đang chơi</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
-    <value>Žaidimo metu galėsite matyti, kur yra jūsų serveris, naudojant [ipinfo.io]({0}).</value>
+    <value>Khi ở trong trò chơi, bạn sẽ thấy được địa chỉ máy chủ của bạn thông qua [ipinfo.io]({0}).</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Title" xml:space="preserve">
-    <value>Užklausos serverio vieta</value>
+    <value>Tìm địa điểm của máy chủ</value>
   </data>
   <data name="Menu.Integrations.Title" xml:space="preserve">
-    <value>Integracijos</value>
+    <value>Các tích hợp</value>
   </data>
   <data name="Menu.Mods.Description" xml:space="preserve">
-    <value>Tvarkykite ir taikykite failų modifikacijas „Roblox“ žaidimo klientui.</value>
+    <value>Quản lý và áp dụng các tệp mod cho Roblox.</value>
   </data>
   <data name="Menu.Mods.Help.Description" xml:space="preserve">
-    <value>Žiūrėkite informaciją, kaip tvarkyti ir sukurti modifikacijas.</value>
+    <value>Xem thông tin về cách quản lý và tạo mod.</value>
     <comment>Title is Common.Help</comment>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Choose" xml:space="preserve">
-    <value>Pasirinkti šriftą...</value>
+    <value>Chọn phông chữ...</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Description" xml:space="preserve">
-    <value>Šrifto dydį galima koreguoti skirtuke Variklio nustatymai.</value>
+    <value>Kích cỡ phong chữ có thể được điều chỉnh trong phần Cài Đặt Engine.</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Invalid" xml:space="preserve">
-    <value>Atrodo, kad jūsų pasirinktas failas nėra tinkamas šrifto failas.</value>
+    <value>Tệp bạn đã chọn có vẻ không phải là tệp phông chữ hợp lệ.</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Remove" xml:space="preserve">
-    <value>Pašalinti taikomą šriftą</value>
+    <value>Xoá phông chữ đã áp dụng</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Title" xml:space="preserve">
-    <value>Naudoti pasirinktinį šriftą</value>
+    <value>Dùng phông chữ tuỳ chỉnh</value>
   </data>
   <data name="Menu.Mods.OpenModsFolder.Description" xml:space="preserve">
-    <value>Tvarkykite pasirinktinius „Roblox“ modifikacijas čia.</value>
+    <value>Quản lí và tùy chỉnh mod Roblox ở đây.</value>
   </data>
   <data name="Menu.Mods.OpenModsFolder.Title" xml:space="preserve">
-    <value>Atidaryti modifikacijų aplanką</value>
+    <value>Mở thư mục Mod</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Description" xml:space="preserve">
-    <value>Pasirinkite, kokio tipo jaustukas turėtų naudoti „Roblox“.</value>
+    <value>Lựa chọn loại emoji Roblox sẽ dùng.</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Title" xml:space="preserve">
-    <value>Pageidaujamas jaustuko tipas</value>
+    <value>Loại emoji yêu thích</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Description" xml:space="preserve">
-    <value>Pasirinkite iš dviejų klasikinių „Roblox“ žymeklių stilių.</value>
+    <value>Chọn giữa hai loại trỏ chuột Roblox cổ điển.</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Title" xml:space="preserve">
-    <value>Pelės žymeklis</value>
+    <value>Con trỏ chuột</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Description" xml:space="preserve">
-    <value>Sugrąžinkite senąjį avataro rengyklės foną, naudotą „Roblox“ programoje iki 2020 m.</value>
+    <value>Mang lại nền chỉnh sửa avatar cũ được sử dụng trong Roblox trước 2020.</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Title" xml:space="preserve">
-    <value>Naudoti seną avataro rengyklės foną</value>
+    <value>Sử dụng nền chỉnh sửa avatar cũ</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Description" xml:space="preserve">
-    <value>Bandymas apytiksliai sugrąžinti iki 2014 m. veikėjo naudotus garsus.</value>
+    <value>Một nỗ lực nhằm khôi phục lại những âm thanh nhân vật được sử dụng trước năm 2014.</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Title" xml:space="preserve">
-    <value>Imituoti senus veikėjo garsus</value>
+    <value>Mang lại âm thanh nhân vật cũ</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Description" xml:space="preserve">
-    <value>Sugrąžinkite klasikinį „oof“ mirties garsą.</value>
+    <value>Mang lại tiếng chết 'oof' cũ.</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Title" xml:space="preserve">
-    <value>Naudoti seną mirties garsą</value>
+    <value>Sử dụng tiếng chết cũ</value>
   </data>
   <data name="Menu.Mods.Title" xml:space="preserve">
-    <value>Modifikacijos</value>
+    <value>Mod</value>
   </data>
   <data name="Menu.MoreInfo" xml:space="preserve">
-    <value>Spustelėkite, jei norite gauti daugiau informacijos apie šią parinktį.</value>
+    <value>Bấm để biết thêm về tùy chọn này.</value>
   </data>
   <data name="Menu.Save" xml:space="preserve">
-    <value>Išsaugoti</value>
+    <value>Lưu</value>
   </data>
   <data name="Menu.SettingsSaved.Message" xml:space="preserve">
-    <value>Pakeitimai veiks kitą kartą paleidus „Roblox“.</value>
+    <value>Các thay đổi sẽ có hiệu lực vào lần khởi động Roblox tiếp theo.</value>
   </data>
   <data name="Menu.SettingsSaved.Title" xml:space="preserve">
-    <value>Nustatymai išsaugoti!</value>
+    <value>Các chỉnh sửa đã được lưu!</value>
   </data>
   <data name="Menu.Title" xml:space="preserve">
-    <value>„Bloxstrap“ nustatymai</value>
+    <value>Cài Đặt Fishstrap</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
-    <value>Pasirinkite pageidaujamą kalbą</value>
+    <value>Chọn ngôn ngữ ưa thích</value>
   </data>
   <data name="Dialog.LanguageSelector.Subtext" xml:space="preserve">
-    <value>Prieš tęsiant diegimą, pasirinkite kalbą.</value>
+    <value>Chọn một ngôn ngữ trước khi tiếp tục cài đặt.</value>
   </data>
   <data name="Menu.Appearance.Language.Title" xml:space="preserve">
-    <value>Kalba</value>
+    <value>Ngôn ngữ</value>
   </data>
   <data name="Menu.Appearance.Language.Description" xml:space="preserve">
-    <value>Kad pakeitimai veiktų, reikia paleisti iš naujo.</value>
+    <value>Cần khởi động lại để áp dụng các thay đổi.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Title" xml:space="preserve">
-    <value>Leisti naudoti nepalaikomas „Roblox“ kalbas</value>
+    <value>Cho phép sử dụng các ngôn ngữ không được hỗ trợ</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Description" xml:space="preserve">
-    <value>Taikoma tik iš „Roblox“ svetainės paleistiems žaidimams.</value>
+    <value>Chỉ áp dụng với các trò chơi được khởi động từ trang web Roblox.</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V4Chrome" xml:space="preserve">
-    <value>2023 m. (4 ver. + nauja naudotojo sąsaja)</value>
+    <value>2023 (Phiên bản 4 + Giao diện người dùng mới)</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.Rendering" xml:space="preserve">
-    <value>Atvaizdavimas ir grafika</value>
+    <value>Kết xuất và chất lượng</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.UserInterface" xml:space="preserve">
-    <value>Naudotojo sąsaja ir išdėstymas</value>
+    <value>Giao diện người dùng và bố cục</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Title" xml:space="preserve">
-    <value>Leisti „Bloxstrap“ tvarkyti „Fast Flags“</value>
+    <value>Cho phép Fishstrap quản lý Fast Flag</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Description" xml:space="preserve">
-    <value>Išjungus šią funkciją, „Roblox“ nebus taikoma jokia čia sukonfigūruota funkcija.</value>
+    <value>Tắt tính năng này sẽ ngăn bất kỳ cài đặt nào ở đây được áp dụng vào Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Presets.MSAA.Title" xml:space="preserve">
-    <value>Glodinimo kokybė (MSAA)</value>
+    <value>Chất lượng khử răng cưa (MSAA)</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
-    <value>Išjungti tolesnio apdorojimo efektus</value>
+    <value>Vô hiệu hóa các hiệu ứng xử lý hậu kỳ</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
-    <value>Išjungti viso ekrano lango antraštės juostą</value>
+    <value>Tắt thanh tiêu đề toàn màn hình</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Description" xml:space="preserve">
-    <value>Sustabdo jį rodyti, kai pelę perkeliate į ekrano viršų.</value>
+    <value>Ngăn không cho thanh tiêu đề hiển thị mỗi khi bạn di chuyển chuột lên đầu màn hình.</value>
   </data>
   <data name="Menu.FastFlags.Presets.TextureQuality.Title" xml:space="preserve">
-    <value>Tekstūros kokybė</value>
+    <value>Chất lượng bề mặt</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level0" xml:space="preserve">
-    <value>0 lygis (žemiausia)</value>
+    <value>Mức 0 (Thấp nhất)</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level1" xml:space="preserve">
-    <value>1 lygis</value>
+    <value>Mức 1</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level2" xml:space="preserve">
-    <value>2 lygis</value>
+    <value>Mức 2</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level3" xml:space="preserve">
-    <value>3 lygis (aukščiausia)</value>
+    <value>Mức 3 (Cao nhất)</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
-    <value>Išjungti žaidėjų šešėlius</value>
+    <value>Vô hiệu hóa bóng của người chơi</value>
   </data>
   <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
-    <value>Šrifto dydis</value>
+    <value>Kích cỡ phông chữ</value>
   </data>
   <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
-    <value>Numatytoji reikšmė – 1. Jei naudojate pasirinktinį šriftą, pakoreguokite.</value>
+    <value>Giá trị mặc định là 1. Điều chỉnh nó nếu bạn dùng phông chữ tùy chình.</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
-    <value>Išjungti vietovės tekstūras</value>
+    <value>Vô hiệu hóa cấu tạo bề mặt địa hình</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
-    <value>„Bloxstrap“ nepavyksta atsisiųsti „Roblox“</value>
+    <value>Fishstrap không thể tải xuống Roblox</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownloadReason" xml:space="preserve">
-    <value>„Roblox“ šiuo metu atsisiųsti negalima. Skaitykite toliau esantį pagalbos puslapį dėl papildomos informacijos: {0}</value>
+    <value>Không thể tải xuống Roblox ngay bây giờ. Xin hãy đọc trang trợ giúp để biết thêm thông tin: {0}</value>
     <comment>{0} is a URL</comment>
   </data>
   <data name="Common.ImportFromFile" xml:space="preserve">
-    <value>Importuoti iš failo</value>
+    <value>Nhập từ tệp</value>
   </data>
   <data name="FileTypes.JSONFiles" xml:space="preserve">
-    <value>JSON failai</value>
+    <value>Các tệp JSON</value>
     <comment>Shown in the open file dialog, where the file type selection dropdown is, e.g. "JSON files (*.json)"</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidBoolValue" xml:space="preserve">
-    <value>Elementas „{0}“ netinkamas, nes reikšmė turi būti loginis rodiklis (arba „True“, arba „False“).</value>
+    <value>Giá trị '{0}' không hợp lệ vì giá trị phải là boolean ("True" hoặc "False")</value>
     <comment>Do not translate 'True' and 'False', those must stay in English</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidNumberValue" xml:space="preserve">
-    <value>Elementas „{0}“ netinkamas, nes reikšmė turi būti skaičius.</value>
+    <value>Giá trị '{0}' không hợp lệ vì giá trị phải là một chữ số</value>
   </data>
   <data name="Logger.NoWriteMode" xml:space="preserve">
-    <value>Šis paleidimas nebus įrašytas į žurnalą, nes „Bloxstrap“ nepavyksta įrašyti į aplanką adresu „{0}“.</value>
+    <value>Tệp log mới sẽ không được tạo cho lần khởi chạy này vì Fishstrap không thể ghi vào thư mục tại '{0}'</value>
   </data>
   <data name="Common.Default" xml:space="preserve">
-    <value>Numatytasis</value>
+    <value>Mặc định</value>
   </data>
   <data name="Common.Automatic" xml:space="preserve">
-    <value>Automatinis</value>
+    <value>Tự động</value>
   </data>
   <data name="Common.SystemDefault" xml:space="preserve">
-    <value>Sistemos numatytasis</value>
+    <value>Mặc định hệ thống</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidPlaceFilter" xml:space="preserve">
-    <value>Elementas „{0}“ netinkamas, nes vietos filtras suformatuotas neteisingai.</value>
+    <value>Giá trị '{0}' không hợp lệ vì bộ lọc trải nghiệm không được định dạng đúng.</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
-    <value>„Bloxstrap“ diegyklė</value>
+    <value>Trình cài đặt Fishstrap</value>
   </data>
   <data name="Installer.Welcome.Title" xml:space="preserve">
-    <value>Sveiki atvykę</value>
+    <value>Chào mừng</value>
   </data>
   <data name="Installer.Install.Title" xml:space="preserve">
-    <value>Diegti</value>
+    <value>Cài đặt</value>
     <comment>Refers to "Install" as a verb</comment>
   </data>
   <data name="Installer.Completion.Title" xml:space="preserve">
-    <value>Užbaigimas</value>
+    <value>Quá trình hoàn thành</value>
   </data>
   <data name="Common.Navigation.Back" xml:space="preserve">
-    <value>Grįžti</value>
+    <value>Quay lại</value>
   </data>
   <data name="Common.Navigation.Next" xml:space="preserve">
-    <value>Toliau</value>
+    <value>Tiếp theo</value>
   </data>
   <data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>Dėkojame, kad atsisiuntėte „Bloxstrap“. 
+    <value>Cảm ơn bạn đã tải xuống Fishstrap.
 
-Vienintelės oficialios svetainės, iš kurių galima atsisiųsti „Bloxstrap“, yra {0} ir {1}, todėl patikrinkite, ar ją gavote iš oficialaus šaltinio.
+Các trang web chính thức duy nhất để tải Fishstrap là {0} và {1}, vì vậy hãy đảm bảo rằng bạn đã tải từ nguồn chính thức.
 
-Šis diegimo procesas bus greitas ir paprastas, o įdiegus galėsite konfigūruoti bet kokius „Bloxstrap“ nustatymus.</value>
+Quá trình cài đặt này sẽ nhanh chóng và đơn giản, và sau khi cài đặt, bạn sẽ có thể cấu hình bất kỳ cài đặt nào của Fishstrap.</value>
     <comment>{0} and {1} are URLs</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
-    <value>Spustelėkite Toliau, kad tęstumėte.</value>
+    <value>Bấm 'Tiếp' để tiếp tục.</value>
   </data>
   <data name="Installer.Welcome.UpdateNotice" xml:space="preserve">
-    <value>Bandote įdiegti {0} „Bloxstrap“ versiją, bet naujausia versija yra {1}. Ar norėtumėte ją atsisiųsti?</value>
+    <value>Bạn đang cố cài đặt phiên bản {0} của Fishstrap, nhưng phiên bản mới nhất hiện tại là {1}. Bạn có muốn tải về không?</value>
   </data>
   <data name="Installer.Install.Location.Title" xml:space="preserve">
-    <value>Pasirinkite, kur įdiegti</value>
+    <value>Chọn nơi để cài đặt</value>
   </data>
   <data name="Installer.Install.Location.Text" xml:space="preserve">
-    <value>„Roblox“ taip pat bus įdiegtas į šį kelią. Jei norite visus žaidimus įdiegti į atskirą diską, pakeiskite tai. Kitaip rekomenduojama palikti šį kelią tokį, koks jis yra.</value>
+    <value>Roblox sẽ được cài đặt đến mục này. Thay đổi nếu bạn muốn tải tất cả những trò chơi của bạn đến một ổ khác. Nếu không thì, khuyến khích là bạn giữ nguyên nó.</value>
   </data>
   <data name="Installer.Install.Location.DataFound" xml:space="preserve">
-    <value>Rasti esami duomenys. Jūsų modifikacijos ir nustatymai bus atkurti.</value>
+    <value>Đã tìm thấy dữ liệu hiện có. Mod và cài đặt của bạn sẽ được khôi phục.</value>
   </data>
   <data name="Common.Shortcuts" xml:space="preserve">
-    <value>Nuorodos</value>
+    <value>Phím tắt</value>
   </data>
   <data name="Common.Shortcuts.Desktop" xml:space="preserve">
-    <value>Darbalaukio piktograma</value>
+    <value>Biểu tượng màn hình chính</value>
   </data>
   <data name="Common.Shortcuts.StartMenu" xml:space="preserve">
-    <value>Pradžios meniu piktograma</value>
+    <value>Biểu tượng Start Menu</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
-    <value>„Bloxstrap“ sėkmingai įdiegta.
+    <value>Fishstrap đã được cài đặt thành công.
 
-„Roblox“ dar neįdiegtas, tai įvyks, kai pirmą kartą jį paleisite su „Bloxstrap“. Tačiau prieš tai galbūt norėsite pirmiausia sukonfigūruoti „Bloxstrap“ nustatymus.
+Roblox vẫn chưa được cài đặt, điều đó sẽ xảy ra khi bạn khởi chạy nó bằng Fishstrap lần đầu tiên. Tuy nhiên, trước khi thực hiện, có thể 
+bạn sẽ muốn định cấu hình cài đặt của Fishstrap trước.
 
-Be to, venkite naudoti „Roblox Player“ nuorodą „Roblox“ paleisti, nes „Bloxstrap“ nebus paleista kartu su „Roblox“. Jei paleidžiant iš svetainės nematote, kad rodomas „Bloxstrap“, tiesiog vieną kartą paleiskite „Roblox“ su „Bloxstrap“ iš darbalaukio, kad tai išspręstumėte.
+Ngoài ra, tránh sử dụng phím tắt "Roblox Player" để khởi chạy Roblox, vì Fishstrap sẽ không khởi chạy cùng Roblox. Nếu bạn không thấy Fishstrap hiển thị khi khởi chạy từ trang web, chỉ cần khởi chạy Roblox bằng Fishstrap một lần từ màn hình chính để khắc phục sự cố.
 
-Ką norėtumėte daryti?</value>
+Bạn muốn làm gì?</value>
   </data>
   <data name="Installer.Completion.Settings.Title" xml:space="preserve">
-    <value>Konfigūruoti „Bloxstrap“ nustatymus</value>
+    <value>Cấu hình cài đặt Fishstrap</value>
   </data>
   <data name="Installer.Completion.Settings.Description" xml:space="preserve">
-    <value>Derinkite visas siūlomas funkcijas</value>
+    <value>Chỉnh sửa tất cả những tính năng được cung cấp</value>
   </data>
   <data name="Installer.Completion.Launch.Title" xml:space="preserve">
-    <value>Įdiegti ir paleisti „Roblox“</value>
+    <value>Cài đặt và khởi chạy Roblox</value>
   </data>
   <data name="Installer.Completion.Launch.Description" xml:space="preserve">
-    <value>Kai viskas bus atlikta, pateksite į darbalaukio programą</value>
+    <value>Sẽ đưa bạn đến ứng dụng màn hình nền một khi tất cả đã xong</value>
   </data>
   <data name="Uninstaller.Title" xml:space="preserve">
-    <value>Išdiegti „Bloxstrap“</value>
+    <value>Gỡ cài đặt Fishstrap</value>
   </data>
   <data name="Uninstaller.Text" xml:space="preserve">
-    <value>Išdiegus bus pašalinta „Bloxstrap“ iš sistemos ir automatiškai perkonfigūruota numatytoji „Roblox“ paleidyklė, jei ji vis dar įdiegta.
+    <value>Gỡ cài đặt Fishstrap sẽ xóa nó khỏi hệ thống của bạn, và tự động cấu hình lại trình khởi chạy mặc định của Roblox nếu nó vẫn được cài đặt.
 
-Jei išdiegiate arba iš naujo įdiegiate, nes turite problemų su „Roblox“, pirmiausia perskaitykite [šį pagalbos puslapį]({0}).
+Nếu bạn đang gỡ cài đặt hoặc cài đặt lại vì gặp sự cố với Roblox, hãy đọc [trang trợ giúp này]({0}) trước.
 
-Išdiegimo procesas gali nesugebėti visiškai išvalyti, todėl gali tekti rankiniu būdu valyti likusius failus, kuriuose buvo įdiegta „Bloxstrap“.
+Quá trình gỡ cài đặt có thể không tự dọn dẹp hoàn toàn, vì vậy có thể bạn sẽ cần phải dọn dẹp thủ công các tệp còn sót lại nơi Fishstrap đã được cài đặt.
 
-„Bloxstrap“ buvo įdiegta vietoje „{1}“.</value>
+Fishstrap đã được cài đặt tại "{1}".</value>
   </data>
   <data name="Uninstaller.KeepData.Label" xml:space="preserve">
-    <value>Išlaikyti mano nustatymus ir modifikacijas</value>
+    <value>Giữ lại các cài đặt và mod của tôi</value>
   </data>
   <data name="Uninstaller.KeepData.Description" xml:space="preserve">
-    <value>Jie bus saugomi ten, kur buvo įdiegta „Bloxstrap“, ir bus automatiškai atkurti įdiegus iš naujo.</value>
+    <value>Chúng sẽ được giữ lại nơi Fishstrap đã được cài đặt, và sẽ tự động khôi phục sau khi cài đặt lại.</value>
   </data>
   <data name="Uninstaller.Uninstall" xml:space="preserve">
-    <value>Išdiegti</value>
+    <value>Gỡ cài đặt</value>
   </data>
   <data name="LaunchMenu.LaunchRoblox" xml:space="preserve">
-    <value>Paleisti „Roblox“</value>
+    <value>Khởi chạy Roblox</value>
   </data>
   <data name="LaunchMenu.ConfigureSettings" xml:space="preserve">
-    <value>Konfigūruoti nustatymus</value>
+    <value>Cài đặt cấu hình</value>
   </data>
   <data name="LaunchMenu.Wiki.Title" xml:space="preserve">
-    <value>Turite problemų?</value>
+    <value>Đang gặp vấn đề?</value>
   </data>
   <data name="LaunchMenu.Wiki.Description" xml:space="preserve">
-    <value>Žiūrėkite viki dėl pagalbos</value>
+    <value>Xem trang Wiki để tìm trợ giúp</value>
   </data>
   <data name="Bootstrapper.WebView2NotFound" xml:space="preserve">
-    <value>Šiuo metu neturite įdiegę „WebView2“ vykdyklės. Be jos kai kurios „Roblox“ funkcijos, pavyzdžiui, darbalaukio programa, neveiks tinkamai. Ar norėtumėte ją atsisiųsti dabar?</value>
+    <value>Hiện tại bạn chưa cài đặt WebView2 runtime. Một số tính năng của Roblox sẽ không hoạt động bình thường nếu không có nó, chẳng hạn như ứng dụng trên màn hình chính. Bạn có muốn tải nó ngay bây giờ không?</value>
   </data>
   <data name="Dialog.CannotCreateShortcuts" xml:space="preserve">
-    <value>„Bloxstrap“ nepavyko sukurti darbalaukio ir pradžios meniu nuorodų. Bandykite juos sukurti vėliau per nustatymus.</value>
+    <value>Fishstrap không thể tạo phím tắt cho màn hình chính và Start Menu. Hãy thử tạo chúng thông qua cài đặt.</value>
   </data>
   <data name="Dialog.Exception.Info.2.Alt" xml:space="preserve">
-    <value>Pirmiausia patikrinkite [„Bloxstrap“ viki]({0}), kad sužinotumėte, ar ši problema jau išspręsta.
+    <value>Tìm xem [Fishstrap Wiki]({0}) trước để xem nếu vấn đề này đã có phương pháp giải quyết.
 
-Jei ne, praneškite apie šią išimtį šios atšakos prižiūrėtojams. NEPRANEŠKITE apie tai „Bloxstrap“ „GitHub“ problemoms, nes tai – neoficialus darinys.</value>
+Nếu không, thì hãy báo cáo vấn đề này đến người quản lí của bản sao này. ĐỪNG báo cáo vấn đề này đến GitHub của Fishstrap, bởi vì đây là một bản sao không chính thức.</value>
     <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
-    <value>Tai – bendrosios nuorodos, kurios iškelia daugiapasirinkimų paleidimo meniu. Konkrečių funkcijų nuorodas galima sukurti vėliau nustatymuose.</value>
+    <value>Đây là các phím tắt chung giúp mở menu khởi chạy với nhiều lựa chọn. Các phím tắt cho các chức năng cụ thể có thể được tạo sau trong phần cài đặt.</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
-    <value>Konfigūruokite, kaip galima lengvai paleisti „Bloxstrap“.</value>
+    <value>Cấu hình cách Fishstrap có thể được khởi chạy.</value>
   </data>
   <data name="Menu.Shortcuts.General.Title" xml:space="preserve">
-    <value>Bendrieji</value>
+    <value>Chung</value>
   </data>
   <data name="Menu.Shortcuts.General.Description" xml:space="preserve">
-    <value>Tai – nuorodos, kurios iškelia daugiapasirinkimų paleidimo meniu.</value>
+    <value>Đây là những phím tắt mở ra menu chạy nhiều lựa chọn.</value>
   </data>
   <data name="Menu.Shortcuts.Function.Title" xml:space="preserve">
-    <value>Funkcija</value>
+    <value>Chức năng</value>
   </data>
   <data name="Menu.Shortcuts.Function.Description" xml:space="preserve">
-    <value>Kurkite nuorodas, kad greitai pasiektumėte konkrečias funkcijas. Visos jos bus patalpintos darbalaukyje.</value>
+    <value>Tạo phím tắt để truy cập nhanh vào các chức năng cụ thể. Chúng sẽ được đặt ở màn hình nền.</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Private" xml:space="preserve">
-    <value>Prisijungta prie privataus serverio</value>
+    <value>Đã kết nối đến máy chủ riêng</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Reserved" xml:space="preserve">
-    <value>Prisijungta prie rezervuoto serverio</value>
+    <value>Đã kết nối đến máy chủ dự phòng</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Error" xml:space="preserve">
-    <value>Jaustukų modifikacijos šiuo metu negalima taikyti.</value>
+    <value>Mod biểu cảm không thể được áp dụng tại thời điểm này.</value>
   </data>
   <data name="Dialog.AlreadyRunning.Installer" xml:space="preserve">
-    <value>Palaukite, kol diegimas bus baigtas.</value>
+    <value>Hãy đợi cho quá trình cài đặt được hoàn thành.</value>
   </data>
   <data name="Dialog.AlreadyRunning.Uninstaller" xml:space="preserve">
-    <value>Palaukite, kol išdiegimas bus baigtas.</value>
+    <value>Hãy đợi cho quá trình gỡ cài đặt được hoàn thành.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>Apie „Bloxstrap“</value>
+    <value>Về Fishstrap</value>
   </data>
   <data name="About.Licenses.Title" xml:space="preserve">
-    <value>Licencijos</value>
+    <value>Các giấy phép</value>
     <comment>Referring to code licenses; see https://opensource.org/licenses for example</comment>
   </data>
   <data name="About.Translators.Title" xml:space="preserve">
-    <value>Vertėjai</value>
+    <value>Các phiên dịch viên</value>
   </data>
   <data name="Menu.UnsavedChanges" xml:space="preserve">
-    <value>Turite neišsaugotų pakeitimų. Ar tikrai norite uždaryti neišsaugojus?</value>
+    <value>Bạn có những thay đổi chưa được lưu. Bạn có chắc chắn muốn đóng mà không lưu không?</value>
   </data>
   <data name="InstallChecker.VersionLessThanInstalled" xml:space="preserve">
-    <value>Paleista „Bloxstrap“ versija yra senesnė už šiuo metu įdiegtą versiją.
-Gali kilti problemų ir gali būti pakeisti jūsų nustatymai. Rekomenduojama iš naujo įdiegti.
-Ar tikrai norite tęsti?</value>
+    <value>Phiên bản Fishstrap mà bạn khởi chạy cũ hơn so với phiên bản bạn đã cài đặt.
+Có thể xảy ra sự cố và các tùy chỉnh của bạn có thể bị thay đổi. Khuyến khích nên cài đặt lại.
+Bạn có muốn tiếp tục không?</value>
   </data>
   <data name="Dialog.PlayerError.FailedLaunch" xml:space="preserve">
-    <value>Nepavyko paleisti „Roblox“.</value>
+    <value>Không thể khởi chạy Roblox.</value>
   </data>
   <data name="Dialog.PlayerError.Crash" xml:space="preserve">
-    <value>„Roblox“ sutriko.</value>
+    <value>Roblox đã sập.</value>
   </data>
   <data name="Dialog.PlayerError.HelpInformation" xml:space="preserve">
-    <value>Informacijos apie tai, kodėl taip gali atsitikti ir kaip tai išspręsti, skaitykite [šiame pagalbos straipsnyje]({0}).
+    <value>Để biết thông tin về lý do tại sao lại phát sinh lỗi này và cách giải quyết nó, vui lòng đọc [trợ giúp]({0}).
 
-Patikrinkite, ar „Roblox“ veikia su [originalia paleidyklė]({1}). Jei neveikia, vadinasi, tai nėra „Bloxstrap“ problema. Jei veikia, skaitykite pagalbos straipsnį.</value>
+Kiểm tra xem Roblox có hoạt động với [trình khởi chạy gốc]({1}) không. Nếu không, thì đây không phải là lỗi của Fishstrap. Nếu có, hãy tham khảo bài viết trợ giúp.</value>
   </data>
   <data name="Common.NetworkError" xml:space="preserve">
-    <value>Nepavyko įkelti duomenų dėl tinklo klaidos.</value>
+    <value>Không thể tải dữ liệu vì lỗi mạng.</value>
   </data>
   <data name="Common.Loading" xml:space="preserve">
-    <value>Įkeliama. Palaukite...</value>
+    <value>Đang tải, xin vui lòng chờ...</value>
   </data>
   <data name="About.Supporters.Title" xml:space="preserve">
-    <value>Palaikytojai</value>
+    <value>Những người hỗ trợ</value>
   </data>
   <data name="About.Supporters.Description" xml:space="preserve">
-    <value>Tai – žmonės, kurie palaikė „Bloxstrap“ per „Ko-fi“. Didelis dėkui visiems čia esantiems!
-Kiekvienas čia esantis žmogus vertinamas pagal bendrą pažadą.</value>
+    <value>Đây là những người đã hỗ trợ Fishstrap qua Ko-fi. Một lời cảm ơn tới tất cả mọi người ở đây!
+Thứ hạng của mỗi người ở đây dựa vào mức đóng góp của họ.</value>
   </data>
   <data name="JsonManager.SettingsLoadFailed" xml:space="preserve">
-    <value>Nepavyko įkelti nustatymų. Jie buvo atkurti į numatytąją konfigūraciją.</value>
+    <value>Không thể tải những Cài Đặt của bạn. Chúng đã được đặt lại về cấu hình mặc định.</value>
   </data>
   <data name="JsonManager.FastFlagsLoadFailed" xml:space="preserve">
-    <value>Nepavyko įkelti „Fast Flags“. Jie buvo atkurti į numatytąją konfigūraciją.</value>
+    <value>Không thể tải Fast Flag của bạn. Chúng đã được đặt lại về cấu hình mặc định.</value>
   </data>
   <data name="ContextMenu.GameHistory.Title" xml:space="preserve">
-    <value>Žaidimų istorija</value>
+    <value>Lịch sử trò chơi</value>
   </data>
   <data name="ContextMenu.GameHistory.Rejoin" xml:space="preserve">
-    <value>Prisijungti iš naujo</value>
+    <value>Tham gia lại</value>
   </data>
   <data name="ActivityWatcher.RichPresenceLoadFailed" xml:space="preserve">
-    <value>Dabartinis žaidimas nebus rodomas jūsų „Discord“ buvime, nes įvyko klaida įkeliant žaidimo informaciją.</value>
+    <value>Trò chơi hiện tại của bạn sẽ không hiển thị trên Discord vì đã xảy ra lỗi khi tải thông tin trò chơi.</value>
   </data>
   <data name="ContextMenu.GameHistory.Description" xml:space="preserve">
-    <value>Žaidimo istorija įrašoma tik dabartinės „Roblox“ seanso metu. Žaidimai čia bus rodomi, kai juos paliksite arba teleportuositės į juos. Ne į visus serverius bus galima prisijungti iš naujo.</value>
+    <value>Lịch sử trò chơi chỉ được ghi lại cho phiên Roblox hiện tại. Trò chơi sẽ xuất hiện ở đây khi bạn thoát hoặc dịch chuyển trong đó. Không phải tất cả máy chủ có thể được tham gia lại.</value>
   </data>
   <data name="ActivityWatcher.LocationQueryFailed" xml:space="preserve">
-    <value>Nepavyko užklausti serverio vietos. Gali būti, kad per greitai prisijungiate prie žaidimų.</value>
+    <value>Không thể truy vấn vị trí máy chủ. Có thể bạn đang tham gia trò chơi quá nhanh.</value>
   </data>
   <data name="Dialog.Connectivity.TryAgainLater" xml:space="preserve">
-    <value>Bandykite dar kartą vėliau.</value>
+    <value>Vui lòng thử lại sau.</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeSkip" xml:space="preserve">
-    <value>Šiam paleidimui „Roblox“ nebus tikrinama, ar nėra atnaujinimų, ir modifikacijų pakeitimai nebus taikomi.</value>
+    <value>Trong lần chạy này, Roblox sẽ không được kiểm tra để cập nhật, và những thay đổi đối với các mod sẽ không áp dụng.</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeNeeded" xml:space="preserve">
-    <value>Kadangi „Roblox“ reikia įdiegti arba atnaujinti, „Bloxstrap“ negalima tęsti.</value>
+    <value>Vì Roblox cần được cài đặt hoặc cập nhật, Fishstrap không thể tiếp tục.</value>
   </data>
   <data name="Installer.Install.CannotOverwrite" xml:space="preserve">
-    <value>„Bloxstrap“ į šią vietą buvo įdiegta anksčiau ir vis dar yra, bet diegyklė negali perrašyti senos vykdomosios programos. 
+    <value>Fishstrap đã được cài đặt vào vị trí này trước đây và vẫn còn ở đó, tuy nhiên trình cài đặt không thể ghi đè lên tệp cài đặt cũ. 
 
-Rankiniu būdu ištrinkite Bloxstrap.exe iš diegimo vietos arba bandykite iš naujo paleisti sistemą, o po to dar kartą bandykite įdiegti.</value>
+Vui lòng xóa thủ công Fishstrap.exe khỏi vị trí cài đặt hoặc thử khởi động lại hệ thống của bạn, sau đó thử cài đặt lại sau đó.</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>Nepasiekiama</value>
+    <value>Không có sẵn</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Title" xml:space="preserve">
-    <value>Tvarkyti suderinamumo nustatymus</value>
+    <value>Quản lý cài đặt tương thích</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Description" xml:space="preserve">
-    <value>Konfigūruokite programos parametrus, pavyzdžiui, DPI mastelio keitimo elgseną ir [viso ekrano optimizavimą]({0}).</value>
+    <value>Cấu hình các thông số ứng dụng như hành vi thay đổi tỷ lệ DPI và [tối ưu hóa toàn màn hình]({0}).</value>
   </data>
   <data name="Common.RobloxNotInstalled" xml:space="preserve">
-    <value>„Roblox“ kol kas neįdiegta. Prieš bandydami naudoti šią parinktį, bent kartą paleiskite „Roblox“ naudojant „Bloxstrap“.</value>
+    <value>Roblox chưa được cài đặt. Vui lòng khởi chạy Roblox bằng Fishstrap ít nhất một lần trước khi thử sử dụng tùy chọn này.</value>
   </data>
   <data name="Installer.ShouldCancel" xml:space="preserve">
-    <value>Ar tikrai norite atšaukti diegimą?</value>
+    <value>Bạn có chắc chắn muốn hủy cài đặt không?</value>
   </data>
   <data name="Bootstrapper.JsonManagerSaveFailed" xml:space="preserve">
-    <value>Nepavyko išsaugoti {0}: {1}</value>
+    <value>Lưu thất bại {0}: {1}</value>
   </data>
   <data name="Dialog.IconLoadFailed" xml:space="preserve">
-    <value>Nepavyko įkelti pasirinktos pakopinės paleidyklės piktogramos.
+    <value>Không thể tải biểu tượng trình khởi động đã chọn.
 
 {0}</value>
     <comment>{0} is an exception message</comment>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Title" xml:space="preserve">
-    <value>Išskleisti „Roblox“ piktogramas į aplanką</value>
+    <value>Trích xuất biểu tượng Roblox vào thư mục</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
-    <value>Leidžia naudoti „Bloxstrap“ „Roblox“ piktogramų asortimentą savo nuorodoms. [Žiūrėti, kaip.]({0})</value>
+    <value>Cho phép bạn sử dụng các biểu tượng Roblox có sẵn trong Fishstrap cho các phím tắt của bạn. [Xem cách.]({0})</value>
   </data>
   <data name="Dialog.RegistryWriteError" xml:space="preserve">
-    <value>„Bloxstrap“ negali įrašyti į „Windows“ registrą. Greičiausiai trukdo antivirusinė programa ir sukelia problemų. Patikrinkite, ar nėra nieko, kas ribotų „Bloxstrap“ veikimą.</value>
+    <value>Fishstrap không thể ghi vào Registry của Windows. Có thể một phần mềm diệt virus đang can thiệp và gây ra vấn đề. Vui lòng kiểm tra để đảm bảo không có gì làm ảnh hưởng Fishstrap.</value>
   </data>
   <data name="About.Supporters.Monthly" xml:space="preserve">
-    <value>Mėnesinis</value>
+    <value>Hàng tháng</value>
   </data>
   <data name="About.Supporters.OneOff" xml:space="preserve">
-    <value>Vienkartinis</value>
+    <value>Một lần</value>
   </data>
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
-    <value>Konfigūruokite parinktis, susijusias su pačios „Bloxstrap“ elgsena.</value>
+    <value>Tùy chỉnh những lựa chọn liên quan tới cách hoạt động của Fishstrap.</value>
   </data>
   <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Įjungti analitikos siuntimą</value>
+    <value>Bật gửi dữ liệu phân tích</value>
   </data>
   <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Tai – anonimiška ir nieko blogo, pažadame. Apie tai, ką ir kodėl renkame, žiūrėkite mūsų [privatumo politiką]({0}).</value>
+    <value>Mọi thứ đều ẩn danh và không có gì xấu xa cả, thật đấy. Để biết chúng tôi thu thập những gì và lý do, hãy xem [chính sách quyền riêng tư]({0}) của chúng tôi.</value>
   </data>
   <data name="Common.Analytics" xml:space="preserve">
-    <value>Analitika</value>
+    <value>Phân tích</value>
   </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
-    <value>Iš naujo nustatyti viską į numatytąsias</value>
+    <value>Đặt tất cả cài đặt về mặc định</value>
   </data>
   <data name="Dialog.Exception.Report" xml:space="preserve">
-    <value>Pranešti apie išimtį</value>
+    <value>Báo cáo lỗi</value>
   </data>
   <data name="Menu.TestMode" xml:space="preserve">
-    <value>Bandymo režimas</value>
+    <value>Chế độ thử nghiệm</value>
     <comment>See the prompt for more context</comment>
   </data>
   <data name="Menu.TestMode.Prompt" xml:space="preserve">
-    <value>Bandymo režimas padeda lengviau kartotinai išbandyti, kaip jūsų nustatymai paveiks „Roblox“. 
+    <value>Chế độ thử nghiệm giúp bạn dễ dàng kiểm tra các cài đặt ảnh hưởng đến Roblox như thế nào.
 
-Kai režimas įjungtas, jis automatiškai paleis „Roblox“ uždarius nustatymus ir vėl atidarys nustatymus uždarius „Roblox“ cikle, tol, kol jį išjungsite.
+Khi được bật, nó sẽ tự động khởi chạy Roblox sau khi đóng Cài Đặt, và mở lại Cài Đặt sau khi đóng Roblox, lặp lại theo chu kỳ cho đến khi bạn tắt chế độ này.
 
-Ar norėtumėte įjungti bandymo režimą?</value>
+Bạn có muốn bật chế độ thử nghiệm không?</value>
   </data>
   <data name="About.Translators.Description" xml:space="preserve">
-    <value>Visi „Bloxstrap“ vertimai sutelktinti per [„Crowdin“]({0}). Visi čia išvardyti žmonės dosniai savanoriškai skyrė savo laiką ir pastangas, kad padėtų lokalizuoti „Bloxstrap“. Didelis dėkui visiems esantiems čia!</value>
+    <value>Tất cả các bản dịch của Fishstrap đều được đóng góp từ cộng đồng thông qua [Crowdin]({0}). Tất cả những người được liệt kê ở đây đều đã tự nguyện dành thời gian và công sức để giúp dịch Fishstrap. Xin gửi lời cảm ơn chân thành đến tất cả mọi người!</value>
   </data>
   <data name="Common.Navigation.Install" xml:space="preserve">
-    <value>Diegti</value>
+    <value>Cài đặt</value>
     <comment>The word "Install" is being used as a verb in this instance, like the other navigation button texts of "Next" and "Back"</comment>
   </data>
   <data name="Paths.Icons" xml:space="preserve">
-    <value>Piktogramos</value>
+    <value>Biểu tượng</value>
     <comment>Name of the folder that gets created according to the "create shortcut icons" option. Ensure that it is a valid folder name.</comment>
   </data>
   <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
-    <value>Greičiausiai kažkas trukdo „Bloxstrap“ prisijungti prie interneto.</value>
+    <value>Có gì đó đang ngăn chặn Fishstrap kết nối đến Internet.</value>
   </data>
   <data name="Dialog.Connectivity.TimedOut" xml:space="preserve">
-    <value>Ryšys nutrūko, o tai gali reikšti prastą interneto ryšį arba užkardos blokavimą.</value>
+    <value>Kết nối đã bị gián đoạn, có thể là bởi kết nối mạng không ổn định hoặc là đã bị chặn bởi tường lửa.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Menu.Channel.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
@@ -1259,23 +1261,23 @@ Ar norėtumėte įjungti bandymo režimą?</value>
     <value />
   </data>
   <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
-    <value>Paleisti „Roblox Studio“</value>
+    <value>Khởi chạy Roblox Studio</value>
   </data>
   <data name="Dialog.Exception.Version" xml:space="preserve">
-    <value>{0} versija</value>
+    <value>Phiên bản {0}</value>
   </data>
   <data name="Bootstrapper.FilesInUse" xml:space="preserve">
-    <value>„Bloxstrap“ bandė atnaujinti „Roblox“, bet negali, nes „Roblox“ failai vis dar naudojami.
+    <value>Fishstrap không thể cập nhật Roblox vì các tập tin của Roblox đang được sử dụng
 
-Uždarykite visas programas, kurios gali naudoti „Roblox“ failus, ir paleiskite iš naujo.</value>
+Xin hãy đóng các ứng dụng đang sử dụng các tập tin của Roblox, và khởi động động lại.</value>
     <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
   </data>
   <data name="FileTypes.ZipArchive" xml:space="preserve">
-    <value>ZIP archyvas</value>
+    <value>Nén thành tệp Zip</value>
     <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
   </data>
   <data name="Common.Export" xml:space="preserve">
-    <value>Eksportuoti</value>
-    <comment>Currently used under the "Bloxstrap" settings tab for the button to export diagnostic data</comment>
+    <value>Xuất ra</value>
+    <comment>Currently used under the "Fishstrap" settings tab for the button to export diagnostic data</comment>
   </data>
 </root>

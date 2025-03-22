@@ -118,204 +118,204 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bootstrapper.AutoUpdateFailed" xml:space="preserve">
-    <value>Fishstrap was unable to automatically update to version {0}. Please update it manually by downloading and running it from the website.</value>
+    <value>Fishstrap không thể tự động cập nhật lên phiên bản {0}. Xin hãy tải về chương trình cài đặt và cập nhật thủ công.</value>
   </data>
   <data name="Bootstrapper.ConfirmLaunch" xml:space="preserve">
-    <value>Roblox is currently running, and launching another instance will close it. Are you sure you want to continue launching?</value>
+    <value>Tiến trình Roblox hiện tại đang chạy, và việc khởi động tiến trình Roblox khác sẽ đóng nó. Bạn có chắc chắn muốn tiếp tục khởi động không?</value>
   </data>
   <data name="Dialog.Connectivity.RobloxDown" xml:space="preserve">
-    <value>Roblox may be down right now. See {0} for more information.</value>
+    <value>Roblox có thể đang có vấn đề. Xem {0} để có thêm thông tin.</value>
   </data>
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
-    <value>A connection could not be made, which likely indicates a poor internet connection or a firewall block. If your connection is fine, please ensure that your antivirus isn't blocking Fishstrap.</value>
+    <value>Không thể kết nối, có thể là do kết nối internet kém hoặc bị chặn bởi tường lửa. Nếu kết nối của bạn bình thường, vui lòng kiểm tra lại xem phần mềm diệt virus có chặn Fishstrap không.</value>
   </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
-    <value>You must first install Bloxstrap before uninstalling.</value>
+    <value>Bạn phải cài đặt Fishstrap trước khi gỡ cài đặt nó.</value>
   </data>
   <data name="Bootstrapper.NotEnoughSpace" xml:space="preserve">
-    <value>Fishstrap does not have enough disk space to download and install Roblox. Please free up some disk space and try again.</value>
+    <value>Fishstrap không có đủ dung lượng ổ cứng để tải và cài đặt Roblox. Hãy giải phóng dung lượng và thử lại.</value>
   </data>
   <data name="Bootstrapper.Status.ApplyingModifications" xml:space="preserve">
-    <value>Applying Roblox modifications...</value>
+    <value>Đang áp dụng những chỉnh sửa cho Roblox...</value>
   </data>
   <data name="Bootstrapper.Status.Configuring" xml:space="preserve">
-    <value>Configuring {product}...</value>
+    <value>Đang cấu hình {product}...</value>
   </data>
   <data name="Bootstrapper.Status.Connecting" xml:space="preserve">
-    <value>Connecting to Roblox...</value>
+    <value>Đang kết nối đến Roblox...</value>
   </data>
   <data name="Bootstrapper.Status.Installing" xml:space="preserve">
-    <value>Installing {product}...</value>
+    <value>Đang cài đặt {product}...</value>
   </data>
   <data name="Bootstrapper.Status.InstallingWebView2" xml:space="preserve">
-    <value>Installing WebView2, please wait...</value>
+    <value>Đang cài đặt WebView2, xin hãy chờ đợi...</value>
   </data>
   <data name="Bootstrapper.Status.Starting" xml:space="preserve">
-    <value>Starting {product}...</value>
+    <value>Đang khởi động {product}...</value>
     <comment>"Starting Roblox" or "Starting Roblox Studio"</comment>
   </data>
   <data name="Bootstrapper.Status.Upgrading" xml:space="preserve">
-    <value>Upgrading {product}...</value>
+    <value>Đang cập nhật {product}...</value>
   </data>
   <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
-    <value>Getting the latest Fishstrap...</value>
+    <value>Đang tải xuống phiên bản mới nhất của Fishstrap...</value>
   </data>
   <data name="Bootstrapper.Status.WaitingOtherInstances" xml:space="preserve">
-    <value>Waiting for other instances...</value>
+    <value>Đang đợi các tiến trình khác...</value>
   </data>
   <data name="Bootstrapper.StylePreview.ImageCancel" xml:space="preserve">
-    <value>Style preview - Click the X button at the top right to close</value>
+    <value>Đang xem trước thiết kế - Nhấn vào nút X ở trên góc phải để đóng</value>
     <comment>Text for style previews that use an X button. Currently only applies to Byfron</comment>
   </data>
   <data name="Bootstrapper.StylePreview.TextCancel" xml:space="preserve">
-    <value>Style preview - Click Cancel to close</value>
+    <value>Xem trước thiết kế - Bấm Hủy để đóng</value>
     <comment>Text for style previews that use text button that says "Cancel"</comment>
   </data>
   <data name="Bootstrapper.SuccessfullyUninstalled" xml:space="preserve">
-    <value>Fishstrap has successfully uninstalled</value>
+    <value>Fishstrap đã được gỡ cài đặt thành công</value>
   </data>
   <data name="Bootstrapper.Uninstall.RobloxRunning" xml:space="preserve">
-    <value>Roblox is currently running, but must be closed before uninstalling Fishstrap. Would you like to close Roblox now?</value>
+    <value>Bạn phải tắt Roblox trước khi gỡ cài đặt Fishstrap. Bạn có muốn đóng Roblox ngay bây giờ không?</value>
   </data>
   <data name="Bootstrapper.WMFNotFound" xml:space="preserve">
-    <value>Roblox requires the use of Windows Media Foundation components. You appear to be missing them, likely because you are using an N edition of Windows. Please install them first, and then launch Roblox.</value>
+    <value>Roblox yêu cầu sử dụng các thành phần của Windows Media Foundation. Có vẻ như bạn đang thiếu chúng, có thể là do bạn đang sử dụng phiên bản N của Windows. Vui lòng cài đặt chúng trước, sau đó khởi chạy Roblox.</value>
   </data>
   <data name="Common.AddSingle" xml:space="preserve">
-    <value>Add single</value>
+    <value>Thêm</value>
   </data>
   <data name="Common.Browse" xml:space="preserve">
-    <value>Browse</value>
+    <value>Chọn</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Huỷ</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Đóng</value>
   </data>
   <data name="Common.Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Xoá</value>
   </data>
   <data name="Common.DiscordRichPresence" xml:space="preserve">
-    <value>Discord Rich Presence</value>
+    <value>Trạng thái hoạt động Discord</value>
   </data>
   <data name="Common.Help" xml:space="preserve">
-    <value>Help</value>
+    <value>Trợ giúp</value>
   </data>
   <data name="Common.ImportJson" xml:space="preserve">
-    <value>Import JSON</value>
+    <value>Nhập JSON</value>
   </data>
   <data name="Common.OpenLogFile" xml:space="preserve">
-    <value>Open log file</value>
+    <value>Mở tệp log</value>
   </data>
   <data name="Common.Miscellaneous" xml:space="preserve">
-    <value>Miscellaneous</value>
+    <value>Khác</value>
   </data>
   <data name="Common.Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Tên </value>
   </data>
   <data name="Common.New" xml:space="preserve">
-    <value>New</value>
+    <value>Mới</value>
   </data>
   <data name="Common.No" xml:space="preserve">
-    <value>No</value>
+    <value>Không</value>
   </data>
   <data name="Common.OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Common.Presets" xml:space="preserve">
-    <value>Presets</value>
+    <value>Các cài đặt định sẵn</value>
   </data>
   <data name="Common.Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Cài đặt lại</value>
     <comment>In the context of resetting something to a default value</comment>
   </data>
   <data name="Common.Value" xml:space="preserve">
-    <value>Value</value>
+    <value>Giá trị</value>
   </data>
   <data name="Common.Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Cảnh báo</value>
   </data>
   <data name="Common.Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Có</value>
   </data>
   <data name="ContextMenu.CloseRoblox" xml:space="preserve">
-    <value>Close Roblox</value>
+    <value>Đóng Roblox</value>
   </data>
   <data name="ContextMenu.CloseRobloxMessage" xml:space="preserve">
-    <value>Are you sure you want to close Roblox? This will forcefully end the process.</value>
+    <value>Bạn có thật sự muốn đóng Roblox? Điều này sẽ buộc kết thúc tiến trình.</value>
   </data>
   <data name="ContextMenu.CopyDeeplinkInvite" xml:space="preserve">
-    <value>Copy invite deeplink</value>
+    <value>Sao chép liên kết lời mời trực tiếp</value>
   </data>
   <data name="ContextMenu.ServerInformation.CopyInstanceId" xml:space="preserve">
-    <value>Copy Instance ID</value>
+    <value>Sao chép ID máy chủ</value>
   </data>
   <data name="ContextMenu.ServerInformation.InstanceId" xml:space="preserve">
-    <value>Instance ID</value>
+    <value>ID máy chủ</value>
   </data>
   <data name="ContextMenu.ServerInformation.Location" xml:space="preserve">
-    <value>Location</value>
+    <value>Vị trí</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Text" xml:space="preserve">
-    <value>Location: {0}
-Click for more information</value>
+    <value>Được đặt tại: {0}
+Bấm để biết thêm thông tin</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Public" xml:space="preserve">
-    <value>Connected to public server</value>
+    <value>Đã kết nối đến máy chủ công khai</value>
   </data>
   <data name="ContextMenu.ServerInformation.Title" xml:space="preserve">
-    <value>Server information</value>
+    <value>Thông tin máy chủ</value>
   </data>
   <data name="ContextMenu.ServerInformation.Type" xml:space="preserve">
-    <value>Type</value>
+    <value>Loại</value>
   </data>
   <data name="Dialog.AddFastFlag.Title" xml:space="preserve">
-    <value>Add Fast Flag</value>
+    <value>Thêm Fast Flag</value>
   </data>
   <data name="Dialog.Connectivity.MoreInfo" xml:space="preserve">
-    <value>More information:</value>
+    <value>Thông tin thêm:</value>
   </data>
   <data name="Dialog.Connectivity.Title" xml:space="preserve">
-    <value>Connectivity error</value>
+    <value>Lỗi kết nối</value>
   </data>
   <data name="Dialog.Connectivity.UnableToConnect" xml:space="preserve">
-    <value>Fishstrap is unable to connect to {0}</value>
+    <value>Fishstrap không thể kết nối tới {0}</value>
     <comment>{0} is the name of a service (i.e. Roblox, GitHub)</comment>
   </data>
   <data name="Dialog.Exception.CopyLogContents" xml:space="preserve">
-    <value>Copy log contents</value>
+    <value>Sao chép dữ liệu log</value>
   </data>
   <data name="Dialog.Exception.Info.1" xml:space="preserve">
-    <value>An exception occurred while running Fishstrap/Bloxstrap</value>
+    <value>Một trường hợp ngoại lệ đã xảy ra khi đang chạy Fishstrap</value>
   </data>
   <data name="Dialog.Exception.Info.2" xml:space="preserve">
-    <value>Check the [Bloxstrap Wiki]({0}) first to see if this problem has already been addressed with a fix.
+    <value>Hãy xem qua [Fishstrap Wiki]({0}) trước để xem nếu vấn đề này đã được khắc phục chưa
 
-If not, then please report this exception through a [GitHub issue]({1}) along with a copy of the log file that was created.</value>
+Nếu chưa, xin hay báo cáo lỗi này qua [GitHub issue]({1}) với bản copy của tệp log vừa được tạo.</value>
   </data>
   <data name="Dialog.Exception.Title" xml:space="preserve">
-    <value>Fishstrap Exception</value>
+    <value>Lỗi ngoại lệ Fishstrap</value>
   </data>
   <data name="Common.Custom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Tuỳ chỉnh</value>
   </data>
   <data name="Enums.BootstrapperIcon.IconEarly2015" xml:space="preserve">
-    <value />
+    <value>Đầu năm 2015</value>
   </data>
   <data name="Enums.BootstrapperIcon.IconLate2015" xml:space="preserve">
-    <value>Late 2015</value>
+    <value>Cuối năm 2015</value>
   </data>
   <data name="Enums.BootstrapperStyle.ByfronDialog" xml:space="preserve">
-    <value>Fake Byfron (2023)</value>
+    <value>Giả lập Byfron (2023)</value>
   </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
-    <value>Fishstrap (Classic)</value>
+    <value>Fishstrap (Cổ điển)</value>
   </data>
   <data name="Enums.BootstrapperStyle.FluentAeroDialog" xml:space="preserve">
-    <value>Fishstrap (Glass)</value>
+    <value>Fishstrap (Xuyên thấu)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2008" xml:space="preserve">
-    <value>Legacy (2008 - 2011)</value>
+    <value>Legacy (2008-2011)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2011" xml:space="preserve">
     <value>Legacy (2011 - 2014)</value>
@@ -336,7 +336,7 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
     <value>Catmoji</value>
   </data>
   <data name="Enums.EmojiType.Default" xml:space="preserve">
-    <value>Default (Twemoji)</value>
+    <value>Mặc định (Twemoji)</value>
   </data>
   <data name="Enums.EmojiType.Windows10" xml:space="preserve">
     <value>Windows 10</value>
@@ -348,25 +348,25 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
     <value>Windows 8</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V1" xml:space="preserve">
-    <value>2015 (V1)</value>
+    <value>2015 (Phiên bản 1)</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V2" xml:space="preserve">
-    <value>2020 (V2)</value>
+    <value>2020 (Phiên bản 2)</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V4" xml:space="preserve">
-    <value>2023 (V4)</value>
+    <value>2023 (Phiên bản 4)</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Default" xml:space="preserve">
-    <value>Chosen by game</value>
+    <value>Được chọn bởi trò chơi</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Future" xml:space="preserve">
-    <value>Future (Phase 3)</value>
+    <value>Future (Giai Đoạn 3)</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.ShadowMap" xml:space="preserve">
-    <value>Shadow Map (Phase 2)</value>
+    <value>Shadow Map (Giai Đoạn 2)</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Voxel" xml:space="preserve">
-    <value>Voxel (Phase 1)</value>
+    <value>Voxel (Giai đoạn 1)</value>
   </data>
   <data name="Enums.FlagPresets.RenderingMode.D3D10" xml:space="preserve">
     <value>Direct3D 10</value>
@@ -375,1178 +375,909 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
     <value>Direct3D 11</value>
   </data>
   <data name="Enums.ServerType.Private" xml:space="preserve">
-    <value>Private server</value>
+    <value>Máy chủ riêng</value>
   </data>
   <data name="Enums.ServerType.Public" xml:space="preserve">
-    <value>Public server</value>
+    <value>Máy chủ công khai</value>
   </data>
   <data name="Enums.ServerType.Reserved" xml:space="preserve">
-    <value>Reserved server</value>
+    <value>Máy chủ dự phòng</value>
   </data>
   <data name="Enums.Theme.Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tối</value>
   </data>
   <data name="Enums.Theme.Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Sáng</value>
   </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
-    <value>Fishstrap has been upgraded to v{0}</value>
+    <value>Fishstrap đã được cập nhật lên phiên bản v{0}</value>
   </data>
   <data name="InstallChecker.VersionDifferentThanInstalled" xml:space="preserve">
-    <value>The version of Fishstrap you've launched is different to the version you currently have installed.
-Would you like to upgrade your currently installed version?</value>
+    <value>Phiên bản Fishstrap bạn đã mở khác với phiên bản đã cài đặt hiện tại.
+Bạn có muốn nâng cấp phiên bản đã cài đặt không?</value>
   </data>
   <data name="Menu.About.Contributors" xml:space="preserve">
-    <value>Contributors</value>
+    <value>Những người đóng góp</value>
   </data>
   <data name="Menu.About.Contributors.Code" xml:space="preserve">
-    <value>Code</value>
+    <value>Lập trình</value>
   </data>
   <data name="Menu.About.Contributors.Description" xml:space="preserve">
-    <value>These are the people who have made notable contributions to Bloxstrap/Fishstrap, helping make it what it is.</value>
+    <value>Đây là những người có đóng góp nổi bật cho Fishstrap, giúp nó được như bây giờ.</value>
   </data>
   <data name="Menu.About.Contributors.FeatureIdeas" xml:space="preserve">
-    <value>Feature Ideas</value>
+    <value>Quyên góp ý tưởng</value>
   </data>
   <data name="Menu.About.Contributors.SpecialThanks" xml:space="preserve">
-    <value>Special Thanks</value>
+    <value>Lời cảm ơn sâu sắc</value>
   </data>
   <data name="Menu.About.Description" xml:space="preserve">
-    <value>A Bloxstrap fork.</value>
+    <value>Một chương trình khởi động phụ dành cho Roblox với các tính năng đa dạng.</value>
   </data>
   <data name="Menu.About.DiscordServer" xml:space="preserve">
-    <value>Discord server</value>
+    <value>Máy chủ Discord</value>
   </data>
   <data name="Menu.About.GithubRepository" xml:space="preserve">
-    <value>GitHub repository</value>
+    <value>Trang GitHub</value>
   </data>
   <data name="Menu.About.HelpInformation" xml:space="preserve">
-    <value>Help and Information</value>
+    <value>Trợ giúp và thông tin</value>
   </data>
   <data name="Menu.About.Licenses" xml:space="preserve">
-    <value>Licenses</value>
+    <value>Các giấy phép</value>
   </data>
   <data name="Menu.About.Licenses.BSD2" xml:space="preserve">
-    <value>BSD 2-Clause License</value>
+    <value>Giấy phép BSD 2-Clause</value>
   </data>
   <data name="Menu.About.Licenses.MIT" xml:space="preserve">
-    <value>MIT License</value>
+    <value>Giấy phép MIT</value>
   </data>
   <data name="Menu.About.ReportIssue" xml:space="preserve">
-    <value>Report an issue</value>
+    <value>Báo cáo một vấn đề</value>
   </data>
   <data name="Menu.About.Title" xml:space="preserve">
-    <value>About</value>
+    <value>Thông tin</value>
   </data>
   <data name="Menu.About.Version" xml:space="preserve">
-    <value>Version {0}</value>
+    <value>Phiên bản {0}</value>
     <comment>{0} is replaced with the version, i.e. "Version 2.8.0"</comment>
   </data>
   <data name="Menu.AllFiles" xml:space="preserve">
-    <value>All files</value>
+    <value>Tất cả các tệp</value>
   </data>
   <data name="Menu.AlreadyRunning.Caption" xml:space="preserve">
-    <value>Please note that not all your changes will immediately apply until you close all currently open Roblox instances.</value>
+    <value>Hãy nhớ rằng tất cả những sửa đổi của bạn sẽ không lập tức được áp dụng cho đến khi bạn đóng tất cả các tiến trình Roblox đang chạy hiện tại.</value>
   </data>
   <data name="Menu.AlreadyRunning.Title" xml:space="preserve">
-    <value>Fishstrap is already running</value>
+    <value>Fishstrap đang hoạt động</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Description" xml:space="preserve">
-    <value>You can make it look different, retro, or even just like Roblox.</value>
+    <value>Bạn có thể làm nó khác biệt, có thể theo phong cách cổ điển, hoặc có thể làm nó nhìn y hệt như Roblox.</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Title" xml:space="preserve">
-    <value>Bootstrapper</value>
+    <value>Trình khởi động</value>
   </data>
   <data name="Menu.Appearance.Customisation.Description" xml:space="preserve">
-    <value>Configure other miscellaneous customisable options.</value>
+    <value>Tùy chỉnh những lựa chọn khác có thể chỉnh sửa.</value>
   </data>
   <data name="Menu.Appearance.Customisation.Title" xml:space="preserve">
-    <value>Customisation</value>
+    <value>Tùy chỉnh</value>
   </data>
   <data name="Menu.Appearance.CustomisationIcon.Description" xml:space="preserve">
-    <value>Must be a multi-size .ico file with sizes 16px to 128px. Set Icon as 'Custom' to use it.</value>
+    <value>Phải là tệp .ico đa dạng về kích thước từ 16px đến 128px. Đặt biểu tượng thành 'Tùy chỉnh' để sử dụng.</value>
   </data>
   <data name="Menu.Appearance.CustomisationIcon.Title" xml:space="preserve">
-    <value>Custom Icon</value>
+    <value>Biểu tượng</value>
   </data>
   <data name="Menu.Appearance.CustomisationTitle.Description" xml:space="preserve">
-    <value>The text that shows as the title of the bootstrapper.</value>
+    <value>Văn bản sẽ được hiển thị trên tiêu đề của trình khởi động.</value>
   </data>
   <data name="Menu.Appearance.CustomisationTitle.Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Tiêu đề</value>
   </data>
   <data name="Menu.Appearance.Description" xml:space="preserve">
-    <value>Configure how Fishstrap should look.</value>
+    <value>Chỉnh sửa giao diện của Fishstrap.</value>
   </data>
   <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
-    <value>Global Theme</value>
+    <value>Giao diện chung</value>
   </data>
   <data name="Menu.Appearance.Icon.Description" xml:space="preserve">
-    <value>Choose what icon it should use.</value>
+    <value>Chọn biểu tượng nên được sử dụng.</value>
   </data>
   <data name="Menu.Appearance.Icon.Title" xml:space="preserve">
-    <value>Icon</value>
+    <value>Biểu tượng</value>
   </data>
   <data name="Menu.Appearance.Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>Xem trước</value>
   </data>
   <data name="Menu.Appearance.Style.Description" xml:space="preserve">
-    <value>Choose how it should look. Dark theme does not apply to Legacy/Vista.</value>
+    <value>Chọn cách hiển thị. Giao diện tối không áp dụng cho Legacy và Vista.</value>
   </data>
   <data name="Menu.Appearance.Style.Title" xml:space="preserve">
-    <value>Style</value>
+    <value>Giao diện</value>
   </data>
   <data name="Menu.Appearance.Title" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Giao diện</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Description" xml:space="preserve">
-    <value>Fishstrap will automatically check and update itself when launching Roblox.</value>
+    <value>Fishstrap sẽ tự động kiểm tra và cập nhật khi chạy Roblox.</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
-    <value>Automatically update Fishstrap</value>
+    <value>Tự động cập nhật Fishstrap</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Description" xml:space="preserve">
-    <value>Prevent against closures of your existing game from accidentally launching another one.</value>
+    <value>Ngăn chặn việc tắt trò chơi hiện tại khi bạn vô tình khởi động trò chơi khác.</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Title" xml:space="preserve">
-    <value>Prompt to confirm when launching another Roblox instance</value>
+    <value>Hiển thị thông báo xác nhận khi mở một tiến trình Roblox khác</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
-    <value>Configure what Fishstrap should do when launching Roblox.</value>
+    <value>Tùy chỉnh Fishstrap sẽ làm gì khi khởi động Roblox.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Description" xml:space="preserve">
-    <value>Roblox will be installed fresh on next launch.</value>
+    <value>Roblox sẽ cài đặt lại vào lần khởi động tiếp theo.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Title" xml:space="preserve">
-    <value>Force Roblox reinstallation</value>
+    <value>Bắt buộc cài đặt lại Roblox</value>
   </data>
   <data name="Menu.Behaviour.Title" xml:space="preserve">
-    <value>Bootstrapper</value>
+    <value>Trình khởi động</value>
   </data>
   <data name="Menu.FastFlagEditor.AddNew" xml:space="preserve">
-    <value>Add new</value>
+    <value>Thêm mới</value>
   </data>
   <data name="Menu.FastFlagEditor.AlreadyExists" xml:space="preserve">
-    <value>An entry for this flag name already exists.</value>
+    <value>Flag này đã tồn tại.</value>
   </data>
   <data name="Menu.FastFlagEditor.Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Quay lại</value>
   </data>
   <data name="Menu.FastFlagEditor.BannerText" xml:space="preserve">
-    <value>Misusing this can lead to instability or unexpected things happening.</value>
+    <value>Sử dụng sai cách có thể dẫn đến mất ổn định hay những điều không mong muốn.</value>
     <comment>The element that this string is rendered in *cannot be wrapped* and may be truncated when displayed if too long. If so, try and paraphrase a shortened version.</comment>
   </data>
   <data name="Menu.FastFlagEditor.BannerTitle" xml:space="preserve">
-    <value>Use with caution.</value>
+    <value>Sử dụng một cách cẩn thận.</value>
   </data>
   <data name="Menu.FastFlagEditor.ConflictingImport" xml:space="preserve">
-    <value>Some of the flags you are attempting to import already have set values. Would you like to overwrite their current values with the ones defined in the import?
+    <value>Một số Flag bạn đang nhập vào đã có những giá trị được định sẵn. Bạn có muốn ghi đè giá trị hiện tại của chúng với những giá trị sau đây được đề ra trong bản nhập vào?
 
-There are {0} conflicting flag definitions:
+Có {0} Flag đang xung đột:
 {1}</value>
     <comment>{0} is a number, {1} is a comma-separated list</comment>
   </data>
   <data name="Menu.FastFlagEditor.DeleteSelected" xml:space="preserve">
-    <value>Delete selected</value>
+    <value>Xoá</value>
   </data>
   <data name="Menu.FastFlagEditor.Description" xml:space="preserve">
-    <value>Manage your own Fast Flags. Double click a column to edit.</value>
+    <value>Quản lý Fast Flag của bạn. Nhấn đúp chuột vào một cột để chỉnh sửa.</value>
   </data>
   <data name="Menu.FastFlagEditor.ExportJson" xml:space="preserve">
-    <value>Export JSON</value>
+    <value>Xuất JSON</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidCharacter" xml:space="preserve">
-    <value>The entry for '{0}' is not valid as the name can only contain letters, numbers, and underscores</value>
+    <value>Flag '{0}' không hợp lệ vì tên chỉ có thể chứa chữ cái, số và dấu gạch dưới</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidJSON" xml:space="preserve">
-    <value>The JSON you've entered does not appear to be valid. Please double check it and try again.
+    <value>JSON mà bạn đã nhập có vẻ không hợp lệ. Vui lòng kiểm tra lần nữa và thử lại.
 
-More information:
+Thông tin thêm:
 {0}</value>
     <comment>{0} is an exception message</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidPrefix" xml:space="preserve">
-    <value>The entry for '{0}' is not valid as the name must start with FFlag, DFInt, etc</value>
+    <value>Flag '{0}' không hợp lệ vì tên phải bắt đầu với FFlag, DFInt, v. v</value>
   </data>
   <data name="Menu.FastFlagEditor.JsonCopiedToClipboard" xml:space="preserve">
-    <value>Copied to clipboard.</value>
+    <value>Đã sao chép vào bộ nhớ tạm.</value>
   </data>
   <data name="Menu.FastFlagEditor.LargeConfig" xml:space="preserve">
-    <value>You appear to be importing a very large configuration. You should only be importing configurations that you fully understand. Do NOT blindly paste in configurations made by other people. If you continue, you will very likely end up with stability issues and encounter unexpected changes.
+    <value>Có vẻ như bạn đang nhập một cấu hình rất lớn. Bạn chỉ nên nhập những cấu hình mà bạn chắc chắn hiểu. KHÔNG dán một cách bừa bãi các cấu hình do người khác tạo. Nếu tiếp tục, rất có thể bạn sẽ gặp phải vấn đề về độ ổn định và gặp phải những thay đổi không mong muốn.
 
-Are you sure you want to continue?</value>
+Bạn có chắc chắn muốn tiếp tục không?</value>
   </data>
   <data name="Menu.FastFlagEditor.Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Tìm kiếm</value>
   </data>
   <data name="Menu.FastFlagEditor.ShowPresetFlags" xml:space="preserve">
-    <value>Show preset flags</value>
+    <value>Hiển thị các flag cài sẵn</value>
   </data>
   <data name="Menu.FastFlagEditor.Title" xml:space="preserve">
-    <value>Fast Flag Editor</value>
+    <value>Trình chỉnh sửa Fast Flag</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Back" xml:space="preserve">
-    <value>Go back</value>
+    <value>Quay lại</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Continue" xml:space="preserve">
-    <value>I know what I'm doing</value>
+    <value>Tôi biết tôi đang làm gì</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Header" xml:space="preserve">
-    <value>Do you know what you are doing?</value>
+    <value>Bạn có biết bạn đang làm gì không?</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Text" xml:space="preserve">
-    <value>Fast Flags are extremely powerful, being that they are intended to only be used by Roblox engineers. While they can be very useful, manually configuring them can cause serious issues with stability and functionality. Do NOT use the editor if you are unsure of what you are doing.
+    <value>Fast Flag vô cùng mạnh mẽ vì chúng được thiết kế chỉ dành cho các kỹ sư Roblox sử dụng. Mặc dù có thể rất hữu ích, việc tự mình cài đặt cấu hình và chỉnh sửa có thể gây ra các vấn đề nghiêm trọng về tính ổn định và chức năng. ĐỪNG sử dụng trình chỉnh sửa nếu bạn không biết mình đang làm gì. 
 
-Do NOT use this to import large "flag lists" made by other people that promise to improve performance or such. They are subject to the aforementioned issues, and they will cause problems for you since you will not be fully aware of what they are changing. If you were about to do that, GO BACK.</value>
+ĐỪNG sử dùng chức năng này để nhập những "danh sách flag" lớn được tạo nên bởi người khác với lời hứa cải thiện hiệu năng, chạy mượt hơn hoặc tương tự. Chúng có thể gặp những vấn đề được nêu ở trên và sẽ gây ra vấn đề nếu bạn thực sự không biết chúng đang thay đổi gì. Nếu bạn đang định làm điều đó, HÃY QUAY TRỞ LẠI.</value>
   </data>
   <data name="Menu.FastFlags.Description" xml:space="preserve">
-    <value>Control how specific Roblox engine parameters and features are configured.</value>
+    <value>Kiểm soát cụ thể các cấu hình, các thông số và tính năng của Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Editor.Description" xml:space="preserve">
-    <value>Manage your own Fast Flags. Use with caution.</value>
+    <value>Quản lý Fast Flag của bạn. Sử dụng với sự thận trọng.</value>
     <comment>Title is Menu.FastFlagEditor.Title</comment>
   </data>
   <data name="Menu.FastFlags.Help.Description" xml:space="preserve">
-    <value>Learn more about Fast Flags, what these presets do, and how to use them.</value>
+    <value>Tìm hiểu thêm về Fast Flag, tác dụng của các cài đặt này và cách sử dụng chúng.</value>
     <comment>Title is Common.Help</comment>
   </data>
   <data name="Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo" xml:space="preserve">
-    <value>Direct3D exclusive fullscreen using Alt+Enter is enabled by default.</value>
+    <value>Direct3D [toàn màn hình]({0}) bằng Alt+Enter đã được bật theo mặc định.</value>
   </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
-    <value>Preferred escape menu version</value>
+    <value>Phiên bản menu thoát ưa thích</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Description" xml:space="preserve">
-    <value>Roblox reduces your rendering quality depending on how your display is scaled in Windows.</value>
+    <value>Roblox giảm chất lượng hiển thị của bạn tùy thuộc vào cách hiển thị được điều chỉnh trong Windows.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Title" xml:space="preserve">
-    <value>Preserve rendering quality with display scaling</value>
+    <value>Giữ chất lượng hiển thị với tỷ lệ hiển thị</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
-    <value>Set to 0 for defaults if you want to use Roblox's native framerate unlocker.</value>
+    <value>Đặt thành 0 nếu muốn sử dụng bộ mở khóa khung hình mặc định của Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
-    <value>Framerate limit</value>
+    <value>Giới hạn tốc độ khung hình</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
-    <value>Toggled with [keyboard shortcuts]({0}). Input id of a group you're in.</value>
+    <value>Bật/Tắt bằng [tổ hợp phím]({0}). Chỉ hoạt động nếu đang ở trong [Nhóm Fishstrap]({1}).</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
-    <value>Hiding GUIs</value>
+    <value>Bật tính năng ẩn giao diện người dùng</value>
   </data>
   <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
-    <value>Chosen one will be force enabled in all games. [Beware, may cause lighting issues!]({0})</value>
+    <value>Chọn một cái sẽ bắc buộc bật trong tất cả các trò chơi. [Hãy cẩn thận, có thể gây ra các lỗi ánh sáng!]({0})</value>
   </data>
   <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
-    <value>Preferred lighting technology</value>
+    <value>Công nghệ ánh sáng ưa thích</value>
   </data>
   <data name="Menu.FastFlags.Presets.RenderingMode.Title" xml:space="preserve">
-    <value>Rendering mode</value>
+    <value>Chế độ kết xuất</value>
   </data>
   <data name="Menu.FastFlags.Title" xml:space="preserve">
-    <value>FastFlags</value>
+    <value>Cài đặt Engine</value>
   </data>
   <data name="Menu.FontFiles" xml:space="preserve">
-    <value>Font files</value>
+    <value>Các tệp phông chữ</value>
   </data>
   <data name="Menu.IconFiles" xml:space="preserve">
-    <value>Icon files</value>
+    <value>Các tệp biểu tượng</value>
   </data>
   <data name="Menu.InstallLocation.CantInstall" xml:space="preserve">
-    <value>Fishstrap cannot be installed here. Please choose a different location, or resort to using the default location by clicking the reset button.</value>
+    <value>Fishstrap không thể được cài đặt ở đây. Vui lòng chọn một vị trí khác, hoặc sử dụng vị trí mặc định bằng cách nhấp vào nút đặt lại.</value>
   </data>
   <data name="Menu.InstallLocation.NotEmpty" xml:space="preserve">
-    <value>The folder you've chosen to install Fishstrap to already exists and is NOT empty. It is strongly recommended for Fishstrap to be installed to its own independent folder.
+    <value>Thư mục bạn chọn cài đặt Fishstrap đã tồn tại và KHÔNG trống rỗng. Chúng tôi đặc biệt khuyến khích cài đặt Fishstrap vào thư mục độc lập của riêng nó.
 
-Changing to the following location is suggested:
+Đề xuất thay đổi sang vị trí như này:
 {0}
 
-Would you like to change to the suggested location?
-Selecting 'No' will ignore this warning and continue installation.</value>
+Bạn có muốn thay đổi đến vị trí được đề xuất không?
+Chọn 'Không' sẽ bỏ qua cảnh báo này và tiếp tục cài đặt.</value>
     <comment>{0} is a file path</comment>
   </data>
   <data name="Menu.InstallLocation.NotSet" xml:space="preserve">
-    <value>You must set an install location</value>
+    <value>Bạn phải chọn địa điểm cài đặt</value>
   </data>
   <data name="Menu.InstallLocation.NoWritePerms" xml:space="preserve">
-    <value>Fishstrap does not have write access to the install location you've selected. Please choose another location.</value>
+    <value>Fishstrap không có quyền ghi vào vị trí cài đặt mà bạn đã chọn. Vui lòng chọn địa điểm khác.</value>
   </data>
   <data name="Menu.Integrations.ActivityTracking" xml:space="preserve">
-    <value>Activity tracking</value>
+    <value>Theo dõi hoạt động</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Description" xml:space="preserve">
-    <value>Allows for anybody to join the game you're currently in through your Discord profile.</value>
+    <value>Cho phép mọi người tham gia trò chơi bạn đang chơi hiện tại thông qua Discord của bạn.</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Title" xml:space="preserve">
-    <value>Allow activity joining</value>
+    <value>Cho phép tham gia hoạt động</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Description" xml:space="preserve">
-    <value>Shows the Roblox account you're playing with on your Discord profile.</value>
+    <value>Hiển thị tài khoản Roblox bạn đang sử dụng lên trang cá nhân Discord của bạn.</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Title" xml:space="preserve">
-    <value>Show Roblox account</value>
+    <value>Hiển thị tài khoản Roblox</value>
   </data>
   <data name="Menu.Integrations.Custom.AppLocation" xml:space="preserve">
-    <value>Application Location</value>
+    <value>Vị trí ứng dụng</value>
   </data>
   <data name="Menu.Integrations.Custom.AutoClose" xml:space="preserve">
-    <value>Auto close when Roblox closes</value>
+    <value>Tự động đóng khi Roblox đóng</value>
   </data>
   <data name="Menu.Integrations.Custom.Description" xml:space="preserve">
-    <value>Here, you can have other programs launch with Roblox automatically.</value>
+    <value>Tại đây, bạn có thể chỉnh sửa các phần mềm sẽ được khởi động cùng Roblox khi Roblox khởi động.</value>
   </data>
   <data name="Menu.Integrations.Custom.LaunchArgs" xml:space="preserve">
-    <value>Launch Arguments</value>
+    <value>Giá trị khởi chạy</value>
   </data>
   <data name="Menu.Integrations.Custom.LaunchArgs.Placeholder" xml:space="preserve">
-    <value>Roblox is running!</value>
+    <value>Roblox hiện đang chạy!</value>
   </data>
   <data name="Menu.Integrations.Custom.NewIntegration" xml:space="preserve">
-    <value>New Integration</value>
+    <value>Tích hợp mới</value>
   </data>
   <data name="Menu.Integrations.Custom.NoneSelected" xml:space="preserve">
-    <value>No integration selected, please select or add a new one</value>
+    <value>Không có tích hợp nào được lựa chọn, xin hãy chọn hoặc thêm một cái mới</value>
   </data>
   <data name="Menu.Integrations.Custom.Title" xml:space="preserve">
-    <value>Custom Integrations</value>
+    <value>Tích hợp tùy chỉnh</value>
   </data>
   <data name="Menu.Integrations.Description" xml:space="preserve">
-    <value>Configure additional functionality to go alongside Roblox.</value>
+    <value>Cấu hình chức năng bổ sung để đi kèm với Roblox.</value>
   </data>
   <data name="Menu.Integrations.DesktopApp.Description" xml:space="preserve">
-    <value>Roblox will fully close when you leave a game instead of going back to the app. [Will break some things!]({0})</value>
+    <value>Roblox sẽ đóng hoàn toàn khi thoát game thay vì về màn hình chính. [Có thể sẽ xảy ra lỗi!]({0})</value>
   </data>
   <data name="Menu.Integrations.DesktopApp.Title" xml:space="preserve">
-    <value>Don't exit to desktop app</value>
+    <value>Không thoát ra màn hình chính của Roblox</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
-    <value>Allows for Fishstrap to detect what Roblox game you're playing. Certain features may require this.</value>
+    <value>Cho phép Fishstrap phát hiện bạn đang chơi trò Roblox gì. Một vài chức năng yêu cầu tính năng này.</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
-    <value>Enable activity tracking</value>
+    <value>Bật theo dõi hoạt động</value>
   </data>
   <data name="Menu.Integrations.RequiresActivityTracking" xml:space="preserve">
-    <value>This feature requires activity tracking to be enabled and the Discord desktop app to be installed and running. [Find out more]({0}).</value>
+    <value>Tính năng này yêu cầu phải bật theo dõi hoạt động và ứng dụng Discord đã được cài đặt và đang chạy.
+[Tìm hiểu thêm]({0}).</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Description" xml:space="preserve">
-    <value>The Roblox game you're playing will be shown on your Discord profile. [Not working?]({0})</value>
+    <value>Trò chơi Roblox mà bạn đang chơi sẽ hiện trên trang cá nhân Discord của bạn. [Không hoạt động?]({0})</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Title" xml:space="preserve">
-    <value>Show game activity</value>
+    <value>Hiển thị trò chơi đang chơi</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
-    <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>
+    <value>Khi ở trong trò chơi, bạn sẽ thấy được địa chỉ máy chủ của bạn thông qua [ipinfo.io]({0}).</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Title" xml:space="preserve">
-    <value>Query server location</value>
+    <value>Tìm địa điểm của máy chủ</value>
   </data>
   <data name="Menu.Integrations.Title" xml:space="preserve">
-    <value>Integrations</value>
+    <value>Các tích hợp</value>
   </data>
   <data name="Menu.Mods.Description" xml:space="preserve">
-    <value>Manage and apply file mods to the Roblox game client.</value>
+    <value>Quản lý và áp dụng các tệp mod cho Roblox.</value>
   </data>
   <data name="Menu.Mods.Help.Description" xml:space="preserve">
-    <value>See info about managing and creating mods.</value>
+    <value>Xem thông tin về cách quản lý và tạo mod.</value>
     <comment>Title is Common.Help</comment>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Choose" xml:space="preserve">
-    <value>Choose font...</value>
+    <value>Chọn phông chữ...</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Description" xml:space="preserve">
-    <value>Font size can be adjusted in the Engine Settings tab.</value>
+    <value>Kích cỡ phong chữ có thể được điều chỉnh trong phần Cài Đặt Engine.</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Invalid" xml:space="preserve">
-    <value>The file you have chosen does not appear to be a valid font file.</value>
+    <value>Tệp bạn đã chọn có vẻ không phải là tệp phông chữ hợp lệ.</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Remove" xml:space="preserve">
-    <value>Remove applied font</value>
+    <value>Xoá phông chữ đã áp dụng</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Title" xml:space="preserve">
-    <value>Use custom font</value>
+    <value>Dùng phông chữ tuỳ chỉnh</value>
   </data>
   <data name="Menu.Mods.OpenModsFolder.Description" xml:space="preserve">
-    <value>Manage custom Roblox mods here.</value>
+    <value>Quản lí và tùy chỉnh mod Roblox ở đây.</value>
   </data>
   <data name="Menu.Mods.OpenModsFolder.Title" xml:space="preserve">
-    <value>Open Mods Folder</value>
+    <value>Mở thư mục Mod</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Description" xml:space="preserve">
-    <value>Choose which type of emoji should Roblox use.</value>
+    <value>Lựa chọn loại emoji Roblox sẽ dùng.</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Title" xml:space="preserve">
-    <value>Preferred emoji type</value>
+    <value>Loại emoji yêu thích</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Description" xml:space="preserve">
-    <value>Choose between using two classic Roblox cursor styles.</value>
+    <value>Chọn giữa hai loại trỏ chuột Roblox cổ điển.</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Title" xml:space="preserve">
-    <value>Mouse cursor</value>
+    <value>Con trỏ chuột</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Description" xml:space="preserve">
-    <value>Bring back the old avatar editor background used in the Roblox app prior to 2020.</value>
+    <value>Mang lại nền chỉnh sửa avatar cũ được sử dụng trong Roblox trước 2020.</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Title" xml:space="preserve">
-    <value>Use old avatar editor background</value>
+    <value>Sử dụng nền chỉnh sửa avatar cũ</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Description" xml:space="preserve">
-    <value>An attempt to roughly bring back the character sounds used prior to 2014.</value>
+    <value>Một nỗ lực nhằm khôi phục lại những âm thanh nhân vật được sử dụng trước năm 2014.</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Title" xml:space="preserve">
-    <value>Emulate old character sounds</value>
+    <value>Mang lại âm thanh nhân vật cũ</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Description" xml:space="preserve">
-    <value>Bring back the classic 'oof' death sound.</value>
+    <value>Mang lại tiếng chết 'oof' cũ.</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Title" xml:space="preserve">
-    <value>Use old death sound</value>
+    <value>Sử dụng tiếng chết cũ</value>
   </data>
   <data name="Menu.Mods.Title" xml:space="preserve">
-    <value>Mods</value>
+    <value>Mod</value>
   </data>
   <data name="Menu.MoreInfo" xml:space="preserve">
-    <value>Click for more information on this option.</value>
+    <value>Bấm để biết thêm về tùy chọn này.</value>
   </data>
   <data name="Menu.Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Lưu</value>
   </data>
   <data name="Menu.SettingsSaved.Message" xml:space="preserve">
-    <value>Changes will take effect the next time you launch Roblox.</value>
+    <value>Các thay đổi sẽ có hiệu lực vào lần khởi động Roblox tiếp theo.</value>
   </data>
   <data name="Menu.SettingsSaved.Title" xml:space="preserve">
-    <value>Settings saved!</value>
+    <value>Các chỉnh sửa đã được lưu!</value>
   </data>
   <data name="Menu.Title" xml:space="preserve">
-    <value>Fishstrap Settings</value>
+    <value>Cài Đặt Fishstrap</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
-    <value>Choose preferred language</value>
+    <value>Chọn ngôn ngữ ưa thích</value>
   </data>
   <data name="Dialog.LanguageSelector.Subtext" xml:space="preserve">
-    <value>Choose a language before continuing with installation.
-Some text might not be translated to preferred language.</value>
+    <value>Chọn một ngôn ngữ trước khi tiếp tục cài đặt.</value>
   </data>
   <data name="Menu.Appearance.Language.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Ngôn ngữ</value>
   </data>
   <data name="Menu.Appearance.Language.Description" xml:space="preserve">
-    <value>A relaunch is required for changes to take effect. Some text might not be translated to preferred language.</value>
+    <value>Cần khởi động lại để áp dụng các thay đổi.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Title" xml:space="preserve">
-    <value>Allow use of unsupported Roblox languages</value>
+    <value>Cho phép sử dụng các ngôn ngữ không được hỗ trợ</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Description" xml:space="preserve">
-    <value>Only applies to games launched from the Roblox website.</value>
+    <value>Chỉ áp dụng với các trò chơi được khởi động từ trang web Roblox.</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V4Chrome" xml:space="preserve">
-    <value>2023 (V4 + New UI)</value>
+    <value>2023 (Phiên bản 4 + Giao diện người dùng mới)</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.Rendering" xml:space="preserve">
-    <value>Rendering and Graphics</value>
+    <value>Kết xuất và chất lượng</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.UserInterface" xml:space="preserve">
-    <value>User Interface and Layout</value>
+    <value>Giao diện người dùng và bố cục</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Title" xml:space="preserve">
-    <value>Allow Fishstrap to manage Fast Flags</value>
+    <value>Cho phép Fishstrap quản lý Fast Flag</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Description" xml:space="preserve">
-    <value>Disabling this will prevent anything configured here from being applied to Roblox.</value>
+    <value>Tắt tính năng này sẽ ngăn bất kỳ cài đặt nào ở đây được áp dụng vào Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Presets.MSAA.Title" xml:space="preserve">
-    <value>Anti-aliasing quality (MSAA)</value>
+    <value>Chất lượng khử răng cưa (MSAA)</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
-    <value>Disable post-processing effects</value>
+    <value>Vô hiệu hóa các hiệu ứng xử lý hậu kỳ</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
-    <value>Disable full-screen titlebar</value>
+    <value>Tắt thanh tiêu đề toàn màn hình</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Description" xml:space="preserve">
-    <value>Stops it from showing whenever you move your mouse to the top of the screen.</value>
+    <value>Ngăn không cho thanh tiêu đề hiển thị mỗi khi bạn di chuyển chuột lên đầu màn hình.</value>
   </data>
   <data name="Menu.FastFlags.Presets.TextureQuality.Title" xml:space="preserve">
-    <value>Texture quality</value>
+    <value>Chất lượng bề mặt</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level0" xml:space="preserve">
-    <value>Level 0 (Lowest)</value>
+    <value>Mức 0 (Thấp nhất)</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level1" xml:space="preserve">
-    <value>Level 1</value>
+    <value>Mức 1</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level2" xml:space="preserve">
-    <value>Level 2</value>
+    <value>Mức 2</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level3" xml:space="preserve">
-    <value>Level 3 (Highest)</value>
+    <value>Mức 3 (Cao nhất)</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
-    <value>Disable player shadows</value>
+    <value>Vô hiệu hóa bóng của người chơi</value>
   </data>
   <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
-    <value>Font size</value>
+    <value>Kích cỡ phông chữ</value>
   </data>
   <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
-    <value>Default value is 1. Adjust if you use a custom font.</value>
+    <value>Giá trị mặc định là 1. Điều chỉnh nó nếu bạn dùng phông chữ tùy chình.</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
-    <value>Disable terrain textures</value>
+    <value>Vô hiệu hóa cấu tạo bề mặt địa hình</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
-    <value>Fishstrap is unable to download Roblox</value>
+    <value>Fishstrap không thể tải xuống Roblox</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownloadReason" xml:space="preserve">
-    <value>Roblox cannot be downloaded at this time. Please read the following help page for more information: {0}</value>
+    <value>Không thể tải xuống Roblox ngay bây giờ. Xin hãy đọc trang trợ giúp để biết thêm thông tin: {0}</value>
     <comment>{0} is a URL</comment>
   </data>
   <data name="Common.ImportFromFile" xml:space="preserve">
-    <value>Import from file</value>
+    <value>Nhập từ tệp</value>
   </data>
   <data name="FileTypes.JSONFiles" xml:space="preserve">
-    <value>JSON files</value>
+    <value>Các tệp JSON</value>
     <comment>Shown in the open file dialog, where the file type selection dropdown is, e.g. "JSON files (*.json)"</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidBoolValue" xml:space="preserve">
-    <value>The entry for '{0}' is not valid as the value must be a boolean (either 'True' or 'False')</value>
+    <value>Giá trị '{0}' không hợp lệ vì giá trị phải là boolean ("True" hoặc "False")</value>
     <comment>Do not translate 'True' and 'False', those must stay in English</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidNumberValue" xml:space="preserve">
-    <value>The entry for '{0}' is not valid as the value must be a number</value>
+    <value>Giá trị '{0}' không hợp lệ vì giá trị phải là một chữ số</value>
   </data>
   <data name="Logger.NoWriteMode" xml:space="preserve">
-    <value>No log file will be written for this launch because Fishstrap is unable to write to the folder at '{0}'</value>
+    <value>Tệp log mới sẽ không được tạo cho lần khởi chạy này vì Fishstrap không thể ghi vào thư mục tại '{0}'</value>
   </data>
   <data name="Common.Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Mặc định</value>
   </data>
   <data name="Common.Automatic" xml:space="preserve">
-    <value>Automatic</value>
+    <value>Tự động</value>
   </data>
   <data name="Common.SystemDefault" xml:space="preserve">
-    <value>System default</value>
+    <value>Mặc định hệ thống</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidPlaceFilter" xml:space="preserve">
-    <value>The entry for '{0}' is not valid as the place filter is not formatted correctly.</value>
+    <value>Giá trị '{0}' không hợp lệ vì bộ lọc trải nghiệm không được định dạng đúng.</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
-    <value>Fishstrap Installer</value>
+    <value>Trình cài đặt Fishstrap</value>
   </data>
   <data name="Installer.Welcome.Title" xml:space="preserve">
-    <value>Welcome</value>
+    <value>Chào mừng</value>
   </data>
   <data name="Installer.Install.Title" xml:space="preserve">
-    <value>Install</value>
+    <value>Cài đặt</value>
     <comment>Refers to "Install" as a verb</comment>
   </data>
   <data name="Installer.Completion.Title" xml:space="preserve">
-    <value>Completion</value>
+    <value>Quá trình hoàn thành</value>
   </data>
   <data name="Common.Navigation.Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Quay lại</value>
   </data>
   <data name="Common.Navigation.Next" xml:space="preserve">
-    <value>Next</value>
+    <value>Tiếp theo</value>
   </data>
   <data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>Thank you for downloading Fishstrap. 
+    <value>Cảm ơn bạn đã tải xuống Fishstrap.
 
-The only official source to download Fishstrap from is {0} so please verify that you got it from an official source.
+Các trang web chính thức duy nhất để tải Fishstrap là {0} và {1}, vì vậy hãy đảm bảo rằng bạn đã tải từ nguồn chính thức.
 
-This installation process will be quick and simple, and you will be able to configure any of Fishstrap's settings after installation.</value>
+Quá trình cài đặt này sẽ nhanh chóng và đơn giản, và sau khi cài đặt, bạn sẽ có thể cấu hình bất kỳ cài đặt nào của Fishstrap.</value>
     <comment>{0} and {1} are URLs</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
-    <value>Please click 'Next' to continue.</value>
+    <value>Bấm 'Tiếp' để tiếp tục.</value>
   </data>
   <data name="Installer.Welcome.UpdateNotice" xml:space="preserve">
-    <value>You are trying to install version {0} of Fishstrap, but the latest version available is {1}. Would you like to download it?</value>
+    <value>Bạn đang cố cài đặt phiên bản {0} của Fishstrap, nhưng phiên bản mới nhất hiện tại là {1}. Bạn có muốn tải về không?</value>
   </data>
   <data name="Installer.Install.Location.Title" xml:space="preserve">
-    <value>Choose where to install to</value>
+    <value>Chọn nơi để cài đặt</value>
   </data>
   <data name="Installer.Install.Location.Text" xml:space="preserve">
-    <value>Roblox will also be installed to this path. Change this if you prefer to install all your games to a separate drive. Otherwise, it's recommended that you keep this as it is.</value>
+    <value>Roblox sẽ được cài đặt đến mục này. Thay đổi nếu bạn muốn tải tất cả những trò chơi của bạn đến một ổ khác. Nếu không thì, khuyến khích là bạn giữ nguyên nó.</value>
   </data>
   <data name="Installer.Install.Location.DataFound" xml:space="preserve">
-    <value>Existing data found. Your mods and settings will be restored.</value>
+    <value>Đã tìm thấy dữ liệu hiện có. Mod và cài đặt của bạn sẽ được khôi phục.</value>
   </data>
   <data name="Common.Shortcuts" xml:space="preserve">
-    <value>Shortcuts</value>
+    <value>Phím tắt</value>
   </data>
   <data name="Common.Shortcuts.Desktop" xml:space="preserve">
-    <value>Desktop icon</value>
+    <value>Biểu tượng màn hình chính</value>
   </data>
   <data name="Common.Shortcuts.StartMenu" xml:space="preserve">
-    <value>Start Menu icon</value>
+    <value>Biểu tượng Start Menu</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
-    <value>Fishstrap has successfully been installed.
+    <value>Fishstrap đã được cài đặt thành công.
 
-Roblox has not yet been installed, that will happen when you launch it with Fishstrap for the first time. However, before you do that, you may want to configure Fishstrap's settings first.
+Roblox vẫn chưa được cài đặt, điều đó sẽ xảy ra khi bạn khởi chạy nó bằng Fishstrap lần đầu tiên. Tuy nhiên, trước khi thực hiện, có thể 
+bạn sẽ muốn định cấu hình cài đặt của Fishstrap trước.
 
-Also, avoid using the "Roblox Player" shortcut to launch Roblox, as Fishstrap won't launch with Roblox. If you don't see Fishstrap show when launching from the website, simply launch Roblox with Fishstrap once from the desktop to fix it.
+Ngoài ra, tránh sử dụng phím tắt "Roblox Player" để khởi chạy Roblox, vì Fishstrap sẽ không khởi chạy cùng Roblox. Nếu bạn không thấy Fishstrap hiển thị khi khởi chạy từ trang web, chỉ cần khởi chạy Roblox bằng Fishstrap một lần từ màn hình chính để khắc phục sự cố.
 
-What would you like to do?</value>
+Bạn muốn làm gì?</value>
   </data>
   <data name="Installer.Completion.Settings.Title" xml:space="preserve">
-    <value>Configure Fishstrap's settings</value>
+    <value>Cấu hình cài đặt Fishstrap</value>
   </data>
   <data name="Installer.Completion.Settings.Description" xml:space="preserve">
-    <value>Tweak with all the features it has to offer</value>
+    <value>Chỉnh sửa tất cả những tính năng được cung cấp</value>
   </data>
   <data name="Installer.Completion.Launch.Title" xml:space="preserve">
-    <value>Install and launch Roblox</value>
+    <value>Cài đặt và khởi chạy Roblox</value>
   </data>
   <data name="Installer.Completion.Launch.Description" xml:space="preserve">
-    <value>Will drop you into the desktop app once everything's done</value>
+    <value>Sẽ đưa bạn đến ứng dụng màn hình nền một khi tất cả đã xong</value>
   </data>
   <data name="Uninstaller.Title" xml:space="preserve">
-    <value>Uninstall Fishstrap</value>
+    <value>Gỡ cài đặt Fishstrap</value>
   </data>
   <data name="Uninstaller.Text" xml:space="preserve">
-    <value>Uninstalling will remove Fishstrap from your system, and automatically reconfigure the default Roblox launcher if it's still installed.
+    <value>Gỡ cài đặt Fishstrap sẽ xóa nó khỏi hệ thống của bạn, và tự động cấu hình lại trình khởi chạy mặc định của Roblox nếu nó vẫn được cài đặt.
 
-If you're uninstalling or reinstalling because you are having issues with Roblox, read [this help page]({0}) first.
+Nếu bạn đang gỡ cài đặt hoặc cài đặt lại vì gặp sự cố với Roblox, hãy đọc [trang trợ giúp này]({0}) trước.
 
-The uninstall process may not be able to fully clean up itself, so you may need to manually clean up leftover files where Fishstrap was installed.
+Quá trình gỡ cài đặt có thể không tự dọn dẹp hoàn toàn, vì vậy có thể bạn sẽ cần phải dọn dẹp thủ công các tệp còn sót lại nơi Fishstrap đã được cài đặt.
 
-Fishstrap was installed at "{1}".</value>
+Fishstrap đã được cài đặt tại "{1}".</value>
   </data>
   <data name="Uninstaller.KeepData.Label" xml:space="preserve">
-    <value>Keep my settings and mods</value>
+    <value>Giữ lại các cài đặt và mod của tôi</value>
   </data>
   <data name="Uninstaller.KeepData.Description" xml:space="preserve">
-    <value>They'll be kept where Fishstrap was installed, and will automatically be restored on a reinstall.</value>
+    <value>Chúng sẽ được giữ lại nơi Fishstrap đã được cài đặt, và sẽ tự động khôi phục sau khi cài đặt lại.</value>
   </data>
   <data name="Uninstaller.Uninstall" xml:space="preserve">
-    <value>Uninstall</value>
+    <value>Gỡ cài đặt</value>
   </data>
   <data name="LaunchMenu.LaunchRoblox" xml:space="preserve">
-    <value>Launch Roblox</value>
+    <value>Khởi chạy Roblox</value>
   </data>
   <data name="LaunchMenu.ConfigureSettings" xml:space="preserve">
-    <value>Configure settings</value>
+    <value>Cài đặt cấu hình</value>
   </data>
   <data name="LaunchMenu.Wiki.Title" xml:space="preserve">
-    <value>Having an issue?</value>
+    <value>Đang gặp vấn đề?</value>
   </data>
   <data name="LaunchMenu.Wiki.Description" xml:space="preserve">
-    <value>See the Wiki for help</value>
+    <value>Xem trang Wiki để tìm trợ giúp</value>
   </data>
   <data name="Bootstrapper.WebView2NotFound" xml:space="preserve">
-    <value>You currently do not have the WebView2 runtime installed. Some Roblox features will not work properly without it, such as the desktop app. Would you like to download it now?</value>
+    <value>Hiện tại bạn chưa cài đặt WebView2 runtime. Một số tính năng của Roblox sẽ không hoạt động bình thường nếu không có nó, chẳng hạn như ứng dụng trên màn hình chính. Bạn có muốn tải nó ngay bây giờ không?</value>
   </data>
   <data name="Dialog.CannotCreateShortcuts" xml:space="preserve">
-    <value>Fishstrap was unable to create shortcuts for the Desktop and Start menu. Try creating them later through the settings.</value>
+    <value>Fishstrap không thể tạo phím tắt cho màn hình chính và Start Menu. Hãy thử tạo chúng thông qua cài đặt.</value>
   </data>
   <data name="Dialog.Exception.Info.2.Alt" xml:space="preserve">
-    <value>Check the [Bloxstrap Wiki]({0}) first to see if this problem has already been addressed with a fix.
+    <value>Tìm xem [Fishstrap Wiki]({0}) trước để xem nếu vấn đề này đã có phương pháp giải quyết.
 
-If not, then please report this exception to the maintainers of this fork. Do NOT report this to Bloxstrap's GitHub issues, as this is an unoffical build.</value>
+Nếu không, thì hãy báo cáo vấn đề này đến người quản lí của bản sao này. ĐỪNG báo cáo vấn đề này đến GitHub của Fishstrap, bởi vì đây là một bản sao không chính thức.</value>
     <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
-    <value>These are general shortcuts that bring up a multi-choice launch menu. Shortcuts for specific functions can be created later in the settings.</value>
+    <value>Đây là các phím tắt chung giúp mở menu khởi chạy với nhiều lựa chọn. Các phím tắt cho các chức năng cụ thể có thể được tạo sau trong phần cài đặt.</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
-    <value>Configure how Fishstrap can be readily launched.</value>
+    <value>Cấu hình cách Fishstrap có thể được khởi chạy.</value>
   </data>
   <data name="Menu.Shortcuts.General.Title" xml:space="preserve">
-    <value>General</value>
+    <value>Chung</value>
   </data>
   <data name="Menu.Shortcuts.General.Description" xml:space="preserve">
-    <value>These are the shortcuts that bring up the multi-choice launch menu.</value>
+    <value>Đây là những phím tắt mở ra menu chạy nhiều lựa chọn.</value>
   </data>
   <data name="Menu.Shortcuts.Function.Title" xml:space="preserve">
-    <value>Function</value>
+    <value>Chức năng</value>
   </data>
   <data name="Menu.Shortcuts.Function.Description" xml:space="preserve">
-    <value>Create shortcuts for quick access to specific functions. These will all be placed on the Desktop.</value>
+    <value>Tạo phím tắt để truy cập nhanh vào các chức năng cụ thể. Chúng sẽ được đặt ở màn hình nền.</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Private" xml:space="preserve">
-    <value>Connected to private server</value>
+    <value>Đã kết nối đến máy chủ riêng</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Reserved" xml:space="preserve">
-    <value>Connected to reserved server</value>
+    <value>Đã kết nối đến máy chủ dự phòng</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Error" xml:space="preserve">
-    <value>The emoji mod can not be applied at this time.</value>
+    <value>Mod biểu cảm không thể được áp dụng tại thời điểm này.</value>
   </data>
   <data name="Dialog.AlreadyRunning.Installer" xml:space="preserve">
-    <value>Please wait for installation to finish.</value>
+    <value>Hãy đợi cho quá trình cài đặt được hoàn thành.</value>
   </data>
   <data name="Dialog.AlreadyRunning.Uninstaller" xml:space="preserve">
-    <value>Please wait for uninstallation to finish.</value>
+    <value>Hãy đợi cho quá trình gỡ cài đặt được hoàn thành.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>About Fishstrap</value>
+    <value>Về Fishstrap</value>
   </data>
   <data name="About.Licenses.Title" xml:space="preserve">
-    <value>Licenses</value>
+    <value>Các giấy phép</value>
     <comment>Referring to code licenses; see https://opensource.org/licenses for example</comment>
   </data>
   <data name="About.Translators.Title" xml:space="preserve">
-    <value>Translators</value>
+    <value>Các phiên dịch viên</value>
   </data>
   <data name="Menu.UnsavedChanges" xml:space="preserve">
-    <value>You have unsaved changes. Are you sure you want to close without saving?</value>
+    <value>Bạn có những thay đổi chưa được lưu. Bạn có chắc chắn muốn đóng mà không lưu không?</value>
   </data>
   <data name="InstallChecker.VersionLessThanInstalled" xml:space="preserve">
-    <value>The version of Fishstrap you've launched is older than the version you currently have installed.
-Issues may occur and your settings may be altered. A reinstall is recommended.
-Are you sure you want to continue?</value>
+    <value>Phiên bản Fishstrap mà bạn khởi chạy cũ hơn so với phiên bản bạn đã cài đặt.
+Có thể xảy ra sự cố và các tùy chỉnh của bạn có thể bị thay đổi. Khuyến khích nên cài đặt lại.
+Bạn có muốn tiếp tục không?</value>
   </data>
   <data name="Dialog.PlayerError.FailedLaunch" xml:space="preserve">
-    <value>Roblox failed to launch.</value>
+    <value>Không thể khởi chạy Roblox.</value>
   </data>
   <data name="Dialog.PlayerError.Crash" xml:space="preserve">
-    <value>Roblox has crashed.</value>
+    <value>Roblox đã sập.</value>
   </data>
   <data name="Dialog.PlayerError.HelpInformation" xml:space="preserve">
-    <value>For information about why this could be happening and how this can be resolved, please read [this help article]({0}).
+    <value>Để biết thông tin về lý do tại sao lại phát sinh lỗi này và cách giải quyết nó, vui lòng đọc [trợ giúp]({0}).
 
-Check if Roblox works with [the original launcher]({1}). If it doesn't, then this isn't a Fishstrap issue. If it does, then refer to the help article.</value>
+Kiểm tra xem Roblox có hoạt động với [trình khởi chạy gốc]({1}) không. Nếu không, thì đây không phải là lỗi của Fishstrap. Nếu có, hãy tham khảo bài viết trợ giúp.</value>
   </data>
   <data name="Common.NetworkError" xml:space="preserve">
-    <value>Could not load data because of a network error.</value>
+    <value>Không thể tải dữ liệu vì lỗi mạng.</value>
   </data>
   <data name="Common.Loading" xml:space="preserve">
-    <value>Loading, please wait...</value>
+    <value>Đang tải, xin vui lòng chờ...</value>
   </data>
   <data name="About.Supporters.Title" xml:space="preserve">
-    <value>Bloxstrap supporters</value>
+    <value>Những người hỗ trợ</value>
   </data>
   <data name="About.Supporters.Description" xml:space="preserve">
-    <value>These are the people who've supported Bloxstrap through Ko-fi. A massive thank you to everyone here!
-Every person here is ranked by their overall pledge.</value>
+    <value>Đây là những người đã hỗ trợ Fishstrap qua Ko-fi. Một lời cảm ơn tới tất cả mọi người ở đây!
+Thứ hạng của mỗi người ở đây dựa vào mức đóng góp của họ.</value>
   </data>
   <data name="JsonManager.SettingsLoadFailed" xml:space="preserve">
-    <value>Your Settings could not be loaded. They have been reset to the default configuration.</value>
+    <value>Không thể tải những Cài Đặt của bạn. Chúng đã được đặt lại về cấu hình mặc định.</value>
   </data>
   <data name="JsonManager.FastFlagsLoadFailed" xml:space="preserve">
-    <value>Your Fast Flags could not be loaded. They have been reset to the default configuration.</value>
+    <value>Không thể tải Fast Flag của bạn. Chúng đã được đặt lại về cấu hình mặc định.</value>
   </data>
   <data name="ContextMenu.GameHistory.Title" xml:space="preserve">
-    <value>Game history</value>
+    <value>Lịch sử trò chơi</value>
   </data>
   <data name="ContextMenu.GameHistory.Rejoin" xml:space="preserve">
-    <value>Rejoin</value>
+    <value>Tham gia lại</value>
   </data>
   <data name="ActivityWatcher.RichPresenceLoadFailed" xml:space="preserve">
-    <value>Your current game will not show on your Discord presence because an error occurred when loading the game information.</value>
+    <value>Trò chơi hiện tại của bạn sẽ không hiển thị trên Discord vì đã xảy ra lỗi khi tải thông tin trò chơi.</value>
   </data>
   <data name="ContextMenu.GameHistory.Description" xml:space="preserve">
-    <value>Game history is only recorded for your current Roblox session. Games will appear here as you leave them or teleport within them. Not all servers will be rejoinable.</value>
+    <value>Lịch sử trò chơi chỉ được ghi lại cho phiên Roblox hiện tại. Trò chơi sẽ xuất hiện ở đây khi bạn thoát hoặc dịch chuyển trong đó. Không phải tất cả máy chủ có thể được tham gia lại.</value>
   </data>
   <data name="ActivityWatcher.LocationQueryFailed" xml:space="preserve">
-    <value>The server location could not be queried. You may be joining games too quickly.</value>
+    <value>Không thể truy vấn vị trí máy chủ. Có thể bạn đang tham gia trò chơi quá nhanh.</value>
   </data>
   <data name="Dialog.Connectivity.TryAgainLater" xml:space="preserve">
-    <value>Please try again later.</value>
+    <value>Vui lòng thử lại sau.</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeSkip" xml:space="preserve">
-    <value>For this launch, Roblox will not be checked for upgrades, and changes to mods will not be applied.</value>
+    <value>Trong lần chạy này, Roblox sẽ không được kiểm tra để cập nhật, và những thay đổi đối với các mod sẽ không áp dụng.</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeNeeded" xml:space="preserve">
-    <value>Because Roblox needs to be installed or upgraded, Fishstrap cannot continue.</value>
+    <value>Vì Roblox cần được cài đặt hoặc cập nhật, Fishstrap không thể tiếp tục.</value>
   </data>
   <data name="Installer.Install.CannotOverwrite" xml:space="preserve">
-    <value>Fishstrap has been installed to this location before and is still present, however the installer cannot overwrite the old executable. 
+    <value>Fishstrap đã được cài đặt vào vị trí này trước đây và vẫn còn ở đó, tuy nhiên trình cài đặt không thể ghi đè lên tệp cài đặt cũ. 
 
-Please manually delete Fishstrap.exe from the install location or try restarting your system, and then retry installation afterwards.</value>
+Vui lòng xóa thủ công Fishstrap.exe khỏi vị trí cài đặt hoặc thử khởi động lại hệ thống của bạn, sau đó thử cài đặt lại sau đó.</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>Not available</value>
+    <value>Không có sẵn</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Title" xml:space="preserve">
-    <value>Manage compatibility settings</value>
+    <value>Quản lý cài đặt tương thích</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Description" xml:space="preserve">
-    <value>Configure application parameters such as DPI scaling behaviour and [fullscreen optimizations]({0}).</value>
+    <value>Cấu hình các thông số ứng dụng như hành vi thay đổi tỷ lệ DPI và [tối ưu hóa toàn màn hình]({0}).</value>
   </data>
   <data name="Common.RobloxNotInstalled" xml:space="preserve">
-    <value>Roblox has not yet been installed. Please launch Roblox using Fishstrap at least once before trying to use this option.</value>
+    <value>Roblox chưa được cài đặt. Vui lòng khởi chạy Roblox bằng Fishstrap ít nhất một lần trước khi thử sử dụng tùy chọn này.</value>
   </data>
   <data name="Installer.ShouldCancel" xml:space="preserve">
-    <value>Are you sure you want to cancel the installation?</value>
+    <value>Bạn có chắc chắn muốn hủy cài đặt không?</value>
   </data>
   <data name="Bootstrapper.JsonManagerSaveFailed" xml:space="preserve">
-    <value>Failed to save {0}: {1}</value>
+    <value>Lưu thất bại {0}: {1}</value>
   </data>
   <data name="Dialog.IconLoadFailed" xml:space="preserve">
-    <value>The chosen bootstrapper icon could not be loaded.
+    <value>Không thể tải biểu tượng trình khởi động đã chọn.
 
 {0}</value>
     <comment>{0} is an exception message</comment>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Title" xml:space="preserve">
-    <value>Extract Roblox icons to folder</value>
+    <value>Trích xuất biểu tượng Roblox vào thư mục</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
-    <value>Allows you to use Fishstrap's range of Roblox icons for your shortcuts. [See how.]({0})</value>
+    <value>Cho phép bạn sử dụng các biểu tượng Roblox có sẵn trong Fishstrap cho các phím tắt của bạn. [Xem cách.]({0})</value>
   </data>
   <data name="Dialog.RegistryWriteError" xml:space="preserve">
-    <value>Fishstrap is unable to write to the Windows Registry. An antivirus is likely interfering and causing issues. Please check to make sure there isn't anything that would restrict Fishstrap's operation.</value>
+    <value>Fishstrap không thể ghi vào Registry của Windows. Có thể một phần mềm diệt virus đang can thiệp và gây ra vấn đề. Vui lòng kiểm tra để đảm bảo không có gì làm ảnh hưởng Fishstrap.</value>
   </data>
   <data name="About.Supporters.Monthly" xml:space="preserve">
-    <value>Monthly</value>
+    <value>Hàng tháng</value>
   </data>
   <data name="About.Supporters.OneOff" xml:space="preserve">
-    <value>One-off</value>
+    <value>Một lần</value>
   </data>
   <data name="Menu.Bloxstrap.Description" xml:space="preserve">
-    <value>Configure options related to Fishstrap's behaviour itself.</value>
+    <value>Tùy chỉnh những lựa chọn liên quan tới cách hoạt động của Fishstrap.</value>
   </data>
   <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Enable sending of analytics to Bloxstrap</value>
+    <value>Bật gửi dữ liệu phân tích</value>
   </data>
   <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>It's anonymous and nothing evil, promise. For insight on what Bloxstrap collects and why, see Bloxstrap's [privacy policy]({0}).</value>
+    <value>Mọi thứ đều ẩn danh và không có gì xấu xa cả, thật đấy. Để biết chúng tôi thu thập những gì và lý do, hãy xem [chính sách quyền riêng tư]({0}) của chúng tôi.</value>
   </data>
   <data name="Common.Analytics" xml:space="preserve">
-    <value>Analytics</value>
+    <value>Phân tích</value>
   </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
-    <value>Reset everything to defaults</value>
+    <value>Đặt tất cả cài đặt về mặc định</value>
   </data>
   <data name="Dialog.Exception.Report" xml:space="preserve">
-    <value>Report exception</value>
+    <value>Báo cáo lỗi</value>
   </data>
   <data name="Menu.TestMode" xml:space="preserve">
-    <value>Test mode</value>
+    <value>Chế độ thử nghiệm</value>
     <comment>See the prompt for more context</comment>
   </data>
   <data name="Menu.TestMode.Prompt" xml:space="preserve">
-    <value>Test mode makes it easier to iteratively test how your settings affect Roblox. 
+    <value>Chế độ thử nghiệm giúp bạn dễ dàng kiểm tra các cài đặt ảnh hưởng đến Roblox như thế nào.
 
-While enabled, it will automatically launch Roblox after closing Settings, and reopen Settings after closing Roblox, in a cycle until you disable it.
+Khi được bật, nó sẽ tự động khởi chạy Roblox sau khi đóng Cài Đặt, và mở lại Cài Đặt sau khi đóng Roblox, lặp lại theo chu kỳ cho đến khi bạn tắt chế độ này.
 
-Would you like to enable test mode?</value>
+Bạn có muốn bật chế độ thử nghiệm không?</value>
   </data>
   <data name="About.Translators.Description" xml:space="preserve">
-    <value>All of Bloxstrap's translations are crowdsourced through [Crowdin]({0}). Everyone listed here are people who generously volunteered their time and effort to help localise Bloxstrap. A massive thank you to everyone here!</value>
+    <value>Tất cả các bản dịch của Fishstrap đều được đóng góp từ cộng đồng thông qua [Crowdin]({0}). Tất cả những người được liệt kê ở đây đều đã tự nguyện dành thời gian và công sức để giúp dịch Fishstrap. Xin gửi lời cảm ơn chân thành đến tất cả mọi người!</value>
   </data>
   <data name="Common.Navigation.Install" xml:space="preserve">
-    <value>Install</value>
+    <value>Cài đặt</value>
     <comment>The word "Install" is being used as a verb in this instance, like the other navigation button texts of "Next" and "Back"</comment>
   </data>
-  <data name="LaunchMenu.Discord" xml:space="preserve">
-    <value>Join our Discord server</value>
-    <comment>Call-to-action button</comment>
-  </data>
   <data name="Paths.Icons" xml:space="preserve">
-    <value>Icons</value>
+    <value>Biểu tượng</value>
     <comment>Name of the folder that gets created according to the "create shortcut icons" option. Ensure that it is a valid folder name.</comment>
   </data>
-  <data name="Enums.FlagPresets.RenderingMode.OpenGL" xml:space="preserve">
-    <value>OpenGL</value>
+  <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
+    <value>Có gì đó đang ngăn chặn Fishstrap kết nối đến Internet.</value>
   </data>
-  <data name="Enums.FlagPresets.RenderingMode.Vulkan" xml:space="preserve">
-    <value>Vulkan</value>
+  <data name="Dialog.Connectivity.TimedOut" xml:space="preserve">
+    <value>Kết nối đã bị gián đoạn, có thể là bởi kết nối mạng không ổn định hoặc là đã bị chặn bởi tường lửa.</value>
   </data>
-  <data name="Menu_FlagProfiles_Title" xml:space="preserve">
-    <value>Fast Flag Profiles</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Menu.Channel.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
-  <data name="Menu_FlagProfiles_Description" xml:space="preserve">
-    <value>Save and load fast flag profiles.</value>
+  <data name="Common.Channel" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
-  <data name="Common_FastFlags" xml:space="preserve">
-    <value>Fast Flag Editor</value>
+  <data name="Menu.ChannelChanger.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
-  <data name="Menu_FastFlagProfiles_Save" xml:space="preserve">
-    <value>Save current flags</value>
+  <data name="Common.Version" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
-  <data name="Menu.FastFlagEditor.ProfilesDescription" xml:space="preserve">
-    <value>Flag Profiles</value>
+  <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
-  <data name="Menu.Load" xml:space="preserve">
-    <value>Load</value>
-  </data>
-  <data name="Bootstrapper.Status.CancelUpgrade" xml:space="preserve">
-    <value>Cancelling Roblox upgrade.</value>
-  </data>
-  <data name="Menu.Behaviour.RenameToEurotrucks.Title" xml:space="preserve">
-    <value>Ansel support</value>
-  </data>
-  <data name="Menu.Behaviour.RenameToEurotrucks.Description" xml:space="preserve">
-    <value>Renames Roblox to "eurotrucks2". Requires [supported graphic card](https://www.nvidia.com/en-us/geforce/technologies/ansel/supported-gpus/).
-	This feature is required for shaders.</value>
-  </data>
-  <data name="Menu.Behaviour.Channel.Title" xml:space="preserve">
-    <value>Channel</value>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
   <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
-    <value>Launch Roblox Studio</value>
+    <value>Khởi chạy Roblox Studio</value>
   </data>
   <data name="Dialog.Exception.Version" xml:space="preserve">
-    <value>Version {0}</value>
-  </data>
-  <data name="Enums.BootstrapperStyle.CustomDialog" xml:space="preserve">
-    <value>Custom</value>
+    <value>Phiên bản {0}</value>
   </data>
   <data name="Bootstrapper.FilesInUse" xml:space="preserve">
-    <value>Fishstrap tried to upgrade Roblox but can't because Roblox's files are still in use.
+    <value>Fishstrap không thể cập nhật Roblox vì các tập tin của Roblox đang được sử dụng
 
-Please close any applications that may be using Roblox's files, and relaunch.</value>
+Xin hãy đóng các ứng dụng đang sử dụng các tập tin của Roblox, và khởi động động lại.</value>
     <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
   </data>
   <data name="FileTypes.ZipArchive" xml:space="preserve">
-    <value>Zip archive</value>
+    <value>Nén thành tệp Zip</value>
     <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
   </data>
   <data name="Common.Export" xml:space="preserve">
-    <value>Export</value>
-    <comment>Currently used under the "Bloxstrap" settings tab for the button to export diagnostic data</comment>
-  </data>
-  <data name="Menu.Bloxstrap.ExportData.Title" xml:space="preserve">
-    <value>Export diagnostic data</value>
-  </data>
-  <data name="Menu.Bloxstrap.ExportData.Description" xml:space="preserve">
-    <value>Gather information that can be uploaded online to troubleshoot a problem you're having.</value>
-  </data>
-  <data name="Menu.Bloxstrap.ExportData.ExportConfig" xml:space="preserve">
-    <value>Bloxstrap configuration</value>
-    <comment>Label that appears next to a checkbox</comment>
-  </data>
-  <data name="Menu.Bloxstrap.ExportData.ExportLogs" xml:space="preserve">
-    <value>All Bloxstrap logs</value>
-    <comment>Label that appears next to a checkbox</comment>
-  </data>
-  <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Dialog.Connectivity.TimedOut" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Menu.Channel.Description" xml:space="preserve">
-    <value>Change deployment and installation settings for Roblox &amp; Fishstrap.</value>
-  </data>
-  <data name="Common.Channel" xml:space="preserve">
-    <value>Channel</value>
-  </data>
-  <data name="Menu.ChannelChanger.Description" xml:space="preserve">
-    <value>Choose deployment channel. Don't change unless you know what you're doing.</value>
-  </data>
-  <data name="Common.Version" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="Common.VersionGuid" xml:space="preserve">
-    <value>VersionGuid</value>
-  </data>
-  <data name="Menu.Channel.RobloxUpgrades" xml:space="preserve">
-    <value>Roblox upgrades</value>
-  </data>
-  <data name="Menu.Channel.RobloxUpgrades.Description" xml:space="preserve">
-    <value>When disabled Roblox client won't upgrade to newer version.</value>
-  </data>
-  <data name="Bootstrapper.Status.Downloading" xml:space="preserve">
-    <value>Downloading</value>
-  </data>
-  <data name="Menu.Appearance.BootstrapperDownloading.Title" xml:space="preserve">
-    <value>Bootstrapper downloading status</value>
-  </data>
-  <data name="Menu.Appearance.BootstrapperDownloading.Description" xml:space="preserve">
-    <value>Change downloading string. {0} is package name, {1} is downloaded packages size and {2} is total size of packages.</value>
-  </data>
-  <data name="Menu.Behaviour.MultiInstances.Title" xml:space="preserve">
-    <value>Multi-instance launching</value>
-  </data>
-  <data name="Menu.Behaviour.MultiInstances.Description" xml:space="preserve">
-    <value>Allows for having more than one Roblox game client instance open simultaneously. May cause issues with desktop app.</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.Telemetry.Title" xml:space="preserve">
-    <value>Disable Roblox telemetry</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.Telemetry.Description" xml:space="preserve">
-    <value>Note this disables only some of the Roblox telemetry.</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.Telemetry" xml:space="preserve">
-    <value>Telemetry</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.Chromeui.Title" xml:space="preserve">
-    <value>Chrome UI</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.Chromeui.Description" xml:space="preserve">
-    <value>When disabled Roblox will use old top bar.</value>
-  </data>
-  <data name="Menu.FlagProfiles.ClearFlags" xml:space="preserve">
-    <value>Clear FFlags</value>
-  </data>
-  <data name="Common.Debug" xml:space="preserve">
-    <value>Debug</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.Categories.IngameMenu" xml:space="preserve">
-    <value>Roblox Menu</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.Categories.IngameMenu.Description" xml:space="preserve">
-    <value>Debloat Roblox menu with FFlags</value>
-  </data>
-  <data name="Common.Deployment" xml:space="preserve">
-    <value>Deployment</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.IngameMenu.VRToggle.Title" xml:space="preserve">
-    <value>VR toggle</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.IngameMenu.SoothsayerCheck.Title" xml:space="preserve">
-    <value>Feedback button</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.IngameMenu.LanguageSelector.Title" xml:space="preserve">
-    <value>Language selector</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.IngameMenu.Framerate.Title" xml:space="preserve">
-    <value>Framerate cap</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.IngameMenu.ChatTranslation.Title" xml:space="preserve">
-    <value>Chat translation</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FlagState.Title" xml:space="preserve">
-    <value>Flag state</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FlagState.Description" xml:space="preserve">
-    <value>Show values of specified flags during runtime. Each flag is comma separated.</value>
-  </data>
-  <data name="Common.Studio" xml:space="preserve">
-    <value>Studio</value>
-  </data>
-  <data name="Common.RobloxStudio" xml:space="preserve">
-    <value>Roblox Studio</value>
-  </data>
-  <data name="Menu.Context.PlayerLogs" xml:space="preserve">
-    <value>Player logs</value>
-  </data>
-  <data name="Menu.Context.PlayerLogs.Description" xml:space="preserve">
-    <value>Shows players leaving/joining server you're in.</value>
-  </data>
-  <data name="Common.Type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="Common.UserId" xml:space="preserve">
-    <value>User Id</value>
-  </data>
-  <data name="Common.Username" xml:space="preserve">
-    <value>Username</value>
-  </data>
-  <data name="Common.Time" xml:space="preserve">
-    <value>Time</value>
-  </data>
-  <data name="Menu.Channel.VersionHash.Title" xml:space="preserve">
-    <value>Version hash</value>
-  </data>
-  <data name="Menu.Channel.VersionHash.Desription" xml:space="preserve">
-    <value>Force Fishstrap to download version from specific hash. Please do not change if you have no idea what this does.</value>
-  </data>
-  <data name="Menu.SaveAndLaunch" xml:space="preserve">
-    <value>Save and Launch</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.PingBreakdown.Title" xml:space="preserve">
-    <value>Ping breakdown</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.PingBreakdown.Description" xml:space="preserve">
-    <value>Sends detailed ping information to the Roblox console.</value>
-  </data>
-  <data name="Bootstrapper.Dialog.NoUpgradeWithoutClient" xml:space="preserve">
-    <value>Upgrades were disabled with missing client.
-	To prevent issues upgrading will continue.</value>
-  </data>
-  <data name="ContextMenu.PlayerLogs.Title" xml:space="preserve">
-    <value>Player logs</value>
-  </data>
-  <data name="Common.Message" xml:space="preserve">
-    <value>Message</value>
-  </data>
-  <data name="ContextMenu.MessageLogs.Title" xml:space="preserve">
-    <value>Message logs</value>
-  </data>
-  <data name="ContextMenu.MessageLogs.Description" xml:space="preserve">
-    <value>Displays recently sent messages by players.</value>
-  </data>
-  <data name="Menu.Integrations.PlayerMessageLogs.Title" xml:space="preserve">
-    <value>Player and Message logs</value>
-  </data>
-  <data name="Menu.Integrations.PlayerMessageLogs.Description" xml:space="preserve">
-    <value>Shows you players joining/leaving and messages being sent.
-		Only works with [text chat service](https://devforum.roblox.com/t/new-in-experience-text-chat-system-public-release/1848837).</value>
-  </data>
-  <data name="Menu.Behaviour.AnselBanner" xml:space="preserve">
-    <value>Ansel support is required for shaders.</value>
-  </data>
-  <data name="Dialog.Bloxshade.ThankYou" xml:space="preserve">
-    <value>Sorry</value>
-  </data>
-  <data name="Dialog.Bloxshade.Setting" xml:space="preserve">
-    <value>Fishstrap no longer supports Bloxshade.
-For more information join Bloxshade discord server.</value>
-  </data>
-  <data name="Common.Profiles" xml:space="preserve">
-    <value>Profiles</value>
-  </data>
-  <data name="Menu.Deployment.Channel.OutOfDate" xml:space="preserve">
-    <value>This channel is out of date, and is likely no longer being updated. Please use another channel.</value>
-  </data>
-  <data name="Bootstrapper.Dialog.ChannelOutOfDate" xml:space="preserve">
-    <value>The channel you're currently on ({0}) is out of date, and appears to no longer be receiving updates.\n
-Would you like to switch to the default channel ({1})?</value>
-  </data>
-  <data name="Menu.Channel.ChangeAction.Title" xml:space="preserve">
-    <value>Automatic channel change action</value>
-  </data>
-  <data name="Menu.Channel.ChangeAction.Description" xml:space="preserve">
-    <value>Roblox or Fishstrap may try to change your preferred channel.</value>
-  </data>
-  <data name="Menu.Channel.ChangeAction.Automatic" xml:space="preserve">
-    <value>Change automatically</value>
-  </data>
-  <data name="Menu.Channel.ChangeAction.Prompt" xml:space="preserve">
-    <value>Always prompt</value>
-  </data>
-  <data name="Menu.Channel.ChangeAction.Ignore" xml:space="preserve">
-    <value>Never change</value>
-  </data>
-  <data name="Bootstrapper.Bootstrapper.Dialog.PromptChannelChange" xml:space="preserve">
-    <value>Roblox is attempting to set your channel to {0}, however your current preferred channel is {1}.
-
-
-Would you like to switch your preferred channel to {0}?</value>
-  </data>
-  <data name="Menu.FastFlags.240FPSWarning" xml:space="preserve">
-    <value>Going above 240 FPS is not recommended, as this change may cause issues and worsen performance.
-
-[Click to learn more]({0})</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.PreferredGPU.Title" xml:space="preserve">
-    <value>Preferred graphics card</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.PreferredGPU.Description" xml:space="preserve">
-    <value>Select the GPU that Roblox will use for rendering. Useful if you have 2 or more GPUs on your PC.</value>
-  </data>
-  <data name="Menu.FastFlagEditor.ExportJson.IncludePresets" xml:space="preserve">
-    <value>Would you like to include preset FFlags?</value>
-  </data>
-  <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
-    <value>Roblox no longer supports Windows 7 or 8.1. To continue playing Roblox, please upgrade to Windows 10 or newer.</value>
-  </data>
-  <data name="Boostrapper.Dialog.UnauthorizedChannel" xml:space="preserve">
-    <value>The channel you're currently on ({0}) has now been restricted from public use. You will now be on the default channel ({1}).</value>
-  </data>
-  <data name="Menu.Channel.Switcher.Fetching" xml:space="preserve">
-    <value>Fetching latest deploy info, please wait...</value>
-  </data>
-  <data name="Menu.Channel.Switcher.Unauthorized" xml:space="preserve">
-    <value>The specified channel either doesn't exist or is private</value>
-  </data>
-  <data name="Installer.FailedToImportSettings" xml:space="preserve">
-    <value>Failed to import Bloxstrap settings.
-
-{0}</value>
-  </data>
-  <data name="Installer.ImportSettings" xml:space="preserve">
-    <value>Import settings from Bloxstrap</value>
-  </data>
-  <data name="Installer.InstallationNotFound" xml:space="preserve">
-    <value>Bloxstrap installation was not found.</value>
-  </data>
-  <data name="Bootstrapper.Dialog.AnselDisabled" xml:space="preserve">
-    <value>Ansel is not supported.
-You can no longer use Bloxshade with Fishstrap.</value>
+    <value>Xuất ra</value>
+    <comment>Currently used under the "Fishstrap" settings tab for the button to export diagnostic data</comment>
   </data>
 </root>
