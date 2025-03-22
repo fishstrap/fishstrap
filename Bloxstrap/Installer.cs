@@ -722,10 +722,6 @@ namespace Bloxstrap
             }
 
             App.Logger.WriteLine(LOG_IDENT, $"Importing succeeded");
-
-            // added necessary directory for compatibility with the roblox game fisch
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Fischstrap"));
-
         }
     }
 }
