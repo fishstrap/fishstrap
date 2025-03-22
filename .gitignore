@@ -348,3 +348,11 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+.github/workflows/ci-debug.yml
+
+.github/workflows/ci-release.yml
+
+.github/workflows/dotnet-desktop.yml
+
+.github/workflows/winget.yml
