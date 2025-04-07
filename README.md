@@ -44,6 +44,7 @@ Found any bugs? [Submit an issue](https://github.com/returnrqt/fishstrap/issues/
 - Extras
   - Save last opened settings page
   - Importing settings from Bloxstrap
+  - Launch Roblox Studio
 
 ### *More changes coming soon!*
 
