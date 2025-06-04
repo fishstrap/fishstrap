@@ -118,24 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bootstrapper.AutoUpdateFailed" xml:space="preserve">
-    <value>Fishstrap 目前无法自动更新至 v{0}；请通过 官方网站 下载最新版本并运行安装包以手动更新 Fishstrap。</value>
+    <value>Fishstrap 无法自动更新到版本 {0}。请从网站下载并手动运行以更新。</value>
   </data>
   <data name="Bootstrapper.ConfirmLaunch" xml:space="preserve">
-    <value>Roblox 当前正在运行中，打开另一个 Roblox 进程后将会关闭它。
-
-您确定要继续启动吗？</value>
+    <value>Roblox 正在运行中，启动另一个实例将关闭它。您确定要继续启动吗？</value>
   </data>
   <data name="Dialog.Connectivity.RobloxDown" xml:space="preserve">
-    <value>Roblox 的服务器目前可能已经熟透了；请参阅 {0} 来了解更多信息。</value>
+    <value>Roblox 可能目前已宕机。请查看 {0} 获取更多信息。</value>
   </data>
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
-    <value>目前无法建立网络连接，这可能表明网络连接不畅或被防火墙阻止；如果连接正常，请确保您的杀毒软件没有阻止 Fishstrap 访问 Internet。</value>
+    <value>无法建立连接，这可能表明网络连接不佳或防火墙阻止。如果您的连接正常，请确保您的杀毒软件没有阻止 Fishstrap。</value>
   </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
-    <value>你必须先安装 Fishstrap 后才能卸载。(难不成你想卸载安装包？)</value>
+    <value>您必须先安装 Fishstrap 才能卸载。</value>
   </data>
   <data name="Bootstrapper.NotEnoughSpace" xml:space="preserve">
-    <value>当前所使用的磁盘空间不足以下载和安装 Roblox；请释放一些磁盘空间后再重试。</value>
+    <value>Fishstrap 没有足够的磁盘空间来下载和安装 Roblox。请释放一些磁盘空间后重试。</value>
   </data>
   <data name="Bootstrapper.Status.ApplyingModifications" xml:space="preserve">
     <value>正在应用 Roblox 修改...</value>
@@ -144,42 +142,40 @@
     <value>正在配置 {product}...</value>
   </data>
   <data name="Bootstrapper.Status.Connecting" xml:space="preserve">
-    <value>正在与 Roblox 建立连接...</value>
+    <value>正在连接到 Roblox...</value>
   </data>
   <data name="Bootstrapper.Status.Installing" xml:space="preserve">
     <value>正在安装 {product}...</value>
   </data>
   <data name="Bootstrapper.Status.InstallingWebView2" xml:space="preserve">
-    <value>正在安装 “WebView2”；请耐心等待...</value>
+    <value>正在安装 WebView2，请稍候...</value>
   </data>
   <data name="Bootstrapper.Status.Starting" xml:space="preserve">
     <value>正在启动 {product}...</value>
-    <comment>"Starting Roblox" or "Starting Roblox Studio"</comment>
+    <comment>"正在启动 Roblox"或"正在启动 Roblox Studio"</comment>
   </data>
   <data name="Bootstrapper.Status.Upgrading" xml:space="preserve">
-    <value>正在更新 {product}...</value>
+    <value>正在升级 {product}...</value>
   </data>
   <data name="Bootstrapper.Status.WaitingOtherInstances" xml:space="preserve">
-    <value>正在等待其他 Roblox 进程退出...</value>
+    <value>正在等待其他实例...</value>
   </data>
   <data name="Bootstrapper.StylePreview.ImageCancel" xml:space="preserve">
-    <value>样式预览 - 单击右上角的 “X” 按钮来关闭</value>
-    <comment>Text for style previews that use an X button. Currently only applies to Byfron</comment>
+    <value>样式预览 - 点击右上角的 X 按钮关闭</value>
+    <comment>文本用于使用 X 按钮的样式预览。目前仅适用于 Byfron</comment>
   </data>
   <data name="Bootstrapper.StylePreview.TextCancel" xml:space="preserve">
-    <value>样式预览 - 单击 “取消” 来关闭</value>
-    <comment>Text for style previews that use text button that says "Cancel"</comment>
+    <value>样式预览 - 点击取消按钮关闭</value>
+    <comment>文本用于使用"取消"按钮的样式预览。目前仅适用于 Byfron</comment>
   </data>
   <data name="Bootstrapper.SuccessfullyUninstalled" xml:space="preserve">
     <value>Fishstrap 已成功卸载</value>
   </data>
   <data name="Bootstrapper.Uninstall.RobloxRunning" xml:space="preserve">
-    <value>Roblox 当前正在运行中，但在卸载 Fishstrap 之前必须将其关闭。
-
-您想现在关闭 Roblox 吗？</value>
+    <value>Roblox 正在运行中，但必须先关闭才能卸载 Fishstrap。您想现在关闭 Roblox 吗？</value>
   </data>
   <data name="Bootstrapper.WMFNotFound" xml:space="preserve">
-    <value>Roblox 需要使用 “Windows Media Foundation” 组件才能启动；您似乎缺少它们，可能是因为您使用的是 N 版本的 Windows；请先安装它们后再尝试重新启动 Roblox。</value>
+    <value>Roblox 需要使用 Windows Media Foundation 组件。您似乎缺少它们，可能是因为您使用的是 N 版本的 Windows。请先安装它们，然后启动 Roblox。</value>
   </data>
   <data name="Common.AddSingle" xml:space="preserve">
     <value>添加单个</value>
@@ -197,7 +193,7 @@
     <value>删除</value>
   </data>
   <data name="Common.DiscordRichPresence" xml:space="preserve">
-    <value>Discord 活动状态</value>
+    <value>Discord 高级状态</value>
   </data>
   <data name="Common.Help" xml:space="preserve">
     <value>帮助</value>
@@ -209,13 +205,13 @@
     <value>打开日志文件</value>
   </data>
   <data name="Common.Miscellaneous" xml:space="preserve">
-    <value>其它</value>
+    <value>杂项</value>
   </data>
   <data name="Common.Name" xml:space="preserve">
     <value>名称</value>
   </data>
   <data name="Common.New" xml:space="preserve">
-    <value>新的</value>
+    <value>新</value>
   </data>
   <data name="Common.No" xml:space="preserve">
     <value>否</value>
@@ -228,13 +224,13 @@
   </data>
   <data name="Common.Reset" xml:space="preserve">
     <value>重置</value>
-    <comment>In the context of resetting something to a default value</comment>
+    <comment>在重置为默认值的上下文中</comment>
   </data>
   <data name="Common.Value" xml:space="preserve">
     <value>值</value>
   </data>
   <data name="Common.Warning" xml:space="preserve">
-    <value>注意</value>
+    <value>警告</value>
   </data>
   <data name="Common.Yes" xml:space="preserve">
     <value>是</value>
@@ -243,26 +239,26 @@
     <value>关闭 Roblox</value>
   </data>
   <data name="ContextMenu.CloseRobloxMessage" xml:space="preserve">
-    <value>您确定要关闭 Roblox 吗？这将强制结束其进程。</value>
+    <value>您确定要关闭 Roblox 吗？这将强制结束进程。</value>
   </data>
   <data name="ContextMenu.CopyDeeplinkInvite" xml:space="preserve">
     <value>复制邀请链接</value>
   </data>
   <data name="ContextMenu.ServerInformation.CopyInstanceId" xml:space="preserve">
-    <value>复制服务器 Job ID</value>
+    <value>复制实例 ID</value>
   </data>
   <data name="ContextMenu.ServerInformation.InstanceId" xml:space="preserve">
-    <value>服务器 Job ID</value>
+    <value>实例 ID</value>
   </data>
   <data name="ContextMenu.ServerInformation.Location" xml:space="preserve">
-    <value>地点</value>
+    <value>位置</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Text" xml:space="preserve">
-    <value>位于 {0}
-单击此窗口以了解更多详细信息</value>
+    <value>位置: {0}
+点击查看更多信息</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Public" xml:space="preserve">
-    <value>已连接至 公共 服务器</value>
+    <value>连接到公共服务器</value>
   </data>
   <data name="ContextMenu.ServerInformation.Title" xml:space="preserve">
     <value>服务器信息</value>
@@ -271,7 +267,7 @@
     <value>类型</value>
   </data>
   <data name="Dialog.AddFastFlag.Title" xml:space="preserve">
-    <value>添加 FFlag</value>
+    <value>添加快速标志</value>
   </data>
   <data name="Dialog.Connectivity.MoreInfo" xml:space="preserve">
     <value>更多信息：</value>
@@ -280,64 +276,64 @@
     <value>连接错误</value>
   </data>
   <data name="Dialog.Connectivity.UnableToConnect" xml:space="preserve">
-    <value>Fishstrap 无法连接至 {0}</value>
-    <comment>{0} is the name of a service (i.e. Roblox, GitHub)</comment>
+    <value>Fishstrap 无法连接到 {0}</value>
+    <comment>{0} 是服务名称（例如 Roblox、GitHub）</comment>
   </data>
   <data name="Dialog.Exception.CopyLogContents" xml:space="preserve">
     <value>复制日志内容</value>
   </data>
   <data name="Dialog.Exception.Info.1" xml:space="preserve">
-    <value>运行 Fishstrap 时发生了异常</value>
+    <value>运行 Fishstrap/Bloxstrap 时发生异常</value>
   </data>
   <data name="Dialog.Exception.Info.2" xml:space="preserve">
-    <value>请先浏览 [Bloxstrap Wiki]({0})，看看这个问题是否已经得到解决。
+    <value>首先检查 [Bloxstrap Wiki]({0}) 以查看此问题是否已解决。
 
-如果没有，请通过 [GitHub Issues]({1}) 来报告此异常；并附上所创建的日志文件副本。</value>
+如果问题仍然存在，请通过 [GitHub issue]({1}) 报告此异常，并附上生成的日志文件。</value>
   </data>
   <data name="Dialog.Exception.Title" xml:space="preserve">
-    <value>Fishstrap 出现异常</value>
+    <value>Fishstrap 异常</value>
   </data>
   <data name="Common.Custom" xml:space="preserve">
     <value>自定义</value>
   </data>
   <data name="Enums.BootstrapperIcon.IconEarly2015" xml:space="preserve">
-    <value>2015 前半年</value>
+    <value />
   </data>
   <data name="Enums.BootstrapperIcon.IconLate2015" xml:space="preserve">
-    <value>2015 后半年</value>
+    <value>2015 年晚些时候</value>
   </data>
   <data name="Enums.BootstrapperStyle.ByfronDialog" xml:space="preserve">
-    <value>仿 Byfron (2023)</value>
+    <value>假 Byfron（2023）</value>
   </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
-    <value>Fishstrap (经典)</value>
+    <value>Fishstrap（经典）</value>
   </data>
   <data name="Enums.BootstrapperStyle.FluentAeroDialog" xml:space="preserve">
-    <value>Fishstrap (透明)</value>
+    <value>Fishstrap（玻璃）</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2008" xml:space="preserve">
-    <value>经典 (2008 - 2011)</value>
+    <value>旧版（2008 - 2011）</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2011" xml:space="preserve">
-    <value>经典 (2011 - 2014)</value>
+    <value>旧版（2011 - 2014）</value>
   </data>
   <data name="Enums.BootstrapperStyle.ProgressDialog" xml:space="preserve">
-    <value>Roblox (~2014)</value>
+    <value>Roblox（约 2014）</value>
   </data>
   <data name="Enums.BootstrapperStyle.VistaDialog" xml:space="preserve">
-    <value>Vista (2008 - 2011)</value>
+    <value>Vista（2008 - 2011）</value>
   </data>
   <data name="Enums.CursorType.From2006" xml:space="preserve">
-    <value>2006 (卡通化)</value>
+    <value>2006（卡通）</value>
   </data>
   <data name="Enums.CursorType.From2013" xml:space="preserve">
-    <value>2013 (棱角化)</value>
+    <value>2013（Angular）</value>
   </data>
   <data name="Enums.EmojiType.Catmoji" xml:space="preserve">
     <value>Catmoji</value>
   </data>
   <data name="Enums.EmojiType.Default" xml:space="preserve">
-    <value>默认 (Twemoji)</value>
+    <value>默认（Twemoji）</value>
   </data>
   <data name="Enums.EmojiType.Windows10" xml:space="preserve">
     <value>Windows 10</value>
@@ -358,16 +354,16 @@
     <value>2023 (V4)</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Default" xml:space="preserve">
-    <value>以游戏预设为主</value>
+    <value>由游戏选择</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Future" xml:space="preserve">
-    <value>Future (光照第三计划)</value>
+    <value>未来（第 3 阶段）</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.ShadowMap" xml:space="preserve">
-    <value>Shadow Map (光照第二计划)</value>
+    <value>阴影贴图（第 2 阶段）</value>
   </data>
   <data name="Enums.FlagPresets.LightingMode.Voxel" xml:space="preserve">
-    <value>Voxel (光照首计划)</value>
+    <value>体素（第 1 阶段）</value>
   </data>
   <data name="Enums.FlagPresets.RenderingMode.D3D10" xml:space="preserve">
     <value>Direct3D 10</value>
@@ -391,38 +387,38 @@
     <value>浅色</value>
   </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
-    <value>Fishstrap 现已更新至 v{0}</value>
+    <value>Fishstrap 已升级到 v{0}</value>
   </data>
   <data name="InstallChecker.VersionDifferentThanInstalled" xml:space="preserve">
-    <value>您启动的 Fishstrap 版本与您当前已安装的版本并不一致。
-您是否要更新当前已安装的版本？</value>
+    <value>您启动的 Fishstrap 版本与当前安装的版本不同。
+您想升级当前安装的版本吗？</value>
   </data>
   <data name="Menu.About.Contributors" xml:space="preserve">
     <value>贡献者</value>
   </data>
   <data name="Menu.About.Contributors.Code" xml:space="preserve">
-    <value>代码贡献者</value>
+    <value>代码</value>
   </data>
   <data name="Menu.About.Contributors.Description" xml:space="preserve">
-    <value>这是那些曾经为 Fishstrap 贡献了许多帮助的贡献者们；没有他们，发展到如今绝无可能。</value>
+    <value>这些人对 Fishstrap/Bloxstrap 做出了杰出贡献，帮助它成为今天的样子。</value>
   </data>
   <data name="Menu.About.Contributors.FeatureIdeas" xml:space="preserve">
-    <value>特色功能贡献者</value>
+    <value>功能想法</value>
   </data>
   <data name="Menu.About.Contributors.SpecialThanks" xml:space="preserve">
     <value>特别鸣谢</value>
   </data>
   <data name="Menu.About.Description" xml:space="preserve">
-    <value>一款专门为 Roblox 所设计且具有许多额外功能的第三方启动器。</value>
+    <value>Bloxstrap 的一个分支。</value>
   </data>
   <data name="Menu.About.DiscordServer" xml:space="preserve">
     <value>Discord 服务器</value>
   </data>
   <data name="Menu.About.GithubRepository" xml:space="preserve">
-    <value>GitHub 代码仓库</value>
+    <value>GitHub 仓库</value>
   </data>
   <data name="Menu.About.HelpInformation" xml:space="preserve">
-    <value>信息与帮助</value>
+    <value>帮助与信息</value>
   </data>
   <data name="Menu.About.Licenses" xml:space="preserve">
     <value>许可证</value>
@@ -434,56 +430,56 @@
     <value>MIT 许可证</value>
   </data>
   <data name="Menu.About.ReportIssue" xml:space="preserve">
-    <value>报告 Bug</value>
+    <value>报告问题</value>
   </data>
   <data name="Menu.About.Title" xml:space="preserve">
     <value>关于</value>
   </data>
   <data name="Menu.About.Version" xml:space="preserve">
     <value>版本 {0}</value>
-    <comment>{0} is replaced with the version, i.e. "Version 2.8.0"</comment>
+    <comment>{0} 将替换为版本号，例如"版本 2.8.0"</comment>
   </data>
   <data name="Menu.AllFiles" xml:space="preserve">
     <value>所有文件</value>
   </data>
   <data name="Menu.AlreadyRunning.Caption" xml:space="preserve">
-    <value>请注意；在您关闭所有 Roblox 程序之前，并非所有更改都会立即生效。</value>
+    <value>请注意，并非所有更改都会立即生效，直到您关闭所有当前打开的 Roblox 实例。</value>
   </data>
   <data name="Menu.AlreadyRunning.Title" xml:space="preserve">
-    <value>Fishstrap 已经在运行中</value>
+    <value>Fishstrap 正在运行中</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Description" xml:space="preserve">
-    <value>您可以自由更改此启动器的 UI 风格。例如复古；又或者跟原版 Roblox 的风格完全一样！</value>
+    <value>您可以让它看起来与众不同、复古，甚至就像 Roblox 一样。</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Title" xml:space="preserve">
     <value>启动器</value>
   </data>
   <data name="Menu.Appearance.Customisation.Description" xml:space="preserve">
-    <value>您可以在此处配置其他各种可定制的选项。</value>
+    <value>配置其他杂项自定义选项。</value>
   </data>
   <data name="Menu.Appearance.Customisation.Title" xml:space="preserve">
     <value>自定义</value>
   </data>
   <data name="Menu.Appearance.CustomisationIcon.Description" xml:space="preserve">
-    <value>图标大小必须为 16 至 128 像素的 .ico 文件；将图标类型设置为 “自定义” 后方可投入使用。</value>
+    <value>必须是包含 16px 到 128px 大小的多尺寸 .ico 文件。将图标设置为"自定义"以使用它。</value>
   </data>
   <data name="Menu.Appearance.CustomisationIcon.Title" xml:space="preserve">
     <value>自定义图标</value>
   </data>
   <data name="Menu.Appearance.CustomisationTitle.Description" xml:space="preserve">
-    <value>此文本将作为启动器的标题显示。</value>
+    <value>显示为启动器标题的文本。</value>
   </data>
   <data name="Menu.Appearance.CustomisationTitle.Title" xml:space="preserve">
     <value>标题</value>
   </data>
   <data name="Menu.Appearance.Description" xml:space="preserve">
-    <value>您可以在此处更改 Fishstrap 的部分 UI。</value>
+    <value>配置 Fishstrap 的外观。</value>
   </data>
   <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
     <value>全局主题</value>
   </data>
   <data name="Menu.Appearance.Icon.Description" xml:space="preserve">
-    <value>为 Fishstrap 选择一个图标。</value>
+    <value>选择应使用的图标。</value>
   </data>
   <data name="Menu.Appearance.Icon.Title" xml:space="preserve">
     <value>图标</value>
@@ -492,32 +488,31 @@
     <value>预览</value>
   </data>
   <data name="Menu.Appearance.Style.Description" xml:space="preserve">
-    <value>选择主题外观；深色主题不适用于 “经典/Vista” 选项。</value>
+    <value>选择其外观。深色主题不适用于旧版/Vista。</value>
   </data>
   <data name="Menu.Appearance.Style.Title" xml:space="preserve">
     <value>样式</value>
   </data>
   <data name="Menu.Appearance.Title" xml:space="preserve">
-    <value>个性化</value>
+    <value>外观</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Description" xml:space="preserve">
-    <value>当您启动 Roblox 时，Fishstrap 将会自动检查其本身并进行更新。</value>
+    <value>Fishstrap 将在启动 Roblox 时自动检查并更新自身。</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
     <value>自动更新 Fishstrap</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Description" xml:space="preserve">
-    <value>防止因意外启动另外一个 Roblox 进程从而导致您当前正在进行的进程被关闭。</value>
+    <value>防止意外启动另一个 Roblox 实例而关闭您现有的游戏。</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Title" xml:space="preserve">
-    <value>在启动另一个 Roblox 进程时提示确认信息</value>
+    <value>启动另一个 Roblox 实例时提示确认</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
-    <value>您可以在此处配置 Fishstrap 在启动时应执行的操作。</value>
+    <value>配置 Fishstrap 在启动 Roblox 时应执行的操作。</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Description" xml:space="preserve">
-    <value>启用此选项后 Roblox 将会在下次启动时进行全新安装。
-（此选项将会在首次安装时强制启用；若完成安装此选项则会自动禁用）</value>
+    <value>Roblox 将在下次启动时全新安装。</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Title" xml:space="preserve">
     <value>强制重新安装 Roblox</value>
@@ -526,55 +521,55 @@
     <value>启动器</value>
   </data>
   <data name="Menu.FastFlagEditor.AddNew" xml:space="preserve">
-    <value>添加新的</value>
+    <value>添加新项</value>
   </data>
   <data name="Menu.FastFlagEditor.AlreadyExists" xml:space="preserve">
-    <value>关于此 Flag 名称的条目已存在。</value>
+    <value>此标志名称的条目已存在。</value>
   </data>
   <data name="Menu.FastFlagEditor.Back" xml:space="preserve">
     <value>返回</value>
   </data>
   <data name="Menu.FastFlagEditor.BannerText" xml:space="preserve">
-    <value>滥用此功能可能会导致不稳定或意料之外的事情。</value>
-    <comment>The element that this string is rendered in *cannot be wrapped* and may be truncated when displayed if too long. If so, try and paraphrase a shortened version.</comment>
+    <value>滥用此功能可能导致不稳定或发生意外情况。</value>
+    <comment>此字符串渲染的元素*不能换行*，如果过长可能会被截断。如果发生这种情况，请尝试缩短版本。</comment>
   </data>
   <data name="Menu.FastFlagEditor.BannerTitle" xml:space="preserve">
     <value>请谨慎使用。</value>
   </data>
   <data name="Menu.FastFlagEditor.ConflictingImport" xml:space="preserve">
-    <value>您尝试导入的某些 Flags 已经设置了属于它自己的值；您想用导入时定义的值覆盖它们当前所处的值吗？
+    <value>您尝试导入的一些标志已设置值。您想用导入中定义的值覆盖它们当前的值吗？
 
-有 {0} 个 Flags 定义相互冲突：
+有 {0} 个冲突的标志定义：
 {1}</value>
-    <comment>{0} is a number, {1} is a comma-separated list</comment>
+    <comment>{0} 是一个数字，{1} 是一个逗号分隔的列表</comment>
   </data>
   <data name="Menu.FastFlagEditor.DeleteSelected" xml:space="preserve">
-    <value>删除所选内容</value>
+    <value>删除选中项</value>
   </data>
   <data name="Menu.FastFlagEditor.Description" xml:space="preserve">
-    <value>您可以在此处管理属于您自己独一无二的 Fast Flags；双击任意一列来进行编辑。</value>
+    <value>管理您自己的快速标志。双击列进行编辑。</value>
   </data>
   <data name="Menu.FastFlagEditor.ExportJson" xml:space="preserve">
     <value>导出 JSON</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidCharacter" xml:space="preserve">
-    <value>您输入的内容 “{0}” 无效；其内容只能包含字母、数字和下划线。</value>
+    <value>"{0}"的条目无效，因为名称只能包含字母、数字和下划线</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidJSON" xml:space="preserve">
-    <value>您输入的 JSON 似乎无效；请仔细检查后并重试。
+    <value>您输入的 JSON 似乎无效。请仔细检查并重试。
 
-关于更多信息：
+更多信息：
 {0}</value>
-    <comment>{0} is an exception message</comment>
+    <comment>{0} 是异常消息</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidPrefix" xml:space="preserve">
-    <value>您输入的内容 “{0}” 无效；其内容必须以 “FFlag”、“DFInt” 等开头才能生效。</value>
+    <value>"{0}"的条目无效，因为名称必须以 FFlag、DFInt 等开头</value>
   </data>
   <data name="Menu.FastFlagEditor.JsonCopiedToClipboard" xml:space="preserve">
     <value>已复制到剪贴板。</value>
   </data>
   <data name="Menu.FastFlagEditor.LargeConfig" xml:space="preserve">
-    <value>您似乎正在导入过多的配置；通常来说，您应该只导入自己完全了解的配置，切勿盲目粘贴他人的配置。如果执意继续，很可能会出现稳定性问题；并发生意想不到的变化。
+    <value>您似乎正在导入一个非常大的配置。您应该只导入您完全理解的配置。请勿盲目粘贴他人制作的配置。如果您继续，很可能会出现稳定性问题并遇到意外更改。
 
 您确定要继续吗？</value>
   </data>
@@ -582,10 +577,10 @@
     <value>搜索</value>
   </data>
   <data name="Menu.FastFlagEditor.ShowPresetFlags" xml:space="preserve">
-    <value>展示预设 Flags</value>
+    <value>显示预设标志</value>
   </data>
   <data name="Menu.FastFlagEditor.Title" xml:space="preserve">
-    <value>FFlag 编辑器</value>
+    <value>快速标志编辑器</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Back" xml:space="preserve">
     <value>返回</value>
@@ -594,53 +589,50 @@
     <value>我知道我在做什么</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Header" xml:space="preserve">
-    <value>你知道您在做什么吗？</value>
+    <value>您知道自己在做什么吗？</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Text" xml:space="preserve">
-    <value>Fast Flags 是专业且有用的，它们通常仅供 Roblox 工程师来使用；而不是非专业人士。虽然它们很有用，但手动配置它们可能会导致严重的稳定性和功能问题。如果你不知道这是干什么用的，那就最好别用 Fast Flags。
+    <value>快速标志功能非常强大，因为它们仅供 Roblox 工程师使用。虽然它们非常有用，但手动配置它们可能会导致稳定性与功能方面的严重问题。如果您不确定自己在做什么，请勿使用此编辑器。
 
-因此，在你不知道相关知识之前，请不要导入其他人制作的 Fast Flags；例如提高游戏性能或类似功能的 Fast Flags 配置，它们会让你徒增烦恼。如果你正打算这么干的话，就此打住吧。
-
-（注：Fast Flags 是这样的，Roblox 只需要随时更新就可以了；而你要考虑的可就多了。）</value>
+请勿使用此功能导入他人制作的、声称能提高性能的大型"标志列表"。它们会受到上述问题的影响，并且会给您带来麻烦，因为您不会完全了解它们正在更改什么。如果您正打算这样做，请返回。</value>
   </data>
   <data name="Menu.FastFlags.Description" xml:space="preserve">
-    <value>您可以在此处配置 Roblox 引擎的特定参数和功能。</value>
+    <value>控制特定 Roblox 引擎参数和功能的配置方式。</value>
   </data>
   <data name="Menu.FastFlags.Editor.Description" xml:space="preserve">
-    <value>您可以在此处管理属于您自己独一无二的 Fast Flags；请谨慎使用它们。</value>
-    <comment>Title is Menu.FastFlagEditor.Title</comment>
+    <value>管理您自己的快速标志。请谨慎使用。</value>
+    <comment>标题是 Menu.FastFlagEditor.Title</comment>
   </data>
   <data name="Menu.FastFlags.Help.Description" xml:space="preserve">
-    <value>进一步了解 Fast Flags 的更多信息、这些预设值的作用以及如何使用它们。</value>
-    <comment>Title is Common.Help</comment>
+    <value>了解更多关于快速标志、这些预设的作用以及如何使用它们的信息。</value>
+    <comment>标题是 Common.Help</comment>
   </data>
   <data name="Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo" xml:space="preserve">
-    <value>使用 “Alt+Enter” 快捷键以进入 Direct3D [全屏独占]({0}) 已默认启用。</value>
+    <value>默认启用使用 Alt+Enter 的 Direct3D 独占全屏模式。</value>
   </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
-    <value>首选 Esc 菜单版本</value>
+    <value>首选退出菜单版本</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Description" xml:space="preserve">
-    <value>Roblox 会根据 Windows 的显示缩放比例来调整渲染质量；启用此选项将禁用此功能。</value>
+    <value>Roblox 会根据您在 Windows 中的显示缩放比例降低渲染质量。</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Title" xml:space="preserve">
-    <value>不根据显示缩放比例改变其渲染质量</value>
+    <value>在显示缩放时保留渲染质量</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
-    <value>设置为 “0” (默认值) 以使用 Roblox 自带的帧率解锁器。</value>
+    <value>如果您想使用 Roblox 的原生帧率解锁器，请设置为 0 以使用默认值。</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
-    <value>帧率上限</value>
+    <value>帧率限制</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
-    <value>使用 [键盘快捷键]({0}) 来切换；只有当您在加入 [Fishstrap 群组]({1}) 后才会生效。</value>
+    <value>通过 [键盘快捷键]({0}) 切换。输入您所在群组的 ID。</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
-    <value>启用 隐藏/显示 GUI 的功能</value>
+    <value>隐藏 GUI</value>
   </data>
   <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
-    <value>选择的项目将会在所有游戏内应用。
-[请注意，此选项可能会导致一些出乎意料的光照问题！]({0})</value>
+    <value>所选技术将在所有游戏中强制启用。[注意，可能会导致光照问题！]({0})</value>
   </data>
   <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
     <value>首选光照技术</value>
@@ -649,7 +641,7 @@
     <value>渲染模式</value>
   </data>
   <data name="Menu.FastFlags.Title" xml:space="preserve">
-    <value>FFlags</value>
+    <value>快速标志</value>
   </data>
   <data name="Menu.FontFiles" xml:space="preserve">
     <value>字体文件</value>
@@ -658,113 +650,111 @@
     <value>图标文件</value>
   </data>
   <data name="Menu.InstallLocation.CantInstall" xml:space="preserve">
-    <value>Fishstrap 无法在此处安装；请选择在其他位置安装，或点击 “重置” 按钮来使用其默认安装路径。</value>
+    <value>Fishstrap 无法安装在此处。请选择其他位置，或点击重置按钮使用默认位置。</value>
   </data>
   <data name="Menu.InstallLocation.NotEmpty" xml:space="preserve">
-    <value>您选择安装 Fishstrap 的文件夹已经存在且不为空文件夹；强烈建议将 Fishstrap 安装到其自己的独立文件夹中。
+    <value>您选择安装 Fishstrap 的文件夹已存在且不为空。强烈建议将 Fishstrap 安装到其独立的文件夹中。
 
-建议更改为以下位置：
-“{0}”
+建议更改到以下位置：
+{0}
 
-是否更改为建议的位置？
-选择 “否” 将忽略此警告并继续安装。</value>
-    <comment>{0} is a file path</comment>
+您想更改到建议的位置吗？
+选择"否"将忽略此警告并继续安装。</value>
+    <comment>{0} 是文件路径</comment>
   </data>
   <data name="Menu.InstallLocation.NotSet" xml:space="preserve">
-    <value>您必须选择一个安装位置</value>
+    <value>您必须设置安装位置</value>
   </data>
   <data name="Menu.InstallLocation.NoWritePerms" xml:space="preserve">
-    <value>Fishstrap 对您当前选择的安装路径没有写入权限；请选择其他可用的位置。</value>
+    <value>Fishstrap 对您选择的安装位置没有写入权限。请选择其他位置。</value>
   </data>
   <data name="Menu.Integrations.ActivityTracking" xml:space="preserve">
-    <value>游戏跟踪</value>
+    <value>活动追踪</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Description" xml:space="preserve">
-    <value>启用此选项将会允许任何人通过您的 Discord 个人资料来加入您当前所在的游戏。</value>
+    <value>允许任何人通过您的 Discord 个人资料加入您当前正在玩的游戏。</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Title" xml:space="preserve">
-    <value>允许外部方式加入游戏</value>
+    <value>允许活动加入</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Description" xml:space="preserve">
-    <value>启用此选项将会在您的 Discord 个人资料上显示您当前正在使用的 Roblox 帐户。</value>
+    <value>在您的 Discord 个人资料上显示您正在使用的 Roblox 帐户。</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Title" xml:space="preserve">
     <value>显示 Roblox 帐户</value>
   </data>
   <data name="Menu.Integrations.Custom.AppLocation" xml:space="preserve">
-    <value>应用路径</value>
+    <value>应用程序位置</value>
   </data>
   <data name="Menu.Integrations.Custom.AutoClose" xml:space="preserve">
-    <value>当 Roblox 关闭时自动关闭其进程</value>
+    <value>Roblox 关闭时自动关闭</value>
   </data>
   <data name="Menu.Integrations.Custom.Description" xml:space="preserve">
-    <value>在此处，您可以让其他程序与 Roblox 一起启动。</value>
+    <value>在这里，您可以让其他程序随 Roblox 自动启动。</value>
   </data>
   <data name="Menu.Integrations.Custom.LaunchArgs" xml:space="preserve">
     <value>启动参数</value>
   </data>
   <data name="Menu.Integrations.Custom.LaunchArgs.Placeholder" xml:space="preserve">
-    <value>Roblox 当前正在运行中！</value>
+    <value>Roblox 正在运行！</value>
   </data>
   <data name="Menu.Integrations.Custom.NewIntegration" xml:space="preserve">
-    <value>新附属程序</value>
+    <value>新集成</value>
   </data>
   <data name="Menu.Integrations.Custom.NoneSelected" xml:space="preserve">
-    <value>当前未选择任意一个附属程序；请选择一个或添加新的附属程序</value>
+    <value>未选择集成，请选择或添加新集成</value>
   </data>
   <data name="Menu.Integrations.Custom.Title" xml:space="preserve">
-    <value>自定义附属程序</value>
+    <value>自定义集成</value>
   </data>
   <data name="Menu.Integrations.Description" xml:space="preserve">
-    <value>您可以在此处配置 Roblox 的附属功能。</value>
+    <value>配置与 Roblox 协同的其他功能。</value>
   </data>
   <data name="Menu.Integrations.DesktopApp.Description" xml:space="preserve">
-    <value>当你离开游戏时，Roblox 将会完全关闭；而不是让您退回到主界面。
-[将会损坏某些功能！]({0})</value>
+    <value>当您离开游戏时，Roblox 将完全关闭，而不是返回应用程序。[可能会破坏某些功能！]({0})</value>
   </data>
   <data name="Menu.Integrations.DesktopApp.Title" xml:space="preserve">
-    <value>禁止 Roblox 在离开游戏时退回到主界面</value>
+    <value>不退出到桌面应用程序</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
-    <value>启用此选项将会允许 Fishstrap 检测您当前玩的 Roblox 游戏；某些功能可能需要这项功能打开。</value>
+    <value>允许 Fishstrap 检测您正在玩哪个 Roblox 游戏。某些功能可能需要此功能。</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
-    <value>启用游戏跟踪</value>
+    <value>启用活动追踪</value>
   </data>
   <data name="Menu.Integrations.RequiresActivityTracking" xml:space="preserve">
-    <value>此功能需要启用 “启用游戏跟踪” 选项；并且 Discord 桌面应用程序也需要安装到你的电脑上并运行。[了解更多]({0})</value>
+    <value>此功能需要启用活动追踪，并且需要安装并运行 Discord 桌面应用程序。[了解更多]({0})。</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Description" xml:space="preserve">
-    <value>启用此选项将会使您正在游玩的 Roblox 游戏显示在您的 Discord 个人资料上。[不起作用？]({0})</value>
+    <value>您正在玩的 Roblox 游戏将显示在您的 Discord 个人资料上。[不工作？]({0})</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Title" xml:space="preserve">
     <value>显示游戏活动</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
-    <value>当您加入游戏时，您将会收到当前服务器具体信息的通知；通知将不会在 “全屏独占” 时显示。
-（由 [ipinfo.io]({0}) 提供技术支持）</value>
+    <value>在游戏中，您将能够通过 [ipinfo.io]({0}) 查看您服务器的位置。</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Title" xml:space="preserve">
-    <value>允许接收服务器具体信息通知</value>
+    <value>查询服务器位置</value>
   </data>
   <data name="Menu.Integrations.Title" xml:space="preserve">
-    <value>附属功能</value>
+    <value>集成</value>
   </data>
   <data name="Menu.Mods.Description" xml:space="preserve">
-    <value>您可以在此处管理其模组的文件并将其应用到 Roblox 游戏客户端。</value>
+    <value>管理并将文件模组应用于 Roblox 游戏客户端。</value>
   </data>
   <data name="Menu.Mods.Help.Description" xml:space="preserve">
-    <value>查阅关于如何管理和创建模组的指南。</value>
-    <comment>Title is Common.Help</comment>
+    <value>查看有关管理和创建模组的信息。</value>
+    <comment>标题是 Common.Help</comment>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Choose" xml:space="preserve">
-    <value>选择字体文件...</value>
+    <value>选择字体...</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Description" xml:space="preserve">
-    <value>字体大小可在 “FFlags” 选项卡中进行调整。</value>
+    <value>字体大小可以在引擎设置选项卡中调整。</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Invalid" xml:space="preserve">
-    <value>您当前选择的文件似乎不是有效的字体文件。</value>
+    <value>您选择的文件似乎不是有效的字体文件。</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Remove" xml:space="preserve">
     <value>移除已应用的字体</value>
@@ -773,52 +763,52 @@
     <value>使用自定义字体</value>
   </data>
   <data name="Menu.Mods.OpenModsFolder.Description" xml:space="preserve">
-    <value>您可以在此处自定义 Roblox 的模组。</value>
+    <value>在此处管理自定义 Roblox 模组。</value>
   </data>
   <data name="Menu.Mods.OpenModsFolder.Title" xml:space="preserve">
     <value>打开模组文件夹</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Description" xml:space="preserve">
-    <value>选择要应用到 Roblox 的表情符号类型。</value>
+    <value>选择 Roblox 应使用哪种表情符号类型。</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Title" xml:space="preserve">
     <value>首选表情符号类型</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Description" xml:space="preserve">
-    <value>在两种经典的 Roblox 指针样式之间进行选择。</value>
+    <value>选择使用两种经典 Roblox 光标样式中的一种。</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Title" xml:space="preserve">
-    <value>鼠标指针</value>
+    <value>鼠标光标</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Description" xml:space="preserve">
-    <value>启用此选项将会恢复 2020 年之前 Roblox 应用程序中使用的旧版 虚拟形象 (Avatar) 编辑器背景。</value>
+    <value>恢复 2020 年之前 Roblox 应用程序中使用的旧版头像编辑器背景。</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Title" xml:space="preserve">
-    <value>使用旧的 虚拟形象 (Avatar) 编辑器背景</value>
+    <value>使用旧版头像编辑器背景</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Description" xml:space="preserve">
-    <value>启用此选项后；Fishstrap 将会试图大致还原 2014 年之前使用的 Roblox 人物音效。</value>
+    <value>尝试大致恢复 2014 年之前使用的角色音效。</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Title" xml:space="preserve">
-    <value>模拟旧的 Roblox 人物音效</value>
+    <value>模拟旧版角色音效</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Description" xml:space="preserve">
-    <value>启用此选项将会把 Roblox 当前的死亡音效还原为旧版的死亡音效。“Oof!”</value>
+    <value>恢复经典的"oof"死亡音效。</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Title" xml:space="preserve">
-    <value>使用旧的 Roblox 死亡音效</value>
+    <value>使用旧版死亡音效</value>
   </data>
   <data name="Menu.Mods.Title" xml:space="preserve">
     <value>模组</value>
   </data>
   <data name="Menu.MoreInfo" xml:space="preserve">
-    <value>点击以获取有关此选项的更多信息。</value>
+    <value>点击查看此选项的更多信息。</value>
   </data>
   <data name="Menu.Save" xml:space="preserve">
     <value>保存</value>
   </data>
   <data name="Menu.SettingsSaved.Message" xml:space="preserve">
-    <value>更改将会在下次启动 Roblox 时生效。</value>
+    <value>更改将在您下次启动 Roblox 时生效。</value>
   </data>
   <data name="Menu.SettingsSaved.Title" xml:space="preserve">
     <value>设置已保存！</value>
@@ -827,40 +817,41 @@
     <value>Fishstrap 设置</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
-    <value>选择启动器应用的语言</value>
+    <value>选择首选语言</value>
   </data>
   <data name="Dialog.LanguageSelector.Subtext" xml:space="preserve">
-    <value>在继续安装之前请先选择语言。</value>
+    <value>在继续安装之前选择一种语言。
+某些文本可能未翻译成首选语言。</value>
   </data>
   <data name="Menu.Appearance.Language.Title" xml:space="preserve">
     <value>语言</value>
   </data>
   <data name="Menu.Appearance.Language.Description" xml:space="preserve">
-    <value>您需要重启 Fishstrap 才能使更改生效。</value>
+    <value>更改需要重新启动才能生效。某些文本可能未翻译成首选语言。</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Title" xml:space="preserve">
-    <value>允许使用 Roblox 官方不支持的语言</value>
+    <value>允许使用不受支持的 Roblox 语言</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Description" xml:space="preserve">
-    <value>启用此选项后必须从 Roblox 网页端 启动游戏才能生效。</value>
+    <value>仅适用于从 Roblox 网站启动的游戏。</value>
   </data>
   <data name="Enums.FlagPresets.InGameMenuVersion.V4Chrome" xml:space="preserve">
-    <value>2023 (V4 + 最新 UI)</value>
+    <value>2023 (V4 + 新 UI)</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.Rendering" xml:space="preserve">
-    <value>渲染和质量</value>
+    <value>渲染与图形</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.UserInterface" xml:space="preserve">
-    <value>UI 和布局</value>
+    <value>用户界面与布局</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Title" xml:space="preserve">
-    <value>允许 Fishstrap 管理 Fast Flags</value>
+    <value>允许 Fishstrap 管理快速标志</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Description" xml:space="preserve">
-    <value>禁用此选项将会阻止在此配置的任何内容应用于 Roblox。</value>
+    <value>禁用此选项将阻止此处配置的任何内容应用于 Roblox。</value>
   </data>
   <data name="Menu.FastFlags.Presets.MSAA.Title" xml:space="preserve">
-    <value>抗锯齿等级 (MSAA)</value>
+    <value>抗锯齿质量 (MSAA)</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
     <value>禁用后期处理效果</value>
@@ -869,22 +860,22 @@
     <value>禁用全屏标题栏</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Description" xml:space="preserve">
-    <value>启用此选项将会使鼠标指针移至顶部时 Roblox 自带的标题栏不再会显示。</value>
+    <value>当您将鼠标移动到屏幕顶部时，阻止其显示。</value>
   </data>
   <data name="Menu.FastFlags.Presets.TextureQuality.Title" xml:space="preserve">
-    <value>材质质量</value>
+    <value>纹理质量</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level0" xml:space="preserve">
-    <value>等级 0 (最低)</value>
+    <value>级别 0（最低）</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level1" xml:space="preserve">
-    <value>等级 1</value>
+    <value>级别 1</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level2" xml:space="preserve">
-    <value>等级 2</value>
+    <value>级别 2</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level3" xml:space="preserve">
-    <value>等级 3 (最高)</value>
+    <value>级别 3（最高）</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
     <value>禁用玩家阴影</value>
@@ -893,34 +884,34 @@
     <value>字体大小</value>
   </data>
   <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
-    <value>默认数值为 “1”；如果您使用自定义字体，请进行调整以获取最佳适配性。</value>
+    <value>默认值为 1。如果您使用自定义字体，请进行调整。</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
-    <value>禁用地形材质</value>
+    <value>禁用地形纹理</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
     <value>Fishstrap 无法下载 Roblox</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownloadReason" xml:space="preserve">
-    <value>Roblox 目前无法下载，请阅读此页面以获取详细信息：{0}</value>
-    <comment>{0} is a URL</comment>
+    <value>Roblox 目前无法下载。请阅读以下帮助页面以获取更多信息：{0}</value>
+    <comment>{0} 是一个 URL</comment>
   </data>
   <data name="Common.ImportFromFile" xml:space="preserve">
     <value>从文件导入</value>
   </data>
   <data name="FileTypes.JSONFiles" xml:space="preserve">
     <value>JSON 文件</value>
-    <comment>Shown in the open file dialog, where the file type selection dropdown is, e.g. "JSON files (*.json)"</comment>
+    <comment>显示在打开文件对话框中，文件类型选择下拉菜单处，例如"JSON 文件 (*.json)"</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidBoolValue" xml:space="preserve">
-    <value>您输入的内容 “{0}” 无效；其内容只能为布尔值。(“True” 或 “False”)</value>
-    <comment>Do not translate 'True' and 'False', those must stay in English</comment>
+    <value>"{0}"的条目无效，因为值必须是布尔值（"True"或"False"）</value>
+    <comment>请勿翻译"True"和"False"，它们必须保持英文</comment>
   </data>
   <data name="Menu.FastFlagEditor.InvalidNumberValue" xml:space="preserve">
-    <value>您输入的内容 “{0}” 无效；其内容只能为数字才能生效。</value>
+    <value>"{0}"的条目无效，因为值必须是数字</value>
   </data>
   <data name="Logger.NoWriteMode" xml:space="preserve">
-    <value>由于 Fishstrap 无法写入 “{0}” 文件夹；因此本次启动不会写入任何日志文件。</value>
+    <value>此次启动不会写入日志文件，因为 Fishstrap 无法写入文件夹"{0}"</value>
   </data>
   <data name="Common.Default" xml:space="preserve">
     <value>默认</value>
@@ -932,7 +923,7 @@
     <value>系统默认</value>
   </data>
   <data name="Menu.FastFlagEditor.InvalidPlaceFilter" xml:space="preserve">
-    <value>您输入的内容 “{0}” 无效；因为游戏过滤器的格式不正确。</value>
+    <value>"{0}"的条目无效，因为地点过滤器格式不正确。</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
     <value>Fishstrap 安装程序</value>
@@ -941,8 +932,8 @@
     <value>欢迎</value>
   </data>
   <data name="Installer.Install.Title" xml:space="preserve">
-    <value>安装 Fishstrap</value>
-    <comment>Refers to "Install" as a verb</comment>
+    <value>安装</value>
+    <comment>指"安装"作为动词</comment>
   </data>
   <data name="Installer.Completion.Title" xml:space="preserve">
     <value>完成</value>
@@ -954,30 +945,27 @@
     <value>下一步</value>
   </data>
   <data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>感谢您下载 Fishstrap。
+    <value>感谢您下载 Fishstrap。 
 
-! 获取 Fishstrap 的 唯一 官方网站 是 {0} 和 {1}；因此请确保启动器是从 官方渠道 获取的 !
-（注：一般只有使用真正意义上的 注入器 作弊才会导致封号 (Fishstrap 只是在 外部 修改 并未在游戏内修改任何内容)）
+Fishstrap 的唯一官方下载来源是 {0}，请务必确认您是从官方来源获取的。
 
-安装过程简单明了；安装完成后，您将可以对 Fishstrap 的任何设置进行配置。</value>
-    <comment>{0} and {1} are URLs</comment>
+此安装过程将快速简单，安装后您将能够配置 Fishstrap 的任何设置。</value>
+    <comment>{0} 和 {1} 是 URL</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
-    <value>请点击 “下一步” 以继续。</value>
+    <value>请点击"下一步"继续。</value>
   </data>
   <data name="Installer.Welcome.UpdateNotice" xml:space="preserve">
-    <value>您正在尝试安装 Fishstrap v{0}；目前最新版本是 Fishstrap v{1}。
-您想下载最新版本吗？</value>
+    <value>您正在尝试安装 Fishstrap 的 {0} 版本，但最新版本是 {1}。您想下载它吗？</value>
   </data>
   <data name="Installer.Install.Location.Title" xml:space="preserve">
     <value>选择安装位置</value>
   </data>
   <data name="Installer.Install.Location.Text" xml:space="preserve">
-    <value>Roblox 本体也将安装至此路径。
-如果您有分类整理电脑的习惯，请更改此项；否则，建议您保持原样。</value>
+    <value>Roblox 也将安装到此路径。如果您希望将所有游戏安装到单独的驱动器，请更改此设置。否则，建议您保持原样。</value>
   </data>
   <data name="Installer.Install.Location.DataFound" xml:space="preserve">
-    <value>发现数据残留；您的模组和设置将被恢复。</value>
+    <value>找到现有数据。您的模组和设置将被恢复。</value>
   </data>
   <data name="Common.Shortcuts" xml:space="preserve">
     <value>快捷方式</value>
@@ -986,49 +974,46 @@
     <value>桌面图标</value>
   </data>
   <data name="Common.Shortcuts.StartMenu" xml:space="preserve">
-    <value>“开始”菜单图标</value>
+    <value>开始菜单图标</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
-    <value>Fishstrap 目前已成功安装到你的电脑上。
+    <value>Fishstrap 已成功安装。
 
-但是 Roblox 尚未安装；这将会在您首次使用 Fishstrap 启动 Roblox 时发生。
-不过，在此之前；您可能会想先调整 Fishstrap 的设置。
+Roblox 尚未安装，这将在您首次使用 Fishstrap 启动它时发生。但是，在此之前，您可能需要先配置 Fishstrap 的设置。
 
-此外，请避免 使用默认 Roblox 启动器 “Roblox Player” 快捷方式 来启动 Roblox；因为 Fishstrap 不会与 Roblox 一起启动。
-如果您尝试从 网页端 启动 Roblox 时并未显示 Fishstrap，只需用 Fishstrap 启动一次 Roblox 即可解决。
+此外，请避免使用"Roblox Player"快捷方式启动 Roblox，因为 Fishstrap 不会随 Roblox 启动。如果您从网站启动时没有看到 Fishstrap 显示，只需从桌面使用 Fishstrap 启动 Roblox 一次即可修复它。
 
-您想要做什么？</value>
+您想做什么？</value>
   </data>
   <data name="Installer.Completion.Settings.Title" xml:space="preserve">
-    <value>更改 Fishstrap 的设置</value>
+    <value>配置 Fishstrap 的设置</value>
   </data>
   <data name="Installer.Completion.Settings.Description" xml:space="preserve">
-    <value>利用启动器提供的所有功能进行调整。</value>
+    <value>调整其提供的所有功能</value>
   </data>
   <data name="Installer.Completion.Launch.Title" xml:space="preserve">
     <value>安装并启动 Roblox</value>
   </data>
   <data name="Installer.Completion.Launch.Description" xml:space="preserve">
-    <value>一切就绪后，您将会跳转到 Roblox 桌面客户端。</value>
+    <value>完成后将带您进入桌面应用程序</value>
   </data>
   <data name="Uninstaller.Title" xml:space="preserve">
     <value>卸载 Fishstrap</value>
   </data>
   <data name="Uninstaller.Text" xml:space="preserve">
-    <value>卸载后，Fishstrap 将会从系统中移除；并自动重新配置 Roblox 原版启动器。
+    <value>卸载将从您的系统中移除 Fishstrap，如果默认的 Roblox 启动器仍然安装，它将自动重新配置。
 
-如果您卸载重装的原因是 Roblox 的问题，请先阅读 [此帮助页]({0})。
+如果您因 Roblox 问题而卸载或重新安装，请先阅读 [此帮助页面]({0})。
 
-卸载过程可能无法完全自行清理，因此您可能需要手动清理安装 Fishstrap 时残留的文件。
+卸载过程可能无法完全清理自身，因此您可能需要手动清理 Fishstrap 安装位置的残留文件。
 
-Fishstrap 的安装路径是：
-“{1}”</value>
+Fishstrap 安装在"{1}"。</value>
   </data>
   <data name="Uninstaller.KeepData.Label" xml:space="preserve">
-    <value>保留我的 Fishstrap 设置 和 Roblox 模组 (Mods)</value>
+    <value>保留我的设置和模组</value>
   </data>
   <data name="Uninstaller.KeepData.Description" xml:space="preserve">
-    <value>它们将会保存在 Fishstrap 安装的位置；重新安装时则会自动恢复。</value>
+    <value>它们将保留在 Fishstrap 的安装位置，并在重新安装时自动恢复。</value>
   </data>
   <data name="Uninstaller.Uninstall" xml:space="preserve">
     <value>卸载</value>
@@ -1037,53 +1022,52 @@ Fishstrap 的安装路径是：
     <value>启动 Roblox</value>
   </data>
   <data name="LaunchMenu.ConfigureSettings" xml:space="preserve">
-    <value>更改设置</value>
+    <value>配置设置</value>
   </data>
   <data name="LaunchMenu.Wiki.Title" xml:space="preserve">
-    <value>出现问题？</value>
+    <value>遇到问题？</value>
   </data>
   <data name="LaunchMenu.Wiki.Description" xml:space="preserve">
-    <value>查阅 Wiki 以获取帮助。</value>
+    <value>查看 Wiki 获取帮助</value>
   </data>
   <data name="Bootstrapper.WebView2NotFound" xml:space="preserve">
-    <value>您目前尚未安装 “WebView2 Runtime”。没有它，某些 Roblox 功能将无法正常运行；例如 Roblox 桌面客户端。
-您想现在下载它吗？</value>
+    <value>您当前未安装 WebView2 运行时。没有它，某些 Roblox 功能将无法正常工作，例如桌面应用程序。您想现在下载它吗？</value>
   </data>
   <data name="Dialog.CannotCreateShortcuts" xml:space="preserve">
-    <value>Fishstrap 目前无法在 桌面 和 “开始”菜单 创建快捷方式；请尝试稍后通过设置手动创建快捷方式。</value>
+    <value>Fishstrap 无法为桌面和开始菜单创建快捷方式。请稍后通过设置尝试创建它们。</value>
   </data>
   <data name="Dialog.Exception.Info.2.Alt" xml:space="preserve">
-    <value>请先在 [Bloxstrap Wiki]({0}) 检索这个问题是否已被修复。
+    <value>首先检查 [Bloxstrap Wiki]({0})，看看此问题是否已通过修复解决。
 
-如果没有，请向此 社区分支 的维护者报告这个问题。切勿将此异常向 Fishstrap 官方 GitHub Issues 报告；因为这是一个非官方版本。</value>
-    <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
+如果尚未解决，请向此分支的维护者报告此异常。请勿向 Bloxstrap 的 GitHub 问题报告此问题，因为这是一个非官方版本。</value>
+    <comment>"fork"通常指"变体"或"不同版本"。您也可以将第一句话写成"...向此版本的维护者报告。"</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
-    <value>这些是调出 “多选启动菜单” 的通用快捷方式；稍后可以在设置中创建特定功能的快捷方式。</value>
+    <value>这些是显示多选启动菜单的通用快捷方式。特定功能的快捷方式可以在稍后的设置中创建。</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
-    <value>您可以在此处配置 Fishstrap 的快捷启动方式。</value>
+    <value>配置 Fishstrap 的便捷启动方式。</value>
   </data>
   <data name="Menu.Shortcuts.General.Title" xml:space="preserve">
-    <value>通用类</value>
+    <value>通用</value>
   </data>
   <data name="Menu.Shortcuts.General.Description" xml:space="preserve">
-    <value>这些是调出 “多选启动菜单” 的快捷方式。</value>
+    <value>这些是显示多选启动菜单的快捷方式。</value>
   </data>
   <data name="Menu.Shortcuts.Function.Title" xml:space="preserve">
-    <value>功能类</value>
+    <value>功能</value>
   </data>
   <data name="Menu.Shortcuts.Function.Description" xml:space="preserve">
-    <value>您可以在此处创建快速访问特定功能的快捷方式；它们将会放置在桌面上。</value>
+    <value>创建快捷方式以快速访问特定功能。这些都将放置在桌面上。</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Private" xml:space="preserve">
-    <value>已连接至 私人 服务器</value>
+    <value>已连接到私人服务器</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Reserved" xml:space="preserve">
-    <value>已连接至 预留 服务器</value>
+    <value>已连接到预留服务器</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Error" xml:space="preserve">
-    <value>目前无法应用 “表情符号” 模组。</value>
+    <value>表情符号模组目前无法应用。</value>
   </data>
   <data name="Dialog.AlreadyRunning.Installer" xml:space="preserve">
     <value>请等待安装完成。</value>
@@ -1096,17 +1080,17 @@ Fishstrap 的安装路径是：
   </data>
   <data name="About.Licenses.Title" xml:space="preserve">
     <value>许可证</value>
-    <comment>Referring to code licenses; see https://opensource.org/licenses for example</comment>
+    <comment>指代码许可证；例如参见 https://opensource.org/licenses</comment>
   </data>
   <data name="About.Translators.Title" xml:space="preserve">
-    <value>翻译贡献者</value>
+    <value>翻译者</value>
   </data>
   <data name="Menu.UnsavedChanges" xml:space="preserve">
-    <value>您有未保存的更改；您确定要在不保存的情况下关闭吗？</value>
+    <value>您有未保存的更改。您确定要不保存就关闭吗？</value>
   </data>
   <data name="InstallChecker.VersionLessThanInstalled" xml:space="preserve">
-    <value>您启动的 Fishstrap 版本早于您当前安装的版本。
-可能会出现问题，您的设置也可能被更改；建议重新安装。
+    <value>您启动的 Fishstrap 版本比当前安装的版本旧。
+可能会出现问题，并且您的设置可能会被更改。建议重新安装。
 您确定要继续吗？</value>
   </data>
   <data name="Dialog.PlayerError.FailedLaunch" xml:space="preserve">
@@ -1116,29 +1100,28 @@ Fishstrap 的安装路径是：
     <value>Roblox 已崩溃。</value>
   </data>
   <data name="Dialog.PlayerError.HelpInformation" xml:space="preserve">
-    <value>有关可能会出现这种情况的原因以及解决方法，请参阅 [此帮助页]({0})。
+    <value>有关此问题发生原因以及如何解决的信息，请阅读 [此帮助文章]({0})。
 
-请检查 Roblox 是否能在 [原版启动器]({1}) 中运行。
-如果不能，则这不是 Fishstrap 的问题；如果可以，那么请参阅帮助文章以获取详细信息。</value>
+检查 Roblox 是否能与 [原始启动器]({1}) 一起工作。如果不能，则这不是 Fishstrap 的问题。如果可以，请参阅帮助文章。</value>
   </data>
   <data name="Common.NetworkError" xml:space="preserve">
-    <value>由于网络错误，数据无法加载。</value>
+    <value>由于网络错误，无法加载数据。</value>
   </data>
   <data name="Common.Loading" xml:space="preserve">
-    <value>正在加载，请稍后...</value>
+    <value>正在加载，请稍候...</value>
   </data>
   <data name="About.Supporters.Title" xml:space="preserve">
-    <value>赞助者</value>
+    <value>Fishstrap 支持者</value>
   </data>
   <data name="About.Supporters.Description" xml:space="preserve">
-    <value>这些目前是通过 Ko-fi 来支持 Fishstrap 的赞助者；在此衷心感谢协助 Fishstrap 发展的赞助者们！
-（在此处的每一个人都按其总认捐额来排名）</value>
+    <value>这些人通过 Ko-fi 支持了 Fishstrap。非常感谢这里的每一个人！
+这里的每个人都按其总捐款额排名。</value>
   </data>
   <data name="JsonManager.SettingsLoadFailed" xml:space="preserve">
-    <value>由于无法加载您的设置；因此它们已被重置为默认值。</value>
+    <value>您的设置无法加载。它们已重置为默认配置。</value>
   </data>
   <data name="JsonManager.FastFlagsLoadFailed" xml:space="preserve">
-    <value>由于您配置的 Fast Flags 无法被加载；因此它们已被重置为默认值。</value>
+    <value>您的快速标志无法加载。它们已重置为默认配置。</value>
   </data>
   <data name="ContextMenu.GameHistory.Title" xml:space="preserve">
     <value>游戏历史</value>
@@ -1147,102 +1130,138 @@ Fishstrap 的安装路径是：
     <value>重新加入</value>
   </data>
   <data name="ActivityWatcher.RichPresenceLoadFailed" xml:space="preserve">
-    <value>由于加载游戏信息时发生错误；您当前的游戏状态将不会在您的 Discord 活动状态 上显示。</value>
+    <value>您的当前游戏不会显示在您的 Discord 状态中，因为加载游戏信息时发生错误。</value>
   </data>
   <data name="ContextMenu.GameHistory.Description" xml:space="preserve">
-    <value>仅记录您当前 Roblox 会话的游戏历史记录；关于游戏的具体信息将会在您离开游戏或传送至其他游戏时出现在此处。并非所有服务器都可以重新加入。</value>
+    <value>游戏历史仅记录您当前的 Roblox 会话。当您离开游戏或在游戏中传送时，游戏将显示在此处。并非所有服务器都可以重新加入。</value>
   </data>
   <data name="ActivityWatcher.LocationQueryFailed" xml:space="preserve">
-    <value>可能由于您加入游戏的频次太频繁了；因此无法获取到您当前所处服务器的具体地点。</value>
+    <value>无法查询服务器位置。您可能加入游戏过快。</value>
   </data>
   <data name="Dialog.Connectivity.TryAgainLater" xml:space="preserve">
-    <value>请稍后再试。</value>
+    <value>请稍后重试。</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeSkip" xml:space="preserve">
-    <value>此次启动将不会检查 Roblox 更新，对模组的更改也将不会被应用。</value>
+    <value>本次启动不会检查 Roblox 升级，也不会应用模组更改。</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeNeeded" xml:space="preserve">
-    <value>由于 Roblox 需要安装或更新，Fishstrap 目前无法继续执行。</value>
+    <value>由于 Roblox 需要安装或升级，Fishstrap 无法继续。</value>
   </data>
   <data name="Installer.Install.CannotOverwrite" xml:space="preserve">
-    <value>Fishstrap 此前已安装到此位置，且安装文件仍然存在；但安装程序无法覆盖旧的可执行文件。
+    <value>Fishstrap 之前已安装到此位置且仍然存在，但安装程序无法覆盖旧的可执行文件。 
 
-请从安装位置 手动删除 “Fishstrap.exe” 或尝试 重新启动系统，最后再重试安装 Fishstrap。</value>
+请手动从安装位置删除 Fishstrap.exe 或尝试重启系统，然后重试安装。</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>暂不可用</value>
+    <value>不可用</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Title" xml:space="preserve">
     <value>管理兼容性设置</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Description" xml:space="preserve">
-    <value>您可以在此处配置应用程序参数；例如 “DPI 缩放行为”，以及 “[全屏优化]({0})”。</value>
+    <value>配置应用程序参数，例如 DPI 缩放行为和 [全屏优化]({0})。</value>
   </data>
   <data name="Common.RobloxNotInstalled" xml:space="preserve">
-    <value>Roblox 尚未安装；在尝试使用此选项之前，请至少使用 Fishstrap 启动一次 Roblox。</value>
+    <value>Roblox 尚未安装。在使用此选项之前，请至少使用 Fishstrap 启动 Roblox 一次。</value>
   </data>
   <data name="Installer.ShouldCancel" xml:space="preserve">
     <value>您确定要取消安装吗？</value>
   </data>
   <data name="Bootstrapper.JsonManagerSaveFailed" xml:space="preserve">
-    <value>无法保存 {0}: {1}</value>
+    <value>保存 {0} 失败：{1}</value>
   </data>
   <data name="Dialog.IconLoadFailed" xml:space="preserve">
-    <value>当前选中的启动器图标无法被加载。
+    <value>无法加载所选的启动器图标。
 
 {0}</value>
-    <comment>{0} is an exception message</comment>
+    <comment>{0} 是异常消息</comment>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Title" xml:space="preserve">
-    <value>提取 Roblox 图标至 Fishstrap 安装目录</value>
+    <value>将 Roblox 图标提取到文件夹</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
-    <value>启用此选项后将会在 Fishstrap 安装根目录上创建一个名为 “已提取的图标” 的文件夹。
-（此选项允许您获取 Roblox 图标文件以便快捷应用于快捷方式）[如何应用？]({0})</value>
+    <value>允许您将 Fishstrap 的 Roblox 图标系列用于您的快捷方式。[查看如何操作。]({0})</value>
   </data>
   <data name="Dialog.RegistryWriteError" xml:space="preserve">
-    <value>Fishstrap 目前无法写入 Windows 注册表；可能是杀毒软件的干扰导致了问题。
-
-请检查以确保没有任何东西会限制 Fishstrap 的运行。</value>
+    <value>Fishstrap 无法写入 Windows 注册表。杀毒软件可能正在干扰并导致问题。请检查以确保没有任何东西会限制 Fishstrap 的运行。</value>
   </data>
   <data name="About.Supporters.Monthly" xml:space="preserve">
-    <value>月度捐赠者</value>
+    <value>每月</value>
   </data>
   <data name="About.Supporters.OneOff" xml:space="preserve">
-    <value>单次捐赠者</value>
+    <value>一次性</value>
   </data>
   <data name="Common.Analytics" xml:space="preserve">
-    <value>分析数据</value>
+    <value>分析</value>
   </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
-    <value>重置所有设置为默认值</value>
+    <value>将所有内容重置为默认值</value>
   </data>
   <data name="Dialog.Exception.Report" xml:space="preserve">
     <value>报告异常</value>
   </data>
   <data name="Menu.TestMode" xml:space="preserve">
     <value>测试模式</value>
-    <comment>See the prompt for more context</comment>
+    <comment>请参阅提示以获取更多上下文</comment>
   </data>
   <data name="Menu.TestMode.Prompt" xml:space="preserve">
-    <value>“测试模式” 是一种可以更方便地反复测试 Fishstrap 特定设置对 Roblox 造成影响的功能。
-（例如微调 设置/FFlags 后可以更方便地调试具体参数对 Roblox 造成的影响）
+    <value>测试模式使您更容易迭代测试您的设置如何影响 Roblox。 
 
-启用后，它将会在每次关闭设置后自动启动 Roblox；而关闭 Roblox 则会重新打开设置。
-如此循环，直到您禁用为止。
+启用后，它将在关闭设置后自动启动 Roblox，并在关闭 Roblox 后重新打开设置，循环往复直到您禁用它。
 
-您想启用 “测试模式” 吗？</value>
+您想启用测试模式吗？</value>
   </data>
   <data name="About.Translators.Description" xml:space="preserve">
-    <value>Fishstrap 的所有翻译都是由 [Crowdin]({0}) 来众包；在此处列出的每一个人都是慷慨地自愿贡献自己的时间和精力来帮助 本地化 Fishstrap 的人。因此向每一个人的贡献表示衷心的感谢！</value>
+    <value>Fishstrap 的所有翻译均通过 [Crowdin]({0}) 众包。此处列出的每个人都是慷慨奉献时间和精力帮助 Fishstrap 本地化的人。非常感谢这里的每一个人！</value>
   </data>
   <data name="Common.Navigation.Install" xml:space="preserve">
     <value>安装</value>
-    <comment>The word "Install" is being used as a verb in this instance, like the other navigation button texts of "Next" and "Back"</comment>
+    <comment>在此处，"安装"一词用作动词，类似于"下一步"和"返回"等其他导航按钮文本</comment>
+  </data>
+  <data name="LaunchMenu.Discord" xml:space="preserve">
+    <value>加入我们的 Discord 服务器</value>
+    <comment>行动号召按钮</comment>
   </data>
   <data name="Paths.Icons" xml:space="preserve">
-    <value>已提取的图标 (Icons)</value>
-    <comment>Name of the folder that gets created according to the "create shortcut icons" option. Ensure that it is a valid folder name.</comment>
+    <value>图标</value>
+    <comment>根据"创建快捷方式图标"选项创建的文件夹名称。确保它是有效的文件夹名称。</comment>
+  </data>
+  <data name="Enums.FlagPresets.RenderingMode.OpenGL" xml:space="preserve">
+    <value>OpenGL</value>
+  </data>
+  <data name="Enums.FlagPresets.RenderingMode.Vulkan" xml:space="preserve">
+    <value>Vulkan</value>
+  </data>
+  <data name="Menu_FlagProfiles_Title" xml:space="preserve">
+    <value>快速标志配置文件</value>
+  </data>
+  <data name="Menu_FlagProfiles_Description" xml:space="preserve">
+    <value>保存和加载快速标志配置文件。</value>
+  </data>
+  <data name="Common_FastFlags" xml:space="preserve">
+    <value>快速标志编辑器</value>
+  </data>
+  <data name="Menu_FastFlagProfiles_Save" xml:space="preserve">
+    <value>保存当前标志</value>
+  </data>
+  <data name="Menu.FastFlagEditor.ProfilesDescription" xml:space="preserve">
+    <value>标志配置文件</value>
+  </data>
+  <data name="Menu.Load" xml:space="preserve">
+    <value>加载</value>
+  </data>
+  <data name="Bootstrapper.Status.CancelUpgrade" xml:space="preserve">
+    <value>正在取消 Roblox 升级。</value>
+  </data>
+  <data name="Menu.Behaviour.RenameToEurotrucks.Title" xml:space="preserve">
+    <value>Ansel 支持</value>
+  </data>
+  <data name="Menu.Behaviour.RenameToEurotrucks.Description" xml:space="preserve">
+    <value>将 Roblox 重命名为"eurotrucks2"。需要 [支持的显卡](https://www.nvidia.com/en-us/geforce/technologies/ansel/supported-gpus/)。
+	此功能是着色器所必需的。</value>
+  </data>
+  <data name="Menu.Behaviour.Channel.Title" xml:space="preserve">
+    <value>频道</value>
   </data>
   <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
     <value>启动 Roblox Studio</value>
@@ -1250,55 +1269,330 @@ Fishstrap 的安装路径是：
   <data name="Dialog.Exception.Version" xml:space="preserve">
     <value>版本 {0}</value>
   </data>
+  <data name="Enums.BootstrapperStyle.CustomDialog" xml:space="preserve">
+    <value>自定义</value>
+  </data>
   <data name="Bootstrapper.FilesInUse" xml:space="preserve">
-    <value>Fishstrap 目前无法更新 Roblox；因为当前 Roblox 的文件被占用。
+    <value>Fishstrap 尝试升级 Roblox，但无法完成，因为 Roblox 的文件仍在被使用。
 
-请关闭任何可能正在占用 Roblox 文件的应用程序，然后重启 Fishstrap。</value>
-    <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
+请关闭任何可能正在使用 Roblox 文件的应用程序，然后重新启动。</value>
+    <comment>这*不是*指 Roblox 在尝试升级时仍在运行的情况。这适用于文件被打开（即图像资产）的情况。</comment>
   </data>
   <data name="FileTypes.ZipArchive" xml:space="preserve">
-    <value>压缩文件</value>
-    <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
+    <value>Zip 压缩文件</value>
+    <comment>显示在保存文件对话框中，文件类型选择下拉菜单处，例如"Zip 压缩文件 (*.zip)"</comment>
   </data>
   <data name="Common.Export" xml:space="preserve">
     <value>导出</value>
-    <comment>Currently used under the "Fishstrap" settings tab for the button to export diagnostic data</comment>
+    <comment>目前用于"Fishstrap"设置选项卡下导出诊断数据的按钮</comment>
   </data>
   <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
-    <value>某些东西可能正在阻止 Fishstrap 连接至互联网。</value>
+    <value />
   </data>
   <data name="Dialog.Connectivity.TimedOut" xml:space="preserve">
-    <value>连接超时；可能表明当前网络连接不畅或被防火墙阻止。</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Menu.Channel.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Common.Channel" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Menu.Channel.Description" xml:space="preserve">
+    <value>更改 Roblox &amp; Fishstrap 的部署和安装设置。</value>
   </data>
-  <data name="Menu.ChannelChanger.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Common.Channel" xml:space="preserve">
+    <value>频道</value>
   </data>
-  <data name="Common.Version" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Menu.ChannelChanger.Description" xml:space="preserve">
+    <value>选择部署频道。除非您知道自己在做什么，否则请勿更改。</value>
   </data>
-  <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Common.Version" xml:space="preserve">
+    <value>版本</value>
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Common.VersionGuid" xml:space="preserve">
+    <value>版本 GUID</value>
+  </data>
+  <data name="Menu.Channel.RobloxUpgrades" xml:space="preserve">
+    <value>Roblox 升级</value>
+  </data>
+  <data name="Menu.Channel.RobloxUpgrades.Description" xml:space="preserve">
+    <value>禁用后，Roblox 客户端将不会升级到新版本。</value>
+  </data>
+  <data name="Bootstrapper.Status.Downloading" xml:space="preserve">
+    <value>正在下载</value>
+  </data>
+  <data name="Menu.Appearance.BootstrapperDownloading.Title" xml:space="preserve">
+    <value>启动器下载状态</value>
+  </data>
+  <data name="Menu.Appearance.BootstrapperDownloading.Description" xml:space="preserve">
+    <value>更改下载字符串。{0} 是包名称，{1} 是已下载包的大小，{2} 是包的总大小。</value>
+  </data>
+  <data name="Menu.Behaviour.MultiInstances.Title" xml:space="preserve">
+    <value>多实例启动</value>
+  </data>
+  <data name="Menu.Behaviour.MultiInstances.Description" xml:space="preserve">
+    <value>允许同时打开多个 Roblox 游戏客户端实例。可能会导致桌面应用程序出现问题。</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Telemetry.Title" xml:space="preserve">
+    <value>禁用 Roblox 遥测</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Telemetry.Description" xml:space="preserve">
+    <value>请注意，这仅禁用部分 Roblox 遥测功能。</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Telemetry" xml:space="preserve">
+    <value>遥测</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Chromeui.Title" xml:space="preserve">
+    <value>Chrome UI</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Chromeui.Description" xml:space="preserve">
+    <value>禁用后，Roblox 将使用旧的顶部栏。</value>
+  </data>
+  <data name="Menu.FlagProfiles.ClearFlags" xml:space="preserve">
+    <value>清除 FFlags</value>
+  </data>
+  <data name="Common.Debug" xml:space="preserve">
+    <value>调试</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Categories.IngameMenu" xml:space="preserve">
+    <value>Roblox 菜单</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Categories.IngameMenu.Description" xml:space="preserve">
+    <value>使用 FFlags 精简 Roblox 菜单</value>
+  </data>
+  <data name="Common.Deployment" xml:space="preserve">
+    <value>部署</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.IngameMenu.VRToggle.Title" xml:space="preserve">
+    <value>VR 开关</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.IngameMenu.SoothsayerCheck.Title" xml:space="preserve">
+    <value>反馈按钮</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.IngameMenu.LanguageSelector.Title" xml:space="preserve">
+    <value>语言选择器</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.IngameMenu.Framerate.Title" xml:space="preserve">
+    <value>帧率上限</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.IngameMenu.ChatTranslation.Title" xml:space="preserve">
+    <value>聊天翻译</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FlagState.Title" xml:space="preserve">
+    <value>标志状态</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FlagState.Description" xml:space="preserve">
+    <value>在运行时显示指定标志的值。每个标志用逗号分隔。</value>
+  </data>
+  <data name="Common.Studio" xml:space="preserve">
+    <value>Studio</value>
+  </data>
+  <data name="Common.RobloxStudio" xml:space="preserve">
+    <value>Roblox Studio</value>
+  </data>
+  <data name="Menu.Context.PlayerLogs" xml:space="preserve">
+    <value>玩家日志</value>
+  </data>
+  <data name="Menu.Context.PlayerLogs.Description" xml:space="preserve">
+    <value>显示您所在服务器中玩家的离开/加入情况。</value>
+  </data>
+  <data name="Common.Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="Common.UserId" xml:space="preserve">
+    <value>用户 ID</value>
+  </data>
+  <data name="Common.Username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="Common.Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Menu.Channel.VersionHash.Title" xml:space="preserve">
+    <value>版本哈希</value>
+  </data>
+  <data name="Menu.Channel.VersionHash.Desription" xml:space="preserve">
+    <value>强制 Fishstrap 从特定哈希下载版本。如果您不了解其作用，请勿更改。</value>
+  </data>
+  <data name="Menu.SaveAndLaunch" xml:space="preserve">
+    <value>保存并启动</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.PingBreakdown.Title" xml:space="preserve">
+    <value>Ping 详情</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.PingBreakdown.Description" xml:space="preserve">
+    <value>向 Roblox 控制台发送详细的 Ping 信息。</value>
+  </data>
+  <data name="Bootstrapper.Dialog.NoUpgradeWithoutClient" xml:space="preserve">
+    <value>升级已禁用，因为客户端缺失。
+	为防止问题，升级将继续。</value>
+  </data>
+  <data name="ContextMenu.PlayerLogs.Title" xml:space="preserve">
+    <value>玩家日志</value>
+  </data>
+  <data name="Common.Message" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="ContextMenu.MessageLogs.Title" xml:space="preserve">
+    <value>消息日志</value>
+  </data>
+  <data name="ContextMenu.MessageLogs.Description" xml:space="preserve">
+    <value>显示玩家最近发送的消息。</value>
+  </data>
+  <data name="Menu.Integrations.PlayerMessageLogs.Title" xml:space="preserve">
+    <value>玩家和消息日志</value>
+  </data>
+  <data name="Menu.Integrations.PlayerMessageLogs.Description" xml:space="preserve">
+    <value>显示玩家的加入/离开以及发送的消息。
+		仅适用于 [文本聊天服务](https://devforum.roblox.com/t/new-in-experience-text-chat-system-public-release/1848837)。</value>
+  </data>
+  <data name="Menu.Behaviour.AnselBanner" xml:space="preserve">
+    <value>着色器需要 Ansel 支持。</value>
+  </data>
+  <data name="Dialog.Bloxshade.ThankYou" xml:space="preserve">
+    <value>抱歉</value>
+  </data>
+  <data name="Dialog.Bloxshade.Setting" xml:space="preserve">
+    <value>Fishstrap 不再支持 Bloxshade。
+欲了解更多信息，请加入 Bloxshade Discord 服务器。</value>
+  </data>
+  <data name="Common.Profiles" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="Menu.Deployment.Channel.OutOfDate" xml:space="preserve">
+    <value>此频道已过时，可能不再更新。请使用其他频道。</value>
+  </data>
+  <data name="Bootstrapper.Dialog.ChannelOutOfDate" xml:space="preserve">
+    <value>您当前所在的频道 ({0}) 已过时，并且似乎不再接收更新。
+
+您想切换到默认频道 ({1}) 吗？</value>
+  </data>
+  <data name="Menu.Channel.ChangeAction.Title" xml:space="preserve">
+    <value>自动频道更改操作</value>
+  </data>
+  <data name="Menu.Channel.ChangeAction.Description" xml:space="preserve">
+    <value>Roblox 或 Fishstrap 可能会尝试更改您的首选频道。</value>
+  </data>
+  <data name="Menu.Channel.ChangeAction.Automatic" xml:space="preserve">
+    <value>自动更改</value>
+  </data>
+  <data name="Menu.Channel.ChangeAction.Prompt" xml:space="preserve">
+    <value>始终提示</value>
+  </data>
+  <data name="Menu.Channel.ChangeAction.Ignore" xml:space="preserve">
+    <value>永不更改</value>
+  </data>
+  <data name="Bootstrapper.Bootstrapper.Dialog.PromptChannelChange" xml:space="preserve">
+    <value>Roblox 正在尝试将您的频道设置为 {0}，但您当前的首选频道是 {1}。
+
+
+您想将您的首选频道切换到 {0} 吗？</value>
+  </data>
+  <data name="Menu.FastFlags.240FPSWarning" xml:space="preserve">
+    <value>不建议超过 240 FPS，因为此更改可能会导致问题并降低性能。
+
+[点击了解更多]({0})</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.PreferredGPU.Title" xml:space="preserve">
+    <value>首选显卡</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.PreferredGPU.Description" xml:space="preserve">
+    <value>选择 Roblox 将用于渲染的 GPU。如果您电脑上有 2 个或更多 GPU，这将很有用。</value>
+  </data>
+  <data name="Menu.FastFlagEditor.ExportJson.IncludePresets" xml:space="preserve">
+    <value>您想包含预设 FFlags 吗？</value>
+  </data>
+  <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
+    <value>Roblox 不再支持 Windows 7 或 8.1。要继续玩 Roblox，请升级到 Windows 10 或更高版本。</value>
+  </data>
+  <data name="Boostrapper.Dialog.UnauthorizedChannel" xml:space="preserve">
+    <value>您当前所在的频道 ({0}) 现已限制公共使用。您现在将切换到默认频道 ({1})。</value>
+  </data>
+  <data name="Menu.Channel.Switcher.Fetching" xml:space="preserve">
+    <value>正在获取最新部署信息，请稍候...</value>
+  </data>
+  <data name="Menu.Channel.Switcher.Unauthorized" xml:space="preserve">
+    <value>指定的频道不存在或为私人频道</value>
+  </data>
+  <data name="Installer.FailedToImportSettings" xml:space="preserve">
+    <value>导入 Bloxstrap 设置失败。
+
+{0}</value>
+  </data>
+  <data name="Installer.ImportSettings" xml:space="preserve">
+    <value>从 Bloxstrap 导入设置</value>
+  </data>
+  <data name="Installer.InstallationNotFound" xml:space="preserve">
+    <value>未找到 Bloxstrap 安装。</value>
+  </data>
+  <data name="Bootstrapper.Dialog.AnselDisabled" xml:space="preserve">
+    <value>Ansel 不受支持。
+您不能再将 Bloxshade 与 Fishstrap 一起使用。</value>
   </data>
   <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
-    <value>正在获取最新版本的 Fishstrap...</value>
+    <value>正在获取最新版 Fishstrap...</value>
   </data>
   <data name="Menu.Fishstrap.Description" xml:space="preserve">
-    <value>您可以在此处配置 Fishstrap 本身行为相关的选项。</value>
+    <value>配置与 Fishstrap 自身行为相关的选项。</value>
   </data>
   <data name="Menu.Fishstrap.Analytics.Title" xml:space="preserve">
-    <value>允许发送分析数据</value>
+    <value>启用向 Fishstrap 发送分析数据</value>
   </data>
   <data name="Menu.Fishstrap.Analytics.Description" xml:space="preserve">
-    <value>Fishstrap 承诺所有收集的数据都是匿名无害的。若要了解我们为什么而收集；请参阅我们的 [隐私政策]({0})。</value>
+    <value>它是匿名的，绝无恶意，请放心。有关 Fishstrap 收集哪些数据以及原因的详细信息，请参阅 Fishstrap 的[隐私政策]({0})。</value>
+  </data>
+  <data name="Menu.Fishstrap.ExportData.Title" xml:space="preserve">
+    <value>导出诊断数据</value>
+  </data>
+  <data name="Menu.Fishstrap.ExportData.Description" xml:space="preserve">
+    <value>收集可在线上传的信息，以排查您遇到的问题。</value>
+  </data>
+  <data name="Menu.Fishstrap.ExportData.ExportConfig" xml:space="preserve">
+    <value>Fishstrap 配置</value>
+    <comment>复选框旁边的标签</comment>
+  </data>
+  <data name="Menu.Fishstrap.ExportData.ExportLogs" xml:space="preserve">
+    <value>所有 Fishstrap 日志</value>
+    <comment>复选框旁边的标签</comment>
+  </data>
+	<data name="Menu.Bootstrapper.CleanUp.Title" xml:space="preserve">
+    <value>清理器</value>
+  </data>
+	<data name="Menu.Bootstrapper.CleanUp.Description" xml:space="preserve">
+    <value>Fishstrap 将删除旧数据以节省空间</value>
+  </data>
+	<data name="Enums.CleanerOptions.Never" xml:space="preserve">
+    <value>从不</value>
+  </data>
+	<data name="Enums.CleanerOptions.OneDay" xml:space="preserve">
+    <value>1 天后</value>
+  </data>
+	<data name="Enums.CleanerOptions.OneWeek" xml:space="preserve">
+    <value>1 周后</value>
+  </data>
+	<data name="Enums.CleanerOptions.OneMonth" xml:space="preserve">
+    <value>1 个月后</value>
+  </data>
+	<data name="Enums.CleanerOptions.TwoMonths" xml:space="preserve">
+    <value>2 个月后</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Age.Title" xml:space="preserve">
+    <value>文件何时删除</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Age.Description" xml:space="preserve">
+    <value>早于设定时间的文件将被删除。</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Cache.Title" xml:space="preserve">
+    <value>缓存</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Cache.Description" xml:space="preserve">
+    <value>旧的下载文件将被删除。</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Logs.Title" xml:space="preserve">
+    <value>日志</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Logs.Description" xml:space="preserve">
+    <value>旧的日志文件将被删除。</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Title" xml:space="preserve">
+    <value>Fishstrap 日志</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Description" xml:space="preserve">
+    <value>Fishstrap 日志将被删除。</value>
   </data>
 </root>
