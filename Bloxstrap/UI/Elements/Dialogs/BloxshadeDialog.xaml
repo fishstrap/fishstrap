@@ -9,7 +9,7 @@
         xmlns:models="clr-namespace:Bloxstrap.UI.ViewModels"
         xmlns:resources="clr-namespace:Bloxstrap.Resources"
         mc:Ignorable="d"
-        Title="Fishstrap"
+        Title="Froststrap"
         MinWidth="380"
         MinHeight="0"
         Width="380"
@@ -17,6 +17,7 @@
         ResizeMode="NoResize"
         Background="{ui:ThemeResource ApplicationBackgroundBrush}"
         ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -24,7 +25,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Padding="8" ShowMinimize="False" ShowMaximize="False" Title="Fishstrap" Icon="pack://application:,,,/Bloxstrap.ico" CanMaximize="False" KeyboardNavigation.TabNavigation="None" />
+        <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Padding="8" ShowMinimize="False" ShowMaximize="False" Title="Froststrap" Icon="pack://application:,,,/Bloxstrap.ico" CanMaximize="False" KeyboardNavigation.TabNavigation="None" />
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

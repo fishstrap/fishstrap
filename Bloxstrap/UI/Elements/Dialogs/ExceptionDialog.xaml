@@ -16,8 +16,12 @@
         SizeToContent="Height"
         Background="{ui:ThemeResource ApplicationBackgroundBrush}"
         ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
         WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -39,9 +43,9 @@
             </StackPanel>
         </Grid>
 
-        <Border Grid.Row="2" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
+        <Border Grid.Row="2" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
             <Grid>
-                <TextBlock x:Name="VersionText" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="Version 2.8.6.7" />
+                <TextBlock x:Name="VersionText" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding Version, Mode=OneTime}" />
                 
                 <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
                     <Button x:Name="ReportExceptionButton" Content="{x:Static resources:Strings.Dialog_Exception_Report}" />

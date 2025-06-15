@@ -11,8 +11,8 @@ namespace Bloxstrap.Integrations
     public class Cleaner
     {
         public static Dictionary<string, string?> Directories = new Dictionary<string, string?> {
-            { "FishstrapLogs", Paths.Logs },
-            { "FishstrapCache", Paths.Downloads },
+            { "FroststrapLogs", Paths.Logs },
+            { "FroststrapCache", Paths.Downloads },
             { "RobloxLogs", Paths.RobloxLogs },
             { "RobloxCache", Paths.RobloxCache }
         };
@@ -49,7 +49,8 @@ namespace Bloxstrap.Integrations
                 if (String.IsNullOrEmpty(Folder) || !Directory.Exists(Folder))
                     continue;
 
-                try {
+                try
+                {
                     string[] Files = RecursivlyGetFiles(Folder);
 
                     App.Logger.WriteLine(LOG_IDENT, $"Running cleaner in {directory}, {Files.Length} files found");
@@ -61,13 +62,13 @@ namespace Bloxstrap.Integrations
                             continue;
 
                         // attempt deletion
-                        try { File.Delete(file); } 
+                        try { File.Delete(file); }
                         catch (Exception ex)
                         {
                             App.Logger.WriteLine(LOG_IDENT, $"Unable to delete {file}");
                             App.Logger.WriteException(LOG_IDENT, ex);
                             continue;
-                        } 
+                        }
                     }
                 }
                 catch (Exception ex)

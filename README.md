@@ -1,68 +1,79 @@
 > [!CAUTION]
-> The only official places to download Fishstrap are this GitHub repository and [fishstrap.app](https://www.fishstrap.app). Any other websites offering downloads or claiming to be us are not controlled by us (eg. fishstrap.org, fishstrap.com). We strongly recommend **not** downloading from any unofficial sources.
+> This and https://github.com/Meddsam/Froststrap are the only official place to install Froststrap. Any other websites offering downloads or claiming to be us are not controlled by us (Example: Froststrap.com). We strongly recommend **not** downloading from any unofficial sources.
+> lost access to other github account thats why i was forced to make another github page
 
 <p align="center">
-    <img src="https://github.com/returnrqt/fishstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="420">
-    <img src="https://github.com/returnrqt/fishstrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="420">
+    <img src="https://github.com/Meddsam/Froststrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="700">
+    <img src="https://github.com/Meddsam/Froststrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="700">
 </p>
 
 <div align="center">
 
-![Fishstrap Showcase](https://www.fishstrap.app/img/Showcase.webp)
+**Froststrap** is a Bloxstrap/Fishstrap fork aiming to improve features and offer more Performance.
 
-Fishstrap is a Bloxstrap fork aiming to enhance some of the features.
-
-Found any bugs? [Submit an issue](https://github.com/returnrqt/fishstrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/SRs5zb9BJd).
+Found any bugs? [Submit an issue](https://github.com/Meddsam/Froststrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/KdR9vpRcUN).
 
 [![License][badge-repo-license]][repo-license]
-[![Workflow][badge-repo-workflow]][repo-actions]
 [![Downloads][badge-repo-downloads]][repo-releases]
 [![Version][badge-repo-latest]][repo-latest]
 [![Discord][badge-discord]][discord-invite]
-![Stars][badge-repo-stars]
+[![Stars][badge-repo-stars]][repo-stargazer]
 
 </div>
 
 ---
 
-## Key differences from Bloxstrap
+## 🔧 Key Differences from Bloxstrap
 
-- Integrations
-  - Player logs - Players leaving/joining server
-  - Message logs
-- Fast Flags
-  - Flag profiles
-  - Removed editor warnings & flag validation
-  - Roblox menu customization
-  - More presets
-- Channels
-  - Cancelling Roblox upgrades
-  - Channel changer
-  - Channel changer action
-- Appearance
-  - Customizable downloading status
-- Extras
-  - Save last opened settings page
-  - Importing settings from Bloxstrap
+### 🧩 Integrations
+- Player logs (join/leave)
+- Message logs
+- Multi-Instance launching
+- Cleaner
 
-### *More changes coming soon!*
+### 🚩 Fast Flags
+- Flag profiles
+- Removed editor warnings & validation
+- A Bunch Of Preset Flags
+- Search box to quickly find flags in settings
+- More toggleable Fast Flag Editor features in advanced settings
+- Built-In Flag Lists
+- Check which flags are toggleable in settings
+
+### 📦 Channels
+- Block Roblox updates
+- Channel changer & actions
+
+### 🎨 Appearance
+- Customizable Bootstrapper Launcher
+- Built-In App Themes
+- Custom Mods page
+
+### ⚙️ Extras
+- Saves the last opened settings page
+- Supports importing settings from Bloxstrap
+- Help Page To Quickly Fix Bugs
+
+> *More features are on the roadmap!*
 
 ---
 
-### Considering a switch? [Download it here][repo-latest].
+## ✅ Considering a switch?
+👉 [**Download the latest version here**][repo-latest]
 
+---
 
-[badge-repo-license]:    https://img.shields.io/github/license/returnrqt/fishstrap?style=flat-square
-[badge-repo-workflow]:   https://img.shields.io/github/actions/workflow/status/returnrqt/fishstrap/ci-release.yml?branch=main&style=flat-square&label=builds
-[badge-repo-downloads]:  https://img.shields.io/github/downloads/returnrqt/fishstrap/latest/total?style=flat-square&color=981bfe
-[badge-repo-latest]:     https://img.shields.io/github/v/release/returnrqt/fishstrap?style=flat-square&color=7a39fb
-[badge-repo-stars]:      https://img.shields.io/github/stars/returnrqt/fishstrap?style=flat-square&color=dd9900
+<!-- Badge Definitions -->
+[badge-repo-license]:    https://img.shields.io/github/license/Meddsam/Froststrap?style=flat-square
+[badge-repo-downloads]:  https://img.shields.io/github/downloads/Meddsam/Froststrap/latest/total?style=flat-square&color=981bfe
+[badge-repo-latest]:     https://img.shields.io/github/v/release/Meddsam/Froststrap?style=flat-square&color=7a39fb
+[badge-repo-stars]:      https://img.shields.io/github/stars/Meddsam/Froststrap?style=flat-square&color=dd9900
+[badge-discord]:         https://img.shields.io/discord/1364660238963179520?style=flat-square&logo=discord&logoColor=white&logoSize=auto&label=discord&color=4d3dff
 
-[badge-discord]: https://img.shields.io/discord/1299397064165429360?style=flat-square&logo=discord&logoColor=white&logoSize=auto&label=discord&color=4d3dff
+[repo-license]:  https://github.com/Meddsam/Froststrap/blob/main/LICENSE
+[repo-actions]:  https://github.com/Meddsam/Froststrap/actions
+[repo-releases]: https://github.com/Meddsam/Froststrap/releases
+[repo-latest]:   https://github.com/Meddsam/Froststrap/releases/latest
+[repo-stargazer]:   https://github.com/Meddsam/Froststrap/stargazers
 
-[repo-license]:  https://github.com/returnrqt/fishstrap/blob/main/LICENSE
-[repo-actions]:  https://github.com/returnrqt/fishstrap/actions
-[repo-releases]: https://github.com/returnrqt/fishstrap/releases
-[repo-latest]:   https://github.com/returnrqt/fishstrap/releases/latest
-
-[discord-invite]:  https://discord.gg/SRs5zb9BJd
+[discord-invite]:  https://discord.gg/KdR9vpRcUN

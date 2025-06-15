@@ -1,0 +1,144 @@
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Help.Pages.CommonFastFlagIssuesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:models="clr-namespace:Bloxstrap.UI.ViewModels"
+      xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
+      xmlns:enums="clr-namespace:Bloxstrap.Enums"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:resources="clr-namespace:Bloxstrap.Resources"
+      mc:Ignorable="d"
+      Title="FastFlag Issues"
+      Scrollable="True">
+
+    <StackPanel Margin="16" MaxWidth="750">
+
+        <!-- Fixes Section -->
+            <TextBlock Text="Common FastFlag Issues And Fixes" FontSize="28" FontWeight="Bold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+
+        <!-- Gray Avatars -->
+            <TextBlock Text="Gray Avatars" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="This issue is caused by DFintTextureCompositerActiveJobs. Deleting it will help fix the issue." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Blurry Icons/textures -->
+            <TextBlock Text="Blurry Icons and Textures" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="This issue is caused by certain fastflags. Disable the following flags:" TextWrapping="Wrap" Margin="0,0,0,5" />
+
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntMegaReplicatorNetworkQualityProcessorUnit" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFFlagTextureQualityOverrideEnabled" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntTextureQualityOverride" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,10" Text=" - FIntDebugTextureManagerSkipMips" />
+
+            <!-- Laggy Animations -->
+            <TextBlock Text="Laggy Animations" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Set DFIntTimestepArbiterThresholdCFLThou to 300 to help reduce minor stutters." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text="If issues persist, enable this fastflag and adjust:" TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,10" Text=" - FIntInterpolationMaxDelayMSec" />
+            <TextBlock Text="Increase its value in small steps, testing after each change." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Frame Stutters -->
+            <TextBlock Text="Frame Stutters" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Set DFIntMaxFrameBufferSize to 4. Avoid setting it below 4, as it may cause laggy animations." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Lighting Problems -->
+            <TextBlock Text="Lighting Problems" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Remove DFFlagDebugPauseVoxelizer if lighting is too bright or missing." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text="If still not fixed, delete FIntRenderShadowIntensity and FIntRenderShadowmapBias." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text="For pixelated lighting, remove FFlagNewLightAttenuation." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Weird Meshes -->
+            <TextBlock Text="Weird Meshes" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="This could be caused by various fastflags. Disable the following flags:" TextWrapping="Wrap" Margin="0,0,0,5" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntTerrainArraySliceSize" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFFlagDebugSkipMeshVoxelizer" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntCSGLevelOfDetailSwitchingDistance" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntCSGLevelOfDetailSwitchingDistanceL12" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntCSGLevelOfDetailSwitchingDistanceL23" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,10" Text=" - DFIntCSGLevelOfDetailSwitchingDistanceL34" />
+
+            <!-- Gray Sky -->
+            <TextBlock Text="Gray Sky" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Remove FFlagDebugSkyGray to restore normal sky color." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Black Textures -->
+            <TextBlock Text="Black Textures" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Remove DFIntRenderClampRoughnessMax to fix black textures." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Rainbow UI/Graphics -->
+            <TextBlock Text="Rainbow UI/Graphics" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Remove FFlagDebugDisplayUnthemedInstances to fix this issue." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Loading Issue -->
+            <TextBlock Text="Loading Issue" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="FastFlags over 5KB can cause issues on low-end PCs; over 10KB on high-end PCs." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text="Preloading FastFlags may cause issues despite intentions." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text="Network-related FastFlags (MTU/Connection) can be problematic." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text="DFIntDataSenderRate set negative? Delete it." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text="Delete DFIntNetworkStopProducingPacketsToProcessThresholdMs." TextWrapping="Wrap" Margin="0,0,0,2" />
+            <TextBlock Text='Set FStringGetPlayerImageDefaultTimeout to 1 for faster load.' TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Quality Levels Not Changing -->
+            <TextBlock Text="Quality Levels Not Changing" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Remove DFIntDebugFRMQualityLevelOverride to fix quality caps." TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Skybox Turns Black -->
+            <TextBlock Text="Skybox Turns Black When Moving Camera" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text='Remove FFlagDebugSkyGray and set FIntCameraFarZPlane to 600.' TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Crashing after update -->
+            <TextBlock Text="Crashing in Roblox after update" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Remove these fastflags:" Margin="0,0,0,2" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntRuntimeConcurrency" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FFlagConvertDefaultObjectsMxBoostToRuntime" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntRuntimeMaxNumOfConditions" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntRuntimeMaxNumOfLatches" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntRuntimeMaxNumOfMutexes" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntRuntimeMaxNumOfSchedulers" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntRuntimeMaxNumOfSemaphores" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntRuntimeMaxNumOfStrands" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FIntRuntimeMaxNumOfThreads" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,10" Text=" - FIntRuntimeWorkerStackSize" />
+
+            <!-- Everything White -->
+            <TextBlock Text="Everything on screen is white or sky is white" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text='Remove FFlagSkyUseRBGEEncoding to fix.' TextWrapping="Wrap" Margin="0,0,0,10" />
+
+            <!-- Moving camera crash -->
+            <TextBlock Text="Game crashes when moving camera fast." FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Try deleting these flags:" Margin="0,0,0,2" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntPerformanceControlFrameTimeMax" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntPerformanceControlFrameTimeMaxUtility" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - DFIntGraphicsOptimizationModeMaxFrameTimeTargetMs" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,2" Text=" - FFlagMovePrerender" />
+            <TextBlock FontFamily="Consolas" TextWrapping="Wrap" Margin="0,0,0,10" Text=" - FFlagMovePrerenderV2" />
+
+            <!-- Capped FPS -->
+            <TextBlock Text="FPS capped even when uncapped" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,2" />
+             <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Check these if your FPS remains limited:" Margin="0,0,0,5" />
+            <TextBlock Text="Avoid exclusive fullscreen; Alt+Enter may help." Margin="0,0,0,2" />
+            <TextBlock Text="Laptop users: ensure high-performance power mode." Margin="0,0,0,2" />
+            <TextBlock Text="NVIDIA GPU: check Max Frame Rate in control panel." Margin="0,0,0,10" />
+
+            <!-- Final note -->
+            <TextBlock Text="Explanation by Scroom" FontStyle="Italic" FontSize="16" Margin="0,10,0,0" />
+
+        </StackPanel>
+</ui:UiPage>

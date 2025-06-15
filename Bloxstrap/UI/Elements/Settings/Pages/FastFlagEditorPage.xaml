@@ -1,16 +1,23 @@
-﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.FastFlagEditorPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Settings.Pages"
-      xmlns:resources="clr-namespace:Bloxstrap.Resources"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="FastFlagEditorPage"
-      Loaded="Page_Loaded">
-    <Grid Margin="0,0,14,14">
+﻿<ui:UiPage
+    x:Class="Bloxstrap.UI.Elements.Settings.Pages.FastFlagEditorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Settings.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Bloxstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="FastFlagEditorPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Loaded="Page_Loaded"
+    Focusable="True"
+    FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+    PreviewKeyDown="FastFlagEditorPage_PreviewKeyDown"
+    mc:Ignorable="d">
+
+
+    <Grid Margin="0,0,14,14" Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -22,39 +29,151 @@
         <TextBlock Grid.Row="0" Margin="0,0,0,16" Text="{x:Static resources:Strings.Menu_FastFlagEditor_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
         <WrapPanel Grid.Row="2" Orientation="Horizontal">
-            <ui:Button Icon="ArrowLeft48" Content="{x:Static resources:Strings.Menu_FastFlagEditor_Back}" Click="BackButton_Click" Margin="0,0,12,16" />
-            <ui:Button Icon="Add28" Content="{x:Static resources:Strings.Menu_FastFlagEditor_AddNew}" Click="AddButton_Click" Margin="0,0,12,16" />
-            <ui:Button Icon="Delete48" Content="{x:Static resources:Strings.Menu_FastFlagEditor_DeleteSelected}" Click="DeleteButton_Click" Appearance="Danger"  Margin="0,0,12,16">
+            <ui:Button
+                Width="110"
+                Margin="0,0,10,16"
+                Click="AddButton_Click"
+                Content="{x:Static resources:Strings.Menu_FastFlagEditor_AddNew}"
+                Icon="AddCircle24"/>
+            <ui:Button
+                Margin="0,0,10,16"
+                VerticalAlignment="Top"
+                Appearance="Danger"
+                Background="#ff3334"
+                Click="DeleteButton_Click"
+                Content="{x:Static resources:Strings.Menu_FastFlagEditor_DeleteSelected}"
+                Icon="SlideEraser24">
+                <ui:Button.PressedBackground>
+                    <SolidColorBrush Opacity="0.7" Color="#ff5c5d" />
+                </ui:Button.PressedBackground>
+                <ui:Button.MouseOverBackground>
+                    <SolidColorBrush Opacity="0.9" Color="#ff5c5d" />
+                </ui:Button.MouseOverBackground>
                 <ui:Button.Style>
-                    <Style TargetType="ui:Button" BasedOn="{StaticResource {x:Type ui:Button}}">
+                    <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="{x:Type ui:Button}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=DataGrid, Path=SelectedItems.Count}" Value="0">
+                            <DataTrigger Binding="{Binding SelectedItems.Count, ElementName=DataGrid}" Value="0">
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </ui:Button.Style>
             </ui:Button>
-            <ToggleButton x:Name="TogglePresetsButton"  Content="{x:Static resources:Strings.Menu_FastFlagEditor_ShowPresetFlags}" Click="ToggleButton_Click"  Margin="0,0,12,16" />
-            <ui:Button Icon="ArrowExportRtl24" Content="{x:Static resources:Strings.Menu_FastFlagEditor_ExportJson}" Click="ExportJSONButton_Click" Margin="0,0,12,16" />
-            <ui:Button Icon="OpenFolder24" Content="{x:Static resources:Strings.Common_Profiles}" Click="FlagProfiles_Click" Margin="0,0,12,16" />
+            <ui:Button
+                Margin="0,0,10,16"
+                Click="DeleteAllButton_Click"
+                Content="{x:Static resources:Strings.Common_DeleteAll}"
+                Icon="Delete48"/>
+            <ui:Button
+                Margin="0,0,10,16"
+                VerticalAlignment="Top"
+                Click="CopyJSONButton_Click"
+                ClipToBounds="True"
+                Content="{x:Static resources:Strings.Common_CopyAll}"
+                Icon="Clipboard16"/>
+            <ui:Button
+                Margin="0,0,10,16"
+                VerticalAlignment="Top"
+                Click="ExportJSONButton_Click"
+                Content="{x:Static resources:Strings.Menu_FastFlagEditor_ExportJson}"
+                Icon="ArrowExit20"/>
+            <ui:Button
+                Margin="0,0,10,16"
+                VerticalAlignment="Top"
+                Click="FlagProfiles_Click"
+                Content="{x:Static resources:Strings.Common_Profiles}"
+                Icon="Edit28"/>
+            <ui:Button
+                Margin="0,0,10,16"
+                VerticalAlignment="Top"
+                Icon="Settings48"
+                Content="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings}"
+                Click="AdvancedSettings_Click"/>
+            <ui:Button
+                Margin="0,0,10,16"
+                VerticalAlignment="Top"
+                Icon="Broom28"
+                Content="Clean FastFlag List"
+                Click="ActionsButton_Click"/>
+            <ToggleButton
+                x:Name="TogglePresetsButton"
+                Margin="0,0,10,16"
+                VerticalAlignment="Top"
+                Click="ToggleButton_Click"
+                Content="{x:Static resources:Strings.Menu_FastFlagEditor_ShowPresetFlags}" />
+            <TextBlock 
+                x:Name="TotalFlagsTextBlock"
+                Margin="10,5" 
+                Text="{Binding FlagCountText}"
+                Visibility="{Binding ShowFlagCount, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
         </WrapPanel>
 
-        <ui:TextBox x:Name="SearchTextBox" Grid.Row="3" Margin="0,0,0,16" Icon="Search32" PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}" TextChanged="SearchTextBox_TextChanged" />
 
-        <DataGrid Name="DataGrid" Grid.Row="4" HeadersVisibility="Column" GridLinesVisibility="Horizontal" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="DataGrid_CellEditEnding" CanUserReorderColumns="False">
+
+        <!--  Search Container with suggestion box -->
+        <Grid
+            Grid.Row="3"
+            Height="40"
+            Margin="0,0,1,5">
+            <ui:TextBox
+                x:Name="SearchTextBox"
+                Grid.Row="2"
+                Height="32"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                FocusVisualStyle="{x:Null}"
+                FontSize="14"
+                Icon="Search48"
+                PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}"
+                TextChanged="SearchTextBox_TextChanged">
+            </ui:TextBox>
+            <TextBlock
+                x:Name="SuggestionTextBlock"
+                Cursor="Hand"
+                MouseLeftButtonUp="SuggestionTextBlock_MouseLeftButtonUp"
+                Margin="12,0,11,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                FontSize="13.85"
+                Foreground="#FF51A2ED"
+                Opacity="0"
+                Visibility="Collapsed"
+                RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TranslateTransform x:Name="SuggestionTranslateTransform" X="10" />
+                </TextBlock.RenderTransform>
+                    <Run Text="Looking For" />
+                    <Run x:Name="SuggestionKeywordRun" Text="" FontWeight="Bold" />
+                    <Run Text="?" />
+            </TextBlock>
+        </Grid>
+
+        <DataGrid
+            Name="DataGrid"
+            Grid.Row="3"
+            Grid.RowSpan="2"
+            Margin="0,45,0,-9"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserReorderColumns="False"
+            CellEditEnding="DataGrid_CellEditEnding"
+            GridLinesVisibility="Horizontal"
+            HeadersVisibility="Column">
             <DataGrid.Style>
-                <Style TargetType="DataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+                <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="BorderThickness" Value="0" />
                 </Style>
             </DataGrid.Style>
-            
+
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
-                    <Setter Property="Height" Value="32" />
-                    <Setter Property="Padding" Value="8,0,8,0" />
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="Padding" Value="12,0,12,0" />
                     <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
                     <Setter Property="BorderThickness" Value="1" />
                 </Style>
@@ -76,11 +195,11 @@
                             </Setter>
                         </Trigger>
                     </Style.Triggers>
-                    <Setter Property="Height" Value="32" />
+                    <Setter Property="Height" Value="30" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="DataGridCell">
-                                <Border Background="{TemplateBinding Background}" Padding="6,0,6,0">
+                                <Border Padding="6,0,6,0" Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -88,10 +207,17 @@
                     </Setter>
                 </Style>
             </DataGrid.CellStyle>
-            
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static resources:Strings.Common_Name}" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="{x:Static resources:Strings.Common_Value}" Binding="{Binding Value}" Width="*" />
+                <DataGridTemplateColumn Header="{x:Static resources:Strings.Common_Presets}" x:Name="PresetColumn">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="50" Width="25" Source="{Binding Preset}" Stretch="Uniform" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="425"  Binding="{Binding Name}" Header="{x:Static resources:Strings.Common_Name}" />
+                <DataGridTextColumn Width="*" Binding="{Binding Value}" Header="{x:Static resources:Strings.Common_Value}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

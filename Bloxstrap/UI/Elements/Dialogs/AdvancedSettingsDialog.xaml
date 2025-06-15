@@ -1,0 +1,86 @@
+﻿<base:WpfUiWindow x:Class="Bloxstrap.UI.Elements.Dialogs.AdvancedSettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
+        xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Dialogs"
+        xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
+        xmlns:resources="clr-namespace:Bloxstrap.Resources"
+        xmlns:converters="clr-namespace:Bloxstrap.UI.Converters"
+        mc:Ignorable="d"
+        Title="{x:Static resources:Strings.Dialog_AddFastFlag_Title}" 
+        MinHeight="0"
+        Width="540"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+        ExtendsContentIntoTitleBar="True"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Padding="8" Title="Advanced Settings" FontWeight="Bold" ShowMinimize="False" ShowMaximize="False" CanMaximize="False" KeyboardNavigation.TabNavigation="None" />
+        <StackPanel Margin="0,30,0,0" >
+
+            <controls:OptionControl
+                    Margin="5,0,5,0"
+                    Header="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_CopyFormat_Title}" 
+                    Description="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_CopyFormat_Description}"
+                    HelpLink="https://github.com/Meddsam/Froststrap/wiki/Advanced-FastFlag-Editor-Settings#copy-format" >
+                <ComboBox Margin="5,0,0,0" Padding="10,5,10,5"
+                        Width="200"
+                        ItemsSource="{Binding CopyFormatModes}"
+                        SelectedItem="{Binding SelectedCopyFormat, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumNameConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </controls:OptionControl>
+
+            <controls:OptionControl
+                    Margin="5,0,5,0"
+                    Header="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_PresetColumn_Title}" 
+                    Description="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_PresetColumn_Description}"
+                    HelpLink="https://github.com/Meddsam/Froststrap/wiki/Advanced-FastFlag-Editor-Settings#preset-column" >
+                <ui:ToggleSwitch IsChecked="{Binding ShowPresetColumnSetting, Mode=TwoWay}" />
+            </controls:OptionControl>
+
+            <controls:OptionControl
+                    Margin="5,0,5,0"
+                    Header="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_ToggleFlagCount_Title}" 
+                    Description="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_ToggleFlagCount_Description}"
+                    HelpLink="https://github.com/Meddsam/Froststrap/wiki/Advanced-FastFlag-Editor-Settings#flag-count" >
+                <ui:ToggleSwitch IsChecked="{Binding ShowFlagCount, Mode=TwoWay}" />
+            </controls:OptionControl>
+
+            <controls:OptionControl
+                Margin="5,0,5,10"
+                Header="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_AddWithID_Title}" 
+                Description="{x:Static resources:Strings.Menu_FastFlagsEditor_AdvancedSettings_AddWithID_Description}"
+                HelpLink="https://github.com/Meddsam/Froststrap/wiki/Advanced-FastFlag-Editor-Settings#add-with-id" >
+                <ui:ToggleSwitch IsChecked="{Binding ShowAddWithID, Mode=TwoWay}" />
+            </controls:OptionControl>
+
+
+        </StackPanel>
+
+        <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
+            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
+
+                <Button MinWidth="100" Content="{x:Static resources:Strings.Menu_Save}" Click="SaveButton_Click"/>
+                <Button MinWidth="100" Margin="12,0,0,0" Content="{x:Static resources:Strings.Common_Close}" IsCancel="True" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</base:WpfUiWindow>

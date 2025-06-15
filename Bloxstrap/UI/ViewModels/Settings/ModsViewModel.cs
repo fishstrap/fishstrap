@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.IO;
 
 using Microsoft.Win32;
 
@@ -9,7 +10,6 @@ using Windows.Win32.Foundation;
 
 using CommunityToolkit.Mvvm.Input;
 
-using Bloxstrap.Models.SettingTasks;
 using Bloxstrap.AppData;
 
 namespace Bloxstrap.UI.ViewModels.Settings
@@ -18,35 +18,31 @@ namespace Bloxstrap.UI.ViewModels.Settings
     {
         private void OpenModsFolder() => Process.Start("explorer.exe", Paths.Modifications);
 
-        private readonly Dictionary<string, byte[]> FontHeaders = new()
+        private static readonly Dictionary<string, byte[]> FontHeaders = new()
         {
-            { "ttf", new byte[4] { 0x00, 0x01, 0x00, 0x00 } },
-            { "otf", new byte[4] { 0x4F, 0x54, 0x54, 0x4F } },
-            { "ttc", new byte[4] { 0x74, 0x74, 0x63, 0x66 } } 
+            { "ttf", new byte[] { 0x00, 0x01, 0x00, 0x00 } },
+            { "otf", new byte[] { 0x4F, 0x54, 0x54, 0x4F } },
+            { "ttc", new byte[] { 0x74, 0x74, 0x63, 0x66 } }
         };
 
         private void ManageCustomFont()
         {
-            if (!String.IsNullOrEmpty(TextFontTask.NewState))
+            if (!string.IsNullOrEmpty(TextFontTask.NewState))
             {
-                TextFontTask.NewState = "";
+                TextFontTask.NewState = string.Empty;
             }
             else
             {
-                var dialog = new OpenFileDialog
+                var dialog = new OpenFileDialog { Filter = $"{Strings.Menu_FontFiles}|*.ttf;*.otf;*.ttc" };
+
+                if (dialog.ShowDialog() != true) return;
+
+                string type = Path.GetExtension(dialog.FileName).TrimStart('.').ToLowerInvariant();
+                byte[] fileHeader = File.ReadAllBytes(dialog.FileName).Take(4).ToArray();
+
+                if (!FontHeaders.TryGetValue(type, out var expectedHeader) || !expectedHeader.SequenceEqual(fileHeader))
                 {
-                    Filter = $"{Strings.Menu_FontFiles}|*.ttf;*.otf;*.ttc"
-                };
-
-                if (dialog.ShowDialog() != true)
-                    return;
-
-                string type = dialog.FileName.Substring(dialog.FileName.Length-3, 3).ToLowerInvariant();
-
-                if (!FontHeaders.ContainsKey(type) 
-                    || !FontHeaders.Any(x => File.ReadAllBytes(dialog.FileName).Take(4).SequenceEqual(x.Value)))
-                {
-                    Frontend.ShowMessageBox(Strings.Menu_Mods_Misc_CustomFont_Invalid, MessageBoxImage.Error);
+                    Frontend.ShowMessageBox("Custom Font Invalid", MessageBoxImage.Error);
                     return;
                 }
 
@@ -58,6 +54,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
         }
 
         public ICommand OpenModsFolderCommand => new RelayCommand(OpenModsFolder);
+
+        public ICommand AddCustomCursorModCommand => new RelayCommand(AddCustomCursorMod);
+
+        public ICommand RemoveCustomCursorModCommand => new RelayCommand(RemoveCustomCursorMod);
 
         public Visibility ChooseCustomFontVisibility => !String.IsNullOrEmpty(TextFontTask.NewState) ? Visibility.Collapsed : Visibility.Visible;
 
@@ -113,6 +113,103 @@ namespace Bloxstrap.UI.ViewModels.Settings
             else
                 Frontend.ShowMessageBox(Strings.Common_RobloxNotInstalled, MessageBoxImage.Error);
 
+        }
+
+        public Visibility ChooseCustomCursorVisibility
+        {
+            get
+            {
+                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
+                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
+                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
+                return anyExist ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+
+        public Visibility DeleteCustomCursorVisibility
+        {
+            get
+            {
+                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
+                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
+                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
+                return anyExist ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        public void AddCustomCursorMod()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "PNG Images (*.png)|*.png",
+                Title = "Select a PNG Cursor Image"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            string sourcePath = dialog.FileName;
+            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
+            Directory.CreateDirectory(targetDir);
+
+            string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
+
+            try
+            {
+                foreach (var name in cursorNames)
+                {
+                    string destPath = Path.Combine(targetDir, name);
+                    File.Copy(sourcePath, destPath, overwrite: true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Frontend.ShowMessageBox(
+                    $"Failed to add cursors:\n{ex.Message}",
+                    MessageBoxImage.Error
+                );
+
+            }
+
+            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
+        }
+
+        public void RemoveCustomCursorMod()
+        {
+            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
+            string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
+
+            bool anyDeleted = false;
+            foreach (var name in cursorNames)
+            {
+                string filePath = Path.Combine(targetDir, name);
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        File.Delete(filePath);
+                        anyDeleted = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Frontend.ShowMessageBox(
+                            $"Failed to remove {name}:\n{ex.Message}",
+                            MessageBoxImage.Error
+                        );
+
+                    }
+                }
+            }
+
+            if (!anyDeleted)
+                Frontend.ShowMessageBox(
+                    "No custom cursors found to remove.",
+                    MessageBoxImage.Information
+                );
+
+            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
         }
     }
 }

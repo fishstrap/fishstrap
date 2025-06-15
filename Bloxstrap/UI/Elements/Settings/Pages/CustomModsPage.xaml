@@ -1,0 +1,402 @@
+﻿<ui:UiPage
+    x:Class="Bloxstrap.UI.Elements.Settings.Pages.CustomModsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Bloxstrap.UI.ViewModels"
+    xmlns:resources="clr-namespace:Bloxstrap.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="CustomModsPage"
+    d:DesignWidth="800"
+    Scrollable="True"
+    mc:Ignorable="d">
+    
+    
+
+	<Page.Resources>
+		<DataTemplate x:Key="ItemTemplate">
+			<StackPanel Orientation="Horizontal" Margin="4">
+				<Image Source="{Binding ImagePath}" Width="32" Height="32" Margin="0,0,8,0"/>
+				<TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+			</StackPanel>
+		</DataTemplate>
+
+        <Style TargetType="GroupBox" x:Key="NoBorderGroupBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <StackPanel>
+                            <ContentPresenter ContentSource="Header" Margin="0,0,0,8" />
+                            <ContentPresenter ContentSource="Content" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="ThemeListBoxStyle" TargetType="ListBox">
+			<Setter Property="SelectionMode" Value="Multiple"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="Width" Value="346"/>
+			<Setter Property="Height" Value="228"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+	</Page.Resources>
+
+    <StackPanel Margin="0">
+
+        <TextBlock Grid.Row="0" Margin="0,0,0,16" Text="{x:Static resources:Strings.Menu_CustomMods_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+
+        <!-- Search Box -->
+        <Grid Margin="0,0,0,14" Height="36">
+            <ui:TextBox
+            x:Name="SearchBox"
+            Height="32"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            BorderThickness="0"
+            FontSize="14"
+            Icon="Search48"
+            PlaceholderText="Search mods"
+            TextChanged="SearchBox_TextChanged"/>
+        </Grid>
+
+        <WrapPanel x:Name="ResultsPanel" Margin="0,-20,0,0" ItemWidth="370" ItemHeight="Auto" Orientation="Horizontal">
+
+             <!-- Bloxstrap theme -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/bloxstrap.png" Stretch="UniformToFill" />
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="Bloxstrap theme" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: TheKliko"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_ModType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Kliko's Mod -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/Kliko.png" Stretch="UniformToFill"/>
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="Kliko's Mod" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: TheKliko"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_ModType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click2"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Fishstrap -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/Fishstrap.png" Stretch="UniformToFill"/>
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="Fishstrap" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: TheKliko"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_ModType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click3"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Nagi Seishiro -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/Nagi.png" Stretch="Fill"/>
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="Nagi Seishiro" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: Meddsam"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_LauncherType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click4"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Arch Linux -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/ArchLinux.png" Stretch="Fill"/>
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="Arch Linux" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: DefinitelyNotAltAccount"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_LauncherType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click5"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- 24k Gold -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/24kGold.png" Stretch="Fill"/>
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="24k Gold" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: thefrenchguy4"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_ModType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click6"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            
+
+            <!-- One Shot Solsctice Anniversary Launcher -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/OneShotSolstriceAnniversary.png" Stretch="Fill" />
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="One Shot Solstice Anniversary" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: DefinitelyNotAltAccount"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_LauncherType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click7"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+
+            <!-- Kick Prompt Launcher -->
+            <GroupBox Margin="6" Style="{StaticResource NoBorderGroupBox}">
+                <StackPanel>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                     Style="{StaticResource ThemeListBoxStyle}"
+                     ItemTemplate="{StaticResource ItemTemplate}">
+                            <ListBox.Background>
+                                <ImageBrush ImageSource="/Resources/CustomModsPage/KickPrompt.png" Stretch="UniformToFill" />
+                            </ListBox.Background>
+                        </ListBox>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                <Run Text="Kick Prompt" FontSize="20" />
+                <LineBreak/>
+                <Run Foreground="Gray" Text="Credits: No idea who made it"/>
+                <LineBreak/>
+                <Run Foreground="DodgerBlue" FontWeight="Bold" Text="{x:Static resources:Strings.Common_LauncherType}"/>
+                        </TextBlock>
+
+                        <ui:Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Install"
+                       Icon="ArrowDownload48"
+                       Click="InstallButton_Click8"
+                       Width="370"
+                       Margin="0,8,13,0"
+                       HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+        </WrapPanel>
+	</StackPanel>
+</ui:UiPage>

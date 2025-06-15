@@ -18,6 +18,9 @@
         WindowBackdropType="Mica"
         WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -54,7 +57,7 @@
             </Grid>
         </Grid>
 
-        <StatusBar x:Name="RootStatusBar" Grid.Row="2" Padding="14,10" Background="{ui:ThemeResource ApplicationBackgroundBrush}" BorderThickness="0,1,0,0">
+        <StatusBar x:Name="RootStatusBar" Grid.Row="2" Padding="14,10" Background="{DynamicResource PrimaryBackgroundColor}" BorderThickness="0,1,0,0">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>

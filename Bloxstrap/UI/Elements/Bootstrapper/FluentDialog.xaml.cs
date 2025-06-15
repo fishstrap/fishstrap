@@ -110,7 +110,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         {
             InitializeComponent();
 
-            string version = Utilities.GetRobloxVersion(false);
+            string version = Utilities.GetRobloxVersionStr(false);
             string channel = App.Settings.Prop.Channel;
 
             _viewModel = new FluentDialogViewModel(this, aero, version, channel);

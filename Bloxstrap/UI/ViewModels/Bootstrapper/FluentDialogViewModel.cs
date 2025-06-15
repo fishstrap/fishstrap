@@ -17,7 +17,7 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
 
             WindowBackdropType = aero ? BackgroundType.Aero : BackgroundType.Mica;
 
-            string RealVersion = String.IsNullOrEmpty(Utilities.GetRobloxVersion(App.Bootstrapper?.IsStudioLaunch ?? false)) ? "None" : Utilities.GetRobloxVersion(App.Bootstrapper?.IsStudioLaunch ?? false);
+            string RealVersion = String.IsNullOrEmpty(Utilities.GetRobloxVersionStr(App.Bootstrapper?.IsStudioLaunch ?? false)) ? "None" : Utilities.GetRobloxVersionStr(App.Bootstrapper?.IsStudioLaunch ?? false);
 
             VersionText = "Version: " + RealVersion;
             ChannelText = "Bucket: " + channel;

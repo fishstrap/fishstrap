@@ -94,6 +94,7 @@ namespace Bloxstrap.UI
                 BootstrapperStyle.ProgressDialog => new ProgressDialog(),
                 BootstrapperStyle.ClassicFluentDialog => new ClassicFluentDialog(),
                 BootstrapperStyle.ByfronDialog => new ByfronDialog(),
+                BootstrapperStyle.CustomFluentDialog => new CustomFluentDialog(false),
                 BootstrapperStyle.FluentDialog => new FluentDialog(false),
                 BootstrapperStyle.FluentAeroDialog => new FluentDialog(true),
                 BootstrapperStyle.CustomDialog => GetCustomBootstrapper(),
@@ -109,6 +110,18 @@ namespace Bloxstrap.UI
                 messagebox.ShowDialog();
                 return messagebox.Result;
             }));
+        }
+
+        public static void ShowBalloonTip(string title, string message, System.Windows.Forms.ToolTipIcon icon = System.Windows.Forms.ToolTipIcon.None, int timeout = 5)
+        {
+            var notifyIcon = new System.Windows.Forms.NotifyIcon
+            {
+                Icon = Properties.Resources.IconBloxstrap,
+                Text = App.ProjectName,
+                Visible = true
+            };
+
+            notifyIcon.ShowBalloonTip(timeout, title, message, icon);
         }
     }
 }

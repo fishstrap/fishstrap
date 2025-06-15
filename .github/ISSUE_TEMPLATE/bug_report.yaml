@@ -5,9 +5,9 @@ body:
   - type: input
     id: version
     attributes:
-      label: Fishstrap Version
-      description: "What version of Fishstrap are you using?"
-      placeholder: "v2.9.0.0"
+      label: Froststrap Version
+      description: "What version of Froststrap are you using?"
+      placeholder: "v1.0.0.0"
     validations:
       required: true
   - type: textarea
@@ -30,7 +30,7 @@ body:
   - type: textarea
     id: log
     attributes:
-      label: Fishstrap Log
-      description: If you're getting a Fishstrap Exception error, upload your log file here. Otherwise, just leave it empty.
+      label: Froststrap Log
+      description: If you're getting a Froststrap Exception error, upload your log file here. Otherwise, just leave it empty.
       value: "N/A"
       render: text

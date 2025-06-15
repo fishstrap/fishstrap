@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Bloxstrap.UI.Elements.About;
+using Bloxstrap.UI.Elements.Help;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Bloxstrap.UI.ViewModels.Settings
@@ -8,7 +9,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
     public class MainWindowViewModel : NotifyPropertyChangedViewModel
     {
         public ICommand OpenAboutCommand => new RelayCommand(OpenAbout);
-        
+        public ICommand OpenHelpCommand => new RelayCommand(OpenHelp);
+
         public ICommand SaveSettingsCommand => new RelayCommand(SaveSettings);
 
         public ICommand SaveAndLaunchSettingsCommand => new RelayCommand(SaveAndLaunchSettings);
@@ -39,7 +41,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        private void OpenAbout() => new MainWindow().ShowDialog();
+        private void OpenAbout() => new Elements.About.MainWindow().ShowDialog();
+        private void OpenHelp() => new Elements.Help.MainWindow().ShowDialog();
 
         private void CloseWindow() => RequestCloseWindowEvent?.Invoke(this, EventArgs.Empty);
 

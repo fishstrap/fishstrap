@@ -9,17 +9,18 @@ namespace Bloxstrap
         private readonly InterProcessLock _lock = new("Watcher");
 
         private readonly WatcherData? _watcherData;
-        
+
         private readonly NotifyIconWrapper? _notifyIcon;
 
         public readonly ActivityWatcher? ActivityWatcher;
 
         public readonly DiscordRichPresence? RichPresence;
 
+        public readonly IntegrationWatcher? IntegrationWatcher;
+
         public Watcher()
         {
             const string LOG_IDENT = "Watcher";
-
 
             if (!_lock.IsAcquired)
             {
@@ -62,11 +63,10 @@ namespace Bloxstrap
                     };
                 }
 
-                if (App.Settings.Prop.UseDiscordRichPresence && !App.State.Prop.WatcherRunning)
-                {
-                    App.Logger.WriteLine(LOG_IDENT, "Running rpc");
+                if (App.Settings.Prop.UseDiscordRichPresence)
                     RichPresence = new(ActivityWatcher);
-                }
+
+                IntegrationWatcher = new IntegrationWatcher(ActivityWatcher);
             }
 
             _notifyIcon = new(this);
@@ -126,12 +126,144 @@ namespace Bloxstrap
         {
             App.Logger.WriteLine("Watcher::Dispose", "Disposing Watcher");
 
+            IntegrationWatcher?.Dispose();
             _notifyIcon?.Dispose();
             RichPresence?.Dispose();
 
-            App.State.Prop.WatcherRunning = false;
-
             GC.SuppressFinalize(this);
         }
+
+        public static void ApplyRecordingBlock(bool block, bool saveSetting = false)
+        {
+            const string LOG_IDENT = "Watcher::ApplyRecordingBlock";
+
+            string videosPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos), "Roblox");
+            string backupPath = videosPath + " (Before Blocking)";
+
+            try
+            {
+                if (block)
+                {
+                    if (Directory.Exists(videosPath))
+                    {
+                        bool hasContent = Directory.EnumerateFileSystemEntries(videosPath).Any();
+
+                        if (hasContent)
+                        {
+                            if (!Directory.Exists(backupPath))
+                                Directory.Move(videosPath, backupPath);
+                        }
+                        else
+                        {
+                            Directory.Delete(videosPath);
+                        }
+                    }
+
+                    if (!File.Exists(videosPath))
+                    {
+                        File.WriteAllBytes(videosPath, Array.Empty<byte>());
+                        File.SetAttributes(videosPath, FileAttributes.ReadOnly);
+                    }
+                }
+                else
+                {
+                    if (File.Exists(videosPath) && !Directory.Exists(videosPath))
+                    {
+                        var attributes = File.GetAttributes(videosPath);
+                        if ((attributes & FileAttributes.ReadOnly) != 0)
+                        {
+                            attributes &= ~FileAttributes.ReadOnly;
+                            File.SetAttributes(videosPath, attributes);
+                        }
+
+                        File.Delete(videosPath);
+                    }
+                    if (!Directory.Exists(videosPath) && Directory.Exists(backupPath))
+                    {
+                        Directory.Move(backupPath, videosPath);
+                    }
+                }
+
+                App.Settings.Prop.BlockRobloxRecording = block;
+
+                if (saveSetting)
+                    App.Settings.Save();
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+        }
+
+        public static void ApplyScreenshotBlock(bool block, bool saveSetting = false)
+        {
+            const string LOG_IDENT = "Watcher::ApplyScreenshotBlock";
+
+            string picturesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "Roblox");
+            string backupPath = picturesPath + " (Before Blocking)";
+
+            try
+            {
+                if (block)
+                {
+                    if (Directory.Exists(picturesPath))
+                    {
+                        bool hasContent = Directory.EnumerateFileSystemEntries(picturesPath).Any();
+
+                        if (hasContent)
+                        {
+                            if (!Directory.Exists(backupPath))
+                            {
+                                Directory.Move(picturesPath, backupPath);
+                                App.Logger.WriteLine(LOG_IDENT, $"Moved existing folder to '{backupPath}'");
+                            }
+                        }
+                        else
+                        {
+                            Directory.Delete(picturesPath);
+                            App.Logger.WriteLine(LOG_IDENT, $"Deleted empty folder '{picturesPath}'");
+                        }
+                    }
+
+                    if (!File.Exists(picturesPath))
+                    {
+                        File.WriteAllBytes(picturesPath, Array.Empty<byte>());
+                        File.SetAttributes(picturesPath, FileAttributes.ReadOnly);
+                        App.Logger.WriteLine(LOG_IDENT, $"Created read-only file '{picturesPath}'");
+                    }
+                }
+                else
+                {
+                    if (File.Exists(picturesPath) && !Directory.Exists(picturesPath))
+                    {
+                        var attributes = File.GetAttributes(picturesPath);
+                        if ((attributes & FileAttributes.ReadOnly) != 0)
+                        {
+                            attributes &= ~FileAttributes.ReadOnly;
+                            File.SetAttributes(picturesPath, attributes);
+                        }
+
+                        File.Delete(picturesPath);
+                        App.Logger.WriteLine(LOG_IDENT, $"Deleted read-only file '{picturesPath}'");
+                    }
+
+                    if (!Directory.Exists(picturesPath) && Directory.Exists(backupPath))
+                    {
+                        Directory.Move(backupPath, picturesPath);
+                        App.Logger.WriteLine(LOG_IDENT, $"Restored backup folder from '{backupPath}'");
+                    }
+                }
+
+                App.Settings.Prop.BlockRobloxScreenshots = block;
+
+                if (saveSetting)
+                    App.Settings.Save();
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+        }
+
     }
 }

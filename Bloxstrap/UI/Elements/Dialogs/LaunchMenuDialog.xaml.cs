@@ -42,5 +42,30 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 LaunchTitle.Text = "Fishtrap";
             }
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Anchor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CardAction_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+        }
     }
 }

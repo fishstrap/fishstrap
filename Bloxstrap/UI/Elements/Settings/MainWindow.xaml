@@ -11,16 +11,15 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance dmodels:MainWindowViewModel, IsDesignTimeCreatable=True}"
              Title="{x:Static resources:Strings.Menu_Title}"
-             MinWidth="1000"
-             Width="1000"
-             Height="580"
+             MinWidth="1025"
+             Width="1025"
+             Height="650"
              Background="{ui:ThemeResource ApplicationBackgroundBrush}"
              ExtendsContentIntoTitleBar="True"
+             WindowBackdropType="Mica"
              WindowStartupLocation="CenterScreen"
              Closing="WpfUiWindow_Closing"
              Closed="WpfUiWindow_Closed">
-
-
 
     <Grid>
         <Grid.RowDefinitions>
@@ -28,12 +27,19 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
 
         <ui:Snackbar
             x:Name="AlreadyRunningSnackbar"
             Title="{x:Static resources:Strings.Menu_AlreadyRunning_Title}"
             Message="{x:Static resources:Strings.Menu_AlreadyRunning_Caption}"
-            Icon="Info20" Timeout="10000" Margin="200,0,200,20" Grid.RowSpan="10" Panel.ZIndex="10" />
+            Icon="Info20" Timeout="10000" Margin="200,0,200,20" Grid.RowSpan="10" Panel.ZIndex="10" >
+            <ui:Snackbar.Background>
+                <DynamicResource ResourceKey="WindowTransparentBackgroundGradient" />
+            </ui:Snackbar.Background>
+        </ui:Snackbar>
 
         <ui:Snackbar
             x:Name="SettingsSavedSnackbar"
@@ -57,17 +63,17 @@
                 <ui:NavigationFluent.Items>
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Integrations_Title}" PageType="{x:Type pages:IntegrationsPage}" Icon="Add28" Tag="integrations" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Behaviour_Title}" PageType="{x:Type pages:BehaviourPage}" Icon="PlaySettings20" Tag="bootstrapper" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Common_Deployment}" PageType="{x:Type pages:ChannelPage}" Icon="CloudArchive20" Tag="channel" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Mods_Title}" PageType="{x:Type pages:ModsPage}" Icon="WrenchScrewdriver20" Tag="mods" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_CustomMods_Title}" PageType="{x:Type pages:CustomModsPage}" Icon="PuzzlePiece24" Tag="custommods" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_FastFlags_Title}" PageType="{x:Type pages:FastFlagsPage}" Icon="Flag24" Tag="fastflags" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_FastFlagEditor_Title}" PageType="{x:Type pages:FastFlagEditorPage}" Icon="EditSettings20" Tag="fastflagEditor" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Appearance_Title}" PageType="{x:Type pages:AppearancePage}" Icon="PaintBrush24" Tag="appearance" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Common_Shortcuts}" PageType="{x:Type pages:ShortcutsPage}" Icon="Apps28" Tag="shortcuts" />
-
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_FastFlagEditor_Title}" PageType="{x:Type pages:FastFlagEditorPage}" Tag="fastflageditor" Visibility="Collapsed" />
                 </ui:NavigationFluent.Items>
                 <ui:NavigationFluent.Footer>
-                    <ui:NavigationItem Visibility="Collapsed" Content="Fishstrap" PageType="{x:Type pages:BloxstrapPage}" Icon="FoodFish24" Tag="shortcuts" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="FoodFish24" Margin="0,0,0,12" Command="{Binding OpenAboutCommand, Mode=OneTime}" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Common_Settings}" PageType="{x:Type pages:ChannelPage}" Icon="Settings20" Tag="channel" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Help_Title}" Icon="BookExclamationMark24" Margin="0,0,0,12" Command="{Binding OpenHelpCommand, Mode=OneTime}" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="QuestionCircle28" Margin="0,0,0,12" Command="{Binding OpenAboutCommand, Mode=OneTime}" />
                 </ui:NavigationFluent.Footer>
             </ui:NavigationFluent>
 
@@ -114,5 +120,38 @@
                 <ui:Button Content="{x:Static resources:Strings.Common_Close}" Command="{Binding CloseWindowCommand, Mode=OneWay}" />
             </StatusBarItem>
         </StatusBar>
+
+        <!-- Loading Overlay -->
+        <Grid x:Name="LoadingOverlay"
+      Visibility="Collapsed"
+      Background="#80000000"
+      Grid.RowSpan="3"
+      Panel.ZIndex="999"
+      IsHitTestVisible="True">
+            <Border HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="270"
+            Height="160"
+            Background="#59000000"
+            CornerRadius="12"
+            Padding="20">
+                <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical"
+                    Margin="0">
+                    <ui:ProgressRing Width="48"
+                             Height="48"
+                             IsIndeterminate="True"
+                             Visibility="Visible" />
+                    <TextBlock x:Name="LoadingOverlayText"
+                       Text="Loading..."
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       TextAlignment="Center"
+                       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                       Margin="0,12,0,0" />
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </base:WpfUiWindow>

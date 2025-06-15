@@ -36,17 +36,49 @@
         <controls:OptionControl 
     Header="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Title}"
     Description="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Description}"
+    HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#logs-menu"
     IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
             <ui:ToggleSwitch IsChecked="{Binding PlayerLogsEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Integrations_DesktopApp_Title}" 
-            Description="{Binding Source={x:Static resources:Strings.Menu_Integrations_DesktopApp_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#dont-exit-to-desktop-app'}"
-            HelpLink="https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#dont-exit-to-desktop-app"
-            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
-            <ui:ToggleSwitch IsChecked="{Binding DisableAppPatchEnabled, Mode=TwoWay}" />
-        </controls:OptionControl>
+        <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Integrations_BlockCardExpander_Title}" />
+                        <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Integrations_BlockCardExpander_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+            <StackPanel>
+
+                <controls:OptionControl 
+                    Header="{x:Static resources:Strings.Menu_Integrations_DesktopApp_Title}" 
+                    Description="{Binding Source={x:Static resources:Strings.Menu_Integrations_DesktopApp_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#dont-exit-to-desktop-app'}"
+                    HelpLink="https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#dont-exit-to-desktop-app"
+                    IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+                    <ui:ToggleSwitch IsChecked="{Binding DisableAppPatchEnabled, Mode=TwoWay}" />
+                </controls:OptionControl>
+
+                <controls:OptionControl
+                    Header="{x:Static resources:Strings.Menu_Integrations_BlockVideoRecording_Title}" 
+                    Description="{x:Static resources:Strings.Menu_Integrations_BlockVideoRecording_Description}" >
+                    <ui:ToggleSwitch IsChecked="{Binding BlockRobloxRecording, Mode=TwoWay}" />
+                </controls:OptionControl>
+
+                <controls:OptionControl
+                    Header="{x:Static resources:Strings.Menu_Integrations_BlockScreenShots_Title}" 
+                    Description="{x:Static resources:Strings.Menu_Integrations_BlockScreenShots_Description}" >
+                    <ui:ToggleSwitch IsChecked="{Binding BlockRobloxScreenshots, Mode=TwoWay}" />
+                </controls:OptionControl>
+
+            </StackPanel>
+        </ui:CardExpander>
+
 
         <TextBlock Text="{x:Static resources:Strings.Common_DiscordRichPresence}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
         <controls:MarkdownTextBlock MarkdownText="{Binding Source={x:Static resources:Strings.Menu_Integrations_RequiresActivityTracking}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#discord-rich-presence'}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
@@ -75,7 +107,7 @@
 
         <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_Custom_Title}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
         <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_Custom_Description}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-        <Grid Margin="0,8,0,0">
+        <Grid Margin="0,8,0,0" MinHeight="325">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -116,7 +148,11 @@
                 </Grid>
                 <TextBlock Margin="0,8,0,0" Text="{x:Static resources:Strings.Menu_Integrations_Custom_LaunchArgs}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                 <ui:TextBox Margin="0,4,0,0" PlaceholderText="{Binding Source='/k echo {0}', Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static resources:Strings.Menu_Integrations_Custom_LaunchArgs_Placeholder}}" Text="{Binding SelectedCustomIntegration.LaunchArgs}" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" />
-                <CheckBox Margin="0,8,0,0" Content="{x:Static resources:Strings.Menu_Integrations_Custom_AutoClose}" IsChecked="{Binding SelectedCustomIntegration.AutoClose}" />
+                <CheckBox Margin="0,8,0,0" Content="{x:Static resources:Strings.Menu_Integrations_Custom_SpecifyGame}" IsChecked="{Binding SelectedCustomIntegration.SpecifyGame, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="0,8,0,0" Text="{x:Static resources:Strings.Menu_Integrations_Custom_GameID}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <ui:TextBox Margin="0,4,0,0" PlaceholderText="1873" Text="{Binding SelectedCustomIntegration.GameID}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <CheckBox Margin="0,8,0,0" Content="{x:Static resources:Strings.Menu_Integrations_Custom_AutoCloseOnGame}" IsChecked="{Binding SelectedCustomIntegration.AutoCloseOnGame, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <CheckBox Margin="0,8,0,0" Content="{x:Static resources:Strings.Menu_Integrations_Custom_AutoClose}" IsChecked="{Binding SelectedCustomIntegration.AutoClose, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding SelectedCustomIntegration.SpecifyGame, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
             </StackPanel>
             <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="{x:Static resources:Strings.Menu_Integrations_Custom_NoneSelected}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock.Style>

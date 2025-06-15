@@ -5,6 +5,10 @@
         Default,
         Voxel,
         ShadowMap,
-        Future
+        Future,
+        [EnumName(StaticName = "Unified (Phase 4)")]
+        Unified,
     }
+
 }
+

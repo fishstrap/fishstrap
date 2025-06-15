@@ -7,14 +7,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using System.Windows.Media.Animation;
 
 using Wpf.Ui.Markup;
-using Wpf.Ui.Appearance;
-
-using SharpVectors.Converters;
 
 using Bloxstrap.UI.Elements.Controls;
+using Bloxstrap;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
@@ -98,30 +95,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         #endregion
 
         #region Brushes
-        private static Brush HandleXmlElement_RadialGradientBrush(CustomDialog dialog, XElement xmlElement)
-        {
-            var radialbrush = new RadialGradientBrush();
-
-            HandleXml_Brush(radialbrush, xmlElement);
-
-            object? startPoint = GetPointFromXElement(xmlElement, "GradientOrigin");
-            if (startPoint is Point)
-                radialbrush.GradientOrigin = (Point)startPoint;
-
-            object? endPoint = GetPointFromXElement(xmlElement, "Center");
-            if (endPoint is Point)
-                radialbrush.Center = (Point)endPoint;
-
-            radialbrush.ColorInterpolationMode = ParseXmlAttribute<ColorInterpolationMode>(xmlElement, "ColorInterpolationMode", ColorInterpolationMode.SRgbLinearInterpolation);
-            radialbrush.MappingMode = ParseXmlAttribute<BrushMappingMode>(xmlElement, "MappingMode", BrushMappingMode.RelativeToBoundingBox);
-            radialbrush.SpreadMethod = ParseXmlAttribute<GradientSpreadMethod>(xmlElement, "SpreadMethod", GradientSpreadMethod.Pad);
-
-            foreach (var child in xmlElement.Elements())
-                radialbrush.GradientStops.Add(HandleXml<GradientStop>(dialog, child));
-
-            return radialbrush;
-        }
-
         private static void HandleXml_Brush(Brush brush, XElement xmlElement)
         {
             brush.Opacity = ParseXmlAttribute<double>(xmlElement, "Opacity", 1.0);
@@ -178,7 +151,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"ImageBrush Failed to create BitmapImage: {ex.Message}", ex);
+                    throw new CustomThemeException(ex, "CustomTheme.Errors.ElementTypeCreationFailed", "Image", "BitmapImage", ex.Message);
                 }
 
                 imageBrush.ImageSource = bitmapImage;
@@ -245,71 +218,10 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             var first = brushElement.FirstNode as XElement;
             if (first == null)
-                throw new Exception($"{xmlElement.Name} {name} is missing the brush");
+                throw new CustomThemeException("CustomTheme.Errors.ElementAttributeMissingChild", xmlElement.Name, name);
 
             var brush = HandleXml<Brush>(dialog, first);
             uiElement.SetValue(dependencyProperty, brush);
-        }
-        #endregion
-
-        #region SVG
-        private static SvgViewbox HandleXmlElement_SvgViewbox(CustomDialog dialog, XElement xmlElement)
-        {
-            var svgviewbox = new SvgViewbox();
-            HandleXmlElement_FrameworkElement(dialog, svgviewbox, xmlElement);
-
-            svgviewbox.Stretch = ParseXmlAttribute<Stretch>(xmlElement, "Stretch", Stretch.Uniform);
-            svgviewbox.StretchDirection = ParseXmlAttribute<StretchDirection>(xmlElement, "StretchDirection", StretchDirection.Both);
-
-            string? xml = xmlElement.Value;
-            if (xmlElement.Value != null)
-                svgviewbox.SvgSource = xml;
-
-            if (xmlElement.Attribute("Source")?.Value?.ToString() != null)
-            {
-                var path = GetSourceData(dialog, "Source", xmlElement);
-                svgviewbox.UriSource = path;
-            }
-
-            return svgviewbox;
-        }
-
-        private static SvgIcon HandleXmlElement_SvgIcon(CustomDialog dialog, XElement xmlElement)
-        {
-            var svgicon = new SvgIcon();
-            HandleXmlElement_FrameworkElement(dialog, svgicon, xmlElement);
-
-            ApplyBrush_UIElement(dialog, svgicon, "Fill", SvgIcon.FillProperty, xmlElement);
-            ApplyBrush_UIElement(dialog, svgicon, "Stroke", SvgIcon.FillProperty, xmlElement);
-
-            svgicon.Stretch = ParseXmlAttribute<Stretch>(xmlElement, "Stretch", Stretch.Uniform);
-            svgicon.StretchDirection = ParseXmlAttribute<StretchDirection>(xmlElement, "StretchDirection", StretchDirection.Both);
-
-            string? xml = xmlElement.Value;
-            svgicon.SvgSource = xml;
-
-            return svgicon;
-        }
-
-        private static SvgBitmap HandleXmlElement_SvgBitmap(CustomDialog dialog, XElement xmlElement)
-        {
-            var svgbitmap = new SvgBitmap();
-            HandleXmlElement_FrameworkElement(dialog, svgbitmap, xmlElement);
-
-            svgbitmap.Stretch = ParseXmlAttribute<Stretch>(xmlElement, "Stretch", Stretch.Uniform);
-            svgbitmap.StretchDirection = ParseXmlAttribute<StretchDirection>(xmlElement, "StretchDirection", StretchDirection.Both);
-
-            string? xml = xmlElement.Value;
-            if (xmlElement.Value != null)            
-                svgbitmap.SvgSource = xml;
-
-            if (xmlElement.Attribute("Source")?.Value?.ToString() != null)
-            {
-                var path = GetSourceData(dialog, "Source", xmlElement);
-                svgbitmap.UriSource = path;
-            }
-
-            return svgbitmap;
         }
         #endregion
 
@@ -330,18 +242,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             shape.StrokeMiterLimit = ParseXmlAttribute<double>(xmlElement, "StrokeMiterLimit", 10);
             shape.StrokeStartLineCap = ParseXmlAttribute<PenLineCap>(xmlElement, "StrokeStartLineCap", PenLineCap.Flat);
             shape.StrokeThickness = ParseXmlAttribute<double>(xmlElement, "StrokeThickness", 1);
-        }
-
-        private static System.Windows.Shapes.Path HandleXmlElement_Path(CustomDialog dialog, XElement xmlElement)
-        {
-            var path = new System.Windows.Shapes.Path();
-            HandleXmlElement_Shape(dialog, path, xmlElement);
-
-            object? data = GetGeometryFromXElement(xmlElement, "Data");
-            if (data is Geometry)
-                path.Data = (Geometry)data;
-
-            return path;
         }
 
         private static Ellipse HandleXmlElement_Ellipse(CustomDialog dialog, XElement xmlElement)
@@ -467,9 +367,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             xmlElement.SetAttributeValue("IsEnabled", "True");
             HandleXmlElement_Control(dialog, dialog, xmlElement);
 
-            dialog.AllowsTransparency = ParseXmlAttribute<bool>(xmlElement, "AllowsTransparency", true);
-            dialog.WindowCornerPreference = ParseXmlAttribute<WindowCornerPreference>(xmlElement, "WindowCornerPreference", WindowCornerPreference.Default);
-            dialog.WindowBackdropType = ParseXmlAttribute<BackgroundType>(xmlElement, "WindowBackdropType", BackgroundType.Disable);
             dialog.Opacity = 1;
 
             // transfer effect to element grid
@@ -481,15 +378,17 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             dialog.ElementGrid.Effect = dialog.Effect;
             dialog.Effect = null;
 
-            var theme = ParseXmlAttribute<Bloxstrap.Enums.Theme>(xmlElement, "Theme", Bloxstrap.Enums.Theme.Default);
-            if (theme == Bloxstrap.Enums.Theme.Default)
+            var theme = ParseXmlAttribute<Theme>(xmlElement, "Theme", Theme.Default);
+            if (theme == Theme.Default)
                 theme = App.Settings.Prop.Theme;
 
-            var wpfUiTheme = theme.GetFinal() == Bloxstrap.Enums.Theme.Dark ? Wpf.Ui.Appearance.ThemeType.Dark : Wpf.Ui.Appearance.ThemeType.Light;
+            var wpfUiTheme = theme.GetFinal() == Theme.Dark ? Wpf.Ui.Appearance.ThemeType.Dark : Wpf.Ui.Appearance.ThemeType.Light;
 
             dialog.Resources.MergedDictionaries.Clear();
             dialog.Resources.MergedDictionaries.Add(new ThemesDictionary() { Theme = wpfUiTheme });
             dialog.DefaultBorderThemeOverwrite = wpfUiTheme;
+
+            dialog.WindowCornerPreference = ParseXmlAttribute<Wpf.Ui.Appearance.WindowCornerPreference>(xmlElement, "WindowCornerPreference", Wpf.Ui.Appearance.WindowCornerPreference.Round);
 
             // disable default window border if border is modified
             if (xmlElement.Attribute("BorderBrush") != null || xmlElement.Attribute("BorderThickness") != null)
@@ -722,48 +621,18 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception($"Image Failed to create BitmapImage: {ex.Message}", ex);
+                        throw new CustomThemeException(ex, "CustomTheme.Errors.ElementTypeCreationFailed", "Image", "BitmapImage", ex.Message);
                     }
 
                     image.Source = bitmapImage;
                 }
                 else
                 {
-                    RepeatBehavior repeatBehaviour = GetImageRepeatBehaviourData(xmlElement);
-                    XamlAnimatedGif.AnimationBehavior.SetRepeatBehavior(image, repeatBehaviour);
                     XamlAnimatedGif.AnimationBehavior.SetSourceUri(image, sourceData.Uri!);
                 }
             }
 
             return image;
-        }
-
-        private static UIElement HandleXmlElement_MediaElement(CustomDialog dialog, XElement xmlElement)
-        {
-            var media = new MediaElement();
-            HandleXmlElement_FrameworkElement(dialog, media, xmlElement);
-
-            RenderOptions.SetBitmapScalingMode(media, BitmapScalingMode.HighQuality);
-
-            media.LoadedBehavior = ParseXmlAttribute<MediaState>(xmlElement, "LoadedBehaviour", MediaState.Play);
-            media.UnloadedBehavior = ParseXmlAttribute<MediaState>(xmlElement, "UnloadedBehaviour", MediaState.Close);
-
-            media.Volume = ParseXmlAttribute<double>(xmlElement, "Volume", 0.5);
-
-            media.Stretch = ParseXmlAttribute<Stretch>(xmlElement, "Stretch", Stretch.Uniform);
-            media.StretchDirection = ParseXmlAttribute<StretchDirection>(xmlElement, "StretchDirection", StretchDirection.Both);
-
-            media.Source = GetSourceData(dialog, "Source", xmlElement);
-
-            if (ParseXmlAttribute<bool>(xmlElement, "Looped", true))
-            {
-                media.MediaEnded += (Sender, e) =>
-                {
-                    media.Position = TimeSpan.Zero;
-                };
-            }
-
-            return media;
         }
 
         private static RowDefinition HandleXmlElement_RowDefinition(CustomDialog dialog, XElement xmlElement)
@@ -825,7 +694,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 if (element.Name == "Grid.RowDefinitions")
                 {
                     if (rowsSet)
-                        throw new Exception("Grid can only have one RowDefinitions defined");
+                        throw new CustomThemeException("CustomTheme.Errors.ElementAttributeMultipleDefinitions", "Grid", "RowDefinitions");
                     rowsSet = true;
 
                     HandleXmlElement_Grid_RowDefinitions(grid, dialog, element);
@@ -833,7 +702,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 else if (element.Name == "Grid.ColumnDefinitions")
                 {
                     if (columnsSet)
-                        throw new Exception("Grid can only have one ColumnDefinitions defined");
+                        throw new CustomThemeException("CustomTheme.Errors.ElementAttributeMultipleDefinitions", "Grid", "ColumnDefinitions");
                     columnsSet = true;
 
                     HandleXmlElement_Grid_ColumnDefinitions(grid, dialog, element);
@@ -892,7 +761,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             if (children.Any())
             {
                 if (children.Count() > 1)
-                    throw new Exception("Border can only have one child");
+                    throw new CustomThemeException("CustomTheme.Errors.ElementMultipleChildren", "Border");
 
                 border.Child = HandleXml<UIElement>(dialog, children.First());
             }

@@ -12,16 +12,21 @@
         Title="{x:Static resources:Strings.Dialog_AddFastFlag_Title}" 
         MinHeight="0"
         Width="480"
+        MaxHeight="600"
         SizeToContent="Height"
         ResizeMode="NoResize"
         Background="{ui:ThemeResource ApplicationBackgroundBrush}"
         ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
         WindowStartupLocation="CenterScreen">
     <ui:UiWindow.Resources>
         <converters:RangeConverter x:Key="ValidationConverter" From="0" />
     </ui:UiWindow.Resources>
-    
+
     <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -49,6 +54,7 @@
                     <TextBox Grid.Row="1" Grid.Column="1" Name="FlagValueTextBox" />
                 </Grid>
             </TabItem>
+
             <TabItem Header="{x:Static resources:Strings.Common_ImportJson}">
                 <Grid Margin="11">
                     <Grid.RowDefinitions>
@@ -71,9 +77,80 @@
                     <ui:Button Grid.Row="1" Margin="4" Icon="DocumentArrowUp16" Content="{x:Static resources:Strings.Common_ImportFromFile}" HorizontalAlignment="Stretch" Click="ImportButton_Click" />
                 </Grid>
             </TabItem>
+
+            <TabItem x:Name="AddWithIdTab" Header="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings_SingleAddID}" Visibility="Collapsed">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <!-- Filter type selector -->
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_FilterType}" Margin="0,0,8,8" />
+                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="AddIdFilterTypeComboBox" Margin="0,0,0,8" SelectedIndex="0">
+                        <ComboBoxItem Content="PlaceFilter" />
+                        <ComboBoxItem Content="DataCenterFilter" />
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Name}" Margin="0,0,0,12" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Name="GameFlagNameTextBox" Margin="0,0,0,12" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Value}" Margin="0,0,0,12" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Name="GameFlagValueTextBox" Margin="0,0,0,12" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="ID:" />
+                    <TextBox Grid.Row="3" Grid.Column="1" Name="GameFlagIdTextBox" />
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="ImportIdJsonTab" Header="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings_ImportAddID}" Visibility="Collapsed">
+                <Grid Margin="11">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_FilterType}" Margin="0,0,8,8" />
+                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ImportIdFilterTypeComboBox" Margin="0,0,0,8" SelectedIndex="0">
+                        <ComboBoxItem Content="PlaceFilter" />
+                        <ComboBoxItem Content="DataCenterFilter" />
+                    </ComboBox>
+
+                    <!-- ID input -->
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" MinWidth="100" Text="ID:" Margin="3,10,5,0" />
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="ImportGameIdTextBox" Margin="0,0,0,8" />
+
+                    <!-- JSON input and placeholder -->
+                    <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="GameIdJsonTextBox" Margin="5" AcceptsTab="True" AcceptsReturn="True" MinHeight="80" MaxHeight="480" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False" Margin="18,14,0,0" Foreground="DarkGray" Text="{}{&#10;    &quot;FFlagDebugDisplayFPS&quot;: &quot;True&quot;&#10;}" >
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=GameIdJsonTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </TabItem>
+
         </TabControl>
 
-        <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
+        <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
                 <Button MinWidth="100" Content="{x:Static resources:Strings.Common_OK}" Click="OKButton_Click">
                     <Button.Style>
@@ -90,6 +167,23 @@
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding ElementName=Tabs, Path=SelectedIndex}" Value="1" />
                                         <Condition Binding="{Binding ElementName=JsonTextBox, Path=Text.Length, Converter={StaticResource ValidationConverter}}" Value="True" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=Tabs, Path=SelectedIndex}" Value="2" />
+                                        <Condition Binding="{Binding ElementName=GameFlagNameTextBox, Path=Text.Length, Converter={StaticResource ValidationConverter}}" Value="True" />
+                                        <Condition Binding="{Binding ElementName=GameFlagValueTextBox, Path=Text.Length, Converter={StaticResource ValidationConverter}}" Value="True" />
+                                        <Condition Binding="{Binding ElementName=GameFlagIdTextBox, Path=Text.Length, Converter={StaticResource ValidationConverter}}" Value="True" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=Tabs, Path=SelectedIndex}" Value="3" />
+                                        <Condition Binding="{Binding ElementName=GameIdJsonTextBox, Path=Text.Length, Converter={StaticResource ValidationConverter}}" Value="True" />
+                                        <Condition Binding="{Binding ElementName=ImportGameIdTextBox, Path=Text.Length, Converter={StaticResource ValidationConverter}}" Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="True" />
                                 </MultiDataTrigger>

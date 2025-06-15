@@ -15,11 +15,19 @@
         <TextBlock Text="{x:Static resources:Strings.Menu_Appearance_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8" />
 
         <controls:OptionControl
-            Header="{x:Static resources:Strings.Menu_Appearance_Global_Theme_Title}">
-            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Themes, Mode=OneTime}" Text="{Binding Theme, Mode=TwoWay}">
+            Header="{x:Static resources:Strings.Menu_Appearance_Global_Theme_Title}"
+            Description="{x:Static resources:Strings.Menu_Appearance_Global_Theme_Description}">
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding ThemeIcons, Mode=OneWay}" SelectedValuePath="IconType" SelectedValue="{Binding Theme, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Height="16" Source="{Binding ImageSource, Mode=OneWay}" RenderOptions.BitmapScalingMode="HighQuality" />
+                            <TextBlock Grid.Column="1" Margin="8,0,0,0" Text="{Binding Path=IconType, Converter={StaticResource EnumNameConverter}}" />
+                        </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -30,6 +38,75 @@
             Description="{x:Static resources:Strings.Menu_Appearance_Language_Description}">
             <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
         </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Custom Font"
+            Description="Choose a custom font file to override the default UI font.">
+
+            <StackPanel>
+                <ui:Button
+                    Content="Choose Font"
+                    Icon="DocumentAdd16"
+                    Command="{Binding ManageCustomFontCommand}"
+                    CommandParameter="Choose"
+                    Visibility="{Binding ChooseCustomFontVisibility, Mode=OneWay}" />
+                <ui:Button
+                    Content="Remove Font"
+                    Icon="Delete16"
+                    Appearance="Danger"
+                    Command="{Binding ManageCustomFontCommand}"
+                    CommandParameter="Remove"
+                    Visibility="{Binding DeleteCustomFontVisibility, Mode=OneWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
+        <ui:CardExpander Margin="0,8,0,0" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Appearance_MenuAdjustment_Title}"/>
+                        <TextBlock FontSize="12" Text="{x:Static resources:Strings.Menu_Appearance_MenuAdjustment_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+
+            <Grid Margin="0,8,0,0" MinHeight="325">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="ListBoxNavigationItems"
+                     Grid.Row="0"
+                     SelectedIndex="0"
+                     HorizontalContentAlignment="Stretch"
+                     VerticalAlignment="Top"
+                     MaxHeight="300"
+                     BorderThickness="1"
+                     BorderBrush="{DynamicResource BorderBrush}"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Content}" 
+                                   Padding="4,2" 
+                                   TextTrimming="CharacterEllipsis" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Left">
+                    <ui:Button x:Name="MoveUpButton" Content="{x:Static resources:Strings.Menu_Appearance_MenuAdjustment_MoveUp}" Click="MoveUp_Click" Margin="0,0,8,0" Icon="ArrowUp24" />
+                    <ui:Button x:Name="MoveDownButton" Content="{x:Static resources:Strings.Menu_Appearance_MenuAdjustment_MoveDown}" Click="MoveDown_Click" Margin="0,0,8,0" Icon="ArrowDown24" />
+                    <ui:Button x:Name="ResetToDefaultButton" Content="{x:Static resources:Strings.Menu_Appearance_MenuAdjustment_ResetToDefault}" Click="ResetOrder_Click" Margin="0,0,8,0" Icon="GlanceDefault12" />
+                    <ToggleButton x:Name="ToggleLockOrder" Content="{x:Static resources:Strings.Menu_Appearance_MenuAdjustment_LockOrder}" Checked="LockToggleButton_Checked" Unchecked="LockToggleButton_Unchecked" />
+                </StackPanel>
+            </Grid>
+        </ui:CardExpander>
 
         <Grid Margin="0,8,0,0">
             <Grid.ColumnDefinitions>
@@ -42,7 +119,7 @@
             </StackPanel>
             <ui:Button Grid.Column="1" Content="{x:Static resources:Strings.Menu_Appearance_Preview}" HorizontalAlignment="Stretch" Margin="0,16,0,0" Command="{Binding PreviewBootstrapperCommand}" />
         </Grid>
-        
+
         <ui:CardExpander Margin="0,8,0,0" IsExpanded="{Binding Path=CustomThemesExpanded, Mode=OneWay}" Style="{StaticResource NoUserExpansionCardExpanderStyle}">
             <ui:CardExpander.Header>
                 <Grid>
@@ -52,8 +129,8 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Appearance_Style_Title}" />
-                            <TextBlock FontSize="12" Text="{x:Static resources:Strings.Menu_Appearance_Style_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
+                            <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Appearance_Launcher_Title}" />
+                            <TextBlock FontSize="12" Text="{x:Static resources:Strings.Menu_Appearance_Launcher_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                         </StackPanel>
                         <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Dialogs, Mode=OneTime}" Text="{Binding Dialog, Mode=TwoWay}" Grid.Column="1">
                             <ComboBox.ItemTemplate>
@@ -95,16 +172,19 @@
                     </StackPanel.Style>
                     <TextBlock Text="{x:Static resources:Strings.Common_Name}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                     <ui:TextBox Margin="0,4,0,0" Text="{Binding SelectedCustomThemeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Grid Margin="0,4,0,0">
+                    <Grid Margin="0,8,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ui:Button Grid.Column="0" Margin="0,0,2,0" Icon="Add28" Content="Rename" HorizontalAlignment="Stretch" Command="{Binding RenameCustomThemeCommand, Mode=OneTime}" />
-                        <ui:Button Grid.Column="1" Margin="2,0,0,0" Icon="Add28" Content="Edit" HorizontalAlignment="Stretch" Command="{Binding EditCustomThemeCommand, Mode=OneTime}" />
+
+                        <ui:Button Grid.Column="0" Margin="0,0,4,0" Icon="Edit28" Content="{x:Static resources:Strings.Common_Rename}" HorizontalAlignment="Stretch" Command="{Binding RenameCustomThemeCommand, Mode=OneTime}" />
+                        <ui:Button Grid.Column="1" Margin="4,0,4,0" Icon="DesktopEdit24" Content="{x:Static resources:Strings.Common_Edit}" HorizontalAlignment="Stretch" Command="{Binding EditCustomThemeCommand, Mode=OneTime}" />
+                        <ui:Button Grid.Column="2" Margin="4,0,0,0" Icon="ArrowExportRtl24" Content="{x:Static resources:Strings.Common_Export}" HorizontalAlignment="Stretch" Command="{Binding ExportCustomThemeCommand, Mode=OneTime}" />
                     </Grid>
                 </StackPanel>
-                <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="No custom theme selected." TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="{x:Static resources:Strings.Menu_Appearance_CustomThemes_NoneSelected}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock.Style>
                         <Style>
                             <Style.Triggers>
@@ -137,6 +217,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </controls:OptionControl>
+
 
         <ui:CardExpander Margin="0,8,0,0" IsExpanded="False">
             <ui:CardExpander.Header>

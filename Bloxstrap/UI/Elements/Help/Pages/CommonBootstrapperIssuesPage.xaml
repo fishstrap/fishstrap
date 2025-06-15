@@ -1,0 +1,53 @@
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Help.Pages.CommonBootstrapperIssuesPage"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+           mc:Ignorable="d"
+           Title="Common Bootstrapper Issues"
+           Scrollable="True"
+           d:DesignHeight="2000" d:DesignWidth="1000">
+
+    <Grid>
+        <StackPanel Margin="16" MaxWidth="750">
+
+            <!-- Custom Bootstrapper Setup -->
+            <TextBlock Text="Custom bootstrapper setup failed" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,5" />
+            <Separator Margin="0,0,0,12"/>
+            <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                If you launch Roblox and get this error, go to Appearance and ensure the launcher is set to Custom.
+                Then open the Bootstrapper Editor and set the custom theme launcher version to 1.
+            </TextBlock>
+
+            <Image Source="pack://application:,,,/Resources/HelpPage/CommonBootstrapper/FailedToPreviewError.png"
+                   MaxWidth="800" Stretch="Uniform" Margin="0,0,0,10"/>
+            <Image Source="pack://application:,,,/Resources/HelpPage/CommonBootstrapper/VersionFix.png"
+                   MaxWidth="800" Stretch="Uniform" Margin="0,0,0,10"/>
+
+            <!-- Connectivity Issue -->
+            <TextBlock Text="Connectivity issue" FontSize="24" FontWeight="SemiBold" Margin="0,20,0,5" />
+            <Separator Margin="0,0,0,12"/>
+            <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                Go to the Settings page and change the channel to ZFlag.
+                Set the automatic channel change action to "Never change".
+                If that doesn't help, try disabling your VPN.
+            </TextBlock>
+
+            <Image Source="pack://application:,,,/Resources/HelpPage/CommonBootstrapper/ConnectivityIssue.png"
+                   MaxWidth="800" Stretch="Uniform" Margin="0,0,0,10"/>
+
+            <!-- Roblox Won't Launch -->
+            <TextBlock Text="Roblox won't launch" FontSize="24" FontWeight="SemiBold" Margin="0,20,0,5" />
+            <Separator Margin="0,0,0,12"/>
+            <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                If Roblox won't launch, go to Settings and enable "Force Roblox reinstallation".
+                Then launch Froststrap again and your issue should be resolved.
+            </TextBlock>
+
+            <Image Source="pack://application:,,,/Resources/HelpPage/CommonBootstrapper/RobloxWontLaunch.png"
+                   MaxWidth="800" Stretch="Uniform" Margin="0,0,0,10"/>
+
+        </StackPanel>
+    </Grid>
+</ui:UiPage>

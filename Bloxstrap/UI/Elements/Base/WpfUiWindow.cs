@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
@@ -20,7 +22,7 @@ namespace Bloxstrap.UI.Elements.Base
         {
             const int customThemeIndex = 2; // index for CustomTheme merged dictionary
 
-            _themeService.SetTheme(App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Dark ? ThemeType.Dark : ThemeType.Light);
+            _themeService.SetTheme(App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Light ? ThemeType.Light : ThemeType.Dark);
             _themeService.SetSystemAccent();
 
             // there doesn't seem to be a way to query the name for merged dictionaries
@@ -35,13 +37,25 @@ namespace Bloxstrap.UI.Elements.Base
 
         protected override void OnSourceInitialized(EventArgs e)
         {
+            base.OnSourceInitialized(e);
+
+            // Hardware Accel
             if (App.Settings.Prop.WPFSoftwareRender || App.LaunchSettings.NoGPUFlag.Active)
             {
                 if (PresentationSource.FromVisual(this) is HwndSource hwndSource)
                     hwndSource.CompositionTarget.RenderMode = RenderMode.SoftwareOnly;
             }
 
-            base.OnSourceInitialized(e);
+            // CustomFont
+            string? fontPath = App.Settings.Prop.CustomFontPath;
+            if (!string.IsNullOrWhiteSpace(fontPath) && File.Exists(fontPath))
+            {
+                var font = FontManager.LoadFontFromFile(fontPath);
+                if (font != null)
+                {
+                    this.FontFamily = font;
+                }
+            }
         }
     }
 }

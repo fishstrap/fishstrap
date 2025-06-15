@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Xml.Linq;
 
 namespace Bloxstrap.UI.Converters
 {
@@ -13,34 +9,37 @@ namespace Bloxstrap.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // https://stackoverflow.com/a/28672015/11852173
-    
-            var enumVal = (Enum)value;
+            if (value is not Enum enumVal)
+                return value?.ToString() ?? "Unknown";
+
             var stringVal = enumVal.ToString();
-
             var type = enumVal.GetType();
-            var typeName = type.FullName!;
-            var attributes = type.GetMember(stringVal)[0].GetCustomAttributes(typeof(EnumNameAttribute), false);
+            var typeName = type.FullName;
 
-            if (attributes.Length > 0)
+            if (string.IsNullOrEmpty(typeName))
+                return stringVal;
+
+            var memberInfo = type.GetMember(stringVal).FirstOrDefault();
+            if (memberInfo != null)
             {
-                var attribute = (EnumNameAttribute)attributes[0];
+                var attribute = memberInfo
+                    .GetCustomAttributes(typeof(EnumNameAttribute), false)
+                    .FirstOrDefault() as EnumNameAttribute;
 
-                if (attribute is not null)
+                if (attribute != null)
                 {
-                    if (attribute.StaticName is not null)
+                    if (!string.IsNullOrEmpty(attribute.StaticName))
                         return attribute.StaticName;
 
-                    if (attribute.FromTranslation is not null)
+                    if (!string.IsNullOrEmpty(attribute.FromTranslation))
                         return Strings.ResourceManager.GetStringSafe(attribute.FromTranslation);
                 }
             }
 
-            return Strings.ResourceManager.GetStringSafe(String.Format(
-                "{0}.{1}",
-                typeName.Substring(typeName.IndexOf('.', StringComparison.Ordinal) + 1),
-                stringVal
-            ));
+            var dotIndex = typeName.IndexOf('.');
+            var trimmedTypeName = dotIndex >= 0 ? typeName.Substring(dotIndex + 1) : typeName;
+
+            return Strings.ResourceManager.GetStringSafe($"{trimmedTypeName}.{stringVal}");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

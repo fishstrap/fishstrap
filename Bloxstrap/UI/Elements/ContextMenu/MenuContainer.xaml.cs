@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 
@@ -10,24 +11,14 @@ using Bloxstrap.Integrations;
 
 namespace Bloxstrap.UI.Elements.ContextMenu
 {
-    /// <summary>
-    /// Interaction logic for NotifyIconMenu.xaml
-    /// </summary>
     public partial class MenuContainer
     {
-        // i wouldve gladly done this as mvvm but turns out that data binding just does not work with menuitems for some reason so idk this sucks
-
         private readonly Watcher _watcher;
-
         private ActivityWatcher? _activityWatcher => _watcher.ActivityWatcher;
 
         private ServerInformation? _serverInformationWindow;
-
         private ServerHistory? _gameHistoryWindow;
-
-        private OutputConsole? _OutputConsole;
-
-        private ChatLogs? _ChatLogs;
+        private Logs? _logsWindow;
 
         public MenuContainer(Watcher watcher)
         {
@@ -65,10 +56,10 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 _serverInformationWindow.Activate();
         }
 
-        public void ActivityWatcher_OnLogOpen(object? sender, EventArgs e) => 
-            Dispatcher.Invoke(() => LogTracerMenuItem.Visibility = Visibility.Visible);
+        private void ActivityWatcher_OnLogOpen(object? sender, EventArgs e) =>
+            Dispatcher.Invoke(() => DebugMenuItem.Visibility = Visibility.Visible);
 
-        public void ActivityWatcher_OnGameJoin(object? sender, EventArgs e)
+        private void ActivityWatcher_OnGameJoin(object? sender, EventArgs e)
         {
             if (_activityWatcher is null)
                 return;
@@ -80,14 +71,11 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 ServerDetailsMenuItem.Visibility = Visibility.Visible;
 
                 if (App.FastFlags.GetPreset("Players.LogLevel") == "trace")
-                {
-                    OutputConsoleMenuItem.Visibility = Visibility.Visible;
-                    ChatLogsMenuItem.Visibility = Visibility.Visible;
-                }
+                    LogsMenuItem.Visibility = Visibility.Visible;
             });
         }
 
-        public void ActivityWatcher_OnGameLeave(object? sender, EventArgs e)
+        private void ActivityWatcher_OnGameLeave(object? sender, EventArgs e)
         {
             Dispatcher.Invoke(() => {
                 InviteDeeplinkMenuItem.Visibility = Visibility.Collapsed;
@@ -95,11 +83,9 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
                 if (App.FastFlags.GetPreset("Players.LogLevel") == "trace")
                 {
-                    OutputConsoleMenuItem.Visibility = Visibility.Collapsed;
-                    ChatLogsMenuItem.Visibility = Visibility.Collapsed;
+                    LogsMenuItem.Visibility = Visibility.Collapsed;
 
-                    _ChatLogs?.Close();
-                    _OutputConsole?.Close();
+                    _logsWindow?.Close();
                 }
 
                 _serverInformationWindow?.Close();
@@ -108,14 +94,9 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         private void Window_Loaded(object? sender, RoutedEventArgs e)
         {
-            // this is an awful hack lmao im so sorry to anyone who reads this
-            // this is done to register the context menu wrapper as a tool window so it doesnt appear in the alt+tab switcher
-            // https://stackoverflow.com/a/551847/11852173
-
             HWND hWnd = (HWND)new WindowInteropHelper(this).Handle;
-
             int exStyle = PInvoke.GetWindowLong(hWnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
-            exStyle |= 0x00000080; //NativeMethods.WS_EX_TOOLWINDOW;
+            exStyle |= 0x00000080; // WS_EX_TOOLWINDOW
             PInvoke.SetWindowLong(hWnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, exStyle);
         }
 
@@ -127,12 +108,14 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         private void ServerDetailsMenuItem_Click(object sender, RoutedEventArgs e) => ShowServerInformationWindow();
 
-        private void LogTracerMenuItem_Click(object sender, RoutedEventArgs e)
+        private void DebugMenuItem_Click(object sender, RoutedEventArgs e)
         {
             string? location = _activityWatcher?.LogLocation;
-
-            if (location is not null)
-                Utilities.ShellExecute(location);
+            if (!string.IsNullOrEmpty(location))
+            {
+                var DebugMenu = new DebugMenu(location);
+                DebugMenu.Show();
+            }
         }
 
         private void CloseRobloxMenuItem_Click(object sender, RoutedEventArgs e)
@@ -166,38 +149,21 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 _gameHistoryWindow.Activate();
         }
 
-        private void OutputConsoleMenuItem_Click(object sender, RoutedEventArgs e)
+        private void LogsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (_activityWatcher is null)
                 throw new ArgumentNullException(nameof(_activityWatcher));
 
-            if (_OutputConsole is null)
+            if (_logsWindow is null)
             {
-                _OutputConsole = new(_activityWatcher);
-                _OutputConsole.Closed += (_, _) => _OutputConsole = null;
+                _logsWindow = new(_activityWatcher);
+                _logsWindow.Closed += (_, _) => _logsWindow = null;
             }
 
-            if (!_OutputConsole.IsVisible)
-                _OutputConsole.ShowDialog();
+            if (!_logsWindow.IsVisible)
+                _logsWindow.ShowDialog();
             else
-                _OutputConsole.Activate();
-        }
-
-        private void ChatLogsMenuItemMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            if (_activityWatcher is null)
-                throw new ArgumentNullException(nameof(_activityWatcher));
-
-            if (_ChatLogs is null)
-            {
-                _ChatLogs = new(_activityWatcher);
-                _ChatLogs.Closed += (_, _) => _ChatLogs = null;
-            }
-
-            if (!_ChatLogs.IsVisible)
-                _ChatLogs.ShowDialog();
-            else
-                _ChatLogs.Activate();
+                _logsWindow.Activate();
         }
     }
 }

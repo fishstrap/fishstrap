@@ -12,10 +12,13 @@
       Title="AboutPage"
       Scrollable="True">
     <StackPanel Margin="0,0,14,14">
-        <TextBlock Text="{x:Static resources:Strings.Menu_About_Licenses}" FontWeight="Medium" FontSize="24" Margin="0,0,0,16" />
+        <TextBlock
+            Margin="0,0,0,16"
+            FontSize="24"
+            FontWeight="Medium"
+            Text="{x:Static resources:Strings.Menu_About_Licenses}" />
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -26,72 +29,230 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ui:CardAction Grid.Row="0" Grid.Column="0" Margin="0,8,8,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/bloxstraplabs/bloxstrap/blob/main/LICENSE">
+            <ui:CardAction
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/bloxstraplabs/bloxstrap/blob/main/LICENSE">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="Bloxstrap" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
-            <ui:CardAction Grid.Row="0" Grid.Column="1" Margin="0,8,8,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/lepoco/wpfui/blob/main/LICENSE">
+            <ui:CardAction
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/lepoco/wpfui/blob/main/LICENSE">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="WPF-UI" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
-            <ui:CardAction Grid.Row="0" Grid.Column="2" Margin="0,8,0,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/securifybv/ShellLink/blob/master/LICENSE.txt">
+            <ui:CardAction
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,8,0,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/securifybv/ShellLink/blob/master/LICENSE.txt">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="ShellLink" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
 
-            <ui:CardAction Grid.Row="1" Grid.Column="0" Margin="0,8,8,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/Lachee/discord-rpc-csharp/blob/master/LICENSE">
+            <ui:CardAction
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/Lachee/discord-rpc-csharp/blob/master/LICENSE">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="DiscordRPC" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
-            <ui:CardAction Grid.Row="1" Grid.Column="1" Margin="0,8,8,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/MaximumADHD/Roblox-Studio-Mod-Manager/blob/main/LICENSE">
+            <ui:CardAction
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,8,8,0"
+                VerticalAlignment="Top"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/MaximumADHD/Roblox-Studio-Mod-Manager/blob/main/LICENSE">
                 <StackPanel>
                     <TextBlock FontSize="13" Text="Roblox Studio Mod Manager" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
-                </StackPanel>
-            </ui:CardAction>
-            <ui:CardAction Grid.Row="1" Grid.Column="2" Margin="0,8,0,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/ElinamLLC/SharpVectors/blob/master/License.md">
-                <StackPanel>
-                    <TextBlock FontSize="14" Text="SharpVectors" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="BSD 3-Clause License" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
 
-            <ui:CardAction Grid.Row="2" Grid.Column="0" Margin="0,8,8,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt">
+            <ui:CardAction
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt">
                 <StackPanel>
                     <TextBlock FontSize="13" Text="SharpZipLib" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
-            <ui:CardAction Grid.Row="2" Grid.Column="1" Margin="0,8,8,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/xoofx/markdig/blob/master/license.txt">
+            <ui:CardAction
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/xoofx/markdig/blob/master/license.txt">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="Markdig" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_BSD2}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_BSD2}" />
                 </StackPanel>
             </ui:CardAction>
-            <ui:CardAction Grid.Row="2" Grid.Column="2" Margin="0,8,0,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/icsharpcode/AvalonEdit/blob/master/LICENSE">
+            <ui:CardAction
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="0,8,0,0"
+                VerticalAlignment="Top"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/icsharpcode/AvalonEdit/blob/master/LICENSE">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="AvalonEdit" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
-            <ui:CardAction Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1" Margin="0,8,8,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/sharpdx/SharpDX/blob/master/LICENSE">
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ui:CardAction
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/sharpdx/SharpDX/blob/master/LICENSE">
                 <StackPanel>
-                    <TextBlock FontSize="13" Text="SharpDX" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock FontSize="14" Text="SharpDX/SharpDXGI" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
-            <ui:CardAction Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,8,0,0" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/returnrqt/fishstrap/blob/main/LICENSE">
+            <ui:CardAction
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md">
                 <StackPanel>
-                    <TextBlock FontSize="13" Text="Fishstrap" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    <TextBlock FontSize="14" Text="WPFXamlAnimatedGIf UI" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="Apache 2.0" />
+                </StackPanel>
+            </ui:CardAction>
+            <ui:CardAction
+                Grid.Column="2"
+                Margin="0,-64,0,0"
+                VerticalAlignment="Top"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/Fishstrap/Fishstrap/blob/main/LICENSE">
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Fishstrap - MIT" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
+                </StackPanel>
+            </ui:CardAction>
+            <ui:CardAction
+                Grid.RowSpan="3"
+                Grid.Column="2"
+                Margin="0,8,0,0"
+                VerticalAlignment="Top"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md">
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="NewtonsoftJSON" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
+                </StackPanel>
+            </ui:CardAction>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ui:CardAction
+        Grid.Row="0"
+        Grid.Column="0"
+        Margin="0,8,8,0"
+        Command="models:GlobalViewModel.OpenWebpageCommand"
+        CommandParameter="https://github.com/sharpdx/SharpDX/blob/master/LICENSE">
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Voidstrap - MIT" />
+                    <TextBlock
+                Margin="0,2,0,0"
+                FontSize="12"
+                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
         </Grid>

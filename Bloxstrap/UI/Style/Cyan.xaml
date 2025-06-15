@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base">
+    <SolidColorBrush x:Key="NewTextEditorBackground" Color="#59000000" />
+    <SolidColorBrush x:Key="NewTextEditorForeground" Color="White" />
+    <SolidColorBrush x:Key="NewTextEditorLink" Color="#3A9CEA" />
+    <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#19000000" />
+    <Color x:Key="ControlFillColorDefault">#19000000</Color>
+    <LinearGradientBrush x:Key="WindowBackgroundGradient" StartPoint="1,1" EndPoint="0,0">
+        <GradientStop Offset="0.0" Color="#00ACC1" />
+        <GradientStop Offset="0.5" Color="#0097A7" />
+        <GradientStop Offset="1.0" Color="#006B7A" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WindowTransparentBackgroundGradient" StartPoint="1,1" EndPoint="0,0">
+        <GradientStop Offset="0.0" Color="#8C00ACC1" />
+        <GradientStop Offset="0.5" Color="#8C0097A7" />
+        <GradientStop Offset="0.1" Color="#8C006B7A" />
+    </LinearGradientBrush>
+</ResourceDictionary>

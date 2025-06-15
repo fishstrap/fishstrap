@@ -9,7 +9,7 @@
         xmlns:models="clr-namespace:Bloxstrap.UI.ViewModels"
         xmlns:resources="clr-namespace:Bloxstrap.Resources"
         mc:Ignorable="d"
-        Title="Fishstrap"
+        Title="Froststrap"
         MinWidth="0"
         MinHeight="0"
         Width="580"
@@ -17,14 +17,18 @@
         ResizeMode="NoResize"
         Background="{ui:ThemeResource ApplicationBackgroundBrush}"
         ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
         WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Padding="8" ShowMinimize="False" ShowMaximize="False" Title="Fishstrap" Icon="pack://application:,,,/Bloxstrap.ico" CanMaximize="False" KeyboardNavigation.TabNavigation="None" />
+        <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Padding="8" ShowMinimize="False" ShowMaximize="False" Title="Froststrap" Icon="pack://application:,,,/Bloxstrap.ico" CanMaximize="False" KeyboardNavigation.TabNavigation="None" />
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -46,36 +50,109 @@
 
                     <Image Grid.Column="0" Width="64" Height="64" Source="pack://application:,,,/Bloxstrap.ico" RenderOptions.BitmapScalingMode="HighQuality" />
                     <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
-                        <TextBlock x:Name="LaunchTitle" Text="Fishstrap" FontSize="24" />
+                        <TextBlock x:Name="LaunchTitle" Text="Froststrap" FontSize="24" />
                         <TextBlock Text="{Binding Version, Mode=OneTime}" VerticalAlignment="Bottom" FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
                     </StackPanel>
                 </Grid>
 
                 <StackPanel Grid.Row="1" HorizontalAlignment="Center">
                     <ui:Hyperlink Icon="QuestionCircle48" Content="{x:Static resources:Strings.About_Title}" Margin="0,0,0,8" Command="{Binding LaunchAboutCommand, Mode=OneTime}" HorizontalAlignment="Center" />
-                    <ui:Hyperlink Icon="Chat48" Content="{x:Static resources:Strings.LaunchMenu_Discord}" NavigateUri="https://discord.gg/xSsamjAU84" HorizontalAlignment="Center" />
+                    <ui:Hyperlink Icon="Chat48" Content="{x:Static resources:Strings.LaunchMenu_Discord}" NavigateUri="https://discord.gg/KdR9vpRcUN" HorizontalAlignment="Center" />
                 </StackPanel>
             </Grid>
 
-            <StackPanel Grid.Column="1" Margin="16">
-                <ui:CardAction Icon="ArrowRight12" TabIndex="0" Command="{Binding LaunchRobloxCommand, Mode=OneTime}">
+            <!--  Right Panel (Main Actions)  -->
+            <StackPanel Grid.Column="1" Margin="0,9,0,8">
+                <!--  Launch Roblox Button  -->
+                <ui:CardAction
+                    Width="285"
+                    Command="{Binding LaunchRobloxCommand, Mode=OneTime}"
+                    Icon="Games28"
+                    TabIndex="0">
                     <StackPanel>
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.LaunchMenu_LaunchRoblox}" />
+                        <TextBlock
+                            FontSize="14"
+                            Text="{x:Static resources:Strings.LaunchMenu_LaunchRoblox}" />
                     </StackPanel>
                 </ui:CardAction>
 
+                <!--  Roblox Studio and Settings Buttons  -->
+                <Grid Height="61">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                <ui:CardAction Margin="0,8,0,0" TabIndex="1" Icon="Settings28" Command="{Binding LaunchSettingsCommand, Mode=OneTime}">
+
+
+                    <!--  Settings Button  -->
+                    <ui:CardAction
+                        Grid.Column="1"
+                        Width="148"
+                        Margin="-432,8,10,0"
+                        VerticalAlignment="Top"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding LaunchSettingsCommand, Mode=OneTime}"
+                        Icon="Settings28"
+                        TabIndex="1">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                FontSize="13.8"
+                                Text="{x:Static resources:Strings.Common_Settings}" />
+                        </StackPanel>
+                    </ui:CardAction>
+
+
+                    <!--  Roblox Studio Button  -->
+                    <ui:CardAction
+                        Grid.Column="0"
+                        Width="130"
+                        Margin="162,8,10,0"
+                        VerticalAlignment="Top"
+                        Command="{Binding LaunchRobloxStudioCommand, Mode=OneTime}"
+
+                        Icon="TextBulletListSquareToolbox20"
+                        IconFilled="False"
+                        TabIndex="2">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock
+                                Width="39"
+                                HorizontalAlignment="Center"
+                                FontSize="13.8"
+                                Text="{x:Static resources:Strings.Common_Studio}" />
+                        </StackPanel>
+                    </ui:CardAction>
+                </Grid>
+
+
+
+                <!--  Separator  -->
+                <Border Margin="12" />
+
+                <!--  Wiki Button  -->
+                <ui:CardAction
+                    Width="285"
+                    Margin="0,10,0,0"
+                    Command="models:GlobalViewModel.OpenWebpageCommand"
+                    CommandParameter="https://github.com/Meddsam/Froststrap/wiki"
+                    Icon="BookQuestionMark24"
+                    IconFilled="False"
+                    TabIndex="2">
                     <StackPanel>
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.LaunchMenu_ConfigureSettings}" />
-                    </StackPanel>
-                </ui:CardAction>
-
-                <Border Margin="16" />
-
-                <ui:CardAction Visibility="Visible" Margin="0,8,0,0" TabIndex="2" Icon="Wrench24" Command="{Binding LaunchRobloxStudioCommand, Mode=OneTime}">
-                    <StackPanel>
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.LaunchMenu_LaunchRobloxStudio}" />
+                        <TextBlock
+                            FontSize="14"
+                            Text="{x:Static resources:Strings.LaunchMenu_Wiki_Title}" />
+                        <TextBlock
+                            Margin="0,2,0,0"
+                            Padding="0,0,16,0"
+                            FontSize="12"
+                            Foreground="Gray"
+                            Text="{x:Static resources:Strings.LaunchMenu_Wiki_Description}" />
                     </StackPanel>
                 </ui:CardAction>
             </StackPanel>

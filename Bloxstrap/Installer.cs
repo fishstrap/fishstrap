@@ -109,7 +109,7 @@ namespace Bloxstrap
             if (ImportSettings)
             {
                 // we dont have to worry about directories messing up
-                // if something doenst exist fishstrap will recreate the file/directory
+                // if something doenst exist Froststrap will recreate the file/directory
                 try
                 {
                     ImportSettingsFromBloxstrap();
@@ -230,7 +230,7 @@ namespace Bloxstrap
             const string LOG_IDENT = "Installer::DoUninstall";
 
             var processes = new List<Process>();
-            
+
             if (!String.IsNullOrEmpty(App.State.Prop.Player.VersionGuid))
                 processes.AddRange(Process.GetProcessesByName(App.RobloxPlayerAppName));
 
@@ -685,7 +685,7 @@ namespace Bloxstrap
 
                 if (IsDirectory)
                 {
-                    // delete existing file from fishstrap folder
+                    // delete existing file from Froststrap folder
                     string ExistingFile = Path.Combine(InstallLocation, FileName);
                     if (Directory.Exists(ExistingFile))
                     {

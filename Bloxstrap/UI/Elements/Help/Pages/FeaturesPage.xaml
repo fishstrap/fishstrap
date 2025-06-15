@@ -1,0 +1,120 @@
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Help.Pages.FeaturesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      mc:Ignorable="d"
+      Title="Features Page"
+      Scrollable="True"
+      d:DesignHeight="6300" d:DesignWidth="1000">
+
+    <Grid>
+        <StackPanel Margin="16" MaxWidth="750">
+
+            <!-- Player logs section -->
+            <TextBlock Text="Player logs" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="It will show you the people joining/leaving and people inside the server." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/PlayerLogs.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <!-- Message Logs -->
+            <TextBlock Text="Message Logs" FontSize="24" FontWeight="SemiBold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="It will show you every single message being sent to the server." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/MessageLogs.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <TextBlock Text="Feature made by Fishstrap." FontStyle="Italic" Margin="0,0,0,20" />
+
+            <!-- Multi-Instance Launching -->
+            <TextBlock Text="Multi-Instance Launching" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Allows you to run multiple Roblox accounts at once." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/MultiInstanceLaunching.png"
+                       MaxWidth="500"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <!-- Cleaner -->
+            <TextBlock Text="Cleaner" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="This will delete all the log and cache files caused by Roblox and FrostStrap. You can select how often it will delete." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/Cleaner.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+            <TextBlock Text="Feature by Fishstrap." FontStyle="Italic" Margin="0,0,0,20" />
+
+            <!-- Custom Launchers -->
+            <TextBlock Text="Custom Launchers" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="You can add your custom launchers using the 'Custom' option in the launchers section, which can be found on the appearance page." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/Launcher.png"
+                           MaxWidth="600"
+                           Stretch="Uniform"
+                           Margin="5"/>
+
+            <!-- Preset Lists -->
+            <TextBlock Text="Preset Lists" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="You can use the already built-in list in Froststrap via the profile button in the fast flag editor." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/PresetFlagLists.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <!-- Preset Column -->
+            <TextBlock Text="Preset Column" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Find out which flags can be turned on in the fastflag settings." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/PresetColumn.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <!-- Disable Hardware Acceleration -->
+            <TextBlock Text="Disable Hardware Acceleration" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Enabling this feature in settings will lower memory usage by Froststrap (not Roblox) to help spend more memory on Roblox." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/DisableHardwareAccel.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <!-- Advanced Suggestion Box -->
+            <TextBlock Text="Advanced Suggestion Box" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="An advanced suggestion box helps you find the flag you're searching for. Click the suggested flag to search for it instantly." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/SuggestionBox.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <!-- Custom Mods Page -->
+            <TextBlock Text="Custom Mods Page" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+                    <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Download mods and launchers straight from the app." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/CustomMods.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+            <!-- Advanced FastFlag Editor Settings -->
+            <TextBlock Text="Advanced FastFlag Editor Settings" FontSize="24" FontWeight="Bold" Margin="0,10,0,5" />
+            <Separator Margin="0,0,0,12"/>
+            <TextBlock Text="Toggle features that would help you." TextWrapping="Wrap" Margin="0,0,0,10" />
+            <Image Source="pack://application:,,,/Resources/HelpPage/Features/AdvancedFastFlagEditorSettings.png"
+                       MaxWidth="800"
+                       Stretch="Uniform"
+                       Margin="0,0,0,10" />
+
+        </StackPanel>
+    </Grid>
+</ui:UiPage>

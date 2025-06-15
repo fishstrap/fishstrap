@@ -1,5 +1,7 @@
 ﻿using Bloxstrap.AppData;
 using System.ComponentModel;
+using System.Security.AccessControl;
+using System.Windows;
 
 namespace Bloxstrap
 {
@@ -17,8 +19,6 @@ namespace Bloxstrap
             }
             catch (Win32Exception ex)
             {
-                // lmfao
-
                 if (ex.NativeErrorCode != (int)ErrorCode.CO_E_APPNOTFOUND)
                     throw;
 
@@ -75,10 +75,24 @@ namespace Bloxstrap
             }
         }
 
-        public static string GetRobloxVersion(bool studio)
+        /// <summary>
+        /// Parses the input version string and prints if fails
+        /// </summary>
+        public static Version? ParseVersionSafe(string versionStr)
         {
-            IAppData data = studio ? new RobloxStudioData() : new RobloxPlayerData();
+            const string LOG_IDENT = "Utilities::ParseVersionSafe";
 
+            if (!Version.TryParse(versionStr, out Version? version))
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Failed to convert {versionStr} to a valid Version type.");
+                return version;
+            }
+
+            return version;
+        }
+
+        public static string GetRobloxVersionStr(IAppData data)
+        {
             string playerLocation = data.ExecutablePath;
 
             if (!File.Exists(playerLocation))
@@ -90,6 +104,19 @@ namespace Bloxstrap
                 return "";
 
             return versionInfo.ProductVersion.Replace(", ", ".");
+        }
+
+        public static string GetRobloxVersionStr(bool studio)
+        {
+            IAppData data = studio ? new RobloxStudioData() : new RobloxPlayerData();
+
+            return GetRobloxVersionStr(data);
+        }
+
+        public static Version? GetRobloxVersion(IAppData data)
+        {
+            string str = GetRobloxVersionStr(data);
+            return ParseVersionSafe(str);
         }
 
         public static Process[] GetProcessesSafe()
@@ -106,6 +133,25 @@ namespace Bloxstrap
                 App.Logger.WriteException(LOG_IDENT, ex);
                 return Array.Empty<Process>(); // can we retry?
             }
+        }
+
+        public static bool DoesMutexExist(string name)
+        {
+            try
+            {
+                Mutex.OpenExisting(name).Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static void KillBackgroundUpdater()
+        {
+            using EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, "Bloxstrap-BackgroundUpdaterKillEvent");
+            handle.Set();
         }
     }
 }

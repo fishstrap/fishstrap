@@ -64,23 +64,27 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool ActivityTrackingEnabled
         {
-            get => App.Settings.Prop.EnableActivityTracking;
+            get => App.FastFlags.GetPreset("Flog.Network") == "7";
             set
             {
+                App.FastFlags.SetPreset("Flog.Network", value ? "7" : null);
+
                 App.Settings.Prop.EnableActivityTracking = value;
 
                 if (!value)
                 {
-                    ShowServerDetailsEnabled = value;
-                    DisableAppPatchEnabled = value;
-                    DiscordActivityEnabled = value;
-                    DiscordActivityJoinEnabled = value;
+                    ShowServerDetailsEnabled = false;
+                    DisableAppPatchEnabled = false;
+                    DiscordActivityEnabled = false;
+                    DiscordActivityJoinEnabled = false;
 
                     OnPropertyChanged(nameof(ShowServerDetailsEnabled));
                     OnPropertyChanged(nameof(DisableAppPatchEnabled));
                     OnPropertyChanged(nameof(DiscordActivityEnabled));
                     OnPropertyChanged(nameof(DiscordActivityJoinEnabled));
                 }
+
+                OnPropertyChanged(nameof(ActivityTrackingEnabled));
             }
         }
 
@@ -132,6 +136,32 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => App.Settings.Prop.UseDisableAppPatch;
             set => App.Settings.Prop.UseDisableAppPatch = value;
+        }
+
+        public bool BlockRobloxRecording
+        {
+            get => App.Settings.Prop.BlockRobloxRecording;
+            set
+            {
+                if (App.Settings.Prop.BlockRobloxRecording != value)
+                {
+                    Watcher.ApplyRecordingBlock(value, saveSetting: true);
+                    OnPropertyChanged(nameof(BlockRobloxRecording));
+                }
+            }
+        }
+
+        public bool BlockRobloxScreenshots
+        {
+            get => App.Settings.Prop.BlockRobloxScreenshots;
+            set
+            {
+                if (App.Settings.Prop.BlockRobloxScreenshots != value)
+                {
+                    Watcher.ApplyScreenshotBlock(value, saveSetting: true);
+                    OnPropertyChanged(nameof(BlockRobloxScreenshots));
+                }
+            }
         }
 
         public ObservableCollection<CustomIntegration> CustomIntegrations

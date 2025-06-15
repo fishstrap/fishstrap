@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Bloxstrap.UI.ViewModels.Settings;
+using Wpf.Ui.Hardware;
 
 namespace Bloxstrap.UI.Elements.Settings.Pages
 {
@@ -28,9 +29,30 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             InitializeComponent();
         }
 
-        private void ToggleSwitch_Checked(object sender, RoutedEventArgs e)
+        private void ToggleSwitch_Checked_1(object sender, RoutedEventArgs e)
         {
+            HardwareAcceleration.MemoryTrimming();
+        }
 
+        private void ToggleSwitch_Unchecked_1(object sender, RoutedEventArgs e)
+        {
+            Frontend.ShowMessageBox(
+            Strings.Menu_Channels_HardwareAccelRestart,
+            MessageBoxImage.Information
+            );
+        }
+
+        private void ToggleSwitch_Checked_2(object sender, RoutedEventArgs e)
+        {
+            HardwareAcceleration.DisableAllAnimations();
+        }
+
+        private void ToggleSwitch_Unchecked_2(object sender, RoutedEventArgs e)
+        {
+            Frontend.ShowMessageBox(
+            Strings.Menu_Channels_DisableAnimationRestart,
+            MessageBoxImage.Information
+            );
         }
     }
 }

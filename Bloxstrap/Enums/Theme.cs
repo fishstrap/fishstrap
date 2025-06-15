@@ -4,7 +4,21 @@
     {
         [EnumName(FromTranslation = "Common.SystemDefault")]
         Default,
+        Dark,
         Light,
-        Dark
+        ClassicDark,
+        Froststrap,
+        Midnight,
+        RedBlue,
+        PurpleMoon,
+        Forest,
+        CottonCandy,
+        Purple,
+        Blue,
+        Cyan,
+        Green,
+        Orange,
+        Pink,
+        Red,
     }
 }

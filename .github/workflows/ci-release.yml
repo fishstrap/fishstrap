@@ -26,7 +26,7 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Fishstrap (Release) (${{ github.sha }})
+        name: Froststrap (Release) (${{ github.sha }})
         path: .\Bloxstrap\bin\Release\net6.0-windows\win-x64\publish\*
 
   release:
@@ -40,18 +40,18 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: Fishstrap (Release) (${{ github.sha }})
+          name: Froststrap (Release) (${{ github.sha }})
           path: release
 
       - name: Rename binaries
-        run: mv release/Bloxstrap.exe Fishstrap-${{ github.ref_name }}.exe
+        run: mv release/Bloxstrap.exe Froststrap-${{ github.ref_name }}.exe
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           draft: true
-          files: Fishstrap-${{ github.ref_name }}.exe
-          name: Fishstrap ${{ github.ref_name }}
+          files: Froststrap-${{ github.ref_name }}.exe
+          name: Froststrap ${{ github.ref_name }}
           fail_on_unmatched_files: true
 
   release-test:
@@ -65,16 +65,16 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: Fishstrap (Release) (${{ github.sha }})
+          name: Froststrap (Release) (${{ github.sha }})
           path: release
 
       - name: Rename binaries
-        run: mv release/Bloxstrap.exe Fishstrap-${{ github.ref_name }}.exe
+        run: mv release/Bloxstrap.exe Froststrap-${{ github.ref_name }}.exe
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           draft: true
-          files: Fishstrap-${{ github.ref_name }}.exe
-          name: Fishstrap ${{ github.ref_name }}
+          files: Froststrap-${{ github.ref_name }}.exe
+          name: Froststrap ${{ github.ref_name }}
           fail_on_unmatched_files: true

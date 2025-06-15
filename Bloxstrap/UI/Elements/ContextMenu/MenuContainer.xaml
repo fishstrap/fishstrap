@@ -49,6 +49,18 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
+            <MenuItem x:Name="LogsMenuItem" Click="LogsMenuItem_Click" Visibility="Collapsed">
+                <MenuItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon Grid.Column="0" Symbol="DocumentCatchUp20"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="Logs Menu" />
+                    </Grid>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem x:Name="ServerDetailsMenuItem" Visibility="Collapsed" Click="ServerDetailsMenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
@@ -58,30 +70,6 @@
                         </Grid.ColumnDefinitions>
                         <ui:SymbolIcon Grid.Column="0" Symbol="Info28"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_Title}" />
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem x:Name="OutputConsoleMenuItem" Click="OutputConsoleMenuItem_Click" Visibility="Collapsed">
-                <MenuItem.Header>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="24" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Grid.Column="0" Symbol="AnimalRabbit24"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="{x:Static resources:Strings.Menu_Context_PlayerLogs}" />
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem x:Name="ChatLogsMenuItem" Click="ChatLogsMenuItemMenuItem_Click" Visibility="Collapsed">
-                <MenuItem.Header>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="24" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Grid.Column="0" Symbol="Chat24"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="{x:Static resources:Strings.ContextMenu_MessageLogs_Title}" />
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
@@ -97,6 +85,18 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
+            <MenuItem x:Name="DebugMenuItem" Visibility="Collapsed" Click="DebugMenuItem_Click">
+                <MenuItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon Grid.Column="0" Symbol="Bug24"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="{x:Static resources:Strings.Common_OpenDebugMenu}" />
+                    </Grid>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem Click="CloseRobloxMenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
@@ -106,18 +106,6 @@
                         </Grid.ColumnDefinitions>
                         <ui:SymbolIcon Grid.Column="0" Symbol="WindowHeaderHorizontalOff20"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="{x:Static resources:Strings.ContextMenu_CloseRoblox}" />
-                    </Grid>
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem x:Name="LogTracerMenuItem" Visibility="Collapsed" Click="LogTracerMenuItem_Click">
-                <MenuItem.Header>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="24" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Grid.Column="0" Symbol="DocumentCatchUp20"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="{x:Static resources:Strings.Common_OpenLogFile}" />
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>

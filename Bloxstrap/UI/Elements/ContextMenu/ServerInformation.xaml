@@ -20,6 +20,9 @@
         ExtendsContentIntoTitleBar="True"
         WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -50,7 +53,7 @@
             <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding ServerLocation, Mode=OneWay}" Visibility="{Binding ServerLocationVisibility, Mode=OneTime}" />
         </Grid>
 
-        <Border Grid.Row="2" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
+        <Border Grid.Row="2" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
                 <Button MinWidth="100" Content="{x:Static resources:Strings.ContextMenu_ServerInformation_CopyInstanceId}" Command="{Binding CopyInstanceIdCommand, Mode=OneTime}" />
                 <Button Margin="12,0,0,0" MinWidth="100" Content="{x:Static resources:Strings.Common_Close}" IsCancel="True" />

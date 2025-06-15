@@ -10,18 +10,31 @@
       xmlns:resources="clr-namespace:Bloxstrap.Resources"
       d:DataContext="{d:DesignInstance Type=models:ChannelViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="800"
       Title="ChannelPage"
       Scrollable="True">
 
     <StackPanel Margin="0,0,14,14">
         <TextBlock Margin="0,0,0,8" Text="{x:Static resources:Strings.Menu_Channel_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
-        <TextBlock Text="Fishstrap" FontSize="16" FontWeight="Medium" Margin="0,16,0,0" />
+        <TextBlock Text="Froststrap" FontSize="16" FontWeight="Medium" Margin="0,16,0,0" />
+        
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Behaviour_AutoUpdate_Title}"
             Description="{x:Static resources:Strings.Menu_Behaviour_AutoUpdate_Description}">
             <ui:ToggleSwitch IsChecked="{Binding UpdateCheckingEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Behaviour_DisableHardwareAcceleration_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_DisableHardwareAcceleration_Description}">
+            <ui:ToggleSwitch IsChecked="{Binding HardwareAcceleration, Mode=TwoWay}" Checked="ToggleSwitch_Checked_1" Unchecked="ToggleSwitch_Unchecked_1" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Behaviour_DisableAnimation_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_DisableAnimation_Description}">
+            <ui:ToggleSwitch IsChecked="{Binding DisableAnimations, Mode=TwoWay}" Checked="ToggleSwitch_Checked_2" Unchecked="ToggleSwitch_Unchecked_2" />
         </controls:OptionControl>
 
         <TextBlock Text="Roblox" FontSize="16" FontWeight="Medium" Margin="0,16,0,0" />
@@ -32,7 +45,7 @@
             <controls:OptionControl.Style>
                 <Style TargetType="controls:OptionControl">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ForceRobloxReinstallation, Mode=OneTime}" Value="True">
+                        <DataTrigger Binding="{Binding IsRobloxInstallationMissing, Mode=OneTime}" Value="True">
                             <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -55,6 +68,19 @@
             </controls:OptionControl.Style>
             <ui:ToggleSwitch IsChecked="{Binding UpdateRoblox, Mode=TwoWay}" />
         </controls:OptionControl>
+
+        <controls:OptionControl
+    Header="Roblox Process Priority"
+    Description="Select the CPU priority for Roblox.">
+            <ComboBox
+        Width="200"
+        Margin="5,0,0,0"
+        Padding="10,5,10,5"
+        ItemsSource="{Binding ProcessPriorityOptions, Mode=OneTime}"
+        SelectedItem="{Binding SelectedPriority, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+
 
         <controls:OptionControl 
     x:Name="FlagStateOption"

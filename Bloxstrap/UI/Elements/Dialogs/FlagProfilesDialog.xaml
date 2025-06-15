@@ -22,6 +22,9 @@
     </ui:UiWindow.Resources>
     
     <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -75,11 +78,34 @@
                     </TextBlock>
                 </Grid>
             </TabItem>
+            <TabItem Header="{x:Static resources:Strings.Common_PresetFlagLists}">
+                <Grid Margin="11">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ListView x:Name="LoadPresetProfile">
+
+                    </ListView>
+                    <TextBlock Grid.Row="0" IsHitTestVisible="False" Margin="18,14,0,0" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SaveProfile}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </TabItem>
         </TabControl>
 
-        <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
+        <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
-                <CheckBox Content="{x:Static resources:Strings.Menu_FlagProfiles_ClearFlags}" Name="ClearFlags">
+                <CheckBox Content="{x:Static resources:Strings.Menu_FlagProfiles_ClearFlags}" Name="ClearFlags" Margin="0,0,40,0" >
                     <CheckBox.Style>
                         <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
                             <Style.Triggers>
@@ -94,7 +120,7 @@
                         </Style>
                     </CheckBox.Style>
                 </CheckBox>
-                <Button Background="#302020" Margin="0,0,15,0" MinWidth="100" Content="{x:Static resources:Strings.Menu_FastFlagEditor_DeleteSelected}" Click="DeleteButton_Click">
+                <Button Background="{DynamicResource SystemAccentBrush}" Margin="0,0,15,0" MinWidth="100" Content="{x:Static resources:Strings.Menu_FastFlagEditor_DeleteSelected}" Click="DeleteButton_Click">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                             <Style.Triggers>
@@ -124,6 +150,12 @@
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding ElementName=Tabs, Path=SelectedIndex}" Value="1" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding ElementName=Tabs, Path=SelectedIndex}" Value="2" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter Property="IsEnabled" Value="True" />
                                 </MultiDataTrigger>

@@ -6,6 +6,7 @@
 
         public static IReadOnlyCollection<BootstrapperStyle> Selections => new BootstrapperStyle[]
         {
+            BootstrapperStyle.CustomFluentDialog,
             BootstrapperStyle.FluentDialog,
             BootstrapperStyle.FluentAeroDialog,
             BootstrapperStyle.ClassicFluentDialog,

@@ -26,6 +26,9 @@ using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Threading.Channels;
 using System.Windows.Controls;
+using System.Drawing;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Bloxstrap
 {
@@ -353,7 +356,8 @@ namespace Bloxstrap
                     Deployment.Channel = Deployment.DefaultChannel;
 
                 App.Logger.WriteLine(LOG_IDENT, $"Got channel as {Deployment.DefaultChannel}");
-            } else
+            }
+            else
             {
                 App.Logger.WriteLine(LOG_IDENT, "Multiple instances found, cancelling enrollments");
             }
@@ -441,6 +445,78 @@ namespace Bloxstrap
             _versionPackageManifest = new(pkgManifestData);
         }
 
+        private const int WM_SETICON = 0x80;
+        private const int ICON_SMALL = 0;
+        private const int ICON_BIG = 1;
+
+        private const int GCL_HICON = -14;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr SetClassLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetClassLong", SetLastError = true)]
+        private static extern uint SetClassLong32(IntPtr hWnd, int nIndex, uint dwNewLong);
+
+        [DllImport("user32.dll")]
+        private static extern bool RedrawWindow(IntPtr hWnd, IntPtr lprcUpdate, IntPtr hrgnUpdate, uint flags);
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        private const uint RDW_FRAME = 0x0400;
+        private const uint RDW_INVALIDATE = 0x0001;
+        private const uint RDW_UPDATENOW = 0x0100;
+
+        private IntPtr SetClassIcon(IntPtr hwnd, Icon icon)
+        {
+            IntPtr hIcon = icon.Handle;
+            if (IntPtr.Size == 8) // 64-bit
+            {
+                return SetClassLongPtr(hwnd, GCL_HICON, hIcon);
+            }
+            else // 32-bit
+            {
+                return (IntPtr)SetClassLong32(hwnd, GCL_HICON, (uint)hIcon.ToInt32());
+            }
+        }
+
+        private IntPtr GetMainWindowHandle(int processId)
+        {
+            IntPtr mainWindowHandle = IntPtr.Zero;
+            EnumWindows((hWnd, lParam) =>
+            {
+                GetWindowThreadProcessId(hWnd, out uint pid);
+                if (pid == processId)
+                {
+                    // Optionally check if window is visible, has title, etc.
+                    mainWindowHandle = hWnd;
+                    return false; // Stop enumerating
+                }
+                return true;
+            }, IntPtr.Zero);
+            return mainWindowHandle;
+        }
+
+        private Icon? LoadOldIcon()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            const string resourceName = "Bloxstrap.Resources.Icon2022.ico";
+
+            using Stream? stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream != null)
+                return new Icon(stream);
+
+            return null;
+        }
+
         private async void StartRoblox()
         {
             const string LOG_IDENT = "Bootstrapper::StartRoblox";
@@ -519,11 +595,111 @@ namespace Bloxstrap
                 logCreatedEvent.Set();
             };
 
-            // v2.2.0 - byfron will trip if we keep a process handle open for over a minute, so we're doing this now
             try
             {
                 using var process = Process.Start(startInfo)!;
+
+                try
+                {
+                    var selectedPriority = App.Settings.Prop.SelectedProcessPriority;
+
+                    if (selectedPriority != ProcessPriorityOption.Normal)
+                    {
+                        ProcessPriorityClass priorityClass = selectedPriority switch
+                        {
+                            ProcessPriorityOption.Low => ProcessPriorityClass.Idle,
+                            ProcessPriorityOption.BelowNormal => ProcessPriorityClass.BelowNormal,
+                            ProcessPriorityOption.Normal => ProcessPriorityClass.Normal,
+                            ProcessPriorityOption.AboveNormal => ProcessPriorityClass.AboveNormal,
+                            ProcessPriorityOption.High => ProcessPriorityClass.High,
+                            ProcessPriorityOption.RealTime => ProcessPriorityClass.RealTime,
+                            _ => ProcessPriorityClass.Normal
+                        };
+
+                        var robloxProcesses = Process.GetProcessesByName("RobloxPlayerBeta");
+
+                        if (robloxProcesses.Length == 0)
+                        {
+                            System.Windows.MessageBox.Show("Roblox process not found. Priority not applied.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                        else
+                        {
+                            foreach (var proc in robloxProcesses)
+                            {
+                                try
+                                {
+                                    proc.PriorityClass = priorityClass;
+                                }
+                                catch (Exception ex)
+                                {
+                                    App.Logger.WriteLine(LOG_IDENT, $"Failed to set priority for process {proc.Id}: {ex}");
+                                }
+                            }
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Failed to set process priority: {ex}");
+                    System.Windows.MessageBox.Show($"Failed to set CPU Priority:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                // Continue with the rest of your code like _appPid assignment, icon setting, etc.
                 _appPid = process.Id;
+
+                if (App.Settings.Prop.UseOldIcon)
+                {
+                    if (process.WaitForInputIdle(5000))
+                    {
+                        IntPtr hwnd = IntPtr.Zero;
+
+                        for (int i = 0; i < 6; i++)
+                        {
+                            hwnd = process.MainWindowHandle;
+                            if (hwnd != IntPtr.Zero)
+                                break;
+                            Thread.Sleep(500);
+                        }
+
+                        if (hwnd == IntPtr.Zero)
+                            hwnd = GetMainWindowHandle(_appPid);
+
+                        if (hwnd != IntPtr.Zero)
+                        {
+                            try
+                            {
+                                using var icon = LoadOldIcon();
+                                if (icon != null)
+                                {
+                                    IntPtr iconHandle = icon.Handle;
+
+                                    SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_SMALL, iconHandle);
+                                    SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_BIG, iconHandle);
+
+                                    SetClassIcon(hwnd, icon);
+
+                                    // Force redraw of the window frame and icon
+                                    RedrawWindow(hwnd, IntPtr.Zero, IntPtr.Zero, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
+
+                                    App.Logger.WriteLine(LOG_IDENT, "Old icon set successfully on Roblox window.");
+                                }
+                                else
+                                {
+                                    App.Logger.WriteLine(LOG_IDENT, "Old icon resource not found.");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                App.Logger.WriteLine(LOG_IDENT, $"Failed to set old icon: {ex}");
+                            }
+                        }
+                        else
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Roblox main window handle not found for icon setting.");
+                        }
+                    }
+                }
             }
             catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
             {
@@ -1165,7 +1341,7 @@ namespace Bloxstrap
 
                     App.Logger.WriteLine(LOG_IDENT, $"Setting font for {jsonFilename}");
 
-                    var fontFamilyData = JsonSerializer.Deserialize<FontFamily>(File.ReadAllText(jsonFilePath));
+                    var fontFamilyData = JsonSerializer.Deserialize<Models.FontFamily>(File.ReadAllText(jsonFilePath));
 
                     if (fontFamilyData is null)
                         continue;

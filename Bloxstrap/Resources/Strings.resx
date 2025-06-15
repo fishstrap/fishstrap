@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bootstrapper.AutoUpdateFailed" xml:space="preserve">
-    <value>Fishstrap was unable to automatically update to version {0}. Please update it manually by downloading and running it from the website.</value>
+    <value>Froststrap was unable to automatically update to version {0}. Please update it manually by downloading and running it from the website.</value>
   </data>
   <data name="Bootstrapper.ConfirmLaunch" xml:space="preserve">
     <value>Roblox is currently running, and launching another instance will close it. Are you sure you want to continue launching?</value>
@@ -127,13 +127,16 @@
     <value>Roblox may be down right now. See {0} for more information.</value>
   </data>
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
-    <value>A connection could not be made, which likely indicates a poor internet connection or a firewall block. If your connection is fine, please ensure that your antivirus isn't blocking Fishstrap.</value>
+    <value>A connection could not be made, which likely indicates a poor internet connection or a firewall block. If your connection is fine, please ensure that your antivirus isn't blocking Froststrap.</value>
+  </data>
+  <data name="Menu.Help.Title" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
-    <value>You must first install Fishstrap before uninstalling.</value>
+    <value>You must first install Froststrap before uninstalling.</value>
   </data>
   <data name="Bootstrapper.NotEnoughSpace" xml:space="preserve">
-    <value>Fishstrap does not have enough disk space to download and install Roblox. Please free up some disk space and try again.</value>
+    <value>Froststrap does not have enough disk space to download and install Roblox. Please free up some disk space and try again.</value>
   </data>
   <data name="Bootstrapper.Status.ApplyingModifications" xml:space="preserve">
     <value>Applying Roblox modifications...</value>
@@ -169,10 +172,10 @@
     <comment>Text for style previews that use text button that says "Cancel"</comment>
   </data>
   <data name="Bootstrapper.SuccessfullyUninstalled" xml:space="preserve">
-    <value>Fishstrap has successfully uninstalled</value>
+    <value>Froststrap has successfully uninstalled</value>
   </data>
   <data name="Bootstrapper.Uninstall.RobloxRunning" xml:space="preserve">
-    <value>Roblox is currently running, but must be closed before uninstalling Fishstrap. Would you like to close Roblox now?</value>
+    <value>Roblox is currently running, but must be closed before uninstalling Froststrap. Would you like to close Roblox now?</value>
   </data>
   <data name="Bootstrapper.WMFNotFound" xml:space="preserve">
     <value>Roblox requires the use of Windows Media Foundation components. You appear to be missing them, likely because you are using an N edition of Windows. Please install them first, and then launch Roblox.</value>
@@ -201,6 +204,72 @@
   <data name="Common.ImportJson" xml:space="preserve">
     <value>Import JSON</value>
   </data>
+  <data name="Common.OpenDebugMenu" xml:space="preserve">
+    <value>Open Debug Menu</value>
+  </data>
+  <data name="Common.DebugMenu" xml:space="preserve">
+    <value>Debug Menu</value>
+  </data>
+  <data name="Menu.DebugMenu.CopySelected" xml:space="preserve">
+    <value>Copy Selected</value>
+  </data>
+  <data name="Menu.DebugMenu.ExportLogs" xml:space="preserve">
+    <value>Export Logs</value>
+  </data>
+  <data name="Menu.DebugMenu.RefreshLogs" xml:space="preserve">
+    <value>Refresh Logs</value>
+  </data>
+  <data name="Menu.DebugMenu.OpenLogsFolder" xml:space="preserve">
+    <value>Open Logs Folder</value>
+  </data>
+  <data name="Menu.DebugMenu.ClearLogs" xml:space="preserve">
+    <value>Clear Logs</value>
+  </data>
+  <data name="Menu.DebugMenu.SearchBoxPlaceHolder" xml:space="preserve">
+    <value>Search Logs</value>
+  </data>
+  <data name="Menu.Behaviour.OldRobloxIcon.Title" xml:space="preserve">
+    <value>Old Roblox Icon</value>
+  </data>
+  <data name="Menu.Behaviour.OldRobloxIcon.Description" xml:space="preserve">
+    <value>Reverts the Roblox taskbar icon to the monochrome logo used prior to April 2025. Note: This feature is not guaranteed to always work!”</value>
+  </data>
+  <data name="Menu.Appearance.MenuAdjustment.Title" xml:space="preserve">
+    <value>Menu Adjustment</value>
+  </data>
+  <data name="Menu.Appearance.MenuAdjustment.Description" xml:space="preserve">
+    <value>Allows you to change the order of the sections on the left side.</value>
+  </data>
+  <data name="Menu.Appearance.MenuAdjustment.MoveUp" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="Menu.Appearance.MenuAdjustment.MoveDown" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="Menu.Appearance.MenuAdjustment.ResetToDefault" xml:space="preserve">
+    <value>Reset To Default</value>
+  </data>
+  <data name="Menu.Appearance.MenuAdjustment.LockOrder" xml:space="preserve">
+    <value>Lock Order</value>
+  </data>
+  <data name="Menu.Integrations.BlockVideoRecording.Title" xml:space="preserve">
+    <value>Disable Roblox Recording</value>
+  </data>
+  <data name="Menu.Integrations.BlockVideoRecording.Description" xml:space="preserve">
+    <value>Disables the Roblox recording feature. Note: When this feature is enabled, The hotkey combo will no longer work.</value>
+  </data>
+  <data name="Menu.Integrations.BlockScreenShots.Title" xml:space="preserve">
+    <value>Disable Roblox Screenshots</value>
+  </data>
+  <data name="Menu.Integrations.BlockScreenShots.Description" xml:space="preserve">
+    <value>Disables the Roblox screenshot feature. Note: When this feature is enabled, The hotkey combo will no longer work.</value>
+  </data>
+  <data name="Menu.Integrations.BlockCardExpander.Title" xml:space="preserve">
+    <value>Disable Roblox Features</value>
+  </data>
+  <data name="Menu.Integrations.BlockCardExpander.Description" xml:space="preserve">
+    <value>Toggles certain built-in Roblox features.</value>
+  </data>
   <data name="Common.OpenLogFile" xml:space="preserve">
     <value>Open log file</value>
   </data>
@@ -219,8 +288,170 @@
   <data name="Common.OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="Menu.Help.Description" xml:space="preserve">
+    <value>This will provide you with information about fixes and other details (it will redirect you to the wiki page).</value>
+  </data>
+  <data name="Menu.Help.FFlagIssues" xml:space="preserve">
+    <value>Common FFlag Issues</value>
+  </data>
+  <data name="Menu.Help.GrayAvatars" xml:space="preserve">
+    <value>[Gray Avatars](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#gray-avatars)</value>
+  </data>
+  <data name="Menu.Help.BlurryIconsTextures" xml:space="preserve">
+    <value>[Blurry Icons/Textures](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#blurry-iconstextures)</value>
+  </data>
+  <data name="Menu.Help.LaggyAnimation" xml:space="preserve">
+    <value>[Laggy Animations](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#laggy-animations)</value>
+  </data>
+  <data name="Menu.Help.FrameStutters" xml:space="preserve">
+    <value>[Frame Stutters](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#frame-stutters)</value>
+  </data>
+  <data name="Menu.Help.LightingProblems" xml:space="preserve">
+    <value>[Lighting Problems](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#lighting-problems)</value>
+  </data>
+  <data name="Menu.Help.BuggedMeshes" xml:space="preserve">
+    <value>[Bugged Meshes](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#weird-meshes)</value>
+  </data>
+  <data name="Menu.Help.GraySky" xml:space="preserve">
+    <value>[Gray Sky](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#gray-sky)</value>
+  </data>
+  <data name="Menu.Help.BlackTextures" xml:space="preserve">
+    <value>[Black Textures](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#black-textures)</value>
+   </data>
+  <data name="Menu.Help.RainbowUiTextures" xml:space="preserve">
+    <value>[Rainbow Colored UI/Textures](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#rainbow-colored-uigraphics)</value>
+  </data>
+  <data name="Menu.Help.LoaddingIssues" xml:space="preserve">
+    <value>[Loading Issues](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#loadding-issue)</value>
+  </data>
+  <data name="Menu.Help.FPSCappedWhenUncapped" xml:space="preserve">
+    <value>[FPS Not Fully Uncapped](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#capped-fps-even-when-you-have-it-uncapped)</value>
+  </data>
+  <data name="Menu.Help.QualityLevelNotChanging" xml:space="preserve">
+    <value>[Quality Level Not Changing](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#quality-levels-not-changing)</value>
+  </data>
+  <data name="Menu.Help.BlackSky" xml:space="preserve">
+    <value>[Black Sky When Camera Turning](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#skybox-turns-black-when-moving-your-camera)</value>
+  </data>
+  <data name="Menu.Help.RobloxCrashing" xml:space="preserve">
+    <value>[Roblox Crashing](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#crashing-in-roblox-after-the-v671-update)</value>
+  </data>
+  <data name="Menu.Help.WhiteSkyAndWhiteScreen" xml:space="preserve">
+    <value>[White Sky / White Screen](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#everything-on-the-screen-is-white-or-the-sky-is-white)</value>
+  </data>
+  <data name="Menu.Help.Crashonfastcameraturn" xml:space="preserve">
+    <value>[Crash On Fast Camera Turn](https://github.com/Meddsam/Froststrap/wiki/Common-FFlag-Issues#game-crashing-when-moving-camera-fast)</value>
+  </data>
+  <data name="Menu.Help.BootstrapperIssues" xml:space="preserve">
+    <value>Bootstrapper Issues</value>
+  </data>
+  <data name="Menu.Help.DiscordRichPresenceNotWorking" xml:space="preserve">
+    <value>[Discord Rich Presence Broken](https://github.com/bloxstraplabs/bloxstrap/wiki/Discord-Rich-Presence-does-not-work)</value>
+  </data>
+  <data name="Menu.Help.SetupFailed" xml:space="preserve">
+    <value>[Failed Custom Bootstrapper Setup](https://github.com/Meddsam/Froststrap/wiki/Bootstrapper-Common-Issues#custom-bootstrapper-setup-failed)</value>
+  </data>
+  <data name="Menu.Help.ConnectivityIssue" xml:space="preserve">
+    <value>[Connectivity Issues](https://github.com/Meddsam/Froststrap/wiki/Bootstrapper-Common-Issues#connectivity-issue)</value>
+  </data>
+  <data name="Menu.Help.RobloxWontLaunch" xml:space="preserve">
+    <value>[Roblox Dosen't Launch](https://github.com/Meddsam/Froststrap/wiki/Bootstrapper-Common-Issues#roblox-wont-launch)</value>
+  </data>
+  <data name="Menu.Help.Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="Menu.Help.ServerInformation" xml:space="preserve">
+    <value>[Server Information](https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#server-information-viewing)</value>
+  </data>
+  <data name="Menu.Help.GameHistory" xml:space="preserve">
+    <value>[Game History](https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#game-history-viewing)</value>
+  </data>
+  <data name="Menu.Help.DiscordRichPresence" xml:space="preserve">
+    <value>[Discord Rich Presence](https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#discord-rich-presence)</value>
+  </data>
+  <data name="Menu.Help.MessageLogsAndPlayerLogs" xml:space="preserve">
+    <value>[Message Logs and Player Logs](https://github.com/Meddsam/Froststrap/wiki/Features#message-logs-and-player-logs)</value>
+  </data>
+  <data name="Menu.Help.MultiInstanceLaunching" xml:space="preserve">
+    <value>[Multi-Instance Launching](https://github.com/Meddsam/Froststrap/wiki/Features#multi-instance-launching)</value>
+  </data>
+  <data name="Menu.Help.PresetFlagViewer" xml:space="preserve">
+    <value>[Preset Flag Viewer](https://github.com/Meddsam/Froststrap/wiki/Features#preset-flag-viewer)</value>
+  </data>
+  <data name="Menu.Help.BuiltInLists" xml:space="preserve">
+    <value>[Built-In Lists](https://github.com/Meddsam/Froststrap/wiki/Features#built-in-lists)</value>
+  </data>
+  <data name="Menu.Help.Cleaner" xml:space="preserve">
+    <value>[Froststrap Cleaner](https://github.com/Meddsam/Froststrap/wiki/Features#cleaner)</value>
+  </data>
+  <data name="Menu.Help.CustomLaunchers" xml:space="preserve">
+    <value>[Custom Launchers](https://github.com/Meddsam/Froststrap/wiki/Features#custom-launchers)</value>
+  </data>
+  <data name="Menu.Help.DisableHardwareAcceleration" xml:space="preserve">
+    <value>[Disable Hardware Acceleration](https://github.com/Meddsam/Froststrap/wiki/Features#disable-hardware-acceleration)</value>
+  </data>
+  <data name="Menu.Help.BetterSuggestionBox" xml:space="preserve">
+    <value>[Better Suggestion Box](https://github.com/Meddsam/Froststrap/wiki/Features#better-suggestion-box)</value>
+  </data>
+  <data name="Menu.Help.CustomModsPage" xml:space="preserve">
+    <value>[Custom Mods Page](https://github.com/Meddsam/Froststrap/wiki/Features#custom-mods-page)</value>
+  </data>
+  <data name="Menu.Help.AdvancedFFlagEditorSettings" xml:space="preserve">
+    <value>[Advanced FastFlag Editor Settings](https://github.com/Meddsam/Froststrap/wiki/Features#advanced-fastflag-editor-settings)</value>
+  </data>
+  <data name="Menu.Help.FFlagGuide" xml:space="preserve">
+    <value>FFlag Guide</value>
+  </data>
+  <data name="Menu.Help.RecommendedBuffering" xml:space="preserve">
+    <value>[Recommended Buffering](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#recommended-buffering)</value>
+  </data>
+  <data name="Menu.Help.RenderingModes" xml:space="preserve">
+    <value>[Rendering Modes](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#rendering-mode)</value>
+  </data>
+  <data name="Menu.Help.OverrideGraphicQuality" xml:space="preserve">
+    <value>[Override Graphic Quality](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#override-graphic-quality)</value>
+  </data>
+  <data name="Menu.Help.TextureSkipping" xml:space="preserve">
+    <value>[Texture Skipping](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#texture-skipping)</value>
+  </data>
+  <data name="Menu.Help.DisableFullScreenTitleBar" xml:space="preserve">
+    <value>[Disabling Roblox’s Fullscreen Titlebar](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#disable-full-screen-title-bar)</value>
+  </data>
+  <data name="Menu.Help.Telemetry" xml:space="preserve">
+    <value>[Telemetry](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#telemetry)</value>
+  </data>
+  <data name="Menu.Help.ReduceLagSpikes" xml:space="preserve">
+    <value>[Reduce Lag Spikes](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#reduce-lag-spikes)</value>
+  </data>
+  <data name="Menu.Help.LargeReplicator" xml:space="preserve">
+    <value>[Large Replicator](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#large-replicator)</value>
+  </data>
+  <data name="Menu.Help.RCore" xml:space="preserve">
+    <value>[RCore](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#rcore)</value>
+  </data>
+  <data name="Menu.Help.PayloadLimit" xml:space="preserve">
+    <value>[Payload Limit](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#payload-limit)</value>
+  </data>
+  <data name="Menu.Help.BypassVulkan" xml:space="preserve">
+    <value>[Bypass Vulkan](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#bypass-vulkan-requirement)</value>
+  </data>
+  <data name="Menu.Help.LightCulling" xml:space="preserve">
+    <value>[Light Culling](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#light-culling)</value>
+  </data>
+  <data name="Menu.Help.BGRASupport" xml:space="preserve">
+    <value>[BGRA Support](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#bgra-support)</value>
+  </data>
+  <data name="Menu.Help.MaquetteFramesBeforeShown" xml:space="preserve">
+    <value>[Maquette Frames Before Shown](https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#maquette-frames-before-shown)</value>
+  </data>
   <data name="Common.Presets" xml:space="preserve">
     <value>Presets</value>
+  </data>
+  <data name="Common.Recommended" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="Common.Experimental" xml:space="preserve">
+    <value>Experimental</value>
   </data>
   <data name="Common.Reset" xml:space="preserve">
     <value>Reset</value>
@@ -276,14 +507,14 @@ Click for more information</value>
     <value>Connectivity error</value>
   </data>
   <data name="Dialog.Connectivity.UnableToConnect" xml:space="preserve">
-    <value>Fishstrap is unable to connect to {0}</value>
+    <value>Froststrap is unable to connect to {0}</value>
     <comment>{0} is the name of a service (i.e. Roblox, GitHub)</comment>
   </data>
   <data name="Dialog.Exception.CopyLogContents" xml:space="preserve">
     <value>Copy log contents</value>
   </data>
   <data name="Dialog.Exception.Info.1" xml:space="preserve">
-    <value>An exception occurred while running Fishstrap/Bloxstrap</value>
+    <value>An exception occurred while running Froststrap/Bloxstrap</value>
   </data>
   <data name="Dialog.Exception.Info.2" xml:space="preserve">
     <value>Check the [Bloxstrap Wiki]({0}) first to see if this problem has already been addressed with a fix.
@@ -291,7 +522,7 @@ Click for more information</value>
 If not, then please report this exception through a [GitHub issue]({1}) along with a copy of the log file that was created.</value>
   </data>
   <data name="Dialog.Exception.Title" xml:space="preserve">
-    <value>Fishstrap Exception</value>
+    <value>Froststrap Exception</value>
   </data>
   <data name="Common.Custom" xml:space="preserve">
     <value>Custom</value>
@@ -305,11 +536,29 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   <data name="Enums.BootstrapperStyle.ByfronDialog" xml:space="preserve">
     <value>Fake Byfron (2023)</value>
   </data>
+  <data name="Enums.BootstrapperStyle.FluentDialog" xml:space="preserve">
+    <value>Froststrap (Opaque)</value>
+  </data>
+  <data name="Enums.BootstrapperStyle.CustomFluentDialog" xml:space="preserve">
+    <value>Froststrap</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Title" xml:space="preserve">
+    <value>Failed to extract files</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Message" xml:space="preserve">
+    <value>Some content may be missing. Force a Roblox reinstallation in settings to fix this.</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Title" xml:space="preserve">
+    <value>Failed to apply modifications</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Message" xml:space="preserve">
+    <value>Not all modifications will be present in the current launch.</value>
+  </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
-    <value>Fishstrap (Classic)</value>
+    <value>Froststrap (Classic)</value>
   </data>
   <data name="Enums.BootstrapperStyle.FluentAeroDialog" xml:space="preserve">
-    <value>Fishstrap (Glass)</value>
+    <value>Froststrap (Glass)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2008" xml:space="preserve">
     <value>Legacy (2008 - 2011)</value>
@@ -383,14 +632,222 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   <data name="Enums.Theme.Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
+  <data name="Enums.Theme.ClassicDark" xml:space="preserve">
+    <value>Classic Dark</value>
+  </data>
   <data name="Enums.Theme.Light" xml:space="preserve">
     <value>Light</value>
   </data>
+  <data name="Enums.Theme.Forest" xml:space="preserve">
+    <value>Forest</value>
+  </data>
+  <data name="Enums.Theme.Froststrap" xml:space="preserve">
+    <value>Froststrap</value>
+  </data>
+  <data name="Enums.Theme.Midnight" xml:space="preserve">
+    <value>Midnight</value>
+  </data>
+  <data name="Enums.Theme.RedBlue" xml:space="preserve">
+    <value>Red Blue</value>
+  </data>
+  <data name="Enums.Theme.Aqua" xml:space="preserve">
+    <value>Aqua</value>
+  </data>
+  <data name="Enums.Theme.PurpleMoon" xml:space="preserve">
+    <value>Purple Moon</value>
+  </data>
+  <data name="Enums.Theme.CottonCandy" xml:space="preserve">
+    <value>Cotton Candy</value>
+  </data>
+  <data name="Enums.Theme.Yellow" xml:space="preserve">
+    <value>Yellow</value>
+  </data>
+	<data name="Enums.Theme.Cyan" xml:space="preserve">
+    <value>Cyan</value>
+  </data>
+	<data name="Enums.Theme.Pink" xml:space="preserve">
+    <value>Pink</value>
+  </data>
+	<data name="Enums.Theme.Green" xml:space="preserve">
+    <value>Green</value>
+  </data>
+	<data name="Enums.Theme.Orange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+	<data name="Enums.Theme.Red" xml:space="preserve">
+    <value>Red</value>
+  </data>
+	<data name="Enums.Theme.Blue" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+	<data name="Enums.Theme.Purple" xml:space="preserve">
+    <value>Purple</value>
+  </data>
+	<data name="Menu.About.Licenses.Apache" xml:space="preserve">
+    <value>Apache License 2.0</value>
+  </data>
+	<data name="Enums.CustomThemeTemplate.Blank" xml:space="preserve">
+    <value>Blank</value>
+  </data>
+	<data name="Enums.CustomThemeTemplate.Simple" xml:space="preserve">
+    <value>Simple</value>
+  </data>
+	<data name="CustomTheme.Errors.InvalidRoot" xml:space="preserve">
+    <value>Theme XML root is not {0}</value>
+  </data>
+	<data name="CustomTheme.Errors.DialogAlreadyInitialised" xml:space="preserve">
+    <value>Custom dialog has already been initialised</value>
+  </data>
+	<data name="CustomTheme.Errors.TooManyElements" xml:space="preserve">
+    <value>Custom bootstrappers can only have a maximum of {0} elements, got {1}.</value>
+  </data>
+	<data name="CustomTheme.Errors.VersionNotSet" xml:space="preserve">
+    <value>{0} version is not set</value>
+  </data>
+	<data name="CustomTheme.Errors.VersionNotNumber" xml:space="preserve">
+    <value>{0} version is not a number</value>
+  </data>
+	<data name="CustomTheme.Errors.VersionNotSupported" xml:space="preserve">
+    <value>{0} version {1} is no longer supported</value>
+  </data>
+	<data name="CustomTheme.Errors.VersionNotRecognised" xml:space="preserve">
+    <value>{0} version {1} is not recognised</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementInvalidChild" xml:space="preserve">
+    <value>{0} cannot have a child of {1}</value>
+  </data>
+	<data name="CustomTheme.Errors.UnknownElement" xml:space="preserve">
+    <value>Unknown element {0}</value>
+  </data>
+	<data name="CustomTheme.Errors.XMLParseFailed" xml:space="preserve">
+    <value>Failed to parse the theme file: {0}</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeConversionError" xml:space="preserve">
+    <value>{0} has invalid {1}: {2}</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeMissing" xml:space="preserve">
+    <value>Element {0} is missing the {1} attribute</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeInvalidType" xml:space="preserve">
+    <value>{0} {1} is not a valid {2}</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeMustBeLargerThanMin" xml:space="preserve">
+    <value>{0} {1} must be larger than {2}</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeMustBeSmallerThanMax" xml:space="preserve">
+    <value>{0} {1} must be smaller than {2}</value>
+  </data>
+	<data name="CustomTheme.Errors.UnknownEnumValue" xml:space="preserve">
+    <value>{0} Unknown {1} {2}</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeMultipleDefinitions" xml:space="preserve">
+    <value>{0} can only have one {1} defined</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeMultipleChildren" xml:space="preserve">
+    <value>{0}.{1} can only have one child</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementMultipleChildren" xml:space="preserve">
+    <value>{0} can only have one child</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeMissingChild" xml:space="preserve">
+    <value>{0}.{1} is missing it's child</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeParseError" xml:space="preserve">
+    <value>{0}.{1} could not be parsed into a {2}</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeParseErrorNull" xml:space="preserve">
+    <value>{0}.{1} {2} is null</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementAttributeBlacklistedUriScheme" xml:space="preserve">
+    <value>{0}.{1} uses blacklisted scheme {2}</value>
+  </data>
+	<data name="CustomTheme.Errors.ElementTypeCreationFailed" xml:space="preserve">
+    <value>{0} failed to create {1}: {2}</value>
+  </data>
+	<data name="CustomTheme.Editor.Title" xml:space="preserve">
+    <value>Editing "{0}"</value>
+  </data>
+	<data name="CustomTheme.Editor.Save.Success" xml:space="preserve">
+    <value>Theme successfully saved!</value>
+  </data>
+	<data name="CustomTheme.Editor.Save.Error" xml:space="preserve">
+    <value>An error occurred while saving your theme.</value>
+  </data>
+	<data name="CustomTheme.Editor.ConfirmSave" xml:space="preserve">
+    <value>Save changes to {0}?</value>
+  </data>
+	<data name="CustomTheme.Editor.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+	<data name="CustomTheme.Editor.Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+	<data name="CustomTheme.Editor.OpenThemeDirectory" xml:space="preserve">
+    <value>Open Theme Directory</value>
+  </data>
+	<data name="Common.CreateNew" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+	<data name="Common.Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+	<data name="CustomTheme.Add.Title" xml:space="preserve">
+    <value>Add Custom Theme</value>
+  </data>
+	<data name="Common.Template" xml:space="preserve">
+    <value>Template</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.NameEmpty" xml:space="preserve">
+    <value>Name cannot be empty</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.NameIllegalCharacters" xml:space="preserve">
+    <value>Name contains illegal characters</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.NameReserved" xml:space="preserve">
+    <value>Name cannot be used</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.Unknown" xml:space="preserve">
+    <value>Unknown error</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.NameTaken" xml:space="preserve">
+    <value>Name is already in use</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.FileNotZip" xml:space="preserve">
+    <value>File must be a ZIP</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.ZipMissingThemeFile" xml:space="preserve">
+    <value>Theme file could not be found in the ZIP file</value>
+  </data>
+	<data name="CustomTheme.Add.Errors.ZipInvalidData" xml:space="preserve">
+    <value>Invalid or corrupted ZIP file</value>
+  </data>
+	<data name="CustomTheme.Errors.NoThemeSelected" xml:space="preserve">
+    <value>No custom theme selected</value>
+  </data>
+	<data name="CustomTheme.Errors.SetupFailed" xml:space="preserve">
+    <value>Failed to setup custom bootstrapper: {0}.
+Defaulting to Fluent.</value>
+  </data>
+	<data name="Menu.Appearance.CustomThemes.NoneSelected" xml:space="preserve">
+    <value>No custom theme selected.</value>
+  </data>
+	<data name="Common.Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+	<data name="Common.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+	<data name="Menu.Appearance.CustomThemes.DeleteFailed" xml:space="preserve">
+    <value>Failed to delete custom theme {0}: {1}</value>
+  </data>
+	<data name="Menu.Appearance.CustomThemes.RenameFailed" xml:space="preserve">
+    <value>Failed to rename custom theme {0}: {1}</value>
+  </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
-    <value>Fishstrap has been upgraded to v{0}</value>
+    <value>Froststrap has been upgraded to v{0}</value>
   </data>
   <data name="InstallChecker.VersionDifferentThanInstalled" xml:space="preserve">
-    <value>The version of Fishstrap you've launched is different to the version you currently have installed.
+    <value>The version of Froststrap you've launched is different to the version you currently have installed.
 Would you like to upgrade your currently installed version?</value>
   </data>
   <data name="Menu.About.Contributors" xml:space="preserve">
@@ -400,22 +857,22 @@ Would you like to upgrade your currently installed version?</value>
     <value>Code</value>
   </data>
   <data name="Menu.About.Contributors.Description" xml:space="preserve">
-    <value>These are the people who have made notable contributions to Fishstrap/Bloxstrap, helping make it what it is.</value>
+    <value>These are all of the people who have made notable contributions to Froststrap and Bloxstrap, shaping them into what they are today.</value>
   </data>
-  <data name="Menu.About.Contributors.FeatureIdeas" xml:space="preserve">
-    <value>Feature Ideas</value>
+  <data name="Menu.About.Contributors.Contributors" xml:space="preserve">
+    <value>Contributors</value>
   </data>
-  <data name="Menu.About.Contributors.SpecialThanks" xml:space="preserve">
-    <value>Special Thanks</value>
+  <data name="Menu.About.Contributors.Insipirations" xml:space="preserve">
+    <value>Inspirations</value>
   </data>
   <data name="Menu.About.Description" xml:space="preserve">
-    <value>A Bloxstrap Fork.</value>
+    <value>A Fishstrap/Bloxstrap Fork.</value>
   </data>
   <data name="Menu.About.DiscordServer" xml:space="preserve">
-    <value>Discord server</value>
+    <value>Discord Server</value>
   </data>
   <data name="Menu.About.GithubRepository" xml:space="preserve">
-    <value>GitHub repository</value>
+    <value>GitHub Repository</value>
   </data>
   <data name="Menu.About.HelpInformation" xml:space="preserve">
     <value>Help and Information</value>
@@ -430,7 +887,7 @@ Would you like to upgrade your currently installed version?</value>
     <value>MIT License</value>
   </data>
   <data name="Menu.About.ReportIssue" xml:space="preserve">
-    <value>Report an issue</value>
+    <value>Report an Issue</value>
   </data>
   <data name="Menu.About.Title" xml:space="preserve">
     <value>About</value>
@@ -446,16 +903,16 @@ Would you like to upgrade your currently installed version?</value>
     <value>Please note that not all your changes will immediately apply until you close all currently open Roblox instances.</value>
   </data>
   <data name="Menu.AlreadyRunning.Title" xml:space="preserve">
-    <value>Fishstrap is already running</value>
+    <value>Froststrap is already running</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Description" xml:space="preserve">
-    <value>You can make it look different, retro, or even just like Roblox.</value>
+    <value>Customize Froststrap’s bootstrapper using a wide variety of options.</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Title" xml:space="preserve">
     <value>Bootstrapper</value>
   </data>
   <data name="Menu.Appearance.Customisation.Description" xml:space="preserve">
-    <value>Configure other miscellaneous customisable options.</value>
+    <value>Configure other miscellaneous customisable bootstrapper options.</value>
   </data>
   <data name="Menu.Appearance.Customisation.Title" xml:space="preserve">
     <value>Customisation</value>
@@ -473,13 +930,13 @@ Would you like to upgrade your currently installed version?</value>
     <value>Title</value>
   </data>
   <data name="Menu.Appearance.Description" xml:space="preserve">
-    <value>Configure how Fishstrap should look.</value>
+    <value>Configure how Froststrap should look.</value>
   </data>
   <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
     <value>Global Theme</value>
   </data>
   <data name="Menu.Appearance.Icon.Description" xml:space="preserve">
-    <value>Choose what icon it should use.</value>
+    <value>Choose what icon Froststrap should use.</value>
   </data>
   <data name="Menu.Appearance.Icon.Title" xml:space="preserve">
     <value>Icon</value>
@@ -487,29 +944,42 @@ Would you like to upgrade your currently installed version?</value>
   <data name="Menu.Appearance.Preview" xml:space="preserve">
     <value>Preview</value>
   </data>
-  <data name="Menu.Appearance.Style.Description" xml:space="preserve">
-    <value>Choose how it should look. Dark theme does not apply to Legacy/Vista.</value>
-  </data>
-  <data name="Menu.Appearance.Style.Title" xml:space="preserve">
-    <value>Style</value>
+  <data name="Menu.Appearance.Launcher.Description" xml:space="preserve">
+    <value>Choose a launch screen style. Note: Dark theme isn’t supported for Legacy or Vista.
+For more custom launchers, visit the official Bloxstrap Discord server.</value>
+  </data>	
+  <data name="Menu.Appearance.Launcher.Title" xml:space="preserve">
+    <value>Launcher</value>
   </data>
   <data name="Menu.Appearance.Title" xml:space="preserve">
     <value>Appearance</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Description" xml:space="preserve">
-    <value>Fishstrap will automatically check and update itself when launching Roblox.</value>
+    <value>Froststrap will automatically check and update itself when launching Roblox.</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
-    <value>Automatically update Fishstrap</value>
+    <value>Automatically update Froststrap</value>
+  </data>
+  <data name="Menu.Behaviour.DisableHardwareAcceleration.Description" xml:space="preserve">
+    <value>Disables hardware acceleration on Frostrap only. Note: You must restart the application in order to see any effects.</value>
+  </data>
+	<data name="Menu.Behaviour.DisableHardwareAcceleration.Title" xml:space="preserve">
+    <value>Disable Hardware Acceleration</value>
+  </data>
+  <data name="Menu.Behaviour.DisableAnimation.Description" xml:space="preserve">
+    <value>When enabled, it will disable all animations within the app. Requires app restart.</value>
+  </data>
+	<data name="Menu.Behaviour.DisableAnimation.Title" xml:space="preserve">
+    <value>Disable Animations</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Description" xml:space="preserve">
-    <value>Prevent against closures of your existing game from accidentally launching another one.</value>
+    <value>Prevent closures of your existing game when accidentally launching another Roblox Instance.</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Title" xml:space="preserve">
     <value>Prompt to confirm when launching another Roblox instance</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
-    <value>Configure what Fishstrap should do when launching Roblox.</value>
+    <value>Configure what Froststrap should do when launching Roblox.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Description" xml:space="preserve">
     <value>Roblox will be installed fresh on next launch.</value>
@@ -529,6 +999,51 @@ Would you like to upgrade your currently installed version?</value>
   <data name="Menu.FastFlagEditor.Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="Menu.Bootstrapper.CleanUp.Title" xml:space="preserve">
+    <value>Froststrap Cleaner</value>
+  </data>
+	<data name="Menu.Bootstrapper.CleanUp.Description" xml:space="preserve">
+    <value>Froststrap will remove old data to save storage space. Note: Feature originally made by Fishstrap.</value>
+  </data>
+	<data name="Enums.CleanerOptions.Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
+	<data name="Enums.CleanerOptions.OneDay" xml:space="preserve">
+    <value>After 1 day</value>
+  </data>
+	<data name="Enums.CleanerOptions.OneWeek" xml:space="preserve">
+    <value>After 1 week</value>
+  </data>
+	<data name="Enums.CleanerOptions.OneMonth" xml:space="preserve">
+    <value>After 1 month</value>
+  </data>
+	<data name="Enums.CleanerOptions.TwoMonths" xml:space="preserve">
+    <value>After 2 months</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Age.Title" xml:space="preserve">
+    <value>File Deletion Schedule</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Age.Description" xml:space="preserve">
+    <value>Files older than the set amount will be deleted.</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Cache.Title" xml:space="preserve">
+    <value>Cache</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Cache.Description" xml:space="preserve">
+    <value>Old downloads will be deleted.</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Logs.Title" xml:space="preserve">
+    <value>Logs Menu</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.Logs.Description" xml:space="preserve">
+    <value>Old log files will be deleted.</value>
+  </data>
+	<data name="Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Title" xml:space="preserve">
+    <value>Froststrap logs</value>
+  </data>
+  <data name="Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Description" xml:space="preserve">
+    <value>Froststrap logs will be deleted.</value>
+  </data>
   <data name="Menu.FastFlagEditor.BannerText" xml:space="preserve">
     <value>Misusing this can lead to instability or unexpected things happening.</value>
     <comment>The element that this string is rendered in *cannot be wrapped* and may be truncated when displayed if too long. If so, try and paraphrase a shortened version.</comment>
@@ -547,7 +1062,37 @@ There are {0} conflicting flag definitions:
     <value>Delete selected</value>
   </data>
   <data name="Menu.FastFlagEditor.Description" xml:space="preserve">
-    <value>Manage your own Fast Flags. Double click a column to edit.</value>
+    <value>Manage your FastFlags here. Check out more features in Advanced Settings</value>
+  </data>
+  <data name="Menu.CustomMods.Title" xml:space="preserve">
+    <value>Custom Mods</value>
+  </data>
+  <data name="Menu.CustomMods.Description" xml:space="preserve">
+    <value>Allows you to install custom mods from the Bootstrapper.</value>
+  </data>
+  <data name="Menu.AdvancedSettings.SettingsSaved" xml:space="preserve">
+    <value>Settings saved. You can now close this window</value>
+  </data>
+  <data name="Menu.FastFlagEditor.AdvancedSettings" xml:space="preserve">
+    <value>Advanced Settings</value>
+  </data>
+  <data name="Menu.FastFlagEditor.AdvancedSettings.SingleAddID" xml:space="preserve">
+    <value>Add with ID</value>
+  </data>
+  <data name="Menu.FastFlagEditor.AdvancedSettings.ImportAddID" xml:space="preserve">
+    <value>Import ID JSON</value>
+  </data>
+  <data name="Enums.CopyFormatMode.Format1" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="Enums.CopyFormatMode.Format2" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="Enums.CopyFormatMode.Format3" xml:space="preserve">
+    <value>Alphabetical</value>
+  </data>
+  <data name="Enums.CopyFormatMode.Format4" xml:space="preserve">
+    <value>Descending by length</value>
   </data>
   <data name="Menu.FastFlagEditor.ExportJson" xml:space="preserve">
     <value>Export JSON</value>
@@ -580,7 +1125,7 @@ Are you sure you want to continue?</value>
     <value>Show preset flags</value>
   </data>
   <data name="Menu.FastFlagEditor.Title" xml:space="preserve">
-    <value>Fast Flag Editor</value>
+    <value>FastFlag Editor</value>
   </data>
   <data name="Menu.FastFlagEditor.Warning.Back" xml:space="preserve">
     <value>Go back</value>
@@ -608,10 +1153,10 @@ Do NOT use this to import large "flag lists" made by other people that promise t
     <comment>Title is Common.Help</comment>
   </data>
   <data name="Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo" xml:space="preserve">
-    <value>Direct3D exclusive fullscreen using Alt+Enter is enabled by default.</value>
+    <value>Configure visual and performance settings for Roblox’s engine.</value>
   </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
-    <value>Preferred escape menu version</value>
+    <value>Preferred escape Menu version</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Description" xml:space="preserve">
     <value>Roblox reduces your rendering quality depending on how your display is scaled in Windows.</value>
@@ -620,13 +1165,13 @@ Do NOT use this to import large "flag lists" made by other people that promise t
     <value>Preserve rendering quality with display scaling</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
-    <value>Set to 0 for defaults if you want to use Roblox's native framerate unlocker.</value>
+    <value>Set the value to 0 if you want to use Roblox’s native framerate cap.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
     <value>Framerate limit</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
-    <value>Toggled with [keyboard shortcuts]({0}). Input id of a group you're in.</value>
+    <value>Toggled with [keyboard shortcuts]({0}). Input the ID of a Roblox group you’re in.</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
     <value>Hiding GUIs</value>
@@ -640,20 +1185,35 @@ Do NOT use this to import large "flag lists" made by other people that promise t
   <data name="Menu.FastFlags.Presets.RenderingMode.Title" xml:space="preserve">
     <value>Rendering mode</value>
   </data>
+  <data name="Menu.FastFlags.Presets.RenderingMode.Description" xml:space="preserve">
+    <value>Configure the rendering API used for Roblox. Note: Press Alt + Enter to enter exclusive fullscreen when using Direct3D as the rendering API.</value>
+  </data>
   <data name="Menu.FastFlags.Title" xml:space="preserve">
-    <value>FastFlags</value>
+    <value>FastFlag Settings</value>
   </data>
   <data name="Menu.FontFiles" xml:space="preserve">
     <value>Font files</value>
+  </data>
+  <data name="Menu.Integrations.Custom.SpecifyGame" xml:space="preserve">
+    <value>Run on a specific game</value>
+  </data>
+	<data name="Menu.Integrations.Custom.GameID" xml:space="preserve">
+    <value>Game ID</value>
+  </data>
+	<data name="Menu.Integrations.Custom.AutoCloseOnGame" xml:space="preserve">
+    <value>Auto close when the game closes</value>
+  </data>
+  <data name="Menu.Appearance_Global.Theme.Description" xml:space="preserve">
+    <value>Customize Froststrap’s theme to your liking! Make sure to check out our custom themes we have built in!</value>
   </data>
   <data name="Menu.IconFiles" xml:space="preserve">
     <value>Icon files</value>
   </data>
   <data name="Menu.InstallLocation.CantInstall" xml:space="preserve">
-    <value>Fishstrap cannot be installed here. Please choose a different location, or resort to using the default location by clicking the reset button.</value>
+    <value>Froststrap cannot be installed here. Please choose a different location, or resort to using the default location by clicking the reset button.</value>
   </data>
   <data name="Menu.InstallLocation.NotEmpty" xml:space="preserve">
-    <value>The folder you've chosen to install Fishstrap to already exists and is NOT empty. It is strongly recommended for Fishstrap to be installed to its own independent folder.
+    <value>The folder you've chosen to install Froststrap to already exists and is NOT empty. It is strongly recommended for Froststrap to be installed to its own independent folder.
 
 Changing to the following location is suggested:
 {0}
@@ -666,10 +1226,10 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>You must set an install location</value>
   </data>
   <data name="Menu.InstallLocation.NoWritePerms" xml:space="preserve">
-    <value>Fishstrap does not have write access to the install location you've selected. Please choose another location.</value>
+    <value>Froststrap does not have write access to the install location you've selected. Please choose another location.</value>
   </data>
   <data name="Menu.Integrations.ActivityTracking" xml:space="preserve">
-    <value>Activity tracking</value>
+    <value>Activity Tracking</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Description" xml:space="preserve">
     <value>Allows for anybody to join the game you're currently in through your Discord profile.</value>
@@ -717,7 +1277,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Don't exit to desktop app</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
-    <value>Allows for Fishstrap to detect what Roblox game you're playing. Certain features may require this.</value>
+    <value>Allows Froststrap to detect what Roblox game you're playing. Certain features may require this.</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
     <value>Enable activity tracking</value>
@@ -741,7 +1301,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Integrations</value>
   </data>
   <data name="Menu.Mods.Description" xml:space="preserve">
-    <value>Manage and apply file mods to the Roblox game client.</value>
+    <value>Manage and apply file mods to the Roblox Game Client.</value>
   </data>
   <data name="Menu.Mods.Help.Description" xml:space="preserve">
     <value>See info about managing and creating mods.</value>
@@ -751,7 +1311,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Choose font...</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Description" xml:space="preserve">
-    <value>Font size can be adjusted in the Engine Settings tab.</value>
+    <value>Font size can be adjusted in the FastFlag Settings tab.</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Invalid" xml:space="preserve">
     <value>The file you have chosen does not appear to be a valid font file.</value>
@@ -760,7 +1320,19 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Remove applied font</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Title" xml:space="preserve">
-    <value>Use custom font</value>
+    <value>Use Custom In-Game Font</value>
+  </data>
+  <data name="Menu.Mods.Misc.CustomCursor.Choose" xml:space="preserve">
+    <value>Choose Cursor...</value>
+  </data>
+  <data name="Menu.Mods.Misc.CustomCursor.Description" xml:space="preserve">
+    <value>Use your own mouse cursors in Roblox</value>
+  </data>
+  <data name="Menu.Mods.Misc.CustomCursor.Remove" xml:space="preserve">
+    <value>Remove Custom Cursor</value>
+  </data>
+  <data name="Menu.Mods.Misc.CustomCursor.Title" xml:space="preserve">
+    <value>Use Custom Cursor</value>
   </data>
   <data name="Menu.Mods.OpenModsFolder.Description" xml:space="preserve">
     <value>Manage custom Roblox mods here.</value>
@@ -814,7 +1386,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Settings saved!</value>
   </data>
   <data name="Menu.Title" xml:space="preserve">
-    <value>Fishstrap Settings</value>
+    <value>Froststrap Settings</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
     <value>Choose preferred language</value>
@@ -838,14 +1410,134 @@ Some text might not be translated to preferred language.</value>
   <data name="Enums.FlagPresets.InGameMenuVersion.V4Chrome" xml:space="preserve">
     <value>2023 (V4 + New UI)</value>
   </data>
+  <data name="Menu.FastFlags.Presets.ForceLogicalProcessor.Description" xml:space="preserve">
+    <value>Specifies the maximum number of worker threads Roblox can use for parallel tasks. Note: It’s recommended to set this to the number of logical processors your CPU has.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.ForceLogicalProcessor.Title" xml:space="preserve">
+    <value>Set Max Worker Threads</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.ForceProcessor.Description" xml:space="preserve">
+    <value>Specifies the minimum threads kept available for async tasks in the Roblox task scheduler. Note: It is recommended to set the value as the number of cores your CPU has minus one.</value>
+  </data> 
+  <data name="Menu.FastFlags.Presets.AndroidVfs.Title" xml:space="preserve">
+    <value>Low-End Hardware Optimization</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.AndroidVfs.Description" xml:space="preserve">
+    <value>May potentially improve performance on low-end devices only.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.ForceProcessor.Title" xml:space="preserve">
+    <value>Set Minimum Async Thread Count”</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.TaskSchedulerAvoidSleep.Description" xml:space="preserve">
+    <value>Prevents idling in Roblox’s task scheduler, allowing it to run as many tasks as possible.</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.TaskSchedulerAvoidSleep.Title" xml:space="preserve">
+    <value>Avoid Task Scheduler Sleep</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MemoryProbing.Description" xml:space="preserve">
+    <value>Optimizes memory usage for Low-End Systems.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MemoryProbing.Title" xml:space="preserve">
+    <value>Memory Probing</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LightCulling.Description" xml:space="preserve">
+    <value>Optimizes light rendering conducted by the CPU and GPU by reducing unnecessary light calculations. Note: This setting may cause input lag or delay.</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.LightCulling.Title" xml:space="preserve">
+    <value>Light Culling</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Categories.System.Title" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Categories.System.Description" xml:space="preserve">
+    <value>Configure settings that change how your PC behaves with Roblox.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Categories.SystemExperimental.Description" xml:space="preserve">
+    <value>Configure Experimental settings that change how your PC behaves with Roblox.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Categories.Network.Title" xml:space="preserve">
+    <value>Network</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.Categories.Network.Description" xml:space="preserve">
+    <value>Configure network settings to potentially improve performance.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.StartingGraphicLevel.Title" xml:space="preserve">
+    <value>Starting Graphics Level</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.StartingGraphicLevel.Description" xml:space="preserve">
+    <value>Sets the initial graphics quality amount when joining a new game.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.OverrideGraphicQuality.Title" xml:space="preserve">
+    <value>Override Graphics Quality Level</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.OverrideGraphicQuality.Description" xml:space="preserve">
+    <value>Locks the graphics quality to a selected amount. Note: With this setting enabled, the graphics slider in the Roblox menu will only affect the render distance in a game.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.TextureSkipping.Title" xml:space="preserve">
+    <value>Texture Skipping</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.TextureSkipping.Description" xml:space="preserve">
+    <value>Textures and icon quality will look worse at higher values. Note: A performance boost may not be guaranteed when using this setting depending on your system.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.ReduceLagSpikes.Title" xml:space="preserve">
+    <value>Network Output Stabilization</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.ReduceLagSpikes.Description" xml:space="preserve">
+    <value>Potentially prevent extreme network spikes by smoothing out network output.</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.NoPayloadLimit.Title" xml:space="preserve">
+    <value>Remove Payload Limit</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.NoPayloadLimit.Description" xml:space="preserve">
+    <value>Disables Roblox’s network data transfer limit. Note: Enabling this setting could lead to network overhead if the packets being sent are too large. Use at your own risk!</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.RCore.Title" xml:space="preserve">
+    <value>Roblox Core</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.RCore.Description" xml:space="preserve">
+    <value>Potentially improve network performance by applying SignalR optimizations to RCore</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.LargeReplicator.Title" xml:space="preserve">
+    <value>Large Replicator</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.LargeReplicator.Description" xml:space="preserve">
+    <value>Improves the speeds of large read and write operations.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FasterLoading.Title" xml:space="preserve">
+    <value>Faster Loading</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.FasterLoading.Description" xml:space="preserve">
+    <value>Decreases wait time by optimizing loading speeds.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BufferArray.Title" xml:space="preserve">
+    <value>Buffer Array Length</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.BufferArray.Description" xml:space="preserve">
+    <value>Controls how much data is temporarily stored before being processed or sent.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MTU.Title" xml:space="preserve">
+    <value>MTU Connection Size</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MTU.Description" xml:space="preserve">
+    <value>Configure the bytes of data that are transferred over your network. Note: Most people can handle MTU sizes from 576–1500.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DynamicReso.Title" xml:space="preserve">
+    <value>Pixel Resolution</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DynamicReso.Description" xml:space="preserve">
+    <value>Sets the pixel resolution in a game. This setting is similar to adjusting video quality on YouTube.</value>
+  </data>
   <data name="Menu.FastFlags.Presets.Categories.Rendering" xml:space="preserve">
     <value>Rendering and Graphics</value>
   </data>
-  <data name="Menu.FastFlags.Presets.Categories.UserInterface" xml:space="preserve">
+  <data name="Menu.FastFlags.Presets.Categories.UserInterface.Title" xml:space="preserve">
     <value>User Interface and Layout</value>
   </data>
+  <data name="Menu.FastFlags.Presets.Categories.UserInterface.Description" xml:space="preserve">
+    <value>Configure the appearance and arrangement of Roblox’s UI.</value>
+  </data>
   <data name="Menu.FastFlags.ManagerEnabled.Title" xml:space="preserve">
-    <value>Allow Fishstrap to manage Fast Flags</value>
+    <value>Allow Froststrap to manage FastFlags</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Description" xml:space="preserve">
     <value>Disabling this will prevent anything configured here from being applied to Roblox.</value>
@@ -853,17 +1545,260 @@ Some text might not be translated to preferred language.</value>
   <data name="Menu.FastFlags.Presets.MSAA.Title" xml:space="preserve">
     <value>Anti-aliasing quality (MSAA)</value>
   </data>
+	<data name="Menu.FastFlags.Presets.MSAA.Description" xml:space="preserve">
+    <value>Higher MSAA levels reduce jagged edges but may impact performance.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableAds.Description" xml:space="preserve">
+    <value>Disable Roblox Built-In Ads</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.DisableAds.Title" xml:space="preserve">
+    <value>Disable Ads</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BypassVulkan.Description" xml:space="preserve">
+    <value>Overrides the Vulkan GPU support checks to allow unsupported hardware to run on the Vulkan API. Note: This setting may be highly unstable and can cause severe rendering issues!</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BypassVulkan.Title" xml:space="preserve">
+    <value>Bypass Vulkan</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.RefreshRate.Title" xml:space="preserve">
+    <value>Set Target Refresh Target</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.RefreshRate.Description" xml:space="preserve">
+    <value>Controls the frame rate Roblox should aim for. Recommended to set this value to your monitor’s refresh rate. Default value is 60.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LowPolyMeshes.Description" xml:space="preserve">
+    <value>Reduces the quality of polygon meshes to potentially improve rendering performance or reduce memory usage.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LowPolyMeshes.Title" xml:space="preserve">
+    <value>Low-Poly Meshes</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Rendering.Description" xml:space="preserve">
+    <value>Configure experimental settings related to graphics and rendering.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.GraySky.Title" xml:space="preserve">
+    <value>Gray Sky</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.GraySky.Description" xml:space="preserve">
+    <value>Sets the sky to gray in certain games. Note: This setting does not affect games that use custom skyboxes.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.NewFPSSystem.Title" xml:space="preserve">
+    <value>New Frame Performance System</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.NewFPSSystem.Description" xml:space="preserve">
+    <value>Configures Roblox to use their new beta FPS and frametime system. Enabling this setting may potentially improve frame and input timing.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.UnthemedInstances.Title" xml:space="preserve">
+    <value>Rainbow UI/Textures</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.UnthemedInstances.Description" xml:space="preserve">
+    <value>Applies a variety of random colors to text and UI elements that typically lack color. Note: This setting may cause certain games to look strange and discolored.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.SkyColor.Title" xml:space="preserve">
+    <value>Sky Colors</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.SkyColor.Description" xml:space="preserve">
+    <value>Sets experimental skybox colors using a combination of fast flags. Note: These settings may be unstable, buggy, or incompatible with certain games.”</value>
+  </data>
+  <data name="UI.Elements.Settings.Pages.FastFlagsPage+SearchMode.All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="UI.Elements.Settings.Pages.FastFlagsPage+SearchMode.Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="UI.Elements.Settings.Pages.FastFlagsPage+SearchMode.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BetterPacketSending.Title" xml:space="preserve">
+    <value>Better Packet Sending</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BetterPacketSending.Description" xml:space="preserve">
+    <value>Makes roblox packet sending as soon as possible. Note: Could lower ping potentially.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MinimalRendering.Title" xml:space="preserve">
+    <value>Minimal Rendering</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MinimalRendering.Description" xml:space="preserve">
+    <value>Renders certain terrain and textures at a lower quality, potentially improving performance.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableClouds.Title" xml:space="preserve">
+    <value>Disable Clouds</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.GrayAvatars.Title" xml:space="preserve">
+    <value>Gray Avatars</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HidesPurchaseUI.Title" xml:space="preserve">
+    <value>Hide Purchase UI</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HidesPurchaseUI.Description" xml:space="preserve">
+    <value>Disables the game pass purchase GUI in all games.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.WebView2Telemetry.Description" xml:space="preserve">
+    <value>Note: This setting disables a large majority of Roblox's WebView2 telemetry, but not all.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.WebView2Telemetry.Title" xml:space="preserve">
+    <value>Disable WebView2 Telemetry</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Pseudolocalization.Description" xml:space="preserve">
+    <value>Replaces standard Roblox text with a spooky, demonic-style font.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Pseudolocalization.Title" xml:space="preserve">
+    <value>Pseudolocalization</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableVoiceChatTelemetry.Description" xml:space="preserve">
+    <value>Note: This setting disables a large majority of Roblox’s voice chat telemetry, but not all.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableVoiceChatTelemetry.Title" xml:space="preserve">
+    <value>Disable Voice Chat Telemetry</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BasicFFlags.Title" xml:space="preserve">
+    <value>Basic FastFlags</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BasicFFlags.Description" xml:space="preserve">
+    <value>These are very basic fflags. Self explanatory.</value>
+  </data>
+  <data name="Common.SearchBy" xml:space="preserve">
+    <value>Search By</value>
+  </data>
+  <data name="Common.ModType" xml:space="preserve">
+    <value>Type: Mod</value>
+  </data>
+  <data name="Common.LauncherType" xml:space="preserve">
+    <value>Type: Launcher</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.ToggleFlagCount.Description" xml:space="preserve">
+    <value>Toggle the total flag count in the fastflag editor.</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.ToggleFlagCount.Title" xml:space="preserve">
+    <value>Flag Count</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.AddWithID.Description" xml:space="preserve">
+    <value>Enable to show 'Add with ID' and 'Import ID JSON' tabs in Add New dialog.</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.AddWithID.Title" xml:space="preserve">
+    <value>Add With ID</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.PresetColumn.Title" xml:space="preserve">
+    <value>Preset Column</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.PresetColumn.Description" xml:space="preserve">
+    <value>Toggle the Preset Column which shows toggleable fflags in fastflag setting</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.CopyFormat.Title" xml:space="preserve">
+    <value>Copy Format</value>
+  </data>
+  <data name="Menu.FastFlagsEditor.AdvancedSettings.CopyFormat.Description" xml:space="preserve">
+    <value>Choose the format for copying JSON.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Misc.Description" xml:space="preserve">
+    <value>Configure fun and experimental features.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Privacy.Title" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Privacy.Description" xml:space="preserve">
+    <value>Configure settings that help protect your privacy.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.WhiteSky.Title" xml:space="preserve">
+    <value>White Sky</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.WhiteSky.Description" xml:space="preserve">
+    <value>Sets the skybox to white if a custom game skybox is not present.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.RainbowSky.Title" xml:space="preserve">
+    <value>Rainbow Sky</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.RainbowSky.Description" xml:space="preserve">
+    <value>Sets the skybox to include a variety of colors. Note: Note: Certain icons or images will appear distorted due to Texture Skipping. This setting is not guaranteed to work every time!</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BlackSky.Title" xml:space="preserve">
+    <value>Black Sky</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.BlackSky.Description" xml:space="preserve">
+    <value>Sets the skybox to black. Note: Certain icons or images will appear distorted due to Texture Skipping.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.SmoothTextures.Title" xml:space="preserve">
+    <value>Smooth Textures</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.SmoothTextures.Description" xml:space="preserve">
+    <value>Smooths almost all in-game textures. Note: Some icons or images may appear distorted due to Texture Skipping. Compatibility or stability is not guaranteed on all systems, as this feature enables the Vulkan rendering API.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Tencent.Description" xml:space="preserve">
+    <value>Note: This setting blocks some data collection by Tencent and the Chinese government, but not all.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Tencent.Title" xml:space="preserve">
+    <value>Block Tencent</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MoreCharacters.Description" xml:space="preserve">
+    <value>Repeats letters in most GUI text to expand it. Higher values will increase the effect. Note: Some UI elements may be unaffected.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.MoreCharacters.Title" xml:space="preserve">
+    <value>More Text Characters</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.NoDisconnectMessage.Description" xml:space="preserve">
+    <value>Gameplay will freeze until internet connection returns.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.NoDisconnectMessage.Title" xml:space="preserve">
+    <value>No Disconnect Message</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.RedFont.Description" xml:space="preserve">
+    <value>Applies a red color to almost all text. Note: This setting does not work with custom fonts!</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.RedFont.Title" xml:space="preserve">
+    <value>Red Font</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableLayeredClothing.Description" xml:space="preserve">
+    <value>Removes Roblox’s layered clothing system from rendering on avatars. Note: Enabling this setting potentially may lead to improved performance.</value>
+  </data>
+  <data name="Menu.Channels.HardwareAccelRestart" xml:space="preserve">
+    <value>Please restart the app for hardware acceleration to disable and take effect.</value>
+  </data>
+  <data name="Menu.Channels.DisableAnimationRestart" xml:space="preserve">
+    <value>Please restart the app for the animations to disable.</value>
+  </data>
+  <data name="Common.FilterType" xml:space="preserve">
+    <value>Filter Type:</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableLayeredClothing.Title" xml:space="preserve">
+    <value>Disable Layered Clothing</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Chunks.Description" xml:space="preserve">
+    <value>Displays the world's chunks in a similar way to Minecraft.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.Chunks.Title" xml:space="preserve">
+    <value>Show Chunks</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSBufferPercentage.Title" xml:space="preserve">
+    <value>Frame Creation Buffer Percentage</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSBufferPercentage.Description" xml:space="preserve">
+    <value>Determines how much extra time Roblox takes to prepare a single frame. Note: Values are set between 0-100</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.RemoveGrass.Title" xml:space="preserve">
+    <value>Disable Grass</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.RemoveGrass.Description" xml:space="preserve">
+    <value>Removes Roblox’s default grass textures. Note: This setting does not affect custom grass textures used by individual games.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.WorserParticles.Title" xml:space="preserve">
+    <value>Low Quality Particles</value>
+  </data>
+	<data name="Menu.FastFlags.Presets.WorserParticles.Description" xml:space="preserve">
+    <value>Reduces the quality of particle effects for potentially better performance.</value>
+  </data>
   <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
     <value>Disable post-processing effects</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
-    <value>Disable full-screen titlebar</value>
+    <value>Disable Fullscreen Titlebar</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Description" xml:space="preserve">
-    <value>Stops it from showing whenever you move your mouse to the top of the screen.</value>
+    <value>Prevent the titlebar from showing when you move your cursor to the top of the screen in fullscreen mode.</value>
   </data>
   <data name="Menu.FastFlags.Presets.TextureQuality.Title" xml:space="preserve">
     <value>Texture quality</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.TextureQuality.Description" xml:space="preserve">
+    <value>Adjust the texture quality for games. Note: This setting also affects GUI and UI.</value>
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level0" xml:space="preserve">
     <value>Level 0 (Lowest)</value>
@@ -890,7 +1825,7 @@ Some text might not be translated to preferred language.</value>
     <value>Disable terrain textures</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
-    <value>Fishstrap is unable to download Roblox</value>
+    <value>Froststrap is unable to download Roblox</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownloadReason" xml:space="preserve">
     <value>Roblox cannot be downloaded at this time. Please read the following help page for more information: {0}</value>
@@ -911,7 +1846,7 @@ Some text might not be translated to preferred language.</value>
     <value>The entry for '{0}' is not valid as the value must be a number</value>
   </data>
   <data name="Logger.NoWriteMode" xml:space="preserve">
-    <value>No log file will be written for this launch because Fishstrap is unable to write to the folder at '{0}'</value>
+    <value>No log file will be written for this launch because Froststrap is unable to write to the folder at '{0}'</value>
   </data>
   <data name="Common.Default" xml:space="preserve">
     <value>Default</value>
@@ -926,7 +1861,7 @@ Some text might not be translated to preferred language.</value>
     <value>The entry for '{0}' is not valid as the place filter is not formatted correctly.</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
-    <value>Fishstrap Installer</value>
+    <value>Froststrap Installer</value>
   </data>
   <data name="Installer.Welcome.Title" xml:space="preserve">
     <value>Welcome</value>
@@ -945,18 +1880,18 @@ Some text might not be translated to preferred language.</value>
     <value>Next</value>
   </data>
   <data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>Thank you for downloading Fishstrap. 
+    <value>Thank you for downloading Froststrap. 
 
-The only official source to download Fishstrap from is {0} so please verify that you got it from an official source.
+The only official source to download Froststrap from is {0}, so please verify that you have downloaded it from the official source.
 
-This installation process will be quick and simple, and you will be able to configure any of Fishstrap's settings after installation.</value>
+This installation process will be quick and simple, and you will be able to configure all of Froststrap's settings after installation.</value>
     <comment>{0} and {1} are URLs</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
     <value>Please click 'Next' to continue.</value>
   </data>
   <data name="Installer.Welcome.UpdateNotice" xml:space="preserve">
-    <value>You are trying to install version {0} of Fishstrap, but the latest version available is {1}. Would you like to download it?</value>
+    <value>You are trying to install version {0} of Froststrap, but the latest version available is {1}. Would you like to download it?</value>
   </data>
   <data name="Installer.Install.Location.Title" xml:space="preserve">
     <value>Choose where to install to</value>
@@ -977,43 +1912,43 @@ This installation process will be quick and simple, and you will be able to conf
     <value>Start Menu icon</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
-    <value>Fishstrap has successfully been installed.
+    <value>Froststrap has successfully been installed.
 
-Roblox has not yet been installed, that will happen when you launch it with Fishstrap for the first time. However, before you do that, you may want to configure Fishstrap's settings first.
+However, Roblox has not been installed yet. It will be installed when you launch Roblox with Froststrap for the first time. Before installation, you may want to configure Froststrap’s settings first.
 
-Also, avoid using the "Roblox Player" shortcut to launch Roblox, as Fishstrap won't launch with Roblox. If you don't see Fishstrap show when launching from the website, simply launch Roblox with Fishstrap once from the desktop to fix it.
+Important Note: Do not use the “Roblox Player” shortcut to launch Roblox, as Froststrap will be unable to launch Roblox due to conflicting issues. If you don’t see Froststrap initiating when launching from the Roblox website, simply launch Roblox with Froststrap once from the desktop application to fix this issue.
 
 What would you like to do?</value>
   </data>
   <data name="Installer.Completion.Settings.Title" xml:space="preserve">
-    <value>Configure Fishstrap's settings</value>
+    <value>Configure Froststrap's Settings</value>
   </data>
   <data name="Installer.Completion.Settings.Description" xml:space="preserve">
-    <value>Tweak with all the features it has to offer</value>
+    <value>View and tweak all of the features and settings Froststrap has to offer</value>
   </data>
   <data name="Installer.Completion.Launch.Title" xml:space="preserve">
-    <value>Install and launch Roblox</value>
+    <value>Install And Launch Roblox</value>
   </data>
   <data name="Installer.Completion.Launch.Description" xml:space="preserve">
-    <value>Will drop you into the desktop app once everything's done</value>
+    <value>Opens Roblox once everything has been installed and configured</value>
   </data>
   <data name="Uninstaller.Title" xml:space="preserve">
-    <value>Uninstall Fishstrap</value>
+    <value>Uninstall Froststrap</value>
   </data>
   <data name="Uninstaller.Text" xml:space="preserve">
-    <value>Uninstalling will remove Fishstrap from your system, and automatically reconfigure the default Roblox launcher if it's still installed.
+    <value>Uninstalling will remove Froststrap from your system, and automatically reconfigure the default Roblox launcher if it's still installed.
 
 If you're uninstalling or reinstalling because you are having issues with Roblox, read [this help page]({0}) first.
 
-The uninstall process may not be able to fully clean up itself, so you may need to manually clean up leftover files where Fishstrap was installed.
+The uninstall process may not be able to fully clean up itself, so you may need to manually clean up leftover files where Froststrap was installed.
 
-Fishstrap was installed at "{1}".</value>
+Froststrap was installed at "{1}".</value>
   </data>
   <data name="Uninstaller.KeepData.Label" xml:space="preserve">
     <value>Keep my settings and mods</value>
   </data>
   <data name="Uninstaller.KeepData.Description" xml:space="preserve">
-    <value>They'll be kept where Fishstrap was installed, and will automatically be restored on a reinstall.</value>
+    <value>They'll be kept where Froststrap was installed, and will automatically be restored on a reinstall.</value>
   </data>
   <data name="Uninstaller.Uninstall" xml:space="preserve">
     <value>Uninstall</value>
@@ -1034,7 +1969,7 @@ Fishstrap was installed at "{1}".</value>
     <value>You currently do not have the WebView2 runtime installed. Some Roblox features will not work properly without it, such as the desktop app. Would you like to download it now?</value>
   </data>
   <data name="Dialog.CannotCreateShortcuts" xml:space="preserve">
-    <value>Fishstrap was unable to create shortcuts for the Desktop and Start menu. Try creating them later through the settings.</value>
+    <value>Froststrap was unable to create shortcuts for the Desktop and Start Menu. Try creating them later through the settings.</value>
   </data>
   <data name="Dialog.Exception.Info.2.Alt" xml:space="preserve">
     <value>Check the [Bloxstrap Wiki]({0}) first to see if this problem has already been addressed with a fix.
@@ -1043,16 +1978,16 @@ If not, then please report this exception to the maintainers of this fork. Do NO
     <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
-    <value>These are general shortcuts that bring up a multi-choice launch menu. Shortcuts for specific functions can be created later in the settings.</value>
+    <value>These are general shortcuts that bring up a multi-choice launch Menu. Shortcuts for specific functions can be created later in the settings.</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
-    <value>Configure how Fishstrap can be readily launched.</value>
+    <value>Configure how Froststrap can be readily launched.</value>
   </data>
   <data name="Menu.Shortcuts.General.Title" xml:space="preserve">
     <value>General</value>
   </data>
   <data name="Menu.Shortcuts.General.Description" xml:space="preserve">
-    <value>These are the shortcuts that bring up the multi-choice launch menu.</value>
+    <value>These are the shortcuts that bring up the multi-choice launch Menu.</value>
   </data>
   <data name="Menu.Shortcuts.Function.Title" xml:space="preserve">
     <value>Function</value>
@@ -1076,7 +2011,7 @@ If not, then please report this exception to the maintainers of this fork. Do NO
     <value>Please wait for uninstallation to finish.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>About Fishstrap</value>
+    <value>About Froststrap</value>
   </data>
   <data name="About.Licenses.Title" xml:space="preserve">
     <value>Licenses</value>
@@ -1089,7 +2024,7 @@ If not, then please report this exception to the maintainers of this fork. Do NO
     <value>You have unsaved changes. Are you sure you want to close without saving?</value>
   </data>
   <data name="InstallChecker.VersionLessThanInstalled" xml:space="preserve">
-    <value>The version of Fishstrap you've launched is older than the version you currently have installed.
+    <value>The version of Froststrap you've launched is older than the version you currently have installed.
 Issues may occur and your settings may be altered. A reinstall is recommended.
 Are you sure you want to continue?</value>
   </data>
@@ -1102,7 +2037,7 @@ Are you sure you want to continue?</value>
   <data name="Dialog.PlayerError.HelpInformation" xml:space="preserve">
     <value>For information about why this could be happening and how this can be resolved, please read [this help article]({0}).
 
-Check if Roblox works with [the original launcher]({1}). If it doesn't, then this isn't a Fishstrap issue. If it does, then refer to the help article.</value>
+Check if Roblox works with [the original launcher]({1}). If it doesn't, then this isn't a Froststrap issue. If it does, then refer to the help article.</value>
   </data>
   <data name="Common.NetworkError" xml:space="preserve">
     <value>Could not load data because of a network error.</value>
@@ -1111,10 +2046,10 @@ Check if Roblox works with [the original launcher]({1}). If it doesn't, then thi
     <value>Loading, please wait...</value>
   </data>
   <data name="About.Supporters.Title" xml:space="preserve">
-    <value>Fishstrap supporters</value>
+    <value>Froststrap supporters</value>
   </data>
   <data name="About.Supporters.Description" xml:space="preserve">
-    <value>These are the people who've supported Fishstrap through Ko-fi. A massive thank you to everyone here!
+    <value>These are the people who've supported Froststrap through Ko-fi. A massive thank you to everyone here!
 Every person here is ranked by their overall pledge.</value>
   </data>
   <data name="JsonManager.SettingsLoadFailed" xml:space="preserve">
@@ -1145,12 +2080,12 @@ Every person here is ranked by their overall pledge.</value>
     <value>For this launch, Roblox will not be checked for upgrades, and changes to mods will not be applied.</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeNeeded" xml:space="preserve">
-    <value>Because Roblox needs to be installed or upgraded, Fishstrap cannot continue.</value>
+    <value>Because Roblox needs to be installed or upgraded, Froststrap cannot continue.</value>
   </data>
   <data name="Installer.Install.CannotOverwrite" xml:space="preserve">
-    <value>Fishstrap has been installed to this location before and is still present, however the installer cannot overwrite the old executable. 
+    <value>Froststrap has been installed to this location before and is still present, however the installer cannot overwrite the old executable. 
 
-Please manually delete Fishstrap.exe from the install location or try restarting your system, and then retry installation afterwards.</value>
+Please manually delete Froststrap.exe from the install location or try restarting your system, and then retry installation afterwards.</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
     <value>Not available</value>
@@ -1162,7 +2097,7 @@ Please manually delete Fishstrap.exe from the install location or try restarting
     <value>Configure application parameters such as DPI scaling behaviour and [fullscreen optimizations]({0}).</value>
   </data>
   <data name="Common.RobloxNotInstalled" xml:space="preserve">
-    <value>Roblox has not yet been installed. Please launch Roblox using Fishstrap at least once before trying to use this option.</value>
+    <value>Roblox has not yet been installed. Please launch Roblox using Froststrap at least once before trying to use this option.</value>
   </data>
   <data name="Installer.ShouldCancel" xml:space="preserve">
     <value>Are you sure you want to cancel the installation?</value>
@@ -1180,10 +2115,10 @@ Please manually delete Fishstrap.exe from the install location or try restarting
     <value>Extract Roblox icons to folder</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
-    <value>Allows you to use Fishstrap's range of Roblox icons for your shortcuts. [See how.]({0})</value>
+    <value>Allows you to use Froststrap's range of Roblox icons for your shortcuts. [See how.]({0})</value>
   </data>
   <data name="Dialog.RegistryWriteError" xml:space="preserve">
-    <value>Fishstrap is unable to write to the Windows Registry. An antivirus is likely interfering and causing issues. Please check to make sure there isn't anything that would restrict Fishstrap's operation.</value>
+    <value>Froststrap is unable to write to the Windows Registry. An antivirus is likely interfering and causing issues. Please check to make sure there isn't anything that would restrict Froststrap's operation.</value>
   </data>
   <data name="About.Supporters.Monthly" xml:space="preserve">
     <value>Monthly</value>
@@ -1195,24 +2130,24 @@ Please manually delete Fishstrap.exe from the install location or try restarting
     <value>Analytics</value>
   </data>
   <data name="Menu.FastFlags.Reset.Title" xml:space="preserve">
-    <value>Reset everything to defaults</value>
+    <value>Reset everything to default</value>
   </data>
   <data name="Dialog.Exception.Report" xml:space="preserve">
     <value>Report exception</value>
   </data>
   <data name="Menu.TestMode" xml:space="preserve">
-    <value>Test mode</value>
+    <value>Test Mode</value>
     <comment>See the prompt for more context</comment>
   </data>
   <data name="Menu.TestMode.Prompt" xml:space="preserve">
-    <value>Test mode makes it easier to iteratively test how your settings affect Roblox. 
+    <value>Test Mode makes it easier to iteratively test how your settings affect Roblox. 
 
 While enabled, it will automatically launch Roblox after closing Settings, and reopen Settings after closing Roblox, in a cycle until you disable it.
 
-Would you like to enable test mode?</value>
+Would you like to enable Test Mode?</value>
   </data>
   <data name="About.Translators.Description" xml:space="preserve">
-    <value>All of Fishstrap's translations are crowdsourced through [Crowdin]({0}). Everyone listed here are people who generously volunteered their time and effort to help localise Fishstrap. A massive thank you to everyone here!</value>
+    <value>All of Froststrap's translations are crowdsourced through [Crowdin]({0}). Everyone listed here are people who generously volunteered their time and effort to help localise Froststrap. A massive thank you to everyone here!</value>
   </data>
   <data name="Common.Navigation.Install" xml:space="preserve">
     <value>Install</value>
@@ -1273,7 +2208,7 @@ Would you like to enable test mode?</value>
     <value>Custom</value>
   </data>
   <data name="Bootstrapper.FilesInUse" xml:space="preserve">
-    <value>Fishstrap tried to upgrade Roblox but can't because Roblox's files are still in use.
+    <value>Froststrap tried to upgrade Roblox but can't because Roblox's files are still in use.
 
 Please close any applications that may be using Roblox's files, and relaunch.</value>
     <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
@@ -1284,7 +2219,7 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
   </data>
   <data name="Common.Export" xml:space="preserve">
     <value>Export</value>
-    <comment>Currently used under the "Fishstrap" settings tab for the button to export diagnostic data</comment>
+    <comment>Currently used under the "Froststrap" settings tab for the button to export diagnostic data</comment>
   </data>
   <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
     <value />
@@ -1293,25 +2228,25 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value />
   </data>
   <data name="Menu.Channel.Description" xml:space="preserve">
-    <value>Change deployment and installation settings for Roblox &amp; Fishstrap.</value>
+    <value>Change deployment and installation settings for Roblox &amp; Froststrap.</value>
   </data>
   <data name="Common.Channel" xml:space="preserve">
     <value>Channel</value>
   </data>
   <data name="Menu.ChannelChanger.Description" xml:space="preserve">
-    <value>Choose deployment channel. Don't change unless you know what you're doing.</value>
+    <value>Sets the deployment channel. Do not change unless you what you’re doing!</value>
   </data>
   <data name="Common.Version" xml:space="preserve">
     <value>Version</value>
   </data>
   <data name="Common.VersionGuid" xml:space="preserve">
-    <value>VersionGuid</value>
+    <value>Version Guid</value>
   </data>
   <data name="Menu.Channel.RobloxUpgrades" xml:space="preserve">
     <value>Roblox upgrades</value>
   </data>
   <data name="Menu.Channel.RobloxUpgrades.Description" xml:space="preserve">
-    <value>When disabled Roblox client won't upgrade to newer version.</value>
+    <value>When disabled, Roblox client won't upgrade to newer versions.</value>
   </data>
   <data name="Bootstrapper.Status.Downloading" xml:space="preserve">
     <value>Downloading</value>
@@ -1326,13 +2261,13 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Multi-instance launching</value>
   </data>
   <data name="Menu.Behaviour.MultiInstances.Description" xml:space="preserve">
-    <value>Allows for having more than one Roblox game client instance open simultaneously. May cause issues with desktop app.</value>
+    <value>Allows for more than one Roblox instance to be opened simultaneously. May cause issues with desktop app.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Telemetry.Title" xml:space="preserve">
     <value>Disable Roblox telemetry</value>
   </data>
   <data name="Menu.FastFlags.Presets.Telemetry.Description" xml:space="preserve">
-    <value>Note this disables only some of the Roblox telemetry.</value>
+    <value>Note: This setting disables a large majority of Roblox's telemetry, but not all.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Telemetry" xml:space="preserve">
     <value>Telemetry</value>
@@ -1353,7 +2288,7 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Roblox Menu</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.IngameMenu.Description" xml:space="preserve">
-    <value>Debloat Roblox menu with FFlags</value>
+    <value>Debloat the in-game Roblox menu. Note: Keep disabled to remove.</value>
   </data>
   <data name="Common.Deployment" xml:space="preserve">
     <value>Deployment</value>
@@ -1378,9 +2313,6 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
   </data>
   <data name="Menu.FastFlags.Presets.FlagState.Description" xml:space="preserve">
     <value>Show values of specified flags during runtime. Each flag is comma separated.</value>
-  </data>
-  <data name="Common.Studio" xml:space="preserve">
-    <value>Studio</value>
   </data>
   <data name="Common.RobloxStudio" xml:space="preserve">
     <value>Roblox Studio</value>
@@ -1407,7 +2339,7 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Version hash</value>
   </data>
   <data name="Menu.Channel.VersionHash.Desription" xml:space="preserve">
-    <value>Force Fishstrap to download version from specific hash. Please do not change if you have no idea what this does.</value>
+    <value>Force Froststrap to download version from specific hash. Please do not change if you have no idea what this does.</value>
   </data>
   <data name="Menu.SaveAndLaunch" xml:space="preserve">
     <value>Save and Launch</value>
@@ -1431,15 +2363,17 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
   <data name="ContextMenu.MessageLogs.Title" xml:space="preserve">
     <value>Message logs</value>
   </data>
+  <data name="ContextMenu.Logs.Title" xml:space="preserve">
+    <value>Logs Menu</value>
+  </data>
   <data name="ContextMenu.MessageLogs.Description" xml:space="preserve">
     <value>Displays recently sent messages by players.</value>
   </data>
   <data name="Menu.Integrations.PlayerMessageLogs.Title" xml:space="preserve">
-    <value>Player and Message logs</value>
+    <value>Logs Menu</value>
   </data>
   <data name="Menu.Integrations.PlayerMessageLogs.Description" xml:space="preserve">
-    <value>Shows you players joining/leaving and messages being sent.
-		Only works with [text chat service](https://devforum.roblox.com/t/new-in-experience-text-chat-system-public-release/1848837).</value>
+    <value>Displays player joins/leaves and messages. Only works with [text chat service](https://devforum.roblox.com/t/new-in-experience-text-chat-system-public-release/1848837).</value>
   </data>
   <data name="Menu.Behaviour.AnselBanner" xml:space="preserve">
     <value>Ansel support is required for shaders.</value>
@@ -1448,11 +2382,26 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Sorry</value>
   </data>
   <data name="Dialog.Bloxshade.Setting" xml:space="preserve">
-    <value>Fishstrap no longer supports Bloxshade.
+    <value>Froststrap no longer supports Bloxshade.
 For more information join Bloxshade discord server.</value>
   </data>
   <data name="Common.Profiles" xml:space="preserve">
     <value>Profiles</value>
+  </data>
+  <data name="Common.CopyAll" xml:space="preserve">
+    <value>Copy All</value>
+  </data>
+  <data name="Common.DeleteAll" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="Common.PresetFlagLists" xml:space="preserve">
+    <value>Preset Flag Lists</value>
+  </data>
+  <data name="Common.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Common.Studio" xml:space="preserve">
+    <value>Studio</value>
   </data>
   <data name="Menu.Deployment.Channel.OutOfDate" xml:space="preserve">
     <value>This channel is out of date, and is likely no longer being updated. Please use another channel.</value>
@@ -1465,7 +2414,7 @@ Would you like to switch to the default channel ({1})?</value>
     <value>Automatic channel change action</value>
   </data>
   <data name="Menu.Channel.ChangeAction.Description" xml:space="preserve">
-    <value>Roblox or Fishstrap may try to change your preferred channel.</value>
+    <value>Roblox or Froststrap may try to change your preferred channel.</value>
   </data>
   <data name="Menu.Channel.ChangeAction.Automatic" xml:space="preserve">
     <value>Change automatically</value>
@@ -1491,7 +2440,7 @@ Would you like to switch your preferred channel to {0}?</value>
     <value>Preferred graphics card</value>
   </data>
   <data name="Menu.FastFlags.Presets.PreferredGPU.Description" xml:space="preserve">
-    <value>Select the GPU that Roblox will use for rendering. Useful if you have 2 or more GPUs on your PC.</value>
+    <value>Select the GPU that you want Roblox to use for rendering. Useful if your system has multiple GPUs. Note: This feature also enables DXT support.</value>
   </data>
   <data name="Menu.FastFlagEditor.ExportJson.IncludePresets" xml:space="preserve">
     <value>Would you like to include preset FFlags?</value>
@@ -1521,77 +2470,32 @@ Would you like to switch your preferred channel to {0}?</value>
   </data>
   <data name="Bootstrapper.Dialog.AnselDisabled" xml:space="preserve">
     <value>Ansel is not supported.
-You can no longer use Bloxshade with Fishstrap.</value>
+You can no longer use Bloxshade with Froststrap.</value>
   </data>
   <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
-    <value>Getting the latest Fishstrap...</value>
+    <value>Getting the latest Froststrap...</value>
   </data>
-  <data name="Menu.Fishstrap.Description" xml:space="preserve">
-    <value>Configure options related to Fishstrap's behaviour itself.</value>
+  <data name="Menu.Froststrap.Description" xml:space="preserve">
+    <value>Configure options related to Froststrap's behaviour itself.</value>
   </data>
-  <data name="Menu.Fishstrap.Analytics.Title" xml:space="preserve">
-    <value>Enable sending of analytics to Fishstrap</value>
+  <data name="Menu.Froststrap.Analytics.Title" xml:space="preserve">
+    <value>Enable sending of analytics to Froststrap</value>
   </data>
-  <data name="Menu.Fishstrap.Analytics.Description" xml:space="preserve">
-    <value>It's anonymous and nothing evil, promise. For insight on what Fishstrap collects and why, see Fishstrap's [privacy policy]({0}).</value>
+  <data name="Menu.Froststrap.Analytics.Description" xml:space="preserve">
+    <value>It's anonymous and nothing evil, promise. For insight on what Froststrap collects and why, see Froststrap's [privacy policy]({0}).</value>
   </data>
-  <data name="Menu.Fishstrap.ExportData.Title" xml:space="preserve">
+  <data name="Menu.Froststrap.ExportData.Title" xml:space="preserve">
     <value>Export diagnostic data</value>
   </data>
-  <data name="Menu.Fishstrap.ExportData.Description" xml:space="preserve">
+  <data name="Menu.Froststrap.ExportData.Description" xml:space="preserve">
     <value>Gather information that can be uploaded online to troubleshoot a problem you're having.</value>
   </data>
-  <data name="Menu.Fishstrap.ExportData.ExportConfig" xml:space="preserve">
-    <value>Fishstrap configuration</value>
+  <data name="Menu.Froststrap.ExportData.ExportConfig" xml:space="preserve">
+    <value>Froststrap configuration</value>
     <comment>Label that appears next to a checkbox</comment>
   </data>
-  <data name="Menu.Fishstrap.ExportData.ExportLogs" xml:space="preserve">
-    <value>All Fishstrap logs</value>
+  <data name="Menu.Froststrap.ExportData.ExportLogs" xml:space="preserve">
+    <value>All Froststrap logs</value>
     <comment>Label that appears next to a checkbox</comment>
-  </data>
-	<data name="Menu.Bootstrapper.CleanUp.Title" xml:space="preserve">
-    <value>Cleaner</value>
-  </data>
-	<data name="Menu.Bootstrapper.CleanUp.Description" xml:space="preserve">
-    <value>Fishstrap will remove old data to save on space</value>
-  </data>
-	<data name="Enums.CleanerOptions.Never" xml:space="preserve">
-    <value>Never</value>
-  </data>
-	<data name="Enums.CleanerOptions.OneDay" xml:space="preserve">
-    <value>After 1 day</value>
-  </data>
-	<data name="Enums.CleanerOptions.OneWeek" xml:space="preserve">
-    <value>After 1 week</value>
-  </data>
-	<data name="Enums.CleanerOptions.OneMonth" xml:space="preserve">
-    <value>After 1 month</value>
-  </data>
-	<data name="Enums.CleanerOptions.TwoMonths" xml:space="preserve">
-    <value>After 2 months</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.Age.Title" xml:space="preserve">
-    <value>When should the files get deleted</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.Age.Description" xml:space="preserve">
-    <value>Files older than set amount will be deleted.</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.Cache.Title" xml:space="preserve">
-    <value>Cache</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.Cache.Description" xml:space="preserve">
-    <value>Old downloads will be deleted.</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.Logs.Title" xml:space="preserve">
-    <value>Logs</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.Logs.Description" xml:space="preserve">
-    <value>Old log files will be deleted.</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Title" xml:space="preserve">
-    <value>Fishstrap logs</value>
-  </data>
-	<data name="Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Description" xml:space="preserve">
-    <value>Fishstrap logs will be deleted.</value>
   </data>
 </root>

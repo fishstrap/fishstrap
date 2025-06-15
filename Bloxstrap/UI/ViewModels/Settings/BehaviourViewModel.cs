@@ -1,21 +1,16 @@
 ﻿using Bloxstrap.AppData;
-using Bloxstrap.Enums;
+using Bloxstrap.Integrations;
 using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
     public class BehaviourViewModel : NotifyPropertyChangedViewModel
     {
-
-        public BehaviourViewModel()
-        {
-            
-        }
-
         public bool MultiInstances
         {
             get => App.Settings.Prop.MultiInstanceLaunching;
-            set {
+            set
+            {
                 App.Settings.Prop.MultiInstanceLaunching = value;
                 App.FastFlags.SetPreset("Instances.WndCheck", value ? "0" : null);
             }
@@ -31,6 +26,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => App.Settings.Prop.ForceRobloxLanguage;
             set => App.Settings.Prop.ForceRobloxLanguage = value;
+        }
+
+        public bool UseOldIcon
+        {
+            get => App.Settings.Prop.UseOldIcon;
+            set => App.Settings.Prop.UseOldIcon = value;
         }
 
         public CleanerOptions SelectedCleanUpMode
@@ -76,15 +77,15 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        public bool CleanerFishstrap
+        public bool CleanerFroststrap
         {
-            get => CleanerItems.Contains("FishstrapLogs");
+            get => CleanerItems.Contains("FroststrapLogs");
             set
             {
                 if (value)
-                    CleanerItems.Add("FishstrapLogs");
+                    CleanerItems.Add("FroststrapLogs");
                 else
-                    CleanerItems.Remove("FishstrapLogs");
+                    CleanerItems.Remove("FroststrapLogs");
             }
         }
     }

@@ -1,0 +1,1 @@
+dotnet publish --configuration Release /p:PublishProfile=Publish-x64 --output "C:\Users\meddsam\Downloads\Froststrap stuff\Froststrap"

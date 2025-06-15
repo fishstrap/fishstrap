@@ -1,29 +1,25 @@
 ﻿<base:WpfUiWindow
-    x:Class="Bloxstrap.UI.Elements.Bootstrapper.CustomDialog"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Bootstrapper"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
-    Title="Fishstrap"
-    Width="800"
-    Height="450"
-    MinWidth="150"
-    MinHeight="150"
-    MaxWidth="1000"
-    MaxHeight="1000"
-    Background="{ui:ThemeResource ApplicationBackgroundBrush}"
-    ExtendsContentIntoTitleBar="True"
-    ResizeMode="NoResize"
-    AllowsTransparency="False"
-    WindowStyle="None"
-    WindowCornerPreference="Default"
-    WindowBackdropType="Disable"
-    WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+     x:Class="Bloxstrap.UI.Elements.Bootstrapper.CustomDialog"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Bootstrapper"
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+     Title="Bloxstrap"
+     Width="800"
+     Height="450"
+     MinWidth="150"
+     MinHeight="150"
+     MaxWidth="1000"
+     MaxHeight="1000"
+     Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+     ExtendsContentIntoTitleBar="True"
+     ResizeMode="NoResize"
+     WindowBackdropType="Disable"
+     WindowStartupLocation="CenterScreen"
+     mc:Ignorable="d">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
     </Window.TaskbarItemInfo>
@@ -43,15 +39,15 @@
             </Grid.RowDefinitions>
 
             <ui:TitleBar
-                x:Name="RootTitleBar"
-                Title="Fishstrap"
-                Grid.Row="0"
-                Padding="8"
-                Panel.ZIndex="1001"
-                CanMaximize="False"
-                ShowClose="False"
-                ShowMaximize="False"
-                ShowMinimize="False" />
+                 x:Name="RootTitleBar"
+                 Title="Bloxstrap"
+                 Grid.Row="0"
+                 Padding="8"
+                 Panel.ZIndex="1001"
+                 CanMaximize="False"
+                 ShowClose="False"
+                 ShowMaximize="False"
+                 ShowMinimize="False" />
 
             <Grid x:Name="ElementGrid" Grid.Row="1" />
         </Grid>

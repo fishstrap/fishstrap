@@ -26,14 +26,11 @@
         public static string Modifications { get; private set; } = "";
         public static string Roblox { get; private set; } = "";
         public static string CustomThemes { get; private set; } = "";
-
-        // cleaner paths
         public static string RobloxLogs { get; private set; } = "";
         public static string RobloxCache { get; private set; } = "";
 
         public static string Application { get; private set; } = "";
-
-        public static string CustomFont => Path.Combine(Modifications, "content\\fonts\\CustomFont.ttf");
+        public static string CustomFont => Path.Combine(Modifications, "content", "fonts", "CustomFont.ttf");
 
         public static bool Initialized => !String.IsNullOrEmpty(Base);
 
@@ -46,11 +43,10 @@
             Integrations = Path.Combine(Base, "Integrations");
             Versions = Path.Combine(Base, "Versions");
             Modifications = Path.Combine(Base, "Modifications");
-            Roblox = Path.Combine(Base, "Roblox");
-            CustomThemes = Path.Combine(Base, "CustomThemes");
-
             RobloxLogs = Path.Combine(Roblox, "logs");
             RobloxCache = Path.Combine(Path.GetTempPath(), "Roblox");
+            Roblox = Path.Combine(Base, "Roblox");
+            CustomThemes = Path.Combine(Base, "CustomThemes");
 
             Application = Path.Combine(Base, $"{App.ProjectName}.exe");
         }

@@ -17,7 +17,7 @@ namespace Bloxstrap.RobloxInterfaces
         public static string BinaryType = "WindowsPlayer";
 
         public static bool IsDefaultChannel => Channel.Equals(DefaultChannel, StringComparison.OrdinalIgnoreCase) || Channel.Equals("live", StringComparison.OrdinalIgnoreCase);
-        
+
         public static string BaseUrl { get; private set; } = null!;
 
         public static readonly List<HttpStatusCode?> BadChannelCodes = new()
@@ -200,7 +200,7 @@ namespace Bloxstrap.RobloxInterfaces
                 {
                     var defaultClientVersion = await GetInfo(DefaultChannel);
 
-                    if (Utilities.CompareVersions(clientVersion.Version, defaultClientVersion.Version) == VersionComparison.LessThan)
+                    if ((Utilities.CompareVersions(clientVersion.Version, defaultClientVersion.Version) == VersionComparison.LessThan))
                         clientVersion.IsBehindDefaultChannel = true;
                 }
 

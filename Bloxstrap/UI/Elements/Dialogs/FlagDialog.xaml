@@ -1,0 +1,103 @@
+﻿<base:WpfUiWindow x:Class="Bloxstrap.UI.Elements.Dialogs.FlagDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
+    xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Dialogs"
+    xmlns:resources="clr-namespace:Bloxstrap.Resources"
+    mc:Ignorable="d"
+    Title="Flag Window"
+    Width="600"
+    MaxHeight="600"
+    SizeToContent="Height"
+    Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+    ExtendsContentIntoTitleBar="True"
+    WindowBackdropType="Mica"
+    WindowStartupLocation="CenterOwner">
+
+    <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Removed the RowDefinition for the TextBlock, so keep layout consistent -->
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" Padding="8"
+                     ShowMinimize="False" ShowMaximize="False" CanMaximize="False"
+                     Title="Flag Details" Icon="pack://application:,,,/Bloxstrap.ico" />
+
+        <TabControl Grid.Row="1" Margin="16 0 16 16" MinHeight="100" MinWidth="550" MaxHeight="400">
+            <TabItem Header="Invalid Flags">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <TextBox
+                        x:Name="InvalidFlagsTextBox"
+                        FontFamily="Consolas"
+                        FontSize="14"
+                        IsReadOnly="True"
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        AcceptsTab="True"
+                        BorderThickness="1"
+                        Padding="8"
+                        Background="{DynamicResource PrimaryBackgroundColor}"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Auto" />
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Default Values">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <TextBox
+                        x:Name="DefaultValuesTextBox"
+                        FontFamily="Consolas"
+                        FontSize="14"
+                        IsReadOnly="True"
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        AcceptsTab="True"
+                        BorderThickness="1"
+                        Padding="8"
+                        Background="{DynamicResource PrimaryBackgroundColor}"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Auto" />
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Updated FastFlags">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <TextBox
+                        x:Name="UpdatedFastFlagsTextBox"
+                        FontFamily="Consolas"
+                        FontSize="14"
+                        IsReadOnly="True"
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        AcceptsTab="True"
+                        BorderThickness="1"
+                        Padding="8"
+                        Background="{DynamicResource PrimaryBackgroundColor}"
+                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Auto" />
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <Border Grid.Row="2" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="CloseButton" MinWidth="100" Content="Close" IsCancel="True" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</base:WpfUiWindow>

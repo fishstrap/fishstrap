@@ -52,11 +52,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 ShowLoadingError = true;
                 OnPropertyChanged(nameof(ShowLoadingError));
 
-                // channels that dont exist also throw HttpStatusCode.Unauthorized
                 if (ex.StatusCode == HttpStatusCode.Unauthorized)
                     ChannelInfoLoadingText = Strings.Menu_Channel_Switcher_Unauthorized;
                 else
-                    ChannelInfoLoadingText = $"An http error has occured ({ex.StatusCode})"; // i dont think we need strings for errors
+                    ChannelInfoLoadingText = $"An http error has occured ({ex.StatusCode})";
 
                 OnPropertyChanged(nameof(ChannelInfoLoadingText));
             }
@@ -75,11 +74,13 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 value = value.Trim();
                 Task.Run(() => LoadChannelDeployInfo(value));
-                
-                if (value.ToLower() == "live" || value.ToLower() == "zlive") // we are replacing those to prevent any issues
+
+                if (value.ToLower() == "live" || value.ToLower() == "zlive")
                 {
                     App.Settings.Prop.Channel = Deployment.DefaultChannel;
-                } else {
+                }
+                else
+                {
                     App.Settings.Prop.Channel = value;
                 }
             }
@@ -136,6 +137,38 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 {
                     App.State.Prop.Player.VersionGuid = _oldPlayerVersionGuid;
                     App.State.Prop.Studio.VersionGuid = _oldStudioVersionGuid;
+                }
+            }
+        }
+
+        public bool DisableAnimations
+        {
+            get => App.Settings.Prop.DisableAnimations;
+            set => App.Settings.Prop.DisableAnimations = value;
+        }
+
+        public bool HardwareAcceleration
+        {
+            get => App.Settings.Prop.WPFSoftwareRender;
+            set => App.Settings.Prop.WPFSoftwareRender = value;
+        }
+
+
+        private ProcessPriorityOption _selectedPriority;
+
+        public IReadOnlyList<ProcessPriorityOption> ProcessPriorityOptions { get; } =
+            Enum.GetValues(typeof(ProcessPriorityOption)).Cast<ProcessPriorityOption>().ToList();
+
+        public ProcessPriorityOption SelectedPriority
+        {
+            get => _selectedPriority;
+            set
+            {
+                if (_selectedPriority != value)
+                {
+                    _selectedPriority = value;
+                    App.Settings.Prop.SelectedProcessPriority = value;
+                    OnPropertyChanged(nameof(SelectedPriority));
                 }
             }
         }

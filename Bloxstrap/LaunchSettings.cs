@@ -12,25 +12,31 @@ namespace Bloxstrap
 {
     public class LaunchSettings
     {
-        public LaunchFlag MenuFlag      { get; } = new("preferences,menu,settings");
+        public LaunchFlag MenuFlag { get; } = new("preferences,menu,settings");
 
-        public LaunchFlag WatcherFlag   { get; } = new("watcher");
+        public LaunchFlag WatcherFlag { get; } = new("watcher");
 
-        public LaunchFlag QuietFlag     { get; } = new("quiet");
+        public LaunchFlag QuietFlag { get; } = new("quiet");
 
         public LaunchFlag UninstallFlag { get; } = new("uninstall");
 
-        public LaunchFlag NoLaunchFlag  { get; } = new("nolaunch");
-        
-        public LaunchFlag TestModeFlag  { get; } = new("testmode");
+        public LaunchFlag NoLaunchFlag { get; } = new("nolaunch");
 
-        public LaunchFlag NoGPUFlag     { get; } = new("nogpu");
+        public LaunchFlag TestModeFlag { get; } = new("testmode");
 
-        public LaunchFlag UpgradeFlag   { get; } = new("upgrade");
-        
-        public LaunchFlag PlayerFlag    { get; } = new("player");
-        
-        public LaunchFlag StudioFlag    { get; } = new("studio");
+        public LaunchFlag NoGPUFlag { get; } = new("nogpu");
+
+        public LaunchFlag UpgradeFlag { get; } = new("upgrade");
+
+        public LaunchFlag PlayerFlag { get; } = new("player");
+
+        public LaunchFlag StudioFlag { get; } = new("studio");
+
+        public LaunchFlag VersionFlag { get; } = new("version");
+
+        public LaunchFlag ChannelFlag { get; } = new("channel");
+
+        public LaunchFlag ForceFlag { get; } = new("force");
 
         public LaunchFlag BloxshadeFlag { get; } = new("bloxshade");
 

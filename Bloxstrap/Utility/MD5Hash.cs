@@ -29,5 +29,10 @@ namespace Bloxstrap.Utility
         {
             return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
         }
+
+        public static string FromString(string str)
+        {
+            return FromBytes(Encoding.UTF8.GetBytes(str));
+        }
     }
 }

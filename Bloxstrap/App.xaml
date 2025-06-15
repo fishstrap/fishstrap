@@ -6,39 +6,40 @@
              xmlns:converters="clr-namespace:Bloxstrap.UI.Converters"
              ShutdownMode="OnExplicitShutdown"
              DispatcherUnhandledException="GlobalExceptionHandler">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
-                <ResourceDictionary x:Name="CustomTheme" Source="UI/Style/Dark.xaml" /> <!-- NOTE: WpfUiWindow::ApplyTheme relies on this order. If you plan to change the order, please update the index in the function. -->
-                <ResourceDictionary x:Name="Default" Source="UI/Style/Default.xaml" />
+                <ResourceDictionary Source="UI/Style/Dark.xaml" />
+                <!-- NOTE: WpfUiWindow::ApplyTheme relies on this order. -->
+                <ResourceDictionary Source="UI/Style/Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <FontFamily x:Key="Rubik">pack://application:,,,/Resources/Fonts/#Rubik Light</FontFamily>
 
+            <!-- Define brushes once and reuse -->
+            <SolidColorBrush x:Key="AccentColorSecondaryBrush" Color="{StaticResource SystemAccentColorSecondary}" />
+            <SolidColorBrush x:Key="AccentColorTertiaryBrush" Color="{StaticResource SystemAccentColorTertiary}" />
+
             <Style TargetType="Hyperlink">
+                <Setter Property="TextDecorations" Value="None" />
+                <Setter Property="Foreground" Value="{StaticResource AccentColorSecondaryBrush}" />
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Foreground">
-                            <Setter.Value>
-                                <SolidColorBrush Color="{DynamicResource SystemAccentColorTertiary}" />
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="Foreground" Value="{StaticResource AccentColorTertiaryBrush}" />
                         <Setter Property="TextDecorations" Value="Underline" />
                     </Trigger>
                 </Style.Triggers>
-                <Setter Property="TextDecorations" Value="None" />
-                <Setter Property="Foreground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
-                    </Setter.Value>
-                </Setter>
             </Style>
 
+            <!-- Converters -->
             <converters:StringFormatConverter x:Key="StringFormatConverter" />
             <converters:RangeConverter x:Key="RangeConverter" />
             <converters:EnumNameConverter x:Key="EnumNameConverter" />
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
