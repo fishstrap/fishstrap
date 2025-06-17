@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using Bloxstrap.UI.Elements.About;
-using Bloxstrap.UI.Elements.Help;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Bloxstrap.UI.ViewModels.Settings

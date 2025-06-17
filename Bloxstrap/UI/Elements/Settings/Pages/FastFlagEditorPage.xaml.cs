@@ -280,6 +280,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             var urlsJson = new[]
             {
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
         "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
         "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
         "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json",
@@ -418,6 +419,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var removedDefaults = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
             var urlsPriorityOrdered = new[]
             {
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
                 "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
@@ -529,6 +531,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var updatedFlags = new List<string>();
             var urlsJson = new[]
             {
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
         "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
         "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
         "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
@@ -706,6 +709,15 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 mainWindow?.HideLoading();
                 Frontend.ShowMessageBox($"An error occurred during FastFlag actions: {ex.Message}", MessageBoxImage.Error);
             }
+        }
+
+        private void FindFlag_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new FindFlagDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            dialog.Show();
         }
 
         private void AddWithGameId(string name, string value, string gameId, FastFlagFilterType filterType)

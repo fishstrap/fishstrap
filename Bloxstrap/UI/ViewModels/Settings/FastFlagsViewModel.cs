@@ -191,7 +191,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Telemetry.Voicechat9", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat10", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat11", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.Voicechat12", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat13", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat14", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat15", value ? "False" : null);

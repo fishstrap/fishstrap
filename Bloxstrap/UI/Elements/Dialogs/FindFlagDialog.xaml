@@ -1,0 +1,109 @@
+﻿<base:WpfUiWindow
+    x:Class="Bloxstrap.UI.Elements.Dialogs.FindFlagDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
+    xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Dialogs"
+    xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
+    xmlns:resources="clr-namespace:Bloxstrap.Resources"
+    mc:Ignorable="d"
+    Title="{x:Static resources:Strings.Dialog_FindFastFlag_Title}"
+    MinHeight="600"
+    MaxHeight="700"
+    Width="700"
+    SizeToContent="Height"
+    ResizeMode="CanResize"
+    Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+    ExtendsContentIntoTitleBar="True"
+    WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.Background>
+            <DynamicResource ResourceKey="WindowBackgroundGradient" />
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar
+            Grid.Row="0"
+            Padding="8"
+            Title="{x:Static resources:Strings.Dialog_FindFastFlag_Title}"
+            Icon="pack://application:,,,/Bloxstrap.ico"
+            ShowMinimize="False"
+            ShowMaximize="False"
+            CanMaximize="False"
+            KeyboardNavigation.TabNavigation="None" />
+
+        <Grid Grid.Row="1" Margin="4,10,4,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="8" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <controls:OptionControl
+                Grid.Row="0"
+                Header="{x:Static resources:Strings.Dialog_FindFastFlag_SourceSelector_Header}"
+                Description="{x:Static resources:Strings.Dialog_FindFastFlag_SourceSelector_Description}"
+                HorizontalAlignment="Stretch"
+                Margin="0">
+
+                <ComboBox
+                    Loaded="ComboBox_Loaded"
+                    SelectionChanged="SourceSelector_Changed"
+                    HorizontalAlignment="Stretch"
+                    Margin="0" />
+            </controls:OptionControl>
+
+            <ui:TextBox
+                x:Name="SearchTextBox"
+                Grid.Row="2"
+                Height="32"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                FocusVisualStyle="{x:Null}"
+                FontSize="14"
+                Icon="Search48"
+                PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}"
+                TextChanged="SearchTextBox_TextChanged"
+                HorizontalAlignment="Stretch"
+                Margin="0" />
+        </Grid>
+
+        <TextBox
+            x:Name="FlagOutputBox"
+            Grid.Row="2"
+            Margin="0,12,0,0"
+            VerticalScrollBarVisibility="Visible"
+            HorizontalScrollBarVisibility="Auto"
+            FontFamily="Consolas"
+            FontSize="14"
+            IsReadOnly="True"
+            TextWrapping="Wrap" />
+
+        <Border
+            Grid.Row="3"
+            Margin="0,10,0,10"
+            Padding="15"
+            Background="{DynamicResource PrimaryBackgroundColor}">
+            <StackPanel
+                Orientation="Horizontal"
+                FlowDirection="LeftToRight"
+                HorizontalAlignment="Right">
+                <Button
+                    MinWidth="100"
+                    Content="{x:Static resources:Strings.Common_Close}"
+                    IsCancel="True" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</base:WpfUiWindow>

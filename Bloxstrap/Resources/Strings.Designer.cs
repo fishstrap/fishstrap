@@ -1841,6 +1841,51 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Displays the list of FastFlags retrieved from the selected source..
+        /// </summary>
+        public static string Dialog_FindFastFlag_FlagOutput_Tooltip {
+            get {
+                return ResourceManager.GetString("Dialog_FindFastFlag_FlagOutput_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the source to fetch FastFlags from..
+        /// </summary>
+        public static string Dialog_FindFastFlag_SourceSelector_Description {
+            get {
+                return ResourceManager.GetString("Dialog_FindFastFlag_SourceSelector_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flag Source.
+        /// </summary>
+        public static string Dialog_FindFastFlag_SourceSelector_Header {
+            get {
+                return ResourceManager.GetString("Dialog_FindFastFlag_SourceSelector_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which online repository to load FastFlags from..
+        /// </summary>
+        public static string Dialog_FindFastFlag_SourceSelector_Tooltip {
+            get {
+                return ResourceManager.GetString("Dialog_FindFastFlag_SourceSelector_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find FastFlags.
+        /// </summary>
+        public static string Dialog_FindFastFlag_Title {
+            get {
+                return ResourceManager.GetString("Dialog_FindFastFlag_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The chosen bootstrapper icon could not be loaded.
         ///
         ///{0}.
@@ -2600,7 +2645,7 @@ namespace Bloxstrap.Resources {
         ///
         ///However, Roblox has not been installed yet. It will be installed when you launch Roblox with Froststrap for the first time. Before installation, you may want to configure Froststrap’s settings first.
         ///
-        ///Important Note: Do not use the “Roblox Player” shortcut to launch Roblox, as Froststrap will be unable to launch Roblox due to conflicting issues. If you don’t see Froststrap initiating when launching from the Roblox website, simply launch Roblox with Froststrap [rest of string was truncated]&quot;;.
+        ///Important Note: Do not use the “Roblox Player” shortcut to launch Roblox, as Froststrap will be unable to launch Roblox due to conflicting issues. If you don’t see Froststrap initiating when launching from the Roblox website, simply launch Roblox with Froststrap onc [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Installer_Completion_Text {
             get {
@@ -4078,7 +4123,7 @@ namespace Bloxstrap.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Fast Flags are extremely powerful, being that they are intended to only be used by Roblox engineers. While they can be very useful, manually configuring them can cause serious issues with stability and functionality. Do NOT use the editor if you are unsure of what you are doing.
         ///
-        ///Do NOT use this to import large &quot;flag lists&quot; made by other people that promise to improve performance or such. They are subject to the aforementioned issues, and they will cause problems for you since you will not be fully aware  [rest of string was truncated]&quot;;.
+        ///Do NOT use this to import large &quot;flag lists&quot; made by other people that promise to improve performance or such. They are subject to the aforementioned issues, and they will cause problems for you since you will not be fully aware of [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Menu_FastFlagEditor_Warning_Text {
             get {

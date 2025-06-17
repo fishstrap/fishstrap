@@ -236,7 +236,7 @@ namespace Bloxstrap.UI.Elements.Settings
 
         private async void ShowAlreadyRunningSnackbar()
         {
-            await Task.Delay(750); // wait for everything to finish loading
+            await Task.Delay(500); // wait for everything to finish loading
             AlreadyRunningSnackbar.Show();
         }
 

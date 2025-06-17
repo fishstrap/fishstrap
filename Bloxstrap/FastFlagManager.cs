@@ -169,7 +169,6 @@ namespace Bloxstrap
             { "Telemetry.Voicechat9", "FFlagLuaVoiceChatAnalyticsUsePointsV2" },
             { "Telemetry.Voicechat10", "FFlagVoiceChatCullingEnableMutedSubsTelemetry" },
             { "Telemetry.Voicechat11", "FFlagVoiceChatCullingEnableStaleSubsTelemetry" },
-            { "Telemetry.Voicechat12", "FFlagVoiceChatCustomAudioDeviceEnableNeedMorePlayoutTelemetry" },
             { "Telemetry.Voicechat13", "FFlagVoiceChatCustomAudioDeviceEnableNeedMorePlayoutTelemetry3" },
             { "Telemetry.Voicechat14", "FFlagVoiceChatCustomAudioMixerEnableUpdateSourcesTelemetry2" },
             { "Telemetry.Voicechat15", "FFlagVoiceChatDontSendTelemetryForPubIceTrickle" },
@@ -258,7 +257,7 @@ namespace Bloxstrap
             { "Rendering.Lighting.Voxel", "DFFlagDebugRenderForceTechnologyVoxel" },
             { "Rendering.Lighting.ShadowMap", "FFlagDebugForceFutureIsBrightPhase2" },
             { "Rendering.Lighting.Future", "FFlagDebugForceFutureIsBrightPhase3" },
-            { "Rendering.Lighting.Unified", "FFlagRenderUnifiedLighting12"},
+            { "Rendering.Lighting.Unified", "FFlagRenderUnifiedLighting13"},
 
             // Texture quality
             { "Rendering.TerrainTextureQuality", "FIntTerrainArraySliceSize" },

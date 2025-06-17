@@ -264,7 +264,7 @@
                         <controls:OptionControl 
                             x:Name="GrayAvatars"
                             Header="{x:Static resources:Strings.Menu_FastFlags_Presets_GrayAvatars_Title}">
-                            <ui:ToggleSwitch IsChecked="{Binding GraySky, Mode=TwoWay}" />
+                            <ui:ToggleSwitch IsChecked="{Binding GrayAvatars, Mode=TwoWay}" />
                         </controls:OptionControl>
 
                     </StackPanel>

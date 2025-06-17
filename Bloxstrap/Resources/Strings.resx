@@ -240,6 +240,21 @@
   <data name="Menu.Appearance.MenuAdjustment.Description" xml:space="preserve">
     <value>Allows you to change the order of the sections on the left side.</value>
   </data>
+  <data name="Dialog_FindFastFlag_Title" xml:space="preserve">
+  <value>Find FastFlags</value>
+</data>
+  <data name="Dialog_FindFastFlag_SourceSelector_Header" xml:space="preserve">
+  <value>Flag Source</value>
+</data>
+  <data name="Dialog_FindFastFlag_SourceSelector_Description" xml:space="preserve">
+  <value>Select the source to fetch FastFlags from.</value>
+</data>
+  <data name="Dialog_FindFastFlag_FlagOutput_Tooltip" xml:space="preserve">
+  <value>Displays the list of FastFlags retrieved from the selected source.</value>
+</data>
+  <data name="Dialog_FindFastFlag_SourceSelector_Tooltip" xml:space="preserve">
+  <value>Choose which online repository to load FastFlags from.</value>
+</data>
   <data name="Menu.Appearance.MenuAdjustment.MoveUp" xml:space="preserve">
     <value>Move Up</value>
   </data>
