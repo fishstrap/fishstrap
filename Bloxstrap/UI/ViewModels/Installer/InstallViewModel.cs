@@ -68,6 +68,18 @@ namespace Bloxstrap.UI.ViewModels.Installer
 
         public ICommand OpenFolderCommand => new RelayCommand(OpenFolder);
 
+        public ImportSettingsFrom SelectedImportSource
+        {
+            get => installer.ImportSource;
+            set
+            {
+                installer.ImportSource = value;
+                OnPropertyChanged(nameof(SelectedImportSource));
+            }
+        }
+
+        public Array ImportSourceOptions => Enum.GetValues(typeof(ImportSettingsFrom));
+
         public InstallViewModel()
         {
             _originalInstallLocation = installer.InstallLocation;

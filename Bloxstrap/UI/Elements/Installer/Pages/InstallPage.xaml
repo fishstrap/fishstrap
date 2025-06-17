@@ -73,8 +73,12 @@
             </controls:OptionControl>
 
             <controls:OptionControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,4,0"
-    Header="{x:Static resources:Strings.Installer_ImportSettings}">
-                <ui:ToggleSwitch IsChecked="{Binding ImportSettings, Mode=TwoWay}" IsEnabled="{Binding ImportSettingsEnabled, Mode=OneWay}" />
+            Header="{x:Static resources:Strings.Installer_ImportSettings}"
+            Description="Choose which application's settings to import into this installation.">
+                <ComboBox Width="120"
+              ItemsSource="{Binding ImportSourceOptions}"
+              SelectedItem="{Binding SelectedImportSource, Mode=TwoWay}"
+              IsEnabled="{Binding ImportSettingsEnabled, Mode=OneWay}" />
             </controls:OptionControl>
 
             <ui:InfoBar Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0" Padding="8" Title="{x:Static resources:Strings.Installer_InstallationNotFound}" IsOpen="{Binding ShowNotFound, Mode=OneWay}" Severity="Warning" IsClosable="False" />

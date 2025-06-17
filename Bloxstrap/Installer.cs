@@ -35,12 +35,15 @@ namespace Bloxstrap
 
         public string InstallLocationError { get; set; } = "";
 
+        public ImportSettingsFrom ImportSource { get; set; } = ImportSettingsFrom.Bloxstrap;
+
         // anything we want copied should be put in here
         // root directory only
         public string[] FilesForImporting = {
             "CustomThemes", // from feature/custom-bootstrappers
             "Modifications",
-            "Settings.json"
+            "Settings.json",
+            "Mods" // why tf does voidstrap have diffrent names for stuff bro
         };
 
         public void DoInstall()
@@ -106,14 +109,13 @@ namespace Bloxstrap
             if (CreateStartMenuShortcuts)
                 Shortcut.Create(Paths.Application, "", StartMenuShortcut);
 
-            if (ImportSettings)
+            if (ImportSettings && ImportSource != ImportSettingsFrom.None)
             {
-                // we dont have to worry about directories messing up
-                // if something doenst exist Froststrap will recreate the file/directory
                 try
                 {
-                    ImportSettingsFromBloxstrap();
-                } catch (Exception ex)
+                    ImportSettingsFromSelectedApp();
+                }
+                catch (Exception ex)
                 {
                     Frontend.ShowMessageBox(
                         String.Format(Strings.Installer_FailedToImportSettings, ex.Message),
@@ -727,6 +729,64 @@ namespace Bloxstrap
             // App.Settings.Load(false);
             // App.State.Load(false);
             // App.FastFlags.Load(false);
+        }
+
+        public void ImportSettingsFromSelectedApp()
+        {
+            string sourceDir = ImportSource switch
+            {
+                ImportSettingsFrom.Bloxstrap => Path.Combine(Paths.LocalAppData, "Bloxstrap"),
+                ImportSettingsFrom.Voidstrap => Path.Combine(Paths.LocalAppData, "Voidstrap"),
+                ImportSettingsFrom.Fishstrap => Path.Combine(Paths.LocalAppData, "Fishstrap"),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            if (!Directory.Exists(sourceDir))
+            {
+                Frontend.ShowMessageBox(Strings.Installer_InstallationNotFound, MessageBoxImage.Exclamation);
+                return;
+            }
+
+            foreach (string fileName in FilesForImporting)
+            {
+                string actualSourceFile = fileName;
+                string actualDestFile = fileName;
+
+                if (fileName == "Settings.json" && ImportSource == ImportSettingsFrom.Voidstrap)
+                    actualSourceFile = "AppSettings.json";
+
+                if (fileName == "Mods")
+                {
+                    if (ImportSource != ImportSettingsFrom.Voidstrap)
+                        continue;
+                    actualDestFile = "Modifications";
+                }
+
+                string source = Path.Combine(sourceDir, actualSourceFile);
+                if (!Directory.Exists(source) && !File.Exists(source))
+                    continue;
+
+                FileAttributes attributes = File.GetAttributes(source);
+                bool isDirectory = attributes.HasFlag(FileAttributes.Directory);
+
+                if (isDirectory)
+                {
+                    string existingFile = Path.Combine(InstallLocation, actualDestFile);
+                    if (Directory.Exists(existingFile))
+                        Directory.Delete(existingFile, true);
+
+                    Directory.CreateDirectory(existingFile);
+                    foreach (string dirPath in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+                        Directory.CreateDirectory(dirPath.Replace(source, existingFile));
+                    foreach (string newPath in Directory.GetFiles(source, "*.*", SearchOption.AllDirectories))
+                        File.Copy(newPath, newPath.Replace(source, existingFile), true);
+                }
+                else
+                {
+                    string fileLocation = Path.Combine(InstallLocation, actualDestFile);
+                    File.Copy(source, fileLocation, true);
+                }
+            }
         }
     }
 }
