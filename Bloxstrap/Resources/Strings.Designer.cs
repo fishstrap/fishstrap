@@ -2143,6 +2143,24 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Small Black And White Cross.
+        /// </summary>
+        public static string Enums_CursorType_BlackAndWhiteCross {
+            get {
+                return ResourceManager.GetString("Enums.CursorType.BlackAndWhiteCross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Black And White Dot.
+        /// </summary>
+        public static string Enums_CursorType_BlackAndWhiteDot {
+            get {
+                return ResourceManager.GetString("Enums.CursorType.BlackAndWhiteDot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 2006 (Cartoony).
         /// </summary>
         public static string Enums_CursorType_From2006 {
@@ -2157,6 +2175,15 @@ namespace Bloxstrap.Resources {
         public static string Enums_CursorType_From2013 {
             get {
                 return ResourceManager.GetString("Enums.CursorType.From2013", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purple Cross.
+        /// </summary>
+        public static string Enums_CursorType_PurpleCross {
+            get {
+                return ResourceManager.GetString("Enums.CursorType.PurpleCross", resourceCulture);
             }
         }
         
@@ -2721,7 +2748,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These are general shortcuts that bring up a multi-choice launch Menu. Shortcuts for specific functions can be created later in the settings..
+        ///   Looks up a localized string similar to These are general shortcuts that bring up a multi-choice Launch Menu. Shortcuts for specific functions can be created later in the settings..
         /// </summary>
         public static string Installer_Install_Shortcuts_Description {
             get {
@@ -5142,7 +5169,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets the skybox to include a variety of colors. Note: Note: Certain icons or images will appear distorted due to Texture Skipping. This setting is not guaranteed to work every time!.
+        ///   Looks up a localized string similar to Sets the skybox to include a variety of colors. Note: Certain icons or images will appear distorted due to Texture Skipping. This setting is not guaranteed to work every time!.
         /// </summary>
         public static string Menu_FastFlags_Presets_RainbowSky_Description {
             get {
@@ -6876,7 +6903,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These are the shortcuts that bring up the multi-choice launch Menu..
+        ///   Looks up a localized string similar to These are the shortcuts that bring up the multi-choice Launch Menu..
         /// </summary>
         public static string Menu_Shortcuts_General_Description {
             get {

@@ -505,16 +505,69 @@ namespace Bloxstrap
             return mainWindowHandle;
         }
 
-        private Icon? LoadOldIcon()
+        private Icon? LoadIcon(RobloxIcon icon)
         {
+            if (icon == RobloxIcon.Default)
+                return null;
+
+            var resourceName = $"Bloxstrap.Resources.{icon}.ico";
             var assembly = Assembly.GetExecutingAssembly();
-            const string resourceName = "Bloxstrap.Resources.Icon2022.ico";
 
             using Stream? stream = assembly.GetManifestResourceStream(resourceName);
-            if (stream != null)
-                return new Icon(stream);
+            return stream != null ? new Icon(stream) : null;
+        }
 
-            return null;
+        private void SetRobloxWindowIcon(Process process, RobloxIcon icon)
+        {
+            const string LOG_IDENT = "Bootstrapper::SetRobloxWindowIcon";
+
+            if (icon == RobloxIcon.Default)
+                return;
+
+            if (!process.WaitForInputIdle(5000))
+            {
+                App.Logger.WriteLine(LOG_IDENT, "WaitForInputIdle timed out, window might not be ready.");
+                return;
+            }
+
+            IntPtr hwnd = IntPtr.Zero;
+            for (int i = 0; i < 6; i++)
+            {
+                hwnd = process.MainWindowHandle;
+                if (hwnd != IntPtr.Zero)
+                    break;
+                Thread.Sleep(500);
+            }
+
+            if (hwnd == IntPtr.Zero)
+                hwnd = GetMainWindowHandle(process.Id);
+
+            if (hwnd == IntPtr.Zero)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Roblox main window handle not found.");
+                return;
+            }
+
+            try
+            {
+                using var iconHandle = LoadIcon(icon);
+                if (iconHandle == null)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Icon resource '{icon}' not found.");
+                    return;
+                }
+
+                SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_SMALL, iconHandle.Handle);
+                SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_BIG, iconHandle.Handle);
+                SetClassIcon(hwnd, iconHandle);
+                RedrawWindow(hwnd, IntPtr.Zero, IntPtr.Zero, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
+
+                App.Logger.WriteLine(LOG_IDENT, $"Custom icon '{icon}' set on Roblox window.");
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Failed to set icon '{icon}': {ex}");
+            }
         }
 
         private async void StartRoblox()
@@ -648,58 +701,9 @@ namespace Bloxstrap
                 // Continue with the rest of your code like _appPid assignment, icon setting, etc.
                 _appPid = process.Id;
 
-                if (App.Settings.Prop.UseOldIcon)
-                {
-                    if (process.WaitForInputIdle(5000))
-                    {
-                        IntPtr hwnd = IntPtr.Zero;
+                var selectedIcon = App.Settings.Prop.SelectedRobloxIcon;
+                SetRobloxWindowIcon(process, selectedIcon);
 
-                        for (int i = 0; i < 6; i++)
-                        {
-                            hwnd = process.MainWindowHandle;
-                            if (hwnd != IntPtr.Zero)
-                                break;
-                            Thread.Sleep(500);
-                        }
-
-                        if (hwnd == IntPtr.Zero)
-                            hwnd = GetMainWindowHandle(_appPid);
-
-                        if (hwnd != IntPtr.Zero)
-                        {
-                            try
-                            {
-                                using var icon = LoadOldIcon();
-                                if (icon != null)
-                                {
-                                    IntPtr iconHandle = icon.Handle;
-
-                                    SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_SMALL, iconHandle);
-                                    SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_BIG, iconHandle);
-
-                                    SetClassIcon(hwnd, icon);
-
-                                    // Force redraw of the window frame and icon
-                                    RedrawWindow(hwnd, IntPtr.Zero, IntPtr.Zero, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
-
-                                    App.Logger.WriteLine(LOG_IDENT, "Old icon set successfully on Roblox window.");
-                                }
-                                else
-                                {
-                                    App.Logger.WriteLine(LOG_IDENT, "Old icon resource not found.");
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                App.Logger.WriteLine(LOG_IDENT, $"Failed to set old icon: {ex}");
-                            }
-                        }
-                        else
-                        {
-                            App.Logger.WriteLine(LOG_IDENT, "Roblox main window handle not found for icon setting.");
-                        }
-                    }
-                }
             }
             catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
             {

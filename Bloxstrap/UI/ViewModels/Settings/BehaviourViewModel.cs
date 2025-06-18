@@ -1,4 +1,5 @@
 ﻿using Bloxstrap.AppData;
+using Bloxstrap.Enums;
 using Bloxstrap.Integrations;
 using Bloxstrap.RobloxInterfaces;
 
@@ -28,11 +29,42 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.ForceRobloxLanguage = value;
         }
 
-        public bool UseOldIcon
+        public bool RobloxWiFiPriorityBoost
         {
-            get => App.Settings.Prop.UseOldIcon;
-            set => App.Settings.Prop.UseOldIcon = value;
+            get => App.Settings.Prop.RobloxWiFiPriorityBoost;
+            set
+            {
+                if (App.Settings.Prop.RobloxWiFiPriorityBoost == value) return;
+
+                bool success = QosPolicies.TogglePolicy(value);
+                if (success)
+                {
+                    App.Settings.Prop.RobloxWiFiPriorityBoost = value;
+                    OnPropertyChanged(nameof(RobloxWiFiPriorityBoost));
+                }
+                else
+                {
+                    
+                }
+            }
         }
+
+        public RobloxIcon SelectedRobloxIcon
+        {
+            get => App.Settings.Prop.SelectedRobloxIcon;
+            set
+            {
+                if (App.Settings.Prop.SelectedRobloxIcon != value)
+                {
+                    App.Settings.Prop.SelectedRobloxIcon = value;
+                    App.Settings.Save(); // optional, but recommended
+                    OnPropertyChanged(nameof(SelectedRobloxIcon));
+                }
+            }
+        }
+
+        public IEnumerable<RobloxIcon> RobloxIcons { get; } = RobloxIconEx.Selections;
+
 
         public CleanerOptions SelectedCleanUpMode
         {

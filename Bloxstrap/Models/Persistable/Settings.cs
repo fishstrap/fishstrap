@@ -18,6 +18,7 @@ namespace Bloxstrap.Models.Persistable
         public bool ConfirmLaunches { get; set; } = true;
         public string Locale { get; set; } = "nil";
         public bool ForceRobloxLanguage { get; set; } = false;
+        public bool RobloxWiFiPriorityBoost { get; set; } = false;
         public bool UseFastFlagManager { get; set; } = true;
         public CopyFormatMode SelectedCopyFormat { get; set; } = CopyFormatMode.Format1; //change for default value
         public bool ShowPresetColumn { get; set; } = false; //change for default value
@@ -51,9 +52,7 @@ namespace Bloxstrap.Models.Persistable
         public bool UseDisableAppPatch { get; set; } = false;
         public bool BlockRobloxRecording { get; set; } = false;
         public bool BlockRobloxScreenshots { get; set; } = false;
-
-        public bool UseOldIcon { get; set; } = false;
-
+        public RobloxIcon SelectedRobloxIcon { get; set; } = RobloxIcon.Default;
         public string? IconPath { get; set; } = null;
     }
 }

@@ -23,10 +23,21 @@
             <ui:ToggleSwitch IsChecked="{Binding ConfirmLaunches, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Title}"
-            Description="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Description}">
-            <ui:ToggleSwitch IsChecked="{Binding UseOldIcon, Mode=TwoWay}" />
+        <controls:OptionControl
+    Header="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Title}"
+    Description="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Description}">
+            <ComboBox
+        Width="200"
+        Margin="5,0,0,0"
+        Padding="10,5,10,5"
+        ItemsSource="{Binding RobloxIcons}"
+        SelectedItem="{Binding SelectedRobloxIcon, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Converter={StaticResource EnumNameConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </controls:OptionControl>
 
         <controls:OptionControl 
@@ -37,11 +48,19 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
-Header="{x:Static resources:Strings.Menu_Behaviour_MultiInstances_Title}"
-Description="{x:Static resources:Strings.Menu_Behaviour_MultiInstances_Description}"
-HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#multi-instance-launching" >
+            Header="{x:Static resources:Strings.Menu_Behaviour_MultiInstances_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_MultiInstances_Description}"
+            HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#multi-instance-launching" >
             <ui:ToggleSwitch IsChecked="{Binding MultiInstances, Mode=TwoWay}" />
         </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="QoS Policy"
+            Description="This boosts Roblox network priority using Windows QoS, helping reduce lag on busy Wi-Fi networks."
+            HelpLink="https://www.fortinet.com/resources/cyberglossary/qos-quality-of-service">
+            <ui:ToggleSwitch IsChecked="{Binding RobloxWiFiPriorityBoost, Mode=TwoWay}" />
+        </controls:OptionControl>
+
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="True">
             <ui:CardExpander.Header>

@@ -84,6 +84,15 @@
     <EmbeddedResource Include="Resources\Mods\Cursor\From2006\ArrowFarCursor.png" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2013\ArrowCursor.png" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2013\ArrowFarCursor.png" />
+	<EmbeddedResource Include="Resources\Mods\Cursor\BlackAndWhiteCross\ArrowCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\BlackAndWhiteCross\ArrowFarCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\BlackAndWhiteCross\IBeamCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\BlackAndWhiteDot\ArrowCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\BlackAndWhiteDot\ArrowFarCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\BlackAndWhiteDot\IBeamCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\PurpleCross\ArrowCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\PurpleCross\ArrowFarCursor.png" />
+    <EmbeddedResource Include="Resources\Mods\Cursor\PurpleCross\IBeamCursor.png" />
     <EmbeddedResource Include="Resources\Mods\Sounds\OldDeath.ogg" />
     <EmbeddedResource Include="Resources\Mods\Sounds\OldGetUp.mp3" />
     <EmbeddedResource Include="Resources\Mods\Sounds\OldJump.mp3" />

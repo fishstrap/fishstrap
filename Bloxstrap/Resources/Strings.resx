@@ -593,6 +593,15 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   <data name="Enums.CursorType.From2013" xml:space="preserve">
     <value>2013 (Angular)</value>
   </data>
+  <data name="Enums.CursorType.BlackAndWhiteCross" xml:space="preserve">
+    <value>Small Black And White Cross</value>
+  </data>
+  <data name="Enums.CursorType.PurpleCross" xml:space="preserve">
+    <value>Purple Cross</value>
+  </data>
+	<data name="Enums.CursorType.BlackAndWhiteDot" xml:space="preserve">
+    <value>Black And White Dot</value>
+  </data>
   <data name="Enums.EmojiType.Catmoji" xml:space="preserve">
     <value>Catmoji</value>
   </data>
@@ -1723,7 +1732,7 @@ Some text might not be translated to preferred language.</value>
     <value>Rainbow Sky</value>
   </data>
   <data name="Menu.FastFlags.Presets.RainbowSky.Description" xml:space="preserve">
-    <value>Sets the skybox to include a variety of colors. Note: Note: Certain icons or images will appear distorted due to Texture Skipping. This setting is not guaranteed to work every time!</value>
+    <value>Sets the skybox to include a variety of colors. Note: Certain icons or images will appear distorted due to Texture Skipping. This setting is not guaranteed to work every time!</value>
   </data>
   <data name="Menu.FastFlags.Presets.BlackSky.Title" xml:space="preserve">
     <value>Black Sky</value>
@@ -1993,7 +2002,7 @@ If not, then please report this exception to the maintainers of this fork. Do NO
     <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
-    <value>These are general shortcuts that bring up a multi-choice launch Menu. Shortcuts for specific functions can be created later in the settings.</value>
+    <value>These are general shortcuts that bring up a multi-choice Launch Menu. Shortcuts for specific functions can be created later in the settings.</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
     <value>Configure how Froststrap can be readily launched.</value>
@@ -2002,7 +2011,7 @@ If not, then please report this exception to the maintainers of this fork. Do NO
     <value>General</value>
   </data>
   <data name="Menu.Shortcuts.General.Description" xml:space="preserve">
-    <value>These are the shortcuts that bring up the multi-choice launch Menu.</value>
+    <value>These are the shortcuts that bring up the multi-choice Launch Menu.</value>
   </data>
   <data name="Menu.Shortcuts.Function.Title" xml:space="preserve">
     <value>Function</value>

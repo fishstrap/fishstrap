@@ -800,7 +800,7 @@
 
                 <controls:OptionControl
                     x:Name="IncreaseCacheSize"
-                    Description="Increases the cache size which could help stabelize your ping"
+                    Description="Increases the cache size which could help stabilize your ping"
                     Header="Increase Cache Size">
                     <ui:ToggleSwitch IsChecked="{Binding IncreaseCache, Mode=TwoWay}" />
                 </controls:OptionControl>
@@ -823,7 +823,7 @@
                 <controls:OptionControl 
                     x:Name="PhysicSenderRate"
                     Header="Physic Sender Rate" 
-                    Description="This changes how frequent your character updates in the server. Note: Can only be set between 60-38760">
+                    Description="This changes how frequent your character updates in the server. Note: This can only be set between 60-38760">
                     <ui:TextBox Width="200" Margin="5,0,0,0" Padding="10,5,10,5" PreviewTextInput="ValidateUInt32" Text="{Binding PhysicSender, Mode=TwoWay}" />
                 </controls:OptionControl>
 
