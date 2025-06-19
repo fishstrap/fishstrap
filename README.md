@@ -1,5 +1,6 @@
 > [!CAUTION]
 > This and https://github.com/Meddsam/Froststrap are the only official place to install Froststrap. Any other websites offering downloads or claiming to be us are not controlled by us (Example: Froststrap.com). We strongly recommend **not** downloading from any unofficial sources.
+>
 > lost access to other github account thats why i was forced to make another github page
 
 <p align="center">
