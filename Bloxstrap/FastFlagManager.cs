@@ -84,6 +84,18 @@ namespace Bloxstrap
             // Pseudolocalization
             { "UI.Pseudolocalization", "FFlagDebugEnablePseudolocalization" },
 
+            // Disk Memory Cache Counts
+            { "Network.DiskMemoryCacheCounts", "DFFlagHttpDiskMemoryCacheCounts" },
+
+            // Disable Ads
+            { "Network.Stream1", "DFIntNetworkStreamInitSize" },
+            { "Network.Stream2", "DFIntNetworkStreamMinGrowSize" },
+            { "Network.Stream3", "DFIntNetworkStreamingGCMaxMicroSecondLimit" },
+            { "Network.Stream4", "DFIntNetworkStreamingGCMaxMicroSecondLimitPartsModels" },
+            { "Network.Stream5", "DFIntNetworkStreamingGCUrgentMaxMicroSecondLimit" },
+            { "Network.Stream6", "DFIntNetworkStreamingGCUrgentMaxMicroSecondLimitPartsModels" },
+            { "Network.Stream7", "DFIntSchemaNetworkStreamSize" },
+
             // Remove Grass
             { "Rendering.RemoveGrass1", "FIntFRMMinGrassDistance" },
             { "Rendering.RemoveGrass2", "FIntFRMMaxGrassDistance" },
@@ -169,7 +181,6 @@ namespace Bloxstrap
             { "Telemetry.Voicechat9", "FFlagLuaVoiceChatAnalyticsUsePointsV2" },
             { "Telemetry.Voicechat10", "FFlagVoiceChatCullingEnableMutedSubsTelemetry" },
             { "Telemetry.Voicechat11", "FFlagVoiceChatCullingEnableStaleSubsTelemetry" },
-            { "Telemetry.Voicechat13", "FFlagVoiceChatCustomAudioDeviceEnableNeedMorePlayoutTelemetry3" },
             { "Telemetry.Voicechat14", "FFlagVoiceChatCustomAudioMixerEnableUpdateSourcesTelemetry2" },
             { "Telemetry.Voicechat15", "FFlagVoiceChatDontSendTelemetryForPubIceTrickle" },
             { "Telemetry.Voicechat16", "FFlagVoiceChatPeerConnectionTelemetryDetails" },

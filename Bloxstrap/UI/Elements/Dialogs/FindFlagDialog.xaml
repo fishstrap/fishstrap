@@ -80,15 +80,19 @@
         </Grid>
 
         <TextBox
-            x:Name="FlagOutputBox"
-            Grid.Row="2"
-            Margin="0,12,0,0"
-            VerticalScrollBarVisibility="Visible"
-            HorizontalScrollBarVisibility="Auto"
-            FontFamily="Consolas"
-            FontSize="14"
-            IsReadOnly="True"
-            TextWrapping="Wrap" />
+    x:Name="FlagOutputBox"
+    Grid.Row="2"
+    Margin="4,12,4,0"
+    VerticalScrollBarVisibility="Visible"
+    HorizontalScrollBarVisibility="Visible"
+    FontFamily="Consolas"
+    FontSize="14"
+    IsReadOnly="True"
+    TextWrapping="NoWrap"
+    Height="Auto"
+    VerticalAlignment="Stretch"
+    HorizontalAlignment="Stretch" />
+
 
         <Border
             Grid.Row="3"
@@ -102,7 +106,7 @@
                 <Button
                     MinWidth="100"
                     Content="{x:Static resources:Strings.Common_Close}"
-                    IsCancel="True" />
+                    Click="CloseButton_Click" />
             </StackPanel>
         </Border>
     </Grid>

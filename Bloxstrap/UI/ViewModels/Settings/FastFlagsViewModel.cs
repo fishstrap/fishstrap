@@ -191,7 +191,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Telemetry.Voicechat9", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat10", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat11", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.Voicechat13", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat14", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat15", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat16", value ? "False" : null);
@@ -231,6 +230,27 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Telemetry.Tencent7", value ? "10000" : null);
 
             }
+        }
+
+        public bool NetworkStream
+        {
+            get => App.FastFlags?.GetPreset("Network.Stream1") == "0";
+            set
+            {
+                App.FastFlags.SetPreset("Network.Stream1", value ? "0" : null);
+                App.FastFlags.SetPreset("Network.Stream2", value ? "0" : null);
+                App.FastFlags.SetPreset("Network.Stream3", value ? "0" : null);
+                App.FastFlags.SetPreset("Network.Stream4", value ? "0" : null);
+                App.FastFlags.SetPreset("Network.Stream5", value ? "0" : null);
+                App.FastFlags.SetPreset("Network.Stream6", value ? "0" : null);
+                App.FastFlags.SetPreset("Network.Stream7", value ? "0" : null);
+            }
+        }
+
+        public bool DiskMemoryCacheCounts
+        {
+            get => App.FastFlags.GetPreset("Network.DiskMemoryCacheCounts") == "True";
+            set => App.FastFlags.SetPreset("Network.DiskMemoryCacheCounts", value ? "True" : null);
         }
 
         public bool RemoveGrass
@@ -712,7 +732,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 App.FastFlags.SetPreset("Rendering.ShadowIntensity", value ? "0" : null);
                 App.FastFlags.SetPreset("Rendering.Pause.Voxelizer", value ? "True" : null);
-                App.FastFlags.SetPreset("Rendering.ShadowMapBias", value ? "-1" : null);
             }
         }
 
@@ -745,9 +764,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get
             {
-                int val1 = int.TryParse(App.FastFlags.GetPreset("Network.Phyics1"), out var x1) ? x1 : 0;
-                int val2 = int.TryParse(App.FastFlags.GetPreset("Network.Phyics2"), out var x2) ? x2 : 0;
-                return val1 + val2;
+                return int.TryParse(App.FastFlags.GetPreset("Network.Phyics1"), out var value) ? value : 0;
             }
             set
             {
@@ -759,11 +776,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 else
                 {
                     int clamped = Math.Min(38760, value);
-                    int half = clamped / 2;
-                    int remainder = clamped - half;
-
-                    App.FastFlags.SetPreset("Network.Phyics1", half.ToString());
-                    App.FastFlags.SetPreset("Network.Phyics2", remainder.ToString());
+                    string strValue = clamped.ToString();
+                    App.FastFlags.SetPreset("Network.Phyics1", strValue);
+                    App.FastFlags.SetPreset("Network.Phyics2", strValue);
                 }
             }
         }
@@ -1039,23 +1054,38 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 OnPropertyChanged(nameof(SelectedCpuThreads));
                 App.FastFlags.SetPreset("System.CpuCore9", value.Value);
                 OnPropertyChanged(nameof(SelectedCpuThreads));
-                if (value.Value != null && int.TryParse(value.Value, out int parsedValue)) // sets cputhreads to the selected amount minus 1
+
+                if (value.Value != null && int.TryParse(value.Value, out int parsedValue))
                 {
-                    int adjustedValue = Math.Max(parsedValue - 1, 1); // Ensure the value does not go below on one
-                    App.FastFlags.SetPreset("System.CpuThreads", adjustedValue.ToString());
-                    OnPropertyChanged(nameof(SelectedCpuThreads));
-                    App.FastFlags.SetPreset("System.CpuCore8", adjustedValue.ToString());
-                    OnPropertyChanged(nameof(SelectedCpuThreads));
+                    int maxValue = CpuThreads!
+                        .Where(kvp => kvp.Key != "Automatic" && int.TryParse(kvp.Key, out _))
+                        .Select(kvp => int.Parse(kvp.Key))
+                        .DefaultIfEmpty(1)
+                        .Max();
+
+                    if (parsedValue == maxValue)
+                    {
+                        int adjustedValue = Math.Max(parsedValue - 1, 1);
+                        App.FastFlags.SetPreset("System.CpuThreads", adjustedValue.ToString());
+                        OnPropertyChanged(nameof(SelectedCpuThreads));
+                        App.FastFlags.SetPreset("System.CpuCore8", adjustedValue.ToString());
+                        OnPropertyChanged(nameof(SelectedCpuThreads));
+                    }
+                    else
+                    {
+                        App.FastFlags.SetPreset("System.CpuThreads", parsedValue.ToString());
+                        OnPropertyChanged(nameof(SelectedCpuThreads));
+                        App.FastFlags.SetPreset("System.CpuCore8", parsedValue.ToString());
+                        OnPropertyChanged(nameof(SelectedCpuThreads));
+                    }
                 }
                 else
                 {
-                    // Handle the case where value.Value is null or not a valid integer
                     App.FastFlags.SetPreset("System.CpuThreads", null);
                     OnPropertyChanged(nameof(SelectedCpuThreads));
                     App.FastFlags.SetPreset("System.CpuCore8", null);
                     OnPropertyChanged(nameof(SelectedCpuThreads));
                 }
-
             }
         }
 
@@ -1100,18 +1130,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 // Save selected value as-is
                 App.FastFlags.SetPreset("System.CpuCoreMinThreadCount", value.Value);
                 OnPropertyChanged(nameof(SelectedCpuThreads));
-
-                if (value.Value != null && int.TryParse(value.Value, out int parsedValue))
-                {
-                    // Adjust to at least 0 (not below)
-                    int adjustedValue = Math.Max(parsedValue - 1, 1);
-                    App.FastFlags.SetPreset("System.CpuCoreMinThreadCount", adjustedValue.ToString());
-                }
-                else
-                {
-                    App.FastFlags.SetPreset("System.CpuCoreMinThreadCount", null);
-                }
-                OnPropertyChanged(nameof(SelectedCpuCoreMinThreadCount));
             }
         }
 

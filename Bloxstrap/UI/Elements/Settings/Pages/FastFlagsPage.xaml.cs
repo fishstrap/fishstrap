@@ -134,6 +134,8 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 NetworkOutputStabilization,
                 NoPayloadLimit,
                 RCore,
+                NetworkStream,
+                DiskMemoryCacheCounts,
                 LargeReplicator,
                 IncreaseCacheSize,
                 FasterLoadding,

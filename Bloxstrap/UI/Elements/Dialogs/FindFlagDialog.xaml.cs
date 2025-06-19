@@ -282,5 +282,9 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 // ignored
             }
         }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
