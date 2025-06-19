@@ -3518,7 +3518,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reverts the Roblox taskbar icon to the monochrome logo used prior to April 2025. Note: This feature is not guaranteed to always work!”.
+        ///   Looks up a localized string similar to Reverts the Roblox taskbar icon to older roblox icons. Note: This feature is not guaranteed to always work!.
         /// </summary>
         public static string Menu_Behaviour_OldRobloxIcon_Description {
             get {
@@ -3527,7 +3527,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old Roblox Icon.
+        ///   Looks up a localized string similar to Old Roblox Icons.
         /// </summary>
         public static string Menu_Behaviour_OldRobloxIcon_Title {
             get {
@@ -4683,7 +4683,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Minimum Async Thread Count”.
+        ///   Looks up a localized string similar to Set Minimum Async Thread Count.
         /// </summary>
         public static string Menu_FastFlags_Presets_ForceProcessor_Title {
             get {
@@ -5304,7 +5304,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets experimental skybox colors using a combination of fast flags. Note: These settings may be unstable, buggy, or incompatible with certain games.”.
+        ///   Looks up a localized string similar to Sets experimental skybox colors using a combination of fast flags. Note: These settings may be unstable, buggy, or incompatible with certain games..
         /// </summary>
         public static string Menu_FastFlags_Presets_SkyColor_Description {
             get {

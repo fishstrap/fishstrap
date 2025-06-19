@@ -26,15 +26,17 @@
         <controls:OptionControl
     Header="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Title}"
     Description="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Description}">
-            <ComboBox
-        Width="200"
-        Margin="5,0,0,0"
-        Padding="10,5,10,5"
-        ItemsSource="{Binding RobloxIcons}"
-        SelectedItem="{Binding SelectedRobloxIcon, Mode=TwoWay}">
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding RobloxIcons, Mode=OneWay}" SelectedValuePath="IconType" SelectedValue="{Binding SelectedRobloxIcon, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding ., Converter={StaticResource EnumNameConverter}}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Height="16" Source="{Binding ImageSource, Mode=OneWay}" RenderOptions.BitmapScalingMode="HighQuality" />
+                            <TextBlock Grid.Column="1" Margin="8,0,0,0" Text="{Binding Path=IconType, Converter={StaticResource EnumNameConverter}}" />
+                        </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

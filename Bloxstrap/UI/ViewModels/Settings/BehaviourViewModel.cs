@@ -2,11 +2,20 @@
 using Bloxstrap.Enums;
 using Bloxstrap.Integrations;
 using Bloxstrap.RobloxInterfaces;
+using System.Collections.ObjectModel;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
     public class BehaviourViewModel : NotifyPropertyChangedViewModel
     {
+
+        public BehaviourViewModel()
+        {
+
+            foreach (var entry in RobloxIconEx.Selections)
+                RobloxIcons.Add(new RobloxIconEntry { IconType = (RobloxIcon)entry });
+        }
+
         public bool MultiInstances
         {
             get => App.Settings.Prop.MultiInstanceLaunching;
@@ -49,6 +58,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public IEnumerable<RobloxIcon> RobloxIcon { get; } = Enum.GetValues(typeof(RobloxIcon)).Cast<RobloxIcon>();
+
         public RobloxIcon SelectedRobloxIcon
         {
             get => App.Settings.Prop.SelectedRobloxIcon;
@@ -63,8 +74,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        public IEnumerable<RobloxIcon> RobloxIcons { get; } = RobloxIconEx.Selections;
-
+        public ObservableCollection<RobloxIconEntry> RobloxIcons { get; set; } = new();
 
         public CleanerOptions SelectedCleanUpMode
         {
