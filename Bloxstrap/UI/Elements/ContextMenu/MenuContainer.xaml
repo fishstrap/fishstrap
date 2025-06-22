@@ -92,7 +92,7 @@
                             <ColumnDefinition Width="24" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Grid.Column="0" Symbol="Bug24"/>
+                        <ui:SymbolIcon Grid.Column="0" Symbol="DocumentCatchUp20"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="{x:Static resources:Strings.Common_OpenDebugMenu}" />
                     </Grid>
                 </MenuItem.Header>

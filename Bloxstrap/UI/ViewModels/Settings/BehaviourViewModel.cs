@@ -38,26 +38,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.ForceRobloxLanguage = value;
         }
 
-        public bool RobloxWiFiPriorityBoost
-        {
-            get => App.Settings.Prop.RobloxWiFiPriorityBoost;
-            set
-            {
-                if (App.Settings.Prop.RobloxWiFiPriorityBoost == value) return;
-
-                bool success = QosPolicies.TogglePolicy(value);
-                if (success)
-                {
-                    App.Settings.Prop.RobloxWiFiPriorityBoost = value;
-                    OnPropertyChanged(nameof(RobloxWiFiPriorityBoost));
-                }
-                else
-                {
-                    
-                }
-            }
-        }
-
         public IEnumerable<RobloxIcon> RobloxIcon { get; } = Enum.GetValues(typeof(RobloxIcon)).Cast<RobloxIcon>();
 
         public RobloxIcon SelectedRobloxIcon

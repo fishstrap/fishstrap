@@ -801,7 +801,7 @@
                     x:Name="DiskMemoryCacheCounts"
                     Description="Controls whether HTTP requests use a disk memory cache for storing and counting cached data."
                     Header="Manage cached network responses efficiently.">
-                    <ui:ToggleSwitch IsChecked="{Binding FasterLoading, Mode=TwoWay}" />
+                    <ui:ToggleSwitch IsChecked="{Binding DiskMemoryCacheCounts, Mode=TwoWay}" />
                 </controls:OptionControl>
 
                 <controls:OptionControl
@@ -809,7 +809,7 @@
                     Description="{x:Static resources:Strings.Menu_FastFlags_Presets_LargeReplicator_Description}"
                     Header="{x:Static resources:Strings.Menu_FastFlags_Presets_LargeReplicator_Title}"
                     HelpLink="https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#large-replicator">
-                    <ui:ToggleSwitch IsChecked="{Binding EnableLargeReplicator, Mode=TwoWay}" />
+                    <ui:ToggleSwitch IsChecked="{Binding NetworkStream, Mode=TwoWay}" />
                 </controls:OptionControl>
 
                 <controls:OptionControl

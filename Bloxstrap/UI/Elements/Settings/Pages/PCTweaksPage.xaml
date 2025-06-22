@@ -1,0 +1,53 @@
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.PCTweaksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Settings.Pages"
+      xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
+      xmlns:dmodels="clr-namespace:Bloxstrap.UI.ViewModels.Settings"
+      xmlns:resources="clr-namespace:Bloxstrap.Resources"
+      mc:Ignorable="d" 
+      d:DataContext="{d:DesignInstance dmodels:ShortcutsViewModel, IsDesignTimeCreatable=True}"
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="PCTweaksPage"
+      Scrollable="True">
+
+    <StackPanel Margin="0,0,14,14">
+        <TextBlock Margin="0,0,0,16" Text="Optimize your PC with these features" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+
+        <controls:OptionControl
+            Header="Ultra Performance Mode"
+            Description="Optimizes CPU and GPU priority for games. Disables background apps and puts maximum resources into gaming.">
+            <ui:ToggleSwitch IsChecked="{Binding UltraPerformanceMode, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Disable Game DVR"
+            Description="Toggle to disable Game DVR, improving game performance by turning off background recording and Game Bar capture features.">
+            <ui:ToggleSwitch IsChecked="{Binding DisableGameDvr, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="QoS Policy"
+            Description="This boosts Roblox network priority using Windows QoS, helping reduce lag on busy Wi-Fi networks."
+            HelpLink="https://www.fortinet.com/resources/cyberglossary/qos-quality-of-service">
+            <ui:ToggleSwitch IsChecked="{Binding RobloxWiFiPriorityBoost, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Firewall Access"
+            Description="Allow RobloxPlayerBeta.exe through the Windows Firewall for improved connectivity.">
+            <ui:ToggleSwitch IsChecked="{Binding AllowRobloxFirewall, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Network Adapter Optimization"
+            Description="Optimizes your network adapter settings to reduce ping, delay, and packet loss for gaming.">
+            <ui:ToggleSwitch IsChecked="{Binding NetworkAdapterOptimizationEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+
+    </StackPanel>
+</ui:UiPage>

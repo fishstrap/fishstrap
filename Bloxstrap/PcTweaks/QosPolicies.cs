@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Windows;
 
-namespace Bloxstrap.Integrations
+namespace Bloxstrap.PcTweaks
 {
     internal static class QosPolicies
     {
@@ -15,13 +15,12 @@ namespace Bloxstrap.Integrations
         {
             if (!IsRunningAsAdmin())
             {
-                var res = System.Windows.Forms.MessageBox.Show(
+                var res = Frontend.ShowMessageBox(
                     "This feature requires administrator privileges.\n\nRestart Froststrap as administrator?",
-                    "Administrator Required",
-                    System.Windows.Forms.MessageBoxButtons.YesNo,
-                    System.Windows.Forms.MessageBoxIcon.Warning);
+                    MessageBoxImage.Warning,
+                    MessageBoxButton.YesNo);
 
-                if (res == System.Windows.Forms.DialogResult.Yes)
+                if (res == MessageBoxResult.Yes)
                 {
                     RestartElevated();
                 }
@@ -46,7 +45,7 @@ namespace Bloxstrap.Integrations
                     key?.SetValue("PolicyName", "RobloxNetworkBoost", Microsoft.Win32.RegistryValueKind.String);
                     key?.SetValue("Version", 1, Microsoft.Win32.RegistryValueKind.DWord);
                     key?.SetValue("DSCPValue", 46, Microsoft.Win32.RegistryValueKind.DWord);
-                    key?.SetValue("ThrottleRate", unchecked((int)0xFFFFFFFF), Microsoft.Win32.RegistryValueKind.DWord); // -1
+                    key?.SetValue("ThrottleRate", unchecked((int)0xFFFFFFFF), Microsoft.Win32.RegistryValueKind.DWord);
                 }
                 catch
                 {
@@ -65,12 +64,10 @@ namespace Bloxstrap.Integrations
                 }
             }
 
-            System.Windows.Forms.MessageBox.Show(
+            Frontend.ShowMessageBox(
                 "QoS policy updated. Please restart your PC for this to take full effect.",
-                "Restart Recommended",
-                System.Windows.Forms.MessageBoxButtons.OK,
-                System.Windows.Forms.MessageBoxIcon.Information
-            );
+                MessageBoxImage.Information,
+                MessageBoxButton.OK);
 
             return true;
         }

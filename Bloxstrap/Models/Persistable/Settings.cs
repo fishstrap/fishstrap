@@ -18,14 +18,13 @@ namespace Bloxstrap.Models.Persistable
         public bool ConfirmLaunches { get; set; } = true;
         public string Locale { get; set; } = "nil";
         public bool ForceRobloxLanguage { get; set; } = false;
-        public bool RobloxWiFiPriorityBoost { get; set; } = false;
         public bool UseFastFlagManager { get; set; } = true;
-        public CopyFormatMode SelectedCopyFormat { get; set; } = CopyFormatMode.Format1; //change for default value
-        public bool ShowPresetColumn { get; set; } = false; //change for default value
-        public bool ShowFlagCount { get; set; } = false; // change for default value
-        public bool ShowAddWithID { get; set; } = false; // change for default value
+        public CopyFormatMode SelectedCopyFormat { get; set; } = CopyFormatMode.Format1;
+        public bool ShowPresetColumn { get; set; } = false;
+        public bool ShowFlagCount { get; set; } = false;
+        public bool ShowAddWithID { get; set; } = false;
         public List<string> NavigationOrder { get; set; } = new List<string>();
-        public bool IsNavigationOrderLocked { get; set; } = true;  // change for default value
+        public bool IsNavigationOrderLocked { get; set; } = true;
         public bool WPFSoftwareRender { get; set; } = false;
         public bool DisableAnimations { get; set; } = false;
         public bool DisableHardwareAcceleration { get; set; } = false;
@@ -54,5 +53,12 @@ namespace Bloxstrap.Models.Persistable
         public bool BlockRobloxScreenshots { get; set; } = false;
         public RobloxIcon SelectedRobloxIcon { get; set; } = RobloxIcon.Default;
         public string? IconPath { get; set; } = null;
+
+        // Pc tweaks configuration
+        public bool RobloxWiFiPriorityBoost { get; set; } = false;
+        public bool EnableUltraPerformanceMode { get; set; } = false;
+        public bool GameDvrEnabled { get; set; } = false;
+        public bool NetworkAdapterOptimizationEnabled { get; set; } = false;
+        public bool AllowRobloxFirewall { get; set; } = false;
     }
 }

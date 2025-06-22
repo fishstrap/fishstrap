@@ -56,14 +56,6 @@
             <ui:ToggleSwitch IsChecked="{Binding MultiInstances, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <controls:OptionControl
-            Header="QoS Policy"
-            Description="This boosts Roblox network priority using Windows QoS, helping reduce lag on busy Wi-Fi networks."
-            HelpLink="https://www.fortinet.com/resources/cyberglossary/qos-quality-of-service">
-            <ui:ToggleSwitch IsChecked="{Binding RobloxWiFiPriorityBoost, Mode=TwoWay}" />
-        </controls:OptionControl>
-
-
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="True">
             <ui:CardExpander.Header>
                 <Grid>

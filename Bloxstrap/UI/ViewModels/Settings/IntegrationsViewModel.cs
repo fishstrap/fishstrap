@@ -64,7 +64,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool ActivityTrackingEnabled
         {
-            get => App.FastFlags.GetPreset("Flog.Network") == "7";
+            get
+            {
+                return App.Settings.Prop.EnableActivityTracking &&
+                       App.FastFlags.GetPreset("Flog.Network") == "7";
+            }
             set
             {
                 App.FastFlags.SetPreset("Flog.Network", value ? "7" : null);
