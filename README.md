@@ -4,15 +4,15 @@
 > lost access to other github account thats why i was forced to make another github page
 
 <p align="center">
-    <img src="https://github.com/Meddsam/Froststrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="700">
-    <img src="https://github.com/Meddsam/Froststrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="700">
+    <img src="https://github.com/RealMeddsam/Froststrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="700">
+    <img src="https://github.com/RealMeddsam/Froststrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only" width="700">
 </p>
 
 <div align="center">
 
 **Froststrap** is a Bloxstrap/Fishstrap fork aiming to improve features and offer more Performance.
 
-Found any bugs? [Submit an issue](https://github.com/Meddsam/Froststrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/KdR9vpRcUN).
+Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/KdR9vpRcUN).
 
 [![License][badge-repo-license]][repo-license]
 [![Downloads][badge-repo-downloads]][repo-releases]
@@ -65,16 +65,16 @@ Found any bugs? [Submit an issue](https://github.com/Meddsam/Froststrap/issues/n
 ---
 
 <!-- Badge Definitions -->
-[badge-repo-license]:    https://img.shields.io/github/license/Meddsam/Froststrap?style=flat-square
-[badge-repo-downloads]:  https://img.shields.io/github/downloads/Meddsam/Froststrap/latest/total?style=flat-square&color=981bfe
-[badge-repo-latest]:     https://img.shields.io/github/v/release/Meddsam/Froststrap?style=flat-square&color=7a39fb
-[badge-repo-stars]:      https://img.shields.io/github/stars/Meddsam/Froststrap?style=flat-square&color=dd9900
+[badge-repo-license]:    https://img.shields.io/github/license/RealMeddsam/Froststrap?style=flat-square
+[badge-repo-downloads]:  https://img.shields.io/github/downloads/RealMeddsam/Froststrap/latest/total?style=flat-square&color=981bfe
+[badge-repo-latest]:     https://img.shields.io/github/v/release/RealMeddsam/Froststrap?style=flat-square&color=7a39fb
+[badge-repo-stars]:      https://img.shields.io/github/stars/RealMeddsam/Froststrap?style=flat-square&color=dd9900
 [badge-discord]:         https://img.shields.io/discord/1364660238963179520?style=flat-square&logo=discord&logoColor=white&logoSize=auto&label=discord&color=4d3dff
 
-[repo-license]:  https://github.com/Meddsam/Froststrap/blob/main/LICENSE
-[repo-actions]:  https://github.com/Meddsam/Froststrap/actions
-[repo-releases]: https://github.com/Meddsam/Froststrap/releases
-[repo-latest]:   https://github.com/Meddsam/Froststrap/releases/latest
-[repo-stargazer]:   https://github.com/Meddsam/Froststrap/stargazers
+[repo-license]:  https://github.com/RealMeddsam/Froststrap/blob/main/LICENSE
+[repo-actions]:  https://github.com/RealMeddsam/Froststrap/actions
+[repo-releases]: https://github.com/RealMeddsam/Froststrap/releases
+[repo-latest]:   https://github.com/RealMeddsam/Froststrap/releases/latest
+[repo-stargazer]:   https://github.com/RealMeddsam/Froststrap/stargazers
 
 [discord-invite]:  https://discord.gg/KdR9vpRcUN
