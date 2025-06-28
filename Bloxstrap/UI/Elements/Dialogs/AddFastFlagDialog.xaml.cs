@@ -1,6 +1,7 @@
-﻿using Microsoft.Win32;
+﻿using Bloxstrap.Resources;
+using Microsoft.Win32;
 using System.Windows;
-using Bloxstrap.Resources;
+using System.Windows.Controls;
 
 namespace Bloxstrap.UI.Elements.Dialogs
 {
@@ -108,6 +109,12 @@ namespace Bloxstrap.UI.Elements.Dialogs
             Result = MessageBoxResult.OK;
             DialogResult = true;
             Close();
+        }
+
+        private void CommonValuesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CommonValuesComboBox.SelectedItem is ComboBoxItem item)
+                FlagValueTextBox.Text = item.Content.ToString();
         }
 
     }

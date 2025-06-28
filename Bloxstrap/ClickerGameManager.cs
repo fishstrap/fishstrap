@@ -52,7 +52,14 @@ namespace Bloxstrap
 
         public static string FormatTimeSpan(TimeSpan ts) => $"{(int)ts.TotalHours:D2}:{ts.Minutes:D2}:{ts.Seconds:D2}";
 
-        public BigInteger PointsPerClickEffective => new BigInteger((decimal)PointsPerClick * BonusMultiplier);
+        public BigInteger PointsPerClickEffective
+        {
+            get
+            {
+                double multiplier = (double)BonusMultiplier;
+                return new BigInteger((double)(PointsPerClick) * multiplier);
+            }
+        }
 
         public void RaisePointsUpdated() => PointsUpdated?.Invoke();
 
@@ -160,8 +167,8 @@ namespace Bloxstrap
 
         public void Click()
         {
-            decimal pointsToAddDecimal = (decimal)PointsPerClick * BonusMultiplier;
-            var pointsToAdd = new BigInteger(pointsToAddDecimal);
+            double multiplier = (double)BonusMultiplier;
+            var pointsToAdd = new BigInteger((double)(PointsPerClick) * multiplier);
 
             AddPoints(pointsToAdd);
         }

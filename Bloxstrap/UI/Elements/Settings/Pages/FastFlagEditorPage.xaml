@@ -39,16 +39,9 @@
                 Margin="0,0,10,16"
                 VerticalAlignment="Top"
                 Appearance="Danger"
-                Background="#ff3334"
                 Click="DeleteButton_Click"
                 Content="{x:Static resources:Strings.Menu_FastFlagEditor_DeleteSelected}"
                 Icon="SlideEraser24">
-                <ui:Button.PressedBackground>
-                    <SolidColorBrush Opacity="0.7" Color="#ff5c5d" />
-                </ui:Button.PressedBackground>
-                <ui:Button.MouseOverBackground>
-                    <SolidColorBrush Opacity="0.9" Color="#ff5c5d" />
-                </ui:Button.MouseOverBackground>
                 <ui:Button.Style>
                     <Style BasedOn="{StaticResource {x:Type ui:Button}}" TargetType="{x:Type ui:Button}">
                         <Style.Triggers>
@@ -167,6 +160,7 @@
             CanUserDeleteRows="False"
             CanUserReorderColumns="False"
             CellEditEnding="DataGrid_CellEditEnding"
+            PreviewKeyDown="DataGrid_PreviewKeyDown"
             GridLinesVisibility="Horizontal"
             HeadersVisibility="Column">
             <DataGrid.Style>

@@ -41,6 +41,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -52,6 +53,25 @@
 
                     <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Value}" />
                     <TextBox Grid.Row="1" Grid.Column="1" Name="FlagValueTextBox" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                   VerticalAlignment="Center"
+                   MinWidth="100"
+                   Margin="0,0,8,0"
+                   Text="Common Values:" />
+                    <ComboBox Grid.Row="2" Grid.Column="1"
+                   x:Name="CommonValuesComboBox"
+                   Width="200"
+                   Margin="8"
+                   SelectedIndex="0"
+                   SelectionChanged="CommonValuesComboBox_SelectionChanged">
+                        <ComboBoxItem Content="True" />
+                        <ComboBoxItem Content="False" />
+                        <ComboBoxItem Content="1" />
+                        <ComboBoxItem Content="100" />
+                        <ComboBoxItem Content="10000" />
+                        <ComboBoxItem Content="2147483647" />
+                    </ComboBox>
                 </Grid>
             </TabItem>
 

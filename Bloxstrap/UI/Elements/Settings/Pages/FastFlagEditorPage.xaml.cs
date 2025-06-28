@@ -10,9 +10,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Text.Json;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace Bloxstrap.UI.Elements.Settings.Pages
@@ -54,6 +54,27 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             }
         }
 
+        private void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                var selectedItems = DataGrid.SelectedItems.Cast<FastFlag>().ToList();
+
+                if (selectedItems.Count == 0)
+                    return;
+
+                var dict = selectedItems.ToDictionary(
+                    item => item.Name,
+                    item => item.Value
+                );
+
+                string json = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
+
+                Clipboard.SetText(json);
+
+                e.Handled = true;
+            }
+        }
 
         public FastFlagEditorPage()
         {
@@ -133,8 +154,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
-
-
 
         private void ClearSearch(bool refresh = true)
         {
@@ -994,13 +1013,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
 
             UpdateTotalFlagsCount();
-        }
-
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Window.GetWindow(this) is INavigationWindow window)
-                window.Navigate(typeof(FastFlagsPage));
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e) => ShowAddDialog();

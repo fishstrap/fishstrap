@@ -17,12 +17,11 @@
         <TextBlock FontSize="16" Text="{Binding CriticalClickMultiplierFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
         <TextBlock FontSize="16" Text="{Binding UpgradeDiscountFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
         <TextBlock FontSize="16" Text="{Binding BonusPointsOnUpgradeFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
-        <Button Content="Reset Progress"
+        <ui:Button Content="Reset Progress"
         Margin="0,20,0,0"
         HorizontalAlignment="Left"
         Click="ResetProgress_Click"
-        Background="Red"
-        Foreground="White"
+        Appearance="Danger"
         FontWeight="Bold"
         Padding="10,5"/>
 

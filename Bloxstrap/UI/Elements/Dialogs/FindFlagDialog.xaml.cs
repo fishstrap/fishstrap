@@ -61,7 +61,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             if (string.IsNullOrEmpty(selectedSource))
                 return;
 
-            FlagOutputBox.Text = "Loading flags, please wait...";
+            SetFlagOutputText("Loading flags, please wait...");
 
             try
             {
@@ -74,7 +74,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                     _cachedFlagDictionary = mergedFlags;
                     _cachedRawFlags.Clear();
 
-                    FlagOutputBox.Text = JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true });
+                    SetFlagOutputText(JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true }));
                 }
                 else if (selectedSource == "MaximumADHD FVariable")
                 {
@@ -86,7 +86,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
                     _cachedFlagDictionary.Clear();
 
-                    FlagOutputBox.Text = string.Join(Environment.NewLine, _cachedRawFlags);
+                    SetFlagOutputText(string.Join(Environment.NewLine, _cachedRawFlags));
                 }
                 else
                 {
@@ -107,12 +107,12 @@ namespace Bloxstrap.UI.Elements.Dialogs
                         _cachedRawFlags.Clear();
                     }
 
-                    FlagOutputBox.Text = JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true });
+                    SetFlagOutputText(JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true }));
                 }
             }
             catch (Exception ex)
             {
-                FlagOutputBox.Text = $"Error loading flags: {ex.Message}";
+                SetFlagOutputText($"Error loading flags: {ex.Message}");
                 _cachedFlagDictionary.Clear();
                 _cachedRawFlags.Clear();
             }
@@ -234,54 +234,69 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 if (_searchCancellationTokenSource.Token.IsCancellationRequested)
                     return;
 
-                Dispatcher.Invoke(() =>
+                if (string.IsNullOrEmpty(newSearch))
                 {
-                    if (string.IsNullOrEmpty(newSearch))
+                    if (_isCheckAllSelected || _cachedFlagDictionary.Count > 0)
                     {
-                        if (_isCheckAllSelected || _cachedFlagDictionary.Count > 0)
-                        {
-                            FlagOutputBox.Text = JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true });
-                        }
-                        else if (_cachedRawFlags.Count > 0)
-                        {
-                            FlagOutputBox.Text = string.Join(Environment.NewLine, _cachedRawFlags);
-                        }
-                        else
-                        {
-                            FlagOutputBox.Text = string.Empty;
-                        }
+                        SetFlagOutputText(JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true }));
+                    }
+                    else if (_cachedRawFlags.Count > 0)
+                    {
+                        SetFlagOutputText(string.Join(Environment.NewLine, _cachedRawFlags));
                     }
                     else
                     {
-                        if (_isCheckAllSelected || _cachedFlagDictionary.Count > 0)
-                        {
-                            var filteredDict = _cachedFlagDictionary
-                                .Where(kvp => kvp.Key.IndexOf(newSearch, StringComparison.OrdinalIgnoreCase) >= 0)
-                                .OrderBy(kvp => kvp.Key)
-                                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-                            FlagOutputBox.Text = filteredDict.Count > 0
-                                ? JsonSerializer.Serialize(filteredDict, new JsonSerializerOptions { WriteIndented = true })
-                                : "No matching flags found.";
-                        }
-                        else if (_cachedRawFlags.Count > 0)
-                        {
-                            var filteredRaw = _cachedRawFlags
-                                .Where(f => f.IndexOf(newSearch, StringComparison.OrdinalIgnoreCase) >= 0)
-                                .ToList();
-
-                            FlagOutputBox.Text = filteredRaw.Count > 0
-                                ? string.Join(Environment.NewLine, filteredRaw)
-                                : "No matching flags found.";
-                        }
+                        SetFlagOutputText(string.Empty);
                     }
-                });
+                }
+                else
+                {
+                    if (_isCheckAllSelected || _cachedFlagDictionary.Count > 0)
+                    {
+                        var filteredDict = _cachedFlagDictionary
+                            .Where(kvp => kvp.Key.IndexOf(newSearch, StringComparison.OrdinalIgnoreCase) >= 0)
+                            .OrderBy(kvp => kvp.Key)
+                            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+                        SetFlagOutputText(filteredDict.Count > 0
+                            ? JsonSerializer.Serialize(filteredDict, new JsonSerializerOptions { WriteIndented = true })
+                            : "No matching flags found.");
+                    }
+                    else if (_cachedRawFlags.Count > 0)
+                    {
+                        var filteredRaw = _cachedRawFlags
+                            .Where(f => f.IndexOf(newSearch, StringComparison.OrdinalIgnoreCase) >= 0)
+                            .ToList();
+
+                        SetFlagOutputText(filteredRaw.Count > 0
+                            ? string.Join(Environment.NewLine, filteredRaw)
+                            : "No matching flags found.");
+                    }
+                }
             }
             catch (TaskCanceledException)
             {
                 // ignored
             }
         }
+
+        private void SetFlagOutputText(string text)
+        {
+            FlagOutputBox.Text = text;
+            UpdateFlagCount();
+        }
+
+        private void UpdateFlagCount()
+        {
+            int lineCount = 0;
+            if (!string.IsNullOrEmpty(FlagOutputBox.Text))
+            {
+                lineCount = FlagOutputBox.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+            }
+
+            FlagCountTextBlock.Text = $"Total Flag Count: {lineCount}";
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
