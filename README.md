@@ -1,7 +1,7 @@
 > [!CAUTION]
-> This and https://github.com/Meddsam/Froststrap are the only official place to install Froststrap. Any other websites offering downloads or claiming to be us are not controlled by us (Example: Froststrap.com). We strongly recommend **not** downloading from any unofficial sources.
+> This and https://github.com/Meddsam/Froststrap are the only official places to install Froststrap. Any other websites offering downloads or claiming to be us are not controlled by us (Example: Froststrap.com). We strongly recommend **not** downloading from any unofficial sources.
 >
-> lost access to other github account thats why i was forced to make another github page
+> Had to create a new repository due to losing access to my previous github account
 
 <p align="center">
     <img src="https://github.com/RealMeddsam/Froststrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="700">
@@ -29,8 +29,11 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 ### 🧩 Integrations
 - Player logs (join/leave)
 - Message logs
+- Disable Roblox in-game screenshot and video recording system
 - Multi-Instance launching
 - Cleaner
+- Use old Roblox icons in the taskbar
+- Easily use Custom Cursor 
 
 ### 🚩 Fast Flags
 - Flag profiles
@@ -40,6 +43,8 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 - More toggleable Fast Flag Editor features in advanced settings
 - Built-In Flag Lists
 - Check which flags are toggleable in settings
+- Remove invalid and default values, and in the process, update outdated fastflags using Clean List
+- Find any FastFlag inside of Roblox using Find FastFlag
 
 ### 📦 Channels
 - Block Roblox updates
@@ -48,12 +53,16 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 ### 🎨 Appearance
 - Customizable Bootstrapper Launcher
 - Built-In App Themes
-- Custom Mods page
+- Allow you to use a custom font for the app text
+- Change the order of the menu items on the left side
 
 ### ⚙️ Extras
 - Saves the last opened settings page
 - Supports importing settings from Bloxstrap
-- Help Page To Quickly Fix Bugs
+- Help Page to fix bugs quickly
+- Allow you to use built-in PC Tweaks
+- Create a Game Shortcut to join a game easily
+- A Secret page hidden within the app that will give you fun facts!
 
 > *More features are on the roadmap!*
 
