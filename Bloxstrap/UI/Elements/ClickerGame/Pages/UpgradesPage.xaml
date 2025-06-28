@@ -1,0 +1,207 @@
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.ClickerGame.Pages.UpgradesPage"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+           Title="Upgrades"
+           Scrollable="True">
+
+    <StackPanel Margin="0,0,0,20">
+        <TextBlock FontSize="24" FontWeight="Medium" Margin="0,0,0,12" Text="Upgrades" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Double Click Power -->
+            <ui:Button x:Name="DoubleClickPowerButton"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="6"
+                       Padding="12"
+                       Height="160"
+                       HorizontalAlignment="Stretch"
+                       Click="UpgradeButton_Click"
+                       Tag="Upgrade1">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="Double Click Power" TextAlignment="Center" />
+                    <TextBlock FontSize="12"
+                               Margin="0,4,0,0"
+                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                               Text="Doubles the amount of points you get per click."
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               TextAlignment="Center" />
+                    <TextBlock x:Name="DoubleClickPowerPriceText"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Margin="0,6,0,0"
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               TextAlignment="Center" />
+                </StackPanel>
+            </ui:Button>
+
+            <!-- Auto Clicker -->
+            <ui:Button x:Name="AutoClickerButton"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Margin="6"
+                       Padding="12"
+                       Height="160"
+                       HorizontalAlignment="Stretch"
+                       Click="UpgradeButton_Click"
+                       Tag="Upgrade2">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="Auto Clicker" TextAlignment="Center" />
+                    <TextBlock FontSize="12"
+                               Margin="0,4,0,0"
+                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                               Text="Automatically clicks for you every second."
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               TextAlignment="Center" />
+                    <TextBlock x:Name="AutoClickerPriceText"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Margin="0,6,0,0"
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               TextAlignment="Center" />
+                </StackPanel>
+            </ui:Button>
+
+            <!-- Bonus Multiplier -->
+            <ui:Button x:Name="BonusMultiplierButton"
+                       Grid.Row="0"
+                       Grid.Column="2"
+                       Margin="6"
+                       Padding="12"
+                       Height="160"
+                       HorizontalAlignment="Stretch"
+                       Click="UpgradeButton_Click"
+                       Tag="Upgrade3">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="Bonus Multiplier" TextAlignment="Center" />
+                    <TextBlock FontSize="12"
+                               Margin="0,4,0,0"
+                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                               Text="Increases all points earned by 25% per purchase."
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               TextAlignment="Center" />
+                    <TextBlock x:Name="BonusMultiplierPriceText"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Margin="0,6,0,0"
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               TextAlignment="Center" />
+                </StackPanel>
+            </ui:Button>
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Critical Click Chance -->
+            <ui:Button x:Name="CriticalClickChanceButton"
+               Grid.Row="1"
+               Grid.Column="0"
+               Margin="6"
+               Padding="12"
+               Height="160"
+               HorizontalAlignment="Stretch"
+               Click="UpgradeButton_Click"
+               Tag="Upgrade4">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="Critical Click Chance" TextAlignment="Center" />
+                    <TextBlock FontSize="12"
+                       Margin="0,4,0,0"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                       Text="Each click has a chance to deal double points."
+                       TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis"
+                       TextAlignment="Center" />
+                    <TextBlock x:Name="CriticalClickChancePriceText"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Margin="0,6,0,0"
+                       TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis"
+                       TextAlignment="Center" />
+                </StackPanel>
+            </ui:Button>
+
+            <!-- Critical Click Multiplier -->
+            <ui:Button x:Name="CriticalClickMultiplierButton"
+               Grid.Row="1"
+               Grid.Column="1"
+               Margin="6"
+               Padding="12"
+               Height="160"
+               HorizontalAlignment="Stretch"
+               Click="UpgradeButton_Click"
+               Tag="Upgrade5">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="Critical Click Multiplier" TextAlignment="Center" />
+                    <TextBlock FontSize="12"
+                       Margin="0,4,0,0"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                       Text="Increases the points gained from critical clicks."
+                       TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis"
+                       TextAlignment="Center" />
+                    <TextBlock x:Name="CriticalClickMultiplierPriceText"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Margin="0,6,0,0"
+                       TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis"
+                       TextAlignment="Center" />
+                </StackPanel>
+            </ui:Button>
+
+            <!-- Upgrade Discount -->
+            <ui:Button x:Name="UpgradeDiscountButton"
+               Grid.Row="1"
+               Grid.Column="2"
+               Margin="6"
+               Padding="12"
+               Height="160"
+               HorizontalAlignment="Stretch"
+               Click="UpgradeButton_Click"
+               Tag="Upgrade6">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="Upgrade Discount" TextAlignment="Center" />
+                    <TextBlock FontSize="12"
+                       Margin="0,4,0,0"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                       Text="Reduces the price of all upgrades by 5% per purchase (max 50%)."
+                       TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis"
+                       TextAlignment="Center" />
+                    <TextBlock x:Name="UpgradeDiscountPriceText"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Margin="0,6,0,0"
+                       TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis"
+                       TextAlignment="Center" />
+                </StackPanel>
+            </ui:Button>
+        </Grid>
+    </StackPanel>
+</ui:UiPage>

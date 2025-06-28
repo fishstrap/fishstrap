@@ -1,0 +1,38 @@
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.ClickerGame.Pages.ClickerPage"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+           Title="Clicker">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="PointsText"
+                       FontSize="32"
+                       FontWeight="Bold"
+                       Text="Points: 0"
+                       HorizontalAlignment="Center" />
+
+            <StackPanel Margin="0,20,0,10" HorizontalAlignment="Center">
+                <TextBlock FontSize="16"
+                           Text="{Binding AutoclickerStatus, StringFormat=Autoclicker: {0}}"
+                           HorizontalAlignment="Center" />
+                <TextBlock FontSize="16"
+                           Text="{Binding PointsPerClickFormatted, StringFormat=Points per click: {0}}"
+                           HorizontalAlignment="Center" />
+                <ui:Button x:Name="ClickButton"
+                           Width="200"
+                           Height="60"
+                           Padding="10"
+                           Margin="25"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Click="ClickButton_Click"
+                           Content="Click Me!" />
+            </StackPanel>
+        </StackPanel>
+
+        <Canvas x:Name="ClickIndicatorCanvas"
+        IsHitTestVisible="False"
+        Background="Transparent" />
+
+    </Grid>
+</ui:UiPage>

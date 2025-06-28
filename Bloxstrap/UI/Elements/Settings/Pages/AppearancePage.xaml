@@ -258,5 +258,11 @@
                 <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,4,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Appearance_CustomisationIcon_Description}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
             </Grid>
         </ui:CardExpander>
+        <TextBlock Text="5"
+               FontSize="12"
+               Opacity="0.3"
+               HorizontalAlignment="Right"
+               Margin="0,8,4,0"
+               ToolTip="Secret code digit #5" />
     </StackPanel>
 </ui:UiPage>

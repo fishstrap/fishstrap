@@ -32,13 +32,12 @@ namespace Bloxstrap.PcTweaks
                 {
                     string? exePath = TryFindRobloxPlayerBeta();
                     if (string.IsNullOrEmpty(exePath) || !File.Exists(exePath))
-                        exePath = PromptUserToSelectExe();
-
-                    if (string.IsNullOrEmpty(exePath) || !File.Exists(exePath))
                     {
                         Frontend.ShowMessageBox(
-                            "RobloxPlayerBeta.exe was not found or selected. Firewall rule was not added.",
-                            MessageBoxImage.Error);
+                            "Roblox is not installed. Please launch Roblox through Froststrap to use this feature.",
+                            MessageBoxImage.Error,
+                            MessageBoxButton.OK
+                        );
                         return false;
                     }
 

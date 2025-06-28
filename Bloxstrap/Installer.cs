@@ -28,8 +28,10 @@ namespace Bloxstrap
 
         public bool CreateStartMenuShortcuts = true;
 
-        public bool ImportSettings = Directory.Exists(Path.Combine(Paths.LocalAppData, "Bloxstrap")); // if bloxstrap isnt detected this will be set to false
-                                                                                                      // another scenerio is user simply toggling it off
+        public bool ImportSettings = 
+            Directory.Exists(Path.Combine(Paths.LocalAppData, "Bloxstrap")) ||
+            Directory.Exists(Path.Combine(Paths.LocalAppData, "Voidstrap")) ||
+            Directory.Exists(Path.Combine(Paths.LocalAppData, "Fishstrap"));
 
         public bool IsImplicitInstall = false;
 
@@ -124,10 +126,26 @@ namespace Bloxstrap
                     );
                 }
             }
+            else
+            {
+                // If no import, but Modifications and State.json exist, use them
+                string modificationsPath = Paths.Modifications;
+                string statePath = App.State.FileLocation;
 
-            // existing configuration persisting from an earlier install
-            // or from importing settings
-            App.Settings.Load(false);
+                if (Directory.Exists(modificationsPath))
+                {
+                    // Optionally log or notify that existing modifications are being used
+                }
+
+                if (File.Exists(statePath))
+                {
+                    App.State.Load(false);
+                }
+            }
+
+        // existing configuration persisting from an earlier install
+        // or from importing settings
+        App.Settings.Load(false);
             App.State.Load(false);
             App.FastFlags.Load(false);
 
@@ -345,22 +363,21 @@ namespace Bloxstrap
                 }
             };
 
-
             if (!keepData)
             {
                 cleanupSequence.AddRange(new List<Action>
-                {
-                    () => Directory.Delete(Paths.Modifications, true),
-                    () => Directory.Delete(Paths.Logs, true),
+    {
+        () => Directory.Delete(Paths.Modifications, true),
+        () => Directory.Delete(Paths.Logs, true),
+        () => File.Delete(App.Settings.FileLocation),
+        () => File.Delete(App.State.FileLocation)
+    });
 
-                    () => File.Delete(App.Settings.FileLocation)
-                });
+                // Only delete the Froststrap folder if keepData is false
+                bool deleteFolder = Directory.GetFiles(Paths.Base).Length <= 3;
+                if (deleteFolder)
+                    cleanupSequence.Add(() => Directory.Delete(Paths.Base, true));
             }
-
-            bool deleteFolder = Directory.GetFiles(Paths.Base).Length <= 3;
-
-            if (deleteFolder)
-                cleanupSequence.Add(() => Directory.Delete(Paths.Base, true));
 
             if (!playerStillInstalled && !studioStillInstalled && Directory.Exists(robloxFolder))
                 cleanupSequence.Add(() => Directory.Delete(robloxFolder, true));
@@ -386,7 +403,7 @@ namespace Bloxstrap
 
                 string deleteCommand;
 
-                if (deleteFolder)
+                if (!keepData && Directory.GetFiles(Paths.Base).Length <= 3)
                     deleteCommand = $"del /Q \"{Paths.Base}\\*\" && rmdir \"{Paths.Base}\"";
                 else
                     deleteCommand = $"del /Q \"{Paths.Application}\"";
@@ -752,17 +769,17 @@ namespace Bloxstrap
                 string actualSourceFile = fileName;
                 string actualDestFile = fileName;
 
-                if (fileName == "Settings.json" && ImportSource == ImportSettingsFrom.Voidstrap)
-                    actualSourceFile = "AppSettings.json";
-
-                if (fileName == "Mods")
+                if (ImportSource == ImportSettingsFrom.Voidstrap)
                 {
-                    if (ImportSource != ImportSettingsFrom.Voidstrap)
-                        continue;
-                    actualDestFile = "Modifications";
+                    if (fileName == "Settings.json")
+                        actualSourceFile = "AppSettings.json";
+                    if (fileName == "Mods")
+                        actualDestFile = "Modifications";
                 }
 
                 string source = Path.Combine(sourceDir, actualSourceFile);
+                string destination = Path.Combine(InstallLocation, actualDestFile);
+
                 if (!Directory.Exists(source) && !File.Exists(source))
                     continue;
 
@@ -771,20 +788,18 @@ namespace Bloxstrap
 
                 if (isDirectory)
                 {
-                    string existingFile = Path.Combine(InstallLocation, actualDestFile);
-                    if (Directory.Exists(existingFile))
-                        Directory.Delete(existingFile, true);
+                    if (Directory.Exists(destination))
+                        Directory.Delete(destination, true);
 
-                    Directory.CreateDirectory(existingFile);
+                    Directory.CreateDirectory(destination);
                     foreach (string dirPath in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
-                        Directory.CreateDirectory(dirPath.Replace(source, existingFile));
+                        Directory.CreateDirectory(dirPath.Replace(source, destination));
                     foreach (string newPath in Directory.GetFiles(source, "*.*", SearchOption.AllDirectories))
-                        File.Copy(newPath, newPath.Replace(source, existingFile), true);
+                        File.Copy(newPath, newPath.Replace(source, destination), true);
                 }
                 else
                 {
-                    string fileLocation = Path.Combine(InstallLocation, actualDestFile);
-                    File.Copy(source, fileLocation, true);
+                    File.Copy(source, destination, true);
                 }
             }
         }

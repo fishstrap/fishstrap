@@ -54,12 +54,20 @@ namespace Bloxstrap.UI.ViewModels.Installer
 
         public bool ImportSettingsEnabled
         {
-            get => Directory.Exists(installer.BloxstrapInstallDirectory);
+            get
+            {
+                return Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Bloxstrap")) ||
+                       Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Voidstrap")) ||
+                       Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Fishstrap"));
+            }
         }
 
-        public bool ShowNotFound // im lazy
+        public bool ShowNotFound
         {
-            get => !Directory.Exists(installer.BloxstrapInstallDirectory);
+            get
+            {
+                return !ImportSettingsEnabled;
+            }
         }
 
         public ICommand BrowseInstallLocationCommand => new RelayCommand(BrowseInstallLocation);

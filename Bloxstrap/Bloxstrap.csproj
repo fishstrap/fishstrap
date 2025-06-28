@@ -7,27 +7,19 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Bloxstrap.ico</ApplicationIcon>
-    <Version>1.1.2.0</Version>
-    <FileVersion>1.1.2.0</FileVersion>
+    <Version>1.1.3.0</Version>
+    <FileVersion>1.1.3.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Product>$(AssemblyName)</Product>
     <RootNamespace>Bloxstrap</RootNamespace>
   </PropertyGroup>
-    
+
   <ItemGroup>
     <Resource Include="Bloxstrap.ico" />
 	<Resource Include="Resources\Checkmark.ico" />
 	<Resource Include="Resources\CrossMark.ico" />
-	<Resource Include="Resources\CustomModsPage\24kGold.png" />
-	<Resource Include="Resources\CustomModsPage\ArchLinux.png" />
-	<Resource Include="Resources\CustomModsPage\KickPrompt.png" />
-	<Resource Include="Resources\CustomModsPage\Nagi.png" />
-	<Resource Include="Resources\CustomModsPage\Bloxstrap.png" />
-	<Resource Include="Resources\CustomModsPage\Kliko.png" />
-	<Resource Include="Resources\CustomModsPage\Fishstrap.png" />
-	<Resource Include="Resources\CustomModsPage\OneShotSolstriceAnniversary.png" />
 	<Resource Include="Resources\Froststrap Custom Background.png" />
 	<Resource Include="Resources\HelpPage\CommonBootstrapper\ConnectivityIssue.png" />
 	<Resource Include="Resources\HelpPage\CommonBootstrapper\FailedToPreviewError.png" />
@@ -60,8 +52,18 @@
     <Resource Include="Resources\MessageBox\Information.png" />
     <Resource Include="Resources\MessageBox\Question.png" />
     <Resource Include="Resources\MessageBox\Warning.png" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Blue.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-ClassicDark.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Cyan.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Dark.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Forest.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Froststrap.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Green.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Light.xshd" />
+	<EmbeddedResource Include="UI\Style\Editor-Theme-Orange.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Pink.xshd" />
+	<EmbeddedResource Include="UI\Style\Editor-Theme-Purple.xshd" />
+	<EmbeddedResource Include="UI\Style\Editor-Theme-Red.xshd" />
   </ItemGroup>
 
   <ItemGroup>

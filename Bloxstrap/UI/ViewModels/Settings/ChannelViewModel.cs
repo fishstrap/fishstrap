@@ -1,9 +1,11 @@
 ﻿using Bloxstrap.AppData;
 using Bloxstrap.RobloxInterfaces;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
-    public class ChannelViewModel : NotifyPropertyChangedViewModel
+    public class ChannelViewModel : NotifyPropertyChangedViewModel, INotifyPropertyChanged
     {
         private string _oldPlayerVersionGuid = "";
         private string _oldStudioVersionGuid = "";
@@ -11,6 +13,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ChannelViewModel()
         {
             Task.Run(() => LoadChannelDeployInfo(App.Settings.Prop.Channel));
+            _selectedPriority = App.Settings.Prop.SelectedProcessPriority;
         }
 
         public bool UpdateCheckingEnabled
@@ -153,23 +156,22 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.WPFSoftwareRender = value;
         }
 
+        public ObservableCollection<ProcessPriorityOption> ProcessPriorityOptions { get; } =
+            new ObservableCollection<ProcessPriorityOption>(Enum.GetValues(typeof(ProcessPriorityOption)).Cast<ProcessPriorityOption>());
 
         private ProcessPriorityOption _selectedPriority;
-
-        public IReadOnlyList<ProcessPriorityOption> ProcessPriorityOptions { get; } =
-            Enum.GetValues(typeof(ProcessPriorityOption)).Cast<ProcessPriorityOption>().ToList();
-
         public ProcessPriorityOption SelectedPriority
         {
             get => _selectedPriority;
             set
             {
-                if (_selectedPriority != value)
-                {
-                    _selectedPriority = value;
-                    App.Settings.Prop.SelectedProcessPriority = value;
-                    OnPropertyChanged(nameof(SelectedPriority));
-                }
+                if (_selectedPriority == value)
+                    return;
+
+                _selectedPriority = value;
+                App.Settings.Prop.SelectedProcessPriority = value;
+                App.Settings.Save();
+                OnPropertyChanged(nameof(SelectedPriority));
             }
         }
     }

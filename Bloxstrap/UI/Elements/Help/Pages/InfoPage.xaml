@@ -39,9 +39,9 @@
 
         <!-- Links Section -->
         <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
-            <ui:Anchor Margin="0,0,8,8" Content="GitHub Repository" Icon="Code24" NavigateUri="https://github.com/Meddsam/Froststrap" />
+            <ui:Anchor Margin="0,0,8,8" Content="GitHub Repository" Icon="Code24" NavigateUri="https://github.com/RealMeddsam/Froststrap" />
             <ui:Anchor Margin="0,0,8,8" Content="Help Wiki" Icon="BookQuestionMark24" NavigateUri="https://github.com/bloxstraplabs/bloxstrap/wiki" />
-            <ui:Anchor Margin="0,0,8,8" Content="Report an Issue" Icon="BookExclamationMark24" NavigateUri="https://github.com/Meddsam/Froststrap/issues" />
+            <ui:Anchor Margin="0,0,8,8" Content="Report an Issue" Icon="BookExclamationMark24" NavigateUri="https://github.com/RealMeddsam/Froststrap/issues" />
             <ui:Anchor Margin="0,0,0,8" Content="Discord Server" Icon="Chat48" NavigateUri="https://discord.gg/KdR9vpRcUN" />
         </WrapPanel>
 

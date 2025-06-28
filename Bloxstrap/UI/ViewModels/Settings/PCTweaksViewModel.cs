@@ -1,9 +1,4 @@
-﻿using Bloxstrap.Integrations;
-using Bloxstrap.PcTweaks;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Win32;
-using System.IO;
-using System.Windows.Input;
+﻿using Bloxstrap.PcTweaks;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -14,17 +9,15 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.Settings.Prop.RobloxWiFiPriorityBoost;
             set
             {
-                if (App.Settings.Prop.RobloxWiFiPriorityBoost == value) return;
+                if (App.Settings.Prop.RobloxWiFiPriorityBoost == value)
+                    return;
 
                 bool success = QosPolicies.TogglePolicy(value);
                 if (success)
                 {
                     App.Settings.Prop.RobloxWiFiPriorityBoost = value;
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(RobloxWiFiPriorityBoost));
-                }
-                else
-                {
-
                 }
             }
         }
@@ -41,6 +34,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (success)
                 {
                     App.Settings.Prop.EnableUltraPerformanceMode = value;
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(UltraPerformanceMode));
                 }
             }
@@ -59,6 +53,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (success)
                 {
                     App.Settings.Prop.GameDvrEnabled = newEnabledState;
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(DisableGameDvr));
                 }
             }
@@ -76,6 +71,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (success)
                 {
                     App.Settings.Prop.NetworkAdapterOptimizationEnabled = value;
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(NetworkAdapterOptimizationEnabled));
                 }
             }
@@ -93,10 +89,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (success)
                 {
                     App.Settings.Prop.AllowRobloxFirewall = value;
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(AllowRobloxFirewall));
                 }
             }
         }
-
     }
 }

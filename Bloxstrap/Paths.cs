@@ -30,6 +30,8 @@
         public static string RobloxCache { get; private set; } = "";
 
         public static string Application { get; private set; } = "";
+        public static string ShortcutIcons => Path.Combine(LocalAppData, App.ProjectName, "ShortcutIcons");
+
         public static string CustomFont => Path.Combine(Modifications, "content", "fonts", "CustomFont.ttf");
 
         public static bool Initialized => !String.IsNullOrEmpty(Base);
@@ -49,6 +51,10 @@
             CustomThemes = Path.Combine(Base, "CustomThemes");
 
             Application = Path.Combine(Base, $"{App.ProjectName}.exe");
+
+            // Ensure ShortcutIcons directory exists
+            Directory.CreateDirectory(ShortcutIcons);
         }
+
     }
 }

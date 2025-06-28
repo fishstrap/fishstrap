@@ -4,16 +4,17 @@
     <SolidColorBrush x:Key="NewTextEditorLink" Color="#3A9CEA" />
     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#19000000" />
     <Color x:Key="ControlFillColorDefault">#19000000</Color>
-    
+
     <LinearGradientBrush x:Key="WindowBackgroundGradient" StartPoint="1,1" EndPoint="0,0">
-        <GradientStop Offset="0.0" Color="#2D323A" />
-        <GradientStop Offset="0.5" Color="#383F49" />
-        <GradientStop Offset="1.0" Color="#23282F" />
+        <GradientStop Offset="0.0" Color="#4D5560" />
+        <GradientStop Offset="0.5" Color="#383F47" />
+        <GradientStop Offset="1.0" Color="#252A30" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="WindowTransparentBackgroundGradient" StartPoint="1,1" EndPoint="0,0">
-        <GradientStop Offset="0.0" Color="#8C2D323A" />
-        <GradientStop Offset="0.5" Color="#8C383F49" />
-        <GradientStop Offset="1.0" Color="#8C23282F" />
+        <GradientStop Offset="0.0" Color="#8C626B78" />
+        <GradientStop Offset="0.25" Color="#8C4D5560" />
+        <GradientStop Offset="0.5" Color="#8C383F47" />
+        <GradientStop Offset="1.0" Color="#8C252A30" />
     </LinearGradientBrush>
 </ResourceDictionary>

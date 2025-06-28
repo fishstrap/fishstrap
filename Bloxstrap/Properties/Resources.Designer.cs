@@ -283,59 +283,11 @@ namespace Bloxstrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon CottonCandy
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("CottonCandy", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
         internal static System.Drawing.Icon Froststrap
         {
             get
             {
                 object obj = ResourceManager.GetObject("Froststrap", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon Midnight
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("Midnight", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon PurpleMoon
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("PurpleMoon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon RedBlue
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("RedBlue", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

@@ -669,10 +669,10 @@
                 </controls:OptionControl>
 
                 <controls:OptionControl 
-                    x:Name="LowEndHardwareOptimization"
-                    Header="{x:Static resources:Strings.Menu_FastFlags_Presets_AndroidVfs_Title}" 
-                    Description="{x:Static resources:Strings.Menu_FastFlags_Presets_AndroidVfs_Description}">
-                    <ui:ToggleSwitch IsChecked="{Binding AndroidVfs, Mode=TwoWay}" />
+                    x:Name="PreRender"
+                    Header="PreRender" 
+                    Description="Moves the PreRender task located on the off thread after everything else is finished. Note: This will cause huge input delay and f11 crashing">
+                    <ui:ToggleSwitch IsChecked="{Binding Prerender, Mode=TwoWay}" />
                 </controls:OptionControl>
 
                 <controls:OptionControl 
@@ -814,7 +814,7 @@
 
                 <controls:OptionControl
                     x:Name="IncreaseCacheSize"
-                    Description="Increases the cache size which could help stabilize your ping"
+                    Description="Increases the cache size which could help stabilize your ping."
                     Header="Increase Cache Size">
                     <ui:ToggleSwitch IsChecked="{Binding IncreaseCache, Mode=TwoWay}" />
                 </controls:OptionControl>
@@ -931,5 +931,11 @@
             </controls:OptionControl>
 
         </StackPanel>
+        <TextBlock Text="7"
+               FontSize="12"
+               Opacity="0.3"
+               HorizontalAlignment="Right"
+               Margin="0,8,4,0"
+               ToolTip="Secret code digit #4" />
     </StackPanel>
 </ui:UiPage>

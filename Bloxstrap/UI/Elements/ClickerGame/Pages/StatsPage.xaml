@@ -1,0 +1,30 @@
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.ClickerGame.Pages.StatsPage"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+           Title="Stats"
+           Scrollable="True">
+
+    <StackPanel Margin="20" VerticalAlignment="Top" >
+        <TextBlock FontSize="24" FontWeight="Bold" Text="Statistics" Margin="0,0,0,20" />
+
+        <TextBlock FontSize="16" Text="{Binding TotalPointsEarnedFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <TextBlock FontSize="16" Text="{Binding TotalPointsSpentFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <TextBlock FontSize="16" Text="{Binding TotalPlaytimeFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <TextBlock FontSize="16" Text="{Binding TotalPointsFormatted}" Margin="0,0,0,10" FontWeight="SemiBold" />
+        <TextBlock FontSize="16" Text="{Binding PointsPerClickFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <TextBlock FontSize="16" Text="{Binding CriticalClickChanceFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <TextBlock FontSize="16" Text="{Binding CriticalClickMultiplierFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <TextBlock FontSize="16" Text="{Binding UpgradeDiscountFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <TextBlock FontSize="16" Text="{Binding BonusPointsOnUpgradeFormatted}" Margin="0,0,0,10" FontWeight="SemiBold"/>
+        <Button Content="Reset Progress"
+        Margin="0,20,0,0"
+        HorizontalAlignment="Left"
+        Click="ResetProgress_Click"
+        Background="Red"
+        Foreground="White"
+        FontWeight="Bold"
+        Padding="10,5"/>
+
+    </StackPanel>
+</ui:UiPage>

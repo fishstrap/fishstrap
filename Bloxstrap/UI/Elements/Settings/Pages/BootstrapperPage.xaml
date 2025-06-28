@@ -100,6 +100,11 @@ Description="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_IncludeBloxst
             </StackPanel>
         </ui:CardExpander>
 
-
+        <TextBlock Text="5"
+               FontSize="12"
+               Opacity="0.3"
+               HorizontalAlignment="Right"
+               Margin="0,8,4,0"
+               ToolTip="Secret code digit #2" />
     </StackPanel>
 </ui:UiPage>

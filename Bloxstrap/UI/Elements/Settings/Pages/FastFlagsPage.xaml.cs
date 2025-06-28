@@ -121,7 +121,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 MemoryProbing,
                 LightCulling,
                 NewFrameRateSystem,
-                LowEndHardwareOptimization,
+                PreRender,
                 RainbowSky,
                 BlackSky,
                 WhiteSky,

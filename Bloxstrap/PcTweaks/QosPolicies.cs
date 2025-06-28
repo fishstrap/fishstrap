@@ -33,10 +33,14 @@ namespace Bloxstrap.PcTweaks
                 string? exePath = TryFindRobloxPlayerBeta();
 
                 if (string.IsNullOrEmpty(exePath) || !File.Exists(exePath))
-                    exePath = PromptUserToSelectExe();
-
-                if (string.IsNullOrEmpty(exePath))
+                {
+                    Frontend.ShowMessageBox(
+                        "Roblox is not installed. Please launch Roblox through Froststrap to use this feature.",
+                        MessageBoxImage.Error,
+                        MessageBoxButton.OK
+                    );
                     return false;
+                }
 
                 try
                 {

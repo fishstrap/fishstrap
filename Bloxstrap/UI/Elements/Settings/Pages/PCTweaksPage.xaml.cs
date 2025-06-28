@@ -24,8 +24,14 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
     {
         public PCTweaksPage()
         {
-            DataContext = new PCTweaksViewModel();
+            DataContext = new ViewModels.Settings.PCTweaksViewModel();
             InitializeComponent();
+        }
+
+        private void EasterEggButton_Click(object sender, RoutedEventArgs e)
+        {
+            var navService = NavigationService.GetNavigationService(this);
+            navService?.Navigate(new BloxstrapPage());
         }
     }
 }

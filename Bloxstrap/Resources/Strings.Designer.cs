@@ -2766,7 +2766,8 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bloxstrap installation was not found..
+        ///   Looks up a localized string similar to No compatible installation found. Please ensure Bloxstrap, Voidstrap, or Fishstrap 
+        ///is installed in your user profile to import settings..
         /// </summary>
         public static string Installer_InstallationNotFound {
             get {
@@ -3274,7 +3275,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a launch screen style. Note: Dark theme isn’t supported for Legacy or Vista.
+        ///   Looks up a localized string similar to Choose a launch screen style. Note: dark theme isn’t supported for Legacy or Vista.
         ///For more custom launchers, visit the official Bloxstrap Discord server..
         /// </summary>
         public static string Menu_Appearance_Launcher_Description {
@@ -3446,7 +3447,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables hardware acceleration on Frostrap only. Note: You must restart the application in order to see any effects..
+        ///   Looks up a localized string similar to Disables hardware acceleration on Frostrap only. Note: you must restart the application in order to see any effects..
         /// </summary>
         public static string Menu_Behaviour_DisableHardwareAcceleration_Description {
             get {
@@ -3518,7 +3519,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reverts the Roblox taskbar icon to older roblox icons. Note: This feature is not guaranteed to always work!.
+        ///   Looks up a localized string similar to Reverts the Roblox taskbar icon to older roblox icons. Note: this feature is not guaranteed to always work!.
         /// </summary>
         public static string Menu_Behaviour_OldRobloxIcon_Description {
             get {
@@ -3636,7 +3637,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Froststrap will remove old data to save storage space. Note: Feature originally made by Fishstrap..
+        ///   Looks up a localized string similar to Froststrap will remove old data to save storage space. Note: feature originally made by Fishstrap..
         /// </summary>
         public static string Menu_Bootstrapper_CleanUp_Description {
             get {
@@ -4314,7 +4315,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overrides the Vulkan GPU support checks to allow unsupported hardware to run on the Vulkan API. Note: This setting may be highly unstable and can cause severe rendering issues!.
+        ///   Looks up a localized string similar to Overrides the Vulkan GPU support checks to allow unsupported hardware to run on the Vulkan API. Note: this setting may be highly unstable and can cause severe rendering issues!.
         /// </summary>
         public static string Menu_FastFlags_Presets_BypassVulkan_Description {
             get {
@@ -4341,7 +4342,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debloat the in-game Roblox menu. Note: Keep disabled to remove..
+        ///   Looks up a localized string similar to Debloat the in-game Roblox menu. Note: keep disabled to remove..
         /// </summary>
         public static string Menu_FastFlags_Presets_Categories_IngameMenu_Description {
             get {
@@ -4539,7 +4540,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: This setting disables a large majority of Roblox’s voice chat telemetry, but not all..
+        ///   Looks up a localized string similar to Note: this setting disables a large majority of Roblox’s voice chat telemetry, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_DisableVoiceChatTelemetry_Description {
             get {
@@ -4656,7 +4657,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies the maximum number of worker threads Roblox can use for parallel tasks. Note: It’s recommended to set this to the number of logical processors your CPU has..
+        ///   Looks up a localized string similar to Specifies the maximum number of worker threads Roblox can use for parallel tasks. Note: it’s recommended to set this to the number of logical processors your CPU has..
         /// </summary>
         public static string Menu_FastFlags_Presets_ForceLogicalProcessor_Description {
             get {
@@ -4674,7 +4675,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies the minimum threads kept available for async tasks in the Roblox task scheduler. Note: It is recommended to set the value as the number of cores your CPU has minus one..
+        ///   Looks up a localized string similar to Specifies the minimum threads kept available for async tasks in the Roblox task scheduler. Note: it is recommended to set the value as the number of cores your CPU has minus one..
         /// </summary>
         public static string Menu_FastFlags_Presets_ForceProcessor_Description {
             get {
@@ -4755,7 +4756,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets the sky to gray in certain games. Note: This setting does not affect games that use custom skyboxes..
+        ///   Looks up a localized string similar to Sets the sky to gray in certain games. Note: this setting does not affect games that use custom skyboxes..
         /// </summary>
         public static string Menu_FastFlags_Presets_GraySky_Description {
             get {
@@ -4872,7 +4873,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimizes light rendering conducted by the CPU and GPU by reducing unnecessary light calculations. Note: This setting may cause input lag or delay..
+        ///   Looks up a localized string similar to Optimizes light rendering conducted by the CPU and GPU by reducing unnecessary light calculations. Note: this setting may cause input lag or delay..
         /// </summary>
         public static string Menu_FastFlags_Presets_LightCulling_Description {
             get {
@@ -5007,7 +5008,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure the bytes of data that are transferred over your network. Note: Most people can handle MTU sizes from 576–1500..
+        ///   Looks up a localized string similar to Configure the bytes of data that are transferred over your network. Note: most people can handle MTU sizes from 576–1498..
         /// </summary>
         public static string Menu_FastFlags_Presets_MTU_Description {
             get {
@@ -5115,7 +5116,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select the GPU that you want Roblox to use for rendering. Useful if your system has multiple GPUs. Note: This feature also enables DXT support..
+        ///   Looks up a localized string similar to Select the GPU that you want Roblox to use for rendering. Useful if your system has multiple GPUs. Note: this feature also enables DXT support..
         /// </summary>
         public static string Menu_FastFlags_Presets_PreferredGPU_Description {
             get {
@@ -5187,7 +5188,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Potentially improve network performance by applying SignalR optimizations to RCore.
+        ///   Looks up a localized string similar to Potentially improve network performance by applying SignalR optimizations to RCore..
         /// </summary>
         public static string Menu_FastFlags_Presets_RCore_Description {
             get {
@@ -5205,7 +5206,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies a red color to almost all text. Note: This setting does not work with custom fonts!.
+        ///   Looks up a localized string similar to Applies a red color to almost all text. Note: this setting does not work with custom fonts!.
         /// </summary>
         public static string Menu_FastFlags_Presets_RedFont_Description {
             get {
@@ -5259,7 +5260,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes Roblox’s default grass textures. Note: This setting does not affect custom grass textures used by individual games..
+        ///   Looks up a localized string similar to Removes Roblox’s default grass textures. Note: this setting does not affect custom grass textures used by individual games..
         /// </summary>
         public static string Menu_FastFlags_Presets_RemoveGrass_Description {
             get {
@@ -5304,7 +5305,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets experimental skybox colors using a combination of fast flags. Note: These settings may be unstable, buggy, or incompatible with certain games..
+        ///   Looks up a localized string similar to Sets experimental skybox colors. May be unstable or incompatible with some games..
         /// </summary>
         public static string Menu_FastFlags_Presets_SkyColor_Description {
             get {
@@ -5385,7 +5386,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: This setting disables a large majority of Roblox&apos;s telemetry, but not all..
+        ///   Looks up a localized string similar to Note: this setting disables a large majority of Roblox&apos;s telemetry, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_Telemetry_Description {
             get {
@@ -5403,7 +5404,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: This setting blocks some data collection by Tencent and the Chinese government, but not all..
+        ///   Looks up a localized string similar to Note: this setting blocks some data collection by Tencent and the Chinese government, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_Tencent_Description {
             get {
@@ -5421,7 +5422,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjust the texture quality for games. Note: This setting also affects GUI and UI..
+        ///   Looks up a localized string similar to Adjust the texture quality for games. Note: this setting also affects GUI and UI..
         /// </summary>
         public static string Menu_FastFlags_Presets_TextureQuality_Description {
             get {
@@ -5457,7 +5458,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies a variety of random colors to text and UI elements that typically lack color. Note: This setting may cause certain games to look strange and discolored..
+        ///   Looks up a localized string similar to Applies a variety of random colors to text and UI elements that typically lack color. Note: this setting may cause certain games to look strange and discolored..
         /// </summary>
         public static string Menu_FastFlags_Presets_UnthemedInstances_Description {
             get {
@@ -5475,7 +5476,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: This setting disables a large majority of Roblox&apos;s WebView2 telemetry, but not all..
+        ///   Looks up a localized string similar to Note: this setting disables a large majority of Roblox&apos;s WebView2 telemetry, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_WebView2Telemetry_Description {
             get {
@@ -5583,7 +5584,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle the Preset Column which shows toggleable fflags in fastflag setting.
+        ///   Looks up a localized string similar to Toggle the Preset Column which shows toggleable FastFlags in FastFlag Setting.
         /// </summary>
         public static string Menu_FastFlagsEditor_AdvancedSettings_PresetColumn_Description {
             get {
@@ -5601,7 +5602,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle the total flag count in the fastflag editor..
+        ///   Looks up a localized string similar to Toggle the total flag count in the FastFlag Editor..
         /// </summary>
         public static string Menu_FastFlagsEditor_AdvancedSettings_ToggleFlagCount_Description {
             get {
@@ -6291,7 +6292,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables the Roblox screenshot feature. Note: When this feature is enabled, The hotkey combo will no longer work..
+        ///   Looks up a localized string similar to Disables the Roblox screenshot feature. Note: when this feature is enabled, The hotkey combo will no longer work..
         /// </summary>
         public static string Menu_Integrations_BlockScreenShots_Description {
             get {
@@ -6309,7 +6310,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables the Roblox recording feature. Note: When this feature is enabled, The hotkey combo will no longer work..
+        ///   Looks up a localized string similar to Disables the Roblox recording feature. Note: when this feature is enabled, The hotkey combo will no longer work..
         /// </summary>
         public static string Menu_Integrations_BlockVideoRecording_Description {
             get {

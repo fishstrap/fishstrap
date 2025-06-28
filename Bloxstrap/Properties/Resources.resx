@@ -174,28 +174,12 @@
 		<value>..\Resources\Light.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
 	</data>
 
-	<data name="CottonCandy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Resources\CottonCandy.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-	</data>
-
 	<data name="Forest" type="System.Resources.ResXFileRef, System.Windows.Forms">
 		<value>..\Resources\Forest.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
 	</data>
 
 	<data name="Froststrap" type="System.Resources.ResXFileRef, System.Windows.Forms">
 		<value>..\Resources\Froststrap.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-	</data>
-
-	<data name="Midnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Resources\Midnight.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-	</data>
-
-	<data name="PurpleMoon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Resources\PurpleMoon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-	</data>
-
-	<data name="RedBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Resources\RedBlue.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
 	</data>
 
 	<data name="Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">

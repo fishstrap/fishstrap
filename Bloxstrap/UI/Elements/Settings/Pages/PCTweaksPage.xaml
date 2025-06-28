@@ -14,40 +14,50 @@
       Title="PCTweaksPage"
       Scrollable="True">
 
-    <StackPanel Margin="0,0,14,14">
-        <TextBlock Margin="0,0,0,16" Text="Optimize your PC with these features" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+    <Grid>
+        <StackPanel Margin="0,0,14,14">
+            <TextBlock Margin="0,0,0,16" Text="Optimize your PC with these features" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
-        <controls:OptionControl
-            Header="Ultra Performance Mode"
-            Description="Optimizes CPU and GPU priority for games. Disables background apps and puts maximum resources into gaming.">
-            <ui:ToggleSwitch IsChecked="{Binding UltraPerformanceMode, Mode=TwoWay}" />
-        </controls:OptionControl>
+            <ui:InfoBar Grid.Row="1" Margin="0,0,0,8" Padding="8" Title="{x:Static resources:Strings.Menu_FastFlagEditor_BannerTitle}" IsOpen="True" Message="{x:Static resources:Strings.Menu_FastFlagEditor_BannerText}" Severity="Warning" IsClosable="True"  />
 
-        <controls:OptionControl
-            Header="Disable Game DVR"
-            Description="Toggle to disable Game DVR, improving game performance by turning off background recording and Game Bar capture features.">
-            <ui:ToggleSwitch IsChecked="{Binding DisableGameDvr, Mode=TwoWay}" />
-        </controls:OptionControl>
+            <controls:OptionControl
+                Header="Ultra Performance Mode"
+                Description="Optimizes CPU and GPU priority for games. Disables background apps and puts maximum resources into gaming.">
+                <ui:ToggleSwitch IsChecked="{Binding UltraPerformanceMode, Mode=TwoWay}" />
+            </controls:OptionControl>
 
-        <controls:OptionControl
-            Header="QoS Policy"
-            Description="This boosts Roblox network priority using Windows QoS, helping reduce lag on busy Wi-Fi networks."
-            HelpLink="https://www.fortinet.com/resources/cyberglossary/qos-quality-of-service">
-            <ui:ToggleSwitch IsChecked="{Binding RobloxWiFiPriorityBoost, Mode=TwoWay}" />
-        </controls:OptionControl>
+            <controls:OptionControl
+                Header="Disable Game DVR"
+                Description="Toggle to disable Game DVR, improving game performance by turning off background recording and Game Bar capture features.">
+                <ui:ToggleSwitch IsChecked="{Binding DisableGameDvr, Mode=TwoWay}" />
+            </controls:OptionControl>
 
-        <controls:OptionControl
-            Header="Firewall Access"
-            Description="Allow RobloxPlayerBeta.exe through the Windows Firewall for improved connectivity.">
-            <ui:ToggleSwitch IsChecked="{Binding AllowRobloxFirewall, Mode=TwoWay}" />
-        </controls:OptionControl>
+            <controls:OptionControl
+                Header="QoS Policy"
+                Description="This boosts Roblox network priority using Windows QoS, helping reduce lag on busy Wi-Fi networks."
+                HelpLink="https://www.fortinet.com/resources/cyberglossary/qos-quality-of-service">
+                <ui:ToggleSwitch IsChecked="{Binding RobloxWiFiPriorityBoost, Mode=TwoWay}" />
+            </controls:OptionControl>
 
-        <controls:OptionControl
-            Header="Network Adapter Optimization"
-            Description="Optimizes your network adapter settings to reduce ping, delay, and packet loss for gaming.">
-            <ui:ToggleSwitch IsChecked="{Binding NetworkAdapterOptimizationEnabled, Mode=TwoWay}" />
-        </controls:OptionControl>
+            <controls:OptionControl
+                Header="Firewall Access"
+                Description="Allows Roblox through the Windows Firewall for improved connectivity.">
+                <ui:ToggleSwitch IsChecked="{Binding AllowRobloxFirewall, Mode=TwoWay}" />
+            </controls:OptionControl>
 
+            <controls:OptionControl
+                Header="Network Adapter Optimization"
+                Description="Optimizes your network adapter settings to reduce ping, delay, and packet loss for gaming.">
+                <ui:ToggleSwitch IsChecked="{Binding NetworkAdapterOptimizationEnabled, Mode=TwoWay}" />
+            </controls:OptionControl>
+        </StackPanel>
 
-    </StackPanel>
+        <ui:Button x:Name="EasterEggButton"
+        Width="24" Height="24"
+        VerticalAlignment="Bottom"
+        HorizontalAlignment="Left"
+        Margin="4"
+        Opacity="0.2"
+        Click="EasterEggButton_Click"/>
+    </Grid>
 </ui:UiPage>

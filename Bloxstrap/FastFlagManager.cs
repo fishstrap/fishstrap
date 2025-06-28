@@ -115,25 +115,18 @@ namespace Bloxstrap
             { "Debug.Chunks", "FFlagDebugLightGridShowChunks" },
 
             // Increase Cache Size
-            { "Cache.Increase1", "FFlagClearCacheableContentProviderOnGameLaunch" },
-            { "Cache.Increase2", "DFFlagAlwaysSkipDiskCache" },
-            { "Cache.Increase3", "FFlagUseCachedAudibilityMeasurements" },
-            { "Cache.Increase4", "DFIntCachedPatchLoadDelayMilliseconds" },
-            { "Cache.Increase5", "DFIntHttpCacheCleanScheduleAfterMs" },
-            { "Cache.Increase6", "DFIntHttpCacheCleanUpToAvailableSpaceMiB" },
-            { "Cache.Increase7", "DFIntHttpCacheAsyncWriterMaxPendingSize" },
-            { "Cache.Increase8", "DFIntHttpCacheEvictionExemptionMapMaxSize" },
-            { "Cache.Increase9", "DFIntHttpCacheReportSlowWritesMinDuration" },
-            { "Cache.Increase10", "DFIntMemCacheMaxCapacityMB" },
-            { "Cache.Increase11", "DFIntFileCacheReserveSize" },
-            { "Cache.Increase12", "DFIntThirdPartyInMemoryCacheCapacity" },
-            { "Cache.Increase13", "DFIntSoundServiceCacheCleanupMaxAgeDays" },
-            { "Cache.Increase14", "DFIntUserIdPlayerNameCacheLifetimeSeconds" },
-            { "Cache.Increase15", "DFIntAssetCacheErrorLogHundredthsPercent" },
-            { "Cache.Increase16", "DFFlagHttpTrackSyncWriteCachePhase" },
-            { "Cache.Increase17", "DFIntHttpCachePerfSamplingRate" },
-            { "Cache.Increase18", "DFIntHttpCachePerfHundredthsPercent" },
-            { "Cache.Increase19", "DFIntReportCacheDirSizesHundredthsPercent" },
+            { "Cache.Increase1", "DFFlagAlwaysSkipDiskCache" },
+            { "Cache.Increase2", "DFFlagHttpTrackSyncWriteCachePhase" },
+            { "Cache.Increase3", "DFIntCachedPatchLoadDelayMilliseconds" },
+            { "Cache.Increase4", "DFIntHttpCacheCleanScheduleAfterMs" },
+            { "Cache.Increase5", "DFIntHttpCacheCleanUpToAvailableSpaceMiB" },
+            { "Cache.Increase6", "DFIntHttpCacheAsyncWriterMaxPendingSize" },
+            { "Cache.Increase7", "DFIntHttpCacheEvictionExemptionMapMaxSize" },
+            { "Cache.Increase8", "DFIntMemCacheMaxCapacityMB" },
+            { "Cache.Increase9", "DFIntFileCacheReserveSize" },
+            { "Cache.Increase10", "DFIntThirdPartyInMemoryCacheCapacity" },
+            { "Cache.Increase11", "DFIntSoundServiceCacheCleanupMaxAgeDays" },
+            { "Cache.Increase12", "DFIntUserIdPlayerNameCacheLifetimeSeconds" },
 
             // Force Logical Processors
             { "System.CpuCore1", "DFIntInterpolationNumParallelTasks" },
@@ -218,9 +211,6 @@ namespace Bloxstrap
             // Unthemed Instances
             { "UI.UnthemedInstances", "FFlagDebugDisplayUnthemedInstances" },
 
-            // Red Font
-            { "UI.RedFont", "FStringDebugHighlightSpecificFont" },
-
             // Disable Layered Clothing
             { "UI.DisableLayeredClothing", "DFIntLCCageDeformLimit" },
 
@@ -245,7 +235,10 @@ namespace Bloxstrap
 
             // Light Cullings
             { "System.GpuCulling", "FFlagFastGPULightCulling3" },
-            { "System.CpuCulling", "FFlagDebugForceFSMCPULightCulling" },           
+            { "System.CpuCulling", "FFlagDebugForceFSMCPULightCulling" },
+            
+            // Prerender (Prerenderv2 is enabled by default so there is no need to add it here)
+            { "Rendering.Prerender", "FFlagMovePrerender" },
 
             // Unlimited Camera Distance
             { "Rendering.Camerazoom","FIntCameraMaxZoomDistance" },
@@ -260,9 +253,6 @@ namespace Bloxstrap
 
             // Task Scheduler Avoid sleep
             { "Rendering.AvoidSleep", "DFFlagTaskSchedulerAvoidSleep" },
-
-            // Low Quality on Low-End Devices
-            { "Rendering.AndroidVfs", "FStringAndroidVfsLowspecHwCondition" },
 
             // Lighting technology
             { "Rendering.Lighting.Voxel", "DFFlagDebugRenderForceTechnologyVoxel" },
@@ -282,6 +272,7 @@ namespace Bloxstrap
 
             // Fonts
             { "UI.FontSize", "FIntFontSizePadding" },
+            { "UI.RedFont", "FStringDebugHighlightSpecificFont" },
 
             // RCore
             { "Network.RCore1", "DFIntSignalRCoreServerTimeoutMs"},
@@ -292,15 +283,15 @@ namespace Bloxstrap
             { "Network.RCore6", "DFIntSignalRCoreHubMaxBackoffMs"},
 
             // Large Replicator
-            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled6"},
+            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled7"},
             { "Network.LargeReplicatorWrite", "FFlagLargeReplicatorWrite5"},
             { "Network.LargeReplicatorRead", "FFlagLargeReplicatorRead5"},
+            { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead3"},
+            { "Network.SerializeWrite", "FFlagLargeReplicatorSerializeWrite3"},
             { "Network.EngineModule1", "FFlagGlobalSettingsEngineModule3"},
             { "Network.EngineModule2", "DFFlagLargeReplicatorEngineModule"},
-            { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead2"},
-            { "Network.SerializeWrite", "FFlagLargeReplicatorSerializeWrite2"},
 
-            //MTU Size
+            // MTU Size
             { "Network.Mtusize","DFIntConnectionMTUSize" },
 
             // Dynamic Render Resolution
@@ -319,8 +310,6 @@ namespace Bloxstrap
 
             // Refresh Rate
             { "System.TargetRefreshRate1", "DFIntGraphicsOptimizationModeFRMFrameRateTarget" },
-            { "System.TargetRefreshRate2", "DFIntGraphicsOptimizationModeMaxFrameTimeTargetMs" },
-            { "System.TargetRefreshRate3", "DFIntGraphicsOptimizationModeMinFrameTimeTargetMs" },
     
             // GPU
             { "System.PreferredGPU", "FStringDebugGraphicsPreferredGPUName"},
@@ -333,6 +322,18 @@ namespace Bloxstrap
             { "Menu.LanguageSelector", "FIntV1MenuLanguageSelectionFeaturePerMillageRollout" },
             { "Menu.Framerate", "FFlagGameBasicSettingsFramerateCap5"},
             { "Menu.ChatTranslation", "FFlagChatTranslationSettingEnabled3" },
+
+            // Better DX10
+            { "Rendering.Mode.D3D10Compute", "FFlagGraphicsEnableD3D10Compute"},
+            { "Rendering.Mode.D3D10GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D10"},
+            { "Rendering.Mode.D3D11GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D11"},
+
+            // Better Vulkan
+            { "Rendering.Mode.DisableVulkan1", "FFlagDebugGraphicsDisableVulkan"},
+            { "Rendering.Mode.DisableVulkan2", "FFlagDebugGraphicsDisableVulkan11"},
+            { "Rendering.Mode.VulkanDisablePreRotate", "FFlagDebugVulkanDisablePreRotate"},
+            { "Rendering.Mode.VulkanBonuxMemory", "FFlagGraphicsVulkanBonusMemory"},
+            { "Rendering.Mode.VulkanGlobalInstancing", "FFlagRenderEnableGlobalInstancingVulkan"},
         };
 
         public static IReadOnlyDictionary<RenderingMode, string> RenderingModes => new Dictionary<RenderingMode, string>

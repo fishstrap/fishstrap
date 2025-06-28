@@ -34,10 +34,10 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
-    Header="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Title}"
-    Description="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Description}"
-    HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#logs-menu"
-    IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            Header="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Title}"
+            Description="{x:Static resources:Strings.Menu_Integrations_PlayerMessageLogs_Description}"
+            HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#logs-menu"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
             <ui:ToggleSwitch IsChecked="{Binding PlayerLogsEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
@@ -166,5 +166,11 @@
                 </TextBlock.Style>
             </TextBlock>
         </Grid>
+        <TextBlock Text="1"
+               FontSize="12"
+               Opacity="0.3"
+               HorizontalAlignment="Right"
+               Margin="0,8,4,0"
+               ToolTip="Secret code digit #1" />
     </StackPanel>
 </ui:UiPage>

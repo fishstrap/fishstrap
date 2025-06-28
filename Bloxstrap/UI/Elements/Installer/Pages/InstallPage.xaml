@@ -73,7 +73,7 @@
             </controls:OptionControl>
 
             <controls:OptionControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,4,0"
-            Header="{x:Static resources:Strings.Installer_ImportSettings}"
+            Header="Import Settings From"
             Description="Choose which application's settings to import into this installation.">
                 <ComboBox Width="120"
               ItemsSource="{Binding ImportSourceOptions}"
