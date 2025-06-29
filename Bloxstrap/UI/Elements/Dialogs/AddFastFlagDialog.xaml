@@ -67,17 +67,15 @@
                    SelectionChanged="CommonValuesComboBox_SelectionChanged">
                         <ComboBoxItem Content="True" />
                         <ComboBoxItem Content="False" />
-                        <ComboBoxItem Content="0" />
-                        <ComboBoxItem Content="1" />
-                        <ComboBoxItem Content="-1" />
-                        <ComboBoxItem Content="10" />
-                        <ComboBoxItem Content="-10" />
-                        <ComboBoxItem Content="100" />
-                        <ComboBoxItem Content="-100" />
-                        <ComboBoxItem Content="1000" />
-                        <ComboBoxItem Content="-1000" />
+                        <ComboBoxItem Content="null" />
+                        <ComboBoxItem Content="64" />
+                        <ComboBoxItem Content="128" />
+                        <ComboBoxItem Content="256" />
+                        <ComboBoxItem Content="512" />
+                        <ComboBoxItem Content="1024" />
+                        <ComboBoxItem Content="2048" />
+                        <ComboBoxItem Content="4096" />
                         <ComboBoxItem Content="10000" />
-                        <ComboBoxItem Content="-10000" />
                         <ComboBoxItem Content="2147483647" />
                         <ComboBoxItem Content="-2147483648" />
                     </ComboBox>

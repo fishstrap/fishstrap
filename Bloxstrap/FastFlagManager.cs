@@ -297,8 +297,8 @@ namespace Bloxstrap
             { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled6"},
             { "Network.LargeReplicatorWrite", "FFlagLargeReplicatorWrite5"},
             { "Network.LargeReplicatorRead", "FFlagLargeReplicatorRead5"},
-            { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead3"},
-            { "Network.SerializeWrite", "FFlagLargeReplicatorSerializeWrite3"},
+            { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead2"},
+            { "Network.SerializeWrite", "FFlagLargeReplicatorSerializeWrite2"},
             { "Network.EngineModule1", "FFlagGlobalSettingsEngineModule3"},
             { "Network.EngineModule2", "DFFlagLargeReplicatorEngineModule"},
 
