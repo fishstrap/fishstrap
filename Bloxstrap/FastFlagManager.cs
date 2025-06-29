@@ -294,7 +294,7 @@ namespace Bloxstrap
             { "Network.RCore6", "DFIntSignalRCoreHubMaxBackoffMs"},
 
             // Large Replicator
-            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled7"},
+            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled6"},
             { "Network.LargeReplicatorWrite", "FFlagLargeReplicatorWrite5"},
             { "Network.LargeReplicatorRead", "FFlagLargeReplicatorRead5"},
             { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead3"},
