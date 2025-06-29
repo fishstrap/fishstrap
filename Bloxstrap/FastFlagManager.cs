@@ -75,17 +75,12 @@ namespace Bloxstrap
 
             // Disable Ads
             { "UI.DisableAds1", "FFlagAdServiceEnabled" },
-            { "UI.DisableAds2", "FFlagEnableSponsoredAdsGameCarouselTooltip3" },
-            { "UI.DisableAds3", "FFlagEnableSponsoredAdsPerTileTooltipExperienceFooter" },
-            { "UI.DisableAds4", "FFlagEnableSponsoredAdsSeeAllGamesListTooltip" },
-            { "UI.DisableAds5", "FFlagEnableSponsoredTooltipForAvatarCatalog2" },
-            { "UI.DisableAds6", "FFlagLuaAppSponsoredGridTiles" },
+            { "UI.DisableAds2", "FFlagEnableRewardedVideoInAdService15" },
+            { "UI.DisableAds3", "FLogAdService" },
+
 
             // Pseudolocalization
             { "UI.Pseudolocalization", "FFlagDebugEnablePseudolocalization" },
-
-            // Disk Memory Cache Counts
-            { "Network.DiskMemoryCacheCounts", "DFFlagHttpDiskMemoryCacheCounts" },
 
             // Disable Ads
             { "Network.Stream1", "DFIntNetworkStreamInitSize" },
@@ -116,7 +111,6 @@ namespace Bloxstrap
 
             // Increase Cache Size
             { "Cache.Increase1", "DFFlagAlwaysSkipDiskCache" },
-            { "Cache.Increase2", "DFFlagHttpTrackSyncWriteCachePhase" },
             { "Cache.Increase3", "DFIntCachedPatchLoadDelayMilliseconds" },
             { "Cache.Increase4", "DFIntHttpCacheCleanScheduleAfterMs" },
             { "Cache.Increase5", "DFIntHttpCacheCleanUpToAvailableSpaceMiB" },
@@ -125,7 +119,6 @@ namespace Bloxstrap
             { "Cache.Increase8", "DFIntMemCacheMaxCapacityMB" },
             { "Cache.Increase9", "DFIntFileCacheReserveSize" },
             { "Cache.Increase10", "DFIntThirdPartyInMemoryCacheCapacity" },
-            { "Cache.Increase11", "DFIntSoundServiceCacheCleanupMaxAgeDays" },
             { "Cache.Increase12", "DFIntUserIdPlayerNameCacheLifetimeSeconds" },
 
             // Force Logical Processors
@@ -143,28 +136,23 @@ namespace Bloxstrap
             // Telemetry
             { "Telemetry.GraphicsQualityUsage", "DFFlagGraphicsQualityUsageTelemetry" },
             { "Telemetry.GpuVsCpuBound", "DFFlagGpuVsCpuBoundTelemetry" },
-            { "Telemetry.RenderFidelity", "DFFlagSendRenderFidelityTelemetry" },
             { "Telemetry.RenderDistance", "DFFlagReportRenderDistanceTelemetry" },
             { "Telemetry.AudioPlugin", "DFFlagCollectAudioPluginTelemetry" },
-            { "Telemetry.FmodErrors", "DFFlagEnableFmodErrorsTelemetry" },
             { "Telemetry.SoundLength", "DFFlagRccLoadSoundLengthTelemetryEnabled" },
             { "Telemetry.AssetRequestV1", "DFFlagReportAssetRequestV1Telemetry" },
             { "Telemetry.DeviceRAM", "DFFlagRobloxTelemetryAddDeviceRAMPointsV2" },
             { "Telemetry.V2FrameRateMetrics", "DFFlagEnableTelemetryV2FRMStats" },
-            { "Telemetry.GlobalSkipUpdating", "DFFlagEnableSkipUpdatingGlobalTelemetryInfo2" },
+            { "Telemetry.GlobalSkipUpdating", "DFFlagEnableSkipUpdatingGlobalTelemetryInfo5" },
             { "Telemetry.CallbackSafety", "DFFlagEmitSafetyTelemetryInCallbackEnable" },
-            { "Telemetry.V2PointEncoding", "DFFlagRobloxTelemetryV2PointEncoding" },
-            { "Telemetry.ReplaceSeparator", "DFFlagDSTelemetryV2ReplaceSeparator" },
-            { "Telemetry.TelemetryV2Url", "DFStringTelemetryV2Url" },
             { "Telemetry.Protocol", "FFlagEnableTelemetryProtocol" },
             { "Telemetry.TelemetryService", "FFlagEnableTelemetryService1" },
             { "Telemetry.PropertiesTelemetry", "FFlagPropertiesEnableTelemetry" },
-            { "Telemetry.OpenTelemetry", "FFlagOpenTelemetryEnabled" },
+            { "Telemetry.OpenTelemetry", "FFlagOpenTelemetryEnabled2" },
             { "Telemetry.FLogTelemetry", "FLogRobloxTelemetry" },
+            { "Telemetry.Reliability", "DFStringRobloxTelemetryReliabilityCountAllowList" },
+            { "Telemetry.MemoryTracking", "FFlagDisableMemoryTracking" },
 
             // Voicechat Telemetry
-            { "Telemetry.Voicechat1", "DFFlagVoiceChatCullingRecordEventIngestTelemetry" },
-            { "Telemetry.Voicechat2", "DFFlagVoiceChatJoinProfilingUsingTelemetryStat_RCC" },
             { "Telemetry.Voicechat3", "DFFlagVoiceChatPossibleDuplicateSubscriptionsTelemetry" },
             { "Telemetry.Voicechat4", "DFIntVoiceChatTaskStatsTelemetryThrottleHundrethsPercent" },
             { "Telemetry.Voicechat5", "FFlagEnableLuaVoiceChatAnalyticsV2" },
@@ -174,17 +162,14 @@ namespace Bloxstrap
             { "Telemetry.Voicechat9", "FFlagLuaVoiceChatAnalyticsUsePointsV2" },
             { "Telemetry.Voicechat10", "FFlagVoiceChatCullingEnableMutedSubsTelemetry" },
             { "Telemetry.Voicechat11", "FFlagVoiceChatCullingEnableStaleSubsTelemetry" },
-            { "Telemetry.Voicechat14", "FFlagVoiceChatCustomAudioMixerEnableUpdateSourcesTelemetry2" },
             { "Telemetry.Voicechat15", "FFlagVoiceChatDontSendTelemetryForPubIceTrickle" },
             { "Telemetry.Voicechat16", "FFlagVoiceChatPeerConnectionTelemetryDetails" },
             { "Telemetry.Voicechat17", "FFlagVoiceChatRobloxAudioDeviceUpdateRecordedBufferTelemetryEnabled" },
             { "Telemetry.Voicechat18", "FFlagVoiceChatSubscriptionsDroppedTelemetry" },
             { "Telemetry.Voicechat19", "FIntLuaVoiceChatAnalyticsPointsThrottle" },
-            { "Telemetry.Voicechat20", "FIntVoiceChatPerfSensitiveTelemetryIntervalSeconds" },
 
             // Webview2 telemetry
-            { "Telemetry.Webview1", "DFStringWebviewUrlAllowlist" },
-            { "Telemetry.Webview2", "DFFlagWindowsWebViewTelemetryEnabled" },
+            { "Telemetry.Webview1", "DFFlagWindowsWebViewTelemetryEnabled" },
             { "Telemetry.Webview3", "DFIntMacWebViewTelemetryThrottleHundredthsPercent" },
             { "Telemetry.Webview4", "DFIntWindowsWebViewTelemetryThrottleHundredthsPercent" },
             { "Telemetry.Webview5", "FIntStudioWebView2TelemetryHundredthsPercent" },
@@ -194,11 +179,20 @@ namespace Bloxstrap
             // Block Tencent
             { "Telemetry.Tencent1", "FStringTencentAuthPath" },
             { "Telemetry.Tencent2", "FLogTencentAuthPath" },
-            { "Telemetry.Tencent3", "FStringXboxExperienceGuidelinesUrl" },
             { "Telemetry.Tencent4", "FStringExperienceGuidelinesExplainedPageUrl" },
             { "Telemetry.Tencent5", "DFFlagPolicyServiceReportIsNotSubjectToChinaPolicies" },
-            { "Telemetry.Tencent6", "DFFlagPolicyServiceReportDetailIsNotSubjectToChinaPolicies" },
             { "Telemetry.Tencent7", "DFIntPolicyServiceReportDetailIsNotSubjectToChinaPoliciesHundredthsPercentage" },
+
+            // Block VNG (Vietnamese goverment)
+            { "Telemetry.VNG1", "FFlagAllowVngWebshopDomainInBrowserService" },
+            { "Telemetry.VNG2", "FFlagEnableHidePremiumForVngUsers" },
+            { "Telemetry.VNG3", "FFlagEnablePreSignedVngShopRedirectUrl" },
+            { "Telemetry.VNG4", "FFlagEnableVNGNewAppAvailableModal" },
+            { "Telemetry.VNG5", "FFlagLuaAppHomeVngAppUpsell" },
+            { "Telemetry.VNG6", "FFlagVngLogoutGlobalAppSessionsOnConversion" },
+            { "Telemetry.VNG7", "FFlagVngTOSRevisedEnabled" },
+            { "Telemetry.VNG8", "FStringVngAppUpsellUrl" },
+            { "Telemetry.VNG9", "FStringVNGWebshopUrl" },
 
             
             // Minimal Rendering
@@ -206,7 +200,6 @@ namespace Bloxstrap
 
             // Remove Sky/Clouds
             { "Rendering.NoFrmBloom", "FFlagRenderNoLowFrmBloom"},
-            { "Rendering.FRMRefactor", "FFlagFRMRefactor"},
 
             // Unthemed Instances
             { "UI.UnthemedInstances", "FFlagDebugDisplayUnthemedInstances" },
@@ -250,6 +243,24 @@ namespace Bloxstrap
             { "Rendering.Mode.Vulkan", "FFlagDebugGraphicsPreferVulkan" },
             { "Rendering.Mode.OpenGL", "FFlagDebugGraphicsPreferOpenGL" },
             { "Rendering.Mode.D3D10", "FFlagDebugGraphicsPreferD3D11FL10" },
+
+            // Better DX10
+            { "Rendering.Mode.D3D10Compute", "FFlagGraphicsEnableD3D10Compute"},
+            { "Rendering.Mode.D3D10GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D10"},
+            { "Rendering.Mode.D3D11GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D11"},
+
+            // Better Vulkan
+            { "Rendering.Mode.DisableVulkan1", "FFlagDebugGraphicsDisableVulkan"},
+            { "Rendering.Mode.DisableVulkan2", "FFlagDebugGraphicsDisableVulkan11"},
+            { "Rendering.Mode.VulkanDisablePreRotate", "FFlagDebugVulkanDisablePreRotate"},
+            { "Rendering.Mode.VulkanBonuxMemory", "FFlagGraphicsVulkanBonusMemory"},
+            { "Rendering.Mode.VulkanGlobalInstancing", "FFlagRenderEnableGlobalInstancingVulkan"},
+
+            // Better Metal
+            { "Rendering.Mode.MetalAnalytics", "FIntGraphicsMetalAnalyticsHundredthPercent"},
+            { "Rendering.Mode.MetalShaderCookie1", "FFlagGraphicsMetalShaderCookie"},
+            { "Rendering.Mode.MetalShaderCookie2", "FFlagGraphicsMetalShaderCookie16"},
+            { "Rendering.Mode.MetalGlobalInstancing", "FFlagRenderEnableGlobalInstancingMetal"},
 
             // Task Scheduler Avoid sleep
             { "Rendering.AvoidSleep", "DFFlagTaskSchedulerAvoidSleep" },
@@ -322,18 +333,6 @@ namespace Bloxstrap
             { "Menu.LanguageSelector", "FIntV1MenuLanguageSelectionFeaturePerMillageRollout" },
             { "Menu.Framerate", "FFlagGameBasicSettingsFramerateCap5"},
             { "Menu.ChatTranslation", "FFlagChatTranslationSettingEnabled3" },
-
-            // Better DX10
-            { "Rendering.Mode.D3D10Compute", "FFlagGraphicsEnableD3D10Compute"},
-            { "Rendering.Mode.D3D10GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D10"},
-            { "Rendering.Mode.D3D11GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D11"},
-
-            // Better Vulkan
-            { "Rendering.Mode.DisableVulkan1", "FFlagDebugGraphicsDisableVulkan"},
-            { "Rendering.Mode.DisableVulkan2", "FFlagDebugGraphicsDisableVulkan11"},
-            { "Rendering.Mode.VulkanDisablePreRotate", "FFlagDebugVulkanDisablePreRotate"},
-            { "Rendering.Mode.VulkanBonuxMemory", "FFlagGraphicsVulkanBonusMemory"},
-            { "Rendering.Mode.VulkanGlobalInstancing", "FFlagRenderEnableGlobalInstancingVulkan"},
         };
 
         public static IReadOnlyDictionary<RenderingMode, string> RenderingModes => new Dictionary<RenderingMode, string>

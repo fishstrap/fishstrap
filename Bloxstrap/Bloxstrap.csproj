@@ -108,8 +108,10 @@
 	<EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Default Graphics V4" />
     <EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Low Graphics V9" />
 	<EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Trash Graphics V15" />
+	<EmbeddedResource Include="Resources\PresetFlags\Pure Fps List by Froststrap" />
+	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28DX11%29" />
+	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28Vulkan%29" />
 	<EmbeddedResource Include="Resources\PresetFlags\Scroom%27s Unplayable Graphics" />
-	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V3 x Unterial V5" />
 	<EmbeddedResource Include="Resources\PresetFlags\5070%27s Latency Pack V30" />
   </ItemGroup>
 

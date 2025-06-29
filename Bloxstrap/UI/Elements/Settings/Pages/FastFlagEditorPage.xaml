@@ -104,12 +104,11 @@
             <TextBlock 
                 x:Name="TotalFlagsTextBlock"
                 Margin="10,5" 
+                FontWeight="SemiBold"
                 Text="{Binding FlagCountText}"
                 Visibility="{Binding ShowFlagCount, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
         </WrapPanel>
-
-
 
         <!--  Search Container with suggestion box -->
         <Grid

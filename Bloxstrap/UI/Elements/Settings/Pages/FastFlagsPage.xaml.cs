@@ -113,6 +113,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 WebView2Telemetry,
                 VoiceChatTelemetry,
                 BlockTencent,
+                BlockVNG,
             };
 
             _experimentalOptions = new List<FrameworkElement>
@@ -125,7 +126,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 RainbowSky,
                 BlackSky,
                 WhiteSky,
-                SmoothTextures,
                 LowPolyMeshes,
                 FrameCreationBufferPercentage,
                 StartingGraphicsLevel,
@@ -135,7 +135,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 NoPayloadLimit,
                 RCore,
                 NetworkStream,
-                DiskMemoryCacheCounts,
                 LargeReplicator,
                 IncreaseCacheSize,
                 FasterLoadding,

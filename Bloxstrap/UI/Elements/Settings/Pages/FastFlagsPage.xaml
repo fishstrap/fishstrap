@@ -537,6 +537,13 @@
                     <ui:ToggleSwitch IsChecked="{Binding BlockTencent, Mode=TwoWay}" />
                 </controls:OptionControl>
 
+                <controls:OptionControl
+                    x:Name="BlockVNG"
+                    Description="{x:Static resources:Strings.Menu_FastFlags_Presets_VNG_Description}"
+                    Header="{x:Static resources:Strings.Menu_FastFlags_Presets_VNG_Title}">
+                    <ui:ToggleSwitch IsChecked="{Binding BlockVng, Mode=TwoWay}" />
+                </controls:OptionControl>
+
             </StackPanel>
         </ui:CardExpander>
 
@@ -659,13 +666,6 @@
                     Header="{x:Static resources:Strings.Menu_FastFlags_Presets_NewFPSSystem_Title}" 
                     Description="{x:Static resources:Strings.Menu_FastFlags_Presets_NewFPSSystem_Description}">
                     <ui:ToggleSwitch IsChecked="{Binding NewFpsSystem, Mode=TwoWay}" />
-                </controls:OptionControl>
-
-                <controls:OptionControl 
-                    x:Name="SmoothTextures"
-                    Header="{x:Static resources:Strings.Menu_FastFlags_Presets_SmoothTextures_Title}" 
-                    Description="{x:Static resources:Strings.Menu_FastFlags_Presets_SmoothTextures_Description}">
-                    <ui:ToggleSwitch IsChecked="{Binding SmoothTextures, Mode=TwoWay}" />
                 </controls:OptionControl>
 
                 <controls:OptionControl 
@@ -794,14 +794,7 @@
                     x:Name="NetworkStream"
                     Description="In streaming, clients load only nearby areas, enabling faster joins, lower memory use, and better performance."
                     Header="Network Stream">
-                    <ui:ToggleSwitch IsChecked="{Binding IncreaseCache, Mode=TwoWay}" />
-                </controls:OptionControl>
-
-                <controls:OptionControl
-                    x:Name="DiskMemoryCacheCounts"
-                    Description="Controls whether HTTP requests use a disk memory cache for storing and counting cached data."
-                    Header="Manage cached network responses efficiently.">
-                    <ui:ToggleSwitch IsChecked="{Binding DiskMemoryCacheCounts, Mode=TwoWay}" />
+                    <ui:ToggleSwitch IsChecked="{Binding NetworkStream, Mode=TwoWay}" />
                 </controls:OptionControl>
 
                 <controls:OptionControl
@@ -809,7 +802,7 @@
                     Description="{x:Static resources:Strings.Menu_FastFlags_Presets_LargeReplicator_Description}"
                     Header="{x:Static resources:Strings.Menu_FastFlags_Presets_LargeReplicator_Title}"
                     HelpLink="https://github.com/Meddsam/Froststrap/wiki/A-guide-to-FastFlags#large-replicator">
-                    <ui:ToggleSwitch IsChecked="{Binding NetworkStream, Mode=TwoWay}" />
+                    <ui:ToggleSwitch IsChecked="{Binding LargeReplicator, Mode=TwoWay}" />
                 </controls:OptionControl>
 
                 <controls:OptionControl

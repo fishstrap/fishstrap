@@ -5476,6 +5476,24 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note: this setting blocks some data collection by VNG and the Vietnamese government, but not all..
+        /// </summary>
+        public static string Menu_FastFlags_Presets_VNG_Description {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.Presets.VNG.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block VNG.
+        /// </summary>
+        public static string Menu_FastFlags_Presets_VNG_Title {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.Presets.VNG.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note: this setting disables a large majority of Roblox&apos;s WebView2 telemetry, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_WebView2Telemetry_Description {

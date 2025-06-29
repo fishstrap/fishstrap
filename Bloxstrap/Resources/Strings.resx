@@ -1752,6 +1752,12 @@ Some text might not be translated to preferred language.</value>
   <data name="Menu.FastFlags.Presets.Tencent.Title" xml:space="preserve">
     <value>Block Tencent</value>
   </data>
+  <data name="Menu.FastFlags.Presets.VNG.Description" xml:space="preserve">
+    <value>Note: this setting blocks some data collection by VNG and the Vietnamese government, but not all.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.VNG.Title" xml:space="preserve">
+    <value>Block VNG</value>
+  </data>
   <data name="Menu.FastFlags.Presets.MoreCharacters.Description" xml:space="preserve">
     <value>Repeats letters in most GUI text to expand it. Higher values will increase the effect. Note: Some UI elements may be unaffected.</value>
   </data>

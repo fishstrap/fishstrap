@@ -300,48 +300,47 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var urlsJson = new[]
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
-        "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
-        "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-        "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json",
-    };
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json",
+            };
 
             var liveClientUrls = new[]
             {
-        "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-    };
+                "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
+            };
 
             var rawTextUrls = new[]
             {
-        "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt",
-    };
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt",
+            };
 
             var manualWhitelist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-    {
-        "FStringDebugLuaLogLevel",
-        "FStringDebugLuaLogPattern",
-        "FLogWndProcessCheck",
-        "FLogNetwork",
-        "FFlagHandleAltEnterFullscreenManually",
-    };
+            {
+                "FStringDebugLuaLogLevel",
+                "FStringDebugLuaLogPattern",
+                "FLogWndProcessCheck",
+                "FLogNetwork",
+                "FFlagHandleAltEnterFullscreenManually",
+            };
 
             var manualBlacklist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-    {
-        "DFFlagFrameTimeStdDev",
-        "FIntGameJoinLoadTime",
-        "DFIntCharacterLoadTime",
-        "FFlagEnableCloseButtonOnClientToastNotifications2",
-        "FFlagTexturePackUseACR",
-        "FFlagTexturePackUseACR4",
-        "FFlagLargeReplicatorEnabled",
-        "FFlagLargeReplicatorSerializeRead",
-        "FFlagLargeReplicatorRead",
-        "FFlagLargeReplicatorWrite",
-        "FFlagLargeReplicatorEnabled",
-        "FFlagLargeReplicatorRead4",
-        "FFlagLargeReplicatorWrite4",
-        "FFlagLargeReplicatorEnabled5",
-        "FFlagUIBloxMoveDetailsPageToLuaApps",
-    };
+            {
+                "DFFlagFrameTimeStdDev",
+                "FIntGameJoinLoadTime",
+                "DFIntCharacterLoadTime",
+                "FFlagEnableCloseButtonOnClientToastNotifications2",
+                "FFlagTexturePackUseACR",
+                "FFlagTexturePackUseACR4",
+                "FFlagLargeReplicatorEnabled",
+                "FFlagLargeReplicatorSerializeRead",
+                "FFlagLargeReplicatorRead",
+                "FFlagLargeReplicatorWrite",
+                "FFlagLargeReplicatorEnabled",
+                "FFlagLargeReplicatorRead4",
+                "FFlagLargeReplicatorWrite4",
+                "FFlagLargeReplicatorEnabled5",
+                "FFlagUIBloxMoveDetailsPageToLuaApps",
+            };
 
             var removedFlagsDict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
@@ -439,8 +438,8 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var urlsPriorityOrdered = new[]
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
                 "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
                 "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json",
             };
@@ -551,28 +550,29 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var urlsJson = new[]
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
-        "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
-        "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-        "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-        "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json"
-    };
+                "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json"
+            };
 
             var rawTextUrls = new[]
             {
-        "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt",
-    };
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt",
+            };
 
             var blacklist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-    {
-        "FStringDebugLuaLogLevel",
-        "FStringDebugLuaLogPattern",
-        "FLogWndProcessCheck",
-        "FLogNetwork",
-        "FFlagHandleAltEnterFullscreenManually",
-        "DFIntCSGLevelOfDetailSwitchingDistanceL23",
-        "DFIntCSGLevelOfDetailSwitchingDistanceL12",
-        "FFlagUserShowGuiHideToggles",
-    };
+            {
+                "FStringDebugLuaLogLevel",
+                "FStringDebugLuaLogPattern",
+                "FLogWndProcessCheck",
+                "FLogNetwork",
+                "FFlagHandleAltEnterFullscreenManually",
+                "DFIntCSGLevelOfDetailSwitchingDistanceL23",
+                "DFIntCSGLevelOfDetailSwitchingDistanceL12",
+                "FFlagUserShowGuiHideToggles",
+                "FFlagDebugGraphicsDisableVulkan"
+            };
 
             try
             {
@@ -919,6 +919,9 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 return;
             }
 
+            App.FastFlags.suspendUndoSnapshot = true;
+            App.FastFlags.SaveUndoSnapshot();
+
             var conflictingFlags = App.FastFlags.Prop.Where(x => list.ContainsKey(x.Key)).Select(x => x.Key);
             bool overwriteConflicting = false;
 
@@ -939,9 +942,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
                 overwriteConflicting = result == MessageBoxResult.Yes;
             }
-
-            App.FastFlags.suspendUndoSnapshot = true;
-            App.FastFlags.SaveUndoSnapshot();
 
             foreach (var pair in list)
             {

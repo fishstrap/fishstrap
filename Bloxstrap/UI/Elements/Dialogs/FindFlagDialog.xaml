@@ -68,7 +68,6 @@
                 x:Name="SearchTextBox"
                 Grid.Row="2"
                 Height="32"
-                HorizontalContentAlignment="Left"
                 VerticalContentAlignment="Center"
                 BorderThickness="0"
                 FocusVisualStyle="{x:Null}"

@@ -149,39 +149,34 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool DisableTelemetry
         {
-            get => App.FastFlags?.GetPreset("Telemetry.TelemetryV2Url") == "0.0.0.0";
+            get => App.FastFlags?.GetPreset("Telemetry.FLogTelemetry") == "0";
             set
             {
-                App.FastFlags.SetPreset("Telemetry.TelemetryV2Url", value ? "0.0.0.0" : null);
                 App.FastFlags.SetPreset("Telemetry.Protocol", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.GraphicsQualityUsage", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.GpuVsCpuBound", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.RenderFidelity", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.RenderDistance", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.AudioPlugin", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.FmodErrors", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.SoundLength", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.AssetRequestV1", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.DeviceRAM", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.V2FrameRateMetrics", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.GlobalSkipUpdating", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.CallbackSafety", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.V2PointEncoding", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.ReplaceSeparator", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.OpenTelemetry", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.FLogTelemetry", value ? "0" : null);
                 App.FastFlags.SetPreset("Telemetry.TelemetryService", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.PropertiesTelemetry", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.Reliability", value ? "null" : null);
+                App.FastFlags.SetPreset("Telemetry.MemoryTracking", value ? "True" : null);
             }
         }
 
         public bool DisableVoiceChatTelemetry
         {
-            get => App.FastFlags?.GetPreset("Telemetry.Voicechat1") == "False";
+            get => App.FastFlags?.GetPreset("Telemetry.Voicechat3") == "False";
             set
             {
-                App.FastFlags.SetPreset("Telemetry.Voicechat1", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.Voicechat2", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat3", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat4", value ? "0" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat5", value ? "False" : null);
@@ -191,23 +186,20 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Telemetry.Voicechat9", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat10", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat11", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.Voicechat14", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.Voicechat15", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.Voicechat15", value ? "True" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat16", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat17", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat18", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Voicechat19", value ? "0" : null);
-                App.FastFlags.SetPreset("Telemetry.Voicechat20", value ? "-1" : null);
             }
         }
 
         public bool DisableWebview2Telemetry
         {
-            get => App.FastFlags?.GetPreset("Telemetry.Webview1") == "www.youtube-nocookie.com";
+            get => App.FastFlags?.GetPreset("Telemetry.Webview1") == "False";
             set
             {
-                App.FastFlags.SetPreset("Telemetry.Webview1", value ? "www.youtube-nocookie.com" : null);
-                App.FastFlags.SetPreset("Telemetry.Webview2", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.Webview1", value ? "False" : null);
                 App.FastFlags.SetPreset("Telemetry.Webview3", value ? "0" : null);
                 App.FastFlags.SetPreset("Telemetry.Webview4", value ? "0" : null);
                 App.FastFlags.SetPreset("Telemetry.Webview5", value ? "0" : null);
@@ -223,12 +215,27 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 App.FastFlags.SetPreset("Telemetry.Tencent1", value ? "null" : null);
                 App.FastFlags.SetPreset("Telemetry.Tencent2", value ? "null" : null);
-                App.FastFlags.SetPreset("Telemetry.Tencent3", value ? "https://www.gov.cn" : null);
-                App.FastFlags.SetPreset("Telemetry.Tencent4", value ? "https://www.gov.cn" : null);
-                App.FastFlags.SetPreset("Telemetry.Tencent5", value ? "False" : null);
-                App.FastFlags.SetPreset("Telemetry.Tencent6", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.Tencent4", value ? "null" : null);
+                App.FastFlags.SetPreset("Telemetry.Tencent5", value ? "True" : null);
                 App.FastFlags.SetPreset("Telemetry.Tencent7", value ? "10000" : null);
 
+            }
+        }
+
+        public bool BlockVng
+        {
+            get => App.FastFlags.GetPreset("Telemetry.VNG1") == "False";
+            set
+            {
+                App.FastFlags.SetPreset("Telemetry.VNG1", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG2", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG3", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG4", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG5", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG6", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG7", value ? "False" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG8", value ? "null" : null);
+                App.FastFlags.SetPreset("Telemetry.VNG9", value ? "null" : null);
             }
         }
 
@@ -245,12 +252,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Network.Stream6", value ? "0" : null);
                 App.FastFlags.SetPreset("Network.Stream7", value ? "0" : null);
             }
-        }
-
-        public bool DiskMemoryCacheCounts
-        {
-            get => App.FastFlags.GetPreset("Network.DiskMemoryCacheCounts") == "True";
-            set => App.FastFlags.SetPreset("Network.DiskMemoryCacheCounts", value ? "True" : null);
         }
 
         public bool RemoveGrass
@@ -307,18 +308,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Rendering.TextureQuality.Level", value ? "0" : null);
                 App.FastFlags.SetPreset("Rendering.TextureQuality.OverrideEnabled", value ? "True" : null);
                 App.FastFlags.SetPreset("Rendering.Mode.Vulkan", value ? "True" : null);
-            }
-        }
-
-
-        public bool SmoothTextures
-        {
-            get => App.FastFlags.GetPreset("Rendering.Mode.Vulkan") == "True";
-            set
-            {
-                App.FastFlags.SetPreset("Rendering.Mode.Vulkan", value ? "True" : null);
-                App.FastFlags.SetPreset("Rendering.TextureSkipping.Skips", value ? "8" : null);
-                App.FastFlags.SetPreset("Rendering.TextureQuality.Level", value ? "True" : null);
             }
         }
 
@@ -418,7 +407,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set
             {
                 App.FastFlags.SetPreset("Cache.Increase1", value ? "False" : null);
-                App.FastFlags.SetPreset("Cache.Increase2", value ? "True" : null);
                 App.FastFlags.SetPreset("Cache.Increase3", value ? "1" : null);
                 App.FastFlags.SetPreset("Cache.Increase4", value ? "600000" : null);
                 App.FastFlags.SetPreset("Cache.Increase5", value ? "2147483647" : null);
@@ -427,12 +415,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Cache.Increase8", value ? "2147483647" : null);
                 App.FastFlags.SetPreset("Cache.Increase9", value ? "2147483647" : null);
                 App.FastFlags.SetPreset("Cache.Increase10", value ? "2147483647" : null);
-                App.FastFlags.SetPreset("Cache.Increase11", value ? "1" : null);
                 App.FastFlags.SetPreset("Cache.Increase12", value ? "3600" : null);
             }
         }
 
-        public bool EnableLargeReplicator
+        public bool LargeReplicator
         {
             get => App.FastFlags.GetPreset("Network.EnableLargeReplicator") == "True";
             set
@@ -453,10 +440,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 App.FastFlags.SetPreset("UI.DisableAds1", value ? "False" : null);
                 App.FastFlags.SetPreset("UI.DisableAds2", value ? "False" : null);
-                App.FastFlags.SetPreset("UI.DisableAds3", value ? "False" : null);
-                App.FastFlags.SetPreset("UI.DisableAds4", value ? "False" : null);
-                App.FastFlags.SetPreset("UI.DisableAds5", value ? "False" : null);
-                App.FastFlags.SetPreset("UI.DisableAds6", value ? "False" : null);
+                App.FastFlags.SetPreset("UI.DisableAds3", value ? "0" : null);
             }
         }
 
@@ -588,11 +572,19 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     App.FastFlags.SetPreset("Rendering.Mode.D3D10", null);
                 }
 
+                if (value == RenderingMode.D3D11)
+                {
+                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", "True");
+                }
+                else
+                {
+                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", null);
+                }
+
                 if (value == RenderingMode.Vulkan)
                 {
                     App.FastFlags.SetPreset("Rendering.Mode.Vulkan", "True");
                     App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan2", "False");
                     App.FastFlags.SetPreset("Rendering.Mode.VulkanDisablePreRotate", "False");
                     App.FastFlags.SetPreset("Rendering.Mode.VulkanBonuxMemory", "True");
                     App.FastFlags.SetPreset("Rendering.Mode.VulkanGlobalInstancing", "True");
@@ -601,7 +593,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 {
                     App.FastFlags.SetPreset("Rendering.Mode.Vulkan", null);
                     App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan2", null);
                     App.FastFlags.SetPreset("Rendering.Mode.VulkanDisablePreRotate", null);
                     App.FastFlags.SetPreset("Rendering.Mode.VulkanBonuxMemory", null);
                     App.FastFlags.SetPreset("Rendering.Mode.VulkanGlobalInstancing", null);
@@ -621,12 +612,32 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (value == RenderingMode.Metal)
                 {
                     App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan2", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", "False");
                     App.FastFlags.SetPreset("Rendering.Mode.Metal", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.Vulkan", "False");
+                    App.FastFlags.SetPreset("Rendering.Mode.OpenGl", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalAnalytics", "0");
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie1", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie2", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalGlobalInstancing", "True");
+                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", "False");
                 }
                 else
                 {
                     App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan2", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", null);
                     App.FastFlags.SetPreset("Rendering.Mode.Metal", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.Vulkan", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.OpenGl", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalAnalytics", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie1", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie2", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.MetalGlobalInstancing", null);
+                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", null);
                 }
             }
         }
@@ -732,11 +743,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public bool DisableSky
         {
             get => App.FastFlags.GetPreset("Rendering.NoFrmBloom") == "False";
-            set
-            {
-                App.FastFlags.SetPreset("Rendering.NoFrmBloom", value ? "False" : null);
-                App.FastFlags.SetPreset("Rendering.FRMRefactor", value ? "False" : null);
-            }
+            set => App.FastFlags.SetPreset("Rendering.NoFrmBloom", value ? "False" : null);
         }
 
         public bool UnthemedInstances
