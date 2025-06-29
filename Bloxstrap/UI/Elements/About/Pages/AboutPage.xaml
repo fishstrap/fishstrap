@@ -111,6 +111,12 @@
                     <controls:MarkdownTextBlock MarkdownText="[Reslav](https://discord.com/users/1136966783027380256)" />
                     <controls:MarkdownTextBlock MarkdownText="[polover](https://discord.com/users/999142457667227679)" />
                     <controls:MarkdownTextBlock MarkdownText="[iniforce](https://discord.com/users/1029770533476257792)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Cak](https://discord.com/users/1136265435818508408)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Flemish](https://discord.com/users/1286961047990702124)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Noby](https://discord.com/users/1304922060882972732)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Obsurd](https://discord.com/users/818680236963135498)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Ghiram](https://discord.com/users/1208558834273095712)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Alex](https://discord.com/users/1275186734367506523)" />
                 </StackPanel>
             </controls:Expander>
 

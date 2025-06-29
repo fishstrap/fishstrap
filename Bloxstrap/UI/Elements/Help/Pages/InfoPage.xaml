@@ -64,15 +64,13 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Code -->
-            <controls:Expander Grid.Column="0" Margin="0,0,4,0" HeaderIcon="Code24" HeaderText="Core Developer" IsExpanded="True">
+            <controls:Expander Grid.Column="0" Margin="0,0,4,0" HeaderIcon="Code24" HeaderText="{x:Static resources:Strings.Menu_About_Contributors_Code}" IsExpanded="True">
                 <StackPanel>
                     <controls:MarkdownTextBlock MarkdownText="[meddsam](https://discord.com/users/1051148571371647017)" />
                 </StackPanel>
             </controls:Expander>
 
-            <!-- Contributors -->
-            <controls:Expander Grid.Column="1" Margin="4,0,4,0" HeaderIcon="AppsAddIn28" HeaderText="Contributors" IsExpanded="True">
+            <controls:Expander Grid.Column="1" Margin="4,0,4,0" HeaderIcon="AppsAddIn28" HeaderText="{x:Static resources:Strings.Menu_About_Contributors_Contributors}" IsExpanded="True">
                 <StackPanel>
                     <controls:MarkdownTextBlock MarkdownText="[Alya](https://discord.com/users/1231516517296771144)" />
                     <controls:MarkdownTextBlock MarkdownText="[Scroom](https://discord.com/users/1254472513199673347)" />
@@ -83,11 +81,16 @@
                     <controls:MarkdownTextBlock MarkdownText="[Reslav](https://discord.com/users/1136966783027380256)" />
                     <controls:MarkdownTextBlock MarkdownText="[polover](https://discord.com/users/999142457667227679)" />
                     <controls:MarkdownTextBlock MarkdownText="[iniforce](https://discord.com/users/1029770533476257792)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Cak](https://discord.com/users/1136265435818508408)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Flemish](https://discord.com/users/1286961047990702124)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Noby](https://discord.com/users/1304922060882972732)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Obsurd](https://discord.com/users/818680236963135498)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Ghiram](https://discord.com/users/1208558834273095712)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Alex](https://discord.com/users/1275186734367506523)" />
                 </StackPanel>
             </controls:Expander>
 
-            <!-- Inspirations -->
-            <controls:Expander Grid.Column="2" Margin="4,0,0,0" HeaderIcon="Heart16" HeaderText="Inspirations" IsExpanded="True">
+            <controls:Expander Grid.Column="2" Margin="4,0,0,0" HeaderIcon="Heart16" HeaderText="{x:Static resources:Strings.Menu_About_Contributors_Insipirations}" IsExpanded="True">
                 <StackPanel>
                     <controls:MarkdownTextBlock MarkdownText="[Fishstrap](https://github.com/fishstrap/fishstrap)" />
                     <controls:MarkdownTextBlock MarkdownText="[Bloxstrap](https://github.com/bloxstraplabs/bloxstrap)" />
