@@ -53,7 +53,7 @@
   "FFlagDebugForceFSMCPULightCulling": "True",
   "FFlagAppChatRebrandIconUpdates": "False",
   "FFlagOptimizeCFrameUpdatesIC4": "True",
-  "FFlagLargeReplicatorEnabled7": "True",
+  "FFlagLargeReplicatorEnabled6": "True",
   "FFlagOptimizeCFrameUpdates4": "True",
   "FFlagLargeReplicatorWrite5": "True",
   "FFlagAlwaysShowVRToggleV3": "False",
