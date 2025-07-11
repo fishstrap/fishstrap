@@ -63,7 +63,7 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 - Help Page to fix bugs quickly
 - Use Built-In PC Tweaks to Optimize your pc
 - Create a Game Shortcut to join a game easily
-- A Secret page hidden within the app that will give you fun facts!
+- Easter Egg Page, i wonder whats there
 
 > *More features are on the roadmap!*
 
