@@ -33,18 +33,19 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 - Multi-Instance launching
 - Cleaner
 - Use old Roblox icons in the taskbar
-- Easily use Custom Cursor 
+- Easily use Custom Cursor
+- Have a bunch of Custom Cursor Sets ready for use
 
 ### 🚩 Fast Flags
 - Flag profiles
+- FastFlag Warnings
 - Removed editor warnings & validation
 - A Bunch Of Preset Flags
 - Search box to quickly find flags in settings
-- More toggleable Fast Flag Editor features in advanced settings
+- More toggleable FastFlag Editor features in advanced settings
 - Built-In Flag Lists
-- Check which flags are toggleable in settings
-- Remove invalid and default values, and in the process, update outdated fastflags using Clean List
-- Find any FastFlag inside of Roblox using Find FastFlag
+- Clean your list of fake flags and default value flags and update them at once
+- Find the majority of Roblox FastFlags in Find Flag
 
 ### 📦 Channels
 - Block Roblox updates
@@ -52,15 +53,15 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 
 ### 🎨 Appearance
 - Customizable Bootstrapper Launcher
+- Element Toolbox to create Custom Launchers easily
 - Built-In App Themes
 - Allow you to use a custom font for the app text
-- Change the order of the menu items on the left side
 
 ### ⚙️ Extras
 - Saves the last opened settings page
-- Supports importing settings from Bloxstrap
+- Supports importing settings from Multiple Bootstrappers
 - Help Page to fix bugs quickly
-- Allow you to use built-in PC Tweaks
+- Use Built-In PC Tweaks to Optimize your pc
 - Create a Game Shortcut to join a game easily
 - A Secret page hidden within the app that will give you fun facts!
 
