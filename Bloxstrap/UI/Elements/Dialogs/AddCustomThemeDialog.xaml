@@ -46,7 +46,7 @@
                  Grid.Row="1"
                  Margin="16"
                  SelectedIndex="{Binding Path=SelectedTab, Mode=TwoWay}">
-                <TabItem Header="{x:Static resources:Strings.Common_CreateNew}">
+                <TabItem Header="{x:Static resources:Strings.Common_CreateNew}" FontWeight="Medium">
                     <Grid Grid.Row="1" Margin="16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -75,6 +75,7 @@
                                  Grid.Column="0"
                                  MinWidth="100"
                                  VerticalAlignment="Center"
+                                 FontWeight="Medium"
                                  Text="{x:Static resources:Strings.Common_Name}" />
                             <TextBox
                                  Grid.Row="0"
@@ -96,6 +97,7 @@
                              Grid.Column="0"
                              MinWidth="100"
                              VerticalAlignment="Center"
+                             FontWeight="Medium"
                              Text="{x:Static resources:Strings.Common_Template}" />
 
                         <ComboBox
@@ -111,7 +113,7 @@
                         </ComboBox>
                     </Grid>
                 </TabItem>
-                <TabItem Header="{x:Static resources:Strings.Common_Import}">
+                <TabItem Header="{x:Static resources:Strings.Common_Import}" FontWeight="Medium">
                     <Grid Margin="11">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -130,6 +132,7 @@
                              Margin="4"
                              HorizontalAlignment="Stretch"
                              Click="OnImportButtonClicked"
+                             FontWeight="Medium"
                              Content="{x:Static resources:Strings.Common_ImportFromFile}"
                              Icon="DocumentArrowUp16" />
                         <TextBlock
@@ -155,10 +158,12 @@
                     <Button
                          MinWidth="100"
                          Click="OnOkButtonClicked"
+                         FontWeight="Medium"
                          Content="{x:Static resources:Strings.Common_OK}" />
                     <Button
                          MinWidth="100"
                          Margin="12,0,0,0"
+                         FontWeight="Medium"
                          Content="{x:Static resources:Strings.Common_Cancel}"
                          IsCancel="True" />
                 </StackPanel>

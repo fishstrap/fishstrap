@@ -29,13 +29,6 @@ namespace Bloxstrap.UI.Elements.Settings
     {
         private Models.Persistable.WindowState _state => App.State.Prop.SettingsWindow;
 
-        public static ObservableCollection<NavigationItem> MainNavigationItems { get; } = new ObservableCollection<NavigationItem>();
-        public static ObservableCollection<NavigationItem> FooterNavigationItems { get; } = new ObservableCollection<NavigationItem>();
-
-        public static List<string> DefaultNavigationOrder { get; private set; } = new();
-        public static List<string> DefaultFooterOrder { get; private set; } = new();
-
-
         public MainWindow(bool showAlreadyRunningWarning)
         {
             var viewModel = new MainWindowViewModel();
@@ -54,28 +47,9 @@ namespace Bloxstrap.UI.Elements.Settings
 
             LoadState();
 
-            var allItems = RootNavigation.Items.OfType<NavigationItem>().ToList();
-            var allFooters = RootNavigation.Footer?.OfType<NavigationItem>().ToList() ?? new List<NavigationItem>();
+            int LastPage = App.State.Prop.LastPage;
 
-            MainNavigationItems.Clear();
-            FooterNavigationItems.Clear();
-
-            foreach (var item in allItems)
-                MainNavigationItems.Add(item);
-
-            foreach (var item in allFooters)
-                FooterNavigationItems.Add(item);
-
-            CacheDefaultNavigationOrder();
-
-            ReorderNavigationItemsFromSettings();
-            RebuildNavigationItems();
-
-            int lastPage = App.State.Prop.LastPage;
-            if (lastPage >= 0 && lastPage < RootNavigation.Items.Count)
-                RootNavigation.SelectedPageIndex = lastPage;
-            else
-                RootNavigation.SelectedPageIndex = 0;
+            RootNavigation.SelectedPageIndex = LastPage;
 
             RootNavigation.Navigated += SaveNavigation!;
 
@@ -83,133 +57,8 @@ namespace Bloxstrap.UI.Elements.Settings
             {
                 if (sender == null || e == null) return;
 
-                if (RootNavigation.SelectedPageIndex >= 0 && RootNavigation.SelectedPageIndex < RootNavigation.Items.Count)
-                    App.State.Prop.LastPage = RootNavigation.SelectedPageIndex;
+                App.State.Prop.LastPage = RootNavigation.SelectedPageIndex;
             }
-        }
-
-        private void CacheDefaultNavigationOrder()
-        {
-            DefaultNavigationOrder = MainNavigationItems
-                .Select(x => x.Tag?.ToString() ?? string.Empty)
-                .ToList();
-
-            DefaultFooterOrder = FooterNavigationItems
-                .Select(x => x.Tag?.ToString() ?? string.Empty)
-                .ToList();
-        }
-
-        private void RebuildNavigationItems()
-        {
-            RootNavigation.Items.Clear();
-            foreach (var item in MainNavigationItems)
-                RootNavigation.Items.Add(item);
-
-            if (RootNavigation.Footer == null)
-                RootNavigation.Footer = new ObservableCollection<INavigationControl>();
-
-            RootNavigation.Footer.Clear();
-            foreach (var footerItem in FooterNavigationItems)
-                RootNavigation.Footer.Add(footerItem);
-        }
-
-        public void ApplyNavigationReorder()
-        {
-            RebuildNavigationItems();
-
-            App.Settings.Prop.NavigationOrder = MainNavigationItems.Select(item => item.Tag?.ToString() ?? "").ToList();
-            App.Settings.Prop.NavigationOrder.AddRange(FooterNavigationItems.Select(item => item.Tag?.ToString() ?? ""));
-
-            App.State.Save();
-        }
-
-        private void ReorderNavigationItemsFromSettings()
-        {
-            if (App.Settings.Prop.NavigationOrder == null || App.Settings.Prop.NavigationOrder.Count == 0)
-                return;
-
-            var allItems = MainNavigationItems.Concat(FooterNavigationItems).ToList();
-
-            var reorderedMain = new ObservableCollection<NavigationItem>();
-            var reorderedFooter = new ObservableCollection<NavigationItem>();
-
-            foreach (var tag in App.Settings.Prop.NavigationOrder)
-            {
-                var navItem = allItems.FirstOrDefault(i => i.Tag?.ToString() == tag);
-                if (navItem != null)
-                {
-                    if (MainNavigationItems.Contains(navItem))
-                        reorderedMain.Add(navItem);
-                    else if (FooterNavigationItems.Contains(navItem))
-                        reorderedFooter.Add(navItem);
-                }
-            }
-
-            foreach (var item in MainNavigationItems)
-            {
-                if (!reorderedMain.Contains(item))
-                    reorderedMain.Add(item);
-            }
-            foreach (var item in FooterNavigationItems)
-            {
-                if (!reorderedFooter.Contains(item))
-                    reorderedFooter.Add(item);
-            }
-
-            MainNavigationItems.Clear();
-            foreach (var item in reorderedMain)
-                MainNavigationItems.Add(item);
-
-            FooterNavigationItems.Clear();
-            foreach (var item in reorderedFooter)
-                FooterNavigationItems.Add(item);
-
-            RebuildNavigationItems();
-        }
-
-        public void ResetNavigationToDefault()
-        {
-            var allItems = MainNavigationItems.Concat(FooterNavigationItems).ToList();
-
-            var reorderedMain = new ObservableCollection<NavigationItem>();
-            var reorderedFooter = new ObservableCollection<NavigationItem>();
-
-            foreach (var tag in DefaultNavigationOrder)
-            {
-                var navItem = allItems.FirstOrDefault(i => i.Tag?.ToString() == tag);
-                if (navItem != null)
-                    reorderedMain.Add(navItem);
-            }
-            foreach (var item in MainNavigationItems)
-            {
-                if (!reorderedMain.Contains(item))
-                    reorderedMain.Add(item);
-            }
-
-            foreach (var tag in DefaultFooterOrder)
-            {
-                var navItem = allItems.FirstOrDefault(i => i.Tag?.ToString() == tag);
-                if (navItem != null)
-                    reorderedFooter.Add(navItem);
-            }
-            foreach (var item in FooterNavigationItems)
-            {
-                if (!reorderedFooter.Contains(item))
-                    reorderedFooter.Add(item);
-            }
-
-            MainNavigationItems.Clear();
-            foreach (var item in reorderedMain)
-                MainNavigationItems.Add(item);
-
-            FooterNavigationItems.Clear();
-            foreach (var item in reorderedFooter)
-                FooterNavigationItems.Add(item);
-
-            RebuildNavigationItems();
-
-            App.Settings.Prop.NavigationOrder.Clear();
-            App.State.Save();
         }
 
         public void LoadState()
@@ -287,14 +136,11 @@ namespace Bloxstrap.UI.Elements.Settings
         {
             LoadingOverlayText.Text = message;
             LoadingOverlay.Visibility = Visibility.Visible;
-            // DO NOT disable RootGrid
-            // RootGrid.IsEnabled = false;
         }
 
         public void HideLoading()
         {
             LoadingOverlay.Visibility = Visibility.Collapsed;
-            // RootGrid.IsEnabled = true;
         }
 
     }

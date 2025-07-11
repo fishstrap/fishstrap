@@ -87,7 +87,7 @@
                 VerticalAlignment="Top"
                 Icon="Broom28"
                 Content="Clean FastFlag List"
-                Click="ActionsButton_Click"/>
+                Click="CleanListButton_Click"/>
             <ui:Button
                 Name="FindFlag_Button"
                 Margin="0,0,10,16"
@@ -118,7 +118,6 @@
             <ui:TextBox
                 x:Name="SearchTextBox"
                 Grid.Row="2"
-                Height="32"
                 HorizontalContentAlignment="Left"
                 VerticalContentAlignment="Center"
                 BorderThickness="0"
@@ -135,7 +134,7 @@
                 Margin="12,0,11,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                FontSize="13.85"
+                FontSize="14"
                 Foreground="#FF51A2ED"
                 Opacity="0"
                 Visibility="Collapsed"
@@ -149,76 +148,114 @@
             </TextBlock>
         </Grid>
 
-        <DataGrid
-            Name="DataGrid"
-            Grid.Row="3"
-            Grid.RowSpan="2"
-            Margin="0,45,0,-9"
-            AutoGenerateColumns="False"
-            CanUserAddRows="False"
-            CanUserDeleteRows="False"
-            CanUserReorderColumns="False"
-            CellEditEnding="DataGrid_CellEditEnding"
-            PreviewKeyDown="DataGrid_PreviewKeyDown"
-            GridLinesVisibility="Horizontal"
-            HeadersVisibility="Column">
-            <DataGrid.Style>
-                <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="BorderThickness" Value="0" />
-                </Style>
-            </DataGrid.Style>
+        <Grid Grid.Row="3" Grid.RowSpan="2" Margin="0,45,0,-9">
 
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
-                    <Setter Property="Height" Value="30" />
-                    <Setter Property="Padding" Value="12,0,12,0" />
-                    <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
-                    <Setter Property="BorderThickness" Value="1" />
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
+            <DataGrid
+        Name="DataGrid"
+        AutoGenerateColumns="False"
+        CanUserAddRows="False"
+        CanUserDeleteRows="False"
+        CanUserReorderColumns="False"
+        CellEditEnding="DataGrid_CellEditEnding"
+        PreviewKeyDown="DataGrid_PreviewKeyDown"
+        GridLinesVisibility="Horizontal"
+        HeadersVisibility="Column"
+        >
+                <!-- Keep all your existing DataGrid styles and columns unchanged -->
+                <DataGrid.Style>
+                    <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
+                        <Setter Property="Background" Value="{DynamicResource NormalDarkAndLightBackground}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+                        <Setter Property="HorizontalGridLinesBrush" Value="#11000000" />
+                        <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
+                    </Style>
+                </DataGrid.Style>
 
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{DynamicResource TextOnAccentFillColorPrimary}" />
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </Style.Triggers>
-                    <Setter Property="Height" Value="30" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="DataGridCell">
-                                <Border Padding="6,0,6,0" Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.CellStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Padding" Value="8,0,12,0" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
 
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{x:Static resources:Strings.Common_Presets}" x:Name="PresetColumn">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Height="50" Width="25" Source="{Binding Preset}" Stretch="Uniform" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Width="425"  Binding="{Binding Name}" Header="{x:Static resources:Strings.Common_Name}" />
-                <DataGridTextColumn Width="*" Binding="{Binding Value}" Header="{x:Static resources:Strings.Common_Value}" />
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Padding" Value="6,0,6,0" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#14000000" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#59007ACC" />
+                                <Setter Property="Foreground" Value="#F0F0F0" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" Value="#8C007ACC" />
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="{x:Static resources:Strings.Common_Presets}" x:Name="PresetColumn" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="50" Width="25" Source="{Binding Preset}" Stretch="Uniform" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="425"  Binding="{Binding Name}" Header="{x:Static resources:Strings.Common_Name}" />
+                    <DataGridTextColumn Width="*" Binding="{Binding Value}" Header="{x:Static resources:Strings.Common_Value}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- TextBlock that appears only when the DataGrid is empty -->
+            <TextBlock Text="Wow this is so empty, how about adding a fastflag ?"
+               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+               FontWeight="Medium"
+               FontSize="16"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               IsHitTestVisible="False"
+               TextWrapping="Wrap"
+               Margin="20">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Items.Count, ElementName=DataGrid}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
     </Grid>
 </ui:UiPage>

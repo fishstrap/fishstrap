@@ -20,7 +20,6 @@
         <Grid Height="40" Margin="0,0,1,5">
             <ui:TextBox
         x:Name="SearchTextBox"
-        Height="32"
         HorizontalContentAlignment="Left"
         VerticalContentAlignment="Center"
         BorderThickness="0"
@@ -36,7 +35,7 @@
         Margin="12,0,11,0"
         HorizontalAlignment="Right"
         VerticalAlignment="Center"
-        FontSize="13.85"
+        FontSize="14"
         Foreground="#FF51A2ED"
         Opacity="0"
         Visibility="Collapsed"
@@ -72,6 +71,7 @@
            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
            FontSize="16"
            Margin="0,0,0,10"
+           FontWeight="SemiBold"
            Visibility="Collapsed"
            TextAlignment="Center"
            VerticalAlignment="Center"
@@ -91,7 +91,7 @@
             <ui:ToggleSwitch IsChecked="{Binding ResetConfiguration, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <TextBlock x:Name="RecommendedTextBlock" Text="{x:Static resources:Strings.Common_Recommended}" FontSize="20" FontWeight="Medium" Margin="0,10,0,0" />
+        <TextBlock x:Name="RecommendedTextBlock" Text="{x:Static resources:Strings.Common_Recommended}" FontSize="20" FontWeight="Bold" Margin="0,10,0,0" />
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False" x:Name="SystemExpander" >
             <ui:CardExpander.Header>
@@ -547,7 +547,7 @@
             </StackPanel>
         </ui:CardExpander>
 
-        <TextBlock x:Name="ExperimentalTextBlock" Text="{x:Static resources:Strings.Common_Experimental}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
+        <TextBlock x:Name="ExperimentalTextBlock" Text="{x:Static resources:Strings.Common_Experimental}" FontSize="20" FontWeight="Bold" Margin="0,16,0,0" />
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False" x:Name="SystemExperimentalExpander" >
             <ui:CardExpander.Header>
@@ -898,7 +898,7 @@
             </StackPanel>
         </ui:CardExpander>
 
-        <TextBlock x:Name="DebugTextBlock" Text="{x:Static resources:Strings.Common_Debug}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
+        <TextBlock x:Name="DebugTextBlock" Text="{x:Static resources:Strings.Common_Debug}" FontSize="20" FontWeight="Bold" Margin="0,16,0,0" />
 
         <StackPanel>
 

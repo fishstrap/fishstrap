@@ -6,7 +6,7 @@
         Default,
         Dark,
         Light,
-        ClassicDark,
+        NewDark,
         Froststrap,
         Forest,
         Purple,

@@ -11,8 +11,9 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance dmodels:MainWindowViewModel, IsDesignTimeCreatable=True}"
              Title="{x:Static resources:Strings.Menu_Title}"
-             MinWidth="1030"
-             Width="1030"
+             MinWidth="1040"
+             Width="1040"
+             MinHeight="650"
              Height="650"
              Background="{ui:ThemeResource ApplicationBackgroundBrush}"
              ExtendsContentIntoTitleBar="True"
@@ -55,25 +56,25 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="230" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <ui:NavigationFluent x:Name="RootNavigation" Grid.Row="1" Grid.Column="0" Margin="0,0,12,0" Frame="{Binding ElementName=RootFrame}" SelectedPageIndex="0">
                 <ui:NavigationFluent.Items>
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Integrations_Title}" PageType="{x:Type pages:IntegrationsPage}" Icon="Add28" Tag="integrations" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Behaviour_Title}" PageType="{x:Type pages:BehaviourPage}" Icon="PlaySettings20" Tag="bootstrapper" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Mods_Title}" PageType="{x:Type pages:ModsPage}" Icon="WrenchScrewdriver20" Tag="mods" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_FastFlags_Title}" PageType="{x:Type pages:FastFlagsPage}" Icon="Flag24" Tag="fastflags" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_FastFlagEditor_Title}" PageType="{x:Type pages:FastFlagEditorPage}" Icon="EditSettings20" Tag="fastflagEditor" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Appearance_Title}" PageType="{x:Type pages:AppearancePage}" Icon="PaintBrush24" Tag="appearance" />
-                    <ui:NavigationItem Content="PC Tweaks" PageType="{x:Type pages:PCTweaksPage}" Icon="DesktopCheckmark24" Tag="pctweaks" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Common_Shortcuts}" PageType="{x:Type pages:ShortcutsPage}" Icon="Apps28" Tag="shortcuts" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Integrations_Title}" PageType="{x:Type pages:IntegrationsPage}" Icon="Add28" Tag="integrations" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Behaviour_Title}" PageType="{x:Type pages:BehaviourPage}" Icon="PlaySettings20" Tag="bootstrapper" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Mods_Title}" PageType="{x:Type pages:ModsPage}" Icon="WrenchScrewdriver20" Tag="mods" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_FastFlags_Title}" PageType="{x:Type pages:FastFlagsPage}" Icon="Flag24" Tag="fastflags" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_FastFlagEditor_Title}" PageType="{x:Type pages:FastFlagEditorPage}" Icon="EditSettings20" Tag="fastflagEditor" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Appearance_Title}" PageType="{x:Type pages:AppearancePage}" Icon="PaintBrush24" Tag="appearance" FontWeight="Medium" />
+                    <ui:NavigationItem Content="PC Tweaks" PageType="{x:Type pages:PCTweaksPage}" Icon="DesktopCheckmark24" Tag="pctweaks" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Common_Shortcuts}" PageType="{x:Type pages:ShortcutsPage}" Icon="Apps28" Tag="shortcuts" FontWeight="Medium" />
                 </ui:NavigationFluent.Items>
                 <ui:NavigationFluent.Footer>
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Common_Settings}" PageType="{x:Type pages:ChannelPage}" Icon="Settings20" Tag="channel" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Help_Title}" Icon="BookExclamationMark24" Margin="0,0,0,12" Command="{Binding OpenHelpCommand, Mode=OneTime}" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="QuestionCircle28" Margin="0,0,0,12" Command="{Binding OpenAboutCommand, Mode=OneTime}" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Common_Settings}" PageType="{x:Type pages:ChannelPage}" Icon="Settings20" Tag="channel" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Help_Title}" Icon="QuestionCircle28" Margin="0,0,0,12" Command="{Binding OpenHelpCommand, Mode=OneTime}" FontWeight="Medium" />
+                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="WeatherSnowflake48" IconSize="20" Margin="0,0,0,12" Command="{Binding OpenAboutCommand, Mode=OneTime}" FontWeight="Medium" />
                 </ui:NavigationFluent.Footer>
             </ui:NavigationFluent>
 
@@ -87,10 +88,11 @@
             </Grid>
         </Grid>
 
-        <StatusBar x:Name="RootStatusBar" Grid.Row="2" Padding="14,10" BorderThickness="0,1,0,0">
-            <StatusBar.Background>
-                <SolidColorBrush Color="{ui:ThemeResource ApplicationBackgroundColor}" Opacity="0" />
-            </StatusBar.Background>
+        <StatusBar x:Name="RootStatusBar"
+           Grid.Row="2"
+           Padding="12,6"
+           BorderThickness="0,1,0,0">
+
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -104,54 +106,116 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="0">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <ui:ToggleSwitch IsChecked="{Binding TestModeEnabled, Mode=TwoWay}" />
-                    <TextBlock Padding="12,0,0,0" Text="{x:Static resources:Strings.Menu_TestMode}" VerticalAlignment="Center" FontSize="14" />
+
+            <!-- Test Mode -->
+            <StatusBarItem Grid.Column="0" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,12,0">
+                    <ui:ToggleSwitch IsChecked="{Binding TestModeEnabled, Mode=TwoWay}"
+                             Height="22"
+                             VerticalAlignment="Center" />
+                    <TextBlock Text="{x:Static resources:Strings.Menu_TestMode}"
+                       FontSize="13.5"
+                       VerticalAlignment="Center"
+                       Margin="10,0,0,0"
+                       FontWeight="Medium"
+                       Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
                 </StackPanel>
             </StatusBarItem>
-            <StatusBarItem Grid.Column="2" Padding="0,0,4,0">
-                <ui:Button Content="{x:Static resources:Strings.Menu_SaveAndLaunch}" Appearance="Primary" Command="{Binding SaveAndLaunchSettingsCommand, Mode=OneWay}" />
+
+            <!-- Save & Launch -->
+            <StatusBarItem Grid.Column="2" VerticalAlignment="Center" Margin="0,0,6,0">
+                <ui:Button Content="{x:Static resources:Strings.Menu_SaveAndLaunch}"
+                   Appearance="Primary"
+                   Height="32"
+                   FontWeight="Medium"
+                   Padding="14,0"
+                   Command="{Binding SaveAndLaunchSettingsCommand}" />
             </StatusBarItem>
-            <StatusBarItem Grid.Column="3" Padding="0,0,4,0">
-                <ui:Button Content="{x:Static resources:Strings.Menu_Save}" Appearance="Primary" Command="{Binding SaveSettingsCommand, Mode=OneWay}" />
+
+            <!-- Save -->
+            <StatusBarItem Grid.Column="3" VerticalAlignment="Center" Margin="0,0,6,0">
+                <ui:Button Content="{x:Static resources:Strings.Menu_Save}"
+                   Appearance="Primary"
+                   Height="32"
+                   Padding="14,0"
+                   FontWeight="Medium"
+                   Command="{Binding SaveSettingsCommand}" />
             </StatusBarItem>
-            <StatusBarItem Grid.Column="4" Padding="0,0,0,0">
-                <ui:Button Content="{x:Static resources:Strings.Common_Close}" Command="{Binding CloseWindowCommand, Mode=OneWay}" />
+
+            <!-- Close -->
+            <StatusBarItem Grid.Column="4" VerticalAlignment="Center">
+                <ui:Button Content="{x:Static resources:Strings.Common_Close}"
+                   Height="32"
+                   Padding="14,0"
+                   FontWeight="Medium"
+                   Command="{Binding CloseWindowCommand}" />
             </StatusBarItem>
         </StatusBar>
 
-        <!-- Loading Overlay -->
         <Grid x:Name="LoadingOverlay"
       Visibility="Collapsed"
       Background="#80000000"
+      Panel.ZIndex="9999"
       Grid.RowSpan="3"
-      Panel.ZIndex="999"
-      IsHitTestVisible="True">
-            <Border HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Width="270"
-            Height="160"
-            Background="#59000000"
-            CornerRadius="12"
-            Padding="20">
-                <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Orientation="Vertical"
-                    Margin="0">
-                    <ui:ProgressRing Width="48"
-                             Height="48"
-                             IsIndeterminate="True"
-                             Visibility="Visible" />
-                    <TextBlock x:Name="LoadingOverlayText"
-                       Text="Loading..."
-                       FontSize="14"
-                       FontWeight="SemiBold"
-                       TextAlignment="Center"
-                       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                       Margin="0,12,0,0" />
-                </StackPanel>
-            </Border>
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch">
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Background="{DynamicResource NormalDarkAndLightBackground}"
+                CornerRadius="16"
+                Padding="32"
+                Effect="{DynamicResource ControlShadow}">
+                    <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+
+                        <!-- Loading Text -->
+                        <TextBlock x:Name="LoadingOverlayText"
+                           Text="Loading..."
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,20"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <Ellipse Width="12" Height="12" Fill="{DynamicResource TextFillColorPrimaryBrush}" Margin="0,0,8,0">
+                                <Ellipse.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever" AutoReverse="True" >
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.3" To="1" Duration="0:0:0.6" BeginTime="0:0:0" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Ellipse.Triggers>
+                            </Ellipse>
+                            <Ellipse Width="12" Height="12" Fill="{DynamicResource TextFillColorPrimaryBrush}" Margin="0,0,8,0">
+                                <Ellipse.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever" AutoReverse="True" >
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.3" To="1" Duration="0:0:0.6" BeginTime="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Ellipse.Triggers>
+                            </Ellipse>
+                            <Ellipse Width="12" Height="12" Fill="{DynamicResource TextFillColorPrimaryBrush}">
+                                <Ellipse.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever" AutoReverse="True" >
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.3" To="1" Duration="0:0:0.6" BeginTime="0:0:0.4" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Ellipse.Triggers>
+                            </Ellipse>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </base:WpfUiWindow>

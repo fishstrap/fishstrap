@@ -28,6 +28,7 @@
         public static string CustomThemes { get; private set; } = "";
         public static string RobloxLogs { get; private set; } = "";
         public static string RobloxCache { get; private set; } = "";
+        public static string CustomCursors { get; private set; } = "";
 
         public static string Application { get; private set; } = "";
         public static string ShortcutIcons => Path.Combine(LocalAppData, App.ProjectName, "ShortcutIcons");
@@ -49,6 +50,7 @@
             RobloxCache = Path.Combine(Path.GetTempPath(), "Roblox");
             Roblox = Path.Combine(Base, "Roblox");
             CustomThemes = Path.Combine(Base, "CustomThemes");
+            CustomCursors = Path.Combine(Base, "CustomCursorsSets");
 
             Application = Path.Combine(Base, $"{App.ProjectName}.exe");
 

@@ -103,23 +103,6 @@ namespace Bloxstrap.PcTweaks
             catch { }
         }
 
-        private static string? PromptUserToSelectExe()
-        {
-            string? exePath = null;
-
-            using (var dialog = new System.Windows.Forms.OpenFileDialog
-            {
-                Filter = "RobloxPlayerBeta (*.exe)|RobloxPlayerBeta.exe",
-                Title = "Select RobloxPlayerBeta.exe"
-            })
-            {
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    exePath = dialog.FileName;
-            }
-
-            return exePath;
-        }
-
         private static string? TryFindRobloxPlayerBeta()
         {
             try
@@ -143,6 +126,30 @@ namespace Bloxstrap.PcTweaks
             catch
             {
                 return null;
+            }
+        }
+
+        public static bool IsPolicyEnabled()
+        {
+            try
+            {
+                using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(KeyPath);
+                if (key == null)
+                    return false;
+
+                var appName = key.GetValue("ApplicationName") as string;
+                var policyName = key.GetValue("PolicyName") as string;
+                var version = key.GetValue("Version");
+                var dscp = key.GetValue("DSCPValue");
+
+                return appName == "RobloxPlayerBeta.exe" &&
+                       policyName == "RobloxNetworkBoost" &&
+                       Convert.ToInt32(version) == 1 &&
+                       Convert.ToInt32(dscp) == 46;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

@@ -16,14 +16,16 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 RobloxIcons.Add(new RobloxIconEntry { IconType = (RobloxIcon)entry });
         }
 
-        public bool MultiInstances
+        public bool MultiInstanceLaunchingEnabled
         {
             get => App.Settings.Prop.MultiInstanceLaunching;
-            set
-            {
-                App.Settings.Prop.MultiInstanceLaunching = value;
-                App.FastFlags.SetPreset("Instances.WndCheck", value ? "0" : null);
-            }
+            set => App.Settings.Prop.MultiInstanceLaunching = value;
+        }
+
+        public bool BackgroundUpdates
+        {
+            get => App.Settings.Prop.BackgroundUpdatesEnabled;
+            set => App.Settings.Prop.BackgroundUpdatesEnabled = value;
         }
 
         public bool ConfirmLaunches
@@ -48,7 +50,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (App.Settings.Prop.SelectedRobloxIcon != value)
                 {
                     App.Settings.Prop.SelectedRobloxIcon = value;
-                    App.Settings.Save(); // optional, but recommended
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(SelectedRobloxIcon));
                 }
             }

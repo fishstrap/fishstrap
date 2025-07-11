@@ -31,8 +31,8 @@
             <Image x:Name="Image2" Grid.Column="0" Width="72" Height="72" VerticalAlignment="Center" Source="pack://application:,,,/Resources/BootstrapperStyles/ByfronDialog/Matt.png" RenderOptions.BitmapScalingMode="HighQuality" Opacity="0" />
 
             <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
-                <TextBlock Text="Froststrap Help Page" FontSize="24" FontWeight="Medium" />
-                <TextBlock Text="Learn more about FastFlags and Froststrap!" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                <TextBlock Text="Froststrap Help Page" FontSize="24" FontWeight="Bold" />
+                <TextBlock Text="Learn more about FastFlags and Froststrap!" FontWeight="Medium" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
             </StackPanel>
         </Grid>
 
@@ -45,10 +45,10 @@
             <ui:Anchor Margin="0,0,0,8" Content="Discord Server" Icon="Chat48" NavigateUri="https://discord.gg/KdR9vpRcUN" />
         </WrapPanel>
 
-        <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" FontSize="20" Text="Information"/>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,8" FontSize="20" Text="Information" FontWeight="Bold"/>
 
         <!-- Introduction -->
-        <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" FontSize="14">
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,12" FontSize="14">
             Welcome to the Froststrap help page, your go-to place for source and everything related to the app!
             Froststrap is designed to provide a smooth, reliable, and powerful experience for users who want more control,
             flexibility, and performance from their tools. Whether you're here to learn, troubleshoot, or explore features,
@@ -56,7 +56,7 @@
         </TextBlock>
 
         <!-- Contributor Credits -->
-        <TextBlock Text="Credits" FontWeight="Medium" FontSize="20" Margin="0,16,0,4" />
+        <TextBlock Text="Credits" FontWeight="Bold" FontSize="20" Margin="0,16,0,4" />
         <Grid Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

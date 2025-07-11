@@ -4,11 +4,13 @@ using Bloxstrap;
 public class AdvancedSettingViewModel : INotifyPropertyChanged
 {
     public static event EventHandler? ShowPresetColumnChanged;
+    public static event EventHandler? CtrlCJsonFormatChanged;
     public static event EventHandler? ShowFlagCountChanged;
     public event EventHandler? ShowAddWithIDChanged;
 
     private CopyFormatMode _selectedCopyFormat;
     private bool _showPresetColumnSetting;
+    private bool _showCtrlCJsonFormatSetting;
 
     public AdvancedSettingViewModel()
     {
@@ -39,6 +41,7 @@ public class AdvancedSettingViewModel : INotifyPropertyChanged
         var settings = App.Settings.Prop;
         settings.SelectedCopyFormat = SelectedCopyFormat;
         settings.ShowPresetColumn = ShowPresetColumnSetting;
+        settings.CtrlCJsonFormat = ShowCtrlCJsonFormatSetting;
         App.Settings.Save();
     }
 
@@ -47,8 +50,25 @@ public class AdvancedSettingViewModel : INotifyPropertyChanged
         var settings = App.Settings.Prop;
         SelectedCopyFormat = settings.SelectedCopyFormat;
         ShowPresetColumnSetting = settings.ShowPresetColumn;
+        ShowCtrlCJsonFormatSetting = settings.CtrlCJsonFormat;
         ShowFlagCount = settings.ShowFlagCount;
         ShowAddWithID = settings.ShowAddWithID;
+    }
+
+    public bool ShowCtrlCJsonFormatSetting
+    {
+        get => _showCtrlCJsonFormatSetting;
+        set
+        {
+            if (_showCtrlCJsonFormatSetting != value)
+            {
+                _showCtrlCJsonFormatSetting = value;
+                OnPropertyChanged(nameof(ShowCtrlCJsonFormatSetting));
+                App.Settings.Prop.CtrlCJsonFormat = value;
+                App.Settings.Save();
+                CtrlCJsonFormatChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 
     public bool ShowPresetColumnSetting
@@ -60,8 +80,8 @@ public class AdvancedSettingViewModel : INotifyPropertyChanged
             {
                 _showPresetColumnSetting = value;
                 OnPropertyChanged(nameof(ShowPresetColumnSetting));
-                SaveSettings(); // persist the change
-                ShowPresetColumnChanged?.Invoke(this, EventArgs.Empty); // notify UI
+                SaveSettings();
+                ShowPresetColumnChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -79,7 +99,7 @@ public class AdvancedSettingViewModel : INotifyPropertyChanged
                 var settings = App.Settings.Prop;
                 settings.ShowFlagCount = value;
                 App.Settings.Save();
-                ShowFlagCountChanged?.Invoke(this, EventArgs.Empty); // Notify listeners
+                ShowFlagCountChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }

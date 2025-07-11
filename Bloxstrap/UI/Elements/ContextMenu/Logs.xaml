@@ -42,7 +42,7 @@
         <TabControl Grid.Row="1" Margin="8">
             
             <!-- Player Logs -->
-            <TabItem Header="{x:Static resources:Strings.ContextMenu_PlayerLogs_Title}">
+            <TabItem Header="{x:Static resources:Strings.ContextMenu_PlayerLogs_Title}" FontWeight="Medium">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -129,7 +129,7 @@
             </TabItem>
 
             <!-- Chat Logs-->
-            <TabItem Header="{x:Static resources:Strings.ContextMenu_MessageLogs_Title}">
+            <TabItem Header="{x:Static resources:Strings.ContextMenu_MessageLogs_Title}" FontWeight="Medium">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

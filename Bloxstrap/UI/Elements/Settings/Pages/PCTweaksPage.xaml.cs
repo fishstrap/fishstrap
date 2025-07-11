@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bloxstrap.UI.ViewModels.Settings;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using Bloxstrap.UI.ViewModels.Settings;
+using Bloxstrap.PcTweaks;
 
 namespace Bloxstrap.UI.Elements.Settings.Pages
 {
@@ -24,8 +13,58 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
     {
         public PCTweaksPage()
         {
-            DataContext = new ViewModels.Settings.PCTweaksViewModel();
+            DataContext = new PCTweaksViewModel();
             InitializeComponent();
+        }
+
+        private async void BtnImportMaxFPS_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            button.IsEnabled = false;
+
+            bool success = PowerPlanImporter.ImportAndActivatePowerPlan("FroststrapMaximumFPS.pow", out string message);
+
+            if (success)
+            {
+                button.Content = "Applied";
+                await Task.Delay(3000);
+                button.Content = "Apply";
+            }
+            else
+            {
+                Frontend.ShowMessageBox(
+                    message,
+                    MessageBoxImage.Error,
+                    MessageBoxButton.OK
+                );
+            }
+
+            button.IsEnabled = true;
+        }
+
+        private async void BtnImportLowLatency_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            button.IsEnabled = false;
+
+            bool success = PowerPlanImporter.ImportAndActivatePowerPlan("FroststrapLowLatency.pow", out string message);
+
+            if (success)
+            {
+                button.Content = "Applied";
+                await Task.Delay(3000);
+                button.Content = "Apply";
+            }
+            else
+            {
+                Frontend.ShowMessageBox(
+                    message,
+                    MessageBoxImage.Error,
+                    MessageBoxButton.OK
+                );
+            }
+
+            button.IsEnabled = true;
         }
 
         private void EasterEggButton_Click(object sender, RoutedEventArgs e)

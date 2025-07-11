@@ -234,12 +234,6 @@
   <data name="Menu.Behaviour.OldRobloxIcon.Description" xml:space="preserve">
     <value>Reverts the Roblox taskbar icon to older roblox icons. Note: this feature is not guaranteed to always work!</value>
   </data>
-  <data name="Menu.Appearance.MenuAdjustment.Title" xml:space="preserve">
-    <value>Menu Adjustment</value>
-  </data>
-  <data name="Menu.Appearance.MenuAdjustment.Description" xml:space="preserve">
-    <value>Allows you to change the order of the sections on the left side.</value>
-  </data>
   <data name="Dialog_FindFastFlag_Title" xml:space="preserve">
   <value>Find FastFlags</value>
 </data>
@@ -255,18 +249,6 @@
   <data name="Dialog_FindFastFlag_SourceSelector_Tooltip" xml:space="preserve">
   <value>Choose which online repository to load FastFlags from.</value>
 </data>
-  <data name="Menu.Appearance.MenuAdjustment.MoveUp" xml:space="preserve">
-    <value>Move Up</value>
-  </data>
-  <data name="Menu.Appearance.MenuAdjustment.MoveDown" xml:space="preserve">
-    <value>Move Down</value>
-  </data>
-  <data name="Menu.Appearance.MenuAdjustment.ResetToDefault" xml:space="preserve">
-    <value>Reset To Default</value>
-  </data>
-  <data name="Menu.Appearance.MenuAdjustment.LockOrder" xml:space="preserve">
-    <value>Lock Order</value>
-  </data>
   <data name="Menu.Integrations.BlockVideoRecording.Title" xml:space="preserve">
     <value>Disable Roblox Recording</value>
   </data>
@@ -557,18 +539,6 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   <data name="Enums.BootstrapperStyle.CustomFluentDialog" xml:space="preserve">
     <value>Froststrap</value>
   </data>
-  <data name="Bootstrapper.ExtractionFailed.Title" xml:space="preserve">
-    <value>Failed to extract files</value>
-  </data>
-  <data name="Bootstrapper.ExtractionFailed.Message" xml:space="preserve">
-    <value>Some content may be missing. Force a Roblox reinstallation in settings to fix this.</value>
-  </data>
-  <data name="Bootstrapper.ModificationsFailed.Title" xml:space="preserve">
-    <value>Failed to apply modifications</value>
-  </data>
-  <data name="Bootstrapper.ModificationsFailed.Message" xml:space="preserve">
-    <value>Not all modifications will be present in the current launch.</value>
-  </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
     <value>Froststrap (Classic)</value>
   </data>
@@ -656,8 +626,8 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   <data name="Enums.Theme.Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
-  <data name="Enums.Theme.ClassicDark" xml:space="preserve">
-    <value>Classic Dark</value>
+  <data name="Enums.Theme.NewDark" xml:space="preserve">
+    <value>New Dark</value>
   </data>
   <data name="Enums.Theme.Light" xml:space="preserve">
     <value>Light</value>
@@ -716,77 +686,99 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
 	<data name="Enums.CustomThemeTemplate.Simple" xml:space="preserve">
     <value>Simple</value>
   </data>
-	<data name="CustomTheme.Errors.InvalidRoot" xml:space="preserve">
+  <data name="CustomTheme.Errors.InvalidRoot" xml:space="preserve">
     <value>Theme XML root is not {0}</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
   </data>
-	<data name="CustomTheme.Errors.DialogAlreadyInitialised" xml:space="preserve">
+  <data name="CustomTheme.Errors.DialogAlreadyInitialised" xml:space="preserve">
     <value>Custom dialog has already been initialised</value>
   </data>
-	<data name="CustomTheme.Errors.TooManyElements" xml:space="preserve">
-    <value>Custom bootstrappers can only have a maximum of {0} elements, got {1}.</value>
+  <data name="CustomTheme.Errors.TooManyElements" xml:space="preserve">
+    <value>Custom bootstrappers can only have a maximum of {0} elements, got {1}</value>
+    <comment>{0} and {1} are numbers</comment>
   </data>
-	<data name="CustomTheme.Errors.VersionNotSet" xml:space="preserve">
+  <data name="CustomTheme.Errors.VersionNotSet" xml:space="preserve">
     <value>{0} version is not set</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
   </data>
-	<data name="CustomTheme.Errors.VersionNotNumber" xml:space="preserve">
+  <data name="CustomTheme.Errors.VersionNotNumber" xml:space="preserve">
     <value>{0} version is not a number</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
   </data>
-	<data name="CustomTheme.Errors.VersionNotSupported" xml:space="preserve">
+  <data name="CustomTheme.Errors.VersionNotSupported" xml:space="preserve">
     <value>{0} version {1} is no longer supported</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
   </data>
-	<data name="CustomTheme.Errors.VersionNotRecognised" xml:space="preserve">
+  <data name="CustomTheme.Errors.VersionNotRecognised" xml:space="preserve">
     <value>{0} version {1} is not recognised</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
   </data>
-	<data name="CustomTheme.Errors.ElementInvalidChild" xml:space="preserve">
+  <data name="CustomTheme.Errors.ElementInvalidChild" xml:space="preserve">
     <value>{0} cannot have a child of {1}</value>
+    <comment>{0} and {1} are element names (e.g. Button)</comment>
   </data>
-	<data name="CustomTheme.Errors.UnknownElement" xml:space="preserve">
+  <data name="CustomTheme.Errors.UnknownElement" xml:space="preserve">
     <value>Unknown element {0}</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
   </data>
-	<data name="CustomTheme.Errors.XMLParseFailed" xml:space="preserve">
+  <data name="CustomTheme.Errors.XMLParseFailed" xml:space="preserve">
     <value>Failed to parse the theme file: {0}</value>
   </data>
-	<data name="CustomTheme.Errors.ElementAttributeConversionError" xml:space="preserve">
+  <data name="CustomTheme.Errors.ElementAttributeConversionError" xml:space="preserve">
     <value>{0} has invalid {1}: {2}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
   </data>
-	<data name="CustomTheme.Errors.ElementAttributeMissing" xml:space="preserve">
+  <data name="CustomTheme.Errors.ElementAttributeMissing" xml:space="preserve">
     <value>Element {0} is missing the {1} attribute</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeInvalidType" xml:space="preserve">
-    <value>{0} {1} is not a valid {2}</value>
+    <value>{0}.{1} is not a valid {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeMustBeLargerThanMin" xml:space="preserve">
-    <value>{0} {1} must be larger than {2}</value>
+    <value>{0}.{1} must be larger than {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeMustBeSmallerThanMax" xml:space="preserve">
-    <value>{0} {1} must be smaller than {2}</value>
+    <value>{0}.{1} must be smaller than {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
   </data>
 	<data name="CustomTheme.Errors.UnknownEnumValue" xml:space="preserve">
-    <value>{0} Unknown {1} {2}</value>
+    <value>{0} Unknown {1} '{2}'</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the enum name (e.g. WindowCornerType), {2} is the value</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeMultipleDefinitions" xml:space="preserve">
     <value>{0} can only have one {1} defined</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeMultipleChildren" xml:space="preserve">
     <value>{0}.{1} can only have one child</value>
+	<comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementMultipleChildren" xml:space="preserve">
     <value>{0} can only have one child</value>
+	<comment>{0} is the element name (e.g. Button)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeMissingChild" xml:space="preserve">
-    <value>{0}.{1} is missing it's child</value>
+    <value>{0}.{1} is missing its child</value>
+	<comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeParseError" xml:space="preserve">
     <value>{0}.{1} could not be parsed into a {2}</value>
+	<comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeParseErrorNull" xml:space="preserve">
     <value>{0}.{1} {2} is null</value>
+	<comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementAttributeBlacklistedUriScheme" xml:space="preserve">
     <value>{0}.{1} uses blacklisted scheme {2}</value>
+	<comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the URI scheme (e.g. http)</comment>
   </data>
 	<data name="CustomTheme.Errors.ElementTypeCreationFailed" xml:space="preserve">
     <value>{0} failed to create {1}: {2}</value>
+	<comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
   </data>
 	<data name="CustomTheme.Editor.Title" xml:space="preserve">
     <value>Editing "{0}"</value>
@@ -850,7 +842,8 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   </data>
 	<data name="CustomTheme.Errors.SetupFailed" xml:space="preserve">
     <value>Failed to setup custom bootstrapper: {0}.
-Defaulting to Fluent.</value>
+Defaulting to {1}.</value>
+    <comment>{0} is the error reason, {1} is the theme name (e.g. Bloxstrap (Classic))</comment>
   </data>
 	<data name="Menu.Appearance.CustomThemes.NoneSelected" xml:space="preserve">
     <value>No custom theme selected.</value>
@@ -2528,5 +2521,42 @@ You can no longer use Bloxshade with Froststrap.</value>
   <data name="Menu.Froststrap.ExportData.ExportLogs" xml:space="preserve">
     <value>All Froststrap logs</value>
     <comment>Label that appears next to a checkbox</comment>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Title" xml:space="preserve">
+    <value>Failed to extract all files</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Message" xml:space="preserve">
+    <value>Some content may be missing. Force a Roblox reinstallation in settings to fix this.</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Title" xml:space="preserve">
+    <value>Failed to apply all modifications</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Message" xml:space="preserve">
+    <value>Not all modifications will be present in the current launch.</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Title" xml:space="preserve">
+    <value>Background updates</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Description" xml:space="preserve">
+    <value>Update Roblox in the background instead of waiting. Not recommended for slow networks. At least 3GB of free storage space is required for this feature to work.</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.UIElements" xml:space="preserve">
+    <value>Put UI elements here</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.MoreExamples" xml:space="preserve">
+    <value>Examples of custom bootstrappers can be found at {0}</value>
+  </data>
+  <data name="CustomTheme.Templates.Simple.MoreExamples" xml:space="preserve">
+    <value>Find more custom bootstrapper examples at {0}</value>
+  </data>
+  <data name="CustomTheme.DefaultName" xml:space="preserve">
+    <value>Custom Theme {0}</value>
+    <comment>{0} is a string (e.g. '1', '1-1234')</comment>
+  </data>
+  <data name="CustomTheme.Editor.Save.Success.Description" xml:space="preserve">
+    <value>Your theme has been saved!</value>
+  </data>
+  <data name="CustomTheme.Editor.Errors.PreviewFailed" xml:space="preserve">
+    <value>Failed to preview theme: {0}</value>
   </data>
 </root>

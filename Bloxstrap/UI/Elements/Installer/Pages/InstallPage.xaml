@@ -35,18 +35,7 @@
         </ui:Card>
 
         <TextBlock Margin="0,8,0,0" FontSize="14" Text="{x:Static resources:Strings.Installer_Install_Location_DataFound}" Visibility="{Binding DataFoundMessageVisibility, Mode=OneWay}" TextWrapping="Wrap" />
-        <TextBlock Margin="0,8,0,0" FontSize="14" Text="{Binding ErrorMessage, Mode=OneWay}" Foreground="{DynamicResource SystemFillColorCriticalBrush}" TextWrapping="Wrap">
-            <TextBlock.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self},Path=Text}" Value="">
-                            <Setter Property="UIElement.Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-
+        
         <TextBlock FontSize="20" FontWeight="SemiBold" Text="{x:Static resources:Strings.Common_Shortcuts}" TextWrapping="Wrap" Margin="0,16,0,0" />
         <TextBlock FontSize="14" Text="{x:Static resources:Strings.Installer_Install_Shortcuts_Description}" TextWrapping="Wrap" />
 
@@ -81,7 +70,23 @@
               IsEnabled="{Binding ImportSettingsEnabled, Mode=OneWay}" />
             </controls:OptionControl>
 
-            <ui:InfoBar Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0" Padding="8" Title="{x:Static resources:Strings.Installer_InstallationNotFound}" IsOpen="{Binding ShowNotFound, Mode=OneWay}" Severity="Warning" IsClosable="False" />
         </Grid>
+
+        <TextBlock Margin="0,8,0,0" FontSize="14" Text="{Binding ErrorMessage}" Foreground="{DynamicResource SystemFillColorCriticalBrush}" TextWrapping="Wrap">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ErrorMessage}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ErrorMessage}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ui:InfoBar Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0" Padding="8" Title="{x:Static resources:Strings.Installer_InstallationNotFound}" IsOpen="{Binding ShowNotFound, Mode=OneWay}" Severity="Warning" IsClosable="False" />
     </StackPanel>
 </ui:UiPage>

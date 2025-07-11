@@ -728,12 +728,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.FastFlags.SetPreset("Rendering.DisablePostFX", value ? "True" : null);
         }
 
-        public bool TaskSchedulerAvoidingSleep
-        {
-            get => App.FastFlags.GetPreset("Rendering.AvoidSleep") == "True";
-            set => App.FastFlags.SetPreset("Rendering.AvoidSleep", value ? "True" : null);
-        }
-
         public bool MinimalRendering
         {
             get => App.FastFlags.GetPreset("Rendering.MinimalRendering") == "True";
@@ -1185,6 +1179,5 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 OnPropertyChanged(nameof(SelectedCpuThreads));
             }
         }
-
     }
 }

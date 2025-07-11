@@ -59,7 +59,7 @@ namespace Bloxstrap
 
         public static bool IsProductionBuild => IsActionBuild && BuildMetadata.CommitRef.StartsWith("tag", StringComparison.Ordinal);
 
-        public static bool IsStudioVisible => !String.IsNullOrEmpty(App.State.Prop.Studio.VersionGuid);
+        public static bool IsStudioVisible => !String.IsNullOrEmpty(App.RobloxState.Prop.Studio.VersionGuid);
 
         public static readonly MD5 MD5Provider = MD5.Create();
 
@@ -71,6 +71,8 @@ namespace Bloxstrap
 
         public static readonly JsonManager<State> State = new();
 
+        public static readonly JsonManager<RobloxState> RobloxState = new();
+
         public static readonly FastFlagManager FastFlags = new();
 
         public static readonly HttpClient HttpClient = new(
@@ -79,26 +81,46 @@ namespace Bloxstrap
             )
         );
 
-        private static bool _showingExceptionDialog = false;
+private static bool _showingExceptionDialog = false;
 
+        private static string? _webUrl = null;
+        public static string WebUrl
+        {
+            get {
+                if (_webUrl != null)
+                    return _webUrl;
+
+                string url = ConstructBloxstrapWebUrl();
+                if (Settings.Loaded) // only cache if settings are done loading
+                    _webUrl = url;
+                return url;
+            }
+        }
+        
         public static void Terminate(ErrorCode exitCode = ErrorCode.ERROR_SUCCESS)
         {
             int exitCodeNum = (int)exitCode;
+
             Logger.WriteLine("App::Terminate", $"Terminating with exit code {exitCodeNum} ({exitCode})");
+
             Environment.Exit(exitCodeNum);
         }
 
         public static void SoftTerminate(ErrorCode exitCode = ErrorCode.ERROR_SUCCESS)
         {
             int exitCodeNum = (int)exitCode;
+
             Logger.WriteLine("App::SoftTerminate", $"Terminating with exit code {exitCodeNum} ({exitCode})");
+
             Current.Dispatcher.Invoke(() => Current.Shutdown(exitCodeNum));
         }
 
         void GlobalExceptionHandler(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
+
             Logger.WriteLine("App::GlobalExceptionHandler", "An exception occurred");
+
             FinalizeExceptionHandling(e.Exception);
         }
 
@@ -125,7 +147,7 @@ namespace Bloxstrap
             if (Bootstrapper?.Dialog != null)
             {
                 if (Bootstrapper.Dialog.TaskbarProgressValue == 0)
-                    Bootstrapper.Dialog.TaskbarProgressValue = 1;
+                    Bootstrapper.Dialog.TaskbarProgressValue = 1; // make sure it's visible
 
                 Bootstrapper.Dialog.TaskbarProgressState = TaskbarItemProgressState.Error;
             }
@@ -135,28 +157,6 @@ namespace Bloxstrap
             Terminate(ErrorCode.ERROR_INSTALL_FAILURE);
         }
 
-        public static async Task<GithubRelease?> GetLatestRelease()
-        {
-            const string LOG_IDENT = "App::GetLatestRelease";
-
-            try
-            {
-                var releaseInfo = await Http.GetJson<GithubRelease>($"https://api.github.com/repos/{ProjectRepository}/releases/latest");
-
-                if (releaseInfo?.Assets == null)
-                {
-                    Logger.WriteLine(LOG_IDENT, "Encountered invalid data");
-                    return null;
-                }
-
-                return releaseInfo;
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteException(LOG_IDENT, ex);
-                return null;
-            }
-        }
         public void ApplyCustomFontToWindow(Window window)
         {
             var fontPath = App.Settings.Prop.CustomFontPath;
@@ -170,9 +170,80 @@ namespace Bloxstrap
             }
         }
 
-        public static void SendLog()
+        public static string ConstructBloxstrapWebUrl()
         {
-            // Intentionally empty or implement your logging logic here
+            // dont let user switch web environment if debug mode is not on
+            if (Settings.Prop.WebEnvironment == WebEnvironment.Production || !Settings.Prop.DeveloperMode)
+                return "bloxstraplabs.com";
+
+            string? sub = Settings.Prop.WebEnvironment.GetDescription();
+            return $"web-{sub}.bloxstraplabs.com";
+        }
+
+        public static bool CanSendLogs()
+        {
+            // non developer mode always uses production
+            if (!Settings.Prop.DeveloperMode || Settings.Prop.WebEnvironment == WebEnvironment.Production)
+                return IsProductionBuild;
+
+            return true;
+        }
+
+        public static async Task<GithubRelease?> GetLatestRelease()
+        {
+            const string LOG_IDENT = "App::GetLatestRelease";
+
+            try
+            {
+                var releaseInfo = await Http.GetJson<GithubRelease>($"https://api.github.com/repos/{ProjectRepository}/releases/latest");
+
+                if (releaseInfo is null || releaseInfo.Assets is null)
+                {
+                    Logger.WriteLine(LOG_IDENT, "Encountered invalid data");
+                    return null;
+                }
+
+                return releaseInfo;
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteException(LOG_IDENT, ex);
+            }
+
+            return null;
+        }
+
+        public static async void SendStat(string key, string value)
+        {
+            if (!Settings.Prop.EnableAnalytics)
+                return;
+
+            try
+            {
+                await HttpClient.GetAsync($"https://{WebUrl}/metrics/post?key={key}&value={value}");
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteException("App::SendStat", ex);
+            }
+        }
+
+        public static async void SendLog()
+        {
+            if (!Settings.Prop.EnableAnalytics || !CanSendLogs())
+                return;
+
+            try
+            {
+                await HttpClient.PostAsync(
+                    $"https://{WebUrl}/metrics/post-exception", 
+                    new StringContent(Logger.AsDocument)
+                );
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteException("App::SendLog", ex);
+            }
         }
 
         public static void AssertWindowsOSVersion()
@@ -180,7 +251,7 @@ namespace Bloxstrap
             const string LOG_IDENT = "App::AssertWindowsOSVersion";
 
             int major = Environment.OSVersion.Version.Major;
-            if (major < 10)
+            if (major < 10) // Windows 10 and newer only
             {
                 Logger.WriteLine(LOG_IDENT, $"Detected unsupported Windows version ({Environment.OSVersion.Version}).");
 
@@ -340,6 +411,7 @@ namespace Bloxstrap
 
                 Settings.Load();
                 State.Load();
+                RobloxState.Load();
                 FastFlags.Load();
 
                 if (!Locale.SupportedLocales.ContainsKey(Settings.Prop.Locale))
@@ -347,6 +419,9 @@ namespace Bloxstrap
                     Settings.Prop.Locale = "nil";
                     Settings.Save();
                 }
+
+                Logger.WriteLine(LOG_IDENT, $"Developer mode: {Settings.Prop.DeveloperMode}");
+                Logger.WriteLine(LOG_IDENT, $"Web environment: {Settings.Prop.WebEnvironment}");
 
                 Locale.Set(Settings.Prop.Locale);
 

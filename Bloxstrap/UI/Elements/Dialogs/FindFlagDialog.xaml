@@ -5,17 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
-    xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Dialogs"
     xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
-    xmlns:resources="clr-namespace:Bloxstrap.Resources"
     mc:Ignorable="d"
-    Title="{x:Static resources:Strings.Dialog_FindFastFlag_Title}"
+    Title="Find FastFlags"
+    Width="1000"
+    Height="700"
+    MinWidth="800"
     MinHeight="600"
-    MaxHeight="700"
-    Width="700"
-    SizeToContent="Height"
-    ResizeMode="CanResize"
+    MaxHeight="900"
     Background="{ui:ThemeResource ApplicationBackgroundBrush}"
     ExtendsContentIntoTitleBar="True"
     WindowStartupLocation="CenterScreen">
@@ -29,6 +26,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="8" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -36,85 +35,194 @@
         <ui:TitleBar
             Grid.Row="0"
             Padding="8"
-            Title="{x:Static resources:Strings.Dialog_FindFastFlag_Title}"
+            Title="Find Fast Flags"
             Icon="pack://application:,,,/Bloxstrap.ico"
-            ShowMinimize="False"
-            ShowMaximize="False"
-            CanMaximize="False"
+            ShowMinimize="True"
+            ShowMaximize="True"
+            CanMaximize="True"
             KeyboardNavigation.TabNavigation="None" />
 
-        <Grid Grid.Row="1" Margin="4,10,4,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="8" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <!-- Title & Loading Indicator -->
+        <StackPanel Grid.Row="1" Margin="16,8,16,0">
+            <TextBlock FontSize="20" FontWeight="Bold" Text="Find FastFlag" Margin="0,0,0,4" />
+            <TextBlock FontSize="14" Margin="0,0,0,8" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Look through every fastflag to find unknown hidden fastflags, Press Ctrl+C to Copy" />
 
-            <controls:OptionControl
-                Grid.Row="0"
-                Header="{x:Static resources:Strings.Dialog_FindFastFlag_SourceSelector_Header}"
-                Description="{x:Static resources:Strings.Dialog_FindFastFlag_SourceSelector_Description}"
-                HorizontalAlignment="Stretch"
-                Margin="0">
+            <Border Margin="0,0,0,8"
+                    Padding="10"
+                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                    CornerRadius="5"
+                    Visibility="{Binding IsFlagsLoaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Loading" />
+                    <TextBlock x:Name="LoadingDotsText"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Margin="4,0,0,0" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
 
-                <ComboBox
-                    Loaded="ComboBox_Loaded"
-                    SelectionChanged="SourceSelector_Changed"
-                    HorizontalAlignment="Stretch"
-                    Margin="0" />
-            </controls:OptionControl>
+        <!-- Search Fields -->
+        <Grid Grid.Row="2" Margin="16,0,16,8"
+              Visibility="{Binding IsFlagsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <ui:TextBox
-                x:Name="SearchTextBox"
-                Grid.Row="2"
-                Height="32"
-                VerticalContentAlignment="Center"
-                BorderThickness="0"
-                FocusVisualStyle="{x:Null}"
-                FontSize="14"
-                Icon="Search48"
-                PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}"
-                TextChanged="SearchTextBox_TextChanged"
-                HorizontalAlignment="Stretch"
-                Margin="0" />
+            <ui:TextBox Grid.Column="1"
+                        x:Name="KeywordSearchingTextbox"
+                        VerticalContentAlignment="Center"
+                        Icon="Search48"
+                        PlaceholderText="Keyword Search (e.g. Fps, Ping, Live)"
+                        TextChanged="KeywordSearching"
+                        Margin="4,0,0,0" />
+
+            <ui:TextBox Grid.Column="0"
+                        x:Name="ValueSearchTextBox"
+                        VerticalContentAlignment="Center"
+                        Icon="Search48"
+                        PlaceholderText="Keyword Value Search (e.g. True, 1818, marketplace)"
+                        TextChanged="ValueSearchTextBox_TextChanged"
+                        Margin="0,0,4,0" />
         </Grid>
 
-        <TextBlock
-            x:Name="FlagCountTextBlock"
-            Grid.Row="2"
-            Margin="8,6,8,4"
-            HorizontalAlignment="Right"
-            FontWeight="SemiBold" />
+        <!-- Filters and Export -->
+        <Grid Grid.Row="3" Margin="16,0,16,0"
+              Visibility="{Binding IsFlagsLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-        <TextBox
-            x:Name="FlagOutputBox"
-            Grid.Row="3"
-            Margin="4,0,4,0"
-            VerticalScrollBarVisibility="Visible"
-            HorizontalScrollBarVisibility="Auto"
-            FontFamily="Consolas"
-            FontSize="14"
-            IsReadOnly="True"
-            TextWrapping="NoWrap"
-            AcceptsReturn="True"
-            AcceptsTab="True"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                <CheckBox x:Name="TrueOnlyCheckBox"
+              Content="Show True Value"
+              Checked="FilterCheckbox_Changed"
+              Unchecked="FilterCheckbox_Changed"
+              Margin="0,0,12,0" />
 
-        <Border
-            Grid.Row="4"
-            Margin="0,10,0,10"
-            Padding="15"
-            Background="{DynamicResource PrimaryBackgroundColor}">
-            <StackPanel
-                Orientation="Horizontal"
-                FlowDirection="LeftToRight"
-                HorizontalAlignment="Right">
-                <Button
-                    MinWidth="100"
-                    Content="{x:Static resources:Strings.Common_Close}"
-                    Click="CloseButton_Click" />
+                <CheckBox x:Name="FalseOnlyCheckBox"
+              Content="Show False Value"
+              Checked="FilterCheckbox_Changed"
+              Unchecked="FilterCheckbox_Changed"
+              Margin="0,0,12,0" />
+
+                <TextBlock Text="Filter by:" VerticalAlignment="Center" Margin="0,0,6,0" FontWeight="SemiBold" />
+
+                <ComboBox x:Name="ValueTypeComboBox" MinWidth="100" MinHeight="32"
+              SelectionChanged="ValueTypeComboBox_SelectionChanged">
+                    <ComboBoxItem Content="All" IsSelected="True" />
+                    <ComboBoxItem Content="Boolean" />
+                    <ComboBoxItem Content="Integer" />
+                    <ComboBoxItem Content="String" />
+                </ComboBox>
             </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <ui:Button x:Name="ExportButton"
+                           Content="Export JSON"
+                           Click="ExportButton_Click"
+                           Width="120"
+                           Margin="0,0,15,0" />
+                <TextBlock x:Name="FlagCountTextBlock"
+                           VerticalAlignment="Center"
+                           FontWeight="SemiBold" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Results DataGrid -->
+        <DataGrid x:Name="FlagDataGrid"
+                  Grid.Row="5"
+                  Margin="16,0,16,0"
+                  AutoGenerateColumns="False"
+                  EnableRowVirtualization="True"
+                  EnableColumnVirtualization="True"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  IsReadOnly="True"
+                  FontSize="14"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  PreviewKeyDown="FlagDataGrid_PreviewKeyDown"
+                  MaxHeight="450"
+                  HeadersVisibility="Column"
+                  CanUserResizeRows="False"
+                  RowHeight="30"
+                  ItemsSource="{Binding FilteredFlags}">
+
+            <DataGrid.Style>
+                <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
+                    <Setter Property="Background" Value="{DynamicResource NormalDarkAndLightBackground}" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="GridLinesVisibility" Value="Horizontal" />
+                    <Setter Property="HorizontalGridLinesBrush" Value="#11000000" />
+                    <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
+                </Style>
+            </DataGrid.Style>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="Padding" Value="8,0,12,0" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="Padding" Value="6,0,6,0" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell">
+                                <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#14000000" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#59007ACC" />
+                            <Setter Property="Foreground" Value="#F0F0F0" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="#8C007ACC" />
+                        </MultiTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Flag Name" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="150" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="120" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="6" Margin="0,16,0,0" Padding="11" Background="{DynamicResource PrimaryBackgroundColor}" HorizontalAlignment="Stretch">
+            <Grid>
+                <Button MinWidth="100" Margin="12,0,0,0" Content="Close" Click="CloseButton_Click" FontWeight="Medium" HorizontalAlignment="Right" />
+            </Grid>
         </Border>
     </Grid>
 </base:WpfUiWindow>

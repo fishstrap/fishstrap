@@ -217,5 +217,51 @@ namespace Bloxstrap.PcTweaks
             }
             catch { }
         }
+
+        public static bool IsNetworkOptimizationEnabled()
+        {
+            try
+            {
+                using var interfacesKey = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces", writable: false);
+                if (interfacesKey == null)
+                    return false;
+
+                foreach (var subKeyName in interfacesKey.GetSubKeyNames())
+                {
+                    using var subKey = interfacesKey.OpenSubKey(subKeyName, writable: false);
+                    if (subKey == null)
+                        continue;
+
+                    var tcpAckFrequency = subKey.GetValue("TcpAckFrequency");
+                    var tcpNoDelay = subKey.GetValue("TCPNoDelay");
+                    var tcpDelAckTicks = subKey.GetValue("TcpDelAckTicks");
+
+                    // Check if values match the "enabled" state
+                    if (Convert.ToInt32(tcpAckFrequency) != 1 ||
+                        Convert.ToInt32(tcpNoDelay) != 1 ||
+                        Convert.ToInt32(tcpDelAckTicks) != 0)
+                    {
+                        return false;
+                    }
+                }
+
+                using var tcpipParams = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\Tcpip\Parameters", writable: false);
+                if (tcpipParams == null)
+                    return false;
+
+                if (Convert.ToInt32(tcpipParams.GetValue("Tcp1323Opts", -1)) != 1) return false;
+                if (Convert.ToInt32(tcpipParams.GetValue("DefaultTTL", -1)) != 64) return false;
+                if (Convert.ToInt32(tcpipParams.GetValue("EnableTCPChimney", -1)) != 0) return false;
+                if (Convert.ToInt32(tcpipParams.GetValue("EnableRSS", -1)) != 1) return false;
+                if (Convert.ToInt32(tcpipParams.GetValue("EnableTCPA", -1)) != 0) return false;
+                if (Convert.ToInt32(tcpipParams.GetValue("DisableTaskOffload", -1)) != 1) return false;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

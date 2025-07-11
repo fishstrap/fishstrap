@@ -15,7 +15,7 @@
         <TextBlock
             Margin="0,0,0,16"
             FontSize="24"
-            FontWeight="Medium"
+            FontWeight="Bold"
             Text="{x:Static resources:Strings.Menu_About_Licenses}" />
         <Grid>
             <Grid.RowDefinitions>

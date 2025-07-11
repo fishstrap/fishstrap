@@ -17,7 +17,7 @@
     <StackPanel Margin="0,0,14,14">
         <TextBlock Margin="0,0,0,8" Text="{x:Static resources:Strings.Menu_Channel_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
-        <TextBlock Text="Froststrap" FontSize="16" FontWeight="Medium" Margin="0,16,0,0" />
+        <TextBlock Text="Froststrap" FontSize="16" FontWeight="Bold" Margin="0,16,0,0" />
         
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Behaviour_AutoUpdate_Title}"
@@ -37,7 +37,7 @@
             <ui:ToggleSwitch IsChecked="{Binding DisableAnimations, Mode=TwoWay}" Checked="ToggleSwitch_Checked_2" Unchecked="ToggleSwitch_Unchecked_2" />
         </controls:OptionControl>
 
-        <TextBlock Text="Roblox" FontSize="16" FontWeight="Medium" Margin="0,16,0,0" />
+        <TextBlock Text="Roblox" FontSize="16" FontWeight="Bold" Margin="0,16,0,0" />
 
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Behaviour_ForceRobloxReinstall_Title}"
@@ -60,7 +60,7 @@
             <controls:OptionControl.Style>
                 <Style TargetType="controls:OptionControl">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ForceRobloxReinstallation, Mode=OneTime}" Value="True">
+                        <DataTrigger Binding="{Binding IsRobloxInstallationMissing, Mode=OneTime}" Value="True">
                             <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
                     </Style.Triggers>

@@ -25,7 +25,7 @@
             <ui:ToggleSwitch IsChecked="{Binding ExtractIconsTask.NewState, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <TextBlock Text="{x:Static resources:Strings.Menu_Shortcuts_General_Title}" FontSize="20" FontWeight="Medium" />
+        <TextBlock Text="{x:Static resources:Strings.Menu_Shortcuts_General_Title}" FontSize="20" FontWeight="Bold" />
         <TextBlock Text="{x:Static resources:Strings.Menu_Shortcuts_General_Description}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
         <Grid>
@@ -43,7 +43,7 @@
             </controls:OptionControl>
         </Grid>
 
-        <TextBlock Text="{x:Static resources:Strings.Menu_Shortcuts_Function_Title}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
+        <TextBlock Text="{x:Static resources:Strings.Menu_Shortcuts_Function_Title}" FontSize="20" FontWeight="Bold" Margin="0,16,0,0" />
         <TextBlock Text="{x:Static resources:Strings.Menu_Shortcuts_Function_Description}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
         <Grid>
@@ -66,108 +66,111 @@
             </controls:OptionControl>
         </Grid>
 
-        <Grid Margin="16">
+        <TextBlock Text="{x:Static resources:Strings.Common_Miscellaneous}" FontSize="20" FontWeight="Bold" Margin="0,16,0,0" />
 
+        <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False" x:Name="RobloxMenuExpander" >
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock FontSize="14" Text="Game Shortcuts" />
+                        <TextBlock Margin="0,2,0,0" FontSize="12" Text="Create shortcuts to quickly join games from your Desktop" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid Margin="0,8,0,0" MinHeight="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" 
-        Background="#19000000" 
-        CornerRadius="12" 
-        Padding="16" 
-        Margin="0,0,16,0"
-        Effect="{DynamicResource ShadowEffect}">
-                <StackPanel>
-                    <TextBlock Text="Game Shortcuts" 
-                   FontSize="22" 
-                   FontWeight="Bold"                         
-                   Margin="0,0,0,20" />
-                    <ListBox ItemsSource="{Binding GameShortcuts}" 
-                 SelectedItem="{Binding SelectedShortcut}" 
-                 DisplayMemberPath="GameName" 
-                 Height="440"
-                 Background="#33000000"
-                 BorderThickness="0"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            <ListBox ItemsSource="{Binding GameShortcuts}" 
+             SelectedItem="{Binding SelectedShortcut}"
+             DisplayMemberPath="GameName" SelectedIndex="0"
+             ScrollViewer.VerticalScrollBarVisibility="Auto" />
 
-                    <Grid Margin="0,8,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1" Grid.Column="0" Margin="0,8,4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ui:Button Grid.Column="0" Margin="0,0,4,0" Icon="Add28" 
+                   Content="{x:Static resources:Strings.Common_New}" 
+                   HorizontalAlignment="Stretch" Command="{Binding AddShortcutCommand}" FontWeight="Medium" />
+                <ui:Button Grid.Column="1" Margin="4,0,0,0" Icon="Delete28" 
+                   Content="{x:Static resources:Strings.Common_Delete}" 
+                   HorizontalAlignment="Stretch" Appearance="Danger" 
+                   Command="{Binding RemoveShortcutCommand}" FontWeight="Medium" />
+            </Grid>
 
-                        <ui:Button Grid.Column="0" 
-                       Margin="0,0,4,0" 
-                       Content="Add" 
-                       Command="{Binding AddShortcutCommand}" 
-                       HorizontalAlignment="Stretch" 
-                       Height="36" />
-                        <ui:Button Grid.Column="1" 
-                       Margin="4,0,0,0" 
-                       Content="Remove" 
-                       Command="{Binding RemoveShortcutCommand}" 
-                       HorizontalAlignment="Stretch" 
-                       Height="36"
-                                   Appearance="Danger"/>
-                    </Grid>
-                </StackPanel>
-            </Border>
+            <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="20,0,0,0">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsShortcutSelected}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
 
-            <Border Grid.Column="1"
-            Background="#19000000"
-            CornerRadius="12"
-            Padding="24"
-            Effect="{DynamicResource ShadowEffect}">
-                <StackPanel MaxWidth="600">
-                    <TextBlock Text="Shortcut Details" 
-                       FontSize="22" 
-                       FontWeight="Bold" 
-                       Margin="0,0,0,24" />
-
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,24" VerticalAlignment="Center">
-                        <Border Width="80" Height="80" Background="#33000000" CornerRadius="16" VerticalAlignment="Center" >
-                            <Image Source="{Binding SelectedShortcut.IconPath}" 
-                           Width="60" Height="60" 
-                           Stretch="Uniform" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" />
-                        </Border>
-                        <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
-                            <TextBlock Text="{Binding SelectedShortcut.GameName}" 
-                               FontSize="18" FontWeight="SemiBold"   />
-                            <TextBlock Text="{Binding SelectedShortcut.GameId}" 
-                               FontSize="14" Foreground="#CCC" />
-                        </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="80" Height="80" Background="#33000000" CornerRadius="16" VerticalAlignment="Center">
+                        <Image Source="{Binding SelectedShortcut.IconPath}" Width="60" Height="60" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                        <TextBlock Text="{Binding SelectedShortcut.GameName}" FontSize="18" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding SelectedShortcut.GameId}" FontSize="14" />
                     </StackPanel>
-
-                    <TextBlock Text="Game Name" FontWeight="SemiBold" Foreground="#CCC" />
-                    <ui:TextBox Text="{Binding SelectedShortcut.GameName, UpdateSourceTrigger=PropertyChanged}" 
-                        Height="36" Margin="0,8,0,20" 
-                        Background="#33000000" BorderThickness="0" Padding="8" />
-
-                    <TextBlock Text="Game ID" FontWeight="SemiBold" Foreground="#CCC" />
-                    <ui:TextBox Text="{Binding SelectedShortcut.GameId, UpdateSourceTrigger=PropertyChanged}" 
-                        Height="36" Margin="0,8,0,20" 
-                        Background="#33000000" BorderThickness="0" Padding="8" />
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,24">
-                        <ui:Button Content="Use Game Icon" Command="{Binding DownloadIconCommand}"  Width="Auto" Height="36" Icon="Games24" Margin="0,0,8,0" />
-                        <ui:Button Content="Browse Icon" Command="{Binding BrowseIconCommand}" Width="Auto" Height="36" Icon="Folder24" />
-                    </StackPanel>
-
-                    <TextBlock Text="Icon Path" FontWeight="SemiBold" Foreground="#CCC" />
-                    <ui:TextBox Text="{Binding SelectedShortcut.IconPath}" IsReadOnly="True" 
-                        Height="28" Margin="0,8,0,20" 
-                        Background="#33000000" BorderThickness="0" Padding="6" />
-
-                    <ui:Button Content="Create Game Shortcut" Icon="Shortpick24" Command="{Binding CreateShortcutCommand}" Width="Auto" Height="36" />
-
-                    <TextBlock Text="{Binding GameShortcutStatus}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontWeight="SemiBold" Margin="0,20,0,0" TextWrapping="Wrap" />
                 </StackPanel>
-            </Border>
+
+                <TextBlock Margin="0,24,0,4" Text="Game Name" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                <ui:TextBox Text="{Binding SelectedShortcut.GameName, UpdateSourceTrigger=PropertyChanged}" Height="36" />
+
+                <TextBlock Margin="0,8,0,4" Text="Game ID" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                <ui:TextBox Text="{Binding SelectedShortcut.GameId, UpdateSourceTrigger=PropertyChanged}" Height="36" PlaceholderText="1818" />
+
+                <TextBlock Margin="0,8,0,4" Text="Icon Path" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBox Text="{Binding SelectedShortcut.IconPath}" Margin="0,0,4,0" Grid.Column="0" PlaceholderText="C:\Windows\System32\cmd.exe" />
+                    <ui:Button Grid.Column="1" Margin="8,0,0,0" Height="34" Icon="Folder24" Content="{x:Static resources:Strings.Common_Browse}" Command="{Binding BrowseIconCommand}" FontWeight="Medium" />
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                    <ui:Button Content="Create Game Shortcut" Icon="Shortpick24" Command="{Binding CreateShortcutCommand}" Height="34" Margin="0,0,8,0" FontWeight="Medium" />
+                    <ui:Button Content="Use Game Icon" Command="{Binding DownloadIconCommand}" Height="34" Icon="Games24" FontWeight="Medium" />
+                </StackPanel>
+
+                <TextBlock Text="{Binding GameShortcutStatus}" Margin="0,12,0,0" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontWeight="SemiBold" TextWrapping="Wrap" />
+            </StackPanel>
+
+            <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+               Text="Select a shortcut to edit it."
+               VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Medium">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsShortcutSelected}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </Grid>
+        </ui:CardExpander>
+
         <TextBlock Text="3"
                FontSize="12"
                Opacity="0.3"

@@ -262,9 +262,6 @@ namespace Bloxstrap
             { "Rendering.Mode.MetalShaderCookie2", "FFlagGraphicsMetalShaderCookie16"},
             { "Rendering.Mode.MetalGlobalInstancing", "FFlagRenderEnableGlobalInstancingMetal"},
 
-            // Task Scheduler Avoid sleep
-            { "Rendering.AvoidSleep", "DFFlagTaskSchedulerAvoidSleep" },
-
             // Lighting technology
             { "Rendering.Lighting.Voxel", "DFFlagDebugRenderForceTechnologyVoxel" },
             { "Rendering.Lighting.ShadowMap", "FFlagDebugForceFutureIsBrightPhase2" },
@@ -670,6 +667,5 @@ namespace Bloxstrap
             foreach (var kvp in next)
                 Prop[kvp.Key] = kvp.Value!;
         }
-
     }
 }

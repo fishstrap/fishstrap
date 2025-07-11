@@ -93,23 +93,6 @@ namespace Bloxstrap.PcTweaks
             })?.WaitForExit();
         }
 
-        private static string? PromptUserToSelectExe()
-        {
-            string? exePath = null;
-
-            using (var dialog = new System.Windows.Forms.OpenFileDialog
-            {
-                Filter = "RobloxPlayerBeta (*.exe)|RobloxPlayerBeta.exe",
-                Title = "Select RobloxPlayerBeta.exe"
-            })
-            {
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    exePath = dialog.FileName;
-            }
-
-            return exePath;
-        }
-
         private static string? TryFindRobloxPlayerBeta()
         {
             try
@@ -161,6 +144,46 @@ namespace Bloxstrap.PcTweaks
                 Application.Current.Shutdown();
             }
             catch { }
+        }
+
+        public static bool IsFirewallRuleEnabled()
+        {
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "netsh",
+                    Arguments = "advfirewall firewall show rule name=all",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                };
+
+                using Process proc = Process.Start(psi)!;
+                if (proc == null)
+                    return false;
+
+                string output = proc.StandardOutput.ReadToEnd();
+                proc.WaitForExit();
+
+
+                string pattern = @$"Rule Name:\s*{Regex.Escape(RuleName)} \((IN|OUT)\)[\s\S]*?Enabled:\s*Yes";
+
+                var matches = Regex.Matches(output, pattern, RegexOptions.IgnoreCase);
+                HashSet<string> directionsFound = new();
+
+                foreach (Match match in matches)
+                {
+                    string direction = match.Groups[1].Value.ToLowerInvariant();
+                    directionsFound.Add(direction);
+                }
+
+                return directionsFound.Contains("in") && directionsFound.Contains("out");
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

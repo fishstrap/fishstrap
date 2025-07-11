@@ -498,6 +498,62 @@ namespace Bloxstrap.UI.Elements.Editor
             _completionWindow.Show();
             _completionWindow.Closed += (_, _) => _completionWindow = null;
         }
+
+        private void InsertTextAtCaret(string textToInsert)
+        {
+            var textArea = UIXML.TextArea;
+            var document = UIXML.Document;
+
+            int offset = textArea.Caret.Offset;
+
+            // Insert the text at the caret position
+            document.Insert(offset, textToInsert);
+
+            // Move the caret to after the inserted text
+            textArea.Caret.Offset = offset + textToInsert.Length;
+
+            // Ensure the caret is visible
+            textArea.Caret.BringCaretToView();
+        }
+
+        private void InsertGrid_Click(object sender, RoutedEventArgs e)
+    => InsertTextAtCaret("<Grid> </Grid>");
+
+        private void InsertStackPanel_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<StackPanel> </StackPanel>");
+
+        private void InsertBorder_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<Border BorderBrush=\"#19000000\" BorderThickness=\"1\" CornerRadius=\"4\" Padding=\"4\"></Border>");
+
+        private void InsertTextBlock_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<TextBlock Text=\"Sample Text\" FontSize=\"14\" FontWeight=\"Normal\" TextWrapping=\"Wrap\" />");
+
+        private void InsertImage_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<Image Source=\"theme://bg.png\" Stretch=\"Uniform\" />");
+
+        private void InsertImageBrush_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<ImageBrush ImageSource=\"theme://bg.png\" Stretch=\"Uniform\" />");
+
+        private void InsertProgressBar_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<ProgressBar Name=\"PrimaryProgressBar\" Minimum=\"0\" Maximum=\"100\" Value=\"0\" />");
+
+        private void InsertRectangle_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<Rectangle Fill=\"Gray\" RadiusX=\"5\" RadiusY=\"5\" />");
+
+        private void InsertProgressRing_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<ProgressRing IsActive=\"True\" />");
+
+        private void InsertButton_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<Button Content=\"Click Me\" />");
+
+        private void InsertCancelButton_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<Button Content=\"Cancel\" Name=\"CancelButton\" />");
+
+        private void InsertTitleBar_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<TitleBar Title=\"\" ShowMinimize=\"False\" ShowClose=\"False\" Source=\"{Icon}\" />");
+
+        private void InsertBootstrapper_Click(object sender, RoutedEventArgs e)
+            => InsertTextAtCaret("<BloxstrapCustomBootstrapper Version=\"1\" Height=\"320\" Width=\"520\" IgnoreTitleBarInset=\"True\" Theme=\"Default\" Margin=\"30\">\n\n</BloxstrapCustomBootstrapper>\n");
     }
 
     public class ElementCompletionData : ICompletionData

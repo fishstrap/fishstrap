@@ -46,11 +46,11 @@
             <!-- Navigation control -->
             <ui:NavigationCompact x:Name="RootNavigation" Grid.Row="1" Grid.Column="0" Margin="0,0,12,0" Frame="{Binding ElementName=RootFrame}" SelectedPageIndex="0">
                 <ui:NavigationCompact.Items>
-                    <ui:NavigationItem Content="Information" PageType="{x:Type pages:InfoPage}" Icon="QuestionCircle48" Tag="info" Margin="0,0,0,12" />
-                    <ui:NavigationItem Content="FastFlag Guide" PageType="{x:Type pages:FastFlagGuidePage}" Icon="BookAdd24" Tag="fastflagsguide" Margin="0,0,0,12" />
-                    <ui:NavigationItem Content="Common FastFlag Issues" PageType="{x:Type pages:CommonFastFlagIssuesPage}" Icon="Flag28" Tag="commonfastflagissues" Margin="0,0,0,12" />
-                    <ui:NavigationItem Content="Common Bootstrapper Issues" PageType="{x:Type pages:CommonBootstrapperIssuesPage}" Icon="TaskListSquareSettings20" Tag="commonbootstrapperissues" Margin="0,0,0,12" />
-                    <ui:NavigationItem Content="Features" PageType="{x:Type pages:FeaturesPage}" Icon="Lightbulb24" Tag="features" Margin="0,0,0,12" />
+                    <ui:NavigationItem Content="Information" PageType="{x:Type pages:InfoPage}" Icon="QuestionCircle48" Tag="info" Margin="0,0,0,12" FontWeight="Medium" />
+                    <ui:NavigationItem Content="FastFlag Guide" PageType="{x:Type pages:FastFlagGuidePage}" Icon="BookAdd24" Tag="fastflagsguide" Margin="0,0,0,12" FontWeight="Medium" />
+                    <ui:NavigationItem Content="Common FastFlag Issues" PageType="{x:Type pages:CommonFastFlagIssuesPage}" Icon="Flag28" Tag="commonfastflagissues" Margin="0,0,0,12" FontWeight="Medium" />
+                    <ui:NavigationItem Content="Common Bootstrapper Issues" PageType="{x:Type pages:CommonBootstrapperIssuesPage}" Icon="TaskListSquareSettings20" Tag="commonbootstrapperissues" Margin="0,0,0,12" FontWeight="Medium" />
+                    <ui:NavigationItem Content="Features" PageType="{x:Type pages:FeaturesPage}" Icon="Lightbulb24" Tag="features" Margin="0,0,0,12" FontWeight="Medium" />
                 </ui:NavigationCompact.Items>
             </ui:NavigationCompact>
 

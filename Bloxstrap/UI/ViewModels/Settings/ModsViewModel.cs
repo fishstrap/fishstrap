@@ -1,16 +1,15 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using System.IO;
-
-using Microsoft.Win32;
-
-using Windows.Win32;
-using Windows.Win32.UI.Shell;
-using Windows.Win32.Foundation;
-
+﻿using Bloxstrap.AppData;
 using CommunityToolkit.Mvvm.Input;
-
-using Bloxstrap.AppData;
+using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.Shell;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -235,5 +234,790 @@ namespace Bloxstrap.UI.ViewModels.Settings
             OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
             OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
         }
+
+        #region Custom Cursor Set
+        public ObservableCollection<CustomCursorSet> CustomCursorSets { get; } = new();
+
+        private int _selectedCustomCursorSetIndex;
+        public int SelectedCustomCursorSetIndex
+        {
+            get => _selectedCustomCursorSetIndex;
+            set
+            {
+                if (_selectedCustomCursorSetIndex != value)
+                {
+                    _selectedCustomCursorSetIndex = value;
+                    OnPropertyChanged(nameof(SelectedCustomCursorSetIndex));
+                    OnPropertyChanged(nameof(SelectedCustomCursorSet));
+                    OnPropertyChanged(nameof(IsCustomCursorSetSelected));
+                    SelectedCustomCursorSetName = SelectedCustomCursorSet?.Name ?? "";
+
+                    SelectedCustomCursorSetIndex = value;
+                    NotifyCursorVisibilities();
+                    LoadCursorPathsForSelectedSet();
+                }
+            }
+        }
+
+        public CustomCursorSet? SelectedCustomCursorSet =>
+            SelectedCustomCursorSetIndex >= 0 && SelectedCustomCursorSetIndex < CustomCursorSets.Count
+                ? CustomCursorSets[SelectedCustomCursorSetIndex]
+                : null;
+
+        public bool IsCustomCursorSetSelected => SelectedCustomCursorSet is not null;
+
+        private string _selectedCustomCursorSetName = string.Empty;
+        public string SelectedCustomCursorSetName
+        {
+            get => _selectedCustomCursorSetName;
+            set
+            {
+                if (_selectedCustomCursorSetName != value)
+                {
+                    _selectedCustomCursorSetName = value;
+                    OnPropertyChanged(nameof(SelectedCustomCursorSetName));
+                }
+            }
+        }
+
+        public ICommand AddCustomCursorSetCommand => new RelayCommand(AddCustomCursorSet);
+        public ICommand DeleteCustomCursorSetCommand => new RelayCommand(DeleteCustomCursorSet);
+        public ICommand RenameCustomCursorSetCommand => new RelayCommand(RenameCustomCursorSet);
+        public ICommand ApplyCursorSetCommand => new RelayCommand(ApplyCursorSet);
+        public ICommand GetCurrentCursorSetCommand => new RelayCommand(GetCurrentCursorSet);
+        public ICommand ExportCursorSetCommand => new RelayCommand(ExportCursorSet);
+        public ICommand ImportCursorSetCommand => new RelayCommand(ImportCursorSet);
+        public ICommand AddArrowCursorCommand => new RelayCommand(() => AddCursorImage("ArrowCursor.png", "Select Arrow Cursor PNG"));
+        public ICommand AddArrowFarCursorCommand => new RelayCommand(() => AddCursorImage("ArrowFarCursor.png", "Select Arrow Far Cursor PNG"));
+        public ICommand AddIBeamCursorCommand => new RelayCommand(() => AddCursorImage("IBeamCursor.png", "Select IBeam Cursor PNG"));
+        public ICommand AddShiftlockCursorCommand => new RelayCommand(AddShiftlockCursor);
+        public ICommand DeleteArrowCursorCommand => new RelayCommand(() => DeleteCursorImage("ArrowCursor.png"));
+        public ICommand DeleteArrowFarCursorCommand => new RelayCommand(() => DeleteCursorImage("ArrowFarCursor.png"));
+        public ICommand DeleteIBeamCursorCommand => new RelayCommand(() => DeleteCursorImage("IBeamCursor.png"));
+        public ICommand DeleteShiftlockCursorCommand => new RelayCommand(() => DeleteCursorImage("MouseLockedCursor.png"));
+
+        public ModsViewModel()
+        {
+            LoadCustomCursorSets();
+
+            LoadCursorPathsForSelectedSet();
+
+            NotifyCursorVisibilities();
+        }
+        #endregion
+
+        #region Button Logic
+        private void LoadCustomCursorSets()
+        {
+            CustomCursorSets.Clear();
+
+            if (!Directory.Exists(Paths.CustomCursors))
+                Directory.CreateDirectory(Paths.CustomCursors);
+
+            foreach (var dir in Directory.GetDirectories(Paths.CustomCursors))
+            {
+                var name = Path.GetFileName(dir);
+
+                CustomCursorSets.Add(new CustomCursorSet
+                {
+                    Name = name,
+                    FolderPath = dir
+                });
+            }
+
+            if (CustomCursorSets.Any())
+                SelectedCustomCursorSetIndex = 0;
+
+            OnPropertyChanged(nameof(IsCustomCursorSetSelected));
+        }
+
+        private void AddCustomCursorSet()
+        {
+            string basePath = Paths.CustomCursors;
+            int index = 1;
+            string newFolderPath;
+
+            do
+            {
+                string folderName = $"Custom Cursor Set {index}";
+                newFolderPath = Path.Combine(basePath, folderName);
+                index++;
+            }
+            while (Directory.Exists(newFolderPath));
+
+            try
+            {
+                Directory.CreateDirectory(newFolderPath);
+
+                var newSet = new CustomCursorSet
+                {
+                    Name = Path.GetFileName(newFolderPath),
+                    FolderPath = newFolderPath
+                };
+
+                CustomCursorSets.Add(newSet);
+                SelectedCustomCursorSetIndex = CustomCursorSets.Count - 1;
+                OnPropertyChanged(nameof(IsCustomCursorSetSelected));
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("ModsViewModel::AddCustomCursorSet", ex);
+                Frontend.ShowMessageBox($"Failed to create cursor set:\n{ex.Message}", MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteCustomCursorSet()
+        {
+            if (SelectedCustomCursorSet is null)
+                return;
+
+            try
+            {
+                if (Directory.Exists(SelectedCustomCursorSet.FolderPath))
+                    Directory.Delete(SelectedCustomCursorSet.FolderPath, true);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("ModsViewModel::DeleteCustomCursorSet", ex);
+                Frontend.ShowMessageBox($"Failed to delete cursor set:\n{ex.Message}", MessageBoxImage.Error);
+                return;
+            }
+
+            CustomCursorSets.Remove(SelectedCustomCursorSet);
+
+            if (CustomCursorSets.Any())
+            {
+                SelectedCustomCursorSetIndex = CustomCursorSets.Count - 1;
+                OnPropertyChanged(nameof(SelectedCustomCursorSet));
+            }
+
+            OnPropertyChanged(nameof(IsCustomCursorSetSelected));
+        }
+
+        private void RenameCustomCursorSetStructure(string oldName, string newName)
+        {
+            string oldDir = Path.Combine(Paths.CustomCursors, oldName);
+            string newDir = Path.Combine(Paths.CustomCursors, newName);
+
+            if (Directory.Exists(newDir))
+                throw new IOException("A folder with the new name already exists.");
+
+            Directory.Move(oldDir, newDir);
+        }
+
+        private void RenameCustomCursorSet()
+        {
+            const string LOG_IDENT = "ModsViewModel::RenameCustomCursorSet";
+
+            if (SelectedCustomCursorSet is null || SelectedCustomCursorSet.Name == SelectedCustomCursorSetName)
+                return;
+
+            if (string.IsNullOrWhiteSpace(SelectedCustomCursorSetName))
+            {
+                Frontend.ShowMessageBox("Name cannot be empty.", MessageBoxImage.Error);
+                return;
+            }
+
+            var validationResult = PathValidator.IsFileNameValid(SelectedCustomCursorSetName);
+
+            if (validationResult != PathValidator.ValidationResult.Ok)
+            {
+                string msg = validationResult switch
+                {
+                    PathValidator.ValidationResult.IllegalCharacter => "Name contains illegal characters.",
+                    PathValidator.ValidationResult.ReservedFileName => "Name is reserved.",
+                    _ => "Unknown validation error."
+                };
+
+                App.Logger.WriteLine(LOG_IDENT, $"Validation result: {validationResult}");
+                Frontend.ShowMessageBox(msg, MessageBoxImage.Error);
+                return;
+            }
+
+            try
+            {
+                RenameCustomCursorSetStructure(SelectedCustomCursorSet.Name, SelectedCustomCursorSetName);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException(LOG_IDENT, ex);
+                Frontend.ShowMessageBox($"Failed to rename:\n{ex.Message}", MessageBoxImage.Error);
+                return;
+            }
+
+            int idx = CustomCursorSets.IndexOf(SelectedCustomCursorSet);
+            CustomCursorSets[idx] = new CustomCursorSet
+            {
+                Name = SelectedCustomCursorSetName,
+                FolderPath = Path.Combine(Paths.CustomCursors, SelectedCustomCursorSetName)
+            };
+
+            SelectedCustomCursorSetIndex = idx;
+            OnPropertyChanged(nameof(SelectedCustomCursorSetIndex));
+        }
+
+        private void ApplyCursorSet()
+        {
+            if (SelectedCustomCursorSet is null)
+            {
+                Frontend.ShowMessageBox("Please select a cursor set first.", MessageBoxImage.Warning);
+                return;
+            }
+
+            string sourceDir = SelectedCustomCursorSet.FolderPath;
+            string targetDir = Path.Combine(Paths.Modifications, "content", "textures");
+            string targetKeyboardMouse = Path.Combine(targetDir, "Cursors", "KeyboardMouse");
+
+            try
+            {
+                if (!Directory.Exists(sourceDir))
+                {
+                    Frontend.ShowMessageBox("Selected cursor set folder does not exist.", MessageBoxImage.Error);
+                    return;
+                }
+
+                Directory.CreateDirectory(targetDir);
+                Directory.CreateDirectory(targetKeyboardMouse);
+
+                var filesToDelete = new[]
+                {
+                    Path.Combine(targetDir, "MouseLockedCursor.png"),
+                    Path.Combine(targetKeyboardMouse, "ArrowCursor.png"),
+                    Path.Combine(targetKeyboardMouse, "ArrowFarCursor.png"),
+                    Path.Combine(targetKeyboardMouse, "IBeamCursor.png")
+                };
+
+                foreach (var file in filesToDelete)
+                {
+                    if (File.Exists(file))
+                        File.Delete(file);
+                }
+
+                foreach (string file in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
+                {
+                    string relativePath = Path.GetRelativePath(sourceDir, file);
+                    string destPath = Path.Combine(targetDir, relativePath);
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(destPath)!);
+                    File.Copy(file, destPath, overwrite: true);
+                }
+
+                Frontend.ShowMessageBox($"Cursor set '{SelectedCustomCursorSet.Name}' applied successfully!", MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("ModsViewModel::ApplyCursorSet", ex);
+                Frontend.ShowMessageBox($"Failed to apply cursor set:\n{ex.Message}", MessageBoxImage.Error);
+            }
+
+            LoadCursorPathsForSelectedSet();
+        }
+
+        private void GetCurrentCursorSet()
+        {
+            if (SelectedCustomCursorSet is null)
+            {
+                Frontend.ShowMessageBox("Please select a cursor set first.", MessageBoxImage.Warning);
+                return;
+            }
+
+            string sourceMouseLocked = Path.Combine(Paths.Modifications, "content", "textures", "MouseLockedCursor.png");
+            string sourceKeyboardMouse = Path.Combine(Paths.Modifications, "content", "textures", "Cursors", "KeyboardMouse");
+
+            string targetBase = SelectedCustomCursorSet.FolderPath;
+            string targetMouseLocked = Path.Combine(targetBase, "MouseLockedCursor.png");
+            string targetKeyboardMouse = Path.Combine(targetBase, "Cursors", "KeyboardMouse");
+
+            try
+            {
+                Directory.CreateDirectory(targetBase);
+                Directory.CreateDirectory(targetKeyboardMouse);
+
+                var filesToDelete = new[]
+                {
+                    targetMouseLocked,
+                    Path.Combine(targetKeyboardMouse, "ArrowCursor.png"),
+                    Path.Combine(targetKeyboardMouse, "ArrowFarCursor.png"),
+                    Path.Combine(targetKeyboardMouse, "IBeamCursor.png")
+                };
+
+                foreach (var file in filesToDelete)
+                {
+                    if (File.Exists(file))
+                        File.Delete(file);
+                }
+
+                if (File.Exists(sourceMouseLocked))
+                    File.Copy(sourceMouseLocked, targetMouseLocked, overwrite: true);
+
+                if (Directory.Exists(sourceKeyboardMouse))
+                {
+                    foreach (var fileName in new[] { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" })
+                    {
+                        string source = Path.Combine(sourceKeyboardMouse, fileName);
+                        string dest = Path.Combine(targetKeyboardMouse, fileName);
+
+                        if (File.Exists(source))
+                            File.Copy(source, dest, overwrite: true);
+                    }
+                }
+
+                Frontend.ShowMessageBox("Current cursor set copied into selected folder.", MessageBoxImage.Information);
+                NotifyCursorVisibilities();
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("ModsViewModel::GetCurrentCursorSet", ex);
+                Frontend.ShowMessageBox($"Failed to get current cursor set:\n{ex.Message}", MessageBoxImage.Error);
+            }
+
+            LoadCursorPathsForSelectedSet();
+            NotifyCursorVisibilities();
+        }
+
+        private void ExportCursorSet()
+        {
+            if (SelectedCustomCursorSet is null)
+                return;
+
+            var dialog = new SaveFileDialog
+            {
+                FileName = $"{SelectedCustomCursorSet.Name}.zip",
+                Filter = $"{Strings.FileTypes_ZipArchive}|*.zip"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            string cursorDir = SelectedCustomCursorSet.FolderPath;
+
+            try
+            {
+                using var memStream = new MemoryStream();
+                using var zipStream = new ZipOutputStream(memStream);
+
+                foreach (var filePath in Directory.EnumerateFiles(cursorDir, "*.*", SearchOption.AllDirectories))
+                {
+                    string relativePath = filePath[(cursorDir.Length + 1)..].Replace('\\', '/');
+
+                    var entry = new ZipEntry(relativePath)
+                    {
+                        DateTime = DateTime.Now,
+                        Size = new FileInfo(filePath).Length
+                    };
+
+                    zipStream.PutNextEntry(entry);
+
+                    using var fileStream = File.OpenRead(filePath);
+                    fileStream.CopyTo(zipStream);
+
+                    zipStream.CloseEntry();
+                }
+
+                zipStream.Finish();
+                memStream.Position = 0;
+
+                using var outputStream = File.OpenWrite(dialog.FileName);
+                memStream.CopyTo(outputStream);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("ModsViewModel::ExportCursorSet", ex);
+                Frontend.ShowMessageBox($"Failed to export cursor set:\n{ex.Message}", MessageBoxImage.Error);
+                return;
+            }
+
+            Process.Start("explorer.exe", $"/select,\"{dialog.FileName}\"");
+        }
+
+        private void ImportCursorSet()
+        {
+            if (SelectedCustomCursorSet is null)
+            {
+                Frontend.ShowMessageBox("Please select a cursor set first.", MessageBoxImage.Warning);
+                return;
+            }
+
+            var dialog = new OpenFileDialog
+            {
+                Title = "Import Cursor Set",
+                Filter = $"{Strings.FileTypes_ZipArchive}|*.zip",
+                Multiselect = false
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            try
+            {
+                string tempPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                Directory.CreateDirectory(tempPath);
+
+                ExtractZipToDirectory(dialog.FileName, tempPath);
+
+                string mouseLockedDest = Path.Combine(SelectedCustomCursorSet.FolderPath, "MouseLockedCursor.png");
+                string destKeyboardMouseFolder = Path.Combine(SelectedCustomCursorSet.FolderPath, "Cursors", "KeyboardMouse");
+
+                if (File.Exists(mouseLockedDest))
+                    File.Delete(mouseLockedDest);
+
+                foreach (var fileName in new[] { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" })
+                {
+                    string filePath = Path.Combine(destKeyboardMouseFolder, fileName);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
+                }
+
+                string? mouseLockedSource = Directory.GetFiles(tempPath, "MouseLockedCursor.png", SearchOption.AllDirectories).FirstOrDefault();
+
+                if (mouseLockedSource != null)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(mouseLockedDest)!);
+                    File.Copy(mouseLockedSource, mouseLockedDest, overwrite: true);
+                }
+
+                Directory.CreateDirectory(destKeyboardMouseFolder);
+
+                foreach (var fileName in new[] { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" })
+                {
+                    string? sourceFile = Directory.GetFiles(tempPath, fileName, SearchOption.AllDirectories).FirstOrDefault();
+                    if (sourceFile != null)
+                    {
+                        string destFile = Path.Combine(destKeyboardMouseFolder, fileName);
+                        File.Copy(sourceFile, destFile, overwrite: true);
+                    }
+                }
+
+                Directory.Delete(tempPath, recursive: true);
+
+                Frontend.ShowMessageBox("Cursor set imported successfully.", MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException("ModsViewModel::ImportCursorSet", ex);
+                Frontend.ShowMessageBox($"Failed to import cursor set:\n{ex.Message}", MessageBoxImage.Error);
+            }
+
+            LoadCursorPathsForSelectedSet();
+        }
+
+        private void ExtractZipToDirectory(string zipFilePath, string extractPath)
+        {
+            using var zipInputStream = new ZipInputStream(File.OpenRead(zipFilePath));
+
+            ZipEntry? entry;
+            while ((entry = zipInputStream.GetNextEntry()) != null)
+            {
+                if (entry.IsDirectory)
+                    continue;
+
+                string filePath = Path.Combine(extractPath, entry.Name);
+
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+                using var outputStream = File.Create(filePath);
+                zipInputStream.CopyTo(outputStream);
+            }
+        }
+
+        private string? GetCursorTargetPath(string fileName)
+        {
+            if (SelectedCustomCursorSet is null)
+                return null;
+
+            string dir = fileName == "MouseLockedCursor.png"
+                ? SelectedCustomCursorSet.FolderPath
+                : Path.Combine(SelectedCustomCursorSet.FolderPath, "Cursors", "KeyboardMouse");
+
+            Directory.CreateDirectory(dir);
+            return Path.Combine(dir, fileName);
+        }
+
+        private void DeleteCursorImage(string fileName)
+        {
+            string? destPath = GetCursorTargetPath(fileName);
+            if (destPath is null || !File.Exists(destPath))
+                return;
+
+            try
+            {
+                File.Delete(destPath);
+
+                UpdateCursorPathProperty(fileName, "");
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException($"ModsViewModel::Delete{fileName}", ex);
+                Frontend.ShowMessageBox($"Failed to delete {fileName}:\n{ex.Message}", MessageBoxImage.Error);
+            }
+
+            LoadCursorPathsForSelectedSet();
+            NotifyCursorVisibilities();
+        }
+
+        private void AddShiftlockCursor()
+        {
+            AddCursorImage("MouseLockedCursor.png", "Select Shiftlock PNG");
+        }
+
+        private void AddCursorImage(string fileName, string dialogTitle)
+        {
+            if (SelectedCustomCursorSet is null)
+            {
+                Frontend.ShowMessageBox("Please select a cursor set first.", MessageBoxImage.Warning);
+                return;
+            }
+
+            var dialog = new OpenFileDialog
+            {
+                Title = dialogTitle,
+                Filter = "PNG files (*.png)|*.png",
+                Multiselect = false
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            string? destPath = GetCursorTargetPath(fileName);
+            if (destPath is null)
+                return;
+
+            try
+            {
+                if (File.Exists(destPath))
+                    File.Delete(destPath);
+
+                File.Copy(dialog.FileName, destPath);
+                UpdateCursorPathAndPreview(fileName, dialog.FileName);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException($"ModsViewModel::Add{fileName}", ex);
+                Frontend.ShowMessageBox($"Failed to add {fileName}:\n{ex.Message}", MessageBoxImage.Error);
+            }
+
+            LoadCursorPathsForSelectedSet();
+            NotifyCursorVisibilities();
+        }
+#endregion
+
+        #region Preview Images
+        private void UpdateCursorPathProperty(string fileName, string path)
+        {
+            switch (fileName)
+            {
+                case "MouseLockedCursor.png":
+                    ShiftlockCursorSelectedPath = path;
+                    break;
+                case "ArrowCursor.png":
+                    ArrowCursorSelectedPath = path;
+                    break;
+                case "ArrowFarCursor.png":
+                    ArrowFarCursorSelectedPath = path;
+                    break;
+                case "IBeamCursor.png":
+                    IBeamCursorSelectedPath = path;
+                    break;
+            }
+        }
+
+        private void UpdateCursorPathAndPreview(string fileName, string fullPath)
+        {
+            if (!File.Exists(fullPath))
+                fullPath = "";
+
+            ImageSource? image = LoadImageSafely(fullPath);
+
+            switch (fileName)
+            {
+                case "MouseLockedCursor.png":
+                    ShiftlockCursorSelectedPath = fullPath;
+                    ShiftlockCursorPreview = image;
+                    App.Settings.Prop.ShiftlockCursorSelectedPath = fullPath;
+                    break;
+
+                case "ArrowCursor.png":
+                    ArrowCursorSelectedPath = fullPath;
+                    ArrowCursorPreview = image;
+                    App.Settings.Prop.ArrowCursorSelectedPath = fullPath;
+                    break;
+
+                case "ArrowFarCursor.png":
+                    ArrowFarCursorSelectedPath = fullPath;
+                    ArrowFarCursorPreview = image;
+                    App.Settings.Prop.ArrowFarCursorSelectedPath = fullPath;
+                    break;
+
+                case "IBeamCursor.png":
+                    IBeamCursorSelectedPath = fullPath;
+                    IBeamCursorPreview = image;
+                    App.Settings.Prop.IBeamCursorSelectedPath = fullPath;
+                    break;
+            }
+
+            App.Settings.Save();
+        }
+
+        private void LoadCursorPathsForSelectedSet()
+        {
+            if (SelectedCustomCursorSet == null)
+            {
+                UpdateCursorPathAndPreview("MouseLockedCursor.png", "");
+                UpdateCursorPathAndPreview("ArrowCursor.png", "");
+                UpdateCursorPathAndPreview("ArrowFarCursor.png", "");
+                UpdateCursorPathAndPreview("IBeamCursor.png", "");
+                return;
+            }
+
+            string baseDir = SelectedCustomCursorSet.FolderPath;
+            string kbMouseDir = Path.Combine(baseDir, "Cursors", "KeyboardMouse");
+
+            UpdateCursorPathAndPreview("MouseLockedCursor.png", Path.Combine(baseDir, "MouseLockedCursor.png"));
+            UpdateCursorPathAndPreview("ArrowCursor.png", Path.Combine(kbMouseDir, "ArrowCursor.png"));
+            UpdateCursorPathAndPreview("ArrowFarCursor.png", Path.Combine(kbMouseDir, "ArrowFarCursor.png"));
+            UpdateCursorPathAndPreview("IBeamCursor.png", Path.Combine(kbMouseDir, "IBeamCursor.png"));
+        }
+
+        private string _shiftlockCursorSelectedPath = "";
+        public string ShiftlockCursorSelectedPath
+        {
+            get => _shiftlockCursorSelectedPath;
+            set
+            {
+                if (_shiftlockCursorSelectedPath != value)
+                {
+                    _shiftlockCursorSelectedPath = value;
+                    OnPropertyChanged(nameof(ShiftlockCursorSelectedPath));
+                }
+            }
+        }
+
+        private string _arrowCursorSelectedPath = "";
+        public string ArrowCursorSelectedPath
+        {
+            get => _arrowCursorSelectedPath;
+            set
+            {
+                if (_arrowCursorSelectedPath != value)
+                {
+                    _arrowCursorSelectedPath = value;
+                    OnPropertyChanged(nameof(ArrowCursorSelectedPath));
+                }
+            }
+        }
+
+        private string _arrowFarCursorSelectedPath = "";
+        public string ArrowFarCursorSelectedPath
+        {
+            get => _arrowFarCursorSelectedPath;
+            set
+            {
+                if (_arrowFarCursorSelectedPath != value)
+                {
+                    _arrowFarCursorSelectedPath = value;
+                    OnPropertyChanged(nameof(ArrowFarCursorSelectedPath));
+                }
+            }
+        }
+
+        private string _iBeamCursorSelectedPath = "";
+        public string IBeamCursorSelectedPath
+        {
+            get => _iBeamCursorSelectedPath;
+            set
+            {
+                if (_iBeamCursorSelectedPath != value)
+                {
+                    _iBeamCursorSelectedPath = value;
+                    OnPropertyChanged(nameof(IBeamCursorSelectedPath));
+                }
+            }
+        }
+
+        private ImageSource? _shiftlockCursorPreview;
+        public ImageSource? ShiftlockCursorPreview
+        {
+            get => _shiftlockCursorPreview;
+            set { _shiftlockCursorPreview = value; OnPropertyChanged(nameof(ShiftlockCursorPreview)); }
+        }
+
+        private ImageSource? _arrowCursorPreview;
+        public ImageSource? ArrowCursorPreview
+        {
+            get => _arrowCursorPreview;
+            set { _arrowCursorPreview = value; OnPropertyChanged(nameof(ArrowCursorPreview)); }
+        }
+
+        private ImageSource? _arrowFarCursorPreview;
+        public ImageSource? ArrowFarCursorPreview
+        {
+            get => _arrowFarCursorPreview;
+            set { _arrowFarCursorPreview = value; OnPropertyChanged(nameof(ArrowFarCursorPreview)); }
+        }
+
+        private ImageSource? _iBeamCursorPreview;
+        public ImageSource? IBeamCursorPreview
+        {
+            get => _iBeamCursorPreview;
+            set { _iBeamCursorPreview = value; OnPropertyChanged(nameof(IBeamCursorPreview)); }
+        }
+
+        private static BitmapImage LoadImageSafely(string path)
+        {
+            if (!File.Exists(path))
+                return null!;
+
+            try
+            {
+                using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                return bitmap;
+            }
+            catch
+            {
+                return null!;
+            }
+        }
+#endregion
+
+        #region Button Visibility
+        public Visibility AddShiftlockCursorVisibility => GetCursorAddVisibility("MouseLockedCursor.png");
+        public Visibility DeleteShiftlockCursorVisibility => GetCursorDeleteVisibility("MouseLockedCursor.png");
+        public Visibility AddArrowCursorVisibility => GetCursorAddVisibility("ArrowCursor.png");
+        public Visibility DeleteArrowCursorVisibility => GetCursorDeleteVisibility("ArrowCursor.png");
+        public Visibility AddArrowFarCursorVisibility => GetCursorAddVisibility("ArrowFarCursor.png");
+        public Visibility DeleteArrowFarCursorVisibility => GetCursorDeleteVisibility("ArrowFarCursor.png");
+        public Visibility AddIBeamCursorVisibility => GetCursorAddVisibility("IBeamCursor.png");
+        public Visibility DeleteIBeamCursorVisibility => GetCursorDeleteVisibility("IBeamCursor.png");
+
+        private Visibility GetCursorAddVisibility(string fileName)
+        {
+            string? path = GetCursorTargetPath(fileName);
+            return path is not null && File.Exists(path) ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private Visibility GetCursorDeleteVisibility(string fileName)
+        {
+            string? path = GetCursorTargetPath(fileName);
+            return path is not null && File.Exists(path) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void NotifyCursorVisibilities()
+        {
+            OnPropertyChanged(nameof(AddShiftlockCursorVisibility));
+            OnPropertyChanged(nameof(DeleteShiftlockCursorVisibility));
+            OnPropertyChanged(nameof(AddArrowCursorVisibility));
+            OnPropertyChanged(nameof(DeleteArrowCursorVisibility));
+            OnPropertyChanged(nameof(AddArrowFarCursorVisibility));
+            OnPropertyChanged(nameof(DeleteArrowFarCursorVisibility));
+            OnPropertyChanged(nameof(AddIBeamCursorVisibility));
+            OnPropertyChanged(nameof(DeleteIBeamCursorVisibility));
+        }
+        #endregion
     }
 }

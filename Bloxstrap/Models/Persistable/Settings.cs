@@ -20,17 +20,21 @@ namespace Bloxstrap.Models.Persistable
         public bool ForceRobloxLanguage { get; set; } = false;
         public bool UseFastFlagManager { get; set; } = true;
         public CopyFormatMode SelectedCopyFormat { get; set; } = CopyFormatMode.Format1;
+        public bool CtrlCJsonFormat { get; set; } = false;
         public bool ShowPresetColumn { get; set; } = false;
         public bool ShowFlagCount { get; set; } = true;
         public bool ShowAddWithID { get; set; } = false;
-        public List<string> NavigationOrder { get; set; } = new List<string>();
-        public bool IsNavigationOrderLocked { get; set; } = true;
         public bool WPFSoftwareRender { get; set; } = false;
         public bool DisableAnimations { get; set; } = false;
         public bool DisableHardwareAcceleration { get; set; } = false;
         public ProcessPriorityOption SelectedProcessPriority { get; set; } = ProcessPriorityOption.Normal;
         public string? CustomFontPath { get; set; } = null;
         public bool EnableAnalytics { get; set; } = false;
+        public bool DebugDisableVersionPackageCleanup { get; set; } = false;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool DeveloperMode { get; set; } = false;
+        public bool BackgroundUpdatesEnabled { get; set; } = false;
+        public WebEnvironment WebEnvironment { get; set; } = WebEnvironment.Production;
         public bool UpdateRoblox { get; set; } = true;
         public bool MultiInstanceLaunching { get; set; } = false;
         public string Channel { get; set; } = RobloxInterfaces.Deployment.DefaultChannel;
@@ -55,12 +59,11 @@ namespace Bloxstrap.Models.Persistable
         public RobloxIcon SelectedRobloxIcon { get; set; } = RobloxIcon.Default;
         public string? IconPath { get; set; } = null;
 
-        // Pc tweaks configuration
-        public bool RobloxWiFiPriorityBoost { get; set; } = false;
-        public bool EnableUltraPerformanceMode { get; set; } = false;
-        public bool GameDvrEnabled { get; set; } = false;
-        public bool NetworkAdapterOptimizationEnabled { get; set; } = false;
-        public bool AllowRobloxFirewall { get; set; } = false;
+        // save directory
+        public string ShiftlockCursorSelectedPath { get; set; } = "";
+        public string ArrowCursorSelectedPath { get; set; } = "";
+        public string ArrowFarCursorSelectedPath { get; set; } = "";
+        public string IBeamCursorSelectedPath { get; set; } = "";
 
         // clicker game configuration
         public string Points { get; set; } = "0";

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
@@ -10,14 +12,14 @@ namespace Bloxstrap.UI.ViewModels.Installer
 
         private readonly string _originalInstallLocation;
 
-        public EventHandler<bool>? SetCanContinueEvent;
+        public event EventHandler<bool>? SetCanContinueEvent;
 
-        public string InstallLocation 
+        public string InstallLocation
         {
             get => installer.InstallLocation;
             set
             {
-                if (!String.IsNullOrEmpty(ErrorMessage))
+                if (!string.IsNullOrEmpty(ErrorMessage))
                 {
                     SetCanContinueEvent?.Invoke(this, true);
 
@@ -26,6 +28,7 @@ namespace Bloxstrap.UI.ViewModels.Installer
                 }
 
                 installer.InstallLocation = value;
+                OnPropertyChanged(nameof(InstallLocation));
                 OnPropertyChanged(nameof(DataFoundMessageVisibility));
             }
         }
@@ -39,7 +42,7 @@ namespace Bloxstrap.UI.ViewModels.Installer
             get => installer.CreateDesktopShortcuts;
             set => installer.CreateDesktopShortcuts = value;
         }
-        
+
         public bool CreateStartMenuShortcuts
         {
             get => installer.CreateStartMenuShortcuts;
@@ -49,7 +52,18 @@ namespace Bloxstrap.UI.ViewModels.Installer
         public bool ImportSettings
         {
             get => installer.ImportSettings;
-            set => installer.ImportSettings = value;
+            set
+            {
+                installer.ImportSettings = value;
+                OnPropertyChanged(nameof(ImportSettings));
+                // Trigger validation update if disabling import
+                if (!value)
+                {
+                    installer.InstallLocationError = "";
+                    SetCanContinueEvent?.Invoke(this, true);
+                    OnPropertyChanged(nameof(ErrorMessage));
+                }
+            }
         }
 
         public bool ImportSettingsEnabled
@@ -62,13 +76,7 @@ namespace Bloxstrap.UI.ViewModels.Installer
             }
         }
 
-        public bool ShowNotFound
-        {
-            get
-            {
-                return !ImportSettingsEnabled;
-            }
-        }
+        public bool ShowNotFound => !ImportSettingsEnabled;
 
         public ICommand BrowseInstallLocationCommand => new RelayCommand(BrowseInstallLocation);
 
@@ -93,18 +101,49 @@ namespace Bloxstrap.UI.ViewModels.Installer
             _originalInstallLocation = installer.InstallLocation;
         }
 
+        public bool ValidateImportSource()
+        {
+            if (!ImportSettings)
+                return true; // Import disabled, no validation needed
+
+            string folderPath = SelectedImportSource switch
+            {
+                ImportSettingsFrom.Bloxstrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Bloxstrap"),
+                ImportSettingsFrom.Voidstrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Voidstrap"),
+                ImportSettingsFrom.Fishstrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Fishstrap"),
+                _ => null
+            };
+
+            if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
+            {
+                installer.InstallLocationError = $"Selected import source folder not found: {SelectedImportSource}";
+                OnPropertyChanged(nameof(ErrorMessage));
+                SetCanContinueEvent?.Invoke(this, false);
+                return false;
+            }
+
+            // Clear previous error and enable continue button
+            installer.InstallLocationError = "";
+            OnPropertyChanged(nameof(ErrorMessage));
+            SetCanContinueEvent?.Invoke(this, true);
+            return true;
+        }
+
         public bool DoInstall()
         {
+            if (!ValidateImportSource())
+            {
+                return false; // Block navigation if import source invalid
+            }
+
             if (!installer.CheckInstallLocation())
             {
                 SetCanContinueEvent?.Invoke(this, false);
-
                 OnPropertyChanged(nameof(ErrorMessage));
                 return false;
             }
 
             installer.DoInstall();
-
             return true;
         }
 
@@ -125,6 +164,6 @@ namespace Bloxstrap.UI.ViewModels.Installer
             OnPropertyChanged(nameof(InstallLocation));
         }
 
-        private void OpenFolder() => Process.Start("explorer.exe", Paths.Base);
+        private void OpenFolder() => System.Diagnostics.Process.Start("explorer.exe", Paths.Base);
     }
 }

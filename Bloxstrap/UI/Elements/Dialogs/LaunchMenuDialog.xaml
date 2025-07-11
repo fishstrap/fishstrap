@@ -50,8 +50,8 @@
 
                     <Image Grid.Column="0" Width="64" Height="64" Source="pack://application:,,,/Bloxstrap.ico" RenderOptions.BitmapScalingMode="HighQuality" />
                     <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
-                        <TextBlock x:Name="LaunchTitle" Text="Froststrap" FontSize="24" />
-                        <TextBlock Text="{Binding Version, Mode=OneTime}" VerticalAlignment="Bottom" FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                        <TextBlock x:Name="LaunchTitle" Text="Froststrap" FontSize="24" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Version, Mode=OneTime}" VerticalAlignment="Bottom" FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" FontWeight="Medium" />
                     </StackPanel>
                 </Grid>
 
@@ -72,6 +72,7 @@
                     <StackPanel>
                         <TextBlock
                             FontSize="14"
+                            FontWeight="Medium"
                             Text="{x:Static resources:Strings.LaunchMenu_LaunchRoblox}" />
                     </StackPanel>
                 </ui:CardAction>
@@ -102,7 +103,8 @@
                             Orientation="Vertical">
                             <TextBlock
                                 HorizontalAlignment="Center"
-                                FontSize="13.8"
+                                FontSize="13"
+                                FontWeight="Medium"
                                 Text="{x:Static resources:Strings.Common_Settings}" />
                         </StackPanel>
                     </ui:CardAction>
@@ -121,9 +123,9 @@
                         TabIndex="2">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock
-                                Width="39"
                                 HorizontalAlignment="Center"
-                                FontSize="13.8"
+                                FontSize="13"
+                                FontWeight="Medium"
                                 Text="{x:Static resources:Strings.Common_Studio}" />
                         </StackPanel>
                     </ui:CardAction>
@@ -146,6 +148,7 @@
                     <StackPanel>
                         <TextBlock
                             FontSize="14"
+                            FontWeight="Medium"
                             Text="{x:Static resources:Strings.LaunchMenu_Wiki_Title}" />
                         <TextBlock
                             Margin="0,2,0,0"

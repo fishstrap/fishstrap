@@ -56,23 +56,34 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
+            if (App.Settings.Prop.CtrlCJsonFormat)
             {
-                var selectedItems = DataGrid.SelectedItems.Cast<FastFlag>().ToList();
+                if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
+                {
+                    // Skip custom copy logic if a cell is being edited
+                    if (DataGrid.CurrentCell.IsValid &&
+                        DataGrid.CurrentCell.Column is DataGridBoundColumn &&
+                        DataGrid.IsKeyboardFocusWithin &&
+                        DataGrid.CurrentColumn.GetCellContent(DataGrid.CurrentItem) is TextBox)
+                    {
+                        return; // Let TextBox handle Ctrl+C normally
+                    }
 
-                if (selectedItems.Count == 0)
-                    return;
+                    var selectedItems = DataGrid.SelectedItems.Cast<FastFlag>().ToList();
 
-                var dict = selectedItems.ToDictionary(
-                    item => item.Name,
-                    item => item.Value
-                );
+                    if (selectedItems.Count == 0)
+                        return;
 
-                string json = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
+                    var dict = selectedItems.ToDictionary(
+                        item => item.Name,
+                        item => item.Value
+                    );
 
-                Clipboard.SetText(json);
+                    string json = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
 
-                e.Handled = true;
+                    Clipboard.SetText(json);
+                    e.Handled = true;
+                }
             }
         }
 
@@ -197,67 +208,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             dialog.Owner = Window.GetWindow(this);
             dialog.ShowDialog();
         }
-        private void ImportGameIdJson(string? json, string? gameId, FastFlagFilterType filterType)
-        {
-            if (string.IsNullOrWhiteSpace(json) || string.IsNullOrWhiteSpace(gameId))
-                return;
-
-            Dictionary<string, JsonElement>? list = null;
-
-            json = json.Trim();
-
-            if (!json.StartsWith('{'))
-                json = '{' + json;
-
-            if (!json.EndsWith('}'))
-            {
-                int lastIndex = json.LastIndexOf('}');
-                if (lastIndex == -1)
-                    json += '}';
-                else
-                    json = json.Substring(0, lastIndex + 1);
-            }
-
-            try
-            {
-                var options = new JsonSerializerOptions
-                {
-                    ReadCommentHandling = JsonCommentHandling.Skip,
-                    AllowTrailingCommas = true
-                };
-
-                list = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json, options);
-
-                if (list is null)
-                    throw new Exception("JSON deserialization returned null");
-            }
-            catch (Exception ex)
-            {
-                Frontend.ShowMessageBox($"Invalid JSON: {ex.Message}", MessageBoxImage.Error);
-                return;
-            }
-
-            string suffix = filterType == FastFlagFilterType.DataCenterFilter ? "_DataCenterFilter" : "_PlaceFilter";
-
-            App.FastFlags.suspendUndoSnapshot = true;
-            App.FastFlags.SaveUndoSnapshot();
-
-            foreach (var pair in list)
-            {
-                string newName = $"{pair.Key}{suffix}";
-                string newValue = pair.Value.ValueKind == JsonValueKind.String
-                    ? $"{pair.Value.GetString()};{gameId}"
-                    : $"{pair.Value.ToString()};{gameId}";
-
-                AddSingle(newName, newValue);
-            }
-
-            App.FastFlags.suspendUndoSnapshot = false;
-
-
-            ReloadList(); // Refresh UI
-            ClearSearch();
-        }
 
         private static readonly string CacheFolder = Path.Combine(AppContext.BaseDirectory, "FastFlagCache");
         private static readonly TimeSpan CacheExpiry = TimeSpan.FromDays(1);
@@ -269,8 +219,36 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             return url;
         }
 
+        private static IEnumerable<string> ExtractFlagNamesFromJson(string json)
+        {
+            JsonElement root;
+
+            try
+            {
+                using var doc = JsonDocument.Parse(json);
+                root = doc.RootElement.Clone(); // Clone because `doc` will be disposed
+            }
+            catch
+            {
+                yield break;
+            }
+
+            if (root.TryGetProperty("applicationSettings", out var appSettings))
+            {
+                foreach (var prop in appSettings.EnumerateObject())
+                    yield return prop.Name.Trim();
+            }
+            else if (root.ValueKind == JsonValueKind.Object)
+            {
+                foreach (var prop in root.EnumerateObject())
+                    yield return prop.Name.Trim();
+            }
+        }
+
         public async Task<string?> LoadOrDownloadCachedAsync(string url, HttpClient client)
         {
+            Directory.CreateDirectory(CacheFolder);
+
             string cacheFile = Path.Combine(CacheFolder, GetSafeFilename(url) + ".cache");
 
             try
@@ -279,18 +257,29 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 {
                     var info = new FileInfo(cacheFile);
                     if (DateTime.UtcNow - info.LastWriteTimeUtc < CacheExpiry)
-                        return await File.ReadAllTextAsync(cacheFile);
+                        return await File.ReadAllTextAsync(cacheFile).ConfigureAwait(false);
                 }
 
-                string content = await client.GetStringAsync(url);
+                string content = await client.GetStringAsync(url).ConfigureAwait(false);
 
+                await File.WriteAllTextAsync(cacheFile, content).ConfigureAwait(false);
 
                 return content;
             }
             catch
             {
                 if (File.Exists(cacheFile))
-                    return await File.ReadAllTextAsync(cacheFile);
+                {
+                    try
+                    {
+                        return await File.ReadAllTextAsync(cacheFile).ConfigureAwait(false);
+                    }
+                    catch
+                    {
+                        // corrupted cache, ignore
+                    }
+                }
+
                 return null;
             }
         }
@@ -300,8 +289,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var urlsJson = new[]
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json",
             };
 
             var liveClientUrls = new[]
@@ -309,37 +296,12 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
             };
 
-            var rawTextUrls = new[]
-            {
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt",
-            };
-
             var manualWhitelist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
                 "FStringDebugLuaLogLevel",
                 "FStringDebugLuaLogPattern",
-                "FLogWndProcessCheck",
                 "FLogNetwork",
                 "FFlagHandleAltEnterFullscreenManually",
-            };
-
-            var manualBlacklist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-            {
-                "DFFlagFrameTimeStdDev",
-                "FIntGameJoinLoadTime",
-                "DFIntCharacterLoadTime",
-                "FFlagEnableCloseButtonOnClientToastNotifications2",
-                "FFlagTexturePackUseACR",
-                "FFlagTexturePackUseACR4",
-                "FFlagLargeReplicatorEnabled",
-                "FFlagLargeReplicatorSerializeRead",
-                "FFlagLargeReplicatorRead",
-                "FFlagLargeReplicatorWrite",
-                "FFlagLargeReplicatorEnabled",
-                "FFlagLargeReplicatorRead4",
-                "FFlagLargeReplicatorWrite4",
-                "FFlagLargeReplicatorEnabled5",
-                "FFlagUIBloxMoveDetailsPageToLuaApps",
             };
 
             var removedFlagsDict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
@@ -347,46 +309,17 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             try
             {
                 using HttpClient client = new();
-
-                var allUrls = urlsJson.Concat(liveClientUrls).Concat(rawTextUrls).ToList();
+                var allUrls = urlsJson.Concat(liveClientUrls).ToList();
                 var loadTasks = allUrls.Select(url => LoadOrDownloadCachedAsync(url, client)).ToList();
-                var results = await Task.WhenAll(loadTasks);
+                string?[] results = await Task.WhenAll(loadTasks);
 
                 var validFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-                // JSON parsing
-                for (int i = 0; i < urlsJson.Length + liveClientUrls.Length; i++)
+                foreach (var content in results)
                 {
-                    var content = results[i];
                     if (string.IsNullOrWhiteSpace(content)) continue;
-
-                    try
-                    {
-                        using var doc = JsonDocument.Parse(content);
-                        foreach (var prop in doc.RootElement.EnumerateObject())
-                            validFlags.Add(prop.Name.Trim());
-                    }
-                    catch { }
-                }
-
-                // Raw text parsing
-                for (int i = 0; i < rawTextUrls.Length; i++)
-                {
-                    var content = results[urlsJson.Length + liveClientUrls.Length + i];
-                    if (string.IsNullOrWhiteSpace(content)) continue;
-
-                    var lines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var line in lines)
-                    {
-                        if (line.StartsWith("[C++] ", StringComparison.Ordinal) ||
-                            line.StartsWith("[Lua] ", StringComparison.Ordinal) ||
-                            line.StartsWith("[Com] ", StringComparison.Ordinal))
-                        {
-                            var name = line.Substring(line.IndexOf(']') + 1).Trim();
-                            if (!string.IsNullOrWhiteSpace(name))
-                                validFlags.Add(name);
-                        }
-                    }
+                    foreach (var name in ExtractFlagNamesFromJson(content))
+                        validFlags.Add(name);
                 }
 
                 validFlags.UnionWith(manualWhitelist);
@@ -395,24 +328,8 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 var toRemove = allFlags.Where(flag =>
                 {
                     var name = flag.Name.Trim();
-                    if (manualWhitelist.Contains(name)) return false;
-                    if (manualBlacklist.Contains(name)) return true;
-                    return !validFlags.Contains(name);
+                    return !manualWhitelist.Contains(name) && !validFlags.Contains(name);
                 }).ToList();
-
-                if (toRemove.Count == 0)
-                {
-                    Frontend.ShowMessageBox("All your FastFlags are valid.", MessageBoxImage.Information);
-                    return removedFlagsDict;
-                }
-
-                var result = Frontend.ShowMessageBox(
-                    $"Found {toRemove.Count} invalid FastFlags. Remove them?",
-                    MessageBoxImage.Warning,
-                    MessageBoxButton.OKCancel);
-
-                if (result == MessageBoxResult.Cancel)
-                    return removedFlagsDict;
 
                 foreach (var flag in toRemove)
                 {
@@ -420,8 +337,11 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                     App.FastFlags.SetValue(flag.Name, null);
                 }
 
-                ReloadList();
-                UpdateTotalFlagsCount();
+                if (removedFlagsDict.Count > 0)
+                {
+                    ReloadList();
+                    UpdateTotalFlagsCount();
+                }
 
                 return removedFlagsDict;
             }
@@ -439,16 +359,12 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json",
             };
 
             var manualWhitelist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
                 "FStringDebugLuaLogLevel",
                 "FStringDebugLuaLogPattern",
-                "FLogWndProcessCheck",
                 "FLogNetwork",
                 "FFlagHandleAltEnterFullscreenManually",
             };
@@ -456,75 +372,52 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             try
             {
                 using HttpClient client = new();
-
-                // Download all JSON URLs concurrently
-                var downloadTasks = urlsPriorityOrdered.Select(url => client.GetStringAsync(url)).ToList();
-                var jsonContents = await Task.WhenAll(downloadTasks);
+                var loadTasks = urlsPriorityOrdered.Select(url => LoadOrDownloadCachedAsync(url, client)).ToList();
+                string?[] jsonContents = await Task.WhenAll(loadTasks);
 
                 var defaultValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-                for (int i = 0; i < jsonContents.Length; i++)
+                foreach (var jsonText in jsonContents)
                 {
-                    string jsonText = jsonContents[i];
-                    if (string.IsNullOrWhiteSpace(jsonText))
-                        continue;
+                    if (string.IsNullOrWhiteSpace(jsonText)) continue;
 
-                    using var jsonDoc = JsonDocument.Parse(jsonText);
-                    var root = jsonDoc.RootElement;
+                    using var doc = JsonDocument.Parse(jsonText);
+                    var source = doc.RootElement.TryGetProperty("applicationSettings", out var appSettings)
+                        ? appSettings
+                        : doc.RootElement;
 
-                    if (root.ValueKind == JsonValueKind.Object)
+                    foreach (var flag in source.EnumerateObject())
                     {
-                        foreach (var flag in root.EnumerateObject())
+                        string valueAsString = flag.Value.ValueKind switch
                         {
-                            string valueAsString = flag.Value.ValueKind switch
-                            {
-                                JsonValueKind.String => flag.Value.GetString() ?? "",
-                                JsonValueKind.Number => flag.Value.GetRawText(),
-                                JsonValueKind.True => "True",
-                                JsonValueKind.False => "False",
-                                JsonValueKind.Null => "",
-                                _ => flag.Value.GetRawText(),
-                            };
+                            JsonValueKind.String => flag.Value.GetString() ?? "",
+                            JsonValueKind.Number => flag.Value.GetRawText(),
+                            JsonValueKind.True => "True",
+                            JsonValueKind.False => "False",
+                            JsonValueKind.Null => "",
+                            _ => flag.Value.GetRawText(),
+                        };
 
-                            // Keep first occurrence (priority order)
-                            if (!defaultValues.ContainsKey(flag.Name))
-                                defaultValues[flag.Name] = valueAsString;
-                        }
+                        if (!defaultValues.ContainsKey(flag.Name))
+                            defaultValues[flag.Name] = valueAsString;
                     }
                 }
 
                 var allFlags = App.FastFlags.GetAllFlags();
-
                 var toRemove = new List<FastFlag>();
 
                 foreach (var flag in allFlags)
                 {
                     var name = flag.Name.Trim();
-
-                    // Skip whitelisted flags
                     if (manualWhitelist.Contains(name))
                         continue;
 
-                    if (defaultValues.TryGetValue(name, out var defaultValue))
+                    if (defaultValues.TryGetValue(name, out var defaultValue) &&
+                        string.Equals(flag.Value, defaultValue, StringComparison.OrdinalIgnoreCase))
                     {
-                        if (string.Equals(flag.Value, defaultValue, StringComparison.OrdinalIgnoreCase))
-                            toRemove.Add(flag);
+                        toRemove.Add(flag);
                     }
                 }
-
-                if (toRemove.Count == 0)
-                {
-                    Frontend.ShowMessageBox("No FastFlags matched default values (excluding whitelisted).", MessageBoxImage.Information);
-                    return removedDefaults;
-                }
-
-                var result = Frontend.ShowMessageBox(
-                    $"Found {toRemove.Count} FastFlags matching default values. Remove them?",
-                    MessageBoxImage.Warning,
-                    MessageBoxButton.OKCancel);
-
-                if (result == MessageBoxResult.Cancel)
-                    return removedDefaults;
 
                 foreach (var flag in toRemove)
                 {
@@ -532,9 +425,12 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                     App.FastFlags.SetValue(flag.Name, null);
                 }
 
+                if (removedDefaults.Count > 0)
+                {
+                    ReloadList();
+                    UpdateTotalFlagsCount();
+                }
 
-                ReloadList();
-                UpdateTotalFlagsCount();
                 return removedDefaults;
             }
             catch (Exception ex)
@@ -547,25 +443,17 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         public async Task<List<string>> UpdateOutdatedFastFlagsAsync()
         {
             var updatedFlags = new List<string>();
+
             var urlsJson = new[]
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json"
-            };
-
-            var rawTextUrls = new[]
-            {
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt",
             };
 
             var blacklist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
                 "FStringDebugLuaLogLevel",
                 "FStringDebugLuaLogPattern",
-                "FLogWndProcessCheck",
                 "FLogNetwork",
                 "FFlagHandleAltEnterFullscreenManually",
                 "DFIntCSGLevelOfDetailSwitchingDistanceL23",
@@ -577,53 +465,27 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             try
             {
                 using HttpClient client = new();
-
-                // Download JSON + live client + raw text all at once
-                var allUrls = urlsJson.Concat(rawTextUrls).ToArray();
-                var downloadTasks = allUrls.Select(url => client.GetStringAsync(url)).ToList();
-                var results = await Task.WhenAll(downloadTasks);
+                var loadTasks = urlsJson.Select(url => LoadOrDownloadCachedAsync(url, client)).ToList();
+                string?[] results = await Task.WhenAll(loadTasks);
 
                 var allValidFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-                // Parse JSON sources first
-                for (int i = 0; i < urlsJson.Length; i++)
+                foreach (var json in results)
                 {
-                    var json = results[i];
                     if (string.IsNullOrWhiteSpace(json)) continue;
-
-                    using var doc = JsonDocument.Parse(json);
-                    foreach (var prop in doc.RootElement.EnumerateObject())
-                        allValidFlags.Add(prop.Name.Trim());
+                    foreach (var name in ExtractFlagNamesFromJson(json))
+                        allValidFlags.Add(name);
                 }
 
-                // Parse raw text sources
-                for (int i = 0; i < rawTextUrls.Length; i++)
-                {
-                    var content = results[urlsJson.Length + i];
-                    if (string.IsNullOrWhiteSpace(content)) continue;
-
-                    var lines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var line in lines)
-                    {
-                        if (line.StartsWith("[C++] ", StringComparison.Ordinal) ||
-                            line.StartsWith("[Lua] ", StringComparison.Ordinal) ||
-                            line.StartsWith("[Com] ", StringComparison.Ordinal))
-                        {
-                            var name = line.Substring(line.IndexOf(']') + 1).Trim();
-                            if (!string.IsNullOrWhiteSpace(name))
-                                allValidFlags.Add(name);
-                        }
-                    }
-                }
-
-                // Group flags by base name (without trailing digits)
                 var groupedFlags = allValidFlags
                     .GroupBy(name => Regex.Replace(name, @"\d+$", ""))
-                    .ToDictionary(g => g.Key, g => g.OrderByDescending(n =>
-                    {
-                        var match = Regex.Match(n, @"(\d+)$");
-                        return match.Success ? int.Parse(match.Value) : -1;
-                    }).First());
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.OrderByDescending(n =>
+                        {
+                            var match = Regex.Match(n, @"(\d+)$");
+                            return match.Success ? int.Parse(match.Value) : -1;
+                        }).First());
 
                 var allUserFlags = App.FastFlags.GetAllFlags();
                 var updates = new List<(string OldName, string NewName, string Value)>();
@@ -642,21 +504,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                     }
                 }
 
-                if (updates.Count == 0)
-                {
-                    Frontend.ShowMessageBox("No outdated FastFlags were found to update.", MessageBoxImage.Information);
-                    return updatedFlags;
-                }
-
-                var confirm = Frontend.ShowMessageBox(
-                    $"Found {updates.Count} outdated FastFlags. Update them to latest versions?",
-                    MessageBoxImage.Question, MessageBoxButton.OKCancel);
-
-                if (confirm != MessageBoxResult.OK)
-                    return updatedFlags;
-
-                var formattedUpdates = new List<string>();
-
                 foreach (var (oldName, newName, value) in updates)
                 {
                     App.FastFlags.SetValue(oldName, null);
@@ -664,8 +511,11 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                     updatedFlags.Add($"{oldName} → {newName}");
                 }
 
-                ReloadList();
-                UpdateTotalFlagsCount();
+                if (updates.Count > 0)
+                {
+                    ReloadList();
+                    UpdateTotalFlagsCount();
+                }
 
                 return updatedFlags;
             }
@@ -678,55 +528,74 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private MainWindow GetMainWindow() => (MainWindow)Application.Current.MainWindow;
 
-        public async void ActionsButton_Click(object sender, RoutedEventArgs e)
+        public async void CleanListButton_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = GetMainWindow();
-            mainWindow?.ShowLoading("Updating FastFlags...");
+            mainWindow?.ShowLoading("Cleaning List...");
 
             try
             {
+                App.FastFlags.suspendUndoSnapshot = true;
+                App.FastFlags.SaveUndoSnapshot();
 
                 var updatedFlags = await UpdateOutdatedFastFlagsAsync();
-
-                mainWindow?.ShowLoading("Removing Invalid FastFlags...");
-
                 var invalidRemoved = await CheckAndRemoveInvalidFlagsAsync();
-
-                mainWindow?.ShowLoading("Removing Default Values...");
-
                 var defaultsRemoved = await RemoveDefaultsAsync();
 
-                mainWindow?.HideLoading();
+                App.FastFlags.suspendUndoSnapshot = false;
 
-                if (updatedFlags.Count == 0 && invalidRemoved.Count == 0 && defaultsRemoved.Count == 0)
+                int totalChanges = updatedFlags.Count + invalidRemoved.Count + defaultsRemoved.Count;
+
+                if (totalChanges == 0)
                 {
                     Frontend.ShowMessageBox("No FastFlag changes detected.", MessageBoxImage.Information);
+                    mainWindow?.HideLoading();
                     return;
                 }
 
-                string updatedText = string.Join(Environment.NewLine, updatedFlags.Select(name => $"{name} -> (updated)"));
-                string invalidText = JsonSerializer.Serialize(invalidRemoved, new JsonSerializerOptions { WriteIndented = true });
-                string defaultText = JsonSerializer.Serialize(defaultsRemoved, new JsonSerializerOptions { WriteIndented = true });
+                var message =
+                    $"{totalChanges} FastFlag{(totalChanges == 1 ? "" : "s")} have been changed, below is a summary:\n\n" +
+                    $"{invalidRemoved.Count} Invalid FastFlags Removed.\n" +
+                    $"{defaultsRemoved.Count} Default Value FastFlags Removed.\n" +
+                    $"{updatedFlags.Count} FastFlags Updated.\n\n" +
+                    "Do you want to see a list of all the changes?";
 
-                var flagDialog = new FlagDialog(
-                    updatedText,
-                    invalidText,
-                    defaultText,
-                    "FastFlag Changes"
-                )
+                var result = Frontend.ShowMessageBox(message, MessageBoxImage.Question, MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    Owner = Application.Current.MainWindow
-                };
+                    // Parse updatedFlags strings into tuples (OldName, NewName)
+                    var updatedTuples = updatedFlags
+                        .Select(s =>
+                        {
+                            var parts = s.Split("→", 2, StringSplitOptions.TrimEntries);
+                            return parts.Length == 2
+                                ? (OldName: parts[0], NewName: parts[1])
+                                : (OldName: s, NewName: s);
+                        })
+                        .ToList();
 
-                flagDialog.ShowDialog();
+                    var defaultDict = defaultsRemoved.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value?.ToString() ?? string.Empty);
+
+                    var flagDialog = new FlagDialog(invalidRemoved, defaultDict, updatedTuples)
+                    {
+                        Owner = Application.Current.MainWindow
+                    };
+
+                    flagDialog.ShowDialog();
+                }
+
+                mainWindow?.HideLoading();
 
                 ReloadList();
                 UpdateTotalFlagsCount();
             }
             catch (Exception ex)
             {
+                Frontend.ShowMessageBox($"An error occurred during FastFlag cleanup: {ex.Message}", MessageBoxImage.Error);
                 mainWindow?.HideLoading();
-                Frontend.ShowMessageBox($"An error occurred during FastFlag actions: {ex.Message}", MessageBoxImage.Error);
             }
         }
 
@@ -739,6 +608,27 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             dialog.Show();
         }
 
+        private void ShowProfilesDialog()
+        {
+            var dialog = new FlagProfilesDialog();
+            dialog.ShowDialog();
+
+            if (dialog.Result != MessageBoxResult.OK)
+                return;
+
+            if (dialog.Tabs.SelectedIndex == 0)
+                App.FastFlags.SaveProfile(dialog.SaveProfile.Text);
+            else if (dialog.Tabs.SelectedIndex == 1)
+            {
+                if (dialog.LoadProfile.SelectedValue == null)
+                    return;
+                App.FastFlags.LoadProfile(dialog.LoadProfile.SelectedValue.ToString(), dialog.ClearFlags.IsChecked);
+            }
+
+            Thread.Sleep(1000);
+            ReloadList();
+        }
+
         private void AddWithGameId(string name, string value, string gameId, FastFlagFilterType filterType)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(value) || string.IsNullOrWhiteSpace(gameId))
@@ -747,11 +637,18 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 return;
             }
 
+            string suffix = filterType == FastFlagFilterType.DataCenterFilter ? "_DataCenterFilter" : "_PlaceFilter";
+            string formattedName = $"{name}{suffix}";
+
+            if (BannableFastFlagWarning.IsBannable(formattedName))
+            {
+                if (!ConfirmBannableFlags(new[] { formattedName }))
+                    return;
+            }
+
             App.FastFlags.suspendUndoSnapshot = true;
             App.FastFlags.SaveUndoSnapshot();
 
-            string suffix = filterType == FastFlagFilterType.DataCenterFilter ? "_DataCenterFilter" : "_PlaceFilter";
-            string formattedName = $"{name}{suffix}";
             string formattedValue = $"{value};{gameId}";
             FastFlag? entry;
 
@@ -799,35 +696,94 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             App.FastFlags.suspendUndoSnapshot = false;
 
-
             UpdateTotalFlagsCount();
         }
 
-
-
-        private void ShowProfilesDialog()
+        private void ImportGameIdJson(string? json, string? gameId, FastFlagFilterType filterType)
         {
-            var dialog = new FlagProfilesDialog();
-            dialog.ShowDialog();
-
-            if (dialog.Result != MessageBoxResult.OK)
+            if (string.IsNullOrWhiteSpace(json) || string.IsNullOrWhiteSpace(gameId))
                 return;
 
-            if (dialog.Tabs.SelectedIndex == 0)
-                App.FastFlags.SaveProfile(dialog.SaveProfile.Text);
-            else if (dialog.Tabs.SelectedIndex == 1)
+            Dictionary<string, JsonElement>? list = null;
+
+            json = json.Trim();
+
+            if (!json.StartsWith('{'))
+                json = '{' + json;
+
+            if (!json.EndsWith('}'))
             {
-                if (dialog.LoadProfile.SelectedValue == null)
-                    return;
-                App.FastFlags.LoadProfile(dialog.LoadProfile.SelectedValue.ToString(), dialog.ClearFlags.IsChecked);
+                int lastIndex = json.LastIndexOf('}');
+                if (lastIndex == -1)
+                    json += '}';
+                else
+                    json = json.Substring(0, lastIndex + 1);
             }
 
-            Thread.Sleep(1000);
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    ReadCommentHandling = JsonCommentHandling.Skip,
+                    AllowTrailingCommas = true
+                };
+
+                list = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json, options);
+
+                if (list is null)
+                    throw new Exception("JSON deserialization returned null");
+            }
+            catch (Exception ex)
+            {
+                Frontend.ShowMessageBox($"Invalid JSON: {ex.Message}", MessageBoxImage.Error);
+                return;
+            }
+
+            string suffix = filterType == FastFlagFilterType.DataCenterFilter ? "_DataCenterFilter" : "_PlaceFilter";
+
+            App.FastFlags.suspendUndoSnapshot = true;
+            App.FastFlags.SaveUndoSnapshot();
+
+            var bannableFlags = list.Keys
+                .Select(key => $"{key}{suffix}")
+                .Where(BannableFastFlagWarning.IsBannable)
+                .Distinct()
+                .ToList();
+
+            if (bannableFlags.Count > 0 && !ConfirmBannableFlags(bannableFlags))
+            {
+                foreach (var bannable in bannableFlags)
+                {
+                    var baseKey = bannable.Substring(0, bannable.Length - suffix.Length);
+                    list.Remove(baseKey);
+                }
+            }
+
+            foreach (var pair in list)
+            {
+                string newName = $"{pair.Key}{suffix}";
+
+                string newValue = pair.Value.ValueKind == JsonValueKind.String
+                    ? $"{pair.Value.GetString()};{gameId}"
+                    : $"{pair.Value.ToString()};{gameId}";
+
+                AddSingle(newName, newValue);
+            }
+
+            App.FastFlags.suspendUndoSnapshot = false;
+
             ReloadList();
+            ClearSearch();
         }
 
         private void AddSingle(string name, string value)
         {
+            if (BannableFastFlagWarning.IsBannable(name))
+            {
+                if (!ConfirmBannableFlags(new[] { name }))
+                    return;
+            }
+
             FastFlag? entry;
 
             if (App.FastFlags.GetValue(name) is null)
@@ -880,7 +836,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             json = json.Trim();
 
-            // autocorrect where possible
             if (!json.StartsWith('{'))
                 json = '{' + json;
 
@@ -922,6 +877,19 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             App.FastFlags.suspendUndoSnapshot = true;
             App.FastFlags.SaveUndoSnapshot();
 
+            var bannableFlags = list.Keys
+                .Where(BannableFastFlagWarning.IsBannable)
+                .Distinct()
+                .ToList();
+
+            if (bannableFlags.Count > 0 && !ConfirmBannableFlags(bannableFlags))
+            {
+                foreach (var bannable in bannableFlags)
+                {
+                    list.Remove(bannable);
+                }
+            }
+
             var conflictingFlags = App.FastFlags.Prop.Where(x => list.ContainsKey(x.Key)).Select(x => x.Key);
             bool overwriteConflicting = false;
 
@@ -962,6 +930,67 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             App.FastFlags.suspendUndoSnapshot = false;
 
             ClearSearch();
+        }
+
+        private bool ConfirmBannableFlags(IEnumerable<string> flagNames)
+        {
+            var flagList = flagNames.Distinct().ToList();
+
+            string formattedFlags = string.Join("\n", flagList.Select(f => $"'{f}'"));
+
+            string message = "Warning: The following FastFlags are known to to get you banned from certain experiences. Are you sure you want to proceed?\n\n" +
+                             $"{formattedFlags}";
+
+            var result = Frontend.ShowMessageBox(
+                message,
+                MessageBoxImage.Warning,
+                MessageBoxButton.YesNo);
+
+            return result == MessageBoxResult.Yes;
+        }
+
+        public static class BannableFastFlagWarning
+        {
+            public static readonly HashSet<string> BannableFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                "DFIntBulletContactBreakOrthogonalThresholdActivatePercent",
+                "DFIntBulletContactBreakThresholdPercent",
+                "DFIntBulletContactBreakOrthogonalThresholdPercent",
+                "FFlagDataModelPatcherForceLocal",
+                "DFIntAnimatorDrawSkeletonScalePercent",
+                "DFFlagDebugDrawEnable",
+                "DFFlagAnimatorDrawSkeletonAll",
+                "DFFlagAnimatorDrawSkeletonText",
+                "DFFlagAnimatorDrawSkeletonAttachments",
+                "DFFlagDebugEnableInterpThrottle",
+                "DFIntGameNetLocalSpaceMaxSendIndex",
+                "DFIntPhysicsImprovedCyclicExecutiveThrottleThresholdTenth",
+                "DFIntSimBlockLargeLocalToolWeldManipulationsThreshold",
+                "DFFlagAnimatorPostProcessIK",
+                "DFIntReplicatorAnimationTrackLimitPerAnimator",
+                "DFIntSimTimestepMultiplierDebounceCount",
+                "DFIntSimAdaptiveHumanoidPDControllerSubstepMultiplier",
+                "DFIntSolidFloorPercentForceApplication",
+                "DFIntNonSolidFloorPercentForceApplication",
+                "DFIntTouchSenderMaxBandwidthBps",
+                "DFIntGameNetOptimizeParallelPhysicsSendAssemblyBatch",
+                "DFIntGameNetPVHeaderTranslationZeroCutoffExponent",
+                "DFIntPhysicsSenderMaxBandwidthBpsScaling",
+                "FIntParallelDynamicPartsFastClusterBatchSize",
+                "DFIntMaxMissedWorldStepsRemembered",
+                "DFIntPhysicsDecompForceUpgradeVersion",
+                "DFIntMaximumUnstickForceInGs",
+                "DFIntMinClientSimulationRadius",
+                "DFIntMinimalSimRadiusBuffer",
+                "DFIntMaxClientSimulationRadius",
+                "DFFlagDebugPhysicsSenderDoesNotShrinkSimRadius",
+                "FFlagDebugUseCustomSimRadius",
+                "DFFlagDebugDrawBroadPhaseAABBs",
+                "DFFlagDebugDrawBvhNodes",
+                "FFlagDebugHumanoidRendering",
+                "FIntCameraFarZPlane"
+            };
+            public static bool IsBannable(string flagName) => BannableFlags.Contains(flagName);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e) => ReloadList();

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -7,166 +9,132 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Bloxstrap.UI.Elements.Dialogs
 {
-    public partial class FindFlagDialog : Base.WpfUiWindow
+    public partial class FindFlagDialog : Base.WpfUiWindow, INotifyPropertyChanged
     {
-        private ComboBox? _sourceSelectorComboBox;
-        private CancellationTokenSource? _searchCancellationTokenSource;
         private const int _debounceDelay = 300;
 
-        private List<string> _cachedRawFlags = new();
         private Dictionary<string, string> _cachedFlagDictionary = new();
 
-        private bool _isCheckAllSelected = false;
+        public ObservableCollection<FlagEntry> FilteredFlags { get; } = new();
+
+        private bool _isFlagsLoaded = false;
+        public bool IsFlagsLoaded
+        {
+            get => _isFlagsLoaded;
+            set
+            {
+                if (_isFlagsLoaded != value)
+                {
+                    _isFlagsLoaded = value;
+                    OnPropertyChanged(nameof(IsFlagsLoaded));
+                }
+            }
+        }
+
+        private readonly DispatcherTimer _loadingDotsTimer;
+        private int _dotCount = 0;
 
         public FindFlagDialog()
         {
             InitializeComponent();
-        }
+            DataContext = this;
 
-        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (sender is ComboBox comboBox)
+            _loadingDotsTimer = new DispatcherTimer
             {
-                _sourceSelectorComboBox = comboBox;
+                Interval = TimeSpan.FromMilliseconds(500)
+            };
+            _loadingDotsTimer.Tick += (s, e) =>
+            {
+                _dotCount = (_dotCount + 1) % 4;
+                LoadingDotsText.Text = new string('.', _dotCount);
+            };
 
-                if (comboBox.Items.Count == 0)
-                {
-                    PopulateComboBoxItems(comboBox);
-                    comboBox.SelectedIndex = 0;
-                }
-            }
+            _ = LoadAndDisplayMergedFlags();
         }
 
-        private void PopulateComboBoxItems(ComboBox comboBox)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+
+        private void StartLoadingDotsAnimation()
         {
-            comboBox.Items.Clear();
-            comboBox.Items.Add("Check All Sources");
-            comboBox.Items.Add("Froststrap's PCDesktopClient");
-            comboBox.Items.Add("Froststrap's FVariablesV2");
-            comboBox.Items.Add("Live Roblox FastFlags");
-            comboBox.Items.Add("MaximumADHD PCDesktopClient");
-            comboBox.Items.Add("MaximumADHD PCClientBootstrapper");
-            comboBox.Items.Add("MaximumADHD FVariable");
+            _loadingDotsTimer.Start();
         }
 
-        private async void SourceSelector_Changed(object sender, SelectionChangedEventArgs e)
+        private void StopLoadingDotsAnimation()
         {
-            if (_sourceSelectorComboBox == null)
-                return;
+            _loadingDotsTimer?.Stop();
+            LoadingDotsText.Text = "";
+        }
 
-            var selectedSource = _sourceSelectorComboBox.SelectedItem as string;
-            if (string.IsNullOrEmpty(selectedSource))
-                return;
-
-            SetFlagOutputText("Loading flags, please wait...");
+        private async Task LoadAndDisplayMergedFlags()
+        {
+            FlagCountTextBlock.Text = "Loading flags, please wait...";
+            IsFlagsLoaded = false;
+            StartLoadingDotsAnimation();
 
             try
             {
-                if (selectedSource == "Check All Sources")
-                {
-                    _isCheckAllSelected = true;
-
-                    var mergedFlags = await LoadAndMergeJsonSources();
-
-                    _cachedFlagDictionary = mergedFlags;
-                    _cachedRawFlags.Clear();
-
-                    SetFlagOutputText(JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true }));
-                }
-                else if (selectedSource == "MaximumADHD FVariable")
-                {
-                    _isCheckAllSelected = false;
-
-                    var rawText = await DownloadAndFormatRawText("https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt");
-
-                    _cachedRawFlags = rawText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-
-                    _cachedFlagDictionary.Clear();
-
-                    SetFlagOutputText(string.Join(Environment.NewLine, _cachedRawFlags));
-                }
-                else
-                {
-                    _isCheckAllSelected = false;
-
-                    var flagsText = await LoadFlagsForSource(selectedSource);
-
-                    var parsedFlags = JsonSerializer.Deserialize<Dictionary<string, string>>(flagsText);
-
-                    if (parsedFlags != null)
-                    {
-                        _cachedFlagDictionary = parsedFlags;
-                        _cachedRawFlags.Clear();
-                    }
-                    else
-                    {
-                        _cachedFlagDictionary.Clear();
-                        _cachedRawFlags.Clear();
-                    }
-
-                    SetFlagOutputText(JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true }));
-                }
+                var mergedFlags = await LoadAndMergeJsonSources();
+                _cachedFlagDictionary = mergedFlags;
+                IsFlagsLoaded = true;
+                ApplyFiltersAndDisplay();
             }
             catch (Exception ex)
             {
-                SetFlagOutputText($"Error loading flags: {ex.Message}");
+                MessageBox.Show($"Error loading flags: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 _cachedFlagDictionary.Clear();
-                _cachedRawFlags.Clear();
+                FilteredFlags.Clear();
+                FlagCountTextBlock.Text = "Failed to load flags.";
+                IsFlagsLoaded = false;
+            }
+            finally
+            {
+                StopLoadingDotsAnimation();
             }
         }
 
         private async Task<Dictionary<string, string>> LoadAndMergeJsonSources()
         {
-            // List of URLs to merge (exclude raw text source)
             var urls = new[]
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json"
             };
 
             var mergedFlags = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
+            using var client = new HttpClient();
+
             foreach (var url in urls)
             {
                 Dictionary<string, string> flags = url.Contains("clientsettings.roblox.com")
-                    ? await DownloadJsonFlags(url, isLiveSettings: true)
-                    : await DownloadJsonFlags(url);
+                    ? await DownloadJsonFlags(client, url, isLiveSettings: true)
+                    : await DownloadJsonFlags(client, url);
 
                 foreach (var kvp in flags)
-                {
                     mergedFlags[kvp.Key] = kvp.Value;
-                }
             }
 
-            var sorted = mergedFlags.OrderBy(kvp => kvp.Key)
+            return mergedFlags.OrderBy(kvp => kvp.Key)
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            return sorted;
         }
 
-        private async Task<Dictionary<string, string>> DownloadJsonFlags(string url, bool isLiveSettings = false)
+        private async Task<Dictionary<string, string>> DownloadJsonFlags(HttpClient client, string url, bool isLiveSettings = false)
         {
-            using var client = new HttpClient();
             var json = await client.GetStringAsync(url);
-
             var flags = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             using var doc = JsonDocument.Parse(json);
             JsonElement root = doc.RootElement;
 
-            if (isLiveSettings)
+            if (isLiveSettings && root.TryGetProperty("applicationSettings", out JsonElement appSettings))
             {
-                if (root.TryGetProperty("applicationSettings", out JsonElement appSettings))
-                {
-                    foreach (var prop in appSettings.EnumerateObject())
-                        flags[prop.Name] = prop.Value.ToString();
-                }
+                foreach (var prop in appSettings.EnumerateObject())
+                    flags[prop.Name] = prop.Value.ToString();
             }
             else
             {
@@ -177,129 +145,244 @@ namespace Bloxstrap.UI.Elements.Dialogs
             return flags;
         }
 
-        private async Task<string> LoadFlagsForSource(string sourceName)
+        private void ApplyFiltersAndDisplay()
         {
-            return sourceName switch
+            if (!IsFlagsLoaded) return;
+
+            string keywordText = KeywordSearchingTextbox.Text.Trim();
+            string valueSearchText = ValueSearchTextBox.Text.Trim();
+
+            bool showTrueOnly = TrueOnlyCheckBox.IsChecked == true;
+            bool showFalseOnly = FalseOnlyCheckBox.IsChecked == true;
+            string selectedType = (ValueTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "All";
+
+            IEnumerable<KeyValuePair<string, string>> filtered = _cachedFlagDictionary;
+
+            if (!string.IsNullOrWhiteSpace(keywordText))
             {
-                "Froststrap's PCDesktopClient" => await DownloadAndFormatJson("https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json"),
-                "Froststrap's FVariablesV2" => await DownloadAndFormatJson("https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/FVariablesV2.json"),
-                "Live Roblox FastFlags" => await DownloadAndFormatJson("https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient", isLiveSettings: true),
-                "MaximumADHD PCDesktopClient" => await DownloadAndFormatJson("https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json"),
-                "MaximumADHD PCClientBootstrapper" => await DownloadAndFormatJson("https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCClientBootstrapper.json"),
-                "MaximumADHD FVariable" => await DownloadAndFormatRawText("https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/refs/heads/roblox/FVariables.txt"),
-                _ => "Unknown source"
-            };
-        }
+                var keywords = keywordText
+                    .Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(k => k.Trim().ToLowerInvariant())
+                    .ToArray();
 
-        private async Task<string> DownloadAndFormatJson(string url, bool isLiveSettings = false)
-        {
-            var flags = await DownloadJsonFlags(url, isLiveSettings);
-
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            return JsonSerializer.Serialize(flags.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value), options);
-        }
-
-        private async Task<string> DownloadAndFormatRawText(string url)
-        {
-            using var client = new HttpClient();
-            var rawText = await client.GetStringAsync(url);
-
-            var lines = rawText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-            var cleanLines = lines
-                .Select(line =>
+                if (keywords.Length > 0)
                 {
-                    int idx = line.IndexOf('}');
-                    return (line.StartsWith("{") && idx >= 0) ? line[(idx + 1)..].Trim() : line.Trim();
-                })
-                .Where(line => !string.IsNullOrWhiteSpace(line))
-                .OrderBy(line => line);
+                    filtered = filtered.Where(kvp =>
+                    {
+                        string keyLower = kvp.Key.ToLowerInvariant();
+                        return keywords.All(kw => keyLower.Contains(kw));
+                    });
+                }
+            }
 
-            return string.Join(Environment.NewLine, cleanLines);
+            if (!string.IsNullOrWhiteSpace(valueSearchText))
+            {
+                var values = valueSearchText
+                    .Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(v => v.Trim().ToLowerInvariant())
+                    .ToArray();
+
+                if (values.Length > 0)
+                {
+                    filtered = filtered.Where(kvp =>
+                    {
+                        string valLower = kvp.Value.ToLowerInvariant();
+                        return values.Any(v => valLower.Contains(v));
+                    });
+                }
+            }
+
+            if (showTrueOnly && !showFalseOnly)
+            {
+                filtered = filtered.Where(kvp => kvp.Value.Equals("true", StringComparison.OrdinalIgnoreCase));
+            }
+            else if (!showTrueOnly && showFalseOnly)
+            {
+                filtered = filtered.Where(kvp => kvp.Value.Equals("false", StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.Equals(selectedType, "All", StringComparison.OrdinalIgnoreCase))
+            {
+                filtered = filtered.Where(kvp =>
+                {
+                    string flagName = kvp.Key;
+                    if (selectedType.Equals("Boolean", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return flagName.StartsWith("DFFlag", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("FFlag", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("FLog", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("DFLog", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("SFFlag", StringComparison.OrdinalIgnoreCase);
+                    }
+                    else if (selectedType.Equals("Integer", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return flagName.StartsWith("FInt", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("DFInt", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("FLog", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("DFLog", StringComparison.OrdinalIgnoreCase);
+                    }
+                    else if (selectedType.Equals("String", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return flagName.StartsWith("FString", StringComparison.OrdinalIgnoreCase)
+                            || flagName.StartsWith("DFString", StringComparison.OrdinalIgnoreCase);
+                    }
+                    return true;
+                });
+            }
+
+            FilteredFlags.Clear();
+            foreach (var kvp in filtered)
+            {
+                string displayValue = kvp.Value;
+                string flagType = GetFlagType(kvp.Key);
+
+                if (flagType.Equals("Boolean", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (string.Equals(displayValue, "true", StringComparison.OrdinalIgnoreCase))
+                        displayValue = "True";
+                    else if (string.Equals(displayValue, "false", StringComparison.OrdinalIgnoreCase))
+                        displayValue = "False";
+                }
+                else if (flagType.Equals("Unknown", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (string.Equals(displayValue, "true", StringComparison.OrdinalIgnoreCase))
+                        displayValue = "True";
+                    else if (string.Equals(displayValue, "false", StringComparison.OrdinalIgnoreCase))
+                        displayValue = "False";
+                }
+
+                FilteredFlags.Add(new FlagEntry
+                {
+                    Name = kvp.Key,
+                    Value = displayValue,
+                    Type = flagType
+                });
+            }
+
+            FlagCountTextBlock.Text = $"Flags Found: {FilteredFlags.Count}";
         }
 
-        private async void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void ValueSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (sender is not TextBox textbox) return;
+            if (!IsFlagsLoaded) return;
+            DebouncedFilter();
+        }
 
-            string newSearch = textbox.Text.Trim();
+        private string GetFlagType(string flagName)
+        {
+            if (flagName.StartsWith("DFFlag", StringComparison.OrdinalIgnoreCase) ||
+                flagName.StartsWith("FFlag", StringComparison.OrdinalIgnoreCase) ||
+                flagName.StartsWith("FLog", StringComparison.OrdinalIgnoreCase) ||
+                flagName.StartsWith("DFLog", StringComparison.OrdinalIgnoreCase) ||
+                flagName.StartsWith("SFFlag", StringComparison.OrdinalIgnoreCase))
+                return "Boolean";
 
-            _searchCancellationTokenSource?.Cancel();
-            _searchCancellationTokenSource = new CancellationTokenSource();
+            if (flagName.StartsWith("FInt", StringComparison.OrdinalIgnoreCase) ||
+                flagName.StartsWith("DFInt", StringComparison.OrdinalIgnoreCase))
+                return "Integer";
+
+            if (flagName.StartsWith("FString", StringComparison.OrdinalIgnoreCase) ||
+                flagName.StartsWith("DFString", StringComparison.OrdinalIgnoreCase))
+                return "String";
+
+            return "Unknown";
+        }
+
+        private void KeywordSearching(object sender, TextChangedEventArgs e)
+        {
+            if (!IsFlagsLoaded) return;
+            DebouncedFilter();
+        }
+
+        private void FilterCheckbox_Changed(object sender, RoutedEventArgs e)
+        {
+            if (!IsFlagsLoaded) return;
+            ApplyFiltersAndDisplay();
+        }
+
+        private void ValueTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsFlagsLoaded) return;
+            ApplyFiltersAndDisplay();
+        }
+
+        private CancellationTokenSource? _debounceTokenSource;
+        private async void DebouncedFilter()
+        {
+            _debounceTokenSource?.Cancel();
+            _debounceTokenSource = new CancellationTokenSource();
 
             try
             {
-                await Task.Delay(_debounceDelay, _searchCancellationTokenSource.Token);
-
-                if (_searchCancellationTokenSource.Token.IsCancellationRequested)
-                    return;
-
-                if (string.IsNullOrEmpty(newSearch))
+                await Task.Delay(_debounceDelay, _debounceTokenSource.Token);
+                if (!_debounceTokenSource.Token.IsCancellationRequested)
                 {
-                    if (_isCheckAllSelected || _cachedFlagDictionary.Count > 0)
-                    {
-                        SetFlagOutputText(JsonSerializer.Serialize(_cachedFlagDictionary, new JsonSerializerOptions { WriteIndented = true }));
-                    }
-                    else if (_cachedRawFlags.Count > 0)
-                    {
-                        SetFlagOutputText(string.Join(Environment.NewLine, _cachedRawFlags));
-                    }
-                    else
-                    {
-                        SetFlagOutputText(string.Empty);
-                    }
-                }
-                else
-                {
-                    if (_isCheckAllSelected || _cachedFlagDictionary.Count > 0)
-                    {
-                        var filteredDict = _cachedFlagDictionary
-                            .Where(kvp => kvp.Key.IndexOf(newSearch, StringComparison.OrdinalIgnoreCase) >= 0)
-                            .OrderBy(kvp => kvp.Key)
-                            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-                        SetFlagOutputText(filteredDict.Count > 0
-                            ? JsonSerializer.Serialize(filteredDict, new JsonSerializerOptions { WriteIndented = true })
-                            : "No matching flags found.");
-                    }
-                    else if (_cachedRawFlags.Count > 0)
-                    {
-                        var filteredRaw = _cachedRawFlags
-                            .Where(f => f.IndexOf(newSearch, StringComparison.OrdinalIgnoreCase) >= 0)
-                            .ToList();
-
-                        SetFlagOutputText(filteredRaw.Count > 0
-                            ? string.Join(Environment.NewLine, filteredRaw)
-                            : "No matching flags found.");
-                    }
+                    ApplyFiltersAndDisplay();
                 }
             }
-            catch (TaskCanceledException)
+            catch (TaskCanceledException) { }
+        }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                // ignored
+                var exportDict = FilteredFlags.ToDictionary(f => f.Name, f => f.Value);
+                var json = JsonSerializer.Serialize(exportDict, new JsonSerializerOptions { WriteIndented = true });
+
+                var saveDialog = new Microsoft.Win32.SaveFileDialog
+                {
+                    Filter = "JSON Files (*.json)|*.json",
+                    DefaultExt = ".json",
+                    FileName = "flags_export.json"
+                };
+
+                if (saveDialog.ShowDialog() == true)
+                {
+                    System.IO.File.WriteAllText(saveDialog.FileName, json);
+                    MessageBox.Show("Export successful!", "Export", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Export failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void SetFlagOutputText(string text)
+        private void FlagDataGrid_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            FlagOutputBox.Text = text;
-            UpdateFlagCount();
-        }
-
-        private void UpdateFlagCount()
-        {
-            int lineCount = 0;
-            if (!string.IsNullOrEmpty(FlagOutputBox.Text))
+            // Check for Ctrl+C
+            if (e.Key == System.Windows.Input.Key.C &&
+                (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) == System.Windows.Input.ModifierKeys.Control)
             {
-                lineCount = FlagOutputBox.Text.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).Length;
+                var selectedFlags = FlagDataGrid.SelectedItems.Cast<FlagEntry>().ToList();
+                if (selectedFlags.Count > 0)
+                {
+                    try
+                    {
+                        var dict = selectedFlags.ToDictionary(f => f.Name, f => f.Value);
+                        var json = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
+                        Clipboard.SetText(json);
+                        e.Handled = true; // Prevent further processing
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to copy flags to clipboard: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
-
-            FlagCountTextBlock.Text = $"Total Flag Count: {lineCount}";
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
+    }
+
+    public class FlagEntry
+    {
+        public string Name { get; set; } = "";
+        public string Value { get; set; } = "";
+        public string Type { get; set; } = "";
     }
 }

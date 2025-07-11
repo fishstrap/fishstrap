@@ -80,5 +80,29 @@ namespace Bloxstrap.PcTweaks
             }
             catch { }
         }
+
+        public static bool IsGameDvrEnabled()
+        {
+            try
+            {
+                using var userKey = Registry.CurrentUser.OpenSubKey(@"System\GameConfigStore");
+                using var machineKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\Microsoft\Windows\GameDVR");
+
+                if (userKey == null || machineKey == null)
+                    return false;
+
+                var userValue = userKey.GetValue("GameDVR_Enabled");
+                var machineValue = machineKey.GetValue("AllowGameDVR");
+
+                if (userValue == null || machineValue == null)
+                    return false;
+
+                return Convert.ToInt32(userValue) == 1 && Convert.ToInt32(machineValue) == 1;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

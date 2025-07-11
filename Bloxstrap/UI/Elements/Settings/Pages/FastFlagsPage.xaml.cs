@@ -156,6 +156,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             };
         }
         #endregion
+
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _searchDebounceCts?.Cancel();

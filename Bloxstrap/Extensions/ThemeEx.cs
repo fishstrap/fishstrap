@@ -26,7 +26,7 @@ namespace Bloxstrap.Extensions
             Theme.Default,
             Theme.Dark,
             Theme.Light,
-            Theme.ClassicDark,
+            Theme.NewDark,
             Theme.Froststrap,
             Theme.Forest,
             Theme.Purple,
@@ -44,9 +44,9 @@ namespace Bloxstrap.Extensions
             return icon switch
             {
                 Theme.Default => Properties.Resources.Default,
-                Theme.Dark => Properties.Resources.Dark,
+                Theme.Dark => Properties.Resources.ClassicDark,
                 Theme.Light => Properties.Resources.Light,
-                Theme.ClassicDark => Properties.Resources.ClassicDark,
+                Theme.NewDark => Properties.Resources.Dark,
                 Theme.Forest => Properties.Resources.Forest,
                 Theme.Froststrap => Properties.Resources.Froststrap,
                 Theme.Purple => Properties.Resources.Purple,

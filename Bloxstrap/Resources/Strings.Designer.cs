@@ -239,7 +239,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to extract files.
+        ///   Looks up a localized string similar to Failed to extract all files.
         /// </summary>
         public static string Bootstrapper_ExtractionFailed_Title {
             get {
@@ -286,7 +286,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to apply modifications.
+        ///   Looks up a localized string similar to Failed to apply all modifications.
         /// </summary>
         public static string Bootstrapper_ModificationsFailed_Title {
             get {
@@ -1313,11 +1313,29 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Theme {0}.
+        /// </summary>
+        public static string CustomTheme_DefaultName {
+            get {
+                return ResourceManager.GetString("CustomTheme.DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save changes to {0}?.
         /// </summary>
         public static string CustomTheme_Editor_ConfirmSave {
             get {
                 return ResourceManager.GetString("CustomTheme.Editor.ConfirmSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to preview theme: {0}.
+        /// </summary>
+        public static string CustomTheme_Editor_Errors_PreviewFailed {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Errors.PreviewFailed", resourceCulture);
             }
         }
         
@@ -1367,6 +1385,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your theme has been saved!.
+        /// </summary>
+        public static string CustomTheme_Editor_Save_Success_Description {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Save.Success.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editing &quot;{0}&quot;.
         /// </summary>
         public static string CustomTheme_Editor_Title {
@@ -1403,7 +1430,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1} is not a valid {2}.
+        ///   Looks up a localized string similar to {0}.{1} is not a valid {2}.
         /// </summary>
         public static string CustomTheme_Errors_ElementAttributeInvalidType {
             get {
@@ -1421,7 +1448,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}.{1} is missing it&apos;s child.
+        ///   Looks up a localized string similar to {0}.{1} is missing its child.
         /// </summary>
         public static string CustomTheme_Errors_ElementAttributeMissingChild {
             get {
@@ -1448,7 +1475,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1} must be larger than {2}.
+        ///   Looks up a localized string similar to {0}.{1} must be larger than {2}.
         /// </summary>
         public static string CustomTheme_Errors_ElementAttributeMustBeLargerThanMin {
             get {
@@ -1457,7 +1484,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1} must be smaller than {2}.
+        ///   Looks up a localized string similar to {0}.{1} must be smaller than {2}.
         /// </summary>
         public static string CustomTheme_Errors_ElementAttributeMustBeSmallerThanMax {
             get {
@@ -1530,7 +1557,7 @@ namespace Bloxstrap.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Failed to setup custom bootstrapper: {0}.
-        ///Defaulting to Fluent..
+        ///Defaulting to {1}..
         /// </summary>
         public static string CustomTheme_Errors_SetupFailed {
             get {
@@ -1539,7 +1566,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom bootstrappers can only have a maximum of {0} elements, got {1}..
+        ///   Looks up a localized string similar to Custom bootstrappers can only have a maximum of {0} elements, got {1}.
         /// </summary>
         public static string CustomTheme_Errors_TooManyElements {
             get {
@@ -1557,7 +1584,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Unknown {1} {2}.
+        ///   Looks up a localized string similar to {0} Unknown {1} &apos;{2}&apos;.
         /// </summary>
         public static string CustomTheme_Errors_UnknownEnumValue {
             get {
@@ -1607,6 +1634,33 @@ namespace Bloxstrap.Resources {
         public static string CustomTheme_Errors_XMLParseFailed {
             get {
                 return ResourceManager.GetString("CustomTheme.Errors.XMLParseFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Examples of custom bootstrappers can be found at {0}.
+        /// </summary>
+        public static string CustomTheme_Templates_Blank_MoreExamples {
+            get {
+                return ResourceManager.GetString("CustomTheme.Templates.Blank.MoreExamples", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put UI elements here.
+        /// </summary>
+        public static string CustomTheme_Templates_Blank_UIElements {
+            get {
+                return ResourceManager.GetString("CustomTheme.Templates.Blank.UIElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find more custom bootstrapper examples at {0}.
+        /// </summary>
+        public static string CustomTheme_Templates_Simple_MoreExamples {
+            get {
+                return ResourceManager.GetString("CustomTheme.Templates.Simple.MoreExamples", resourceCulture);
             }
         }
         
@@ -2440,15 +2494,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Classic Dark.
-        /// </summary>
-        public static string Enums_Theme_ClassicDark {
-            get {
-                return ResourceManager.GetString("Enums.Theme.ClassicDark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cotton Candy.
         /// </summary>
         public static string Enums_Theme_CottonCandy {
@@ -2517,6 +2562,15 @@ namespace Bloxstrap.Resources {
         public static string Enums_Theme_Midnight {
             get {
                 return ResourceManager.GetString("Enums.Theme.Midnight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Dark.
+        /// </summary>
+        public static string Enums_Theme_NewDark {
+            get {
+                return ResourceManager.GetString("Enums.Theme.NewDark", resourceCulture);
             }
         }
         
@@ -2672,7 +2726,7 @@ namespace Bloxstrap.Resources {
         ///
         ///However, Roblox has not been installed yet. It will be installed when you launch Roblox with Froststrap for the first time. Before installation, you may want to configure Froststrap’s settings first.
         ///
-        ///Important Note: Do not use the “Roblox Player” shortcut to launch Roblox, as Froststrap will be unable to launch Roblox due to conflicting issues. If you don’t see Froststrap initiating when launching from the Roblox website, simply launch Roblox with Froststrap onc [rest of string was truncated]&quot;;.
+        ///Important Note: Do not use the “Roblox Player” shortcut to launch Roblox, as Froststrap will be unable to launch Roblox due to conflicting issues. If you don’t see Froststrap initiating when launching from the Roblox website, simply launch Roblox with Froststrap [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Installer_Completion_Text {
             get {
@@ -3294,60 +3348,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allows you to change the order of the sections on the left side..
-        /// </summary>
-        public static string Menu_Appearance_MenuAdjustment_Description {
-            get {
-                return ResourceManager.GetString("Menu.Appearance.MenuAdjustment.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lock Order.
-        /// </summary>
-        public static string Menu_Appearance_MenuAdjustment_LockOrder {
-            get {
-                return ResourceManager.GetString("Menu.Appearance.MenuAdjustment.LockOrder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Move Down.
-        /// </summary>
-        public static string Menu_Appearance_MenuAdjustment_MoveDown {
-            get {
-                return ResourceManager.GetString("Menu.Appearance.MenuAdjustment.MoveDown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Move Up.
-        /// </summary>
-        public static string Menu_Appearance_MenuAdjustment_MoveUp {
-            get {
-                return ResourceManager.GetString("Menu.Appearance.MenuAdjustment.MoveUp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset To Default.
-        /// </summary>
-        public static string Menu_Appearance_MenuAdjustment_ResetToDefault {
-            get {
-                return ResourceManager.GetString("Menu.Appearance.MenuAdjustment.ResetToDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menu Adjustment.
-        /// </summary>
-        public static string Menu_Appearance_MenuAdjustment_Title {
-            get {
-                return ResourceManager.GetString("Menu.Appearance.MenuAdjustment.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Preview.
         /// </summary>
         public static string Menu_Appearance_Preview {
@@ -3389,6 +3389,24 @@ namespace Bloxstrap.Resources {
         public static string Menu_Behaviour_AutoUpdate_Title {
             get {
                 return ResourceManager.GetString("Menu.Behaviour.AutoUpdate.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Roblox in the background instead of waiting. Not recommended for slow networks. At least 3GB of free storage space is required for this feature to work..
+        /// </summary>
+        public static string Menu_Behaviour_BackgroundUpdates_Description {
+            get {
+                return ResourceManager.GetString("Menu.Behaviour.BackgroundUpdates.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background updates.
+        /// </summary>
+        public static string Menu_Behaviour_BackgroundUpdates_Title {
+            get {
+                return ResourceManager.GetString("Menu.Behaviour.BackgroundUpdates.Title", resourceCulture);
             }
         }
         
@@ -4151,7 +4169,7 @@ namespace Bloxstrap.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Fast Flags are extremely powerful, being that they are intended to only be used by Roblox engineers. While they can be very useful, manually configuring them can cause serious issues with stability and functionality. Do NOT use the editor if you are unsure of what you are doing.
         ///
-        ///Do NOT use this to import large &quot;flag lists&quot; made by other people that promise to improve performance or such. They are subject to the aforementioned issues, and they will cause problems for you since you will not be fully aware of [rest of string was truncated]&quot;;.
+        ///Do NOT use this to import large &quot;flag lists&quot; made by other people that promise to improve performance or such. They are subject to the aforementioned issues, and they will cause problems for you since you will not be fully aware  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Menu_FastFlagEditor_Warning_Text {
             get {

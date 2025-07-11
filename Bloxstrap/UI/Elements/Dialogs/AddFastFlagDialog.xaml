@@ -36,7 +36,7 @@
         <ui:TitleBar Grid.Row="0" Grid.ColumnSpan="2" Padding="8" Title="{x:Static resources:Strings.Dialog_AddFastFlag_Title}" ShowMinimize="False" ShowMaximize="False" CanMaximize="False" KeyboardNavigation.TabNavigation="None" />
 
         <TabControl x:Name="Tabs" Grid.Row="1" Margin="16">
-            <TabItem Header="{x:Static resources:Strings.Common_AddSingle}">
+            <TabItem Header="{x:Static resources:Strings.Common_AddSingle}" FontWeight="Medium">
                 <Grid Grid.Row="1" Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -48,17 +48,18 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Name}" Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Name}" Margin="0,0,0,12" FontWeight="Medium" />
                     <TextBox Grid.Row="0" Grid.Column="1" Name="FlagNameTextBox" Margin="0,0,0,12" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Value}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Value}" FontWeight="Medium" />
                     <TextBox Grid.Row="1" Grid.Column="1" Name="FlagValueTextBox" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0"
                    VerticalAlignment="Center"
                    MinWidth="100"
                    Margin="0,0,8,0"
-                   Text="Common Values:" />
+                   Text="Common Values:"
+                   FontWeight="Medium"/>
                     <ComboBox Grid.Row="2" Grid.Column="1"
                    x:Name="CommonValuesComboBox"
                    Width="200"
@@ -82,7 +83,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="{x:Static resources:Strings.Common_ImportJson}">
+            <TabItem Header="{x:Static resources:Strings.Common_ImportJson}" FontWeight="Medium">
                 <Grid Margin="11">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -101,15 +102,14 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <ui:Button Grid.Row="1" Margin="4" Icon="DocumentArrowUp16" Content="{x:Static resources:Strings.Common_ImportFromFile}" HorizontalAlignment="Stretch" Click="ImportButton_Click" />
+                    <ui:Button Grid.Row="1" Margin="4" Icon="DocumentArrowUp16" Content="{x:Static resources:Strings.Common_ImportFromFile}" HorizontalAlignment="Stretch" Click="ImportButton_Click" FontWeight="Medium" />
                 </Grid>
             </TabItem>
 
-            <TabItem x:Name="AddWithIdTab" Header="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings_SingleAddID}" Visibility="Collapsed">
+            <TabItem x:Name="AddWithIdTab" FontWeight="Medium" Header="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings_SingleAddID}" Visibility="Collapsed">
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <!-- Filter type selector -->
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -119,24 +119,24 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_FilterType}" Margin="0,0,8,8" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_FilterType}" Margin="0,0,8,8" FontWeight="Medium" />
                     <ComboBox Grid.Row="0" Grid.Column="1" x:Name="AddIdFilterTypeComboBox" Margin="0,0,0,8" SelectedIndex="0">
                         <ComboBoxItem Content="PlaceFilter" />
                         <ComboBoxItem Content="DataCenterFilter" />
                     </ComboBox>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Name}" Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Name}" Margin="0,0,0,12" FontWeight="Medium" />
                     <TextBox Grid.Row="1" Grid.Column="1" Name="GameFlagNameTextBox" Margin="0,0,0,12" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Value}" Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_Value}" Margin="0,0,0,12" FontWeight="Medium" />
                     <TextBox Grid.Row="2" Grid.Column="1" Name="GameFlagValueTextBox" Margin="0,0,0,12" />
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="ID:" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="ID:" FontWeight="Medium" />
                     <TextBox Grid.Row="3" Grid.Column="1" Name="GameFlagIdTextBox" />
                 </Grid>
             </TabItem>
 
-            <TabItem x:Name="ImportIdJsonTab" Header="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings_ImportAddID}" Visibility="Collapsed">
+            <TabItem x:Name="ImportIdJsonTab" FontWeight="Medium" Header="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings_ImportAddID}" Visibility="Collapsed">
                 <Grid Margin="11">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -148,14 +148,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_FilterType}" Margin="0,0,8,8" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" MinWidth="100" Text="{x:Static resources:Strings.Common_FilterType}" Margin="0,0,8,8" FontWeight="Medium" />
                     <ComboBox Grid.Row="0" Grid.Column="1" x:Name="ImportIdFilterTypeComboBox" Margin="0,0,0,8" SelectedIndex="0">
                         <ComboBoxItem Content="PlaceFilter" />
                         <ComboBoxItem Content="DataCenterFilter" />
                     </ComboBox>
 
                     <!-- ID input -->
-                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" MinWidth="100" Text="ID:" Margin="3,10,5,0" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" MinWidth="100" Text="ID:" Margin="3,10,5,0" FontWeight="Medium" />
                     <TextBox Grid.Row="1" Grid.Column="1" x:Name="ImportGameIdTextBox" Margin="0,0,0,8" />
 
                     <!-- JSON input and placeholder -->
@@ -179,7 +179,7 @@
 
         <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
-                <Button MinWidth="100" Content="{x:Static resources:Strings.Common_OK}" Click="OKButton_Click">
+                <Button MinWidth="100" Content="{x:Static resources:Strings.Common_OK}" Click="OKButton_Click" FontWeight="Medium">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                             <Style.Triggers>
@@ -219,7 +219,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button MinWidth="100" Margin="12,0,0,0" Content="{x:Static resources:Strings.Common_Cancel}" IsCancel="True" />
+                <Button MinWidth="100" Margin="12,0,0,0" Content="{x:Static resources:Strings.Common_Cancel}" IsCancel="True" FontWeight="Medium" />
             </StackPanel>
         </Border>
     </Grid>

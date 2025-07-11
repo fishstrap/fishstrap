@@ -320,6 +320,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 }
                 return;
             }
+
             // better to check for the file instead of the directory so broken themes can be overwritten
             string path = Path.Combine(Paths.CustomThemes, SelectedCustomThemeName, "Theme.xml");
             if (File.Exists(path))

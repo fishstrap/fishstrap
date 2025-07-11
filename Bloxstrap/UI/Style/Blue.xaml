@@ -3,6 +3,7 @@
     <SolidColorBrush x:Key="NewTextEditorForeground" Color="White" />
     <SolidColorBrush x:Key="NewTextEditorLink" Color="#3A9CEA" />
     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#19000000" />
+    <SolidColorBrush x:Key="NormalDarkAndLightBackground" Color="#0FFFFFFF" />
     <Color x:Key="ControlFillColorDefault">#19000000</Color>
     <LinearGradientBrush x:Key="WindowBackgroundGradient" StartPoint="1,1" EndPoint="0,0">
         <GradientStop Offset="0.0" Color="#3A5FCD" />
