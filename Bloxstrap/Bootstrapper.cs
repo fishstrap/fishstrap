@@ -332,10 +332,6 @@ namespace Bloxstrap
         {
             const string LOG_IDENT = "Bootstrapper::GetLatestVersionInfo";
 
-            // before we do anything, we need to query our channel
-            // if it's set in the launch uri, we need to use it and set the registry key for it
-            // else, check if the registry key for it exists, and use it
-
             using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\ROBLOX Corporation\\Environments\\{AppData.RegistryName}\\Channel");
 
             var match = Regex.Match(
@@ -353,15 +349,15 @@ namespace Bloxstrap
             {
                 Deployment.Channel = match.Groups[1].Value.ToLowerInvariant();
             }
-            else if (key.GetValue("www.roblox.com") is string value && !String.IsNullOrEmpty(value))
+            else if (key.GetValue("www.roblox.com") is string value && !string.IsNullOrEmpty(value))
             {
                 Deployment.Channel = value.ToLowerInvariant();
             }
 
-            if (String.IsNullOrEmpty(Deployment.Channel))
+            if (string.IsNullOrEmpty(Deployment.Channel))
                 Deployment.Channel = Deployment.DefaultChannel;
 
-            App.Logger.WriteLine(LOG_IDENT, $"Got channel as {Deployment.DefaultChannel}");
+            App.Logger.WriteLine(LOG_IDENT, $"Got channel as {Deployment.Channel}");
 
             if (!Deployment.IsDefaultChannel)
                 App.SendStat("robloxChannel", Deployment.Channel);
@@ -384,14 +380,19 @@ namespace Bloxstrap
 
                 key.SetValueSafe("www.roblox.com", Deployment.IsDefaultChannel ? "" : Deployment.Channel);
 
+                _latestVersionGuid = clientVersion.VersionGuid;
                 _latestVersion = Utilities.ParseVersionSafe(clientVersion.Version);
+
+                App.Logger.WriteLine(LOG_IDENT, $"Retrieved Version GUID: {_latestVersionGuid}");
             }
             else
             {
                 App.Logger.WriteLine(LOG_IDENT, $"Version set to {App.LaunchSettings.VersionFlag.Data} from arguments");
                 _latestVersionGuid = App.LaunchSettings.VersionFlag.Data;
-                // we can't determine the version
             }
+
+            if (string.IsNullOrEmpty(_latestVersionGuid))
+                throw new InvalidOperationException($"{LOG_IDENT}: Version GUID is null or empty before building version path");
 
             _latestVersionDirectory = Path.Combine(Paths.Versions, _latestVersionGuid);
 
@@ -400,7 +401,6 @@ namespace Bloxstrap
 
             _versionPackageManifest = new(pkgManifestData);
 
-            // this can happen if version is set through arguments
             if (_launchMode == LaunchMode.Unknown)
             {
                 App.Logger.WriteLine(LOG_IDENT, "Identifying launch mode from package manifest");
@@ -409,7 +409,7 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, $"isPlayer: {isPlayer}");
 
                 _launchMode = isPlayer ? LaunchMode.Player : LaunchMode.Studio;
-                SetupAppData(); // we need to set it up again
+                SetupAppData();
             }
         }
 
@@ -509,8 +509,11 @@ namespace Bloxstrap
         private const int WM_SETICON = 0x80;
         private const int ICON_SMALL = 0;
         private const int ICON_BIG = 1;
-
         private const int GCL_HICON = -14;
+
+        private const uint RDW_FRAME = 0x0400;
+        private const uint RDW_INVALIDATE = 0x0001;
+        private const uint RDW_UPDATENOW = 0x0100;
 
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
@@ -530,23 +533,20 @@ namespace Bloxstrap
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
-        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+        [DllImport("user32.dll")]
+        private static extern bool IsWindowVisible(IntPtr hWnd);
 
-        private const uint RDW_FRAME = 0x0400;
-        private const uint RDW_INVALIDATE = 0x0001;
-        private const uint RDW_UPDATENOW = 0x0100;
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
         private IntPtr SetClassIcon(IntPtr hwnd, Icon icon)
         {
             IntPtr hIcon = icon.Handle;
-            if (IntPtr.Size == 8) // 64-bit
-            {
-                return SetClassLongPtr(hwnd, GCL_HICON, hIcon);
-            }
-            else // 32-bit
-            {
-                return (IntPtr)SetClassLong32(hwnd, GCL_HICON, (uint)hIcon.ToInt32());
-            }
+            return IntPtr.Size == 8
+                ? SetClassLongPtr(hwnd, GCL_HICON, hIcon)
+                : (IntPtr)SetClassLong32(hwnd, GCL_HICON, (uint)hIcon.ToInt32());
         }
 
         private IntPtr GetMainWindowHandle(int processId)
@@ -555,11 +555,10 @@ namespace Bloxstrap
             EnumWindows((hWnd, lParam) =>
             {
                 GetWindowThreadProcessId(hWnd, out uint pid);
-                if (pid == processId)
+                if (pid == processId && IsWindowVisible(hWnd))
                 {
-                    // Optionally check if window is visible, has title, etc.
                     mainWindowHandle = hWnd;
-                    return false; // Stop enumerating
+                    return false; // Stop enumeration
                 }
                 return true;
             }, IntPtr.Zero);
@@ -588,24 +587,25 @@ namespace Bloxstrap
             if (!process.WaitForInputIdle(5000))
             {
                 App.Logger.WriteLine(LOG_IDENT, "WaitForInputIdle timed out, window might not be ready.");
-                return;
             }
 
             IntPtr hwnd = IntPtr.Zero;
-            for (int i = 0; i < 6; i++)
+
+            for (int i = 0; i < 10; i++)
             {
                 hwnd = process.MainWindowHandle;
-                if (hwnd != IntPtr.Zero)
+                if (hwnd != IntPtr.Zero && IsWindowVisible(hwnd))
                     break;
+
                 Thread.Sleep(500);
             }
 
-            if (hwnd == IntPtr.Zero)
+            if (hwnd == IntPtr.Zero || !IsWindowVisible(hwnd))
                 hwnd = GetMainWindowHandle(process.Id);
 
-            if (hwnd == IntPtr.Zero)
+            if (hwnd == IntPtr.Zero || !IsWindowVisible(hwnd))
             {
-                App.Logger.WriteLine(LOG_IDENT, "Roblox main window handle not found.");
+                App.Logger.WriteLine(LOG_IDENT, "Roblox main window handle not found or not visible.");
                 return;
             }
 
@@ -618,9 +618,15 @@ namespace Bloxstrap
                     return;
                 }
 
+                // Set foreground (optional, improves reliability)
+                SetForegroundWindow(hwnd);
+
+                // Apply icon
                 SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_SMALL, iconHandle.Handle);
                 SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_BIG, iconHandle.Handle);
                 SetClassIcon(hwnd, iconHandle);
+
+                // Force repaint
                 RedrawWindow(hwnd, IntPtr.Zero, IntPtr.Zero, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
 
                 App.Logger.WriteLine(LOG_IDENT, $"Custom icon '{icon}' set on Roblox window.");

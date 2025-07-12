@@ -85,7 +85,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading flags: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Frontend.ShowMessageBox($"Error loading flags: {ex.Message}", MessageBoxImage.Error, MessageBoxButton.OK);
                 _cachedFlagDictionary.Clear();
                 FilteredFlags.Clear();
                 FlagCountTextBlock.Text = "Failed to load flags.";
@@ -101,7 +101,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
         {
             var urls = new[]
             {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
             };
 
@@ -111,6 +111,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             foreach (var url in urls)
             {
+                // Note: no try/catch here — handled inside DownloadJsonFlags
                 Dictionary<string, string> flags = url.Contains("clientsettings.roblox.com")
                     ? await DownloadJsonFlags(client, url, isLiveSettings: true)
                     : await DownloadJsonFlags(client, url);
@@ -125,21 +126,54 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
         private async Task<Dictionary<string, string>> DownloadJsonFlags(HttpClient client, string url, bool isLiveSettings = false)
         {
-            var json = await client.GetStringAsync(url);
             var flags = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-            using var doc = JsonDocument.Parse(json);
-            JsonElement root = doc.RootElement;
+            try
+            {
+                using var response = await client.GetAsync(url);
 
-            if (isLiveSettings && root.TryGetProperty("applicationSettings", out JsonElement appSettings))
-            {
-                foreach (var prop in appSettings.EnumerateObject())
-                    flags[prop.Name] = prop.Value.ToString();
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Handle 404 and other HTTP errors gracefully by returning empty flags
+                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        // Optionally log or ignore silently
+                        return flags;
+                    }
+                    else
+                    {
+                        // You can also skip other HTTP errors or throw if needed
+                        return flags;
+                    }
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+
+                using var doc = JsonDocument.Parse(json);
+                JsonElement root = doc.RootElement;
+
+                if (isLiveSettings && root.TryGetProperty("applicationSettings", out JsonElement appSettings))
+                {
+                    foreach (var prop in appSettings.EnumerateObject())
+                        flags[prop.Name] = prop.Value.ToString();
+                }
+                else
+                {
+                    foreach (var prop in root.EnumerateObject())
+                        flags[prop.Name] = prop.Value.ToString();
+                }
             }
-            else
+            catch (HttpRequestException)
             {
-                foreach (var prop in root.EnumerateObject())
-                    flags[prop.Name] = prop.Value.ToString();
+                // Network or HTTP failure - skip
+            }
+            catch (JsonException)
+            {
+                // JSON parse failure - skip
+            }
+            catch (Exception)
+            {
+                // Other exceptions - skip
             }
 
             return flags;

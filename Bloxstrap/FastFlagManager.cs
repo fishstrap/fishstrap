@@ -109,17 +109,15 @@ namespace Bloxstrap
             { "Debug.PingBreakdown", "DFFlagDebugPrintDataPingBreakDown" },
             { "Debug.Chunks", "FFlagDebugLightGridShowChunks" },
 
+            // Draggable Capture
+            { "UI.DraggableCapture", "FFlagEnableUpdatedCaptureControls_v9" },
+
+            // KTX
+            { "Texture.KTX", "DFFlagAddKtxContentHash2" },
+
             // Increase Cache Size
-            { "Cache.Increase1", "DFFlagAlwaysSkipDiskCache" },
-            { "Cache.Increase3", "DFIntCachedPatchLoadDelayMilliseconds" },
-            { "Cache.Increase4", "DFIntHttpCacheCleanScheduleAfterMs" },
-            { "Cache.Increase5", "DFIntHttpCacheCleanUpToAvailableSpaceMiB" },
-            { "Cache.Increase6", "DFIntHttpCacheAsyncWriterMaxPendingSize" },
-            { "Cache.Increase7", "DFIntHttpCacheEvictionExemptionMapMaxSize" },
-            { "Cache.Increase8", "DFIntMemCacheMaxCapacityMB" },
-            { "Cache.Increase9", "DFIntFileCacheReserveSize" },
-            { "Cache.Increase10", "DFIntThirdPartyInMemoryCacheCapacity" },
-            { "Cache.Increase12", "DFIntUserIdPlayerNameCacheLifetimeSeconds" },
+            { "Cache.Increase1", "DFIntFileCacheReserveSize" },
+            { "Cache.Increase2", "FIntTaskSchedulerMaxTempArenaSizeBytes" },
 
             // Force Logical Processors
             { "System.CpuCore1", "DFIntInterpolationNumParallelTasks" },
@@ -134,23 +132,18 @@ namespace Bloxstrap
             { "System.CpuThreads", "DFIntRuntimeConcurrency"},
 
             // Telemetry
-            { "Telemetry.GraphicsQualityUsage", "DFFlagGraphicsQualityUsageTelemetry" },
-            { "Telemetry.GpuVsCpuBound", "DFFlagGpuVsCpuBoundTelemetry" },
-            { "Telemetry.RenderDistance", "DFFlagReportRenderDistanceTelemetry" },
-            { "Telemetry.AudioPlugin", "DFFlagCollectAudioPluginTelemetry" },
-            { "Telemetry.SoundLength", "DFFlagRccLoadSoundLengthTelemetryEnabled" },
-            { "Telemetry.AssetRequestV1", "DFFlagReportAssetRequestV1Telemetry" },
-            { "Telemetry.DeviceRAM", "DFFlagRobloxTelemetryAddDeviceRAMPointsV2" },
-            { "Telemetry.V2FrameRateMetrics", "DFFlagEnableTelemetryV2FRMStats" },
-            { "Telemetry.GlobalSkipUpdating", "DFFlagEnableSkipUpdatingGlobalTelemetryInfo5" },
-            { "Telemetry.CallbackSafety", "DFFlagEmitSafetyTelemetryInCallbackEnable" },
+            { "Telemetry.Urlv2", "DFStringTelemetryV2Url" },
             { "Telemetry.Protocol", "FFlagEnableTelemetryProtocol" },
-            { "Telemetry.TelemetryService", "FFlagEnableTelemetryService1" },
-            { "Telemetry.PropertiesTelemetry", "FFlagPropertiesEnableTelemetry" },
-            { "Telemetry.OpenTelemetry", "FFlagOpenTelemetryEnabled2" },
-            { "Telemetry.FLogTelemetry", "FLogRobloxTelemetry" },
-            { "Telemetry.Reliability", "DFStringRobloxTelemetryReliabilityCountAllowList" },
+            { "Telemetry.Service", "FFlagEnableTelemetryService1" },
+            { "Telemetry.Enabled2", "FFlagOpenTelemetryEnabled2" },
+            { "Telemetry.RobloxTelemetry", "FLogRobloxTelemetry" },
             { "Telemetry.MemoryTracking", "FFlagDisableMemoryTracking" },
+            { "Telemetry.Reliability", "DFStringRobloxTelemetryReliabilityCountAllowList" },
+            { "Telemetry.Physic", "FFlagSimStepPhysicsEnableTelemetry" },
+            { "Telemetry.Tickrate", "FIntProfileTelemetryTickRateMs" },
+            { "Telemetry.Schedule", "FIntOpenTelemetryScheduleDelayMillis" },
+            { "Telemetry.AltHttp", "DFStringAltHttpPointsReporterUrl" },
+            { "Telemetry.Http", "DFStringHttpPointsReporterUrl" },
 
             // Voicechat Telemetry
             { "Telemetry.Voicechat3", "DFFlagVoiceChatPossibleDuplicateSubscriptionsTelemetry" },
@@ -170,11 +163,7 @@ namespace Bloxstrap
 
             // Webview2 telemetry
             { "Telemetry.Webview1", "DFFlagWindowsWebViewTelemetryEnabled" },
-            { "Telemetry.Webview3", "DFIntMacWebViewTelemetryThrottleHundredthsPercent" },
-            { "Telemetry.Webview4", "DFIntWindowsWebViewTelemetryThrottleHundredthsPercent" },
-            { "Telemetry.Webview5", "FIntStudioWebView2TelemetryHundredthsPercent" },
-            { "Telemetry.Webview6", "FFlagSyncWebViewCookieToEngine2" },
-            { "Telemetry.Webview7", "FFlagUpdateHTTPCookieStorageFromWKWebView" },
+            { "Telemetry.Webview2", "DFIntWindowsWebViewTelemetryThrottleHundredthsPercent" },
 
             // Block Tencent
             { "Telemetry.Tencent1", "FStringTencentAuthPath" },
@@ -184,17 +173,11 @@ namespace Bloxstrap
             { "Telemetry.Tencent7", "DFIntPolicyServiceReportDetailIsNotSubjectToChinaPoliciesHundredthsPercentage" },
 
             // Block VNG (Vietnamese goverment)
-            { "Telemetry.VNG1", "FFlagAllowVngWebshopDomainInBrowserService" },
-            { "Telemetry.VNG2", "FFlagEnableHidePremiumForVngUsers" },
-            { "Telemetry.VNG3", "FFlagEnablePreSignedVngShopRedirectUrl" },
-            { "Telemetry.VNG4", "FFlagEnableVNGNewAppAvailableModal" },
-            { "Telemetry.VNG5", "FFlagLuaAppHomeVngAppUpsell" },
-            { "Telemetry.VNG6", "FFlagVngLogoutGlobalAppSessionsOnConversion" },
-            { "Telemetry.VNG7", "FFlagVngTOSRevisedEnabled" },
-            { "Telemetry.VNG8", "FStringVngAppUpsellUrl" },
-            { "Telemetry.VNG9", "FStringVNGWebshopUrl" },
+            { "Telemetry.VNG1", "FFlagLuaAppHomeVngAppUpsell" },
+            { "Telemetry.VNG2", "FFlagVngLogoutGlobalAppSessionsOnConversion" },
+            { "Telemetry.VNG3", "FFlagVngTOSRevisedEnabled" },
+            { "Telemetry.VNG4", "FStringVNGWebshopUrl" },
 
-            
             // Minimal Rendering
             { "Rendering.MinimalRendering", "FFlagDebugRenderingSetDeterministic"},
 
@@ -236,37 +219,53 @@ namespace Bloxstrap
             // Unlimited Camera Distance
             { "Rendering.Camerazoom","FIntCameraMaxZoomDistance" },
 
-            // Rendering engines
+            // Better DX11
             { "Rendering.Mode.DisableD3D11", "FFlagDebugGraphicsDisableDirect3D11" },
             { "Rendering.Mode.D3D11", "FFlagDebugGraphicsPreferD3D11" },
-            { "Rendering.Mode.Metal", "FFlagDebugGraphicsPreferMetal" },
-            { "Rendering.Mode.Vulkan", "FFlagDebugGraphicsPreferVulkan" },
-            { "Rendering.Mode.OpenGL", "FFlagDebugGraphicsPreferOpenGL" },
-            { "Rendering.Mode.D3D10", "FFlagDebugGraphicsPreferD3D11FL10" },
+            { "Rendering.Mode.D3D11GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D11" },
+            { "Rendering.Mode.D3D11ExtraLog", "FFlagGraphicsD3D11ExtraInitLog" },
+            { "Rendering.Mode.DisableHQShadersLowEndDx11", "FFlagDisableHQShadersLowEndDx11" },
+            { "Rendering.Mode.Dx11LowEndCoreCount", "FIntRenderDx11LowEndCoreCount" },
+            { "Rendering.Mode.Dx11ShaderAnalytics", "FIntRenderShaderLoadAnalyticsHundredthPercent" },
 
             // Better DX10
-            { "Rendering.Mode.D3D10Compute", "FFlagGraphicsEnableD3D10Compute"},
-            { "Rendering.Mode.D3D10GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D10"},
-            { "Rendering.Mode.D3D11GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D11"},
+            { "Rendering.Mode.D3D10", "FFlagDebugGraphicsPreferD3D11FL10" },
+            { "Rendering.Mode.D3D10Compute", "FFlagGraphicsEnableD3D10Compute" },
+            { "Rendering.Mode.D3D10GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D10" },
 
             // Better Vulkan
-            { "Rendering.Mode.DisableVulkan1", "FFlagDebugGraphicsDisableVulkan"},
-            { "Rendering.Mode.DisableVulkan2", "FFlagDebugGraphicsDisableVulkan11"},
-            { "Rendering.Mode.VulkanDisablePreRotate", "FFlagDebugVulkanDisablePreRotate"},
-            { "Rendering.Mode.VulkanBonuxMemory", "FFlagGraphicsVulkanBonusMemory"},
-            { "Rendering.Mode.VulkanGlobalInstancing", "FFlagRenderEnableGlobalInstancingVulkan"},
+            { "Rendering.Mode.Vulkan", "FFlagDebugGraphicsPreferVulkan" },
+            { "Rendering.Mode.DisableVulkan1", "FFlagDebugGraphicsDisableVulkan" },
+            { "Rendering.Mode.DisableVulkan2", "FFlagDebugGraphicsDisableVulkan11" },
+            { "Rendering.Mode.VulkanDisablePreRotate", "FFlagDebugVulkanDisablePreRotate" },
+            { "Rendering.Mode.VulkanBonuxMemory", "FFlagGraphicsVulkanBonusMemory" },
+            { "Rendering.Mode.VulkanGlobalInstancing", "FFlagRenderEnableGlobalInstancingVulkan" },
+            { "Rendering.Mode.VulkanLogLayers", "FFlagVulkanAlwaysLogLayersAndExtensions" },
+            { "Rendering.Mode.VulkanHeadless", "FFlagSupportHeadlessDeviceVulkan" },
+            { "Rendering.Mode.VulkanAnalytics", "FIntGraphicsVulkanAnalyticsHundredthPercent" },
+            { "Rendering.Mode.VulkanARMVaryingBufferMb", "FIntGraphicsVulkanARMVaryingBufferMb" },
+            { "Rendering.Mode.VulkanVaryingBufferLimit", "FStringGraphicsVulkanVaryingBufferLimitMiB" },
 
             // Better Metal
-            { "Rendering.Mode.MetalAnalytics", "FIntGraphicsMetalAnalyticsHundredthPercent"},
-            { "Rendering.Mode.MetalShaderCookie1", "FFlagGraphicsMetalShaderCookie"},
-            { "Rendering.Mode.MetalShaderCookie2", "FFlagGraphicsMetalShaderCookie16"},
-            { "Rendering.Mode.MetalGlobalInstancing", "FFlagRenderEnableGlobalInstancingMetal"},
+            { "Rendering.Mode.Metal", "FFlagDebugGraphicsPreferMetal" },
+            { "Rendering.Mode.MetalShaderCookie1", "FFlagGraphicsMetalShaderCookie" },
+            { "Rendering.Mode.MetalShaderCookie2", "FFlagGraphicsMetalShaderCookie16" },
+            { "Rendering.Mode.MetalGlobalInstancing", "FFlagRenderEnableGlobalInstancingMetal" },
+            { "Rendering.Mode.MetalTryCatch", "FFlagGraphicsMetalTryCatch" },
+            { "Rendering.Mode.MetalAnalytics", "FIntGraphicsMetalAnalyticsHundredthPercent" },
+
+            // Better OpenGL
+            { "Rendering.Mode.OpenGL", "FFlagDebugGraphicsPreferOpenGL" },
+            { "Rendering.Mode.OpenGL.HQShadersExclusion", "FFlagGraphicsGLEnableHQShadersExclusion" },
+            { "Rendering.Mode.OpenGL.SuperHQShadersExclusion", "FFlagGraphicsGLEnableSuperHQShadersExclusion" },
+
+
 
             // Lighting technology
             { "Rendering.Lighting.Voxel", "DFFlagDebugRenderForceTechnologyVoxel" },
             { "Rendering.Lighting.ShadowMap", "FFlagDebugForceFutureIsBrightPhase2" },
             { "Rendering.Lighting.Future", "FFlagDebugForceFutureIsBrightPhase3" },
-            { "Rendering.Lighting.Unified", "FFlagRenderUnifiedLighting13"},
+            { "Rendering.Lighting.Unified", "FFlagRenderUnifiedLighting15"},
 
             // Texture quality
             { "Rendering.TerrainTextureQuality", "FIntTerrainArraySliceSize" },
@@ -283,21 +282,23 @@ namespace Bloxstrap
             { "UI.RedFont", "FStringDebugHighlightSpecificFont" },
 
             // RCore
-            { "Network.RCore1", "DFIntSignalRCoreServerTimeoutMs"},
-            { "Network.RCore2", "DFIntSignalRCoreRpcQueueSize"},
-            { "Network.RCore3", "DFIntSignalRCoreHubBaseRetryMs"},
-            { "Network.RCore4", "DFIntSignalRCoreHandshakeTimeoutMs"},
-            { "Network.RCore5", "DFIntSignalRCoreKeepAlivePingPeriodMs"},
-            { "Network.RCore6", "DFIntSignalRCoreHubMaxBackoffMs"},
+            { "Network.RCore1", "DFIntSignalRCoreHandshakeTimeoutMs"},
+            { "Network.RCore2", "DFIntSignalRCoreHubBaseRetryMs"},
+            { "Network.RCore3", "DFIntSignalRCoreHubMaxBackoffMs"},
+            { "Network.RCore4", "DFIntSignalRCoreKeepAlivePingPeriodMs"},
+            { "Network.RCore5", "DFIntSignalRCoreRpcQueueSize"},
+            { "Network.RCore6", "DFIntSignalRCoreServerTimeoutMs"},
+            { "Network.RCore7", "DFIntSignalRCoreTimerMs"},
+            { "Network.RCore8", "DFIntSignalRHubConnectionBaseRetryTimeMs"},
+            { "Network.RCore9", "DFIntSignalRHubConnectionHeartbeatTimerRateMs"},
 
             // Large Replicator
-            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled6"},
+            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled8"},
             { "Network.LargeReplicatorWrite", "FFlagLargeReplicatorWrite5"},
             { "Network.LargeReplicatorRead", "FFlagLargeReplicatorRead5"},
             { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead2"},
-            { "Network.SerializeWrite", "FFlagLargeReplicatorSerializeWrite2"},
-            { "Network.EngineModule1", "FFlagGlobalSettingsEngineModule3"},
-            { "Network.EngineModule2", "DFFlagLargeReplicatorEngineModule"},
+            { "Network.SerializeWrite", "FFlagLargeReplicatorSerializeWrite4"},
+            { "Network.EngineModule3", "FFlagGlobalSettingsEngineModule3"},
 
             // MTU Size
             { "Network.Mtusize","DFIntConnectionMTUSize" },

@@ -170,7 +170,6 @@
             </ComboBox>
         </controls:OptionControl>
 
-
         <ui:CardExpander Margin="0,8,0,0" IsExpanded="False">
             <ui:CardExpander.Header>
                 <Grid>

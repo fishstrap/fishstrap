@@ -71,7 +71,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ui:TextBox Grid.Column="1"
+            <ui:TextBox Grid.Column="0"
                         x:Name="KeywordSearchingTextbox"
                         VerticalContentAlignment="Center"
                         Icon="Search48"
@@ -79,7 +79,7 @@
                         TextChanged="KeywordSearching"
                         Margin="4,0,0,0" />
 
-            <ui:TextBox Grid.Column="0"
+            <ui:TextBox Grid.Column="1"
                         x:Name="ValueSearchTextBox"
                         VerticalContentAlignment="Center"
                         Icon="Search48"

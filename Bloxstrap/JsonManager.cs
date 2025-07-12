@@ -203,7 +203,6 @@ namespace Bloxstrap
             }
         }
 
-
         public void LoadPresetProfile(string? name, bool? clearFlags)
         {
             string LOGGER_STRING = "LoadProfile::Profiles";

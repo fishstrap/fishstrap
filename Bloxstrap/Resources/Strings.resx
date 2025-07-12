@@ -1008,7 +1008,7 @@ For more custom launchers, visit the official Bloxstrap Discord server.</value>
     <value>Bootstrapper</value>
   </data>
   <data name="Menu.FastFlagEditor.AddNew" xml:space="preserve">
-    <value>Add new</value>
+    <value>Add New</value>
   </data>
   <data name="Menu.FastFlagEditor.AlreadyExists" xml:space="preserve">
     <value>An entry for this flag name already exists.</value>

@@ -30,13 +30,12 @@
 
         <WrapPanel Grid.Row="2" Orientation="Horizontal">
             <ui:Button
-                Width="110"
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 Click="AddButton_Click"
                 Content="{x:Static resources:Strings.Menu_FastFlagEditor_AddNew}"
                 Icon="AddCircle24"/>
             <ui:Button
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
                 Appearance="Danger"
                 Click="DeleteButton_Click"
@@ -53,51 +52,51 @@
                 </ui:Button.Style>
             </ui:Button>
             <ui:Button
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 Click="DeleteAllButton_Click"
                 Content="{x:Static resources:Strings.Common_DeleteAll}"
                 Icon="Delete48"/>
             <ui:Button
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
                 Click="CopyJSONButton_Click"
                 ClipToBounds="True"
                 Content="{x:Static resources:Strings.Common_CopyAll}"
                 Icon="Clipboard16"/>
             <ui:Button
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
                 Click="ExportJSONButton_Click"
                 Content="{x:Static resources:Strings.Menu_FastFlagEditor_ExportJson}"
                 Icon="ArrowExit20"/>
             <ui:Button
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
                 Click="FlagProfiles_Click"
                 Content="{x:Static resources:Strings.Common_Profiles}"
                 Icon="Edit28"/>
             <ui:Button
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
                 Icon="Settings48"
                 Content="{x:Static resources:Strings.Menu_FastFlagEditor_AdvancedSettings}"
                 Click="AdvancedSettings_Click"/>
             <ui:Button
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
                 Icon="Broom28"
                 Content="Clean FastFlag List"
                 Click="CleanListButton_Click"/>
             <ui:Button
                 Name="FindFlag_Button"
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
-                Icon="Search28"
+                Icon="Search12"
                 Content="Find FastFlags"
                 Click="FindFlag_Button_Click" />
             <ToggleButton
                 x:Name="TogglePresetsButton"
-                Margin="0,0,10,16"
+                Margin="0,0,8,12"
                 VerticalAlignment="Top"
                 Click="ToggleButton_Click"
                 Content="{x:Static resources:Strings.Menu_FastFlagEditor_ShowPresetFlags}" />
@@ -159,9 +158,8 @@
         CellEditEnding="DataGrid_CellEditEnding"
         PreviewKeyDown="DataGrid_PreviewKeyDown"
         GridLinesVisibility="Horizontal"
-        HeadersVisibility="Column"
-        >
-                <!-- Keep all your existing DataGrid styles and columns unchanged -->
+        HeadersVisibility="Column">
+                
                 <DataGrid.Style>
                     <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
                         <Setter Property="Background" Value="{DynamicResource NormalDarkAndLightBackground}" />
@@ -226,16 +224,15 @@
                     <DataGridTemplateColumn Header="{x:Static resources:Strings.Common_Presets}" x:Name="PresetColumn" CanUserResize="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Height="50" Width="25" Source="{Binding Preset}" Stretch="Uniform" />
+                                <Image Height="20" Width="20" Source="{Binding Preset}"  />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="425"  Binding="{Binding Name}" Header="{x:Static resources:Strings.Common_Name}" />
-                    <DataGridTextColumn Width="*" Binding="{Binding Value}" Header="{x:Static resources:Strings.Common_Value}" />
+                    <DataGridTextColumn Width="*"  Binding="{Binding Name}" Header="{x:Static resources:Strings.Common_Name}" />
+                    <DataGridTextColumn Width="250" Binding="{Binding Value}" Header="{x:Static resources:Strings.Common_Value}" />
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- TextBlock that appears only when the DataGrid is empty -->
             <TextBlock Text="Wow this is so empty, how about adding a fastflag ?"
                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                FontWeight="Medium"

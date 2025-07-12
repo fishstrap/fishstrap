@@ -3907,7 +3907,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add new.
+        ///   Looks up a localized string similar to Add New.
         /// </summary>
         public static string Menu_FastFlagEditor_AddNew {
             get {

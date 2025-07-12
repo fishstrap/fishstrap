@@ -51,7 +51,7 @@
             <controls:OptionControl
                 Margin="5,0,5,0"
                 Header="Ctrl+C Json Format" 
-                Description="Changes the Ctrl+C copy format to a json format">
+                Description="Copies selected flags as JSON using the chosen Copy Format when pressing Ctrl+C.">
                 <ui:ToggleSwitch IsChecked="{Binding ShowCtrlCJsonFormatSetting, Mode=TwoWay}" />
             </controls:OptionControl>
 

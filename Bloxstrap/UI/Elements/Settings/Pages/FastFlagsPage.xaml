@@ -477,6 +477,13 @@
                 </controls:OptionControl>
 
                 <controls:OptionControl 
+                    x:Name="DragableCapture"
+                    Header="Dragable Capture Button" 
+                    Description="This enables roblox experimental dragable capture button">
+                    <ui:ToggleSwitch IsChecked="{Binding RemoveBuyGui, Mode=TwoWay}" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
                     x:Name="HideGUI"
                     Header="{x:Static resources:Strings.Menu_FastFlags_Presets_HideGuis_Title}" 
                     Description="{Binding Source={x:Static resources:Strings.Menu_FastFlags_Presets_HideGuis_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/bloxstraplabs/bloxstrap/wiki/A-guide-to-FastFlags#gui-hiding|https://www.roblox.com/groups/32380007/Bloxstrap'}" 
@@ -673,6 +680,13 @@
                     Header="PreRender" 
                     Description="Moves the PreRender task located on the off thread after everything else is finished. Note: This will cause huge input delay and f11 crashing">
                     <ui:ToggleSwitch IsChecked="{Binding Prerender, Mode=TwoWay}" />
+                </controls:OptionControl>
+
+                <controls:OptionControl 
+                    x:Name="KTX"
+                    Header="KTX" 
+                    Description="KTX Content Hashing helps the GPU run better by stopping the same texture from being uploaded more than once.">
+                    <ui:ToggleSwitch IsChecked="{Binding KTX, Mode=TwoWay}" />
                 </controls:OptionControl>
 
                 <controls:OptionControl 

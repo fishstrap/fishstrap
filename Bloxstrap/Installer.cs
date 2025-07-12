@@ -514,7 +514,7 @@ namespace Bloxstrap
 
             if (existingVer is not null)
             {
-                if (Utilities.CompareVersions(existingVer, "2.9.0") == VersionComparison.LessThan)
+                if (Utilities.CompareVersions(existingVer, "1.1.4.0") == VersionComparison.LessThan)
                 {
                     // move from App.State to App.RobloxState
                     if (App.State.Prop.GetDeprecatedPlayer() != null)
@@ -560,6 +560,7 @@ namespace Bloxstrap
                 ImportSettingsFrom.Bloxstrap => Path.Combine(Paths.LocalAppData, "Bloxstrap"),
                 ImportSettingsFrom.Voidstrap => Path.Combine(Paths.LocalAppData, "Voidstrap"),
                 ImportSettingsFrom.Fishstrap => Path.Combine(Paths.LocalAppData, "Fishstrap"),
+                ImportSettingsFrom.Lunastrap => Path.Combine(Paths.LocalAppData, "Lunastrap"),
                 _ => throw new ArgumentOutOfRangeException(nameof(ImportSource), "Invalid import source")
             };
 
@@ -574,13 +575,12 @@ namespace Bloxstrap
                 string actualSourceFile = fileName;
                 string actualDestFile = fileName;
 
-                // Map Voidstrap source/dest file names if needed
                 if (ImportSource == ImportSettingsFrom.Voidstrap)
                 {
                     if (fileName == "Settings.json")
                         actualSourceFile = "AppSettings.json";
-                    if (fileName == "Mods")
-                        actualDestFile = "Modifications";
+                    if (fileName == "Modifications")
+                        actualDestFile = "Mods";
                 }
 
                 string sourcePath = Path.Combine(sourceDir, actualSourceFile);
@@ -599,25 +599,18 @@ namespace Bloxstrap
 
                     if (isDirectory)
                     {
-                        // Ensure destination directory exists
                         Directory.CreateDirectory(destinationPath);
-
-                        // Recursively copy directory contents, merging instead of deleting
                         CopyDirectoryContents(sourcePath, destinationPath);
                     }
                     else
                     {
-                        // Ensure destination directory exists before copying file
                         Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
-
-                        // Overwrite the destination file
                         File.Copy(sourcePath, destinationPath, overwrite: true);
                     }
                 }
                 catch (Exception ex)
                 {
                     App.Logger.WriteLine("Installer::ImportSettings", $"Failed to import '{fileName}': {ex.Message}");
-                    // Optionally, show a non-blocking warning to the user here
                 }
             }
         }

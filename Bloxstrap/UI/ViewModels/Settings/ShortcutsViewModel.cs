@@ -69,23 +69,23 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public ShortcutsViewModel()
         {
-            LoadShortcuts();
-
             AddShortcutCommand = new RelayCommand(AddShortcut);
             RemoveShortcutCommand = new RelayCommand(RemoveShortcut, () => SelectedShortcut != null);
             DownloadIconCommand = new RelayCommand(async () => await DownloadIconAsync(), () => SelectedShortcut != null);
             BrowseIconCommand = new RelayCommand(BrowseIcon, () => SelectedShortcut != null);
             CreateShortcutCommand = new RelayCommand(CreateShortcut, () => SelectedShortcut != null);
 
+            LoadShortcuts();
+
             GameShortcuts.CollectionChanged += GameShortcuts_CollectionChanged;
         }
 
         private void RefreshCommandStates()
         {
-            RemoveShortcutCommand.NotifyCanExecuteChanged();
-            DownloadIconCommand.NotifyCanExecuteChanged();
-            BrowseIconCommand.NotifyCanExecuteChanged();
-            CreateShortcutCommand.NotifyCanExecuteChanged();
+            RemoveShortcutCommand?.NotifyCanExecuteChanged();
+            DownloadIconCommand?.NotifyCanExecuteChanged();
+            BrowseIconCommand?.NotifyCanExecuteChanged();
+            CreateShortcutCommand?.NotifyCanExecuteChanged();
         }
 
         private void AddShortcut()

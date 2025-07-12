@@ -56,34 +56,112 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (App.Settings.Prop.CtrlCJsonFormat)
+            if (App.Settings.Prop.CtrlCJsonFormat && e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
             {
-                if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control)
+                // Let editing TextBox handle Ctrl+C normally
+                if (DataGrid.CurrentCell.IsValid &&
+                    DataGrid.CurrentCell.Column is DataGridBoundColumn &&
+                    DataGrid.IsKeyboardFocusWithin &&
+                    DataGrid.CurrentColumn.GetCellContent(DataGrid.CurrentItem) is TextBox)
                 {
-                    // Skip custom copy logic if a cell is being edited
-                    if (DataGrid.CurrentCell.IsValid &&
-                        DataGrid.CurrentCell.Column is DataGridBoundColumn &&
-                        DataGrid.IsKeyboardFocusWithin &&
-                        DataGrid.CurrentColumn.GetCellContent(DataGrid.CurrentItem) is TextBox)
+                    return;
+                }
+
+                var selectedItems = DataGrid.SelectedItems.Cast<FastFlag>().ToList();
+                if (selectedItems.Count == 0)
+                    return;
+
+                var dict = selectedItems.ToDictionary(item => item.Name, item => item.Value);
+                var format = App.Settings.Prop.SelectedCopyFormat;
+
+                string output;
+
+                if (format == CopyFormatMode.Format1)
+                {
+                    output = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
+                }
+                else if (format == CopyFormatMode.Format2)
+                {
+                    var groupedFlags = dict
+                        .GroupBy(kvp =>
+                        {
+                            var match = Regex.Match(kvp.Key, @"^[A-Z]+[a-z]*");
+                            return match.Success ? match.Value : "Other";
+                        })
+                        .OrderBy(g => g.Key);
+
+                    var formattedJson = new StringBuilder();
+                    formattedJson.AppendLine("{");
+
+                    int totalItems = dict.Count;
+                    int writtenItems = 0;
+
+                    foreach (var group in groupedFlags)
                     {
-                        return; // Let TextBox handle Ctrl+C normally
+                        foreach (var kvp in group.OrderByDescending(kvp => kvp.Key.Length + (kvp.Value?.ToString()?.Length ?? 0)))
+                        {
+                            writtenItems++;
+                            string line = $"    \"{kvp.Key}\": \"{kvp.Value}\"";
+                            if (writtenItems < totalItems) line += ",";
+                            formattedJson.AppendLine(line);
+                        }
                     }
 
-                    var selectedItems = DataGrid.SelectedItems.Cast<FastFlag>().ToList();
+                    formattedJson.AppendLine("}");
+                    output = formattedJson.ToString();
+                }
+                else if (format == CopyFormatMode.Format3)
+                {
+                    var sortedFlags = dict.OrderBy(kvp => kvp.Key);
 
-                    if (selectedItems.Count == 0)
-                        return;
+                    var formattedJson = new StringBuilder();
+                    formattedJson.AppendLine("{");
 
-                    var dict = selectedItems.ToDictionary(
-                        item => item.Name,
-                        item => item.Value
+                    int totalItems = dict.Count;
+                    int writtenItems = 0;
+
+                    foreach (var kvp in sortedFlags)
+                    {
+                        writtenItems++;
+                        string line = $"    \"{kvp.Key}\": \"{kvp.Value}\"";
+                        if (writtenItems < totalItems) line += ",";
+                        formattedJson.AppendLine(line);
+                    }
+
+                    formattedJson.AppendLine("}");
+                    output = formattedJson.ToString();
+                }
+                else if (format == CopyFormatMode.Format4)
+                {
+                    var sortedFlags = dict.OrderByDescending(kvp =>
+                        $"    \"{kvp.Key}\": \"{kvp.Value}\"".Length
                     );
 
-                    string json = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
+                    var formattedJson = new StringBuilder();
+                    formattedJson.AppendLine("{");
 
-                    Clipboard.SetText(json);
-                    e.Handled = true;
+                    int totalItems = dict.Count;
+                    int writtenItems = 0;
+
+                    foreach (var kvp in sortedFlags)
+                    {
+                        writtenItems++;
+                        string line = $"    \"{kvp.Key}\": \"{kvp.Value}\"";
+                        if (writtenItems < totalItems) line += ",";
+                        formattedJson.AppendLine(line);
+                    }
+
+                    formattedJson.AppendLine("}");
+                    output = formattedJson.ToString();
                 }
+                else
+                {
+                    // fallback if no match
+                    output = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
+                }
+
+                Clipboard.SetText(output);
+                e.Handled = true;
             }
         }
 
@@ -184,13 +262,13 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 return;
 
             if (dialog.Tabs.SelectedIndex == 0)
-                AddSingle(dialog.FlagNameTextBox.Text.Trim(), dialog.FlagValueTextBox.Text);
+                AddSingle(dialog.FlagNameTextBox.Text.Trim(), dialog.FlagValueComboBox.Text);
             else if (dialog.Tabs.SelectedIndex == 1)
                 ImportJSON(dialog.JsonTextBox.Text);
             else if (dialog.Tabs.SelectedIndex == 2)
                 AddWithGameId(
                     dialog.GameFlagNameTextBox.Text.Trim(),
-                    dialog.GameFlagValueTextBox.Text,
+                    dialog.GameFlagValueComboBox.Text,
                     dialog.GameFlagIdTextBox.Text,
                     dialog.AddIdFilterType
                 );
@@ -288,7 +366,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             var urlsJson = new[]
             {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
             };
 
             var liveClientUrls = new[]
@@ -357,7 +435,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var removedDefaults = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
             var urlsPriorityOrdered = new[]
             {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
             };
 
@@ -446,7 +524,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             var urlsJson = new[]
             {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClient.json",
+                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
             };
 
@@ -1240,7 +1318,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             }
         }
-
 
 
         private void SaveJSONToFile(string json)

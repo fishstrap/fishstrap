@@ -111,7 +111,8 @@ namespace Bloxstrap.UI.ViewModels.Installer
                 ImportSettingsFrom.Bloxstrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Bloxstrap"),
                 ImportSettingsFrom.Voidstrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Voidstrap"),
                 ImportSettingsFrom.Fishstrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Fishstrap"),
-                _ => null
+                ImportSettingsFrom.Lunastrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Lunastrap"),
+                _ => string.Empty
             };
 
             if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
