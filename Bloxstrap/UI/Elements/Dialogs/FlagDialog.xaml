@@ -33,79 +33,6 @@
                      ShowMaximize="False" />
 
         <TabControl x:Name="TabControl" Grid.Row="1" Margin="16,0,16,16" Padding="0,8,0,0" >
-            <TabItem x:Name="UpdatedTab">
-                <StackPanel Margin="0,8,0,0">
-                    <DataGrid x:Name="UpdatedFlagsGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
-
-                        <DataGrid.Style>
-                            <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
-                                <Setter Property="Background" Value="{DynamicResource NormalDarkAndLightBackground}" />
-                                <Setter Property="BorderThickness" Value="1" />
-                                <Setter Property="GridLinesVisibility" Value="Horizontal" />
-                                <Setter Property="HorizontalGridLinesBrush" Value="#11000000" />
-                                <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
-                            </Style>
-                        </DataGrid.Style>
-
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
-                                <Setter Property="Height" Value="30" />
-                                <Setter Property="Padding" Value="8,0,12,0" />
-                                <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
-                                <Setter Property="BorderThickness" Value="1" />
-                                <Setter Property="FontWeight" Value="SemiBold" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-
-                        <DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="Height" Value="30" />
-                                <Setter Property="Padding" Value="6,0,6,0" />
-                                <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="BorderThickness" Value="0" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="DataGridCell">
-                                            <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Stretch" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#14000000" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="#59007ACC" />
-                                        <Setter Property="Foreground" Value="#F0F0F0" />
-                                    </Trigger>
-                                    <MultiTrigger>
-                                        <MultiTrigger.Conditions>
-                                            <Condition Property="IsSelected" Value="True" />
-                                            <Condition Property="IsMouseOver" Value="True" />
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="Background" Value="#8C007ACC" />
-                                    </MultiTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.CellStyle>
-
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Updated FastFlag" Binding="{Binding NewName}" Width="*" />
-                            <DataGridTextColumn Header="Outdated FastFlag" Binding="{Binding OldName}" Width="*" />
-                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-            </TabItem>
-
             <TabItem x:Name="InvalidTab">
                 <StackPanel Margin="0,8,0,0">
                     <DataGrid x:Name="InvalidFlagsGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
@@ -253,10 +180,84 @@
                     </DataGrid>
                 </StackPanel>
             </TabItem>
+
+            <TabItem x:Name="UpdatedTab">
+                <StackPanel Margin="0,8,0,0">
+                    <DataGrid x:Name="UpdatedFlagsGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+
+                        <DataGrid.Style>
+                            <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
+                                <Setter Property="Background" Value="{DynamicResource NormalDarkAndLightBackground}" />
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="GridLinesVisibility" Value="Horizontal" />
+                                <Setter Property="HorizontalGridLinesBrush" Value="#11000000" />
+                                <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
+                            </Style>
+                        </DataGrid.Style>
+
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                                <Setter Property="Height" Value="30" />
+                                <Setter Property="Padding" Value="8,0,12,0" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Height" Value="30" />
+                                <Setter Property="Padding" Value="6,0,6,0" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridCell">
+                                            <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#14000000" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#59007ACC" />
+                                        <Setter Property="Foreground" Value="#F0F0F0" />
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsSelected" Value="True" />
+                                            <Condition Property="IsMouseOver" Value="True" />
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="Background" Value="#8C007ACC" />
+                                    </MultiTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Updated FastFlag" Binding="{Binding NewName}" Width="*" />
+                            <DataGridTextColumn Header="Outdated FastFlag" Binding="{Binding OldName}" Width="*" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
         </TabControl>
 
         <Border Grid.Row="2" Padding="15" Background="{DynamicResource PrimaryBackgroundColor}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="UndoButton" MinWidth="100" Content="Undo" Click="UndoButton_Click" FontWeight="Medium" Margin="0,0,10,0" />
                 <Button x:Name="CloseButton" MinWidth="100" Content="Close" IsCancel="True" FontWeight="Medium" />
             </StackPanel>
         </Border>

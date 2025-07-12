@@ -563,9 +563,6 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
   <data name="Enums.CursorType.From2013" xml:space="preserve">
     <value>2013 (Angular)</value>
   </data>
-  <data name="Enums.CursorType.BlackAndWhiteCross" xml:space="preserve">
-    <value>Small Black And White Cross</value>
-  </data>
   <data name="Enums.CursorType.PurpleCross" xml:space="preserve">
     <value>Purple Cross</value>
   </data>

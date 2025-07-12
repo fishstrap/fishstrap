@@ -228,7 +228,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         public string FlagCountText => $"Total flags: {_fastFlagList.Count}";
 
-        private void UpdateTotalFlagsCount()
+        public void UpdateTotalFlagsCount()
         {
             // Get current flags count from the DataGrid's ItemsSource, safely
             int count = 0;
@@ -367,6 +367,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             var urlsJson = new[]
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
             };
 
             var liveClientUrls = new[]
@@ -437,6 +438,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
             };
 
             var manualWhitelist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -526,6 +528,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
             };
 
             var blacklist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -631,6 +634,8 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                     return;
                 }
 
+                mainWindow?.HideLoading();
+
                 var message =
                     $"{totalChanges} FastFlag{(totalChanges == 1 ? "" : "s")} have been changed, below is a summary:\n\n" +
                     $"{invalidRemoved.Count} Invalid FastFlags Removed.\n" +
@@ -642,7 +647,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Parse updatedFlags strings into tuples (OldName, NewName)
                     var updatedTuples = updatedFlags
                         .Select(s =>
                         {
@@ -657,15 +661,13 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                         kvp => kvp.Key,
                         kvp => kvp.Value?.ToString() ?? string.Empty);
 
-                    var flagDialog = new FlagDialog(invalidRemoved, defaultDict, updatedTuples)
+                    var flagDialog = new FlagDialog(this, invalidRemoved, defaultDict, updatedTuples)
                     {
                         Owner = Application.Current.MainWindow
                     };
 
                     flagDialog.ShowDialog();
                 }
-
-                mainWindow?.HideLoading();
 
                 ReloadList();
                 UpdateTotalFlagsCount();
@@ -1031,42 +1033,68 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             public static readonly HashSet<string> BannableFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
-                "DFIntBulletContactBreakOrthogonalThresholdActivatePercent",
-                "DFIntBulletContactBreakThresholdPercent",
-                "DFIntBulletContactBreakOrthogonalThresholdPercent",
-                "FFlagDataModelPatcherForceLocal",
-                "DFIntAnimatorDrawSkeletonScalePercent",
-                "DFFlagDebugDrawEnable",
+                "DFFlagAnimationThrottlingInertialization",
                 "DFFlagAnimatorDrawSkeletonAll",
-                "DFFlagAnimatorDrawSkeletonText",
                 "DFFlagAnimatorDrawSkeletonAttachments",
-                "DFFlagDebugEnableInterpThrottle",
-                "DFIntGameNetLocalSpaceMaxSendIndex",
-                "DFIntPhysicsImprovedCyclicExecutiveThrottleThresholdTenth",
-                "DFIntSimBlockLargeLocalToolWeldManipulationsThreshold",
+                "DFFlagAnimatorDrawSkeletonText",
                 "DFFlagAnimatorPostProcessIK",
-                "DFIntReplicatorAnimationTrackLimitPerAnimator",
-                "DFIntSimTimestepMultiplierDebounceCount",
-                "DFIntSimAdaptiveHumanoidPDControllerSubstepMultiplier",
-                "DFIntSolidFloorPercentForceApplication",
-                "DFIntNonSolidFloorPercentForceApplication",
-                "DFIntTouchSenderMaxBandwidthBps",
+                "DFFlagDebugDrawBroadPhaseAABBS",
+                "DFFlagDebugDrawBvhNodes",
+                "DFFlagDebugDrawEnable",
+                "DFFlagDebugEnableInterpThrottle",
+                "DFFlagDebugPhysicsSenderDoesNotShrinkSimRadius",
+                "DFFlagNoRunningNoPhysics",
+                "DFIntAnimatorDrawSkeletonScalePercent",
+                "DFIntBulletContactBreakOrthogonalThresholdActivatePercent",
+                "DFIntBulletContactBreakOrthogonalThresholdPercent",
+                "DFIntBulletContactBreakThresholdPercent",
+                "DFIntGameNetDontSendRedundantDeltaPositionMillionth",
+                "DFIntGameNetDontSendRedundantDeltaThresholdMillionth",
+                "DFIntGameNetDontSendRedundantNumTimes",
+                "DFIntGameNetLocalSpaceMaxSendIndex",
                 "DFIntGameNetOptimizeParallelPhysicsSendAssemblyBatch",
+                "DFIntGameNetPVHeaderLinearVelocityZeroCutoffExponent",
+                "DFIntGameNetPVHeaderRotationalVelocityZeroCutoffExponent",
+                "DFIntGameNetPVHeaderRotationOrientIdToleranceExponent",
                 "DFIntGameNetPVHeaderTranslationZeroCutoffExponent",
-                "DFIntPhysicsSenderMaxBandwidthBpsScaling",
-                "FIntParallelDynamicPartsFastClusterBatchSize",
-                "DFIntMaxMissedWorldStepsRemembered",
-                "DFIntPhysicsDecompForceUpgradeVersion",
+                "DFIntMaxAltitudePDHipHeightPercent",
+                "DFIntMaxClientSimulationRadius",
+                "DFIntMaximumFreefallMoveTimeInTenths",
                 "DFIntMaximumUnstickForceInGs",
+                "DFIntMaxMissedWorldStepsRemembered",
                 "DFIntMinClientSimulationRadius",
                 "DFIntMinimalSimRadiusBuffer",
-                "DFIntMaxClientSimulationRadius",
-                "DFFlagDebugPhysicsSenderDoesNotShrinkSimRadius",
-                "FFlagDebugUseCustomSimRadius",
-                "DFFlagDebugDrawBroadPhaseAABBs",
-                "DFFlagDebugDrawBvhNodes",
+                "DFIntNewPDAltitudeNoForceZonePercent",
+                "DFIntNonSolidFloorPercentForceApplication",
+                "DFIntPhysicsDecompForceUpgradeVersion",
+                "DFIntPhysicsImprovedCyclicExecutiveThrottleThresholdTenth",
+                "DFIntRaycastMaxDistance",
+                "DFIntReplicatorAnimationTrackLimitPerAnimator",
+                "DFIntSimAdaptiveHumanoidPDControllerSubstepMultiplier",
+                "DFIntSimBlockLargeLocalToolWeldManipulationsThreshold",
+                "DFIntSimTimestepMultiplierDebounceCount",
+                "DFIntSmoothTerrainPhysicsRayAabbSlop",
+                "DFIntSolidFloorMassMultTenth",
+                "DFIntSolidFloorPercentForceApplication",
+                "DFIntTargetTimeDelayFacctorTenths",
+                "DFIntTouchSenderMaxBandwidthBps",
+                "DFIntUnstickForceDecayInTenths",
+                "DFIntUnstickForceEpsilonInHundredths",
+                "FFlagDataModelPatcherForceLocal",
                 "FFlagDebugHumanoidRendering",
-                "FIntCameraFarZPlane"
+                "FFlagDebugNavigationDrawCompactHeightfield",
+                "FFlagDebugUseCustomSimRadius",
+                "FFlagEnablePhysicsAdaptiveTimeSteppingIXP",
+                "FFlagProcessAnimationLooped",
+                "FFlagRemapAnimationR6T0R15Rig",
+                "FFlagSimAdaptiveTimesteppingDefault2",
+                "FFlagAvatarJointFriction",
+                "FFlagCameraFarZPlane",
+                "FFlagInterpolationAwareTargetTimeLerpHundredth",
+                "FFlagParallelDynamicPartsFastClusterBatchSize",
+                "FFlagPhysicsStepsPerSecond",
+                "FFlagRaycastMaximumTableNestDepth",
+                "SFFlagBulletContactBreakOrthogonalThresholdPercent"
             };
             public static bool IsBannable(string flagName) => BannableFlags.Contains(flagName);
         }

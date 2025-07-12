@@ -77,7 +77,7 @@
                         Icon="Search48"
                         PlaceholderText="Keyword Search (e.g. Fps, Ping, Live)"
                         TextChanged="KeywordSearching"
-                        Margin="4,0,0,0" />
+                        Margin="0,0,4,0" />
 
             <ui:TextBox Grid.Column="1"
                         x:Name="ValueSearchTextBox"
@@ -85,7 +85,7 @@
                         Icon="Search48"
                         PlaceholderText="Keyword Value Search (e.g. True, 1818, marketplace)"
                         TextChanged="ValueSearchTextBox_TextChanged"
-                        Margin="0,0,4,0" />
+                        Margin="4,0,0,0" />
         </Grid>
 
         <!-- Filters and Export -->

@@ -100,14 +100,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 }
             },
             {
-                Enums.CursorType.BlackAndWhiteCross, new()
-                {
-                    { @"content\textures\Cursors\KeyboardMouse\ArrowCursor.png",    "Cursor.BlackAndWhiteCross.ArrowCursor.png"    },
-                    { @"content\textures\Cursors\KeyboardMouse\ArrowFarCursor.png", "Cursor.BlackAndWhiteCross.ArrowFarCursor.png" },
-                    { @"content\textures\Cursors\KeyboardMouse\IBeamCursor.png", "Cursor.BlackAndWhiteCross.IBeamCursor.png" }
-                }
-            },
-            {
                 Enums.CursorType.BlackAndWhiteDot, new()
                 {
                     { @"content\textures\Cursors\KeyboardMouse\ArrowCursor.png",    "Cursor.BlackAndWhiteDot.ArrowCursor.png"    },

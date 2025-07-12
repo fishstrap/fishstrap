@@ -2197,15 +2197,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Small Black And White Cross.
-        /// </summary>
-        public static string Enums_CursorType_BlackAndWhiteCross {
-            get {
-                return ResourceManager.GetString("Enums.CursorType.BlackAndWhiteCross", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Black And White Dot.
         /// </summary>
         public static string Enums_CursorType_BlackAndWhiteDot {

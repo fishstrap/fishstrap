@@ -81,7 +81,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 PreferredGPU,
                 ForceLogicalProcessors,
                 ForceAsyncThreads,
-                AvoidTaskSchedulerSleep,
                 RefreshRate,
                 DisableShadows,
                 DisablePostFX,

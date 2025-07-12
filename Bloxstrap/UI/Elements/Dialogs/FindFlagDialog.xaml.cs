@@ -103,6 +103,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             {
                 "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
                 "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
+                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
             };
 
             var mergedFlags = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

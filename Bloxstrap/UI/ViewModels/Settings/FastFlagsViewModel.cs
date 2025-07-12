@@ -408,7 +408,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 App.FastFlags.SetPreset("Network.EnableLargeReplicator", value ? "True" : null);
                 App.FastFlags.SetPreset("Network.LargeReplicatorWrite", value ? "True" : null);
                 App.FastFlags.SetPreset("Network.LargeReplicatorRead", value ? "True" : null);
-                App.FastFlags.SetPreset("Network.EngineModul3", value ? "False" : null);
+                App.FastFlags.SetPreset("Network.EngineModule3", value ? "False" : null);
                 App.FastFlags.SetPreset("Network.SerializeRead", value ? "True" : null);
                 App.FastFlags.SetPreset("Network.SerializeWrite", value ? "True" : null);
             }
@@ -539,14 +539,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.FastFlags.GetPresetEnum(RenderingModes, "Rendering.Mode", "True");
             set
             {
-                RenderingMode[] DisableD3D11 = new RenderingMode[]
-                {
-                    RenderingMode.Vulkan,
-                    RenderingMode.OpenGL,
-                    RenderingMode.Metal,
-                    RenderingMode.D3D10
-                };
-
                 if (value == RenderingMode.D3D10)
                 {
                     App.FastFlags.SetPreset("Rendering.Mode.D3D10", "True");

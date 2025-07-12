@@ -259,8 +259,6 @@ namespace Bloxstrap
             { "Rendering.Mode.OpenGL.HQShadersExclusion", "FFlagGraphicsGLEnableHQShadersExclusion" },
             { "Rendering.Mode.OpenGL.SuperHQShadersExclusion", "FFlagGraphicsGLEnableSuperHQShadersExclusion" },
 
-
-
             // Lighting technology
             { "Rendering.Lighting.Voxel", "DFFlagDebugRenderForceTechnologyVoxel" },
             { "Rendering.Lighting.ShadowMap", "FFlagDebugForceFutureIsBrightPhase2" },
@@ -296,7 +294,7 @@ namespace Bloxstrap
             { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled8"},
             { "Network.LargeReplicatorWrite", "FFlagLargeReplicatorWrite5"},
             { "Network.LargeReplicatorRead", "FFlagLargeReplicatorRead5"},
-            { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead2"},
+            { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead3"},
             { "Network.SerializeWrite", "FFlagLargeReplicatorSerializeWrite4"},
             { "Network.EngineModule3", "FFlagGlobalSettingsEngineModule3"},
 
