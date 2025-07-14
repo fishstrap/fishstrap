@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Bloxstrap.ico</ApplicationIcon>
-    <Version>1.1.4.1</Version>
-    <FileVersion>1.1.4.1</FileVersion>
+    <Version>1.1.5.0</Version>
+    <FileVersion>1.1.5.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
@@ -107,6 +107,8 @@
 	<EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Default Graphics V4" />
     <EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Low Graphics V9" />
 	<EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Trash Graphics V15" />
+	<EmbeddedResource Include="Resources\PresetFlags\Better Synchronization" />
+    <EmbeddedResource Include="Resources\PresetFlags\Reduced Input Delay" />
 	<EmbeddedResource Include="Resources\PresetFlags\Pure Fps List by Froststrap" />
 	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28DX11%29" />
 	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28Vulkan%29" />

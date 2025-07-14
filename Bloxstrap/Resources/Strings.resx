@@ -1575,7 +1575,7 @@ Some text might not be translated to preferred language.</value>
     <value>Bypass Vulkan</value>
   </data>
   <data name="Menu.FastFlags.Presets.RefreshRate.Title" xml:space="preserve">
-    <value>Set Target Refresh Target</value>
+    <value>Set Target Refresh Rate</value>
   </data>
   <data name="Menu.FastFlags.Presets.RefreshRate.Description" xml:space="preserve">
     <value>Controls the frame rate Roblox should aim for. Recommended to set this value to your monitor’s refresh rate. Default value is 60.</value>

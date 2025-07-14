@@ -931,15 +931,19 @@ namespace Bloxstrap
         #endregion
 
         #region App Install
+
+        private string NormalizeVersion(string version)
+        {
+            return version.Trim().TrimStart('v', 'V');
+        }
         private async Task<bool> CheckForUpdates()
         {
             const string LOG_IDENT = "Bootstrapper::CheckForUpdates";
 
-            // don't update if there's another instance running (likely running in the background)
-            // i don't like this, but there isn't much better way of doing it /shrug
+            // Check if another instance is running
             if (Process.GetProcessesByName(App.ProjectName).Length > 1)
             {
-                App.Logger.WriteLine(LOG_IDENT, $"More than one Bloxstrap instance running, aborting update check");
+                App.Logger.WriteLine(LOG_IDENT, $"More than one instance detected, aborting update.");
                 return false;
             }
 
@@ -951,12 +955,15 @@ namespace Bloxstrap
             if (releaseInfo is null)
                 return false;
 
-            var versionComparison = Utilities.CompareVersions(App.Version, releaseInfo.TagName);
+            string currentVersionNormalized = NormalizeVersion(App.Version);
+            string releaseVersionNormalized = NormalizeVersion(releaseInfo.TagName);
 
-            // check if we aren't using a deployed build, so we can update to one if a new version comes out
-            if (App.IsProductionBuild && versionComparison == VersionComparison.Equal || versionComparison == VersionComparison.GreaterThan)
+            var versionComparison = Utilities.CompareVersions(currentVersionNormalized, releaseVersionNormalized);
+
+            if (App.IsProductionBuild &&
+                (versionComparison == VersionComparison.Equal || versionComparison == VersionComparison.GreaterThan))
             {
-                App.Logger.WriteLine(LOG_IDENT, "No updates found");
+                App.Logger.WriteLine(LOG_IDENT, $"Current version ({App.Version}) is up to date or newer than release ({releaseInfo.TagName}), skipping update.");
                 return false;
             }
 
@@ -965,7 +972,7 @@ namespace Bloxstrap
 
             string version = releaseInfo.TagName;
 #else
-            string version = App.Version;
+    string version = App.Version;
 #endif
 
             SetStatus(Strings.Bootstrapper_Status_UpgradingBloxstrap);
@@ -973,37 +980,65 @@ namespace Bloxstrap
             try
             {
 #if DEBUG_UPDATER
-                string downloadLocation = Path.Combine(Paths.TempUpdates, "Bloxstrap.exe");
-
-                Directory.CreateDirectory(Paths.TempUpdates);
-
-                File.Copy(Paths.Process, downloadLocation, true);
+        string downloadLocation = Path.Combine(Paths.TempUpdates, "Bloxstrap.exe");
+        Directory.CreateDirectory(Paths.TempUpdates);
+        File.Copy(Paths.Process, downloadLocation, true);
 #else
                 var asset = releaseInfo.Assets![0];
-
                 string downloadLocation = Path.Combine(Paths.TempUpdates, asset.Name);
-
                 Directory.CreateDirectory(Paths.TempUpdates);
 
-                App.Logger.WriteLine(LOG_IDENT, $"Downloading {releaseInfo.TagName}...");
+                bool downloadRequired = true;
 
-                if (!File.Exists(downloadLocation))
+                if (File.Exists(downloadLocation))
                 {
-                    var response = await App.HttpClient.GetAsync(asset.BrowserDownloadUrl);
+                    var fileInfo = new FileInfo(downloadLocation);
+                    try
+                    {
+                        using var headRequest = new HttpRequestMessage(HttpMethod.Head, asset.BrowserDownloadUrl);
+                        var headResponse = await App.HttpClient.SendAsync(headRequest);
+                        if (headResponse.IsSuccessStatusCode && headResponse.Content.Headers.ContentLength.HasValue)
+                        {
+                            long remoteSize = headResponse.Content.Headers.ContentLength.Value;
+                            if (fileInfo.Length == remoteSize)
+                            {
+                                downloadRequired = false;
+                                App.Logger.WriteLine(LOG_IDENT, $"Local update file matches remote size ({remoteSize} bytes), skipping download.");
+                            }
+                            else
+                            {
+                                App.Logger.WriteLine(LOG_IDENT, $"File size mismatch (local: {fileInfo.Length}, remote: {remoteSize}), re-downloading.");
+                            }
+                        }
+                        else
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "HEAD request did not return content length, will download file.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to check remote file size: {ex.Message}");
+                        // fallback to downloading
+                    }
+                }
 
-                    await using var fileStream = new FileStream(downloadLocation, FileMode.OpenOrCreate, FileAccess.Write);
+                if (downloadRequired)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Downloading {releaseInfo.TagName}...");
+                    using var response = await App.HttpClient.GetAsync(asset.BrowserDownloadUrl);
+                    response.EnsureSuccessStatusCode();
+
+                    await using var fileStream = new FileStream(downloadLocation, FileMode.Create, FileAccess.Write);
                     await response.Content.CopyToAsync(fileStream);
                 }
 #endif
 
-                App.Logger.WriteLine(LOG_IDENT, $"Starting {version}...");
+                App.Logger.WriteLine(LOG_IDENT, $"Launching updater {version}...");
 
-                ProcessStartInfo startInfo = new()
+                var startInfo = new ProcessStartInfo(downloadLocation)
                 {
-                    FileName = downloadLocation,
+                    Arguments = "-upgrade"
                 };
-
-                startInfo.ArgumentList.Add("-upgrade");
 
                 foreach (string arg in App.LaunchSettings.Args)
                     startInfo.ArgumentList.Add(arg);
@@ -1015,15 +1050,14 @@ namespace Bloxstrap
 
                 App.Settings.Save();
 
-                new InterProcessLock("AutoUpdater");
-
+                using var updateLock = new InterProcessLock("AutoUpdater");
                 Process.Start(startInfo);
 
                 return true;
             }
             catch (Exception ex)
             {
-                App.Logger.WriteLine(LOG_IDENT, "An exception occurred when running the auto-updater");
+                App.Logger.WriteLine(LOG_IDENT, "Exception in auto-updater:");
                 App.Logger.WriteException(LOG_IDENT, ex);
 
                 Frontend.ShowMessageBox(

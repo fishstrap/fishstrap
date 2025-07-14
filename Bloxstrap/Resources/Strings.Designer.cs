@@ -5260,7 +5260,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Target Refresh Target.
+        ///   Looks up a localized string similar to Set Target Refresh Rate.
         /// </summary>
         public static string Menu_FastFlags_Presets_RefreshRate_Title {
             get {

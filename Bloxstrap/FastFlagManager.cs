@@ -317,6 +317,8 @@ namespace Bloxstrap
 
             // Refresh Rate
             { "System.TargetRefreshRate1", "DFIntGraphicsOptimizationModeFRMFrameRateTarget" },
+            { "System.TargetRefreshRate2", "DFIntGraphicsOptimizationModeMinFrameTimeTargetMs " },
+            { "System.TargetRefreshRate3", "DFIntGraphicsOptimizationModeMaxFrameTimeTargetMs" },
     
             // GPU
             { "System.PreferredGPU", "FStringDebugGraphicsPreferredGPUName"},
@@ -409,15 +411,16 @@ namespace Bloxstrap
         public static IReadOnlyDictionary<RefreshRate, string?> RefreshRates => new Dictionary<RefreshRate, string?>
         {
             { RefreshRate.Default, null },
-            { RefreshRate.RefreshRate1, "75" },
-            { RefreshRate.RefreshRate2, "80" },
-            { RefreshRate.RefreshRate3, "90" },
-            { RefreshRate.RefreshRate4, "120" },
-            { RefreshRate.RefreshRate5, "144" },
-            { RefreshRate.RefreshRate6, "165" },
-            { RefreshRate.RefreshRate7, "180" },
-            { RefreshRate.RefreshRate8, "240" },
-            { RefreshRate.RefreshRate9, "360" },
+            { RefreshRate.RefreshRate1, "60" },
+            { RefreshRate.RefreshRate2, "75" },
+            { RefreshRate.RefreshRate3, "80" },
+            { RefreshRate.RefreshRate4, "90" },
+            { RefreshRate.RefreshRate5, "120" },
+            { RefreshRate.RefreshRate6, "144" },
+            { RefreshRate.RefreshRate7, "165" },
+            { RefreshRate.RefreshRate8, "180" },
+            { RefreshRate.RefreshRate9, "240" },
+            { RefreshRate.RefreshRate10, "360" },
 
         };
 

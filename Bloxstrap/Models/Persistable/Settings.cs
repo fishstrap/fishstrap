@@ -45,6 +45,7 @@ namespace Bloxstrap.Models.Persistable
         public string GameShortcutsJson { get; set; } = "[]";
 
         // integration configuration
+        public bool PreventBackgroundRun { get; set; } = false;
         public bool EnableActivityTracking { get; set; } = true;
         public bool UseDiscordRichPresence { get; set; } = true;
         public bool HideRPCButtons { get; set; } = true;

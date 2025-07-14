@@ -290,6 +290,13 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         private static readonly string CacheFolder = Path.Combine(AppContext.BaseDirectory, "FastFlagCache");
         private static readonly TimeSpan CacheExpiry = TimeSpan.FromDays(1);
 
+        private static readonly string[] JsonUrls = new[]
+        {
+            "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
+            "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
+        "   https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
+        };
+
         private static string GetSafeFilename(string url)
         {
             foreach (var c in Path.GetInvalidFileNameChars())
@@ -297,33 +304,15 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             return url;
         }
 
-        private static IEnumerable<string> ExtractFlagNamesFromJson(string json)
+        private static string ComputeHash(string input)
         {
-            JsonElement root;
-
-            try
-            {
-                using var doc = JsonDocument.Parse(json);
-                root = doc.RootElement.Clone(); // Clone because `doc` will be disposed
-            }
-            catch
-            {
-                yield break;
-            }
-
-            if (root.TryGetProperty("applicationSettings", out var appSettings))
-            {
-                foreach (var prop in appSettings.EnumerateObject())
-                    yield return prop.Name.Trim();
-            }
-            else if (root.ValueKind == JsonValueKind.Object)
-            {
-                foreach (var prop in root.EnumerateObject())
-                    yield return prop.Name.Trim();
-            }
+            using var sha = System.Security.Cryptography.SHA256.Create();
+            var bytes = System.Text.Encoding.UTF8.GetBytes(input);
+            var hash = sha.ComputeHash(bytes);
+            return Convert.ToBase64String(hash);
         }
 
-        public async Task<string?> LoadOrDownloadCachedAsync(string url, HttpClient client)
+        private static async Task<string?> LoadOrDownloadCachedAsync(string url, HttpClient client)
         {
             Directory.CreateDirectory(CacheFolder);
 
@@ -331,18 +320,25 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             try
             {
+                string? existingContent = null;
                 if (File.Exists(cacheFile))
                 {
                     var info = new FileInfo(cacheFile);
                     if (DateTime.UtcNow - info.LastWriteTimeUtc < CacheExpiry)
-                        return await File.ReadAllTextAsync(cacheFile).ConfigureAwait(false);
+                    {
+                        existingContent = await File.ReadAllTextAsync(cacheFile).ConfigureAwait(false);
+                    }
                 }
 
-                string content = await client.GetStringAsync(url).ConfigureAwait(false);
+                string newContent = await client.GetStringAsync(url).ConfigureAwait(false);
 
-                await File.WriteAllTextAsync(cacheFile, content).ConfigureAwait(false);
+                if (existingContent is null || ComputeHash(existingContent) != ComputeHash(newContent))
+                {
+                    await File.WriteAllTextAsync(cacheFile, newContent).ConfigureAwait(false);
+                    return newContent;
+                }
 
-                return content;
+                return existingContent;
             }
             catch
             {
@@ -352,63 +348,100 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                     {
                         return await File.ReadAllTextAsync(cacheFile).ConfigureAwait(false);
                     }
-                    catch
-                    {
-                        // corrupted cache, ignore
-                    }
+                    catch { }
                 }
 
                 return null;
             }
         }
 
+        public static async Task<Dictionary<string, string>> LoadCombinedFlagsAsync(HttpClient client)
+        {
+            Directory.CreateDirectory(CacheFolder);
+            string combinedCacheFile = Path.Combine(CacheFolder, "CombinedFlags.cache");
+
+            try
+            {
+                if (File.Exists(combinedCacheFile))
+                {
+                    var info = new FileInfo(combinedCacheFile);
+                    if (DateTime.UtcNow - info.LastWriteTimeUtc < CacheExpiry)
+                    {
+                        string cachedContent = await File.ReadAllTextAsync(combinedCacheFile).ConfigureAwait(false);
+                        using var doc = JsonDocument.Parse(cachedContent);
+                        var root = doc.RootElement;
+
+                        var combinedDict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var prop in root.EnumerateObject())
+                            combinedDict[prop.Name] = prop.Value.GetString() ?? "";
+                        return combinedDict;
+                    }
+                }
+                var loadTasks = JsonUrls.Select(url => LoadOrDownloadCachedAsync(url, client)).ToList();
+                var jsonContents = await Task.WhenAll(loadTasks);
+
+                var mergedFlags = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var json in jsonContents)
+                {
+                    if (string.IsNullOrWhiteSpace(json))
+                        continue;
+
+                    using var doc = JsonDocument.Parse(json);
+                    var root = doc.RootElement.TryGetProperty("applicationSettings", out var appSettings)
+                        ? appSettings
+                        : doc.RootElement;
+
+                    foreach (var prop in root.EnumerateObject())
+                        mergedFlags[prop.Name] = prop.Value.ToString() ?? "";
+                }
+
+                var combinedJson = JsonSerializer.Serialize(mergedFlags, new JsonSerializerOptions { WriteIndented = true });
+
+                if (!File.Exists(combinedCacheFile) ||
+                    ComputeHash(await File.ReadAllTextAsync(combinedCacheFile).ConfigureAwait(false)) != ComputeHash(combinedJson))
+                {
+                    await File.WriteAllTextAsync(combinedCacheFile, combinedJson).ConfigureAwait(false);
+                }
+
+                return mergedFlags;
+            }
+            catch
+            {
+                return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            }
+        }
+
+
+
         public async Task<Dictionary<string, object>> CheckAndRemoveInvalidFlagsAsync()
         {
-            var urlsJson = new[]
-            {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-            };
-
-            var liveClientUrls = new[]
-            {
-                "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-            };
+            var removedFlagsDict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
             var manualWhitelist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
                 "FStringDebugLuaLogLevel",
                 "FStringDebugLuaLogPattern",
                 "FLogNetwork",
-                "FFlagHandleAltEnterFullscreenManually",
+                "FFlagHandleAltEnterFullscreenManually"
             };
-
-            var removedFlagsDict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
             try
             {
-                using HttpClient client = new();
-                var allUrls = urlsJson.Concat(liveClientUrls).ToList();
-                var loadTasks = allUrls.Select(url => LoadOrDownloadCachedAsync(url, client)).ToList();
-                string?[] results = await Task.WhenAll(loadTasks);
+                using HttpClient client = App.HttpClient ?? new HttpClient();
 
-                var validFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-                foreach (var content in results)
-                {
-                    if (string.IsNullOrWhiteSpace(content)) continue;
-                    foreach (var name in ExtractFlagNamesFromJson(content))
-                        validFlags.Add(name);
-                }
-
+                var combinedFlags = await LoadCombinedFlagsAsync(client);
+                var validFlags = new HashSet<string>(combinedFlags.Keys, StringComparer.OrdinalIgnoreCase);
                 validFlags.UnionWith(manualWhitelist);
 
                 var allFlags = App.FastFlags.GetAllFlags();
-                var toRemove = allFlags.Where(flag =>
-                {
-                    var name = flag.Name.Trim();
-                    return !manualWhitelist.Contains(name) && !validFlags.Contains(name);
-                }).ToList();
+
+                var toRemove = allFlags
+                    .Where(flag =>
+                    {
+                        var name = flag.Name.Trim();
+                        return !manualWhitelist.Contains(name) && !validFlags.Contains(name);
+                    })
+                    .ToList();
 
                 foreach (var flag in toRemove)
                 {
@@ -434,54 +467,20 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         public async Task<Dictionary<string, object>> RemoveDefaultsAsync()
         {
             var removedDefaults = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-            var urlsPriorityOrdered = new[]
-            {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
-                "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-            };
 
             var manualWhitelist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
                 "FStringDebugLuaLogLevel",
                 "FStringDebugLuaLogPattern",
                 "FLogNetwork",
-                "FFlagHandleAltEnterFullscreenManually",
+                "FFlagHandleAltEnterFullscreenManually"
             };
 
             try
             {
-                using HttpClient client = new();
-                var loadTasks = urlsPriorityOrdered.Select(url => LoadOrDownloadCachedAsync(url, client)).ToList();
-                string?[] jsonContents = await Task.WhenAll(loadTasks);
+                using HttpClient client = App.HttpClient ?? new HttpClient();
 
-                var defaultValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-                foreach (var jsonText in jsonContents)
-                {
-                    if (string.IsNullOrWhiteSpace(jsonText)) continue;
-
-                    using var doc = JsonDocument.Parse(jsonText);
-                    var source = doc.RootElement.TryGetProperty("applicationSettings", out var appSettings)
-                        ? appSettings
-                        : doc.RootElement;
-
-                    foreach (var flag in source.EnumerateObject())
-                    {
-                        string valueAsString = flag.Value.ValueKind switch
-                        {
-                            JsonValueKind.String => flag.Value.GetString() ?? "",
-                            JsonValueKind.Number => flag.Value.GetRawText(),
-                            JsonValueKind.True => "True",
-                            JsonValueKind.False => "False",
-                            JsonValueKind.Null => "",
-                            _ => flag.Value.GetRawText(),
-                        };
-
-                        if (!defaultValues.ContainsKey(flag.Name))
-                            defaultValues[flag.Name] = valueAsString;
-                    }
-                }
+                var combinedFlags = await LoadCombinedFlagsAsync(client);
 
                 var allFlags = App.FastFlags.GetAllFlags();
                 var toRemove = new List<FastFlag>();
@@ -489,10 +488,11 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 foreach (var flag in allFlags)
                 {
                     var name = flag.Name.Trim();
+
                     if (manualWhitelist.Contains(name))
                         continue;
 
-                    if (defaultValues.TryGetValue(name, out var defaultValue) &&
+                    if (combinedFlags.TryGetValue(name, out var defaultValue) &&
                         string.Equals(flag.Value, defaultValue, StringComparison.OrdinalIgnoreCase))
                     {
                         toRemove.Add(flag);
@@ -524,13 +524,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             var updatedFlags = new List<string>();
 
-            var urlsJson = new[]
-            {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
-                "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-            };
-
             var blacklist = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
                 "FStringDebugLuaLogLevel",
@@ -545,43 +538,47 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             try
             {
-                using HttpClient client = new();
-                var loadTasks = urlsJson.Select(url => LoadOrDownloadCachedAsync(url, client)).ToList();
-                string?[] results = await Task.WhenAll(loadTasks);
+                using var client = new HttpClient();
 
-                var allValidFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                var combinedFlags = await LoadCombinedFlagsAsync(client);
+                var allValidFlagNames = combinedFlags.Keys;
 
-                foreach (var json in results)
+                var groupedByBaseName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var flag in allValidFlagNames)
                 {
-                    if (string.IsNullOrWhiteSpace(json)) continue;
-                    foreach (var name in ExtractFlagNamesFromJson(json))
-                        allValidFlags.Add(name);
-                }
+                    var baseName = Regex.Replace(flag, @"\d+$", "");
+                    var match = Regex.Match(flag, @"(\d+)$");
+                    int version = match.Success ? int.Parse(match.Value) : -1;
 
-                var groupedFlags = allValidFlags
-                    .GroupBy(name => Regex.Replace(name, @"\d+$", ""))
-                    .ToDictionary(
-                        g => g.Key,
-                        g => g.OrderByDescending(n =>
-                        {
-                            var match = Regex.Match(n, @"(\d+)$");
-                            return match.Success ? int.Parse(match.Value) : -1;
-                        }).First());
+                    if (!groupedByBaseName.TryGetValue(baseName, out var current))
+                    {
+                        groupedByBaseName[baseName] = flag;
+                    }
+                    else
+                    {
+                        var currentMatch = Regex.Match(current, @"(\d+)$");
+                        int currentVersion = currentMatch.Success ? int.Parse(currentMatch.Value) : -1;
+
+                        if (version > currentVersion)
+                            groupedByBaseName[baseName] = flag;
+                    }
+                }
 
                 var allUserFlags = App.FastFlags.GetAllFlags();
                 var updates = new List<(string OldName, string NewName, string Value)>();
 
-                foreach (var flag in allUserFlags)
+                foreach (var userFlag in allUserFlags)
                 {
-                    if (blacklist.Contains(flag.Name))
+                    if (blacklist.Contains(userFlag.Name))
                         continue;
 
-                    var baseName = Regex.Replace(flag.Name, @"\d+$", "");
+                    string baseName = Regex.Replace(userFlag.Name, @"\d+$", "");
 
-                    if (groupedFlags.TryGetValue(baseName, out var latestName)
-                        && !string.Equals(flag.Name, latestName, StringComparison.OrdinalIgnoreCase))
+                    if (groupedByBaseName.TryGetValue(baseName, out var latestName) &&
+                        !userFlag.Name.Equals(latestName, StringComparison.OrdinalIgnoreCase))
                     {
-                        updates.Add((flag.Name, latestName, flag.Value));
+                        updates.Add((userFlag.Name, latestName, userFlag.Value));
                     }
                 }
 
@@ -602,7 +599,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             }
             catch (Exception ex)
             {
-                Frontend.ShowMessageBox($"Error updating FastFlags: {ex.Message}", MessageBoxImage.Error);
+                Frontend.ShowMessageBox($"Error updating FastFlags:\n{ex.Message}", MessageBoxImage.Error);
                 return updatedFlags;
             }
         }
@@ -1033,68 +1030,69 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             public static readonly HashSet<string> BannableFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
-                "DFFlagAnimationThrottlingInertialization",
-                "DFFlagAnimatorDrawSkeletonAll",
-                "DFFlagAnimatorDrawSkeletonAttachments",
-                "DFFlagAnimatorDrawSkeletonText",
-                "DFFlagAnimatorPostProcessIK",
-                "DFFlagDebugDrawBroadPhaseAABBS",
-                "DFFlagDebugDrawBvhNodes",
-                "DFFlagDebugDrawEnable",
-                "DFFlagDebugEnableInterpThrottle",
-                "DFFlagDebugPhysicsSenderDoesNotShrinkSimRadius",
-                "DFFlagNoRunningNoPhysics",
-                "DFIntAnimatorDrawSkeletonScalePercent",
-                "DFIntBulletContactBreakOrthogonalThresholdActivatePercent",
-                "DFIntBulletContactBreakOrthogonalThresholdPercent",
-                "DFIntBulletContactBreakThresholdPercent",
-                "DFIntGameNetDontSendRedundantDeltaPositionMillionth",
-                "DFIntGameNetDontSendRedundantDeltaThresholdMillionth",
-                "DFIntGameNetDontSendRedundantNumTimes",
-                "DFIntGameNetLocalSpaceMaxSendIndex",
-                "DFIntGameNetOptimizeParallelPhysicsSendAssemblyBatch",
-                "DFIntGameNetPVHeaderLinearVelocityZeroCutoffExponent",
-                "DFIntGameNetPVHeaderRotationalVelocityZeroCutoffExponent",
-                "DFIntGameNetPVHeaderRotationOrientIdToleranceExponent",
-                "DFIntGameNetPVHeaderTranslationZeroCutoffExponent",
-                "DFIntMaxAltitudePDHipHeightPercent",
-                "DFIntMaxClientSimulationRadius",
-                "DFIntMaximumFreefallMoveTimeInTenths",
-                "DFIntMaximumUnstickForceInGs",
-                "DFIntMaxMissedWorldStepsRemembered",
-                "DFIntMinClientSimulationRadius",
-                "DFIntMinimalSimRadiusBuffer",
-                "DFIntNewPDAltitudeNoForceZonePercent",
-                "DFIntNonSolidFloorPercentForceApplication",
-                "DFIntPhysicsDecompForceUpgradeVersion",
-                "DFIntPhysicsImprovedCyclicExecutiveThrottleThresholdTenth",
-                "DFIntRaycastMaxDistance",
-                "DFIntReplicatorAnimationTrackLimitPerAnimator",
-                "DFIntSimAdaptiveHumanoidPDControllerSubstepMultiplier",
-                "DFIntSimBlockLargeLocalToolWeldManipulationsThreshold",
-                "DFIntSimTimestepMultiplierDebounceCount",
-                "DFIntSmoothTerrainPhysicsRayAabbSlop",
-                "DFIntSolidFloorMassMultTenth",
-                "DFIntSolidFloorPercentForceApplication",
-                "DFIntTargetTimeDelayFacctorTenths",
-                "DFIntTouchSenderMaxBandwidthBps",
-                "DFIntUnstickForceDecayInTenths",
-                "DFIntUnstickForceEpsilonInHundredths",
-                "FFlagDataModelPatcherForceLocal",
-                "FFlagDebugHumanoidRendering",
-                "FFlagDebugNavigationDrawCompactHeightfield",
-                "FFlagDebugUseCustomSimRadius",
-                "FFlagEnablePhysicsAdaptiveTimeSteppingIXP",
-                "FFlagProcessAnimationLooped",
-                "FFlagRemapAnimationR6T0R15Rig",
-                "FFlagSimAdaptiveTimesteppingDefault2",
-                "FFlagAvatarJointFriction",
-                "FFlagCameraFarZPlane",
-                "FFlagInterpolationAwareTargetTimeLerpHundredth",
-                "FFlagParallelDynamicPartsFastClusterBatchSize",
-                "FFlagPhysicsStepsPerSecond",
-                "FFlagRaycastMaximumTableNestDepth",
-                "SFFlagBulletContactBreakOrthogonalThresholdPercent"
+             "DFFlagAnimationThrottlingInertialization",
+             "DFFlagAnimatorDrawSkeletonAll",
+             "DFFlagAnimatorDrawSkeletonAttachments",
+             "DFFlagAnimatorDrawSkeletonText",
+             "DFFlagAnimatorPostProcessIK",
+             "DFFlagDebugDrawBroadPhaseAABBs",
+             "DFFlagDebugDrawBvhNodes",
+             "DFFlagDebugDrawEnable",
+             "DFFlagDebugEnableInterpThrottle",
+             "DFFlagDebugPhysicsSenderDoesNotShrinkSimRadius",
+             "DFFlagNoRunningNoPhysics",
+             "DFIntAnimatorDrawSkeletonScalePercent",
+             "DFIntBulletContactBreakOrthogonalThresholdActivatePercent",
+             "DFIntBulletContactBreakOrthogonalThresholdPercent",
+             "DFIntBulletContactBreakThresholdPercent",
+             "DFIntGameNetDontSendRedundantDeltaPositionMillionth",
+             "DFIntGameNetDontSendRedundantDeltaThresholdMillionth",
+             "DFIntGameNetDontSendRedundantNumTimes",
+             "DFIntGameNetLocalSpaceMaxSendIndex",
+             "DFIntGameNetOptimizeParallelPhysicsSendAssemblyBatch",
+             "DFIntGameNetPVHeaderLinearVelocityZeroCutoffExponent",
+             "DFIntGameNetPVHeaderRotationalVelocityZeroCutoffExponent",
+             "DFIntGameNetPVHeaderRotationOrientIdToleranceExponent",
+             "DFIntGameNetPVHeaderTranslationZeroCutoffExponent",
+             "DFIntMaxAltitudePDHipHeightPercent",
+             "DFIntMaxClientSimulationRadius",
+             "DFIntMaximumFreefallMoveTimeInTenths",
+             "DFIntMaximumUnstickForceInGs",
+             "DFIntMaxMissedWorldStepsRemembered",
+             "DFIntMinClientSimulationRadius",
+             "DFIntMinimalSimRadiusBuffer",
+             "DFIntNewPDAltitudeNoForceZonePercent",
+             "DFIntNonSolidFloorPercentForceApplication",
+             "DFIntPhysicsDecompForceUpgradeVersion",
+             "DFIntPhysicsImprovedCyclicExecutiveThrottleThresholdTenth",
+             "DFIntPhysicsSenderMaxBandwidthBpsScaling",
+             "DFIntRaycastMaxDistance",
+             "DFIntReplicatorAnimationTrackLimitPerAnimator",
+             "DFIntSimAdaptiveHumanoidPDControllerSubstepMultiplier",
+             "DFIntSimBlockLargeLocalToolWeldManipulationsThreshold",
+             "DFIntSimTimestepMultiplierDebounceCount",
+             "DFIntSmoothTerrainPhysicsRayAabbSlop",
+             "DFIntSolidFloorMassMultTenth",
+             "DFIntSolidFloorPercentForceApplication",
+             "DFIntTargetTimeDelayFacctorTenths",
+             "DFIntTouchSenderMaxBandwidthBps",
+             "DFIntUnstickForceDecayInTenths",
+             "DFIntUnstickForceEpsilonInHundredths",
+             "FFlagDataModelPatcherForceLocal",
+             "FFlagDebugHumanoidRendering",
+             "FFlagDebugNavigationDrawCompactHeightfield",
+             "FFlagDebugUseCustomSimRadius",
+             "FFlagEnablePhysicsAdaptiveTimeSteppingIXP",
+             "FFlagProcessAnimationLooped",
+             "FFlagRemapAnimationR6T0R15Rig",
+             "FFlagSimAdaptiveTimesteppingDefault2",
+             "FFlagAvatarJointFriction",
+             "FFlagCameraFarZPlane",
+             "FFlagInterpolationAwareTargetTimeLerpHundredth",
+             "FFlagParallelDynamicPartsFastClusterBatchSize",
+             "FFlagPhysicsStepsPerSecond",
+             "FFlagRaycastMaximumTableNestDepth",
+             "SFFlagBulletContactBreakOrthogonalThresholdPercent",
             };
             public static bool IsBannable(string flagName) => BannableFlags.Contains(flagName);
         }

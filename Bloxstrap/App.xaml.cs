@@ -414,6 +414,13 @@ private static bool _showingExceptionDialog = false;
                 RobloxState.Load();
                 FastFlags.Load();
 
+                if (Settings.Prop.PreventBackgroundRun && LaunchSettings.WatcherFlag.Active)
+                {
+                    Logger.WriteLine("App::OnStartup", "PreventBackgroundRun is enabled — skipping Watcher");
+                    Terminate();
+                    return;
+                }
+
                 if (!Locale.SupportedLocales.ContainsKey(Settings.Prop.Locale))
                 {
                     Settings.Prop.Locale = "nil";

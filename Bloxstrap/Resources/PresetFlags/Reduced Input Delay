@@ -1,0 +1,19 @@
+{
+"FIntCLI20390_2": 0,
+"FFlagRobloxInputUsesRuntime": true,
+"FFlagPreferredInput": true,
+"FFlagFasterPreciseTime4": true,
+"FFlagLuaAppLegacyInputSettingRefactor": true, 
+"FIntActivatedCountTimerMSMouse": 0,
+"FIntActivatedCountTimerMSKeyboard": 0,
+"FIntDefaultJitterN": 0,
+"FFlagLuaMenuPerfImprovements": true,
+"FIntSmoothMouseSpringFrequencyTenths": 100,
+"DFIntMaxFrameBufferSize": 4,
+"FFlagMovePrerenderV2": false,
+"FFlagMovePrerender": false,
+"FIntScrollWheelDeltaAmount": 200,
+"FFlagSmoothInputOffset": true,
+"FFlagStylingFasterTagProcessing": true,
+"FFlagUserCameraControlLastInputTypeUpdate": false
+}

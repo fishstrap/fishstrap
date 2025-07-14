@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bloxstrap.UI.Elements.Settings.Pages;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -59,15 +60,11 @@ namespace Bloxstrap.UI.Elements.Dialogs
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 
-        private void StartLoadingDotsAnimation()
-        {
-            _loadingDotsTimer.Start();
-        }
-
+        private void StartLoadingDotsAnimation() => _loadingDotsTimer.Start();
         private void StopLoadingDotsAnimation()
         {
             _loadingDotsTimer?.Stop();
-            LoadingDotsText.Text = "";
+            LoadingDotsText.Text = string.Empty;
         }
 
         private async Task LoadAndDisplayMergedFlags()
@@ -78,7 +75,8 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             try
             {
-                var mergedFlags = await LoadAndMergeJsonSources();
+                using var client = App.HttpClient ?? new HttpClient();
+                var mergedFlags = await FastFlagEditorPage.LoadCombinedFlagsAsync(client);
                 _cachedFlagDictionary = mergedFlags;
                 IsFlagsLoaded = true;
                 ApplyFiltersAndDisplay();
@@ -97,96 +95,20 @@ namespace Bloxstrap.UI.Elements.Dialogs
             }
         }
 
-        private async Task<Dictionary<string, string>> LoadAndMergeJsonSources()
-        {
-            var urls = new[]
-            {
-                "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
-                "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-                "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
-            };
-
-            var mergedFlags = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-            using var client = new HttpClient();
-
-            foreach (var url in urls)
-            {
-                // Note: no try/catch here — handled inside DownloadJsonFlags
-                Dictionary<string, string> flags = url.Contains("clientsettings.roblox.com")
-                    ? await DownloadJsonFlags(client, url, isLiveSettings: true)
-                    : await DownloadJsonFlags(client, url);
-
-                foreach (var kvp in flags)
-                    mergedFlags[kvp.Key] = kvp.Value;
-            }
-
-            return mergedFlags.OrderBy(kvp => kvp.Key)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-        }
-
-        private async Task<Dictionary<string, string>> DownloadJsonFlags(HttpClient client, string url, bool isLiveSettings = false)
-        {
-            var flags = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-            try
-            {
-                using var response = await client.GetAsync(url);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    // Handle 404 and other HTTP errors gracefully by returning empty flags
-                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                    {
-                        // Optionally log or ignore silently
-                        return flags;
-                    }
-                    else
-                    {
-                        // You can also skip other HTTP errors or throw if needed
-                        return flags;
-                    }
-                }
-
-                var json = await response.Content.ReadAsStringAsync();
-
-                using var doc = JsonDocument.Parse(json);
-                JsonElement root = doc.RootElement;
-
-                if (isLiveSettings && root.TryGetProperty("applicationSettings", out JsonElement appSettings))
-                {
-                    foreach (var prop in appSettings.EnumerateObject())
-                        flags[prop.Name] = prop.Value.ToString();
-                }
-                else
-                {
-                    foreach (var prop in root.EnumerateObject())
-                        flags[prop.Name] = prop.Value.ToString();
-                }
-            }
-            catch (HttpRequestException)
-            {
-                // Network or HTTP failure - skip
-            }
-            catch (JsonException)
-            {
-                // JSON parse failure - skip
-            }
-            catch (Exception)
-            {
-                // Other exceptions - skip
-            }
-
-            return flags;
-        }
-
         private void ApplyFiltersAndDisplay()
         {
-            if (!IsFlagsLoaded) return;
+            if (!IsFlagsLoaded)
+                return;
 
+            var filtered = FilterFlags();
+            UpdateFilteredFlags(filtered);
+            FlagCountTextBlock.Text = $"Flags Found: {FilteredFlags.Count}";
+        }
+
+        private IEnumerable<KeyValuePair<string, string>> FilterFlags()
+        {
             string keywordText = KeywordSearchingTextbox.Text.Trim();
             string valueSearchText = ValueSearchTextBox.Text.Trim();
-
             bool showTrueOnly = TrueOnlyCheckBox.IsChecked == true;
             bool showFalseOnly = FalseOnlyCheckBox.IsChecked == true;
             string selectedType = (ValueTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "All";
@@ -197,110 +119,71 @@ namespace Bloxstrap.UI.Elements.Dialogs
             {
                 var keywords = keywordText
                     .Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(k => k.Trim().ToLowerInvariant())
-                    .ToArray();
+                    .Select(k => k.Trim());
 
-                if (keywords.Length > 0)
+                filtered = filtered.Where(kvp =>
                 {
-                    filtered = filtered.Where(kvp =>
-                    {
-                        string keyLower = kvp.Key.ToLowerInvariant();
-                        return keywords.All(kw => keyLower.Contains(kw));
-                    });
-                }
+                    var keyToCheck = kvp.Key;
+                    return keywords.All(kw => keyToCheck.Contains(kw));
+                });
             }
 
             if (!string.IsNullOrWhiteSpace(valueSearchText))
             {
                 var values = valueSearchText
                     .Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(v => v.Trim().ToLowerInvariant())
-                    .ToArray();
+                    .Select(v => v.Trim());
 
-                if (values.Length > 0)
+                filtered = filtered.Where(kvp =>
                 {
-                    filtered = filtered.Where(kvp =>
-                    {
-                        string valLower = kvp.Value.ToLowerInvariant();
-                        return values.Any(v => valLower.Contains(v));
-                    });
-                }
+                    var valueToCheck = kvp.Value;
+                    return values.Any(v => valueToCheck.Contains(v));
+                });
             }
 
             if (showTrueOnly && !showFalseOnly)
-            {
                 filtered = filtered.Where(kvp => kvp.Value.Equals("true", StringComparison.OrdinalIgnoreCase));
-            }
             else if (!showTrueOnly && showFalseOnly)
-            {
                 filtered = filtered.Where(kvp => kvp.Value.Equals("false", StringComparison.OrdinalIgnoreCase));
-            }
 
             if (!string.Equals(selectedType, "All", StringComparison.OrdinalIgnoreCase))
             {
                 filtered = filtered.Where(kvp =>
                 {
-                    string flagName = kvp.Key;
-                    if (selectedType.Equals("Boolean", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return flagName.StartsWith("DFFlag", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("FFlag", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("FLog", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("DFLog", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("SFFlag", StringComparison.OrdinalIgnoreCase);
-                    }
-                    else if (selectedType.Equals("Integer", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return flagName.StartsWith("FInt", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("DFInt", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("FLog", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("DFLog", StringComparison.OrdinalIgnoreCase);
-                    }
-                    else if (selectedType.Equals("String", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return flagName.StartsWith("FString", StringComparison.OrdinalIgnoreCase)
-                            || flagName.StartsWith("DFString", StringComparison.OrdinalIgnoreCase);
-                    }
-                    return true;
+                    string type = GetFlagType(kvp.Key);
+                    return selectedType.Equals(type, StringComparison.OrdinalIgnoreCase);
                 });
             }
 
+            return filtered;
+        }
+
+        private void UpdateFilteredFlags(IEnumerable<KeyValuePair<string, string>> filtered)
+        {
             FilteredFlags.Clear();
             foreach (var kvp in filtered)
             {
-                string displayValue = kvp.Value;
-                string flagType = GetFlagType(kvp.Key);
-
-                if (flagType.Equals("Boolean", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (string.Equals(displayValue, "true", StringComparison.OrdinalIgnoreCase))
-                        displayValue = "True";
-                    else if (string.Equals(displayValue, "false", StringComparison.OrdinalIgnoreCase))
-                        displayValue = "False";
-                }
-                else if (flagType.Equals("Unknown", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (string.Equals(displayValue, "true", StringComparison.OrdinalIgnoreCase))
-                        displayValue = "True";
-                    else if (string.Equals(displayValue, "false", StringComparison.OrdinalIgnoreCase))
-                        displayValue = "False";
-                }
+                var type = GetFlagType(kvp.Key);
+                var value = NormalizeDisplayValue(kvp.Value, type);
 
                 FilteredFlags.Add(new FlagEntry
                 {
                     Name = kvp.Key,
-                    Value = displayValue,
-                    Type = flagType
+                    Value = value,
+                    Type = type
                 });
             }
-
-            FlagCountTextBlock.Text = $"Flags Found: {FilteredFlags.Count}";
         }
 
-        private void ValueSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private string NormalizeDisplayValue(string value, string type)
         {
-            if (!IsFlagsLoaded) return;
-            DebouncedFilter();
+            if ((type == "Boolean" || type == "Unknown") &&
+                (value.Equals("true", StringComparison.OrdinalIgnoreCase) || value.Equals("false", StringComparison.OrdinalIgnoreCase)))
+            {
+                return char.ToUpper(value[0]) + value.Substring(1).ToLower();
+            }
+
+            return value;
         }
 
         private string GetFlagType(string flagName)
@@ -324,6 +207,12 @@ namespace Bloxstrap.UI.Elements.Dialogs
         }
 
         private void KeywordSearching(object sender, TextChangedEventArgs e)
+        {
+            if (!IsFlagsLoaded) return;
+            DebouncedFilter();
+        }
+
+        private void ValueSearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!IsFlagsLoaded) return;
             DebouncedFilter();
@@ -386,7 +275,6 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
         private void FlagDataGrid_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            // Check for Ctrl+C
             if (e.Key == System.Windows.Input.Key.C &&
                 (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) == System.Windows.Input.ModifierKeys.Control)
             {
@@ -398,7 +286,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                         var dict = selectedFlags.ToDictionary(f => f.Name, f => f.Value);
                         var json = JsonSerializer.Serialize(dict, new JsonSerializerOptions { WriteIndented = true });
                         Clipboard.SetText(json);
-                        e.Handled = true; // Prevent further processing
+                        e.Handled = true;
                     }
                     catch (Exception ex)
                     {

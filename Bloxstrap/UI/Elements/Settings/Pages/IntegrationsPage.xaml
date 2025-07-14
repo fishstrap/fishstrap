@@ -25,6 +25,12 @@
             <ui:ToggleSwitch IsChecked="{Binding ActivityTrackingEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
+        <controls:OptionControl
+            Header="Stop Froststrap From Running in Background"
+            Description="Stops Froststrap from running in the background after Roblox launches, This Disables Discord Rich Presence and tray features like Logs Menu and Server Info.">
+            <ui:ToggleSwitch IsChecked="{Binding PreventBackgroundRun, Mode=TwoWay}" />
+        </controls:OptionControl>
+
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Integrations_QueryServerLocation_Title}" 
             Description="{Binding Source={x:Static resources:Strings.Menu_Integrations_QueryServerLocation_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://ipinfo.io'}"

@@ -38,20 +38,17 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        public bool DisableGameDvr
+        public bool DisableGameDVR
         {
-            get => GameDvrToggle.IsGameDvrEnabled();
+            get => GameDvrToggle.IsGameDvrDisabled();
             set
             {
-                bool newEnabledState = !value;
-                if (GameDvrToggle.IsGameDvrEnabled() == newEnabledState)
+                if (GameDvrToggle.IsGameDvrDisabled() == value)
                     return;
 
-                bool success = GameDvrToggle.ToggleGameDvr(newEnabledState);
+                bool success = GameDvrToggle.ToggleGameDvr(value);
                 if (success)
-                {
-                    OnPropertyChanged(nameof(DisableGameDvr));
-                }
+                    OnPropertyChanged(nameof(DisableGameDVR));
             }
         }
 

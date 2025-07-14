@@ -24,11 +24,30 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private async void SubmitCode_Click(object sender, RoutedEventArgs e)
         {
-            if (CodeInputBox.Text.Trim() == EasterEggCode)
+            string input = CodeInputBox.Text.Trim();
+
+            if (input.Equals(EasterEggCode, StringComparison.OrdinalIgnoreCase))
             {
                 var clickerGameWindow = new ClickerGame.MainWindow();
                 clickerGameWindow.Owner = Window.GetWindow(this);
                 clickerGameWindow.ShowDialog();
+            }
+            else if (input.Equals("Carti", StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    string url = "https://youtu.be/1nVcrKjJtxs?si=3eVYYMGweGyc1BtV";
+
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Frontend.ShowMessageBox($"Failed to open URL:\n\n{ex.Message}", MessageBoxImage.Error, MessageBoxButton.OK );
+                }
             }
             else
             {

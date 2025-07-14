@@ -81,7 +81,7 @@
                              PrimaryIconToolTip="Performance Optimization"
                              VerticalAlignment="Top">
                     <controls:SquareCard.ButtonContent>
-                        <ui:ToggleSwitch IsChecked="{Binding DisableGameDvr, Mode=TwoWay}" />
+                        <ui:ToggleSwitch IsChecked="{Binding DisableGameDVR, Mode=TwoWay}" />
                     </controls:SquareCard.ButtonContent>
                 </controls:SquareCard>
 

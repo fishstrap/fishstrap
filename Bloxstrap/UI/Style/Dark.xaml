@@ -4,4 +4,6 @@
     <SolidColorBrush x:Key="NewTextEditorLink" Color="#3A9CEA" />
     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#0FFFFFFF" />
     <SolidColorBrush x:Key="NormalDarkAndLightBackground" Color="#0FFFFFFF" />
+
+    <SolidColorBrush x:Key="WindowTransparentBackgroundGradient" Color="#0FFFFFFF"/>
 </ResourceDictionary>

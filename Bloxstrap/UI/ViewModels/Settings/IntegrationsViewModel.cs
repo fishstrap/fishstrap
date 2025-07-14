@@ -98,10 +98,18 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.ShowServerDetails = value;
         }
 
+        public bool PreventBackgroundRun
+        {
+            get => App.Settings.Prop.PreventBackgroundRun;
+            set => App.Settings.Prop.PreventBackgroundRun = value;
+        }
+
+
         public bool PlayerLogsEnabled
         {
             get => App.FastFlags.GetPreset("Players.LogLevel") == "trace"; // we r using this to determine if its enabled
-            set {
+            set 
+            {
                 App.FastFlags.SetPreset("Players.LogLevel", value ? "trace" : null);
                 App.FastFlags.SetPreset("Players.LogPattern", value ? "ExpChat/mountClientApp" : null);
             }

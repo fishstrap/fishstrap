@@ -1004,6 +1004,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (value == RefreshRate.Default)
                 {
                     App.FastFlags.SetPreset("System.TargetRefreshRate1", null);
+                    App.FastFlags.SetPreset("System.TargetRefreshRate2", null);
+                    App.FastFlags.SetPreset("System.TargetRefreshRate3", null);
                 }
                 else if (value == RefreshRate.CustomValue)
                 {
@@ -1013,13 +1015,28 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 {
                     var presetValue = RefreshRates[value];
                     App.FastFlags.SetPreset("System.TargetRefreshRate1", presetValue);
+
+                    // Try parse FPS from presetValue (assuming presetValue is a string representing FPS like "60")
+                    if (double.TryParse(presetValue, out double fps) && fps > 0)
+                    {
+                        int minFrameTime = (int)Math.Round(1000.0 / fps);
+                        int maxFrameTime = minFrameTime + 1;
+
+                        App.FastFlags.SetPreset("System.TargetRefreshRate2", minFrameTime.ToString());
+                        App.FastFlags.SetPreset("System.TargetRefreshRate3", maxFrameTime.ToString());
+                    }
+                    else
+                    {
+                        // Clear or fallback if parsing fails
+                        App.FastFlags.SetPreset("System.TargetRefreshRate2", null);
+                        App.FastFlags.SetPreset("System.TargetRefreshRate3", null);
+                    }
                 }
 
                 OnPropertyChanged(nameof(SelectedRefreshRate));
                 OnPropertyChanged(nameof(RefreshRateOptions));
             }
         }
-
 
         public bool ResetConfiguration
         {

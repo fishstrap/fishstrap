@@ -221,10 +221,10 @@
                 </DataGrid.CellStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="{x:Static resources:Strings.Common_Presets}" x:Name="PresetColumn" CanUserResize="False">
+                    <DataGridTemplateColumn Width="67" Header="{x:Static resources:Strings.Common_Presets}" x:Name="PresetColumn" CanUserResize="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Height="20" Width="20" Source="{Binding Preset}"  />
+                                <Image Height="28" Width="28" Source="{Binding Preset}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

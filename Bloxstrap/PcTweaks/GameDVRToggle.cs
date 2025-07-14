@@ -8,7 +8,19 @@ namespace Bloxstrap.PcTweaks
 {
     internal static class GameDvrToggle
     {
-        public static bool ToggleGameDvr(bool enable)
+        private static readonly (RegistryKey Hive, string Path, string Name, object Value, RegistryValueKind Kind)[] DisabledSettings =
+        {
+        (Registry.CurrentUser, @"System\GameConfigStore", "GameDVR_Enabled", 0, RegistryValueKind.DWord),
+        (Registry.LocalMachine, @"SOFTWARE\Policies\Microsoft\Windows\GameDVR", "AllowGameDVR", 0, RegistryValueKind.DWord)
+    };
+
+        private static readonly (RegistryKey Hive, string Path, string Name, object Value, RegistryValueKind Kind)[] EnabledSettings =
+        {
+        (Registry.CurrentUser, @"System\GameConfigStore", "GameDVR_Enabled", 1, RegistryValueKind.DWord),
+        (Registry.LocalMachine, @"SOFTWARE\Policies\Microsoft\Windows\GameDVR", "AllowGameDVR", 1, RegistryValueKind.DWord)
+    };
+
+        public static bool ToggleGameDvr(bool disable)
         {
             if (!IsRunningAsAdmin())
             {
@@ -25,34 +37,65 @@ namespace Bloxstrap.PcTweaks
 
             try
             {
-                int dvrValue = enable ? 1 : 0;
+                var settingsToWrite = disable ? DisabledSettings : EnabledSettings;
 
-                using (var userKey = Registry.CurrentUser.CreateSubKey(@"System\GameConfigStore"))
+                foreach (var (hive, path, name, value, kind) in settingsToWrite)
                 {
-                    userKey?.SetValue("GameDVR_Enabled", dvrValue, RegistryValueKind.DWord);
-                }
+                    using var key = hive.CreateSubKey(path, writable: true);
+                    if (key == null)
+                        throw new Exception($"Failed to open or create registry key: {path}");
 
-                using (var machineKey = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Policies\Microsoft\Windows\GameDVR"))
-                {
-                    machineKey?.SetValue("AllowGameDVR", dvrValue, RegistryValueKind.DWord);
+                    key.SetValue(name, value, kind);
                 }
 
                 Frontend.ShowMessageBox(
-                    $"Game DVR has been {(enable ? "enabled" : "disabled")}.\n\nRestart your PC or sign out for this to take full effect.",
+                    $"Game DVR setting has been {(disable ? "turned off" : "restored")}.\n\nPlease restart your PC or sign out to apply changes.",
                     MessageBoxImage.Information,
                     MessageBoxButton.OK);
+
+                return true;
             }
             catch (Exception ex)
             {
                 Frontend.ShowMessageBox(
-                    $"Failed to {(enable ? "enable" : "disable")} Game DVR:\n\n{ex.Message}",
+                    $"Failed to update Game DVR setting:\n\n{ex.Message}",
                     MessageBoxImage.Error,
                     MessageBoxButton.OK);
-
                 return false;
             }
+        }
 
-            return true;
+        public static bool IsGameDvrDisabled()
+        {
+            try
+            {
+                foreach (var (hive, path, name, expectedValue, kind) in DisabledSettings)
+                {
+                    using var key = hive.OpenSubKey(path);
+                    if (key == null)
+                        return false;
+
+                    var actualValue = key.GetValue(name);
+                    if (actualValue == null)
+                        return false;
+
+                    if (kind == RegistryValueKind.DWord)
+                    {
+                        if (Convert.ToInt32(actualValue) != Convert.ToInt32(expectedValue))
+                            return false;
+                    }
+                    else if (!actualValue.Equals(expectedValue))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private static bool IsRunningAsAdmin()
@@ -64,11 +107,11 @@ namespace Bloxstrap.PcTweaks
 
         private static void RestartElevated()
         {
-            string? exePath = Process.GetCurrentProcess().MainModule?.FileName;
-            if (exePath == null) return;
-
             try
             {
+                string? exePath = Process.GetCurrentProcess().MainModule?.FileName;
+                if (exePath == null) return;
+
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = exePath,
@@ -79,30 +122,6 @@ namespace Bloxstrap.PcTweaks
                 Application.Current.Shutdown();
             }
             catch { }
-        }
-
-        public static bool IsGameDvrEnabled()
-        {
-            try
-            {
-                using var userKey = Registry.CurrentUser.OpenSubKey(@"System\GameConfigStore");
-                using var machineKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Policies\Microsoft\Windows\GameDVR");
-
-                if (userKey == null || machineKey == null)
-                    return false;
-
-                var userValue = userKey.GetValue("GameDVR_Enabled");
-                var machineValue = machineKey.GetValue("AllowGameDVR");
-
-                if (userValue == null || machineValue == null)
-                    return false;
-
-                return Convert.ToInt32(userValue) == 1 && Convert.ToInt32(machineValue) == 1;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }
