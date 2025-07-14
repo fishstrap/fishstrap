@@ -75,7 +75,7 @@
                         <Button Grid.Column="1" Content="Rename" Click="RenameButton_Click" VerticalAlignment="Center" Margin="0,0,6,0" MinWidth="100" Padding="10,6" FontWeight="Medium" />
                         <Button Grid.Column="2" Content="Update" Click="UpdateButton_Click" VerticalAlignment="Center" MinWidth="100" Padding="10,6" FontWeight="Medium" />
                     </Grid>
-                    <ListBox x:Name="LoadProfile" Grid.Row="1" SelectionChanged="LoadProfile_SelectionChanged" BorderThickness="1" SelectedIndex="0" Background="{DynamicResource NormalDarkAndLightBackground}" Padding="4" />
+                    <ListBox x:Name="LoadProfile" Grid.Row="1" SelectionChanged="LoadProfile_SelectionChanged" BorderThickness="1" Background="{DynamicResource NormalDarkAndLightBackground}" Padding="4" />
                     <TextBlock x:Name="LoadProfileEmptyText" Grid.Row="1" Text="No Profiles Found" Foreground="{DynamicResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" Margin="0,24,0,0" Visibility="Collapsed" IsHitTestVisible="False" />
                 </Grid>
             </TabItem>

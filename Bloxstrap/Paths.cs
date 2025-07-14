@@ -32,6 +32,7 @@
 
         public static string Application { get; private set; } = "";
         public static string ShortcutIcons => Path.Combine(LocalAppData, App.ProjectName, "ShortcutIcons");
+        public static string FastFlagCache { get; private set; } = "";
 
         public static string CustomFont => Path.Combine(Modifications, "content", "fonts", "CustomFont.ttf");
 
@@ -51,11 +52,13 @@
             Roblox = Path.Combine(Base, "Roblox");
             CustomThemes = Path.Combine(Base, "CustomThemes");
             CustomCursors = Path.Combine(Base, "CustomCursorsSets");
+            FastFlagCache = Path.Combine(Base, "FastFlagCache");
 
             Application = Path.Combine(Base, $"{App.ProjectName}.exe");
 
             // Ensure ShortcutIcons directory exists
             Directory.CreateDirectory(ShortcutIcons);
+            Directory.CreateDirectory(FastFlagCache);
         }
 
     }

@@ -287,14 +287,14 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             dialog.ShowDialog();
         }
 
-        private static readonly string CacheFolder = Path.Combine(AppContext.BaseDirectory, "FastFlagCache");
+        private static readonly string CacheFolder = Paths.FastFlagCache;
         private static readonly TimeSpan CacheExpiry = TimeSpan.FromDays(1);
 
         private static readonly string[] JsonUrls = new[]
         {
             "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
             "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
-        "   https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
+            "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
         };
 
         private static string GetSafeFilename(string url)

@@ -166,6 +166,12 @@ namespace Bloxstrap.UI.Elements.Dialogs
         {
             switch (Tabs.SelectedIndex)
             {
+                case 0: // Save tab
+                    if (!string.IsNullOrWhiteSpace(SaveProfile.Text))
+                    {
+                        App.FastFlags.SaveProfile(SaveProfile.Text);
+                    }
+                    break;
                 case 1: // Load tab
                     if (LoadProfile.SelectedItem is string selectedProfile)
                     {
@@ -177,13 +183,6 @@ namespace Bloxstrap.UI.Elements.Dialogs
                     if (LoadPresetProfile.SelectedItem is string selectedPreset)
                     {
                         App.FastFlags.LoadPresetProfile(selectedPreset, clearFlags: true);
-                    }
-                    break;
-
-                case 0: // Save tab (optional)
-                    if (!string.IsNullOrWhiteSpace(SaveProfile.Text))
-                    {
-                        App.FastFlags.SaveProfile(SaveProfile.Text);
                     }
                     break;
             }

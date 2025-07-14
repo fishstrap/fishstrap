@@ -931,16 +931,16 @@ namespace Bloxstrap
         #endregion
 
         #region App Install
-
         private string NormalizeVersion(string version)
         {
             return version.Trim().TrimStart('v', 'V');
         }
+
         private async Task<bool> CheckForUpdates()
         {
             const string LOG_IDENT = "Bootstrapper::CheckForUpdates";
 
-            // Check if another instance is running
+            // Ensure single instance update to avoid conflicts
             if (Process.GetProcessesByName(App.ProjectName).Length > 1)
             {
                 App.Logger.WriteLine(LOG_IDENT, $"More than one instance detected, aborting update.");
@@ -960,11 +960,18 @@ namespace Bloxstrap
 
             var versionComparison = Utilities.CompareVersions(currentVersionNormalized, releaseVersionNormalized);
 
-            if (App.IsProductionBuild &&
-                (versionComparison == VersionComparison.Equal || versionComparison == VersionComparison.GreaterThan))
+            if (App.IsProductionBuild)
             {
-                App.Logger.WriteLine(LOG_IDENT, $"Current version ({App.Version}) is up to date or newer than release ({releaseInfo.TagName}), skipping update.");
-                return false;
+                if (versionComparison == VersionComparison.Equal)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Current version ({App.Version}) is up to date with release ({releaseInfo.TagName}), skipping update.");
+                    return false;
+                }
+                else if (versionComparison == VersionComparison.GreaterThan)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Current version ({App.Version}) is newer than release ({releaseInfo.TagName}), skipping update.");
+                    return false;
+                }
             }
 
             if (Dialog is not null)
@@ -992,7 +999,6 @@ namespace Bloxstrap
 
                 if (File.Exists(downloadLocation))
                 {
-                    var fileInfo = new FileInfo(downloadLocation);
                     try
                     {
                         using var headRequest = new HttpRequestMessage(HttpMethod.Head, asset.BrowserDownloadUrl);
@@ -1000,6 +1006,7 @@ namespace Bloxstrap
                         if (headResponse.IsSuccessStatusCode && headResponse.Content.Headers.ContentLength.HasValue)
                         {
                             long remoteSize = headResponse.Content.Headers.ContentLength.Value;
+                            var fileInfo = new FileInfo(downloadLocation);
                             if (fileInfo.Length == remoteSize)
                             {
                                 downloadRequired = false;
@@ -1018,7 +1025,7 @@ namespace Bloxstrap
                     catch (Exception ex)
                     {
                         App.Logger.WriteLine(LOG_IDENT, $"Failed to check remote file size: {ex.Message}");
-                        // fallback to downloading
+                        // fallback to download
                     }
                 }
 
@@ -1037,8 +1044,11 @@ namespace Bloxstrap
 
                 var startInfo = new ProcessStartInfo(downloadLocation)
                 {
-                    Arguments = "-upgrade"
+                    UseShellExecute = true // Important for GUI apps and elevation
                 };
+
+                // Use ArgumentList to avoid the 'Arguments or ArgumentList' exception
+                startInfo.ArgumentList.Add("-upgrade");
 
                 foreach (string arg in App.LaunchSettings.Args)
                     startInfo.ArgumentList.Add(arg);
@@ -1051,6 +1061,7 @@ namespace Bloxstrap
                 App.Settings.Save();
 
                 using var updateLock = new InterProcessLock("AutoUpdater");
+
                 Process.Start(startInfo);
 
                 return true;
