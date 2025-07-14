@@ -1,7 +1,7 @@
 > [!CAUTION]
 > This and https://github.com/Meddsam/Froststrap are the only official places to install Froststrap. Any other websites offering downloads or claiming to be us are not controlled by us (Example: Froststrap.com). We strongly recommend **not** downloading from any unofficial sources.
 >
-> Had to create a new repository due to losing access to my previous github account
+> Had to create a new repository due to losing access to my previous Github account
 
 <p align="center">
     <img src="https://github.com/RealMeddsam/Froststrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="700">
@@ -32,6 +32,7 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 - Disable Roblox in-game screenshot and video recording system
 - Multi-Instance launching
 - Cleaner
+- Stop Froststrap from running in the background after launching Roblox
 - Use old Roblox icons in the taskbar
 - Easily use Custom Cursor
 - Have a bunch of Custom Cursor Sets ready for use
