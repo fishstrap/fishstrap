@@ -15,7 +15,8 @@
 Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/KdR9vpRcUN).
 
 [![License][badge-repo-license]][repo-license]
-[![Downloads][badge-repo-downloads]][repo-releases]
+[![Downloads (Total)][badge-repo-downloads-total]][repo-releases]
+[![Downloads (Latest)][badge-repo-downloads]][repo-releases]
 [![Version][badge-repo-latest]][repo-latest]
 [![Discord][badge-discord]][discord-invite]
 [![Stars][badge-repo-stars]][repo-stargazer]
@@ -78,6 +79,7 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 <!-- Badge Definitions -->
 [badge-repo-license]:    https://img.shields.io/github/license/RealMeddsam/Froststrap?style=flat-square
 [badge-repo-downloads]:  https://img.shields.io/github/downloads/RealMeddsam/Froststrap/latest/total?style=flat-square&color=981bfe
+[badge-repo-downloads-total]: https://img.shields.io/github/downloads/RealMeddsam/Froststrap/total?style=flat-square&color=bb00ff
 [badge-repo-latest]:     https://img.shields.io/github/v/release/RealMeddsam/Froststrap?style=flat-square&color=7a39fb
 [badge-repo-stars]:      https://img.shields.io/github/stars/RealMeddsam/Froststrap?style=flat-square&color=dd9900
 [badge-discord]:         https://img.shields.io/discord/1364660238963179520?style=flat-square&logo=discord&logoColor=white&logoSize=auto&label=discord&color=4d3dff
