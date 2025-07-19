@@ -77,12 +77,12 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 ---
 
 <!-- Badge Definitions -->
-[badge-repo-license]:    https://img.shields.io/github/license/RealMeddsam/Froststrap?style=flat-square
-[badge-repo-downloads]:  https://img.shields.io/github/downloads/RealMeddsam/Froststrap/latest/total?style=flat-square&color=981bfe
-[badge-repo-downloads-total]: https://img.shields.io/github/downloads/RealMeddsam/Froststrap/total?style=flat-square&color=bb00ff
-[badge-repo-latest]:     https://img.shields.io/github/v/release/RealMeddsam/Froststrap?style=flat-square&color=7a39fb
-[badge-repo-stars]:      https://img.shields.io/github/stars/RealMeddsam/Froststrap?style=flat-square&color=dd9900
-[badge-discord]:         https://img.shields.io/discord/1364660238963179520?style=flat-square&logo=discord&logoColor=white&logoSize=auto&label=discord&color=4d3dff
+[badge-repo-license]:    https://img.shields.io/github/license/RealMeddsam/Froststrap?style=flat-square&color=37add9
+[badge-repo-downloads]:  https://img.shields.io/github/downloads/RealMeddsam/Froststrap/latest/total?style=flat-square&color=37add9
+[badge-repo-downloads-total]: https://img.shields.io/github/downloads/RealMeddsam/Froststrap/total?style=flat-square&color=37add9
+[badge-repo-latest]:     https://img.shields.io/github/v/release/RealMeddsam/Froststrap?style=flat-square&color=37add9
+[badge-repo-stars]:      https://img.shields.io/github/stars/RealMeddsam/Froststrap?style=flat-square&color=37add9
+[badge-discord]:         https://img.shields.io/discord/1364660238963179520?style=flat-square&logo=discord&logoColor=white&label=discord&color=37add9
 
 [repo-license]:  https://github.com/RealMeddsam/Froststrap/blob/main/LICENSE
 [repo-actions]:  https://github.com/RealMeddsam/Froststrap/actions
