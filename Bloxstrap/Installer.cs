@@ -111,7 +111,7 @@ namespace Bloxstrap
             if (CreateStartMenuShortcuts)
                 Shortcut.Create(Paths.Application, "", StartMenuShortcut);
 
-            if (ImportSettings && ImportSource != ImportSettingsFrom.None)
+            if (ImportSource != ImportSettingsFrom.None)
             {
                 try
                 {
