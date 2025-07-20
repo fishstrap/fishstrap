@@ -48,6 +48,8 @@ namespace Bloxstrap
 
         public const string ApisKey = $"Software\\{ProjectName}";
 
+        public const int TaskbarProgressMaximum = 100;
+
         public static LaunchSettings LaunchSettings { get; private set; } = null!;
 
         public static BuildMetadataAttribute BuildMetadata = Assembly.GetExecutingAssembly().GetCustomAttribute<BuildMetadataAttribute>()!;
