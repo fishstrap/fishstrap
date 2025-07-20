@@ -8,6 +8,7 @@ namespace Bloxstrap.Extensions
         {
             //BootstrapperIcon.IconFishstrap,
             BootstrapperIcon.IconBloxstrap,
+            BootstrapperIcon.Icon2025,
             BootstrapperIcon.Icon2022,
             BootstrapperIcon.Icon2019,
             BootstrapperIcon.Icon2017,
@@ -55,7 +56,7 @@ namespace Bloxstrap.Extensions
 
             return icon switch
             {
-                //BootstrapperIcon.IconFishstrap => Properties.Resources.IconFishstrap,
+                // BootstrapperIcon.IconFishstrap => Properties.Resources.IconFishstrap,
                 BootstrapperIcon.IconBloxstrap => Properties.Resources.IconBloxstrap,
                 BootstrapperIcon.Icon2008 => Properties.Resources.Icon2008,
                 BootstrapperIcon.Icon2011 => Properties.Resources.Icon2011,
@@ -64,6 +65,7 @@ namespace Bloxstrap.Extensions
                 BootstrapperIcon.Icon2017 => Properties.Resources.Icon2017,
                 BootstrapperIcon.Icon2019 => Properties.Resources.Icon2019,
                 BootstrapperIcon.Icon2022 => Properties.Resources.Icon2022,
+                BootstrapperIcon.Icon2025 => Properties.Resources.Icon2025,
                 BootstrapperIcon.IconBloxstrapClassic => Properties.Resources.IconBloxstrapClassic,
                 _ => Properties.Resources.IconBloxstrap
             };

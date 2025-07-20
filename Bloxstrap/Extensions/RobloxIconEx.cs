@@ -29,6 +29,7 @@ namespace Bloxstrap.Extensions
                 RobloxIcon.Icon2017 => Properties.Resources.Icon2017,
                 RobloxIcon.Icon2019 => Properties.Resources.Icon2019,
                 RobloxIcon.Icon2022 => Properties.Resources.Icon2022,
+                RobloxIcon.Default => Properties.Resources.Icon2025,
                 _ => Properties.Resources.IconBloxstrap
             };
         }

@@ -14,6 +14,7 @@ namespace Bloxstrap.Models.SettingTasks
             "Icon2017.ico",
             "Icon2019.ico",
             "Icon2022.ico",
+            "Icon2025.ico",
             "IconBloxstrap.ico",
             "IconEarly2015.ico",
             "IconLate2015.ico"
