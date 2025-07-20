@@ -228,33 +228,5 @@
                 </StackPanel>
             </ui:CardAction>
         </Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <ui:CardAction
-        Grid.Row="0"
-        Grid.Column="0"
-        Margin="0,8,8,0"
-        Command="models:GlobalViewModel.OpenWebpageCommand"
-        CommandParameter="https://github.com/sharpdx/SharpDX/blob/master/LICENSE">
-                <StackPanel>
-                    <TextBlock FontSize="14" Text="Voidstrap - MIT" />
-                    <TextBlock
-                Margin="0,2,0,0"
-                FontSize="12"
-                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
-                </StackPanel>
-            </ui:CardAction>
-        </Grid>
     </StackPanel>
 </ui:UiPage>

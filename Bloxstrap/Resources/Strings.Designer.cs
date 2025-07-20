@@ -2811,7 +2811,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No compatible installation found. Please ensure Bloxstrap, Voidstrap, or Fishstrap 
+        ///   Looks up a localized string similar to No compatible installation found. Please ensure Bloxstrap, Fishstrap, Voidstrap, or Lunastrap
         ///is installed in your user profile to import settings..
         /// </summary>
         public static string Installer_InstallationNotFound {

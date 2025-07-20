@@ -2342,7 +2342,7 @@ Would you like to switch your preferred channel to {0}?</value>
     <value>Import settings from Bloxstrap</value>
   </data>
   <data name="Installer.InstallationNotFound" xml:space="preserve">
-    <value>No compatible installation found. Please ensure Bloxstrap, Voidstrap, or Fishstrap 
+    <value>No compatible installation found. Please ensure Bloxstrap, Fishstrap, Voidstrap, or Lunastrap
 is installed in your user profile to import settings.</value>
   </data>
   <data name="Bootstrapper.Dialog.AnselDisabled" xml:space="preserve">
