@@ -12,9 +12,9 @@
         mc:Ignorable="d"
         Title="{x:Static resources:Strings.Dialog_AddFastFlag_Title}" 
         MinHeight="0"
-        Width="540"
+        Width="560"
         SizeToContent="Height"
-        ResizeMode="NoResize"
+        ResizeMode="CanResize"
         Background="{ui:ThemeResource ApplicationBackgroundBrush}"
         ExtendsContentIntoTitleBar="True"
         WindowStartupLocation="CenterScreen">

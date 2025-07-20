@@ -284,6 +284,15 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             var dialog = new AdvancedSettingsDialog();
             dialog.Owner = Window.GetWindow(this);
+
+            dialog.SettingsSaved += (_, _) =>
+            {
+                if (Window.GetWindow(this) is MainWindow mainWindow)
+                {
+                    mainWindow.SettingsSavedSnackbar.Show();
+                }
+            };
+
             dialog.ShowDialog();
         }
 

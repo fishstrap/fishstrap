@@ -51,15 +51,7 @@
 
                         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
                             <TextBlock Text="{x:Static resources:Strings.Common_Value}" FontWeight="SemiBold" Width="120" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="FlagValueComboBox"
-              Width="220"
-              IsEditable="True"
-              IsTextSearchEnabled="True"
-              StaysOpenOnEdit="True"
-              ItemsSource="{Binding CommonValuesView.View}"
-              SelectedValuePath="Value"
-              DisplayMemberPath="Value"
-              />
+                            <ComboBox x:Name="FlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" DisplayMemberPath="Value" />
                         </StackPanel>
                     </Grid>
                 </Border>
