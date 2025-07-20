@@ -112,6 +112,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             bool showTrueOnly = TrueOnlyCheckBox.IsChecked == true;
             bool showFalseOnly = FalseOnlyCheckBox.IsChecked == true;
             string selectedType = (ValueTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "All";
+            string selectedPrefix = (PrefixFilterComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "All";
 
             IEnumerable<KeyValuePair<string, string>> filtered = _cachedFlagDictionary;
 
@@ -124,7 +125,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 filtered = filtered.Where(kvp =>
                 {
                     var keyToCheck = kvp.Key;
-                    return keywords.All(kw => keyToCheck.Contains(kw));
+                    return keywords.All(kw => keyToCheck.Contains(kw, StringComparison.OrdinalIgnoreCase));
                 });
             }
 
@@ -137,14 +138,18 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 filtered = filtered.Where(kvp =>
                 {
                     var valueToCheck = kvp.Value;
-                    return values.Any(v => valueToCheck.Contains(v));
+                    return values.Any(v => valueToCheck.Contains(v, StringComparison.OrdinalIgnoreCase));
                 });
             }
 
             if (showTrueOnly && !showFalseOnly)
+            {
                 filtered = filtered.Where(kvp => kvp.Value.Equals("true", StringComparison.OrdinalIgnoreCase));
+            }
             else if (!showTrueOnly && showFalseOnly)
+            {
                 filtered = filtered.Where(kvp => kvp.Value.Equals("false", StringComparison.OrdinalIgnoreCase));
+            }
 
             if (!string.Equals(selectedType, "All", StringComparison.OrdinalIgnoreCase))
             {
@@ -153,6 +158,12 @@ namespace Bloxstrap.UI.Elements.Dialogs
                     string type = GetFlagType(kvp.Key);
                     return selectedType.Equals(type, StringComparison.OrdinalIgnoreCase);
                 });
+            }
+
+            if (!string.Equals(selectedPrefix, "All", StringComparison.OrdinalIgnoreCase))
+            {
+                filtered = filtered.Where(kvp =>
+                    kvp.Key.StartsWith(selectedPrefix, StringComparison.OrdinalIgnoreCase));
             }
 
             return filtered;
@@ -271,6 +282,12 @@ namespace Bloxstrap.UI.Elements.Dialogs
             {
                 MessageBox.Show($"Export failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void PrefixFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsFlagsLoaded) return;
+            ApplyFiltersAndDisplay();
         }
 
         private void FlagDataGrid_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)

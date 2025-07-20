@@ -111,13 +111,28 @@
 
                 <TextBlock Text="Filter by:" VerticalAlignment="Center" Margin="0,0,6,0" FontWeight="SemiBold" />
 
-                <ComboBox x:Name="ValueTypeComboBox" MinWidth="100" MinHeight="32"
-              SelectionChanged="ValueTypeComboBox_SelectionChanged">
+                <ComboBox x:Name="ValueTypeComboBox" MinWidth="100" MinHeight="32" SelectionChanged="ValueTypeComboBox_SelectionChanged">
                     <ComboBoxItem Content="All" IsSelected="True" />
                     <ComboBoxItem Content="Boolean" />
                     <ComboBoxItem Content="Integer" />
                     <ComboBoxItem Content="String" />
                 </ComboBox>
+
+                <TextBlock Text="Prefix:" VerticalAlignment="Center" Margin="16,0,6,0" FontWeight="SemiBold" />
+
+                <ComboBox x:Name="PrefixFilterComboBox" MinWidth="100" MinHeight="32" SelectionChanged="PrefixFilterComboBox_SelectionChanged">
+                    <ComboBoxItem Content="All" IsSelected="True" />
+                    <ComboBoxItem Content="FFlag" />
+                    <ComboBoxItem Content="DFFlag" />
+                    <ComboBoxItem Content="FInt" />
+                    <ComboBoxItem Content="DFInt" />
+                    <ComboBoxItem Content="FLog" />
+                    <ComboBoxItem Content="DFLog" />
+                    <ComboBoxItem Content="SFFlag" />
+                    <ComboBoxItem Content="FString" />
+                    <ComboBoxItem Content="DFString" />
+                </ComboBox>
+
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
