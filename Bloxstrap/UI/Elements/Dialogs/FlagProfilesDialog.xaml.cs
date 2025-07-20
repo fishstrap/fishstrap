@@ -107,6 +107,144 @@ namespace Bloxstrap.UI.Elements.Dialogs
             }
         }
 
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LoadProfile.SelectedItem is not string selectedProfile)
+            {
+                Frontend.ShowMessageBox("Please select a profile to copy.", MessageBoxImage.Warning, MessageBoxButton.OK);
+                return;
+            }
+
+            string profilesDirectory = Path.Combine(Paths.Base, Paths.SavedFlagProfiles);
+            string profilePath = Path.Combine(profilesDirectory, selectedProfile);
+
+            if (!File.Exists(profilePath))
+            {
+                Frontend.ShowMessageBox("Selected profile file not found.", MessageBoxImage.Error, MessageBoxButton.OK);
+                return;
+            }
+
+            try
+            {
+                string jsonText = File.ReadAllText(profilePath);
+                var flags = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonText);
+
+                if (flags == null)
+                {
+                    Frontend.ShowMessageBox("Failed to parse the selected profile.", MessageBoxImage.Error, MessageBoxButton.OK);
+                    return;
+                }
+
+                CopyFormatMode format = App.Settings.Prop.SelectedCopyFormat;
+
+                if (format == CopyFormatMode.Format1)
+                {
+                    string json = JsonSerializer.Serialize(flags, new JsonSerializerOptions { WriteIndented = true });
+                    Clipboard.SetDataObject(json);
+                }
+                else if (format == CopyFormatMode.Format2)
+                {
+                    var groupedFlags = flags
+                        .GroupBy(kvp =>
+                        {
+                            var match = Regex.Match(kvp.Key, @"^[A-Z]+[a-z]*");
+                            return match.Success ? match.Value : "Other";
+                        })
+                        .OrderBy(g => g.Key);
+
+                    var formattedJson = new StringBuilder();
+                    formattedJson.AppendLine("{");
+
+                    int totalItems = flags.Count;
+                    int writtenItems = 0;
+                    int groupIndex = 0;
+
+                    foreach (var group in groupedFlags)
+                    {
+                        if (groupIndex > 0)
+                            formattedJson.AppendLine();
+
+                        var sortedGroup = group
+                            .OrderByDescending(kvp => kvp.Key.Length + (kvp.Value?.ToString()?.Length ?? 0));
+
+                        foreach (var kvp in sortedGroup)
+                        {
+                            writtenItems++;
+                            bool isLast = (writtenItems == totalItems);
+                            string line = $"    \"{kvp.Key}\": \"{kvp.Value}\"";
+
+                            if (!isLast)
+                                line += ",";
+
+                            formattedJson.AppendLine(line);
+                        }
+
+                        groupIndex++;
+                    }
+
+                    formattedJson.AppendLine("}");
+                    Clipboard.SetText(formattedJson.ToString());
+                }
+                else if (format == CopyFormatMode.Format3)
+                {
+                    var sortedFlags = flags.OrderBy(kvp => kvp.Key);
+
+                    var formattedJson = new StringBuilder();
+                    formattedJson.AppendLine("{");
+
+                    int totalItems = flags.Count;
+                    int writtenItems = 0;
+
+                    foreach (var kvp in sortedFlags)
+                    {
+                        writtenItems++;
+                        bool isLast = (writtenItems == totalItems);
+                        string line = $"    \"{kvp.Key}\": \"{kvp.Value}\"";
+
+                        if (!isLast)
+                            line += ",";
+
+                        formattedJson.AppendLine(line);
+                    }
+
+                    formattedJson.AppendLine("}");
+                    Clipboard.SetText(formattedJson.ToString());
+                }
+                else if (format == CopyFormatMode.Format4)
+                {
+                    var sortedFlags = flags.OrderByDescending(kvp =>
+                        $"    \"{kvp.Key}\": \"{kvp.Value}\"".Length
+                    );
+
+                    var formattedJson = new StringBuilder();
+                    formattedJson.AppendLine("{");
+
+                    int totalItems = flags.Count;
+                    int writtenItems = 0;
+
+                    foreach (var kvp in sortedFlags)
+                    {
+                        writtenItems++;
+                        bool isLast = (writtenItems == totalItems);
+                        string line = $"    \"{kvp.Key}\": \"{kvp.Value}\"";
+
+                        if (!isLast)
+                            line += ",";
+
+                        formattedJson.AppendLine(line);
+                    }
+
+                    formattedJson.AppendLine("}");
+                    Clipboard.SetText(formattedJson.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Frontend.ShowMessageBox($"Failed to copy profile:\n{ex.Message}", MessageBoxImage.Error, MessageBoxButton.OK);
+            }
+        }
+
+
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             if (LoadProfile.SelectedItem is not string selectedProfile)

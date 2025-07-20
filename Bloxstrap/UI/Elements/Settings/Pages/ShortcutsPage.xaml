@@ -76,7 +76,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="Game Shortcuts" />
+                        <TextBlock FontSize="14" Text="Game Shortcuts" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Text="Create shortcuts to quickly join games from your Desktop" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>

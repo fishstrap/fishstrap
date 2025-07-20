@@ -18,6 +18,7 @@
         Background="{ui:ThemeResource ApplicationBackgroundBrush}"
         ExtendsContentIntoTitleBar="True"
         WindowStartupLocation="CenterScreen">
+    
     <ui:UiWindow.Resources>
         <converters:RangeConverter x:Key="ValidationConverter" From="0" />
     </ui:UiWindow.Resources>
@@ -70,10 +71,12 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <ui:TextBox Grid.Column="0" x:Name="RenameTextBox" VerticalAlignment="Center" Padding="8,6" PlaceholderText="Rename Profile" Margin="0,0,8,0" FontWeight="Medium" />
                         <Button Grid.Column="1" Content="Rename" Click="RenameButton_Click" VerticalAlignment="Center" Margin="0,0,6,0" MinWidth="100" Padding="10,6" FontWeight="Medium" />
-                        <Button Grid.Column="2" Content="Update" Click="UpdateButton_Click" VerticalAlignment="Center" MinWidth="100" Padding="10,6" FontWeight="Medium" />
+                        <Button Grid.Column="2" Content="Copy" Click="CopyButton_Click" VerticalAlignment="Center" Margin="0,0,6,0" MinWidth="100" Padding="10,6" FontWeight="Medium" />
+                        <Button Grid.Column="3" Content="Update" Click="UpdateButton_Click" VerticalAlignment="Center" MinWidth="100" Padding="10,6" FontWeight="Medium" />
                     </Grid>
                     <ListBox x:Name="LoadProfile" Grid.Row="1" SelectionChanged="LoadProfile_SelectionChanged" BorderThickness="1" Background="{DynamicResource NormalDarkAndLightBackground}" Padding="4" />
                     <TextBlock x:Name="LoadProfileEmptyText" Grid.Row="1" Text="No Profiles Found" Foreground="{DynamicResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center" Margin="0,24,0,0" Visibility="Collapsed" IsHitTestVisible="False" />
