@@ -51,7 +51,32 @@
 
                         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
                             <TextBlock Text="{x:Static resources:Strings.Common_Value}" FontWeight="SemiBold" Width="120" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="FlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" DisplayMemberPath="Value" />
+
+                            <ComboBox x:Name="FlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" Loaded="FlagValueComboBox_Loaded" >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="2">
+                                            <TextBlock Text="{Binding Value}" Width="160"/>
+                                            <TextBlock Text="{Binding Group}" Foreground="Gray" FontSize="10" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                                <ComboBox.Resources>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="4,6,0,2" Foreground="SlateGray" FontSize="12" />
+                                                        <ItemsPresenter/>
+                                                    </StackPanel>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ComboBox.Resources>
+                            </ComboBox>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -108,15 +133,31 @@
 
                         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
                             <TextBlock Text="{x:Static resources:Strings.Common_Value}" FontWeight="SemiBold" Width="120" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="GameFlagValueComboBox"
-                          Width="220"
-                          IsEditable="True"
-                          IsTextSearchEnabled="True"
-                          StaysOpenOnEdit="True"
-                          ItemsSource="{Binding CommonValuesView.View}"
-                          SelectedValuePath="Value"
-                          DisplayMemberPath="Value"
-                          />
+                            <ComboBox x:Name="GameFlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" Loaded="GameFlagValueComboBox_Loaded" >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="2">
+                                            <TextBlock Text="{Binding Value}" Width="160"/>
+                                            <TextBlock Text="{Binding Group}" Foreground="Gray" FontSize="10" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                                <ComboBox.Resources>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="4,6,0,2" Foreground="SlateGray" FontSize="12" />
+                                                        <ItemsPresenter/>
+                                                    </StackPanel>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ComboBox.Resources>
+                            </ComboBox>
                         </StackPanel>
 
                         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">

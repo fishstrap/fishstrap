@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Bloxstrap.UI.Elements.Dialogs
 {
@@ -32,16 +33,19 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
         public ObservableCollection<CommonValueItem> NumericValues { get; } = new ObservableCollection<CommonValueItem>()
         {
-            new CommonValueItem { Value = "64", Group = "Numbers" },
-            new CommonValueItem { Value = "128", Group = "Numbers" },
-            new CommonValueItem { Value = "256", Group = "Numbers" },
-            new CommonValueItem { Value = "512", Group = "Numbers" },
-            new CommonValueItem { Value = "1024", Group = "Numbers" },
-            new CommonValueItem { Value = "2048", Group = "Numbers" },
-            new CommonValueItem { Value = "4096", Group = "Numbers" },
-            new CommonValueItem { Value = "10000", Group = "Numbers" },
-            new CommonValueItem { Value = "2147483647", Group = "Numbers" },
-            new CommonValueItem { Value = "-2147483648", Group = "Numbers" },
+            new CommonValueItem { Value = "64", Group = "Intergers" },
+            new CommonValueItem { Value = "100", Group = "Intergers" },
+            new CommonValueItem { Value = "128", Group = "Intergers" },
+            new CommonValueItem { Value = "256", Group = "Intergers" },
+            new CommonValueItem { Value = "512", Group = "Intergers" },
+            new CommonValueItem { Value = "1024", Group = "Intergers" },
+            new CommonValueItem { Value = "2048", Group = "Intergers" },
+            new CommonValueItem { Value = "4096", Group = "Intergers" },
+            new CommonValueItem { Value = "8192", Group = "Intergers" },
+            new CommonValueItem { Value = "10000", Group = "Intergers" },
+            new CommonValueItem { Value = "16384", Group = "Intergers" },
+            new CommonValueItem { Value = "2147483647", Group = "Intergers" },
+            new CommonValueItem { Value = "-2147483648", Group = "Intergers" },
         };
 
         public ObservableCollection<CommonValueItem> SpecialValues { get; } = new ObservableCollection<CommonValueItem>()
@@ -166,6 +170,58 @@ namespace Bloxstrap.UI.Elements.Dialogs
             Result = MessageBoxResult.OK;
             DialogResult = true;
             Close();
+        }
+
+        private void FlagValueComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (FlagValueComboBox.Template.FindName("PART_EditableTextBox", FlagValueComboBox) is TextBox tb)
+            {
+                tb.GotFocus += (_, _) =>
+                {
+                    if (tb.Text == "Enter or select a value")
+                        tb.Text = "";
+
+                    tb.Foreground = Brushes.Black;
+                };
+
+                tb.LostFocus += (_, _) =>
+                {
+                    if (string.IsNullOrWhiteSpace(tb.Text))
+                    {
+                        tb.Text = "Enter or select a value";
+                        tb.Foreground = Brushes.Gray;
+                    }
+                };
+
+                tb.Text = "Enter or select a value";
+                tb.Foreground = Brushes.Gray;
+            }
+        }
+
+        private void GameFlagValueComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (GameFlagValueComboBox.Template.FindName("PART_EditableTextBox", GameFlagValueComboBox) is TextBox tb)
+            {
+                tb.GotFocus += (_, _) =>
+                {
+                    if (tb.Text == "Enter or select a value")
+                        tb.Text = "";
+
+                    tb.Foreground = Brushes.Black;
+                };
+
+                tb.LostFocus += (_, _) =>
+                {
+                    if (string.IsNullOrWhiteSpace(tb.Text))
+                    {
+                        tb.Text = "Enter or select a value";
+                        tb.Foreground = Brushes.Gray;
+                    }
+                };
+
+                tb.Text = "Enter or select a value";
+                tb.Foreground = Brushes.Gray;
+            }
         }
     }
 
