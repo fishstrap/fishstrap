@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Windows;
@@ -142,7 +143,7 @@ private static bool _showingExceptionDialog = false;
 
             _showingExceptionDialog = true;
 
-            SendLog();
+            SendLog(ex);
 
             if (Bootstrapper?.Dialog != null)
             {
@@ -228,16 +229,23 @@ private static bool _showingExceptionDialog = false;
             }
         }
 
-        public static async void SendLog()
+        public static async void SendLog(Exception exception)
         {
             if (!Settings.Prop.EnableAnalytics || !CanSendLogs())
                 return;
 
+            var request = new PostExceptionV2Request
+            {
+                Type = exception.GetType().ToString(),
+                Message = exception.Message,
+                Log = Logger.AsDocument
+            };
+
             try
             {
-                await HttpClient.PostAsync(
-                    $"https://{WebUrl}/metrics/post-exception", 
-                    new StringContent(Logger.AsDocument)
+                await HttpClient.PostAsJsonAsync(
+                    $"https://{WebUrl}/metrics/post-exception-v2",
+                    request
                 );
             }
             catch (Exception ex)
