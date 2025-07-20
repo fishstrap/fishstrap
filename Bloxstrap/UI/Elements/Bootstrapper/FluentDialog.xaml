@@ -11,8 +11,6 @@
     Width="500"
     Height="280"
     MinHeight="0"
-    d:DataContext="{d:DesignInstance vms:FluentDialogViewModel,
-                                     IsDesignTimeCreatable=True}"
     Background="{ui:ThemeResource ApplicationBackgroundBrush}"
     ExtendsContentIntoTitleBar="True"
     ResizeMode="NoResize"

@@ -111,42 +111,6 @@ namespace Bloxstrap.UI.Elements.Controls
                 _ => "⚙️"
             };
         }
-
-        private void SquareCard_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (App.Settings.Prop.DisableAnimations)
-            {
-                var hoverExit = (Storyboard)FindResource("HoverExitStoryboard");
-                hoverExit.Stop();
-
-                HoverScaleTransform.ScaleX = 1.08;
-                HoverScaleTransform.ScaleY = 1.08;
-            }
-            else
-            {
-                var hoverEnter = (Storyboard)FindResource("HoverEnterStoryboard");
-                hoverEnter.Begin();
-            }
-        }
-
-        private void SquareCard_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (App.Settings.Prop.DisableAnimations)
-            {
-                var hoverEnter = (Storyboard)FindResource("HoverEnterStoryboard");
-                hoverEnter.Stop();
-
-                HoverScaleTransform.ScaleX = 1.0;
-                HoverScaleTransform.ScaleY = 1.0;
-            }
-            else
-            {
-                // Play the hover-exit animation smoothly
-                var hoverExit = (Storyboard)FindResource("HoverExitStoryboard");
-                hoverExit.Begin();
-            }
-        }
-
         public SquareCard()
         {
             InitializeComponent();
