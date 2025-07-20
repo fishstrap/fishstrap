@@ -72,7 +72,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set
             {
                 App.FastFlags.SetPreset("Flog.Network", value ? "7" : null);
-
                 App.Settings.Prop.EnableActivityTracking = value;
 
                 if (!value)
@@ -98,17 +97,36 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.ShowServerDetails = value;
         }
 
+        private bool _preventBackgroundRunBackingField;
         public bool PreventBackgroundRun
         {
-            get => App.Settings.Prop.PreventBackgroundRun;
-            set => App.Settings.Prop.PreventBackgroundRun = value;
+            get => _preventBackgroundRunBackingField;
+            set
+            {
+                if (_preventBackgroundRunBackingField != value)
+                {
+                    _preventBackgroundRunBackingField = value;
+                    App.Settings.Prop.PreventBackgroundRun = value;
+
+                    // If PreventBackgroundRun is enabled, disable ActivityTracking and disable its toggle
+                    if (value && ActivityTrackingEnabled)
+                    {
+                        ActivityTrackingEnabled = false;
+                    }
+
+                    OnPropertyChanged(nameof(PreventBackgroundRun));
+                    OnPropertyChanged(nameof(IsActivityTrackingOptionEnabled));
+                }
+            }
         }
 
+        // New property to control whether ActivityTrackingOption is enabled
+        public bool IsActivityTrackingOptionEnabled => !PreventBackgroundRun;
 
         public bool PlayerLogsEnabled
         {
             get => App.FastFlags.GetPreset("Players.LogLevel") == "trace"; // we r using this to determine if its enabled
-            set 
+            set
             {
                 App.FastFlags.SetPreset("Players.LogLevel", value ? "trace" : null);
                 App.FastFlags.SetPreset("Players.LogPattern", value ? "ExpChat/mountClientApp" : null);

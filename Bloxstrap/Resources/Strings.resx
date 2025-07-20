@@ -1165,7 +1165,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Title" xml:space="preserve">
-    <value>Query server location</value>
+    <value>Query Server Location</value>
   </data>
   <data name="Menu.Integrations.Title" xml:space="preserve">
     <value>Integrations</value>

@@ -6094,7 +6094,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Query server location.
+        ///   Looks up a localized string similar to Query Server Location.
         /// </summary>
         public static string Menu_Integrations_QueryServerLocation_Title {
             get {
