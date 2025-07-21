@@ -61,7 +61,7 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="Froststrap Power Plan: Low Latency"
-                     Description="Imports Froststrap Custom Powerplan for lower input delay and ping.
+                     Description="Imports Froststrap Custom Powerplan for lower input delay.
                                      Credits: Onion"
                      HorizontalAlignment="Stretch"
                      CategoryIcon="⚠"

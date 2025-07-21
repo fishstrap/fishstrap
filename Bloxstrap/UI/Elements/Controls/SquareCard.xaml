@@ -6,12 +6,12 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Controls"
              mc:Ignorable="d"
-             x:Name="Control"
-             Width="260" Height="260" MinHeight="260" MaxHeight="260"
-             HorizontalAlignment="Stretch" VerticalAlignment="Top">
+             Width="260" Height="260"
+             SnapsToDevicePixels="True"
+             x:Name="Control">
 
-    <Border Padding="12" ClipToBounds="True" Height="260">
-        <ui:CardControl Margin="0" Content="{Binding InnerContent, ElementName=Control}">
+    <Border Padding="12" Height="260" SnapsToDevicePixels="True">
+        <ui:CardControl>
             <ui:CardControl.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -19,21 +19,25 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" SharedSizeGroup="CardContent" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <!-- Category icons (left) and ButtonContent (right), aligned horizontally -->
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0">
-                        <Border Background="#19000000" BorderBrush="Transparent" CornerRadius="8" Padding="6">
+                    <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="#19000000" Padding="6" CornerRadius="8">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding CategoryIcon, ElementName=Control}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding CategoryIcon, ElementName=Control}" Value="">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -41,57 +45,58 @@
                             <TextBlock Text="{Binding CategoryIcon, ElementName=Control}" FontSize="16" ToolTip="{Binding PrimaryIconToolTip, ElementName=Control}" />
                         </Border>
 
-                        <Border Background="#19000000" BorderBrush="Transparent" CornerRadius="8" Padding="6" Margin="5,0,0,0">
+                        <Border Grid.Column="1" Background="#19000000" Padding="6" Margin="5,0,0,0" CornerRadius="8">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding SecondaryCategoryIcon, ElementName=Control}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding SecondaryCategoryIcon, ElementName=Control}" Value="">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
                             <TextBlock Text="{Binding SecondaryCategoryIcon, ElementName=Control}" FontSize="16" ToolTip="{Binding SecondaryIconToolTip, ElementName=Control}" />
                         </Border>
-                    </StackPanel>
+                    </Grid>
 
-                    <ContentPresenter Grid.Row="0" Grid.Column="1" Content="{Binding ButtonContent, ElementName=Control}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" MaxWidth="96" />
+                    <ContentPresenter Grid.Row="0" Grid.Column="1" Content="{Binding ButtonContent, ElementName=Control}" VerticalAlignment="Center" HorizontalAlignment="Right" MaxWidth="96" />
 
-                    <!-- Title and Description stacked below -->
-                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="212" ClipToBounds="True">
-                        <TextBlock FontSize="18" FontWeight="Medium" TextWrapping="Wrap" Margin="0,6,0,0" Text="{Binding Title, ElementName=Control}" HorizontalAlignment="Left">
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="212">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" FontSize="18" FontWeight="Medium" TextWrapping="Wrap" Margin="0,6,0,0" Text="{Binding Title, ElementName=Control}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Title, ElementName=Control}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Title, ElementName=Control}" Value="">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
 
-                        <TextBlock FontSize="14" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="0,12,0,0" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding Description, ElementName=Control}">
+                        <TextBlock Grid.Row="1" FontSize="14" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="0,12,0,0" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding Description, ElementName=Control}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Description, ElementName=Control}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Description, ElementName=Control}" Value="">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                    </StackPanel>
+                    </Grid>
                 </Grid>
             </ui:CardControl.Header>
         </ui:CardControl>
