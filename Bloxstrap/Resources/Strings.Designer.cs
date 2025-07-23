@@ -3176,6 +3176,24 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customize Froststrap themes easily with presets or create your own unique look..
+        /// </summary>
+        public static string Menu_Appearance_Custom_Theme_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.Custom.Theme.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom App Themes.
+        /// </summary>
+        public static string Menu_Appearance_Custom_Theme_Title {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.Custom.Theme.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure other miscellaneous customisable bootstrapper options..
         /// </summary>
         public static string Menu_Appearance_Customisation_Description {
@@ -3262,24 +3280,6 @@ namespace Bloxstrap.Resources {
         public static string Menu_Appearance_Description {
             get {
                 return ResourceManager.GetString("Menu.Appearance.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Customize Froststrap’s theme to your liking! Make sure to check out our custom themes we have built in!.
-        /// </summary>
-        public static string Menu_Appearance_Global_Theme_Description {
-            get {
-                return ResourceManager.GetString("Menu.Appearance_Global.Theme.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Global Theme.
-        /// </summary>
-        public static string Menu_Appearance_Global_Theme_Title {
-            get {
-                return ResourceManager.GetString("Menu.Appearance.Global.Theme.Title", resourceCulture);
             }
         }
         

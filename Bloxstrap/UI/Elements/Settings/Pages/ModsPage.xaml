@@ -10,7 +10,6 @@
     xmlns:resources="clr-namespace:Bloxstrap.Resources"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="ModsPage"
-    d:DataContext="{d:DesignInstance dmodels:ModsViewModel,IsDesignTimeCreatable=True}"
     d:DesignHeight="1500"
     d:DesignWidth="800"
     Scrollable="True"

@@ -14,24 +14,81 @@
     <StackPanel Margin="0,0,14,14">
         <TextBlock Text="{x:Static resources:Strings.Menu_Appearance_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8" />
 
-        <controls:OptionControl
-            Header="{x:Static resources:Strings.Menu_Appearance_Global_Theme_Title}"
-            Description="{x:Static resources:Strings.Menu_Appearance_Global_Theme_Description}">
-            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding ThemeIcons, Mode=OneWay}" SelectedValuePath="IconType" SelectedValue="{Binding Theme, Mode=TwoWay}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="16" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Height="16" Source="{Binding ImageSource, Mode=OneWay}" RenderOptions.BitmapScalingMode="HighQuality" />
-                            <TextBlock Grid.Column="1" Margin="8,0,0,0" Text="{Binding Path=IconType, Converter={StaticResource EnumNameConverter}}" />
-                        </Grid>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </controls:OptionControl>
+        <ui:CardExpander Margin="0,8,0,0" IsExpanded="{Binding CustomGlobalThemeExpanded, Mode=OneWay}" Style="{StaticResource NoUserExpansionCardExpanderStyle}">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Appearance_Custom_Theme_Title}" FontWeight="Medium" />
+                        <TextBlock FontSize="12" Text="{x:Static resources:Strings.Menu_Appearance_Custom_Theme_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                    </StackPanel>
+                    <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Themes}" SelectedItem="{Binding Theme, Mode=TwoWay}" Grid.Column="1" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumNameConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,16,0" VerticalAlignment="Top">
+                    <TextBlock Text="Gradient Info" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <Separator Margin="0,0,0,8" />
+                    <TextBlock Text="StartPoint and EndPoint control the direction of the gradient. (0,0) is top-left, (1,1) is bottom-right." TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    <Separator Margin="0,12,0,12" />
+                    <TextBlock Text="Offset values determine where each color appears between 0 and 1." TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,12" VerticalAlignment="Center">
+                        <TextBlock Text="StartPoint X:" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <TextBox Text="{Binding GradientStartPointX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,8,0" />
+                        <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <TextBox Text="{Binding GradientStartPointY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,12,0" />
+                        <TextBlock Text="EndPoint X:" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <TextBox Text="{Binding GradientEndPointX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,8,0" />
+                        <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <TextBox Text="{Binding GradientEndPointY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" />
+                    </StackPanel>
+
+                    <ItemsControl ItemsSource="{Binding GradientStops}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,2" HorizontalAlignment="Right">
+                                    <TextBlock Text="Offset:" VerticalAlignment="Center" Margin="0,0,4,0" />
+                                    <Slider Minimum="0" Maximum="1" Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" TickFrequency="0.01" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="2" Margin="4,0" ValueChanged="OnGradientOffsetChanged"/>
+                                    <TextBlock Text="{Binding Offset, StringFormat=F2}" VerticalAlignment="Center" Margin="8,0,8,0" Width="30" />
+                                    <TextBox Text="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="90" Margin="0,0,8,0" VerticalAlignment="Center" TextChanged="OnGradientColorHexChanged" />
+                                    <Button Content="Color" Margin="0,0,4,0" Tag="{Binding}" Click="OnChangeGradientColor_Click" />
+                                    <Button Content="Remove" Margin="0,0,4,0" Tag="{Binding}" Click="OnRemoveGradientStop_Click" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Right">
+                        <Button Content="Export to JSON" Click="OnExportGradient_Click" Margin="0,0,4,0" />
+                        <Button Content="Import from JSON" Click="OnImportGradient_Click" Margin="0,0,4,0" />
+                        <Button Content="Copy JSON" Click="OnCopyGradientJson_Click" Margin="0,0,4,0" />
+                        <Button Content="Reset to Default" Click="OnResetGradient_Click" Margin="0,0,4,0" />
+                        <Button Content="Add Gradient Color" Click="OnAddGradientStop_Click"/>
+                    </StackPanel>
+
+                    <ui:TextBox x:Name="ImportJsonTextBox" Margin="0,12,0,0" Height="100" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste JSON gradient stops here..." />
+                    <Button Content="Import from JSON" HorizontalAlignment="Right" Margin="0,4,0,0" Click="OnImportFromJsonText_Click" />
+                </StackPanel>
+            </Grid>
+        </ui:CardExpander>
+
 
         <controls:OptionControl
             Header="{x:Static resources:Strings.Menu_Appearance_Language_Title}"

@@ -16,5 +16,7 @@
         Orange,
         Pink,
         Red,
+        [EnumName(FromTranslation = "Common.Custom")]
+        Custom
     }
 }

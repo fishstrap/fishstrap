@@ -55,6 +55,7 @@
     <EmbeddedResource Include="Resources\FroststrapPowerPlans\FroststrapLowLatency.pow" />
     <EmbeddedResource Include="Resources\FroststrapPowerPlans\FroststrapMaximumFPS.pow" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Blue.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Custom.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-NewDark.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Cyan.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Dark.xshd" />
@@ -81,10 +82,6 @@
 	<EmbeddedResource Include="Resources\IconBloxstrap.ico" />
     <EmbeddedResource Include="Resources\IconEarly2015.ico" />
     <EmbeddedResource Include="Resources\IconLate2015.ico" />
-	<EmbeddedResource Include="Resources\ClassicDark.ico" />
-	<EmbeddedResource Include="Resources\Dark.ico" />
-	<EmbeddedResource Include="Resources\Default.ico" />
-	<EmbeddedResource Include="Resources\Light.ico" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2006\ArrowCursor.png" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2006\ArrowFarCursor.png" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2013\ArrowCursor.png" />

@@ -11,9 +11,4 @@
         <GradientStop Offset="1.0" Color="#006B7A" />
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="WindowTransparentBackgroundGradient" StartPoint="1,1" EndPoint="0,0">
-        <GradientStop Offset="0.0" Color="#8C00ACC1" />
-        <GradientStop Offset="0.5" Color="#8C0097A7" />
-        <GradientStop Offset="0.1" Color="#8C006B7A" />
-    </LinearGradientBrush>
 </ResourceDictionary>

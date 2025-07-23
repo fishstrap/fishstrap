@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
@@ -86,5 +87,17 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             Application.Current.Shutdown();
         }
+
+        public ObservableCollection<GradientStopData> GradientStops { get; } =
+            new(App.Settings.Prop.CustomGradientStops);
+
+        public void AddGradientStop()
+        {
+            var newStop = new GradientStopData { Offset = 0.5, Color = "#FFFFFF" };
+            GradientStops.Add(newStop);
+            App.Settings.Prop.CustomGradientStops = GradientStops.ToList();
+            OnPropertyChanged(nameof(GradientStops));
+        }
+
     }
 }

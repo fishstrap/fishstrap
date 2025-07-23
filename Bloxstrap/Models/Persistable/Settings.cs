@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using System.Drawing;
+using System.Windows;
 
 namespace Bloxstrap.Models.Persistable
 {
@@ -12,6 +12,14 @@ namespace Bloxstrap.Models.Persistable
         public string BootstrapperTitle { get; set; } = App.ProjectName;
         public string BootstrapperIconCustomLocation { get; set; } = "";
         public Theme Theme { get; set; } = Theme.Default;
+        public List<GradientStopData> CustomGradientStops { get; set; } = new()
+        {
+            new GradientStopData { Offset = 0.0, Color = "#" },
+            new GradientStopData { Offset = 0.5, Color = "#" },
+            new GradientStopData { Offset = 1.0, Color = "#" }
+        };
+        public Point GradientStartPoint { get; set; } = new Point(1, 1);
+        public Point GradientEndPoint { get; set; } = new Point(0, 0);
         public CleanerOptions CleanerOptions { get; set; } = CleanerOptions.Never;
         public List<string> CleanerDirectories { get; set; } = new List<string>();
         public bool CheckForUpdates { get; set; } = true;

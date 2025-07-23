@@ -135,6 +135,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             OnPropertyChanged(nameof(CustomIconLocation));
         }
 
+        private bool _hasInitializedCustomGradient = false;
+
         public AppearanceViewModel(Page page)
         {
             _page = page;
@@ -142,13 +144,25 @@ namespace Bloxstrap.UI.ViewModels.Settings
             foreach (var entry in BootstrapperIconEx.Selections)
                 Icons.Add(new BootstrapperIconEntry { IconType = entry });
 
-            foreach (var entry in ThemeEx.Selections)
-                ThemeIcons.Add(new ThemeEntry { IconType = (Theme)entry });
-
             PopulateCustomThemes();
             ApplySavedCustomFont();
             UpdateFontVisibility();
+
+            if (App.Settings.Prop.CustomGradientStops != null)
+            {
+                foreach (var stop in App.Settings.Prop.CustomGradientStops)
+                    GradientStops.Add(stop);
+            }
+
+            GradientStops.CollectionChanged += (s, e) => { };
+
+            GradientStartPointX = App.Settings.Prop.GradientStartPoint.X;
+            GradientStartPointY = App.Settings.Prop.GradientStartPoint.Y;
+            GradientEndPointX = App.Settings.Prop.GradientEndPoint.X;
+            GradientEndPointY = App.Settings.Prop.GradientEndPoint.Y;
         }
+
+        public ObservableCollection<GradientStopData> GradientStops { get; } = new();
 
         public IEnumerable<Theme> Themes { get; } = Enum.GetValues(typeof(Theme)).Cast<Theme>();
 
@@ -157,11 +171,167 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.Settings.Prop.Theme;
             set
             {
-                App.Settings.Prop.Theme = value;
-                ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+                if (App.Settings.Prop.Theme != value)
+                {
+                    App.Settings.Prop.Theme = value;
+
+                    if (value == Theme.Custom && !_hasInitializedCustomGradient)
+                    {
+                        _hasInitializedCustomGradient = true;
+
+                        var defaultStops = new List<GradientStopData>
+                        {
+                            new GradientStopData { Offset = 0.0, Color = "#" },
+                            new GradientStopData { Offset = 0.5, Color = "#" },
+                            new GradientStopData { Offset = 1.0, Color = "#" },
+                        };
+
+                        App.Settings.Prop.CustomGradientStops = defaultStops;
+
+                        GradientStops.Clear();
+                        foreach (var stop in defaultStops)
+                        {
+                            GradientStops.Add(stop);
+                            stop.PropertyChanged += (s2, e2) => UpdateLivePreviewBrush();
+                        }
+
+                        UpdateLivePreviewBrush();
+                    }
+
+                    ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+
+                    OnPropertyChanged(nameof(Theme));
+                    OnPropertyChanged(nameof(CustomGlobalThemeExpanded));
+                }
             }
         }
 
+        public bool CustomGlobalThemeExpanded => App.Settings.Prop.Theme == Theme.Custom;
+
+        private Brush _livePreviewBrush = Brushes.Transparent;
+        public Brush LivePreviewBrush
+        {
+            get => _livePreviewBrush;
+            set
+            {
+                _livePreviewBrush = value;
+                OnPropertyChanged(nameof(LivePreviewBrush));
+            }
+        }
+
+        public void ResetGradientStops()
+        {
+            GradientStops.Clear();
+
+            var defaultStops = new List<GradientStopData>
+            {
+                new GradientStopData { Offset = 0.0, Color = "#" },
+                new GradientStopData { Offset = 0.5, Color = "#" },
+                new GradientStopData { Offset = 1.0, Color = "#" },
+            };
+
+            foreach (var stop in defaultStops)
+            {
+                GradientStops.Add(stop);
+                stop.PropertyChanged += (s, e) => UpdateLivePreviewBrush();
+            }
+
+            App.Settings.Prop.CustomGradientStops = GradientStops.ToList();
+
+            UpdateLivePreviewBrush();
+        }
+
+        private void UpdateLivePreviewBrush()
+        {
+            var brush = new LinearGradientBrush
+            {
+                StartPoint = new Point(1, 1),
+                EndPoint = new Point(0, 0)
+            };
+
+            foreach (var stop in GradientStops.OrderBy(s => s.Offset))
+            {
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(stop.Color);
+                    brush.GradientStops.Add(new GradientStop(color, stop.Offset));
+                }
+                catch
+                {
+                    // Skip invalid stops
+                }
+            }
+
+            LivePreviewBrush = brush;
+        }
+
+        private double _gradientStartPointX = 1;
+        public double GradientStartPointX
+        {
+            get => _gradientStartPointX;
+            set
+            {
+                if (_gradientStartPointX != value)
+                {
+                    _gradientStartPointX = value;
+                    OnPropertyChanged(nameof(GradientStartPointX));
+                    UpdateGradientPoints();
+                }
+            }
+        }
+
+        private double _gradientStartPointY = 1;
+        public double GradientStartPointY
+        {
+            get => _gradientStartPointY;
+            set
+            {
+                if (_gradientStartPointY != value)
+                {
+                    _gradientStartPointY = value;
+                    OnPropertyChanged(nameof(GradientStartPointY));
+                    UpdateGradientPoints();
+                }
+            }
+        }
+
+        private double _gradientEndPointX = 0;
+        public double GradientEndPointX
+        {
+            get => _gradientEndPointX;
+            set
+            {
+                if (_gradientEndPointX != value)
+                {
+                    _gradientEndPointX = value;
+                    OnPropertyChanged(nameof(GradientEndPointX));
+                    UpdateGradientPoints();
+                }
+            }
+        }
+
+        private double _gradientEndPointY = 0;
+        public double GradientEndPointY
+        {
+            get => _gradientEndPointY;
+            set
+            {
+                if (_gradientEndPointY != value)
+                {
+                    _gradientEndPointY = value;
+                    OnPropertyChanged(nameof(GradientEndPointY));
+                    UpdateGradientPoints();
+                }
+            }
+        }
+
+        private void UpdateGradientPoints()
+        {
+            App.Settings.Prop.GradientStartPoint = new Point(GradientStartPointX, GradientStartPointY);
+            App.Settings.Prop.GradientEndPoint = new Point(GradientEndPointX, GradientEndPointY);
+
+            ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+        }
 
         public static List<string> Languages => Locale.GetLanguages();
 
@@ -192,7 +362,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public bool CustomThemesExpanded => App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.CustomDialog;
 
         public ObservableCollection<BootstrapperIconEntry> Icons { get; set; } = new();
-        public ObservableCollection<ThemeEntry> ThemeIcons { get; set; } = new();
 
         public BootstrapperIcon Icon
         {
