@@ -51,6 +51,7 @@ namespace Bloxstrap.Models.Persistable
         public bool HideRPCButtons { get; set; } = true;
         public bool ShowAccountOnRichPresence { get; set; } = false;
         public bool ShowServerDetails { get; set; } = false;
+        public bool ShowGameHistoryMenu { get; set; } = true;
         public bool UseDisableAppPatch { get; set; } = false;
         public bool BlockRobloxRecording { get; set; } = false;
         public bool BlockRobloxScreenshots { get; set; } = false;

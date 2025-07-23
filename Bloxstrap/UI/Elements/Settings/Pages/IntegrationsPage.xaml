@@ -28,8 +28,8 @@
             x:Name="ActivityTrackingOption"
             Header="{x:Static resources:Strings.Menu_Integrations_EnableActivityTracking_Title}" 
             Description="{x:Static resources:Strings.Menu_Integrations_EnableActivityTracking_Description}" 
-            HelpLink="https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F"
-            IsEnabled="{Binding IsActivityTrackingOptionEnabled}">
+            IsEnabled="{Binding CanToggleActivityTracking, Mode=OneWay}"
+            HelpLink="https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F">
             <ui:ToggleSwitch IsChecked="{Binding ActivityTrackingEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
@@ -47,6 +47,13 @@
             HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#logs-menu"
             IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
             <ui:ToggleSwitch IsChecked="{Binding PlayerLogsEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="Show Game History Menu"
+            Description="Display the game you've played in your session and allows you to join them back."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            <ui:ToggleSwitch IsChecked="{Binding ShowGameHistory, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False">
@@ -86,7 +93,6 @@
 
             </StackPanel>
         </ui:CardExpander>
-
 
         <TextBlock Text="{x:Static resources:Strings.Common_DiscordRichPresence}" FontSize="20" FontWeight="Bold" Margin="0,16,0,0" />
         <controls:MarkdownTextBlock MarkdownText="{Binding Source={x:Static resources:Strings.Menu_Integrations_RequiresActivityTracking}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F#discord-rich-presence'}" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />

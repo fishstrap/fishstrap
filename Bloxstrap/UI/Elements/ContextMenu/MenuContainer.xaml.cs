@@ -32,8 +32,10 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 _activityWatcher.OnGameJoin += ActivityWatcher_OnGameJoin;
                 _activityWatcher.OnGameLeave += ActivityWatcher_OnGameLeave;
 
-                if (!App.Settings.Prop.UseDisableAppPatch)
+                if (!App.Settings.Prop.UseDisableAppPatch && App.Settings.Prop.ShowGameHistoryMenu)
                     GameHistoryMenuItem.Visibility = Visibility.Visible;
+                else
+                    GameHistoryMenuItem.Visibility = Visibility.Collapsed;
             }
 
             if (_watcher.RichPresence is not null)
