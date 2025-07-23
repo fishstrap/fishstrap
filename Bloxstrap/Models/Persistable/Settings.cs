@@ -14,9 +14,9 @@ namespace Bloxstrap.Models.Persistable
         public Theme Theme { get; set; } = Theme.Default;
         public List<GradientStopData> CustomGradientStops { get; set; } = new()
         {
-            new GradientStopData { Offset = 0.0, Color = "#" },
-            new GradientStopData { Offset = 0.5, Color = "#" },
-            new GradientStopData { Offset = 1.0, Color = "#" }
+            new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+            new GradientStopData { Offset = 0.5, Color = "#383F47" },
+            new GradientStopData { Offset = 1.0, Color = "#252A30" }
         };
         public Point GradientStartPoint { get; set; } = new Point(1, 1);
         public Point GradientEndPoint { get; set; } = new Point(0, 0);

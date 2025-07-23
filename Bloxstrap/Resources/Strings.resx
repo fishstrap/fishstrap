@@ -802,8 +802,11 @@ Would you like to upgrade your currently installed version?</value>
   <data name="Menu.Appearance.Description" xml:space="preserve">
     <value>Configure how Froststrap should look.</value>
   </data>
-  <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
-    <value>Global Theme</value>
+  <data name="Menu.Appearance.Custom.Theme.Title" xml:space="preserve">
+    <value>Custom App Themes</value>
+  </data>
+  <data name="Menu.Appearance.Custom.Theme.Description" xml:space="preserve">
+    <value>Customize Froststrap themes easily with presets or create your own unique look.</value>
   </data>
   <data name="Menu.Appearance.Icon.Description" xml:space="preserve">
     <value>Choose what icon Froststrap should use.</value>
@@ -1072,9 +1075,6 @@ Do NOT use this to import large "flag lists" made by other people that promise t
   </data>
 	<data name="Menu.Integrations.Custom.AutoCloseOnGame" xml:space="preserve">
     <value>Auto close when the game closes</value>
-  </data>
-  <data name="Menu.Appearance_Global.Theme.Description" xml:space="preserve">
-    <value>Customize Froststrap’s theme to your liking! Make sure to check out our custom themes we have built in!</value>
   </data>
   <data name="Menu.IconFiles" xml:space="preserve">
     <value>Icon files</value>

@@ -29,7 +29,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             if (DataContext is AppearanceViewModel vm)
             {
-                var newStop = new GradientStopData { Offset = 0.5, Color = "#" };
+                var newStop = new GradientStopData { Offset = 0.5, Color = "#000000" };
                 vm.GradientStops.Add(newStop);
                 App.Settings.Prop.CustomGradientStops = vm.GradientStops.ToList();
                 ((MainWindow)Window.GetWindow(this)!).ApplyTheme();

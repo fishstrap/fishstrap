@@ -181,9 +181,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
                         var defaultStops = new List<GradientStopData>
                         {
-                            new GradientStopData { Offset = 0.0, Color = "#" },
-                            new GradientStopData { Offset = 0.5, Color = "#" },
-                            new GradientStopData { Offset = 1.0, Color = "#" },
+                            new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+                            new GradientStopData { Offset = 0.5, Color = "#383F47" },
+                            new GradientStopData { Offset = 1.0, Color = "#252A30" },
                         };
 
                         App.Settings.Prop.CustomGradientStops = defaultStops;
@@ -225,9 +225,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             var defaultStops = new List<GradientStopData>
             {
-                new GradientStopData { Offset = 0.0, Color = "#" },
-                new GradientStopData { Offset = 0.5, Color = "#" },
-                new GradientStopData { Offset = 1.0, Color = "#" },
+                new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+                new GradientStopData { Offset = 0.5, Color = "#383F47" },
+                new GradientStopData { Offset = 1.0, Color = "#252A30" },
             };
 
             foreach (var stop in defaultStops)
@@ -327,10 +327,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         private void UpdateGradientPoints()
         {
-            App.Settings.Prop.GradientStartPoint = new Point(GradientStartPointX, GradientStartPointY);
-            App.Settings.Prop.GradientEndPoint = new Point(GradientEndPointX, GradientEndPointY);
+            App.Settings.Prop.GradientStartPoint = new System.Windows.Point(GradientStartPointX, GradientStartPointY);
+            App.Settings.Prop.GradientEndPoint = new System.Windows.Point(GradientEndPointX, GradientEndPointY);
 
-            ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+            ((MainWindow)System.Windows.Window.GetWindow(_page)!).ApplyTheme();
         }
 
         public static List<string> Languages => Locale.GetLanguages();
