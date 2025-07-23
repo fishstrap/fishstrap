@@ -6229,7 +6229,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Custom Cursor.
+        ///   Looks up a localized string similar to Custom Cursor.
         /// </summary>
         public static string Menu_Mods_Misc_CustomCursor_Title {
             get {
@@ -6274,7 +6274,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Custom In-Game Font.
+        ///   Looks up a localized string similar to Custom Game Font.
         /// </summary>
         public static string Menu_Mods_Misc_CustomFont_Title {
             get {

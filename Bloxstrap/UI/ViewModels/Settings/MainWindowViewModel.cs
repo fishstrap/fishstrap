@@ -8,12 +8,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
     {
         public ICommand OpenAboutCommand => new RelayCommand(OpenAbout);
         public ICommand OpenHelpCommand => new RelayCommand(OpenHelp);
-
         public ICommand SaveSettingsCommand => new RelayCommand(SaveSettings);
-
         public ICommand SaveAndLaunchSettingsCommand => new RelayCommand(SaveAndLaunchSettings);
-
-
+        public ICommand RestartAppCommand => new RelayCommand(RestartApp);
         public ICommand CloseWindowCommand => new RelayCommand(CloseWindow);
 
         public EventHandler? RequestSaveNoticeEvent;
@@ -71,9 +68,24 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             SaveSettings();
             if (!App.LaunchSettings.TestModeFlag.Active) // test mode already launches an instance
+            if (!App.LaunchSettings.TestModeFlag.Active)
                 LaunchHandler.LaunchRoblox(LaunchMode.Player);
 
             CloseWindow();
+        }
+
+        private void RestartApp()
+        {
+            SaveSettings();
+
+            var startInfo = new ProcessStartInfo(Environment.ProcessPath!)
+            {
+                Arguments = "-menu"
+            };
+
+            Process.Start(startInfo);
+
+            Application.Current.Shutdown();
         }
     }
 }

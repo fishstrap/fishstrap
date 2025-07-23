@@ -102,6 +102,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
@@ -110,9 +111,7 @@
             <!-- Test Mode -->
             <StatusBarItem Grid.Column="0" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,12,0">
-                    <ui:ToggleSwitch IsChecked="{Binding TestModeEnabled, Mode=TwoWay}"
-                             Height="22"
-                             VerticalAlignment="Center" />
+                    <ui:ToggleSwitch IsChecked="{Binding TestModeEnabled, Mode=TwoWay}" Height="22" VerticalAlignment="Center" />
                     <TextBlock Text="{x:Static resources:Strings.Menu_TestMode}"
                        FontSize="13.5"
                        VerticalAlignment="Center"
@@ -123,7 +122,7 @@
             </StatusBarItem>
 
             <!-- Save & Launch -->
-            <StatusBarItem Grid.Column="2" VerticalAlignment="Center" Margin="0,0,6,0">
+            <StatusBarItem Grid.Column="2" VerticalAlignment="Center" Margin="0,0,4,0">
                 <ui:Button Content="{x:Static resources:Strings.Menu_SaveAndLaunch}"
                    Appearance="Primary"
                    Height="32"
@@ -132,8 +131,17 @@
                    Command="{Binding SaveAndLaunchSettingsCommand}" />
             </StatusBarItem>
 
+            <StatusBarItem Grid.Column="3" VerticalAlignment="Center" Margin="0,0,4,0">
+                <ui:Button Content="Restart"
+               Height="32"
+               Padding="14,0"
+               FontWeight="Medium"
+               Appearance="Primary"
+               Command="{Binding RestartAppCommand}" />
+            </StatusBarItem>
+
             <!-- Save -->
-            <StatusBarItem Grid.Column="3" VerticalAlignment="Center" Margin="0,0,6,0">
+            <StatusBarItem Grid.Column="4" VerticalAlignment="Center" Margin="0,0,4,0">
                 <ui:Button Content="{x:Static resources:Strings.Menu_Save}"
                    Appearance="Primary"
                    Height="32"
@@ -143,7 +151,7 @@
             </StatusBarItem>
 
             <!-- Close -->
-            <StatusBarItem Grid.Column="4" VerticalAlignment="Center">
+            <StatusBarItem Grid.Column="5" VerticalAlignment="Center" Margin="0,0,8,0">
                 <ui:Button Content="{x:Static resources:Strings.Common_Close}"
                    Height="32"
                    Padding="14,0"

@@ -28,7 +28,7 @@
 
         <TextBlock Grid.Row="0" Margin="0,0,0,16" Text="{x:Static resources:Strings.Menu_FastFlagEditor_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
-        <WrapPanel Grid.Row="2" Orientation="Horizontal">
+        <WrapPanel Grid.Row="1" Orientation="Horizontal">
             <ui:Button
                 Margin="0,0,8,12"
                 Click="AddButton_Click"
@@ -106,54 +106,28 @@
                 VerticalAlignment="Top"
                 Click="ToggleButton_Click"
                 Content="{x:Static resources:Strings.Menu_FastFlagEditor_ShowPresetFlags}" />
-            <TextBlock 
-                x:Name="TotalFlagsTextBlock"
-                Margin="10,5" 
-                FontWeight="SemiBold"
-                Text="{Binding FlagCountText}"
-                Visibility="{Binding ShowFlagCount, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
         </WrapPanel>
 
-        <!--  Search Container with suggestion box -->
-        <Grid
-            Grid.Row="3"
-            Height="40"
-            Margin="0,0,1,5">
-            <ui:TextBox
-                x:Name="SearchTextBox"
-                Grid.Row="2"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center"
-                BorderThickness="0"
-                FocusVisualStyle="{x:Null}"
-                FontSize="14"
-                Icon="Search48"
-                PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}"
-                TextChanged="SearchTextBox_TextChanged">
-            </ui:TextBox>
-            <TextBlock
-                x:Name="SuggestionTextBlock"
-                Cursor="Hand"
-                MouseLeftButtonUp="SuggestionTextBlock_MouseLeftButtonUp"
-                Margin="12,0,11,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                FontSize="14"
-                Foreground="#FF51A2ED"
-                Opacity="0"
-                Visibility="Collapsed"
-                RenderTransformOrigin="0.5,0.5">
-                <TextBlock.RenderTransform>
-                    <TranslateTransform x:Name="SuggestionTranslateTransform" X="10" />
-                </TextBlock.RenderTransform>
-                    <Run Text="Looking For" />
-                    <Run x:Name="SuggestionKeywordRun" Text="" FontWeight="Bold" />
-                    <Run Text="?" />
-            </TextBlock>
+        <Grid Grid.Row="2" Margin="0,0,1,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TotalFlagsTextBlock" Grid.Row="0" HorizontalAlignment="Right" Margin="0,-8,8,0" FontWeight="Medium" FontSize="12" Text="{Binding FlagCountText}" Visibility="{Binding ShowFlagCount, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Grid Grid.Row="1" Height="40">
+                <ui:TextBox x:Name="SearchTextBox" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0" FocusVisualStyle="{x:Null}" FontSize="14" Icon="Search48" PlaceholderText="{x:Static resources:Strings.Menu_FastFlagEditor_Search}" TextChanged="SearchTextBox_TextChanged" />
+                <TextBlock x:Name="SuggestionTextBlock" Cursor="Hand" MouseLeftButtonUp="SuggestionTextBlock_MouseLeftButtonUp" Margin="12,0,11,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="#FF51A2ED" Opacity="0" Visibility="Collapsed" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform x:Name="SuggestionTranslateTransform" X="10" />
+                    </TextBlock.RenderTransform>
+            <Run Text="Looking For" />
+            <Run x:Name="SuggestionKeywordRun" Text="" FontWeight="Bold" />
+            <Run Text="?" />
+                </TextBlock>
+            </Grid>
         </Grid>
-
-        <Grid Grid.Row="3" Grid.RowSpan="2" Margin="0,45,0,-9">
+        
+        <Grid Grid.Row="3" Grid.RowSpan="2" Margin="0,0,0,-9">
 
             <DataGrid
         Name="DataGrid"

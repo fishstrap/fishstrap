@@ -138,7 +138,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 filtered = filtered.Where(kvp =>
                 {
                     var valueToCheck = kvp.Value;
-                    return values.Any(v => valueToCheck.Contains(v, StringComparison.OrdinalIgnoreCase));
+                    return values.All(v => valueToCheck.Contains(v, StringComparison.OrdinalIgnoreCase));
                 });
             }
 

@@ -17,7 +17,7 @@
     <Grid Margin="0,0,14,14">
         <StackPanel>
             <TextBlock Margin="0,0,0,16"
-               Text="Apply system tweaks to maximize FPS and stabilize Ping during gameplay."
+               Text="Boost FPS and stabilize Ping with system tweaks, hover over warnings for details."
                FontSize="14"
                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
@@ -33,7 +33,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 ItemWidth="260"
-                ItemHeight="260">
+                ItemHeight="210">
 
                 <controls:SquareCard Title="Ultra Performance Mode"
                              Description="Optimizes CPU and GPU priority for games. Disables background apps and puts maximum resources into gaming."
@@ -125,6 +125,8 @@
                      HorizontalAlignment="Stretch"
                      CategoryIcon="⚠"
                      PrimaryIconToolTip="This might cause Security Issues"
+                     SecondaryCategoryIcon="⚡"
+                     SecondaryIconToolTip="Performance Optimization"
                      VerticalAlignment="Top">
                     <controls:SquareCard.ButtonContent>
                         <ui:ToggleSwitch IsChecked="{Binding DisableMitigations, Mode=TwoWay}" />
@@ -165,6 +167,7 @@
                 </controls:SquareCard>
 
             </WrapPanel>
+            
             <!-- Easter Egg Button -->
             <ui:Button x:Name="EasterEggButton"
                    Width="24"
@@ -172,6 +175,7 @@
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
                    Margin="4"
+                   ToolTip="???"
                    Opacity="0.2"
                    Click="EasterEggButton_Click" />
         </StackPanel>

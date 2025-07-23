@@ -9,8 +9,6 @@
                   mc:Ignorable="d"
                   Title="Public Flaglists"
                   Width="700"
-                  MinHeight="400"
-                  Height="500"
                   WindowStartupLocation="CenterOwner"
                   Background="{ui:ThemeResource ApplicationBackgroundBrush}"
                   ExtendsContentIntoTitleBar="True"
@@ -28,14 +26,14 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar Grid.Row="0" Padding="8"
-                     Title="Shared Flaglists"
+                     Title="Public Flaglists"
                      Icon="pack://application:,,,/Bloxstrap.ico"
                      ShowMinimize="False"
                      ShowMaximize="False" />
 
-        <TabControl Grid.Row="1" Margin="16,0,16,16" Padding="0,8,0,0">
+        <TabControl Grid.Row="1" Margin="16,0,16,16" Padding="0,8,0,0" Height="Auto">
             <TabItem Header="Publish">
-                <StackPanel Margin="8,8,8,0" VerticalAlignment="Top" DataContext="{Binding}">
+                <StackPanel Margin="8,8,8,0" VerticalAlignment="Top" DataContext="{Binding}" Height="315">
                     <TextBlock Text="Flaglist Title:" FontWeight="SemiBold" Margin="0,0,0,4"/>
                     <ui:TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter flaglist title" Margin="0,0,0,10" />
 
@@ -53,7 +51,7 @@
 
             <!-- Browse Tab -->
             <TabItem Header="Browse">
-                <Grid Margin="8,8,8,0">
+                <Grid Margin="8,8,8,0" Height="Auto" MaxHeight="700">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
