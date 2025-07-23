@@ -75,10 +75,6 @@
                 Click="FlagProfiles_Click"
                 Content="{x:Static resources:Strings.Common_Profiles}"
                 Icon="Edit28"/>
-            <Button Content="Open Community Flaglists"
-        MinWidth="180"
-        Height="32"
-        Click="OpenFlaglistsDialog_Click" />
             <ui:Button
                 Margin="0,0,8,12"
                 VerticalAlignment="Top"
@@ -98,6 +94,12 @@
                 Icon="Search12"
                 Content="Find FastFlags"
                 Click="FindFlag_Button_Click" />
+            <ui:Button
+                Margin="0,0,8,12"
+                VerticalAlignment="Top"
+                Icon="Communication24"
+                Content="Public Flaglists"
+                Click="OpenPublicFlaglistsDialog_Click"/>
             <ToggleButton
                 x:Name="TogglePresetsButton"
                 Margin="0,0,8,12"

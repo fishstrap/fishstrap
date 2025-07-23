@@ -22,6 +22,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -43,10 +45,26 @@
                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                         Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
-            </ui:CardAction>
+            </ui:CardAction>            
             <ui:CardAction
                 Grid.Row="0"
                 Grid.Column="1"
+                Margin="0,8,8,0"
+                VerticalAlignment="Top"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/Fishstrap/Fishstrap/blob/main/LICENSE">
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="Fishstrap - MIT" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
+                </StackPanel>
+            </ui:CardAction>
+            <ui:CardAction
+                Grid.Row="0"
+                Grid.Column="2"
                 Margin="0,8,8,0"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
                 CommandParameter="https://github.com/lepoco/wpfui/blob/main/LICENSE">
@@ -60,9 +78,9 @@
                 </StackPanel>
             </ui:CardAction>
             <ui:CardAction
-                Grid.Row="0"
-                Grid.Column="2"
-                Margin="0,8,0,0"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,8,8,0"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
                 CommandParameter="https://github.com/securifybv/ShellLink/blob/master/LICENSE.txt">
                 <StackPanel>
@@ -77,7 +95,7 @@
 
             <ui:CardAction
                 Grid.Row="1"
-                Grid.Column="0"
+                Grid.Column="1"
                 Margin="0,8,8,0"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
                 CommandParameter="https://github.com/Lachee/discord-rpc-csharp/blob/master/LICENSE">
@@ -92,7 +110,7 @@
             </ui:CardAction>
             <ui:CardAction
                 Grid.Row="1"
-                Grid.Column="1"
+                Grid.Column="2"
                 Margin="0,8,8,0"
                 VerticalAlignment="Top"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
@@ -138,9 +156,9 @@
                 </StackPanel>
             </ui:CardAction>
             <ui:CardAction
-                Grid.Row="1"
+                Grid.Row="2"
                 Grid.Column="2"
-                Margin="0,8,0,0"
+                Margin="0,8,8,0"
                 VerticalAlignment="Top"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
                 CommandParameter="https://github.com/icsharpcode/AvalonEdit/blob/master/LICENSE">
@@ -153,21 +171,8 @@
                         Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
                 </StackPanel>
             </ui:CardAction>
-        </Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
             <ui:CardAction
-                Grid.Row="0"
+                Grid.Row="3"
                 Grid.Column="0"
                 Margin="0,8,8,0"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
@@ -182,7 +187,7 @@
                 </StackPanel>
             </ui:CardAction>
             <ui:CardAction
-                Grid.Row="0"
+                Grid.Row="3"
                 Grid.Column="1"
                 Margin="0,8,8,0"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
@@ -197,24 +202,9 @@
                 </StackPanel>
             </ui:CardAction>
             <ui:CardAction
+                Grid.Row="3"
                 Grid.Column="2"
-                Margin="0,-64,0,0"
-                VerticalAlignment="Top"
-                Command="models:GlobalViewModel.OpenWebpageCommand"
-                CommandParameter="https://github.com/Fishstrap/Fishstrap/blob/main/LICENSE">
-                <StackPanel>
-                    <TextBlock FontSize="14" Text="Fishstrap - MIT" />
-                    <TextBlock
-                        Margin="0,2,0,0"
-                        FontSize="12"
-                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                        Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
-                </StackPanel>
-            </ui:CardAction>
-            <ui:CardAction
-                Grid.RowSpan="3"
-                Grid.Column="2"
-                Margin="0,8,0,0"
+                Margin="0,8,8,0"
                 VerticalAlignment="Top"
                 Command="models:GlobalViewModel.OpenWebpageCommand"
                 CommandParameter="https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md">
@@ -225,6 +215,21 @@
                         FontSize="12"
                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                         Text="{x:Static resources:Strings.Menu_About_Licenses_MIT}" />
+                </StackPanel>
+            </ui:CardAction>
+            <ui:CardAction
+                Grid.Row="4"
+                Grid.Column="0"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/supabase/storage/blob/master/LICENSE">
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="SupaBase" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="Apache 2.0" />
                 </StackPanel>
             </ui:CardAction>
         </Grid>

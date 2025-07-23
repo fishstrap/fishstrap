@@ -134,7 +134,6 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             if (restored > 0)
             {
-                Frontend.ShowMessageBox($"Undid {restored} change{(restored == 1 ? "" : "s")}.", MessageBoxImage.Information);
                 _fastFlagEditor.UpdateTotalFlagsCount();
                 OnFlagsRestored?.Invoke();
             }

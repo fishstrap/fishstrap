@@ -348,9 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-Bloxstrap/UI/Elements/Settings/Pages/FastFlagEditorPage.xaml.cs
-Bloxstrap/UI/Elements/Settings/Pages/FastFlagEditorPage.xaml
-Bloxstrap/UI/Elements/Dialogs/FlagWindow.xaml
-Bloxstrap/UI/Elements/Dialogs/FlagWindow.xaml.cs
 Bloxstrap/UI/ViewModels/Dialogs/PublicFlaglistsViewModel.cs
 Bloxstrap/Integrations/SupabaseService.cs

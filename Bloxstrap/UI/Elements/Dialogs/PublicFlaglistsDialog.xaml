@@ -7,7 +7,7 @@
                   xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
                   xmlns:control="clr-namespace:Bloxstrap.UI.Elements.Controls"
                   mc:Ignorable="d"
-                  Title="Shared Flaglists"
+                  Title="Public Flaglists"
                   Width="700"
                   MinHeight="400"
                   Height="500"
@@ -129,19 +129,10 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                            <TextBlock Text="No results found."
-           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-           FontStyle="Italic"
-           HorizontalAlignment="Center"
-           Margin="0,20,0,0"
-           Visibility="{Binding IsNoResultsFound, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock Text="No results found." Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,20,0,0" Visibility="{Binding IsNoResultsFound, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <TextBlock Text="Loading more..."
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                FontStyle="Italic"
-           Margin="12"
-           HorizontalAlignment="Center"
-           Visibility="{Binding ShowLoadingMoreText, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontStyle="Italic" Margin="12" Visibility="{Binding ShowLoadingMoreText, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         </StackPanel>
                     </ScrollViewer>

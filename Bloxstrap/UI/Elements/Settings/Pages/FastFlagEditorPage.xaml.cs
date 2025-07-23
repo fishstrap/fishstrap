@@ -296,7 +296,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             dialog.ShowDialog();
         }
 
-        private void OpenFlaglistsDialog_Click(object sender, RoutedEventArgs e)
+        private void OpenPublicFlaglistsDialog_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new PublicFlaglistsDialog();
             dialog.ShowDialog();
