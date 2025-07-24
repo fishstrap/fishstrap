@@ -106,6 +106,14 @@ namespace Bloxstrap.UI.ViewModels.Installer
             if (!ImportSettings)
                 return true; // Import disabled, no validation needed
 
+            if (SelectedImportSource == ImportSettingsFrom.None)
+            {
+                installer.InstallLocationError = "";
+                OnPropertyChanged(nameof(ErrorMessage));
+                SetCanContinueEvent?.Invoke(this, true);
+                return true;
+            }
+
             string folderPath = SelectedImportSource switch
             {
                 ImportSettingsFrom.Bloxstrap => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Bloxstrap"),

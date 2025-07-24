@@ -370,7 +370,6 @@ namespace Bloxstrap
                 {
                     () => Directory.Delete(Paths.Modifications, true),
                     () => Directory.Delete(Paths.CustomCursors, true),
-                    () => Directory.Delete(Paths.Logs, true),
                     () => File.Delete(App.Settings.FileLocation),
                     () => File.Delete(App.State.FileLocation)
                 });
@@ -568,6 +567,11 @@ namespace Bloxstrap
 
         public void ImportSettingsFromSelectedApp()
         {
+            if (ImportSource == ImportSettingsFrom.None)
+            {
+                return;
+            }
+
             string sourceDir = ImportSource switch
             {
                 ImportSettingsFrom.Bloxstrap => Path.Combine(Paths.LocalAppData, "Bloxstrap"),
