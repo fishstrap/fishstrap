@@ -6,16 +6,12 @@
         Default,
         Dark,
         Light,
-        NewDark,
         Froststrap,
-        Forest,
         Purple,
         Blue,
-        Cyan,
         Green,
         Orange,
         Pink,
-        Red,
         [EnumName(FromTranslation = "Common.Custom")]
         Custom
     }

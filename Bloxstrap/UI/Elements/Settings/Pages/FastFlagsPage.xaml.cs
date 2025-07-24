@@ -126,7 +126,6 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 RainbowSky,
                 BlackSky,
                 WhiteSky,
-                KTX,
                 LowPolyMeshes,
                 FrameCreationBufferPercentage,
                 StartingGraphicsLevel,

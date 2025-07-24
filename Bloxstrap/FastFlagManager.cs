@@ -112,9 +112,6 @@ namespace Bloxstrap
             // Draggable Capture
             { "UI.DraggableCapture", "FFlagEnableUpdatedCaptureControls_v9" },
 
-            // KTX
-            { "Texture.KTX", "DFFlagAddKtxContentHash2" },
-
             // Increase Cache Size
             { "Cache.Increase1", "DFIntFileCacheReserveSize" },
             { "Cache.Increase2", "FIntTaskSchedulerMaxTempArenaSizeBytes" },
@@ -263,7 +260,7 @@ namespace Bloxstrap
             { "Rendering.Lighting.Voxel", "DFFlagDebugRenderForceTechnologyVoxel" },
             { "Rendering.Lighting.ShadowMap", "FFlagDebugForceFutureIsBrightPhase2" },
             { "Rendering.Lighting.Future", "FFlagDebugForceFutureIsBrightPhase3" },
-            { "Rendering.Lighting.Unified", "FFlagRenderUnifiedLighting15"},
+            { "Rendering.Lighting.Unified", "FFlagRenderUnifiedLighting16"},
 
             // Texture quality
             { "Rendering.TerrainTextureQuality", "FIntTerrainArraySliceSize" },
@@ -291,7 +288,7 @@ namespace Bloxstrap
             { "Network.RCore9", "DFIntSignalRHubConnectionHeartbeatTimerRateMs"},
 
             // Large Replicator
-            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled8"},
+            { "Network.EnableLargeReplicator", "FFlagLargeReplicatorEnabled9"},
             { "Network.LargeReplicatorWrite", "FFlagLargeReplicatorWrite5"},
             { "Network.LargeReplicatorRead", "FFlagLargeReplicatorRead5"},
             { "Network.SerializeRead", "FFlagLargeReplicatorSerializeRead3"},

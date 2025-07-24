@@ -56,17 +56,13 @@
     <EmbeddedResource Include="Resources\FroststrapPowerPlans\FroststrapMaximumFPS.pow" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Blue.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Custom.xshd" />
-    <EmbeddedResource Include="UI\Style\Editor-Theme-NewDark.xshd" />
-    <EmbeddedResource Include="UI\Style\Editor-Theme-Cyan.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Dark.xshd" />
-    <EmbeddedResource Include="UI\Style\Editor-Theme-Forest.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Froststrap.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Green.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Light.xshd" />
 	<EmbeddedResource Include="UI\Style\Editor-Theme-Orange.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Pink.xshd" />
 	<EmbeddedResource Include="UI\Style\Editor-Theme-Purple.xshd" />
-	<EmbeddedResource Include="UI\Style\Editor-Theme-Red.xshd" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,20 +94,16 @@
     <EmbeddedResource Include="Resources\Mods\Sounds\OldWalk.mp3" />
     <EmbeddedResource Include="Resources\Mods\Sounds\Empty.mp3" />
     <EmbeddedResource Include="Resources\Mods\OldAvatarBackground.rbxl" />
-	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s High Graphics V32" />
-	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Optimal Graphics V32" />
-	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Balanced Graphics V32" />
-	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Low Graphics V32" />
-	<EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Default Graphics V4" />
-    <EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Low Graphics V9" />
-	<EmbeddedResource Include="Resources\PresetFlags\Mahorga%27s Trash Graphics V15" />
+	<EmbeddedResource Include="Resources\PresetFlags\5070%27s Latency Pack V32" />
+	<EmbeddedResource Include="Resources\PresetFlags\Fps and Latency Lisy by Froststrap" />
+	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s High Graphics V35" />
+	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Balanced Graphics V35" />
+	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Low Graphics V35" />
 	<EmbeddedResource Include="Resources\PresetFlags\Better Synchronization" />
     <EmbeddedResource Include="Resources\PresetFlags\Reduced Input Delay" />
-	<EmbeddedResource Include="Resources\PresetFlags\Pure Fps List by Froststrap" />
 	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28DX11%29" />
 	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28Vulkan%29" />
 	<EmbeddedResource Include="Resources\PresetFlags\Scroom%27s Unplayable Graphics" />
-	<EmbeddedResource Include="Resources\PresetFlags\5070%27s Latency Pack V30" />
   </ItemGroup>
 
   <ItemGroup>

@@ -676,13 +676,6 @@
                 </controls:OptionControl>
 
                 <controls:OptionControl 
-                    x:Name="KTX"
-                    Header="KTX" 
-                    Description="KTX Content Hashing helps the GPU run better by stopping the same texture from being uploaded more than once.">
-                    <ui:ToggleSwitch IsChecked="{Binding KTX, Mode=TwoWay}" />
-                </controls:OptionControl>
-
-                <controls:OptionControl 
                     x:Name="LowPolyMeshes"
                     Header="{x:Static resources:Strings.Menu_FastFlags_Presets_LowPolyMeshes_Title}" 
                     Description="{x:Static resources:Strings.Menu_FastFlags_Presets_LowPolyMeshes_Description}"

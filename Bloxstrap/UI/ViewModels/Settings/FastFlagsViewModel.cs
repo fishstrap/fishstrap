@@ -431,12 +431,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.FastFlags.SetPreset("UI.DraggableCapture", value ? "True" : null);
         }
 
-        public bool KTX
-        {
-            get => App.FastFlags.GetPreset("Texture.KTX") == "True";
-            set => App.FastFlags.SetPreset("Texture.KTX", value ? "True" : null);
-        }
-
         public bool Prerender
         {
             get => App.FastFlags.GetPreset("Rendering.Prerender") == "True";
