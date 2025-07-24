@@ -803,7 +803,7 @@ Would you like to upgrade your currently installed version?</value>
     <value>Configure how Froststrap should look.</value>
   </data>
   <data name="Menu.Appearance.Custom.Theme.Title" xml:space="preserve">
-    <value>Custom App Themes</value>
+    <value>App Themes</value>
   </data>
   <data name="Menu.Appearance.Custom.Theme.Description" xml:space="preserve">
     <value>Customize Froststrap themes easily with presets or create your own unique look.</value>

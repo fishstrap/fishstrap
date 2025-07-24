@@ -3185,7 +3185,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom App Themes.
+        ///   Looks up a localized string similar to App Themes.
         /// </summary>
         public static string Menu_Appearance_Custom_Theme_Title {
             get {

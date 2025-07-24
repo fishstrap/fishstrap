@@ -450,6 +450,12 @@ private static bool _showingExceptionDialog = false;
                 LaunchHandler.ProcessLaunchArgs();
             }
 
+            if (string.IsNullOrWhiteSpace(Settings.Prop.UserId))
+            {
+                Settings.Prop.UserId = Guid.NewGuid().ToString();
+                Settings.Save();
+                Logger.WriteLine("Startup", $"Generated UserId: {Settings.Prop.UserId}");
+            }
         }
     }
 }
