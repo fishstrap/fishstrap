@@ -32,6 +32,7 @@
                      ShowMaximize="False" />
 
         <TabControl Grid.Row="1" Margin="16,0,16,16" Padding="0,8,0,0">
+            
             <!-- Publish Tab -->
             <TabItem Header="Publish">
                 <StackPanel Margin="8,8,8,0" VerticalAlignment="Top" DataContext="{Binding}" Height="315">
@@ -42,8 +43,8 @@
                     <ui:TextBox Text="{Binding Json, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" MinHeight="80" MaxHeight="150" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste FastFlag JSON here..." />
 
                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Left">
-                        <Button HorizontalAlignment="Left" Margin="0,8,4,0" Command="{Binding UploadCommand}" Content="Upload" />
-                        <Button HorizontalAlignment="Left" Margin="0,8,0,0" Command="{Binding GetCurrentFlagsCommand}" Content="Get Current Flags" />
+                        <Button HorizontalAlignment="Left" Margin="0,0,4,0" Command="{Binding UploadCommand}" Content="Upload" />
+                        <Button HorizontalAlignment="Left" Margin="0,0,0,0" Command="{Binding GetCurrentFlagsCommand}" Content="Get Current Flags" />
                     </StackPanel>
 
                     <TextBlock Text="{Binding StatusMessage}" Margin="8,8,0,0" Foreground="{DynamicResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />

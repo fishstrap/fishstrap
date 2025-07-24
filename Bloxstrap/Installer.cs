@@ -81,7 +81,6 @@ namespace Bloxstrap
             {
                 uninstallKey.SetValueSafe("DisplayIcon", $"{Paths.Application},0");
                 uninstallKey.SetValueSafe("DisplayName", App.ProjectName);
-
                 uninstallKey.SetValueSafe("DisplayVersion", App.Version);
 
                 if (uninstallKey.GetValue("InstallDate") is null)
@@ -142,12 +141,15 @@ namespace Bloxstrap
                     App.State.Load(false);
                 }
             }
-
-        // existing configuration persisting from an earlier install
-        // or from importing settings
-        App.Settings.Load(false);
+            App.Settings.Load(false);
             App.State.Load(false);
             App.FastFlags.Load(false);
+
+            if (string.IsNullOrWhiteSpace(App.Settings.Prop.UserId))
+            {
+                App.Settings.Prop.UserId = Guid.NewGuid().ToString();
+                App.Logger.WriteLine(LOG_IDENT, $"Generated new UserId: {App.Settings.Prop.UserId}");
+            }
 
             if (App.IsStudioVisible)
                 WindowsRegistry.RegisterStudio();
@@ -155,7 +157,6 @@ namespace Bloxstrap
             App.Settings.Save();
 
             App.Logger.WriteLine(LOG_IDENT, "Installation finished");
-
         }
 
         private bool ValidateLocation()
@@ -528,6 +529,15 @@ namespace Bloxstrap
 
                     if (App.State.Prop.GetDeprecatedModManifest() != null)
                         App.RobloxState.Prop.ModManifest = App.State.Prop.GetDeprecatedModManifest()!;
+                }
+
+                if (!(Utilities.CompareVersions(existingVer, "1.2.0.0") == VersionComparison.GreaterThan || Utilities.CompareVersions(existingVer, "1.2.0.0") == VersionComparison.Equal))
+                {
+                    if (string.IsNullOrWhiteSpace(App.Settings.Prop.UserId))
+                    {
+                        App.Settings.Prop.UserId = Guid.NewGuid().ToString();
+                        App.Logger.WriteLine(LOG_IDENT, $"Generated new UserId: {App.Settings.Prop.UserId}");
+                    }
                 }
 
                 App.Settings.Save();
