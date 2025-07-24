@@ -35,7 +35,7 @@
             
             <!-- Publish Tab -->
             <TabItem Header="Publish">
-                <StackPanel Margin="8,8,8,0" VerticalAlignment="Top" DataContext="{Binding}" Height="315">
+                <StackPanel Margin="8,8,8,0" VerticalAlignment="Top" DataContext="{Binding}">
                     <TextBlock Text="Flaglist Title:" FontWeight="SemiBold" Margin="0,0,0,4"/>
                     <ui:TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter flaglist title" Margin="0,0,0,10" />
 
@@ -48,6 +48,14 @@
                     </StackPanel>
 
                     <TextBlock Text="{Binding StatusMessage}" Margin="8,8,0,0" Foreground="{DynamicResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+
+                    <TextBlock Text="User ID:" FontWeight="SemiBold" Margin="0,12,0,4"/>
+                    <ui:TextBox Text="{Binding UserId, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter your User ID" Margin="0,0,0,6" />
+
+                    <StackPanel Orientation="Vertical" Margin="0,4,0,0">
+                        <ui:Button Content="Save User ID" Command="{Binding SaveUserIdCommand}" IsEnabled="{Binding HasUserIdChanged}" />
+                        <TextBlock TextWrapping="Wrap" FontWeight="SemiBold" Margin="0,12,0,0" Text="Warning: Changing your User ID will cause loss of access to published flaglists. Save your User ID safely to avoid losing it during upgrades or uninstall. Make sure to not share your ID with anyone." />
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
 
@@ -72,15 +80,27 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border CornerRadius="8" Background="#19000000" Margin="6" Padding="12" MaxWidth="300" MinWidth="250">
-                                            <StackPanel>
-                                                <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold" Margin="0,0,0,6"/>
-                                                <TextBlock Text="{Binding CreatedAt, StringFormat='Published on {0:MMM dd, yyyy HH:mm}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,2"/>
-                                                <TextBlock Text="{Binding UpdatedAt, StringFormat='Updated on {0:MMM dd, yyyy HH:mm}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,6"/>
-                                                <Button Content="Copy" Width="60" Height="24" Padding="0" Margin="0,0,0,6" Command="{Binding DataContext.CopyJsonCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}"/>
-                                                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="120">
-                                                    <TextBox Text="{Binding Json}" IsReadOnly="True" TextWrapping="Wrap" Background="{DynamicResource ControlFillColorDefaultBrush}" FontFamily="Consolas" FontSize="12" Padding="6" BorderThickness="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" MinHeight="60"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Margin="0,0,0,6">
+                                                    <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding CreatedAt, StringFormat='Published on {0:MMM dd, yyyy HH:mm}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0"/>
+                                                    <TextBlock Text="{Binding UpdatedAt, StringFormat='Updated on {0:MMM dd, yyyy HH:mm}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0"/>
+                                                </StackPanel>
+
+                                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="120">
+                                                    <TextBox Text="{Binding Json}" IsReadOnly="True" TextWrapping="Wrap" Background="{DynamicResource ControlFillColorDefaultBrush}" FontFamily="Consolas" FontSize="12" Padding="6" BorderThickness="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" MinHeight="100"/>
                                                 </ScrollViewer>
-                                            </StackPanel>
+
+                                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                                                    <Button Content="Copy" Width="60" Height="26" Padding="0" Command="{Binding DataContext.CopyJsonCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" />
+                                                </StackPanel>
+                                            </Grid>
                                         </Border>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -108,17 +128,14 @@
                         <TextBlock Text="Edit FlagList:" FontWeight="SemiBold" Margin="0,8,0,4"/>
                         <ui:TextBox Text="{Binding EditableJson, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" MinHeight="80" MaxHeight="150" PlaceholderText="Flaglist JSON..." Margin="0,4,0,8" IsEnabled="{Binding IsAnyFlaglistSelected}"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <ui:Button Content="Apply Changes to Selected" IsEnabled="{Binding IsAnyFlaglistSelected}" Command="{Binding ApplyBulkUpdateCommand}"/>
+                            <ui:Button Content="Apply Changes" IsEnabled="{Binding IsAnyFlaglistSelected}" Command="{Binding ApplyBulkUpdateCommand}"/>
                             <ui:Button Content="Delete Selected" Command="{Binding DeleteSelectedFlaglistsCommand}" IsEnabled="{Binding IsAnyFlaglistSelected}" Appearance="Danger" Margin="4,0,0,0"/>
                         </StackPanel>
                         <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="8,8,0,0" TextWrapping="Wrap"/>
                     </StackPanel>
 
                     <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" ScrollChanged="BrowseScrollViewer_ScrollChanged">
-                        <ListBox ItemsSource="{Binding MyFlaglists}"
-         SelectedItem="{Binding SelectedFlaglist, Mode=TwoWay}"
-         VirtualizingStackPanel.IsVirtualizing="True"
-         VirtualizingStackPanel.VirtualizationMode="Recycling">
+                        <ListBox ItemsSource="{Binding MyFlaglists}" SelectedItem="{Binding SelectedFlaglist, Mode=TwoWay}" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
 
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
