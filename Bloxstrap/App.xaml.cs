@@ -1,4 +1,3 @@
-using System.Net.Http.Json;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Windows;
@@ -47,9 +46,6 @@ namespace Bloxstrap
         public const string UninstallKey = $@"Software\Microsoft\Windows\CurrentVersion\Uninstall\{ProjectName}";
 
         public const string ApisKey = $"Software\\{ProjectName}";
-
-        public const int TaskbarProgressMaximum = 100;
-
         public static LaunchSettings LaunchSettings { get; private set; } = null!;
 
         public static BuildMetadataAttribute BuildMetadata = Assembly.GetExecutingAssembly().GetCustomAttribute<BuildMetadataAttribute>()!;
@@ -145,7 +141,7 @@ private static bool _showingExceptionDialog = false;
 
             _showingExceptionDialog = true;
 
-            SendLog(ex);
+            SendLog();
 
             if (Bootstrapper?.Dialog != null)
             {
@@ -231,23 +227,16 @@ private static bool _showingExceptionDialog = false;
             }
         }
 
-        public static async void SendLog(Exception exception)
+        public static async void SendLog()
         {
             if (!Settings.Prop.EnableAnalytics || !CanSendLogs())
                 return;
 
-            var request = new PostExceptionV2Request
-            {
-                Type = exception.GetType().ToString(),
-                Message = exception.Message,
-                Log = Logger.AsDocument
-            };
-
             try
             {
-                await HttpClient.PostAsJsonAsync(
-                    $"https://{WebUrl}/metrics/post-exception-v2",
-                    request
+                await HttpClient.PostAsync(
+                $"https://{WebUrl}/metrics/post-exception",
+                new StringContent(Logger.AsDocument)
                 );
             }
             catch (Exception ex)
@@ -423,13 +412,6 @@ private static bool _showingExceptionDialog = false;
                 State.Load();
                 RobloxState.Load();
                 FastFlags.Load();
-
-                if (Settings.Prop.PreventBackgroundRun && LaunchSettings.WatcherFlag.Active)
-                {
-                    Logger.WriteLine("App::OnStartup", "PreventBackgroundRun is enabled — skipping Watcher");
-                    Terminate();
-                    return;
-                }
 
                 if (!Locale.SupportedLocales.ContainsKey(Settings.Prop.Locale))
                 {

@@ -3772,7 +3772,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets the deployment channel. Do not change unless you what you’re doing!.
+        ///   Looks up a localized string similar to Sets the deployment channel. Do not change unless you know what you’re doing!.
         /// </summary>
         public static string Menu_ChannelChanger_Description {
             get {

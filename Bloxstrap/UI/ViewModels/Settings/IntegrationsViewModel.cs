@@ -67,9 +67,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.Settings.Prop.EnableActivityTracking;
             set
             {
-                if (!CanToggleActivityTracking)
-                    return;
-
                 App.Settings.Prop.EnableActivityTracking = value;
 
                 if (!value)
@@ -91,8 +88,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        public bool CanToggleActivityTracking => !PreventBackgroundRun;
-
         public bool ShowServerDetailsEnabled
         {
             get => App.Settings.Prop.ShowServerDetails;
@@ -103,36 +98,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => App.Settings.Prop.ShowGameHistoryMenu;
             set => App.Settings.Prop.ShowGameHistoryMenu = value;
-        }
-
-        public bool PreventBackgroundRun
-        {
-            get => App.Settings.Prop.PreventBackgroundRun;
-            set
-            {
-                App.Settings.Prop.PreventBackgroundRun = value;
-
-                if (value)
-                {
-                    // Disable activity tracking and notify
-                    App.Settings.Prop.EnableActivityTracking = false;
-                    OnPropertyChanged(nameof(ActivityTrackingEnabled));
-
-                    ShowServerDetailsEnabled = false;
-                    ShowGameHistory = false;
-                    DisableAppPatchEnabled = false;
-                    DiscordActivityEnabled = false;
-                    DiscordActivityJoinEnabled = false;
-                    OnPropertyChanged(nameof(ShowServerDetailsEnabled));
-                    OnPropertyChanged(nameof(ShowGameHistory));
-                    OnPropertyChanged(nameof(DisableAppPatchEnabled));
-                    OnPropertyChanged(nameof(DiscordActivityEnabled));
-                    OnPropertyChanged(nameof(DiscordActivityJoinEnabled));
-                }
-
-                OnPropertyChanged(nameof(PreventBackgroundRun));
-                OnPropertyChanged(nameof(CanToggleActivityTracking));
-            }
         }
 
         public bool PlayerLogsEnabled

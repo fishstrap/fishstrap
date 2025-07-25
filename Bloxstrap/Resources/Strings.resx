@@ -2110,7 +2110,7 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Channel</value>
   </data>
   <data name="Menu.ChannelChanger.Description" xml:space="preserve">
-    <value>Sets the deployment channel. Do not change unless you what you’re doing!</value>
+    <value>Sets the deployment channel. Do not change unless you know what you’re doing!</value>
   </data>
   <data name="Common.Version" xml:space="preserve">
     <value>Version</value>

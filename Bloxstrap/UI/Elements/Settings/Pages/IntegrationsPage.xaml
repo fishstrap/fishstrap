@@ -17,18 +17,10 @@
 
         <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_ActivityTracking}" FontSize="20" FontWeight="Bold" Margin="0,16,0,0" />
 
-        <controls:OptionControl
-            x:Name="PreventBackgroundRun"
-            Header="Stop Froststrap From Running in Background"
-            Description="Stops Froststrap from running in the background after Roblox launches. This disables Discord Rich Presence and tray features like Logs Menu and Server Info.">
-            <ui:ToggleSwitch IsChecked="{Binding PreventBackgroundRun, Mode=TwoWay}" />
-        </controls:OptionControl>
-
         <controls:OptionControl 
             x:Name="ActivityTrackingOption"
             Header="{x:Static resources:Strings.Menu_Integrations_EnableActivityTracking_Title}" 
             Description="{x:Static resources:Strings.Menu_Integrations_EnableActivityTracking_Description}" 
-            IsEnabled="{Binding CanToggleActivityTracking, Mode=OneWay}"
             HelpLink="https://github.com/bloxstraplabs/bloxstrap/wiki/What-is-activity-tracking%3F">
             <ui:ToggleSwitch IsChecked="{Binding ActivityTrackingEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
