@@ -45,7 +45,7 @@
         <!-- Title & Loading Indicator -->
         <StackPanel Grid.Row="1" Margin="16,8,16,0">
             <TextBlock FontSize="20" FontWeight="Bold" Text="Find FastFlag" Margin="0,0,0,4" />
-            <TextBlock FontSize="14" Margin="0,0,0,8" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Look through every fastflag to find unknown hidden fastflags, Press Ctrl+C to Copy" />
+            <TextBlock FontSize="14" Margin="0,0,0,8" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="View through our own FastFlag tracker to find new FastFlags! Note: Press Ctrl + C to copy flags." />
 
             <Border Margin="0,0,0,8"
                     Padding="10"

@@ -253,13 +253,13 @@
     <value>Disable Roblox Recording</value>
   </data>
   <data name="Menu.Integrations.BlockVideoRecording.Description" xml:space="preserve">
-    <value>Disables the Roblox recording feature. Note: when this feature is enabled, The hotkey combo will no longer work.</value>
+    <value>Disables the Roblox recording feature. Note: when this feature is enabled, the hotkey combo will no longer work.</value>
   </data>
   <data name="Menu.Integrations.BlockScreenShots.Title" xml:space="preserve">
     <value>Disable Roblox Screenshots</value>
   </data>
   <data name="Menu.Integrations.BlockScreenShots.Description" xml:space="preserve">
-    <value>Disables the Roblox screenshot feature. Note: when this feature is enabled, The hotkey combo will no longer work.</value>
+    <value>Disables the Roblox screenshot feature. Note: when this feature is enabled, the hotkey combo will no longer work.</value>
   </data>
   <data name="Menu.Integrations.BlockCardExpander.Title" xml:space="preserve">
     <value>Disable Roblox Features</value>
@@ -831,10 +831,10 @@ For more custom launchers, visit the official Bloxstrap Discord server.</value>
     <value>Froststrap will automatically check and update itself when launching Roblox.</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
-    <value>Automatically update Froststrap</value>
+    <value>Automatically Update Froststrap</value>
   </data>
   <data name="Menu.Behaviour.DisableHardwareAcceleration.Description" xml:space="preserve">
-    <value>Disables hardware acceleration on Frostrap only. Note: you must restart the application in order to see any effects.</value>
+    <value>Disables hardware acceleration on Frostrap only. Note: You must restart the application in order to see any effects.</value>
   </data>
 	<data name="Menu.Behaviour.DisableHardwareAcceleration.Title" xml:space="preserve">
     <value>Disable Hardware Acceleration</value>
@@ -849,7 +849,7 @@ For more custom launchers, visit the official Bloxstrap Discord server.</value>
     <value>Prevent closures of your existing game when accidentally launching another Roblox Instance.</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Title" xml:space="preserve">
-    <value>Prompt to confirm when launching another Roblox instance</value>
+    <value>Instance Launch Confirmation</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
     <value>Configure what Froststrap should do when launching Roblox.</value>
@@ -858,7 +858,7 @@ For more custom launchers, visit the official Bloxstrap Discord server.</value>
     <value>Roblox will be installed fresh on next launch.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Title" xml:space="preserve">
-    <value>Force Roblox reinstallation</value>
+    <value>Force Roblox Reinstallation</value>
   </data>
   <data name="Menu.Behaviour.Title" xml:space="preserve">
     <value>Bootstrapper</value>
@@ -995,7 +995,7 @@ Are you sure you want to continue?</value>
     <value>Search</value>
   </data>
   <data name="Menu.FastFlagEditor.ShowPresetFlags" xml:space="preserve">
-    <value>Show preset flags</value>
+    <value>Show Preset Flags</value>
   </data>
   <data name="Menu.FastFlagEditor.Title" xml:space="preserve">
     <value>FastFlag Editor</value>
@@ -1035,13 +1035,13 @@ Do NOT use this to import large "flag lists" made by other people that promise t
     <value>Roblox reduces your rendering quality depending on how your display is scaled in Windows.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Title" xml:space="preserve">
-    <value>Preserve rendering quality with display scaling</value>
+    <value>Preserve Rendering Quality With Display Scaling</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
     <value>Set the value to 0 if you want to use Roblox’s native framerate cap.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
-    <value>Framerate limit</value>
+    <value>Framerate Limit</value>
   </data>
   <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
     <value>Toggled with [keyboard shortcuts]({0}). Input the ID of a Roblox group you’re in.</value>
@@ -1053,10 +1053,10 @@ Do NOT use this to import large "flag lists" made by other people that promise t
     <value>Chosen one will be force enabled in all games. [Beware, may cause lighting issues!]({0})</value>
   </data>
   <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
-    <value>Preferred lighting technology</value>
+    <value>Preferred Lighting Technology</value>
   </data>
   <data name="Menu.FastFlags.Presets.RenderingMode.Title" xml:space="preserve">
-    <value>Rendering mode</value>
+    <value>Rendering Mode</value>
   </data>
   <data name="Menu.FastFlags.Presets.RenderingMode.Description" xml:space="preserve">
     <value>Configure the rendering API used for Roblox. Note: Press Alt + Enter to enter exclusive fullscreen when using Direct3D as the rendering API.</value>
@@ -1105,13 +1105,13 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Allows for anybody to join the game you're currently in through your Discord profile.</value>
   </data>
   <data name="Menu.Integrations.AllowActivityJoining.Title" xml:space="preserve">
-    <value>Allow activity joining</value>
+    <value>Allow Activity Joining</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Description" xml:space="preserve">
     <value>Shows the Roblox account you're playing with on your Discord profile.</value>
   </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Title" xml:space="preserve">
-    <value>Show Roblox account</value>
+    <value>Show Roblox Account</value>
   </data>
   <data name="Menu.Integrations.Custom.AppLocation" xml:space="preserve">
     <value>Application Location</value>
@@ -1144,13 +1144,13 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Roblox will fully close when you leave a game instead of going back to the app. [Will break some things!]({0})</value>
   </data>
   <data name="Menu.Integrations.DesktopApp.Title" xml:space="preserve">
-    <value>Don't exit to desktop app</value>
+    <value>Don't Exit To Desktop App</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
     <value>Allows Froststrap to detect what Roblox game you're playing. Certain features may require this.</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
-    <value>Enable activity tracking</value>
+    <value>Enable Activity Tracking</value>
   </data>
   <data name="Menu.Integrations.RequiresActivityTracking" xml:space="preserve">
     <value>This feature requires activity tracking to be enabled and the Discord desktop app to be installed and running. [Find out more]({0}).</value>
@@ -1159,7 +1159,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>The Roblox game you're playing will be shown on your Discord profile. [Not working?]({0})</value>
   </data>
   <data name="Menu.Integrations.ShowGameActivity.Title" xml:space="preserve">
-    <value>Show game activity</value>
+    <value>Show Game Activity</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
     <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>
@@ -1178,7 +1178,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <comment>Title is Common.Help</comment>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Choose" xml:space="preserve">
-    <value>Choose font...</value>
+    <value>Choose Font...</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Description" xml:space="preserve">
     <value>Font size can be adjusted in the FastFlag Settings tab.</value>
@@ -1187,7 +1187,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>The file you have chosen does not appear to be a valid font file.</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Remove" xml:space="preserve">
-    <value>Remove applied font</value>
+    <value>Remove Applied Font</value>
   </data>
   <data name="Menu.Mods.Misc.CustomFont.Title" xml:space="preserve">
     <value>Custom Game Font</value>
@@ -1196,7 +1196,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Choose Cursor...</value>
   </data>
   <data name="Menu.Mods.Misc.CustomCursor.Description" xml:space="preserve">
-    <value>Use your own mouse cursors in Roblox</value>
+    <value>Use your own mouse cursors in Roblox.</value>
   </data>
   <data name="Menu.Mods.Misc.CustomCursor.Remove" xml:space="preserve">
     <value>Remove Custom Cursor</value>
@@ -1214,31 +1214,31 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Choose which type of emoji should Roblox use.</value>
   </data>
   <data name="Menu.Mods.Presets.EmojiType.Title" xml:space="preserve">
-    <value>Preferred emoji type</value>
+    <value>Preferred Emoji Type</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Description" xml:space="preserve">
-    <value>Choose between using two classic Roblox cursor styles.</value>
+    <value>Choose between using multiple Roblox cursors.</value>
   </data>
   <data name="Menu.Mods.Presets.MouseCursor.Title" xml:space="preserve">
-    <value>Mouse cursor</value>
+    <value>Mouse Cursor</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Description" xml:space="preserve">
     <value>Bring back the old avatar editor background used in the Roblox app prior to 2020.</value>
   </data>
   <data name="Menu.Mods.Presets.OldAvatarEditor.Title" xml:space="preserve">
-    <value>Use old avatar editor background</value>
+    <value>Use Old Avatar Editor Background</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Description" xml:space="preserve">
     <value>An attempt to roughly bring back the character sounds used prior to 2014.</value>
   </data>
   <data name="Menu.Mods.Presets.OldCharacterSounds.Title" xml:space="preserve">
-    <value>Emulate old character sounds</value>
+    <value>Emulate Old Character Sounds</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Description" xml:space="preserve">
     <value>Bring back the classic 'oof' death sound.</value>
   </data>
   <data name="Menu.Mods.Presets.OldDeathSound.Title" xml:space="preserve">
-    <value>Use old death sound</value>
+    <value>Use Old Death Sound</value>
   </data>
   <data name="Menu.Mods.Title" xml:space="preserve">
     <value>Mods</value>
@@ -1272,7 +1272,7 @@ Some text might not be translated to preferred language.</value>
     <value>A relaunch is required for changes to take effect. Some text might not be translated to preferred language.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Title" xml:space="preserve">
-    <value>Allow use of unsupported Roblox languages</value>
+    <value>Allow Unsupported Languages</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxLanguage.Description" xml:space="preserve">
     <value>Only applies to games launched from the Roblox website.</value>
@@ -1281,7 +1281,7 @@ Some text might not be translated to preferred language.</value>
     <value>2023 (V4 + New UI)</value>
   </data>
   <data name="Menu.FastFlags.Presets.ForceLogicalProcessor.Description" xml:space="preserve">
-    <value>Specifies the maximum number of worker threads Roblox can use for parallel tasks. Note: it’s recommended to set this to the number of logical processors your CPU has.</value>
+    <value>Specifies the maximum number of worker threads Roblox can use for parallel tasks.</value>
   </data>
   <data name="Menu.FastFlags.Presets.ForceLogicalProcessor.Title" xml:space="preserve">
     <value>Set Max Worker Threads</value>
@@ -1323,7 +1323,7 @@ Some text might not be translated to preferred language.</value>
     <value>Configure settings that change how your PC behaves with Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.SystemExperimental.Description" xml:space="preserve">
-    <value>Configure Experimental settings that change how your PC behaves with Roblox.</value>
+    <value>Configure experimental settings that change how your PC behaves with Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Categories.Network.Title" xml:space="preserve">
     <value>Network</value>
@@ -1371,7 +1371,7 @@ Some text might not be translated to preferred language.</value>
     <value>Large Replicator</value>
   </data>
 	<data name="Menu.FastFlags.Presets.LargeReplicator.Description" xml:space="preserve">
-    <value>Improves the speeds of large read and write operations.</value>
+    <value>Improves the speeds of large read and write operations. Note: This may be unstable on some systems.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FasterLoading.Title" xml:space="preserve">
     <value>Faster Loading</value>
@@ -1389,7 +1389,7 @@ Some text might not be translated to preferred language.</value>
     <value>MTU Connection Size</value>
   </data>
   <data name="Menu.FastFlags.Presets.MTU.Description" xml:space="preserve">
-    <value>Configure the bytes of data that are transferred over your network. Note: most people can handle MTU sizes from 576–1498.</value>
+    <value>Configure the bytes of data that are transferred over your network. Note: Most people can handle MTU sizes from 576–1498.</value>
   </data>
   <data name="Menu.FastFlags.Presets.DynamicReso.Title" xml:space="preserve">
     <value>Pixel Resolution</value>
@@ -1419,7 +1419,7 @@ Some text might not be translated to preferred language.</value>
     <value>Higher MSAA levels reduce jagged edges but may impact performance.</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisableAds.Description" xml:space="preserve">
-    <value>Disable Roblox Built-In Ads</value>
+    <value>Remove Roblox’s built-in ad system.</value>
   </data>
 	<data name="Menu.FastFlags.Presets.DisableAds.Title" xml:space="preserve">
     <value>Disable Ads</value>
@@ -1461,7 +1461,7 @@ Some text might not be translated to preferred language.</value>
     <value>Rainbow UI/Textures</value>
   </data>
   <data name="Menu.FastFlags.Presets.UnthemedInstances.Description" xml:space="preserve">
-    <value>Applies a variety of random colors to text and UI elements that typically lack color. Note: this setting may cause certain games to look strange and discolored.</value>
+    <value>Applies a variety of random colors to text and UI elements that typically lack color. Note: This setting may cause certain games to look strange and discolored.</value>
   </data>
   <data name="Menu.FastFlags.Presets.SkyColor.Title" xml:space="preserve">
     <value>Sky Colors</value>
@@ -1503,7 +1503,7 @@ Some text might not be translated to preferred language.</value>
     <value>Disables the game pass purchase GUI in all games.</value>
   </data>
   <data name="Menu.FastFlags.Presets.WebView2Telemetry.Description" xml:space="preserve">
-    <value>Note: this setting disables a large majority of Roblox's WebView2 telemetry, but not all.</value>
+    <value>Note: This setting disables a large majority of Roblox's WebView2 telemetry, but not all.</value>
   </data>
   <data name="Menu.FastFlags.Presets.WebView2Telemetry.Title" xml:space="preserve">
     <value>Disable WebView2 Telemetry</value>
@@ -1515,7 +1515,7 @@ Some text might not be translated to preferred language.</value>
     <value>Pseudolocalization</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisableVoiceChatTelemetry.Description" xml:space="preserve">
-    <value>Note: this setting disables a large majority of Roblox’s voice chat telemetry, but not all.</value>
+    <value>Note: This setting disables a large majority of Roblox’s voice chat telemetry, but not all.</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisableVoiceChatTelemetry.Title" xml:space="preserve">
     <value>Disable Voice Chat Telemetry</value>
@@ -1551,7 +1551,7 @@ Some text might not be translated to preferred language.</value>
     <value>Preset Column</value>
   </data>
   <data name="Menu.FastFlagsEditor.AdvancedSettings.PresetColumn.Description" xml:space="preserve">
-    <value>Toggle the Preset Column which shows toggleable FastFlags in FastFlag Setting</value>
+    <value>Toggle the Preset Column which shows toggleable FastFlags in FastFlag Setting.</value>
   </data>
   <data name="Menu.FastFlagsEditor.AdvancedSettings.CopyFormat.Title" xml:space="preserve">
     <value>Copy Format</value>
@@ -1593,13 +1593,13 @@ Some text might not be translated to preferred language.</value>
     <value>Smooths almost all in-game textures. Note: Some icons or images may appear distorted due to Texture Skipping. Compatibility or stability is not guaranteed on all systems, as this feature enables the Vulkan rendering API.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Tencent.Description" xml:space="preserve">
-    <value>Note: this setting blocks some data collection by Tencent and the Chinese government, but not all.</value>
+    <value>Note: This setting blocks some data collection by Tencent and the Chinese government, but not all.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Tencent.Title" xml:space="preserve">
     <value>Block Tencent</value>
   </data>
   <data name="Menu.FastFlags.Presets.VNG.Description" xml:space="preserve">
-    <value>Note: this setting blocks some data collection by VNG and the Vietnamese government, but not all.</value>
+    <value>Note: This setting blocks some data collection by VNG and the Vietnamese government, but not all.</value>
   </data>
   <data name="Menu.FastFlags.Presets.VNG.Title" xml:space="preserve">
     <value>Block VNG</value>
@@ -1617,7 +1617,7 @@ Some text might not be translated to preferred language.</value>
     <value>No Disconnect Message</value>
   </data>
   <data name="Menu.FastFlags.Presets.RedFont.Description" xml:space="preserve">
-    <value>Applies a red color to almost all text. Note: this setting does not work with custom fonts!</value>
+    <value>Applies a red color to almost all text. Note: This setting does not work with custom fonts!</value>
   </data>
   <data name="Menu.FastFlags.Presets.RedFont.Title" xml:space="preserve">
     <value>Red Font</value>
@@ -1647,7 +1647,7 @@ Some text might not be translated to preferred language.</value>
     <value>Frame Creation Buffer Percentage</value>
   </data>
   <data name="Menu.FastFlags.Presets.FPSBufferPercentage.Description" xml:space="preserve">
-    <value>Determines how much extra time Roblox takes to prepare a single frame. Note: Values are set between 0-100</value>
+    <value>Determines how much extra time Roblox takes to prepare a single frame. Note: Values are set between 0-100.</value>
   </data>
   <data name="Menu.FastFlags.Presets.RemoveGrass.Title" xml:space="preserve">
     <value>Disable Grass</value>
@@ -1662,7 +1662,7 @@ Some text might not be translated to preferred language.</value>
     <value>Reduces the quality of particle effects for potentially better performance.</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
-    <value>Disable post-processing effects</value>
+    <value>Disable Post-Processing Effects</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
     <value>Disable Fullscreen Titlebar</value>
@@ -1671,7 +1671,7 @@ Some text might not be translated to preferred language.</value>
     <value>Prevent the titlebar from showing when you move your cursor to the top of the screen in fullscreen mode.</value>
   </data>
   <data name="Menu.FastFlags.Presets.TextureQuality.Title" xml:space="preserve">
-    <value>Texture quality</value>
+    <value>Texture Quality</value>
   </data>
   <data name="Menu.FastFlags.Presets.TextureQuality.Description" xml:space="preserve">
     <value>Adjust the texture quality for games. Note: this setting also affects GUI and UI.</value>
@@ -1689,16 +1689,16 @@ Some text might not be translated to preferred language.</value>
     <value>Level 3 (Highest)</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
-    <value>Disable player shadows</value>
+    <value>Disable Player Shadows</value>
   </data>
   <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
-    <value>Font size</value>
+    <value>Font Size</value>
   </data>
   <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
     <value>Default value is 1. Adjust if you use a custom font.</value>
   </data>
   <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
-    <value>Disable terrain textures</value>
+    <value>Disable Terrain Textures</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
     <value>Froststrap is unable to download Roblox</value>
@@ -1782,10 +1782,10 @@ This installation process will be quick and simple, and you will be able to conf
     <value>Shortcuts</value>
   </data>
   <data name="Common.Shortcuts.Desktop" xml:space="preserve">
-    <value>Desktop icon</value>
+    <value>Desktop Icon</value>
   </data>
   <data name="Common.Shortcuts.StartMenu" xml:space="preserve">
-    <value>Start Menu icon</value>
+    <value>Start Menu Icon</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
     <value>Froststrap has successfully been installed.
@@ -1967,7 +1967,7 @@ Please manually delete Froststrap.exe from the install location or try restartin
     <value>Not available</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Title" xml:space="preserve">
-    <value>Manage compatibility settings</value>
+    <value>Manage Compatibility Settings</value>
   </data>
   <data name="Menu.Mods.Misc.CompatibilitySettings.Description" xml:space="preserve">
     <value>Configure application parameters such as DPI scaling behaviour and [fullscreen optimizations]({0}).</value>
@@ -1988,7 +1988,7 @@ Please manually delete Froststrap.exe from the install location or try restartin
     <comment>{0} is an exception message</comment>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Title" xml:space="preserve">
-    <value>Extract Roblox icons to folder</value>
+    <value>Extract Roblox Icons to Folder</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
     <value>Allows you to use Froststrap's range of Roblox icons for your shortcuts. [See how.]({0})</value>
@@ -2062,7 +2062,7 @@ Would you like to enable Test Mode?</value>
     <value>Load</value>
   </data>
   <data name="Bootstrapper.Status.CancelUpgrade" xml:space="preserve">
-    <value>Cancelling Roblox upgrade.</value>
+    <value>Cancelling Roblox Upgrade.</value>
   </data>
   <data name="Menu.Behaviour.RenameToEurotrucks.Title" xml:space="preserve">
     <value>Ansel support</value>
@@ -2119,7 +2119,7 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Version Guid</value>
   </data>
   <data name="Menu.Channel.RobloxUpgrades" xml:space="preserve">
-    <value>Roblox upgrades</value>
+    <value>Roblox Upgrades</value>
   </data>
   <data name="Menu.Channel.RobloxUpgrades.Description" xml:space="preserve">
     <value>When disabled, Roblox client won't upgrade to newer versions.</value>
@@ -2134,16 +2134,16 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Change downloading string. {0} is package name, {1} is downloaded packages size and {2} is total size of packages.</value>
   </data>
   <data name="Menu.Behaviour.MultiInstances.Title" xml:space="preserve">
-    <value>Multi-instance launching</value>
+    <value>Multi-Instance Launching</value>
   </data>
   <data name="Menu.Behaviour.MultiInstances.Description" xml:space="preserve">
     <value>Allows for more than one Roblox instance to be opened simultaneously. May cause issues with desktop app.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Telemetry.Title" xml:space="preserve">
-    <value>Disable Roblox telemetry</value>
+    <value>Disable Roblox Telemetry</value>
   </data>
   <data name="Menu.FastFlags.Presets.Telemetry.Description" xml:space="preserve">
-    <value>Note: this setting disables a large majority of Roblox's telemetry, but not all.</value>
+    <value>Note: This setting disables a large majority of Roblox's telemetry, but not all.</value>
   </data>
   <data name="Menu.FastFlags.Presets.Telemetry" xml:space="preserve">
     <value>Telemetry</value>
@@ -2170,22 +2170,22 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Deployment</value>
   </data>
   <data name="Menu.FastFlags.Presets.IngameMenu.VRToggle.Title" xml:space="preserve">
-    <value>VR toggle</value>
+    <value>VR Toggle</value>
   </data>
   <data name="Menu.FastFlags.Presets.IngameMenu.SoothsayerCheck.Title" xml:space="preserve">
-    <value>Feedback button</value>
+    <value>Feedback Button</value>
   </data>
   <data name="Menu.FastFlags.Presets.IngameMenu.LanguageSelector.Title" xml:space="preserve">
-    <value>Language selector</value>
+    <value>Language Selector</value>
   </data>
   <data name="Menu.FastFlags.Presets.IngameMenu.Framerate.Title" xml:space="preserve">
-    <value>Framerate cap</value>
+    <value>Framerate Cap</value>
   </data>
   <data name="Menu.FastFlags.Presets.IngameMenu.ChatTranslation.Title" xml:space="preserve">
-    <value>Chat translation</value>
+    <value>Chat Translation</value>
   </data>
   <data name="Menu.FastFlags.Presets.FlagState.Title" xml:space="preserve">
-    <value>Flag state</value>
+    <value>Flag State</value>
   </data>
   <data name="Menu.FastFlags.Presets.FlagState.Description" xml:space="preserve">
     <value>Show values of specified flags during runtime. Each flag is comma separated.</value>
@@ -2221,7 +2221,7 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
     <value>Save and Launch</value>
   </data>
   <data name="Menu.FastFlags.Presets.PingBreakdown.Title" xml:space="preserve">
-    <value>Ping breakdown</value>
+    <value>Ping Breakdown</value>
   </data>
   <data name="Menu.FastFlags.Presets.PingBreakdown.Description" xml:space="preserve">
     <value>Sends detailed ping information to the Roblox console.</value>
@@ -2287,7 +2287,7 @@ For more information join Bloxshade discord server.</value>
 Would you like to switch to the default channel ({1})?</value>
   </data>
   <data name="Menu.Channel.ChangeAction.Title" xml:space="preserve">
-    <value>Automatic channel change action</value>
+    <value>Automatic Channel Change Action</value>
   </data>
   <data name="Menu.Channel.ChangeAction.Description" xml:space="preserve">
     <value>Roblox or Froststrap may try to change your preferred channel.</value>

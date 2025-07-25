@@ -17,7 +17,7 @@
     <Grid Margin="0,0,14,14">
         <StackPanel>
             <TextBlock Margin="0,0,0,16"
-               Text="Boost FPS and stabilize Ping with system tweaks, hover over warnings for details."
+               Text="Improve system performance by optimizing various settings. Hover over warnings for more details."
                FontSize="14"
                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
@@ -47,11 +47,11 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="Froststrap Power Plan: Maximum FPS"
-                     Description="Imports Froststrap Custom Powerplan for Maximum FPS.
-                                     Credits: Onion"
+                     Description="Imports Froststrap’s custom power plandesigned for the highest frame rates.
+                                     Credits to Onion for creating"
                      HorizontalAlignment="Stretch"
                      CategoryIcon="⚠"
-                     PrimaryIconToolTip="This might cause Overheating Issues"
+                     PrimaryIconToolTip="Warning: Applying may cause overheating!"
                      SecondaryCategoryIcon="⚡"
                      SecondaryIconToolTip="Performance Optimization"
                      VerticalAlignment="Top">
@@ -61,11 +61,11 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="Froststrap Power Plan: Low Latency"
-                     Description="Imports Froststrap Custom Powerplan for lower input delay.
-                                     Credits: Onion"
+                     Description="Imports Froststrap’s custom power plandesigned for the lowest system latency.
+                                     Credits to Onion for creating"
                      HorizontalAlignment="Stretch"
                      CategoryIcon="⚠"
-                     PrimaryIconToolTip="This might cause Overheating Issues"
+                     PrimaryIconToolTip="Warning: Applying may cause overheating!"
                      SecondaryCategoryIcon="⚡"
                      SecondaryIconToolTip="Performance Optimization"
                      VerticalAlignment="Top">
@@ -86,7 +86,7 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="QoS Policy"
-                             Description="This boosts Roblox network priority using Windows QoS, helping reduce lag on busy Wi-Fi networks."
+                             Description="Optimizes network traffic by prioritizing Roblox with Windows Quality of Service."
                              Category="Network"
                              PrimaryIconToolTip="Network Optimization"
                              HorizontalAlignment="Stretch"
@@ -121,10 +121,10 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="Disable Mitigations"
-                     Description="Disables security mitigations such as CFG and SEHOP for slightly improved performance."
+                     Description="Disables security and process mitigations for reduced background activity and better performance."
                      HorizontalAlignment="Stretch"
                      CategoryIcon="⚠"
-                     PrimaryIconToolTip="This might cause Security Issues"
+                     PrimaryIconToolTip="Warning: Disabling this will reduce system security!"
                      SecondaryCategoryIcon="⚡"
                      SecondaryIconToolTip="Performance Optimization"
                      VerticalAlignment="Top">
@@ -134,10 +134,12 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="Supress Defender"
-                     Description="Suppresses Windows Defender and lowers its performance impact"
+                     Description="Lowers Windows Defender’s task priority to reduce performance impact."
                      HorizontalAlignment="Stretch"
-                     Category="Privacy"
-                     PrimaryIconToolTip="Privacy"
+                     CategoryIcon="⚠"
+                     PrimaryIconToolTip="Warning: Disabling this will reduce system security!"
+                     SecondaryCategoryIcon="🔒"
+                     SecondaryIconToolTip="Privacy"
                      VerticalAlignment="Top">
                     <controls:SquareCard.ButtonContent>
                         <ui:ToggleSwitch IsChecked="{Binding DisableDefenderSmartScreen, Mode=TwoWay}" />
@@ -145,7 +147,7 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="Win32 Priority Separation"
-                     Description="Adjusts foreground app CPU priority to favor responsiveness for games."
+                     Description="Automatically sets an optimal Win32PrioritySeparation value based on your CPU to improve performance."
                      HorizontalAlignment="Stretch"
                      CategoryIcon="⚡"
                      PrimaryIconToolTip="Performance Optimization"
@@ -156,7 +158,7 @@
                 </controls:SquareCard>
 
                 <controls:SquareCard Title="Disable Telemetry"
-                     Description="Stops Windows from collecting usage and diagnostic data, reducing background activity."
+                     Description="Prevents Windows from automatically collecting diagnostic and usage data, reducing background activity."
                      HorizontalAlignment="Stretch"
                      Category="Privacy"
                      PrimaryIconToolTip="Privacy"

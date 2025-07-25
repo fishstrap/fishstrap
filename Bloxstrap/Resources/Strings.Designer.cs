@@ -313,7 +313,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancelling Roblox upgrade..
+        ///   Looks up a localized string similar to Cancelling Roblox Upgrade..
         /// </summary>
         public static string Bootstrapper_Status_CancelUpgrade {
             get {
@@ -934,7 +934,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Desktop icon.
+        ///   Looks up a localized string similar to Desktop Icon.
         /// </summary>
         public static string Common_Shortcuts_Desktop {
             get {
@@ -943,7 +943,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Menu icon.
+        ///   Looks up a localized string similar to Start Menu Icon.
         /// </summary>
         public static string Common_Shortcuts_StartMenu {
             get {
@@ -3375,7 +3375,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatically update Froststrap.
+        ///   Looks up a localized string similar to Automatically Update Froststrap.
         /// </summary>
         public static string Menu_Behaviour_AutoUpdate_Title {
             get {
@@ -3420,7 +3420,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prompt to confirm when launching another Roblox instance.
+        ///   Looks up a localized string similar to Instance Launch Confirmation.
         /// </summary>
         public static string Menu_Behaviour_ConfirmLaunches_Title {
             get {
@@ -3456,7 +3456,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables hardware acceleration on Frostrap only. Note: you must restart the application in order to see any effects..
+        ///   Looks up a localized string similar to Disables hardware acceleration on Frostrap only. Note: You must restart the application in order to see any effects..
         /// </summary>
         public static string Menu_Behaviour_DisableHardwareAcceleration_Description {
             get {
@@ -3483,7 +3483,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow use of unsupported Roblox languages.
+        ///   Looks up a localized string similar to Allow Unsupported Languages.
         /// </summary>
         public static string Menu_Behaviour_ForceRobloxLanguage_Title {
             get {
@@ -3501,7 +3501,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Force Roblox reinstallation.
+        ///   Looks up a localized string similar to Force Roblox Reinstallation.
         /// </summary>
         public static string Menu_Behaviour_ForceRobloxReinstall_Title {
             get {
@@ -3519,7 +3519,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multi-instance launching.
+        ///   Looks up a localized string similar to Multi-Instance Launching.
         /// </summary>
         public static string Menu_Behaviour_MultiInstances_Title {
             get {
@@ -3700,7 +3700,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatic channel change action.
+        ///   Looks up a localized string similar to Automatic Channel Change Action.
         /// </summary>
         public static string Menu_Channel_ChangeAction_Title {
             get {
@@ -3718,7 +3718,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roblox upgrades.
+        ///   Looks up a localized string similar to Roblox Upgrades.
         /// </summary>
         public static string Menu_Channel_RobloxUpgrades {
             get {
@@ -4113,7 +4113,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show preset flags.
+        ///   Looks up a localized string similar to Show Preset Flags.
         /// </summary>
         public static string Menu_FastFlagEditor_ShowPresetFlags {
             get {
@@ -4405,7 +4405,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure Experimental settings that change how your PC behaves with Roblox..
+        ///   Looks up a localized string similar to Configure experimental settings that change how your PC behaves with Roblox..
         /// </summary>
         public static string Menu_FastFlags_Presets_Categories_SystemExperimental_Description {
             get {
@@ -4477,7 +4477,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Roblox Built-In Ads.
+        ///   Looks up a localized string similar to Remove Roblox’s built-in ad system..
         /// </summary>
         public static string Menu_FastFlags_Presets_DisableAds_Description {
             get {
@@ -4522,7 +4522,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable player shadows.
+        ///   Looks up a localized string similar to Disable Player Shadows.
         /// </summary>
         public static string Menu_FastFlags_Presets_DisablePlayerShadows_Title {
             get {
@@ -4531,7 +4531,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable post-processing effects.
+        ///   Looks up a localized string similar to Disable Post-Processing Effects.
         /// </summary>
         public static string Menu_FastFlags_Presets_DisablePostFX_Title {
             get {
@@ -4540,7 +4540,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable terrain textures.
+        ///   Looks up a localized string similar to Disable Terrain Textures.
         /// </summary>
         public static string Menu_FastFlags_Presets_DisableTerrainTextures_Title {
             get {
@@ -4549,7 +4549,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: this setting disables a large majority of Roblox’s voice chat telemetry, but not all..
+        ///   Looks up a localized string similar to Note: This setting disables a large majority of Roblox’s voice chat telemetry, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_DisableVoiceChatTelemetry_Description {
             get {
@@ -4621,7 +4621,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preserve rendering quality with display scaling.
+        ///   Looks up a localized string similar to Preserve Rendering Quality With Display Scaling.
         /// </summary>
         public static string Menu_FastFlags_Presets_FixDisplayScaling_Title {
             get {
@@ -4639,7 +4639,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Flag state.
+        ///   Looks up a localized string similar to Flag State.
         /// </summary>
         public static string Menu_FastFlags_Presets_FlagState_Title {
             get {
@@ -4657,7 +4657,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Font size.
+        ///   Looks up a localized string similar to Font Size.
         /// </summary>
         public static string Menu_FastFlags_Presets_FontPadding_Title {
             get {
@@ -4666,7 +4666,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifies the maximum number of worker threads Roblox can use for parallel tasks. Note: it’s recommended to set this to the number of logical processors your CPU has..
+        ///   Looks up a localized string similar to Specifies the maximum number of worker threads Roblox can use for parallel tasks..
         /// </summary>
         public static string Menu_FastFlags_Presets_ForceLogicalProcessor_Description {
             get {
@@ -4702,7 +4702,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Determines how much extra time Roblox takes to prepare a single frame. Note: Values are set between 0-100.
+        ///   Looks up a localized string similar to Determines how much extra time Roblox takes to prepare a single frame. Note: Values are set between 0-100..
         /// </summary>
         public static string Menu_FastFlags_Presets_FPSBufferPercentage_Description {
             get {
@@ -4729,7 +4729,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Framerate limit.
+        ///   Looks up a localized string similar to Framerate Limit.
         /// </summary>
         public static string Menu_FastFlags_Presets_FPSLimit_Title {
             get {
@@ -4819,7 +4819,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat translation.
+        ///   Looks up a localized string similar to Chat Translation.
         /// </summary>
         public static string Menu_FastFlags_Presets_IngameMenu_ChatTranslation_Title {
             get {
@@ -4828,7 +4828,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Framerate cap.
+        ///   Looks up a localized string similar to Framerate Cap.
         /// </summary>
         public static string Menu_FastFlags_Presets_IngameMenu_Framerate_Title {
             get {
@@ -4837,7 +4837,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language selector.
+        ///   Looks up a localized string similar to Language Selector.
         /// </summary>
         public static string Menu_FastFlags_Presets_IngameMenu_LanguageSelector_Title {
             get {
@@ -4846,7 +4846,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feedback button.
+        ///   Looks up a localized string similar to Feedback Button.
         /// </summary>
         public static string Menu_FastFlags_Presets_IngameMenu_SoothsayerCheck_Title {
             get {
@@ -4855,7 +4855,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VR toggle.
+        ///   Looks up a localized string similar to VR Toggle.
         /// </summary>
         public static string Menu_FastFlags_Presets_IngameMenu_VRToggle_Title {
             get {
@@ -4864,7 +4864,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Improves the speeds of large read and write operations..
+        ///   Looks up a localized string similar to Improves the speeds of large read and write operations. Note: This may be unstable on some systems..
         /// </summary>
         public static string Menu_FastFlags_Presets_LargeReplicator_Description {
             get {
@@ -4909,7 +4909,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preferred lighting technology.
+        ///   Looks up a localized string similar to Preferred Lighting Technology.
         /// </summary>
         public static string Menu_FastFlags_Presets_LightingTechnology_Title {
             get {
@@ -5017,7 +5017,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure the bytes of data that are transferred over your network. Note: most people can handle MTU sizes from 576–1498..
+        ///   Looks up a localized string similar to Configure the bytes of data that are transferred over your network. Note: Most people can handle MTU sizes from 576–1498..
         /// </summary>
         public static string Menu_FastFlags_Presets_MTU_Description {
             get {
@@ -5116,7 +5116,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ping breakdown.
+        ///   Looks up a localized string similar to Ping Breakdown.
         /// </summary>
         public static string Menu_FastFlags_Presets_PingBreakdown_Title {
             get {
@@ -5215,7 +5215,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies a red color to almost all text. Note: this setting does not work with custom fonts!.
+        ///   Looks up a localized string similar to Applies a red color to almost all text. Note: This setting does not work with custom fonts!.
         /// </summary>
         public static string Menu_FastFlags_Presets_RedFont_Description {
             get {
@@ -5305,7 +5305,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rendering mode.
+        ///   Looks up a localized string similar to Rendering Mode.
         /// </summary>
         public static string Menu_FastFlags_Presets_RenderingMode_Title {
             get {
@@ -5395,7 +5395,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: this setting disables a large majority of Roblox&apos;s telemetry, but not all..
+        ///   Looks up a localized string similar to Note: This setting disables a large majority of Roblox&apos;s telemetry, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_Telemetry_Description {
             get {
@@ -5404,7 +5404,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Roblox telemetry.
+        ///   Looks up a localized string similar to Disable Roblox Telemetry.
         /// </summary>
         public static string Menu_FastFlags_Presets_Telemetry_Title {
             get {
@@ -5413,7 +5413,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: this setting blocks some data collection by Tencent and the Chinese government, but not all..
+        ///   Looks up a localized string similar to Note: This setting blocks some data collection by Tencent and the Chinese government, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_Tencent_Description {
             get {
@@ -5440,7 +5440,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Texture quality.
+        ///   Looks up a localized string similar to Texture Quality.
         /// </summary>
         public static string Menu_FastFlags_Presets_TextureQuality_Title {
             get {
@@ -5467,7 +5467,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Applies a variety of random colors to text and UI elements that typically lack color. Note: this setting may cause certain games to look strange and discolored..
+        ///   Looks up a localized string similar to Applies a variety of random colors to text and UI elements that typically lack color. Note: This setting may cause certain games to look strange and discolored..
         /// </summary>
         public static string Menu_FastFlags_Presets_UnthemedInstances_Description {
             get {
@@ -5485,7 +5485,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: this setting blocks some data collection by VNG and the Vietnamese government, but not all..
+        ///   Looks up a localized string similar to Note: This setting blocks some data collection by VNG and the Vietnamese government, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_VNG_Description {
             get {
@@ -5503,7 +5503,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: this setting disables a large majority of Roblox&apos;s WebView2 telemetry, but not all..
+        ///   Looks up a localized string similar to Note: This setting disables a large majority of Roblox&apos;s WebView2 telemetry, but not all..
         /// </summary>
         public static string Menu_FastFlags_Presets_WebView2Telemetry_Description {
             get {
@@ -5611,7 +5611,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle the Preset Column which shows toggleable FastFlags in FastFlag Setting.
+        ///   Looks up a localized string similar to Toggle the Preset Column which shows toggleable FastFlags in FastFlag Setting..
         /// </summary>
         public static string Menu_FastFlagsEditor_AdvancedSettings_PresetColumn_Description {
             get {
@@ -5860,7 +5860,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow activity joining.
+        ///   Looks up a localized string similar to Allow Activity Joining.
         /// </summary>
         public static string Menu_Integrations_AllowActivityJoining_Title {
             get {
@@ -5887,7 +5887,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables the Roblox screenshot feature. Note: when this feature is enabled, The hotkey combo will no longer work..
+        ///   Looks up a localized string similar to Disables the Roblox screenshot feature. Note: when this feature is enabled, the hotkey combo will no longer work..
         /// </summary>
         public static string Menu_Integrations_BlockScreenShots_Description {
             get {
@@ -5905,7 +5905,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables the Roblox recording feature. Note: when this feature is enabled, The hotkey combo will no longer work..
+        ///   Looks up a localized string similar to Disables the Roblox recording feature. Note: when this feature is enabled, the hotkey combo will no longer work..
         /// </summary>
         public static string Menu_Integrations_BlockVideoRecording_Description {
             get {
@@ -6040,7 +6040,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t exit to desktop app.
+        ///   Looks up a localized string similar to Don&apos;t Exit To Desktop App.
         /// </summary>
         public static string Menu_Integrations_DesktopApp_Title {
             get {
@@ -6058,7 +6058,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable activity tracking.
+        ///   Looks up a localized string similar to Enable Activity Tracking.
         /// </summary>
         public static string Menu_Integrations_EnableActivityTracking_Title {
             get {
@@ -6121,7 +6121,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Roblox account.
+        ///   Looks up a localized string similar to Show Roblox Account.
         /// </summary>
         public static string Menu_Integrations_ShowAccountOnProfile_Title {
             get {
@@ -6139,7 +6139,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show game activity.
+        ///   Looks up a localized string similar to Show Game Activity.
         /// </summary>
         public static string Menu_Integrations_ShowGameActivity_Title {
             get {
@@ -6193,7 +6193,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage compatibility settings.
+        ///   Looks up a localized string similar to Manage Compatibility Settings.
         /// </summary>
         public static string Menu_Mods_Misc_CompatibilitySettings_Title {
             get {
@@ -6211,7 +6211,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use your own mouse cursors in Roblox.
+        ///   Looks up a localized string similar to Use your own mouse cursors in Roblox..
         /// </summary>
         public static string Menu_Mods_Misc_CustomCursor_Description {
             get {
@@ -6238,7 +6238,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose font....
+        ///   Looks up a localized string similar to Choose Font....
         /// </summary>
         public static string Menu_Mods_Misc_CustomFont_Choose {
             get {
@@ -6265,7 +6265,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove applied font.
+        ///   Looks up a localized string similar to Remove Applied Font.
         /// </summary>
         public static string Menu_Mods_Misc_CustomFont_Remove {
             get {
@@ -6319,7 +6319,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preferred emoji type.
+        ///   Looks up a localized string similar to Preferred Emoji Type.
         /// </summary>
         public static string Menu_Mods_Presets_EmojiType_Title {
             get {
@@ -6328,7 +6328,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose between using two classic Roblox cursor styles..
+        ///   Looks up a localized string similar to Choose between using multiple Roblox cursors..
         /// </summary>
         public static string Menu_Mods_Presets_MouseCursor_Description {
             get {
@@ -6337,7 +6337,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mouse cursor.
+        ///   Looks up a localized string similar to Mouse Cursor.
         /// </summary>
         public static string Menu_Mods_Presets_MouseCursor_Title {
             get {
@@ -6355,7 +6355,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use old avatar editor background.
+        ///   Looks up a localized string similar to Use Old Avatar Editor Background.
         /// </summary>
         public static string Menu_Mods_Presets_OldAvatarEditor_Title {
             get {
@@ -6373,7 +6373,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Emulate old character sounds.
+        ///   Looks up a localized string similar to Emulate Old Character Sounds.
         /// </summary>
         public static string Menu_Mods_Presets_OldCharacterSounds_Title {
             get {
@@ -6391,7 +6391,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use old death sound.
+        ///   Looks up a localized string similar to Use Old Death Sound.
         /// </summary>
         public static string Menu_Mods_Presets_OldDeathSound_Title {
             get {
@@ -6472,7 +6472,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Extract Roblox icons to folder.
+        ///   Looks up a localized string similar to Extract Roblox Icons to Folder.
         /// </summary>
         public static string Menu_Shortcuts_ExtractIcons_Title {
             get {
