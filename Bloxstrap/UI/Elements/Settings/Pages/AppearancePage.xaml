@@ -37,54 +37,89 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0" Margin="0,0,16,0" VerticalAlignment="Top">
-                    <TextBlock Text="Gradient Info" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8" />
-                    <Separator Margin="0,0,0,8" />
-                    <TextBlock Text="StartPoint and EndPoint control the direction of the gradient. (0,0) is top-left, (1,1) is bottom-right." TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                    <Separator Margin="0,12,0,12" />
-                    <TextBlock Text="Offset values determine where each color appears between 0 and 1." TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                </StackPanel>
-
-                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,12" VerticalAlignment="Center">
-                        <TextBlock Text="StartPoint X:" VerticalAlignment="Center" Margin="0,0,4,0" />
-                        <TextBox Text="{Binding GradientStartPointX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,8,0" />
-                        <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0" />
-                        <TextBox Text="{Binding GradientStartPointY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,12,0" />
-                        <TextBlock Text="EndPoint X:" VerticalAlignment="Center" Margin="0,0,4,0" />
-                        <TextBox Text="{Binding GradientEndPointX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="0,0,8,0" />
-                        <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0" />
-                        <TextBox Text="{Binding GradientEndPointY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" />
+                <StackPanel Grid.Column="0" Margin="0,0,0,0" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,4">
+                        <TextBlock Text="Gradient Stops:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="8,4,0,0" VerticalAlignment="Center" ToolTip="Offset controls where the color appears (0 to 1). You can change the hex color or open a color picker."/>
                     </StackPanel>
 
                     <ItemsControl ItemsSource="{Binding GradientStops}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0,2" HorizontalAlignment="Right">
-                                    <TextBlock Text="Offset:" VerticalAlignment="Center" Margin="0,0,4,0" />
-                                    <Slider Minimum="0" Maximum="1" Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" TickFrequency="0.01" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="2" Margin="4,0" ValueChanged="OnGradientOffsetChanged"/>
-                                    <TextBlock Text="{Binding Offset, StringFormat=F2}" VerticalAlignment="Center" Margin="8,0,8,0" Width="30" />
-                                    <TextBox Text="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="90" Margin="0,0,8,0" VerticalAlignment="Center" TextChanged="OnGradientColorHexChanged" />
-                                    <Button Content="Color" Margin="0,0,4,0" Tag="{Binding}" Click="OnChangeGradientColor_Click" />
-                                    <Button Content="Remove" Margin="0,0,4,0" Tag="{Binding}" Click="OnRemoveGradientStop_Click" />
-                                </StackPanel>
+                                <Grid Margin="0,2" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="Offset:" VerticalAlignment="Center" Margin="4,0,4,0" Grid.Column="0"/>
+                                    <Slider Minimum="0" Maximum="1" Value="{Binding Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TickFrequency="0.01" IsSnapToTickEnabled="True" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="2" Margin="4,6" ValueChanged="OnGradientOffsetChanged" Grid.Column="1"/>
+                                    <TextBlock Text="{Binding Offset, StringFormat=F2}" VerticalAlignment="Center" Margin="8,0,8,0" Width="30" Grid.Column="2"/>
+                                    <TextBox Text="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="130" Margin="0,0,8,0" VerticalAlignment="Center" TextChanged="OnGradientColorHexChanged" Grid.Column="3" MinWidth="100"/>
+                                    <Button Content="Color" Width="75" Margin="0,0,4,0" Tag="{Binding}" Click="OnChangeGradientColor_Click" Grid.Column="4"/>
+                                    <Button Content="Remove" Width="95" Margin="0,0,4,0" Tag="{Binding}" Click="OnRemoveGradientStop_Click" Grid.Column="5"/>
+                                </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Right">
-                        <Button Content="Export as JSON" Click="OnExportGradient_Click" Margin="0,0,4,0" />
-                        <Button Content="Import from JSON" Click="OnImportGradient_Click" Margin="0,0,4,0" />
-                        <Button Content="Copy JSON" Click="OnCopyGradientJson_Click" Margin="0,0,4,0" />
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,12" HorizontalAlignment="Right">
                         <Button Content="Reset to Default" Click="OnResetGradient_Click" Margin="0,0,4,0" />
-                        <Button Content="Add Color" Click="OnAddGradientStop_Click"/>
+                        <Button Content="Add Gradient Color" Click="OnAddGradientStop_Click" Margin="0,0,4,0"/>
                     </StackPanel>
+                    
+                    <Separator Margin="0,0,0,12" />
 
-                    <ui:TextBox x:Name="ImportJsonTextBox" Margin="0,12,0,0" MinHeight="100" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste JSON gradient stops here..." />
-                    <Button Content="Import from JSON Text" HorizontalAlignment="Right" Margin="0,8,0,0" Click="OnImportFromJsonText_Click" />
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="Tools:" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                                    <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="8,4,0,0" VerticalAlignment="Center" ToolTip="Various actions for exporting, importing, copying, and resetting gradients."/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Export as JSON" Click="OnExportGradient_Click" Margin="4"/>
+                                    <Button Content="Import from JSON" Click="OnImportGradient_Click" Margin="4"/>
+                                    <Button Content="Copy JSON" Click="OnCopyGradientJson_Click" Margin="4"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="Gradient Direction:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="8,4,0,0" VerticalAlignment="Center" ToolTip="StartPoint and EndPoint define the direction of the gradient. (0,0) is top-left, (1,1) is bottom-right."/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Start X:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox Text="{Binding GradientStartPointX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="4"/>
+                                    <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox Text="{Binding GradientStartPointY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="12,4"/>
+                                    <TextBlock Text="End X:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox Text="{Binding GradientEndPointX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="8,4"/>
+                                    <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox Text="{Binding GradientEndPointY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        
+                        <StackPanel Margin="4,12,0,0">
+                            <Separator Margin="0,0,0,4" />
+                            <TextBlock Text="Import JSON Text" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,4"/>
+                            <ui:TextBox x:Name="ImportJsonTextBox" MinHeight="100" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste JSON gradient stops here..." />
+                            <Button Content="Import from JSON Text" HorizontalAlignment="Right" Margin="0,8,0,0" Click="OnImportFromJsonText_Click" />
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:CardExpander>
