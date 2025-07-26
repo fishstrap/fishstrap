@@ -41,7 +41,7 @@
                 <StackPanel Grid.Column="0" Margin="0,0,0,0" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,4">
                         <TextBlock Text="Gradient Stops:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="8,4,0,0" VerticalAlignment="Center" ToolTip="Offset controls where the color appears (0 to 1). You can change the hex color or open a color picker."/>
+                        <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="4,4,0,0" VerticalAlignment="Center" ToolTip="Offset controls where the color appears (0 to 1). You can change the hex color or open a color picker."/>
                     </StackPanel>
 
                     <ItemsControl ItemsSource="{Binding GradientStops}">
@@ -86,7 +86,7 @@
                             <StackPanel Grid.Column="0">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                     <TextBlock Text="Tools:" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" Margin="6,0,0,0"/>
-                                    <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="8,4,0,0" VerticalAlignment="Center" ToolTip="Various actions for exporting, importing, copying, and resetting gradients."/>
+                                    <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="4,4,0,0" VerticalAlignment="Center" ToolTip="Various actions for exporting, importing, copying, and resetting gradients."/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Export as JSON" Click="OnExportGradient_Click" Margin="4"/>
@@ -98,7 +98,7 @@
                             <StackPanel Grid.Column="2">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                     <TextBlock Text="Gradient Direction:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                    <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="8,4,0,0" VerticalAlignment="Center" ToolTip="StartPoint and EndPoint define the direction of the gradient. (0,0) is top-left, (1,1) is bottom-right."/>
+                                    <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="4,4,0,0" VerticalAlignment="Center" ToolTip="StartPoint and EndPoint define the direction of the gradient. (0,0) is top-left, (1,1) is bottom-right."/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Start X:" VerticalAlignment="Center" Margin="0,0,4,0"/>

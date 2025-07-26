@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -380,6 +377,32 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         private void ValidateUInt32(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !uint.TryParse(e.Text, out _);
+        }
+
+        private void OnConvertToFlagStateFormat_Click(object sender, RoutedEventArgs e)
+        {
+            var json = JsonInputTextBox.Text;
+
+            try
+            {
+                using var doc = JsonDocument.Parse(json);
+
+                if (doc.RootElement.ValueKind != JsonValueKind.Object)
+                {
+                    Frontend.ShowMessageBox("Please enter a valid JSON object.", MessageBoxImage.Error);
+                    return;
+                }
+
+                var keys = new List<string>();
+                foreach (var property in doc.RootElement.EnumerateObject())
+                    keys.Add(property.Name);
+
+                JsonInputTextBox.Text = string.Join(", ", keys);
+            }
+            catch (JsonException ex)
+            {
+                Frontend.ShowMessageBox($"Invalid JSON format: {ex.Message}", MessageBoxImage.Error);
+            }
         }
     }
 }

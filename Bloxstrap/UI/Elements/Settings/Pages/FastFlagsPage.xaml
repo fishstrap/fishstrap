@@ -923,6 +923,11 @@
                 <ui:TextBox Width="200" Padding="10,5,10,5" Text="{Binding FlagState, Mode=TwoWay}"  />
             </controls:OptionControl>
 
+            <StackPanel Margin="0,4,0,0">
+                <ui:TextBox x:Name="JsonInputTextBox" MinHeight="75" MaxHeight="75" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste JSON here..." />
+                <Button Content="Change into FlagState Format" Margin="0,6,0,0" Click="OnConvertToFlagStateFormat_Click" />
+            </StackPanel>
+
         </StackPanel>
         <TextBlock Text="7"
                FontSize="12"
