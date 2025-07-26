@@ -101,7 +101,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_System_Title}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_System_Title}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_System_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>
@@ -193,7 +193,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_Rendering}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_Rendering}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_D3DExclusiveFullscreenInfo}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>
@@ -210,7 +210,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_BasicFFlags_Title}" />
+                                <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_BasicFFlags_Title}" FontWeight="Medium" />
                                 <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_BasicFFlags_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                             </StackPanel>
                         </Grid>
@@ -385,7 +385,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_UserInterface_Title}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_UserInterface_Title}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Foreground="{StaticResource TextFillColorTertiaryBrush}" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_UserInterface_Description}" />
                     </StackPanel>
                 </Grid>
@@ -403,7 +403,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_IngameMenu}" />
+                                <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_IngameMenu}" FontWeight="Medium" />
                                 <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_IngameMenu_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                             </StackPanel>
                         </Grid>
@@ -501,7 +501,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Privacy_Title}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Privacy_Title}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Privacy_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>
@@ -557,7 +557,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_System_Title}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_System_Title}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_SystemExperimental_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>
@@ -610,7 +610,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_Rendering}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_Rendering}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Rendering_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>
@@ -629,7 +629,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_SkyColor_Title}" />
+                                <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_SkyColor_Title}" FontWeight="Medium" />
                                 <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_SkyColor_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                             </StackPanel>
                         </Grid>
@@ -766,7 +766,7 @@
                         <ColumnDefinition Width="Auto" />
                     </d:Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_Network_Title}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_Network_Title}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Foreground="{StaticResource TextFillColorTertiaryBrush}" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Categories_Network_Description}" />
                     </StackPanel>
                 </Grid>
@@ -853,7 +853,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Common_Miscellaneous}" />
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Common_Miscellaneous}" FontWeight="Medium" />
                         <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_FastFlags_Presets_Misc_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>
