@@ -9,6 +9,7 @@
                   mc:Ignorable="d"
                   Title="Public Flaglists"
                   Width="700"
+                  MinHeight="650"
                   WindowStartupLocation="CenterOwner"
                   Background="{ui:ThemeResource ApplicationBackgroundBrush}"
                   ExtendsContentIntoTitleBar="True"
@@ -28,19 +29,33 @@
         <ui:TitleBar Grid.Row="0" Padding="8"
                      Title="Public Flaglists"
                      Icon="pack://application:,,,/Bloxstrap.ico"
-                     ShowMinimize="False"
+                     ShowMinimize="True"
                      ShowMaximize="False" />
 
-        <TabControl Grid.Row="1" Margin="16,0,16,16" Padding="0,8,0,0">
+        <TabControl Grid.Row="1" Margin="16,0,16,16" Padding="0,8,0,0" >
             
             <!-- Publish Tab -->
             <TabItem Header="Publish">
-                <StackPanel Margin="8,8,8,0" VerticalAlignment="Top" DataContext="{Binding}">
-                    <TextBlock Text="Flaglist Title:" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <ui:TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter flaglist title" Margin="0,0,0,10" />
+                <StackPanel Margin="8,8,8,0" VerticalAlignment="Top" DataContext="{Binding}" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
+                        <StackPanel Grid.Column="0" Margin="0,0,0,10">
+                            <TextBlock Text="Flaglist Title:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                            <ui:TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter flaglist title" Margin="0,0,2,0" MaxLength="50" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="0,0,0,10">
+                            <TextBlock Text="Author Name:" FontWeight="SemiBold" Margin="0,0,0,4" />
+                            <ui:TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter display name (optional)" Margin="2,0,0,0" MaxLength="20" />
+                        </StackPanel>
+                   </Grid>
+                    
                     <TextBlock Text="Flaglist JSON:" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <ui:TextBox Text="{Binding Json, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" MinHeight="80" MaxHeight="150" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste FastFlag JSON here..." />
+                    <ui:TextBox Text="{Binding Json, UpdateSourceTrigger=PropertyChanged}" MinHeight="80" MaxHeight="150" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" PlaceholderText="Paste FastFlag JSON here..." />
 
                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Left">
                         <Button HorizontalAlignment="Left" Margin="0,0,4,0" Command="{Binding UploadCommand}" Content="Upload" />
@@ -51,17 +66,15 @@
 
                     <TextBlock Text="User ID:" FontWeight="SemiBold" Margin="0,12,0,4"/>
                     <ui:TextBox Text="{Binding UserId, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter your User ID" Margin="0,0,0,6" />
+                    <ui:Button Content="Save User ID" Command="{Binding SaveUserIdCommand}" IsEnabled="{Binding HasUserIdChanged}" Margin="0,4,0,0" />
 
-                    <StackPanel Orientation="Vertical" Margin="0,4,0,0">
-                        <ui:Button Content="Save User ID" Command="{Binding SaveUserIdCommand}" IsEnabled="{Binding HasUserIdChanged}" />
-                        <TextBlock TextWrapping="Wrap" FontWeight="SemiBold" Margin="0,12,0,0" Text="Warning: Changing your User ID will cause loss of access to published flaglists. Save your User ID safely to avoid losing it during upgrades or uninstall. Make sure to not share your ID with anyone." />
-                    </StackPanel>
+                    <TextBlock TextWrapping="Wrap" FontWeight="SemiBold" Margin="0,12,0,8" Text="Warning: Changing your User ID will cause loss of access to published flaglists. Save your User ID safely to avoid losing it during upgrades or uninstall. Make sure to not share your ID with anyone." />
                 </StackPanel>
             </TabItem>
 
             <!-- Browse Tab -->
             <TabItem Header="Browse">
-                <Grid Margin="8,8,8,0" Height="Auto" MaxHeight="700">
+                <Grid Margin="8,8,8,0" MaxHeight="700">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -82,24 +95,35 @@
                                         <Border CornerRadius="8" Background="#19000000" Margin="6" Padding="12" MaxWidth="300" MinWidth="250">
                                             <Grid>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="150" />
+                                                    <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
 
-                                                <StackPanel Grid.Row="0" Margin="0,0,0,6">
-                                                    <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="Bold" />
-                                                    <TextBlock Text="{Binding CreatedAt, StringFormat='Published on {0:MMM dd, yyyy HH:mm}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0"/>
-                                                    <TextBlock Text="{Binding UpdatedAt, StringFormat='Updated on {0:MMM dd, yyyy HH:mm}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0"/>
+                                                <StackPanel Grid.Row="0">
+                                                    <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,0" />
+                                                    <TextBlock Text="{Binding AuthorText}" FontSize="12" FontWeight="Medium"  Foreground="{DynamicResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" Margin="0,0,0,6" />
+                                                </StackPanel>
+                                                
+                                                <StackPanel Grid.Row="2" Margin="0,0,0,6">
+                                                    <TextBlock Text="{Binding UpdatedAt, StringFormat='Updated: {0:MMM dd, yyyy hh:mm tt}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="10" />
+                                                    <TextBlock Text="{Binding CreatedAt, StringFormat='Published: {0:MMM dd, yyyy hh:mm tt}'}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="10" Margin="0,0,0,8" />
+
+                                                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Background="{DynamicResource ControlFillColorDefaultBrush}" Padding="0" BorderThickness="0" Height="150">
+                                                        <TextBox Text="{Binding FormattedJson, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Consolas" FontSize="12" Padding="6" BorderThickness="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" />
+                                                    </ScrollViewer>
                                                 </StackPanel>
 
-                                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="120">
-                                                    <TextBox Text="{Binding Json}" IsReadOnly="True" TextWrapping="Wrap" Background="{DynamicResource ControlFillColorDefaultBrush}" FontFamily="Consolas" FontSize="12" Padding="6" BorderThickness="0" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" MinHeight="100"/>
-                                                </ScrollViewer>
-
-                                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-                                                    <Button Content="Copy" Width="60" Height="26" Padding="0" Command="{Binding DataContext.CopyJsonCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" />
-                                                </StackPanel>
+                                                <Grid Grid.Row="3" Margin="0,8,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding FlagCount, StringFormat=Total Flags: {0}}" FontWeight="Medium" FontSize="12" />
+                                                    <Button Grid.Column="2" Content="Copy" Width="60" Height="26" Padding="0" Command="{Binding DataContext.CopyJsonCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" />
+                                                </Grid>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -123,10 +147,27 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Margin="0,0,0,8">
-                        <TextBlock Text="Edit Title:" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                        <ui:TextBox Text="{Binding EditableTitle, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Title..." IsEnabled="{Binding IsAnyFlaglistSelected}"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,0,10">
+                                <TextBlock Text="Edit Title:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                                <ui:TextBox Text="{Binding EditableTitle, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Title..." IsEnabled="{Binding IsAnyFlaglistSelected}" Margin="0,0,2,0" MaxLength="50"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Margin="0,0,0,10">
+                                <TextBlock Text="Author Name:" FontWeight="SemiBold" Margin="0,0,0,4" />
+                                <ui:TextBox Text="{Binding EditableName, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Enter display name (optional)" Margin="2,0,0,0" IsEnabled="{Binding IsAnyFlaglistSelected}" MaxLength="20" />
+                            </StackPanel>
+                        </Grid>
+
                         <TextBlock Text="Edit FlagList:" FontWeight="SemiBold" Margin="0,8,0,4"/>
                         <ui:TextBox Text="{Binding EditableJson, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" MinHeight="80" MaxHeight="150" PlaceholderText="Flaglist JSON..." Margin="0,4,0,8" IsEnabled="{Binding IsAnyFlaglistSelected}"/>
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <ui:Button Content="Apply Changes" IsEnabled="{Binding IsAnyFlaglistSelected}" Command="{Binding ApplyBulkUpdateCommand}"/>
                             <ui:Button Content="Delete Selected" Command="{Binding DeleteSelectedFlaglistsCommand}" IsEnabled="{Binding IsAnyFlaglistSelected}" Appearance="Danger" Margin="4,0,0,0"/>
@@ -141,10 +182,11 @@
                                 <DataTemplate>
                                     <Border Background="#19000000" Padding="6" CornerRadius="6">
                                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="13"/>
+                                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="13" TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding AuthorText}" FontSize="12" FontWeight="Medium" TextWrapping="Wrap" />
                                             <StackPanel Orientation="Horizontal" Margin="0,2,0,0" >
-                                                <TextBlock Text="{Binding CreatedAt, StringFormat='Published: {0:MMM dd, yyyy HH:mm}'}" FontStyle="Italic" FontSize="12" Margin="0,0,10,0"/>
-                                                <TextBlock Text="{Binding UpdatedAt, StringFormat='Updated: {0:MMM dd, yyyy HH:mm}'}" FontStyle="Italic" FontSize="12" />
+                                                <TextBlock Text="{Binding CreatedAt, StringFormat='Published: {0:MMM dd, yyyy hh:mm tt}'}" FontStyle="Italic" FontSize="12" Margin="0,0,10,0"/>
+                                                <TextBlock Text="{Binding UpdatedAt, StringFormat='Updated: {0:MMM dd, yyyy hh:mm tt}'}" FontStyle="Italic" FontSize="12" />
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>

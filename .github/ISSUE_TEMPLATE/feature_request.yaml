@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         ### **Preliminary instructions**
-        - Please first check to see if your idea has already been suggested. You can check by [searching all previous issues](https://github.com/Meddsam/Froststrap/issues?q=is%3Aissue).
+        - Please first check to see if your idea has already been suggested. You can check by [searching all previous issues](https://github.com/RealMeddsam/Froststrap/issues?q=is%3Aissue).
         - If your feature suggestion is to do with Roblox itself, please consider that what's possible is heavily constrained by what [FastFlags](https://github.com/pizzaboxer/bloxstrap/wiki/A-guide-to-FastFlags) are available.
   - type: textarea
     id: what-happened

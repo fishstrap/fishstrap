@@ -76,7 +76,7 @@
                     </ItemsControl>
 
                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0" HorizontalAlignment="Right">
-                        <Button Content="Export JSON" Click="OnExportGradient_Click" Margin="0,0,4,0" />
+                        <Button Content="Export as JSON" Click="OnExportGradient_Click" Margin="0,0,4,0" />
                         <Button Content="Import from JSON" Click="OnImportGradient_Click" Margin="0,0,4,0" />
                         <Button Content="Copy JSON" Click="OnCopyGradientJson_Click" Margin="0,0,4,0" />
                         <Button Content="Reset to Default" Click="OnResetGradient_Click" Margin="0,0,4,0" />
@@ -84,7 +84,7 @@
                     </StackPanel>
 
                     <ui:TextBox x:Name="ImportJsonTextBox" Margin="0,12,0,0" MinHeight="100" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste JSON gradient stops here..." />
-                    <Button Content="Import from JSON" HorizontalAlignment="Right" Margin="0,8,0,0" Click="OnImportFromJsonText_Click" />
+                    <Button Content="Import from JSON Text" HorizontalAlignment="Right" Margin="0,8,0,0" Click="OnImportFromJsonText_Click" />
                 </StackPanel>
             </Grid>
         </ui:CardExpander>

@@ -11,7 +11,6 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     Loaded="Page_Loaded"
-    Focusable="True"
     FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
     PreviewKeyDown="FastFlagEditorPage_PreviewKeyDown"
     mc:Ignorable="d">
