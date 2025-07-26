@@ -151,6 +151,23 @@
             </StackPanel>
         </controls:OptionControl>
 
+        <!--  Custom Shiftlock Option  -->
+        <controls:OptionControl Description="Use your own Shiftlock in Roblox" Header="Custom Shiftlock">
+            <StackPanel>
+                <ui:Button
+                    Command="{Binding AddCustomShiftlockModCommand}"
+                    Content="Choose"
+                    Icon="DocumentAdd16"
+                    Visibility="{Binding ChooseCustomShiftlockVisibility, Mode=OneWay}" />
+                <ui:Button
+                   Appearance="Danger"
+                    Command="{Binding RemoveCustomShiftlockModCommand}"
+                    Content="Remove Shiftlock"
+                    Icon="Delete16"
+                    Visibility="{Binding DeleteCustomShiftlockVisibility, Mode=OneWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
         <!--  Custom Cursor Option  -->
         <controls:OptionControl Description="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Description}" Header="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Title}">
             <StackPanel>
@@ -167,7 +184,6 @@
                     Visibility="{Binding DeleteCustomCursorVisibility, Mode=OneWay}" />
             </StackPanel>
         </controls:OptionControl>
-
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False" x:Name="RobloxMenuExpander" >
             <ui:CardExpander.Header>

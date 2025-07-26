@@ -58,6 +58,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public ICommand RemoveCustomCursorModCommand => new RelayCommand(RemoveCustomCursorMod);
 
+        public ICommand AddCustomShiftlockModCommand => new RelayCommand(AddCustomShiftlockMod);
+
+        public ICommand RemoveCustomShiftlockModCommand => new RelayCommand(RemoveCustomShiftlockMod);
+
         public Visibility ChooseCustomFontVisibility => !String.IsNullOrEmpty(TextFontTask.NewState) ? Visibility.Collapsed : Visibility.Visible;
 
         public Visibility DeleteCustomFontVisibility => !String.IsNullOrEmpty(TextFontTask.NewState) ? Visibility.Visible : Visibility.Collapsed;
@@ -135,7 +139,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get
             {
                 string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
-                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
+                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "MouseLockedCursor.png" };
                 bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
                 return anyExist ? Visibility.Collapsed : Visibility.Visible;
             }
@@ -146,7 +150,29 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get
             {
                 string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
-                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
+                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "MouseLockedCursor.png" };
+                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
+                return anyExist ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        public Visibility ChooseCustomShiftlockVisibility
+        {
+            get
+            {
+                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
+                string[] cursorNames = { "MouseLockedCursor.png" };
+                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
+                return anyExist ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+
+        public Visibility DeleteCustomShiftlockVisibility
+        {
+            get
+            {
+                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
+                string[] cursorNames = { "MouseLockedCursor.png" };
                 bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
                 return anyExist ? Visibility.Visible : Visibility.Collapsed;
             }
@@ -225,6 +251,81 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
             OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
+        }
+
+        public void AddCustomShiftlockMod()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "PNG Images (*.png)|*.png",
+                Title = "Select a PNG Shiftlock Image"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            string sourcePath = dialog.FileName;
+            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
+            Directory.CreateDirectory(targetDir);
+
+            string[] ShiftlockName = { "MouseLockedCursor.png" };
+
+            try
+            {
+                foreach (var name in ShiftlockName)
+                {
+                    string destPath = Path.Combine(targetDir, name);
+                    File.Copy(sourcePath, destPath, overwrite: true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Frontend.ShowMessageBox(
+                    $"Failed to add Shiftlock:\n{ex.Message}",
+                    MessageBoxImage.Error
+                );
+
+            }
+
+            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+        }
+
+        public void RemoveCustomShiftlockMod()
+        {
+            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
+            string[] ShiftlockNames = { "MouseLockedCursor.png" };
+
+            bool anyDeleted = false;
+            foreach (var name in ShiftlockNames)
+            {
+                string filePath = Path.Combine(targetDir, name);
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        File.Delete(filePath);
+                        anyDeleted = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Frontend.ShowMessageBox(
+                            $"Failed to remove {name}:\n{ex.Message}",
+                            MessageBoxImage.Error
+                        );
+
+                    }
+                }
+            }
+
+            if (!anyDeleted)
+                Frontend.ShowMessageBox(
+                    "No custom Shiftlock found to remove.",
+                    MessageBoxImage.Information
+                );
+
+            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
         }
 
         #region Custom Cursor Set
@@ -503,6 +604,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
 
             LoadCursorPathsForSelectedSet();
+
+            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
         }
 
         private void GetCurrentCursorSet()
@@ -745,11 +851,20 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             LoadCursorPathsForSelectedSet();
             NotifyCursorVisibilities();
+
+            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
         }
 
         private void AddShiftlockCursor()
         {
             AddCursorImage("MouseLockedCursor.png", "Select Shiftlock PNG");
+            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
         }
 
         private void AddCursorImage(string fileName, string dialogTitle)
@@ -790,6 +905,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             LoadCursorPathsForSelectedSet();
             NotifyCursorVisibilities();
+
+            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
         }
 #endregion
 
