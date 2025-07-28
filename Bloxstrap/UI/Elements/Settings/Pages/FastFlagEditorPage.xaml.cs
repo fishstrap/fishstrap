@@ -1030,7 +1030,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             string formattedFlags = string.Join("\n", flagList.Select(f => $"'{f}'"));
 
-            string message = "Warning: The following FastFlags are known to to get you banned from certain experiences. Are you sure you want to proceed?\n\n" +
+            string message = "Warning: The following FastFlags are known to to get you banned from certain experiences. Do you want to remove them ?\n\n" +
                              $"{formattedFlags}";
 
             var result = Frontend.ShowMessageBox(
