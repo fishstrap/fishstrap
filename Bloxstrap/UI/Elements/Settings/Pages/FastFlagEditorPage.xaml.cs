@@ -307,7 +307,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private static readonly string[] JsonUrls = new[]
         {
-            "https://raw.githubusercontent.com/SCR00M/froststap-shi/refs/heads/main/PCDesktopClients.json",
+            "https://raw.githubusercontent.com/SCR00M/gsagsssssssagdsgadgsgds/refs/heads/main/PCDesktopClients.json",
             "https://clientsettings.roblox.com/v2/settings/application/PCDesktopClient",
             "https://raw.githubusercontent.com/MaximumADHD/Roblox-FFlag-Tracker/refs/heads/main/PCDesktopClient.json",
         };
