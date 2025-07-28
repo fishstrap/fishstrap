@@ -112,12 +112,8 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         private void DebugMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            string? location = _activityWatcher?.LogLocation;
-            if (!string.IsNullOrEmpty(location))
-            {
-                var DebugMenu = new DebugMenu(location);
-                DebugMenu.Show();
-            }
+            var debugMenu = new DebugMenu();
+            debugMenu.Show();
         }
 
         private void CloseRobloxMenuItem_Click(object sender, RoutedEventArgs e)

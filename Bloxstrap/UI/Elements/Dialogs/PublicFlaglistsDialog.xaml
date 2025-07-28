@@ -10,7 +10,7 @@
                   Title="Public Flaglists"
                   Width="700"
                   MinHeight="650"
-                  WindowStartupLocation="CenterOwner"
+                  WindowStartupLocation="CenterScreen"
                   Background="{ui:ThemeResource ApplicationBackgroundBrush}"
                   ExtendsContentIntoTitleBar="True"
                   WindowBackdropType="Mica">

@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using Microsoft.Win32;
 using Bloxstrap.UI.Elements.Base;
 
@@ -8,186 +10,134 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 {
     public partial class DebugMenu : WpfUiWindow
     {
-        private readonly string _logFilePath;
-        private FileSystemWatcher? _logWatcher;
-        private string[] _allLogLines = Array.Empty<string>();
-
-        public DebugMenu(string logFilePath)
+        public DebugMenu()
         {
             InitializeComponent();
-            _logFilePath = logFilePath;
-            LoadLogFile();
-            SetupLogWatcher();
+            LoadLogFilesList();
+            UpdateButtonStates();
         }
 
-        private void LoadLogFile()
+        private void LoadLogFilesList()
         {
-            if (!File.Exists(_logFilePath))
+            LogFilesList.Items.Clear();
+            if (!Directory.Exists(Paths.Logs)) return;
+            var files = Directory.GetFiles(Paths.Logs, "*.log").OrderByDescending(File.GetLastWriteTime);
+            foreach (var file in files) LogFilesList.Items.Add(Path.GetFileName(file));
+            if (LogFilesList.Items.Count > 0) LogFilesList.SelectedIndex = 0;
+            UpdateButtonStates();
+        }
+
+        private void LogFilesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LogFilesList.SelectedItem is not string fileName)
             {
                 LogListBox.Items.Clear();
-                LogListBox.Items.Add("Log file not found.");
+                UpdateButtonStates();
+                return;
+            }
+
+            string filePath = Path.Combine(Paths.Logs, fileName);
+            if (!File.Exists(filePath))
+            {
+                LogListBox.Items.Clear();
+                LogListBox.Items.Add("Selected log file does not exist.");
+                UpdateButtonStates();
                 return;
             }
 
             try
             {
+                var contents = File.ReadAllLines(filePath);
                 LogListBox.Items.Clear();
-
-                using var stream = new FileStream(_logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                using var reader = new StreamReader(stream);
-                _allLogLines = reader.ReadToEnd().Split(Environment.NewLine);
-
-                foreach (var line in _allLogLines)
-                    LogListBox.Items.Add(line);
+                foreach (var line in contents) LogListBox.Items.Add(line);
             }
-            catch (IOException ex)
+            catch (System.Exception ex)
             {
                 LogListBox.Items.Clear();
-                LogListBox.Items.Add($"Error reading log file: {ex.Message}");
+                LogListBox.Items.Add($"Failed to read log file:\n{ex.Message}");
             }
+            UpdateButtonStates();
         }
 
-        private void SetupLogWatcher()
+        private void LogListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!File.Exists(_logFilePath))
-                return;
-
-            _logWatcher = new FileSystemWatcher
-            {
-                Path = Path.GetDirectoryName(_logFilePath)!,
-                Filter = Path.GetFileName(_logFilePath),
-                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.FileName,
-                EnableRaisingEvents = true
-            };
-
-            _logWatcher.Changed += OnLogFileChanged;
-            _logWatcher.Renamed += OnLogFileChanged;
-        }
-
-        private void OnLogFileChanged(object? sender, FileSystemEventArgs e)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                try
-                {
-                    using var stream = new FileStream(_logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using var reader = new StreamReader(stream);
-                    var lines = reader.ReadToEnd().Split(Environment.NewLine);
-
-                    if (lines.Length <= _allLogLines.Length)
-                        return;
-
-                    var newLines = lines.Skip(_allLogLines.Length).ToArray();
-                    _allLogLines = lines;
-
-                    foreach (var line in newLines)
-                        LogListBox.Items.Add(line);
-
-                    LogListBox.ScrollIntoView(LogListBox.Items[LogListBox.Items.Count - 1]);
-                }
-                catch
-                {
-                    // Ignore read errors
-                }
-            });
-        }
-
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (_allLogLines.Length == 0)
-                return;
-
-            string filter = SearchBox.Text.Trim();
-            LogListBox.Items.Clear();
-
-            foreach (var line in _allLogLines)
-            {
-                if (line.Contains(filter, StringComparison.OrdinalIgnoreCase))
-                    LogListBox.Items.Add(line);
-            }
-        }
-
-        private void ClearLogs_Click(object sender, RoutedEventArgs e)
-        {
-            LogListBox.Items.Clear();
+            UpdateButtonStates();
         }
 
         private void CopyLogs_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(string.Join(Environment.NewLine, LogListBox.Items.Cast<string>()));
+            if (LogListBox.Items.Count == 0)
+            {
+                Frontend.ShowMessageBox("No log lines to copy.", MessageBoxImage.Information);
+                return;
+            }
+            Clipboard.SetText(string.Join("\n", LogListBox.Items.Cast<string>()));
+        }
+
+        private void CopySelected_Click(object sender, RoutedEventArgs e)
+        {
+            if (LogListBox.SelectedItems.Count == 0)
+            {
+                Frontend.ShowMessageBox("No lines selected to copy.", MessageBoxImage.Information);
+                return;
+            }
+            Clipboard.SetText(string.Join("\n", LogListBox.SelectedItems.Cast<string>()));
+        }
+
+        private void RefreshLogs_Click(object sender, RoutedEventArgs e)
+        {
+            if (LogFilesList.SelectedItem is string)
+                LogFilesList_SelectionChanged(this, null!);
+            else
+                Frontend.ShowMessageBox("No log file selected.", MessageBoxImage.Warning);
         }
 
         private void OpenLogsFolder_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string logsFolderPath = Paths.Logs;
-
-                if (!Directory.Exists(logsFolderPath))
+                if (!Directory.Exists(Paths.Logs))
                 {
                     Frontend.ShowMessageBox("Logs folder does not exist.", MessageBoxImage.Information);
                     return;
                 }
-
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = logsFolderPath,
-                    UseShellExecute = true
-                });
+                Process.Start(new ProcessStartInfo { FileName = Paths.Logs, UseShellExecute = true });
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Frontend.ShowMessageBox($"Failed to open logs folder:\n{ex.Message}", MessageBoxImage.Error);
             }
         }
 
-        private void RefreshLogs_Click(object sender, RoutedEventArgs e)
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            LoadLogFile();
+            if (LogFilesList.SelectedItem is not string fileName) return;
+            string filePath = Path.Combine(Paths.Logs, fileName);
+            if (!File.Exists(filePath)) return;
+
+            string filter = SearchBox.Text.Trim();
+            try
+            {
+                var allLines = File.ReadAllLines(filePath);
+                LogListBox.Items.Clear();
+                foreach (var line in allLines)
+                    if (line.Contains(filter, System.StringComparison.OrdinalIgnoreCase))
+                        LogListBox.Items.Add(line);
+            }
+            catch { }
+            UpdateButtonStates();
         }
 
-        private void SaveLogsAs_Click(object sender, RoutedEventArgs e)
+        private void UpdateButtonStates()
         {
-            var dlg = new SaveFileDialog
-            {
-                Title = "Save Logs As",
-                Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*",
-                FileName = "FroststrapLogs.txt"
-            };
+            bool logFileSelected = LogFilesList.SelectedItem is string;
+            bool hasLogLines = LogListBox.Items.Count > 0;
+            bool hasSelectedLines = LogListBox.SelectedItems.Count > 0;
 
-            if (dlg.ShowDialog() == true)
-            {
-                try
-                {
-                    File.WriteAllLines(dlg.FileName, LogListBox.Items.Cast<string>());
-                    Frontend.ShowMessageBox("Logs saved successfully.", MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    Frontend.ShowMessageBox($"Failed to save logs:\n{ex.Message}", MessageBoxImage.Error);
-                }
-            }
-        }
-
-        private void CopySelected_Click(object sender, RoutedEventArgs e)
-        {
-            if (LogListBox.SelectedItems.Count > 0)
-            {
-                var selectedText = string.Join(Environment.NewLine, LogListBox.SelectedItems.Cast<string>());
-                Clipboard.SetText(selectedText);
-            }
-            else
-            {
-                Frontend.ShowMessageBox("No lines selected to copy.", MessageBoxImage.Information);
-            }
-        }
-
-
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            _logWatcher?.Dispose();
-            _logWatcher = null;
+            RefreshButton.IsEnabled = logFileSelected;
+            CopyAllButton.IsEnabled = hasLogLines;
+            CopySelectedButton.IsEnabled = hasSelectedLines;
+            OpenFolderButton.IsEnabled = true;
         }
     }
 }
