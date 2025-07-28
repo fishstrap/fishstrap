@@ -59,7 +59,7 @@
             Header="{x:Static resources:Strings.Menu_Behaviour_MultiInstances_Title}"
             Description="{x:Static resources:Strings.Menu_Behaviour_MultiInstances_Description}"
             HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#multi-instance-launching" >
-            <ui:ToggleSwitch IsChecked="{Binding MultiInstanceLaunchingEnabled, Mode=TwoWay}" />
+            <ui:ToggleSwitch IsChecked="{Binding MultiInstances, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="True">

@@ -10,6 +10,8 @@ namespace Bloxstrap.Integrations
 {
     public class Cleaner
     {
+        private const int MaxFiles = 200;
+
         public static Dictionary<string, string?> Directories = new Dictionary<string, string?> {
             { "FroststrapLogs", Paths.Logs },
             { "FroststrapCache", Paths.Downloads },
@@ -34,11 +36,13 @@ namespace Bloxstrap.Integrations
             };
 
             var Threshold = DateTime.Now.AddHours(-MaxFileAge);
+            int DeletedItems = 0;
 
             foreach (var directory in Directories)
             {
                 string? Folder = directory.Value;
                 string Type = directory.Key;
+                DeletedItems = 0;
 
                 if (!App.Settings.Prop.CleanerDirectories.Contains(Type))
                 {
@@ -61,8 +65,19 @@ namespace Bloxstrap.Integrations
                         if (!VerifyFile(file, Threshold))
                             continue;
 
+                        // file limit exceeded
+                        if (DeletedItems >= MaxFiles)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, $"Reached file threshold in {directory}, continuing to next directory");
+                            break;
+                        }
+
                         // attempt deletion
-                        try { File.Delete(file); }
+                        try
+                        {
+                            File.Delete(file);
+                            DeletedItems++;
+                        }
                         catch (Exception ex)
                         {
                             App.Logger.WriteLine(LOG_IDENT, $"Unable to delete {file}");

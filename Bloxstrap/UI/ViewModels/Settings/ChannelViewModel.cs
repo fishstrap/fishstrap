@@ -104,7 +104,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool UpdateRoblox
         {
-            get => App.Settings.Prop.UpdateRoblox;
+            get => App.Settings.Prop.UpdateRoblox && !IsRobloxInstallationMissing;
             set => App.Settings.Prop.UpdateRoblox = value;
         }
 

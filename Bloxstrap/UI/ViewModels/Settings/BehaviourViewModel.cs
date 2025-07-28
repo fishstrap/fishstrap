@@ -16,10 +16,14 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 RobloxIcons.Add(new RobloxIconEntry { IconType = (RobloxIcon)entry });
         }
 
-        public bool MultiInstanceLaunchingEnabled
+        public bool MultiInstances
         {
             get => App.Settings.Prop.MultiInstanceLaunching;
-            set => App.Settings.Prop.MultiInstanceLaunching = value;
+            set
+            {
+                App.Settings.Prop.MultiInstanceLaunching = value;
+                App.FastFlags.SetPreset("Instances.WndCheck", value ? "0" : null);
+            }
         }
 
         public bool BackgroundUpdates
