@@ -1055,7 +1055,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             string formattedFlags = string.Join("\n", flagList.Select(f => $"'{f}'"));
 
-            string message = "Warning: The following FastFlags are known to to get you banned from certain experiences. Do you want to remove them ?\n\n" +
+            string message = "Warning: The following FastFlags are known to get you banned from certain experiences. Do you want to remove them?\n\n" +
                              $"{formattedFlags}";
 
             var result = Frontend.ShowMessageBox(
@@ -1063,7 +1063,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 MessageBoxImage.Warning,
                 MessageBoxButton.YesNo);
 
-            return result == MessageBoxResult.Yes;
+            return result == MessageBoxResult.No;
         }
 
         public static class BannableFastFlagWarning
