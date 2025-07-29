@@ -10,7 +10,7 @@
       xmlns:resources="clr-namespace:Bloxstrap.Resources"
       d:DataContext="{d:DesignInstance Type=models:ChannelViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="800"
       Title="ChannelPage"
       Scrollable="True">
 
@@ -209,5 +209,17 @@
             </ui:CardControl.Header>
             <ComboBox Margin="5,0,0,0" Padding="10,5,10,5" Width="200" ItemsSource="{Binding ChannelChangeModes.Keys, Mode=OneTime}" Text="{Binding SelectedChannelChangeMode, Mode=TwoWay}" />
         </ui:CardControl>
+        <Grid Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <ui:Button Content="Reset Settings to Default" Grid.Column="0" Margin="0,0,4,0" Click="ResetSettings_Click" />
+
+        </Grid>
     </StackPanel>
 </ui:UiPage>

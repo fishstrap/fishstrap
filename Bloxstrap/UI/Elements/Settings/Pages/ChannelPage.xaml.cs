@@ -30,6 +30,30 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: Settings");
         }
 
+        private void ResetSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var confirm = Frontend.ShowMessageBox(
+                "Are you sure you want to reset all settings to their default values?",
+                MessageBoxImage.Warning,
+                MessageBoxButton.YesNo
+            );
+
+            if (confirm != MessageBoxResult.Yes)
+                return;
+
+            string preservedUserId = App.Settings.Prop.UserId;
+
+            App.Settings.Prop = new Models.Persistable.Settings();
+            App.Settings.Prop.UserId = preservedUserId; // this is so the user dosent lose his id that he uses for publishing lists
+
+            App.Settings.Save();
+
+            Frontend.ShowMessageBox("Settings have been reset. Restarting the app...", MessageBoxImage.Information);
+
+            System.Windows.Forms.Application.Restart();
+            Application.Current.Shutdown();
+        }
+
         private void ToggleSwitch_Checked_1(object sender, RoutedEventArgs e)
         {
             HardwareAcceleration.MemoryTrimming();
