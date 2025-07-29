@@ -32,6 +32,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         private void PreviewBootstrapper()
         {
+            var app = (App.Current as App);
+            app?._froststrapRPC?.UpdatePresence("Dialog: Preview Launcher");
+
             IBootstrapperDialog dialog = App.Settings.Prop.BootstrapperStyle.GetNew();
 
             if (App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.ByfronDialog)
@@ -41,6 +44,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             dialog.CancelEnabled = true;
             dialog.ShowBootstrapper();
+
+            app?._froststrapRPC?.UpdatePresence("Page: Appearance");
         }
 
 
@@ -412,8 +417,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         private void AddCustomTheme()
         {
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: New Custom Launcher");
             var dialog = new AddCustomThemeDialog();
             dialog.ShowDialog();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: Appearance");
 
             if (dialog.Created)
             {
@@ -521,7 +529,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
             if (SelectedCustomTheme is null)
                 return;
 
+            var app = (App.Current as App);
+            app?._froststrapRPC?.UpdatePresence("Dialog: Edit Custom Theme");
+
             new BootstrapperEditorWindow(SelectedCustomTheme).ShowDialog();
+
+            app?._froststrapRPC?.UpdatePresence("Page: Appearance");
         }
 
         private void ExportCustomTheme()

@@ -37,8 +37,25 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        private void OpenAbout() => new Elements.About.MainWindow().ShowDialog();
-        private void OpenHelp() => new Elements.Help.MainWindow().ShowDialog();
+        private void OpenAbout()
+        {
+            var app = (App.Current as App);
+            app?._froststrapRPC?.UpdatePresence("Dialog: About");
+
+            new Elements.About.MainWindow().ShowDialog();
+
+            app?._froststrapRPC?.UpdatePresence("Page: Unknown");
+        }
+
+        private void OpenHelp()
+        {
+            var app = (App.Current as App);
+            app?._froststrapRPC?.UpdatePresence("Dialog: Help");
+
+            new Elements.Help.MainWindow().ShowDialog();
+
+            app?._froststrapRPC?.UpdatePresence("Page: Unknown");
+        }
 
         private void CloseWindow() => RequestCloseWindowEvent?.Invoke(this, EventArgs.Empty);
 

@@ -11,6 +11,8 @@ namespace Bloxstrap.UI.Elements.ClickerGame
         public MainWindow()
         {
             InitializeComponent();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Easter Egg Area");
         }
 
         #region INavigationWindow

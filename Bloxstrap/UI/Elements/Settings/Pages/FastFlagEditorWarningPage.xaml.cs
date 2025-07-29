@@ -16,6 +16,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             DataContext = _viewModel;
 
             InitializeComponent();
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: how did you get here?");
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

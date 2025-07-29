@@ -21,6 +21,9 @@ namespace Bloxstrap.UI.Elements.Dialogs
         public ExceptionDialog(Exception exception)
         {
             InitializeComponent();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Exception");
+
             AddException(exception);
 
             if (!App.Logger.Initialized)

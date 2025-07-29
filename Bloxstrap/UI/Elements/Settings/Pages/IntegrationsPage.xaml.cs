@@ -13,6 +13,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             DataContext = new IntegrationsViewModel();
             InitializeComponent();
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: Integrations");
         }
 
         public void CustomIntegrationSelection(object sender, SelectionChangedEventArgs e)

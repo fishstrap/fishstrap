@@ -185,6 +185,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             };
 
             SetDefaultStates();
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: FastFlag Editor");
         }
 
         private void SetDefaultStates()
@@ -255,8 +256,12 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void ShowAddDialog()
         {
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Add FastFlag");
+
             var dialog = new AddFastFlagDialog();
             dialog.ShowDialog();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: FastFlag Editor");
 
             if (dialog.Result != MessageBoxResult.OK)
                 return;
@@ -282,6 +287,8 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void AdvancedSettings_Click(object sender, RoutedEventArgs e)
         {
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Advanced Settings");
+
             var dialog = new AdvancedSettingsDialog();
             dialog.Owner = Window.GetWindow(this);
 
@@ -294,12 +301,18 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             };
 
             dialog.ShowDialog();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: FastFlag Editor");
         }
 
         private void OpenPublicFlaglistsDialog_Click(object sender, RoutedEventArgs e)
         {
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Public FlagLists");
+
             var dialog = new PublicFlaglistsDialog();
             dialog.ShowDialog();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: FastFlag Editor");
         }
 
         private static readonly string CacheFolder = Paths.FastFlagCache;
@@ -625,6 +638,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             var mainWindow = GetMainWindow();
             mainWindow?.ShowLoading("Cleaning List...");
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Cleaning List");
 
             try
             {
@@ -679,6 +693,8 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                     };
 
                     flagDialog.ShowDialog();
+
+                    (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: FastFlag Editor");
                 }
 
                 ReloadList();
@@ -693,17 +709,26 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void FindFlag_Button_Click(object sender, RoutedEventArgs e)
         {
+            var app = (App.Current as App);
+            app?._froststrapRPC?.UpdatePresence("Dialog: Find Flag");
+
             var dialog = new FindFlagDialog
             {
                 Owner = Application.Current.MainWindow
             };
-            dialog.Show();
+            dialog.ShowDialog();
+
+            app?._froststrapRPC?.UpdatePresence("Page: FastFlag Editor");
         }
 
         private void ShowProfilesDialog()
         {
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Profiles");
+
             var dialog = new FlagProfilesDialog();
             dialog.ShowDialog();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: FastFlag Editor");
 
             if (dialog.Result != MessageBoxResult.OK)
                 return;

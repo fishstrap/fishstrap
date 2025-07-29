@@ -41,6 +41,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             _cardExpanders = new List<CardExpander>();
             SetupViewModel();
             Loaded += FastFlagsPage_Loaded;
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: FastFlags Settings");
         }
 
         #region FFlag Options

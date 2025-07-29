@@ -55,14 +55,16 @@ namespace Bloxstrap.Models.Persistable
 
         // integration configuration
         public bool EnableActivityTracking { get; set; } = true;
-        public bool UseDiscordRichPresence { get; set; } = true;
-        public bool HideRPCButtons { get; set; } = true;
-        public bool ShowAccountOnRichPresence { get; set; } = false;
         public bool ShowServerDetails { get; set; } = false;
         public bool ShowGameHistoryMenu { get; set; } = true;
         public bool UseDisableAppPatch { get; set; } = false;
         public bool BlockRobloxRecording { get; set; } = false;
         public bool BlockRobloxScreenshots { get; set; } = false;
+        public bool ShowUsingFroststrapRPC { get; set; } = true;
+        public bool UseDiscordRichPresence { get; set; } = true;
+        public bool HideRPCButtons { get; set; } = true;
+        public bool EnableCustomStatusDisplay { get; set; } = true;
+        public bool ShowAccountOnRichPresence { get; set; } = false;
         public ObservableCollection<CustomIntegration> CustomIntegrations { get; set; } = new();
 
         // mod preset configuration

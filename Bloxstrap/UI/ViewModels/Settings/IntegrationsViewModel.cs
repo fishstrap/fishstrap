@@ -120,17 +120,31 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (!value)
                 {
                     DiscordActivityJoinEnabled = value;
+                    EnableCustomStatusDisplay = value;
                     DiscordAccountOnProfile = value;
                     OnPropertyChanged(nameof(DiscordActivityJoinEnabled));
+                    OnPropertyChanged(nameof(EnableCustomStatusDisplay));
                     OnPropertyChanged(nameof(DiscordAccountOnProfile));
                 }
             }
+        }
+
+        public bool ShowUsingFroststrapRPC
+        {
+            get => App.Settings.Prop.ShowUsingFroststrapRPC;
+            set => App.Settings.Prop.ShowUsingFroststrapRPC = value;
         }
 
         public bool DiscordActivityJoinEnabled
         {
             get => !App.Settings.Prop.HideRPCButtons;
             set => App.Settings.Prop.HideRPCButtons = !value;
+        }
+
+        public bool EnableCustomStatusDisplay
+        {
+            get => App.Settings.Prop.EnableCustomStatusDisplay;
+            set => App.Settings.Prop.EnableCustomStatusDisplay = value;
         }
 
         public bool DiscordAccountOnProfile

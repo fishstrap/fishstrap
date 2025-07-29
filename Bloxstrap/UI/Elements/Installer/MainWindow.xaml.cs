@@ -53,6 +53,8 @@ namespace Bloxstrap.UI.Elements.Installer
         {
             _viewModel.CloseWindowRequest += (_, _) => CloseWindow();
 
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Installer");
+
             _viewModel.PageRequest += (_, type) =>
             {
                 // debounce

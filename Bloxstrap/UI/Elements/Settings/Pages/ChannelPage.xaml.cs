@@ -27,6 +27,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             DataContext = new ChannelViewModel();
             InitializeComponent();
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: Settings");
         }
 
         private void ToggleSwitch_Checked_1(object sender, RoutedEventArgs e)

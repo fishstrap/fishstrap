@@ -15,9 +15,25 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             DataContext = new BloxstrapViewModel();
             InitializeComponent();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: Easter Egg");
         }
 
-        private void OpenClickerGame() => new ClickerGame.MainWindow().ShowDialog();
+        private void OpenClickerGame()
+        {
+            var app = (App.Current as App);
+            app?._froststrapRPC?.UpdatePresence("Dialog: Easter Egg Game");
+
+            var game = new ClickerGame.MainWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
+
+            game.ShowDialog();
+
+            app?._froststrapRPC?.UpdatePresence("Page: Easter Egg");
+        }
+
         public ICommand OpenClickerGameCommand => new RelayCommand(OpenClickerGame);
 
         private const string EasterEggCode = "159753";

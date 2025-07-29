@@ -5,17 +5,7 @@ using System.Windows.Shell;
 using System.Windows.Threading;
 using Microsoft.Win32;
 using Wpf.Ui.Hardware;
-using System.Net.Http;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.IO;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using static Bloxstrap.UI.ViewModels.Settings.ChannelViewModel;
-using System.Windows.Media.Animation;
-using SharpVectors.Renderers;
+using Bloxstrap.Integrations;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -54,6 +44,7 @@ namespace Bloxstrap
 
         public static Bootstrapper? Bootstrapper { get; set; } = null!;
 
+        public FroststrapRichPresence? _froststrapRPC;
         public static bool IsActionBuild => !String.IsNullOrEmpty(BuildMetadata.CommitRef);
 
         public static bool IsProductionBuild => IsActionBuild && BuildMetadata.CommitRef.StartsWith("tag", StringComparison.Ordinal);
@@ -103,6 +94,14 @@ private static bool _showingExceptionDialog = false;
             Logger.WriteLine("App::Terminate", $"Terminating with exit code {exitCodeNum} ({exitCode})");
 
             Environment.Exit(exitCodeNum);
+        }
+
+        public void CreateFroststrapRpcIfNeeded()
+        {
+            if (Settings.Prop.ShowUsingFroststrapRPC && _froststrapRPC == null)
+            {
+                _froststrapRPC = new FroststrapRichPresence();
+            }
         }
 
         public static void SoftTerminate(ErrorCode exitCode = ErrorCode.ERROR_SUCCESS)
@@ -438,6 +437,12 @@ private static bool _showingExceptionDialog = false;
                 Settings.Save();
                 Logger.WriteLine("Startup", $"Generated UserId: {Settings.Prop.UserId}");
             }
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _froststrapRPC?.Dispose();
+            base.OnExit(e);
         }
     }
 }

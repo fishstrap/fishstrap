@@ -34,8 +34,10 @@ namespace Bloxstrap.UI.ViewModels.Editor
 
             try
             {
-                CustomDialog dialog = new CustomDialog();
+                var app = (App.Current as App);
+                app?._froststrapRPC?.UpdatePresence("Dialog: Custom Launcher Preview");
 
+                CustomDialog dialog = new CustomDialog();
                 dialog.ApplyCustomTheme(Name, Code);
 
                 _dialog?.CloseBootstrapper();
@@ -44,13 +46,19 @@ namespace Bloxstrap.UI.ViewModels.Editor
                 dialog.Message = Strings.Bootstrapper_StylePreview_TextCancel;
                 dialog.CancelEnabled = true;
                 dialog.ShowBootstrapper();
+
+                app?._froststrapRPC?.UpdatePresence("Dialog: Custom Launcher Editor");
             }
             catch (Exception ex)
             {
                 App.Logger.WriteLine(LOG_IDENT, "Failed to preview custom theme");
                 App.Logger.WriteException(LOG_IDENT, ex);
 
-                Frontend.ShowMessageBox(string.Format(Strings.CustomTheme_Editor_Errors_PreviewFailed, ex.Message), MessageBoxImage.Error, MessageBoxButton.OK);
+                Frontend.ShowMessageBox(
+                    string.Format(Strings.CustomTheme_Editor_Errors_PreviewFailed, ex.Message),
+                    MessageBoxImage.Error,
+                    MessageBoxButton.OK
+                );
             }
         }
 

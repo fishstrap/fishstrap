@@ -26,11 +26,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             DataContext = new BehaviourViewModel();
             InitializeComponent();
-        }
-
-        private void ToggleSwitch_Checked(object sender, RoutedEventArgs e)
-        {
-
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: Bootstrapper");
         }
     }
 }

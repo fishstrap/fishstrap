@@ -14,6 +14,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             DataContext = new ModsViewModel();
             InitializeComponent();
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: Mods");
         }
     }
 }

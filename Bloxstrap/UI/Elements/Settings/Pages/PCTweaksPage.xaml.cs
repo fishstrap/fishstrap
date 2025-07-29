@@ -15,6 +15,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
         {
             DataContext = new PCTweaksViewModel();
             InitializeComponent();
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Page: PC Tweaks");
         }
 
         private async void BtnImportMaxFPS_Click(object sender, RoutedEventArgs e)

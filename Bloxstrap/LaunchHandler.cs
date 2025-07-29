@@ -193,6 +193,8 @@ namespace Bloxstrap
 
                 var window = new UI.Elements.Settings.MainWindow(showAlreadyRunningWarning);
 
+                (Application.Current as App)?.CreateFroststrapRpcIfNeeded();
+
                 // typically we'd use Show(), but we need to block to ensure IPL stays in scope
                 window.ShowDialog();
             }
@@ -212,6 +214,11 @@ namespace Bloxstrap
         public static void LaunchMenu()
         {
             var dialog = new LaunchMenuDialog();
+
+            (Application.Current as App)?.CreateFroststrapRpcIfNeeded();
+
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Launch Menu");
+
             dialog.ShowDialog();
 
             ProcessNextAction(dialog.CloseAction);
