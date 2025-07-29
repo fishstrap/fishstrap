@@ -117,6 +117,17 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             }
         }
 
+        private void OpenDebugMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var debugMenu = new ContextMenu.DebugMenu();
+            debugMenu.Show();
+        }
+
+        private void UninstallButton_Click(object sender, RoutedEventArgs e)
+        {
+            LaunchHandler.LaunchUninstaller();
+        }
+
         private void ToggleSwitch_Checked_1(object sender, RoutedEventArgs e)
         {
             HardwareAcceleration.MemoryTrimming();
