@@ -68,6 +68,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set
             {
                 App.Settings.Prop.EnableActivityTracking = value;
+                App.FastFlags.SetPreset("Flog.Network", value ? "7" : null);
 
                 if (!value)
                 {

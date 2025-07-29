@@ -22,10 +22,10 @@ namespace Bloxstrap
             { "Players.LogLevel", "FStringDebugLuaLogLevel" },
             { "Players.LogPattern", "FStringDebugLuaLogPattern" },
             { "Instances.WndCheck", "FLogWndProcessCheck" },
+            { "Flog.Network", "FLogNetwork" },
 
             // Preset Flags
             { "Rendering.ManualFullscreen", "FFlagHandleAltEnterFullscreenManually" },
-            { "Flog.Network", "FLogNetwork" },
 
             // Recommended Buffering
             { "Recommended.Buffer", "FIntRakNetResendBufferArrayLength" },

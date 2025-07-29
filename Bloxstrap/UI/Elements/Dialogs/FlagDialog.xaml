@@ -34,7 +34,7 @@
 
         <TabControl x:Name="TabControl" Grid.Row="1" Margin="16,0,16,16" Padding="0,8,0,0" >
             <TabItem x:Name="InvalidTab">
-                <StackPanel Margin="0,8,0,0">
+                <Grid Margin="0,8,0,0">
                     <DataGrid x:Name="InvalidFlagsGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
 
                         <DataGrid.Style>
@@ -102,13 +102,13 @@
                             <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*" />
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
                         </DataGrid.Columns>
-                        
+
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </TabItem>
 
             <TabItem x:Name="DefaultTab">
-                <StackPanel Margin="0,8,0,0">
+                <Grid Margin="0,8,0,0">
                     <DataGrid x:Name="DefaultValuesGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
 
                         <DataGrid.Style>
@@ -176,13 +176,13 @@
                             <DataGridTextColumn Header="Default Value" Binding="{Binding Value}" Width="*" />
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
                         </DataGrid.Columns>
-                        
+
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </TabItem>
 
             <TabItem x:Name="UpdatedTab">
-                <StackPanel Margin="0,8,0,0">
+                <Grid Margin="0,8,0,0">
                     <DataGrid x:Name="UpdatedFlagsGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
 
                         <DataGrid.Style>
@@ -250,8 +250,9 @@
                             <DataGridTextColumn Header="Outdated FastFlag" Binding="{Binding OldName}" Width="*" />
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
                         </DataGrid.Columns>
+
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
 
