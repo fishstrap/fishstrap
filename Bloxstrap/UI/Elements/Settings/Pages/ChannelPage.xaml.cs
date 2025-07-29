@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Bloxstrap.UI.ViewModels.Settings;
+using Microsoft.Win32;
 using Wpf.Ui.Hardware;
 
 namespace Bloxstrap.UI.Elements.Settings.Pages
@@ -52,6 +53,68 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
             System.Windows.Forms.Application.Restart();
             Application.Current.Shutdown();
+        }
+
+        private void ExportSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog
+            {
+                Filter = "JSON Files (*.json)|*.json",
+                FileName = "FroststrapSettings.json"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string json = JsonSerializer.Serialize(App.Settings, new JsonSerializerOptions
+                    {
+                        WriteIndented = true
+                    });
+
+                    File.WriteAllText(dialog.FileName, json);
+                    Frontend.ShowMessageBox("Settings exported successfully.", MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    Frontend.ShowMessageBox($"Failed to export settings: {ex.Message}", MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void ImportSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "JSON Files (*.json)|*.json"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string json = File.ReadAllText(dialog.FileName);
+                    var imported = JsonSerializer.Deserialize<Models.Persistable.Settings>(json);
+
+                    if (imported is not null)
+                    {
+                        App.Settings.Prop = imported;
+                        App.Settings.Save();
+
+                        Frontend.ShowMessageBox("Settings imported successfully. Restarting the app...", MessageBoxImage.Information);
+                        System.Windows.Forms.Application.Restart();
+                        Application.Current.Shutdown();
+                    }
+                    else
+                    {
+                        Frontend.ShowMessageBox("The selected file is not a valid settings file.", MessageBoxImage.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Frontend.ShowMessageBox($"Failed to import settings: {ex.Message}", MessageBoxImage.Error);
+                }
+            }
         }
 
         private void ToggleSwitch_Checked_1(object sender, RoutedEventArgs e)

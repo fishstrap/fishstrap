@@ -219,6 +219,8 @@
             </Grid.ColumnDefinitions>
             
             <ui:Button Content="Reset Settings to Default" Grid.Column="0" Margin="0,0,4,0" Click="ResetSettings_Click" />
+            <ui:Button Content="Import Settings" Grid.Column="1" Margin="0,0,4,0" Click="ImportSettings_Click" />
+            <ui:Button Content="Export Settings" Grid.Column="2" Margin="0,0,4,0" Click="ExportSettings_Click" />
 
         </Grid>
     </StackPanel>
