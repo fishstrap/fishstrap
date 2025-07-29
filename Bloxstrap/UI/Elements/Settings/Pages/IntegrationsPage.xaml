@@ -112,7 +112,8 @@
 
         <controls:OptionControl 
             Header="Enable Custom Status Display"
-            Description="Show custom status message instead of the default 'Playing Roblox' text.">
+            Description="Show custom status message instead of the default 'Playing Roblox' text."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=DiscordActivityOption, Mode=OneWay}">
             <ui:ToggleSwitch IsChecked="{Binding EnableCustomStatusDisplay, Mode=TwoWay}" />
         </controls:OptionControl>
 
