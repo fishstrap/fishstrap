@@ -670,20 +670,10 @@ namespace Bloxstrap
         [DllImport("user32.dll")]
         private static extern bool IsWindowVisible(IntPtr hWnd);
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-
-        private static string? GetWindowTitle(IntPtr hwnd)
-        {
-            StringBuilder buffer = new StringBuilder(256);
-            int length = GetWindowText(hwnd, buffer, buffer.Capacity);
-            return length > 0 ? buffer.ToString() : null;
-        }
 
         private IntPtr SetClassIcon(IntPtr hwnd, Icon icon)
         {
@@ -728,22 +718,25 @@ namespace Bloxstrap
             if (icon == RobloxIcon.Default)
                 return;
 
+            if (!process.WaitForInputIdle(5000))
+            {
+                App.Logger.WriteLine(LOG_IDENT, "WaitForInputIdle timed out, window might not be ready.");
+            }
+
             IntPtr hwnd = IntPtr.Zero;
 
-            // Wait for Roblox window with valid title
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 10; i++)
             {
-                hwnd = GetMainWindowHandle(process.Id);
+                hwnd = process.MainWindowHandle;
 
                 if (hwnd != IntPtr.Zero && IsWindowVisible(hwnd))
-                {
-                    string? title = GetWindowTitle(hwnd);
-                    if (!string.IsNullOrEmpty(title))
-                        break;
-                }
+                    break;
 
                 Thread.Sleep(300);
             }
+
+            if (hwnd == IntPtr.Zero || !IsWindowVisible(hwnd))
+                hwnd = GetMainWindowHandle(process.Id);
 
             if (hwnd == IntPtr.Zero || !IsWindowVisible(hwnd))
             {
@@ -770,26 +763,6 @@ namespace Bloxstrap
 
                 App.Logger.WriteLine(LOG_IDENT, $"Custom icon '{icon}' set on Roblox window.");
 
-                Task.Run(async () =>
-                {
-                    await Task.Delay(1500);
-                    try
-                    {
-                        using var retryIcon = LoadIcon(icon);
-                        if (retryIcon != null)
-                        {
-                            SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_SMALL, retryIcon.Handle);
-                            SendMessage(hwnd, WM_SETICON, (IntPtr)ICON_BIG, retryIcon.Handle);
-                            SetClassIcon(hwnd, retryIcon);
-                            RedrawWindow(hwnd, IntPtr.Zero, IntPtr.Zero, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
-                            App.Logger.WriteLine(LOG_IDENT, "Icon reapplied after delay.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, $"Retrying icon failed: {ex}");
-                    }
-                });
             }
             catch (Exception ex)
             {
