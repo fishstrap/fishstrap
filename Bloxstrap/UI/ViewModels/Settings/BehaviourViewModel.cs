@@ -32,6 +32,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.BackgroundUpdatesEnabled = value;
         }
 
+        public bool CloseCrashHandler
+        {
+            get => App.Settings.Prop.AutoCloseCrashHandler;
+            set => App.Settings.Prop.AutoCloseCrashHandler = value;
+        }
+
         public bool ConfirmLaunches
         {
             get => App.Settings.Prop.ConfirmLaunches;

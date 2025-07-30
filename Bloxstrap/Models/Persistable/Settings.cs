@@ -25,6 +25,7 @@ namespace Bloxstrap.Models.Persistable
         public List<string> CleanerDirectories { get; set; } = new List<string>();
         public bool CheckForUpdates { get; set; } = true;
         public bool ConfirmLaunches { get; set; } = true;
+        public bool AutoCloseCrashHandler { get; set; } = false;
         public string Locale { get; set; } = "nil";
         public bool ForceRobloxLanguage { get; set; } = false;
         public bool UseFastFlagManager { get; set; } = true;
@@ -55,7 +56,7 @@ namespace Bloxstrap.Models.Persistable
 
         // integration configuration
         public bool EnableActivityTracking { get; set; } = true;
-        public bool ShowServerDetails { get; set; } = false;
+        public bool ShowServerDetails { get; set; } = true;
         public bool ShowGameHistoryMenu { get; set; } = true;
         public bool UseDisableAppPatch { get; set; } = false;
         public bool BlockRobloxRecording { get; set; } = false;

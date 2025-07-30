@@ -43,12 +43,6 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Behaviour_BackgroundUpdates_Title}"
-            Description="{x:Static resources:Strings.Menu_Behaviour_BackgroundUpdates_Description}">
-            <ui:ToggleSwitch IsChecked="{Binding BackgroundUpdates, Mode=TwoWay}" />
-        </controls:OptionControl>
-
-        <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Behaviour_ForceRobloxLanguage_Title}"
             Description="{x:Static resources:Strings.Menu_Behaviour_ForceRobloxLanguage_Description}"
             HelpLink="https://github.com/bloxstraplabs/bloxstrap/wiki/Information-on-Roblox-app-localisation">
@@ -60,6 +54,18 @@
             Description="{x:Static resources:Strings.Menu_Behaviour_MultiInstances_Description}"
             HelpLink="https://github.com/Meddsam/Froststrap/wiki/Features#multi-instance-launching" >
             <ui:ToggleSwitch IsChecked="{Binding MultiInstances, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="Auto Close Roblox Crash Handler"
+            Description="Automatically closes the RobloxCrashHandler.exe that launches with roblox to save on resources">
+            <ui:ToggleSwitch IsChecked="{Binding CloseCrashHandler, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Behaviour_BackgroundUpdates_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_BackgroundUpdates_Description}">
+            <ui:ToggleSwitch IsChecked="{Binding BackgroundUpdates, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="True">
