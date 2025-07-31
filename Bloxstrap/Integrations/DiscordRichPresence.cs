@@ -1,5 +1,4 @@
 using System.Windows;
-using Bloxstrap.Models.RobloxApi;
 using DiscordRPC;
 
 namespace Bloxstrap.Integrations
