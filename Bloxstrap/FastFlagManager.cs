@@ -216,45 +216,13 @@ namespace Bloxstrap
             // Unlimited Camera Distance
             { "Rendering.Camerazoom","FIntCameraMaxZoomDistance" },
 
-            // Better DX11
+            // Rendering Modes
             { "Rendering.Mode.DisableD3D11", "FFlagDebugGraphicsDisableDirect3D11" },
             { "Rendering.Mode.D3D11", "FFlagDebugGraphicsPreferD3D11" },
-            { "Rendering.Mode.D3D11GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D11" },
-            { "Rendering.Mode.D3D11ExtraLog", "FFlagGraphicsD3D11ExtraInitLog" },
-            { "Rendering.Mode.DisableHQShadersLowEndDx11", "FFlagDisableHQShadersLowEndDx11" },
-            { "Rendering.Mode.Dx11LowEndCoreCount", "FIntRenderDx11LowEndCoreCount" },
-            { "Rendering.Mode.Dx11ShaderAnalytics", "FIntRenderShaderLoadAnalyticsHundredthPercent" },
-
-            // Better DX10
             { "Rendering.Mode.D3D10", "FFlagDebugGraphicsPreferD3D11FL10" },
-            { "Rendering.Mode.D3D10Compute", "FFlagGraphicsEnableD3D10Compute" },
-            { "Rendering.Mode.D3D10GlobalInstancing", "FFlagRenderEnableGlobalInstancingD3D10" },
-
-            // Better Vulkan
             { "Rendering.Mode.Vulkan", "FFlagDebugGraphicsPreferVulkan" },
-            { "Rendering.Mode.DisableVulkan1", "FFlagDebugGraphicsDisableVulkan" },
-            { "Rendering.Mode.DisableVulkan2", "FFlagDebugGraphicsDisableVulkan11" },
-            { "Rendering.Mode.VulkanDisablePreRotate", "FFlagDebugVulkanDisablePreRotate" },
-            { "Rendering.Mode.VulkanBonuxMemory", "FFlagGraphicsVulkanBonusMemory" },
-            { "Rendering.Mode.VulkanGlobalInstancing", "FFlagRenderEnableGlobalInstancingVulkan" },
-            { "Rendering.Mode.VulkanLogLayers", "FFlagVulkanAlwaysLogLayersAndExtensions" },
-            { "Rendering.Mode.VulkanHeadless", "FFlagSupportHeadlessDeviceVulkan" },
-            { "Rendering.Mode.VulkanAnalytics", "FIntGraphicsVulkanAnalyticsHundredthPercent" },
-            { "Rendering.Mode.VulkanARMVaryingBufferMb", "FIntGraphicsVulkanARMVaryingBufferMb" },
-            { "Rendering.Mode.VulkanVaryingBufferLimit", "FStringGraphicsVulkanVaryingBufferLimitMiB" },
-
-            // Better Metal
             { "Rendering.Mode.Metal", "FFlagDebugGraphicsPreferMetal" },
-            { "Rendering.Mode.MetalShaderCookie1", "FFlagGraphicsMetalShaderCookie" },
-            { "Rendering.Mode.MetalShaderCookie2", "FFlagGraphicsMetalShaderCookie16" },
-            { "Rendering.Mode.MetalGlobalInstancing", "FFlagRenderEnableGlobalInstancingMetal" },
-            { "Rendering.Mode.MetalTryCatch", "FFlagGraphicsMetalTryCatch" },
-            { "Rendering.Mode.MetalAnalytics", "FIntGraphicsMetalAnalyticsHundredthPercent" },
-
-            // Better OpenGL
             { "Rendering.Mode.OpenGL", "FFlagDebugGraphicsPreferOpenGL" },
-            { "Rendering.Mode.OpenGL.HQShadersExclusion", "FFlagGraphicsGLEnableHQShadersExclusion" },
-            { "Rendering.Mode.OpenGL.SuperHQShadersExclusion", "FFlagGraphicsGLEnableSuperHQShadersExclusion" },
 
             // Lighting technology
             { "Rendering.Lighting.Voxel", "DFFlagDebugRenderForceTechnologyVoxel" },

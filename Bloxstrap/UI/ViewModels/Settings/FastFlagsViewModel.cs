@@ -533,127 +533,14 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.FastFlags.GetPresetEnum(RenderingModes, "Rendering.Mode", "True");
             set
             {
-                if (value == RenderingMode.D3D10)
+                RenderingMode[] DisableD3D11 = new RenderingMode[]
                 {
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D10", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D10Compute", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D10GlobalInstancing", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", "True");
-                }
-                else
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D10", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D10Compute", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D10GlobalInstancing", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", null);
-                }
+                    RenderingMode.Vulkan,
+                    RenderingMode.OpenGL
+                };
 
-                if (value == RenderingMode.D3D11)
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11ExtraLog", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableHQShadersLowEndDx11", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.Dx11ShaderAnalytics", "0");
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", "False");
-                    try
-                    {
-                        int coreCount = SystemInfo.GetPhysicalCoreCount();
-                        App.FastFlags.SetPreset("Rendering.Mode.Dx11LowEndCoreCount", coreCount.ToString());
-                    }
-                    catch (Exception ex)
-                    {
-                        App.Logger.WriteLine("SelectedRenderingMode", $"Failed to get CPU core count: {ex.Message}");
-                        App.FastFlags.SetPreset("Rendering.Mode.Dx11LowEndCoreCount", "4");
-                    }
-                }
-                else
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11ExtraLog", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableHQShadersLowEndDx11", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.Dx11ShaderAnalytics", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.Dx11LowEndCoreCount", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", null);
-                }
-
-                if (value == RenderingMode.Vulkan)
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.Vulkan", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanDisablePreRotate", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanBonuxMemory", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanGlobalInstancing", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanAnalytics", "0");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanLogLayers", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanHeadless", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanARMVaryingBufferMb", "1024");
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanVaryingBufferLimit", "0x13B5:.+:.+=1024;0x5143:.+:.+=1024");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", "False");
-                }
-                else
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.Vulkan", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanDisablePreRotate", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanBonuxMemory", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanGlobalInstancing", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanAnalytics", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanLogLayers", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanHeadless", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanARMVaryingBufferMb", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.VulkanVaryingBufferLimit", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", null);
-                }
-
-                if (value == RenderingMode.OpenGL)
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL.HQShadersExclusion", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL.SuperHQShadersExclusion", "True");
-                }
-                else
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL.HQShadersExclusion", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL.SuperHQShadersExclusion", null);
-                }
-
-                if (value == RenderingMode.Metal)
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan2", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.Vulkan", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL", "False");
-                    App.FastFlags.SetPreset("Rendering.Mode.Metal", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalAnalytics", "0");
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie1", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie2", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalGlobalInstancing", "True");
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", "False");
-                }
-                else
-                {
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan1", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.DisableVulkan2", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.Vulkan", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.OpenGL", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.Metal", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalAnalytics", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie1", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalShaderCookie2", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.MetalGlobalInstancing", null);
-                    App.FastFlags.SetPreset("Rendering.Mode.D3D11GlobalInstancing", null);
-                }
+                App.FastFlags.SetPresetEnum("Rendering.Mode", value.ToString(), "True");
+                App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", DisableD3D11.Contains(value) ? "True" : null);
             }
         }
 
