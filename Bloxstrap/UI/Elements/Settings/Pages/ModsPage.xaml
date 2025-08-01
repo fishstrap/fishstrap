@@ -158,7 +158,7 @@
                 <ui:Button
                     Appearance="Danger"
                     Command="{Binding RemoveCustomDeathSoundCommand}"
-                    Content="Remove Sound"
+                    Content="Remove Custom Sound"
                     Icon="Delete16"
                     Visibility="{Binding DeleteCustomDeathSoundVisibility, Mode=OneWay}" />
             </StackPanel>
@@ -207,7 +207,7 @@
                         <ui:Button
                         Appearance="Danger"
                         Command="{Binding RemoveCustomShiftlockModCommand}"
-                        Content="Remove Shiftlock"
+                        Content="Remove Custom Shiftlock"
                         Icon="Delete16"
                         Visibility="{Binding DeleteCustomShiftlockVisibility, Mode=OneWay}" />
                     </StackPanel>
