@@ -417,7 +417,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         private void AddCustomTheme()
         {
-            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: New Custom Launcher");
+            (App.Current as App)?._froststrapRPC?.UpdatePresence("Dialog: Add Custom Launcher");
             var dialog = new AddCustomThemeDialog();
             dialog.ShowDialog();
 

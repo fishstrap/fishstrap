@@ -128,6 +128,7 @@
                    Command="{Binding SaveAndLaunchSettingsCommand}" />
             </StatusBarItem>
 
+            <!-- Restart -->
             <StatusBarItem Grid.Column="3" VerticalAlignment="Center" Margin="0,0,4,0">
                 <ui:Button Content="Restart"
                Height="32"
@@ -148,7 +149,7 @@
             </StatusBarItem>
 
             <!-- Close -->
-            <StatusBarItem Grid.Column="5" VerticalAlignment="Center" Margin="0,0,8,0">
+            <StatusBarItem Grid.Column="5" VerticalAlignment="Center" Margin="0,0,0,0">
                 <ui:Button Content="{x:Static resources:Strings.Common_Close}"
                    Height="32"
                    Padding="14,0"

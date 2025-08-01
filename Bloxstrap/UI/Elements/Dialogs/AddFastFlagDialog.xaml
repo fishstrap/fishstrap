@@ -52,7 +52,7 @@
                         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
                             <TextBlock Text="{x:Static resources:Strings.Common_Value}" FontWeight="SemiBold" Width="120" VerticalAlignment="Center"/>
 
-                            <ComboBox x:Name="FlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" Loaded="FlagValueComboBox_Loaded" >
+                            <ComboBox x:Name="FlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" Loaded="FlagValueComboBox_Loaded" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="2">
@@ -133,7 +133,7 @@
 
                         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12" VerticalAlignment="Center">
                             <TextBlock Text="{x:Static resources:Strings.Common_Value}" FontWeight="SemiBold" Width="120" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="GameFlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" Loaded="GameFlagValueComboBox_Loaded" >
+                            <ComboBox x:Name="GameFlagValueComboBox" Width="220" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True" ItemsSource="{Binding CommonValuesView.View}" SelectedValuePath="Value" Loaded="GameFlagValueComboBox_Loaded" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="2">

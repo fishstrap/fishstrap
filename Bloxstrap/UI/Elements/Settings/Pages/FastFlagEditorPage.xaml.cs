@@ -757,9 +757,15 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             string suffix = filterType == FastFlagFilterType.DataCenterFilter ? "_DataCenterFilter" : "_PlaceFilter";
             string formattedName = $"{name}{suffix}";
 
-            if (BannableFastFlagWarning.IsBannable(formattedName))
+            // Try to parse value numeric part for bannable check
+            double? numericValue = null;
+            var valueParts = value.Split(';');
+            if (valueParts.Length > 0 && double.TryParse(valueParts[0], out double parsed))
+                numericValue = parsed;
+
+            if (BannableFastFlagWarning.IsBannable(formattedName, numericValue))
             {
-                if (!ConfirmBannableFlags(new[] { formattedName }))
+                if (!ConfirmBannableFlags(new[] { (formattedName, numericValue) }))
                     return;
             }
 
@@ -861,18 +867,34 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             App.FastFlags.suspendUndoSnapshot = true;
             App.FastFlags.SaveUndoSnapshot();
 
-            var bannableFlags = list.Keys
-                .Select(key => $"{key}{suffix}")
-                .Where(BannableFastFlagWarning.IsBannable)
+            // Prepare bannable flag pairs with values parsed as double?
+            var bannableFlagPairs = list
+                .Select(kvp =>
+                {
+                    double? val = null;
+                    if (kvp.Value.ValueKind == JsonValueKind.Number)
+                    {
+                        if (kvp.Value.TryGetDouble(out double d))
+                            val = d;
+                    }
+                    else if (kvp.Value.ValueKind == JsonValueKind.String)
+                    {
+                        if (double.TryParse(kvp.Value.GetString(), out double parsed))
+                            val = parsed;
+                    }
+
+                    string flagNameWithSuffix = $"{kvp.Key}{suffix}";
+                    return (Name: flagNameWithSuffix, Value: val, BaseKey: kvp.Key);
+                })
+                .Where(pair => BannableFastFlagWarning.IsBannable(pair.Name, pair.Value))
                 .Distinct()
                 .ToList();
 
-            if (bannableFlags.Count > 0 && !ConfirmBannableFlags(bannableFlags))
+            if (bannableFlagPairs.Count > 0 && !ConfirmBannableFlags(bannableFlagPairs.Select(pair => (pair.Name, pair.Value))))
             {
-                foreach (var bannable in bannableFlags)
+                foreach (var bannable in bannableFlagPairs)
                 {
-                    var baseKey = bannable.Substring(0, bannable.Length - suffix.Length);
-                    list.Remove(baseKey);
+                    list.Remove(bannable.BaseKey);
                 }
             }
 
@@ -895,9 +917,17 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void AddSingle(string name, string value)
         {
-            if (BannableFastFlagWarning.IsBannable(name))
+            double? val = null;
+
+            if (!string.IsNullOrEmpty(value))
             {
-                if (!ConfirmBannableFlags(new[] { name }))
+                if (double.TryParse(value, out double parsed))
+                    val = parsed;
+            }
+
+            if (BannableFastFlagWarning.IsBannable(name, val))
+            {
+                if (!ConfirmBannableFlags(new[] { (Name: name, Value: val) }))
                     return;
             }
 
@@ -994,17 +1024,27 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             App.FastFlags.suspendUndoSnapshot = true;
             App.FastFlags.SaveUndoSnapshot();
 
-            var bannableFlags = list.Keys
-                .Where(BannableFastFlagWarning.IsBannable)
+            var bannableFlagPairs = list
+                .Select(kvp =>
+                {
+                    double? val = null;
+                    if (kvp.Value != null)
+                    {
+                        if (kvp.Value is double d)
+                            val = d;
+                        else if (double.TryParse(kvp.Value.ToString(), out double parsed))
+                            val = parsed;
+                    }
+                    return (Name: kvp.Key, Value: val);
+                })
+                .Where(pair => BannableFastFlagWarning.IsBannable(pair.Name, pair.Value))
                 .Distinct()
                 .ToList();
 
-            if (bannableFlags.Count > 0 && !ConfirmBannableFlags(bannableFlags))
+            if (bannableFlagPairs.Count > 0 && !ConfirmBannableFlags(bannableFlagPairs))
             {
-                foreach (var bannable in bannableFlags)
-                {
-                    list.Remove(bannable);
-                }
+                foreach (var bannable in bannableFlagPairs)
+                    list.Remove(bannable.Name);
             }
 
             var conflictingFlags = App.FastFlags.Prop.Where(x => list.ContainsKey(x.Key)).Select(x => x.Key);
@@ -1049,11 +1089,18 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             ClearSearch();
         }
 
-        private bool ConfirmBannableFlags(IEnumerable<string> flagNames)
+        public bool ConfirmBannableFlags(IEnumerable<(string Name, double? Value)> flagsWithValues)
         {
-            var flagList = flagNames.Distinct().ToList();
+            var bannableFlags = flagsWithValues
+                .Where(f => BannableFastFlagWarning.IsBannable(f.Name, f.Value))
+                .Select(f => f.Name)
+                .Distinct()
+                .ToList();
 
-            string formattedFlags = string.Join("\n", flagList.Select(f => $"'{f}'"));
+            if (!bannableFlags.Any())
+                return true;
+
+            string formattedFlags = string.Join("\n", bannableFlags.Select(f => $"'{f}'"));
 
             string message = "Warning: The following FastFlags are known to get you banned from certain experiences. Do you want to remove them?\n\n" +
                              $"{formattedFlags}";
@@ -1066,75 +1113,40 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             return result == MessageBoxResult.No;
         }
 
+        public class BannableFlagRule
+        {
+            public string FlagName { get; set; } = string.Empty;
+            public double? MinValue { get; set; } = null;
+            public double? MaxValue { get; set; } = null;
+        }
+
         public static class BannableFastFlagWarning
         {
-            public static readonly HashSet<string> BannableFlags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            public static readonly List<BannableFlagRule> BannableRules = new()
             {
-             "DFFlagAnimationThrottlingInertialization",
-             "DFFlagAnimatorDrawSkeletonAll",
-             "DFFlagAnimatorDrawSkeletonAttachments",
-             "DFFlagAnimatorDrawSkeletonText",
-             "DFFlagAnimatorPostProcessIK",
-             "DFFlagDebugDrawBroadPhaseAABBs",
-             "DFFlagDebugDrawBvhNodes",
-             "DFFlagDebugDrawEnable",
-             "DFFlagDebugEnableInterpThrottle",
-             "DFFlagDebugPhysicsSenderDoesNotShrinkSimRadius",
-             "DFFlagNoRunningNoPhysics",
-             "DFIntAnimatorDrawSkeletonScalePercent",
-             "DFIntBulletContactBreakOrthogonalThresholdActivatePercent",
-             "DFIntBulletContactBreakOrthogonalThresholdPercent",
-             "DFIntBulletContactBreakThresholdPercent",
-             "DFIntGameNetDontSendRedundantDeltaPositionMillionth",
-             "DFIntGameNetDontSendRedundantDeltaThresholdMillionth",
-             "DFIntGameNetDontSendRedundantNumTimes",
-             "DFIntGameNetLocalSpaceMaxSendIndex",
-             "DFIntGameNetOptimizeParallelPhysicsSendAssemblyBatch",
-             "DFIntGameNetPVHeaderLinearVelocityZeroCutoffExponent",
-             "DFIntGameNetPVHeaderRotationalVelocityZeroCutoffExponent",
-             "DFIntGameNetPVHeaderRotationOrientIdToleranceExponent",
-             "DFIntGameNetPVHeaderTranslationZeroCutoffExponent",
-             "DFIntMaxAltitudePDHipHeightPercent",
-             "DFIntMaxClientSimulationRadius",
-             "DFIntMaximumFreefallMoveTimeInTenths",
-             "DFIntMaximumUnstickForceInGs",
-             "DFIntMaxMissedWorldStepsRemembered",
-             "DFIntMinClientSimulationRadius",
-             "DFIntMinimalSimRadiusBuffer",
-             "DFIntNewPDAltitudeNoForceZonePercent",
-             "DFIntNonSolidFloorPercentForceApplication",
-             "DFIntPhysicsDecompForceUpgradeVersion",
-             "DFIntPhysicsImprovedCyclicExecutiveThrottleThresholdTenth",
-             "DFIntPhysicsSenderMaxBandwidthBpsScaling",
-             "DFIntRaycastMaxDistance",
-             "DFIntReplicatorAnimationTrackLimitPerAnimator",
-             "DFIntSimAdaptiveHumanoidPDControllerSubstepMultiplier",
-             "DFIntSimBlockLargeLocalToolWeldManipulationsThreshold",
-             "DFIntSimTimestepMultiplierDebounceCount",
-             "DFIntSmoothTerrainPhysicsRayAabbSlop",
-             "DFIntSolidFloorMassMultTenth",
-             "DFIntSolidFloorPercentForceApplication",
-             "DFIntTargetTimeDelayFacctorTenths",
-             "DFIntTouchSenderMaxBandwidthBps",
-             "DFIntUnstickForceDecayInTenths",
-             "DFIntUnstickForceEpsilonInHundredths",
-             "FFlagDataModelPatcherForceLocal",
-             "FFlagDebugHumanoidRendering",
-             "FFlagDebugNavigationDrawCompactHeightfield",
-             "FFlagDebugUseCustomSimRadius",
-             "FFlagEnablePhysicsAdaptiveTimeSteppingIXP",
-             "FFlagProcessAnimationLooped",
-             "FFlagRemapAnimationR6T0R15Rig",
-             "FFlagSimAdaptiveTimesteppingDefault2",
-             "FFlagAvatarJointFriction",
-             "FFlagCameraFarZPlane",
-             "FFlagInterpolationAwareTargetTimeLerpHundredth",
-             "FFlagParallelDynamicPartsFastClusterBatchSize",
-             "FFlagPhysicsStepsPerSecond",
-             "FFlagRaycastMaximumTableNestDepth",
-             "SFFlagBulletContactBreakOrthogonalThresholdPercent",
+                new BannableFlagRule { FlagName = "DFFlagAnimationThrottlingInertialization" },
+                new BannableFlagRule { FlagName = "DFIntRaycastMaxDistance", MaxValue = 100 },
+                new BannableFlagRule { FlagName = "DFIntMaxClientSimulationRadius", MinValue = 5000 },
+                new BannableFlagRule { FlagName = "eaeazeaze", MinValue = 5000, MaxValue = 10000 },  // waitting on onion to send me the new list of bannable fflags
             };
-            public static bool IsBannable(string flagName) => BannableFlags.Contains(flagName);
+
+            public static bool IsBannable(string flagName, double? value = null)
+            {
+                var rule = BannableRules.FirstOrDefault(r => string.Equals(r.FlagName, flagName, StringComparison.OrdinalIgnoreCase));
+                if (rule == null)
+                    return false;
+
+                if (!value.HasValue)
+                    return true;
+
+                if (rule.MinValue.HasValue && value < rule.MinValue.Value)
+                    return true;
+
+                if (rule.MaxValue.HasValue && value > rule.MaxValue.Value)
+                    return true;
+
+                return false;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e) => ReloadList();
