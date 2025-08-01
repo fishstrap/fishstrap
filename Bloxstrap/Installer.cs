@@ -31,6 +31,7 @@ namespace Bloxstrap
         public bool ImportSettings = 
             Directory.Exists(Path.Combine(Paths.LocalAppData, "Bloxstrap")) ||
             Directory.Exists(Path.Combine(Paths.LocalAppData, "Voidstrap")) ||
+            Directory.Exists(Path.Combine(Paths.LocalAppData, "Lunastrap")) ||
             Directory.Exists(Path.Combine(Paths.LocalAppData, "Fishstrap"));
 
         public bool IsImplicitInstall = false;

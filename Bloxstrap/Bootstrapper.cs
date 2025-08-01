@@ -1067,53 +1067,52 @@ namespace Bloxstrap
         #endregion
 
         #region App Install
-        private string NormalizeVersion(string version)
-        {
-            return version.Trim().TrimStart('v', 'V');
-        }
-
         private async Task<bool> CheckForUpdates()
         {
             const string LOG_IDENT = "Bootstrapper::CheckForUpdates";
 
-            // Ensure single instance update to avoid conflicts
             if (Process.GetProcessesByName(App.ProjectName).Length > 1)
             {
-                App.Logger.WriteLine(LOG_IDENT, $"More than one instance detected, aborting update.");
+                App.Logger.WriteLine(LOG_IDENT, $"More than one {App.ProjectName} instance running, aborting update check.");
                 return false;
             }
 
-            App.Logger.WriteLine(LOG_IDENT, "Checking for updates...");
+            SetStatus("Checking for Updates...");
 
 #if !DEBUG_UPDATER
             var releaseInfo = await App.GetLatestRelease();
-
             if (releaseInfo is null)
                 return false;
 
-            string currentVersionNormalized = NormalizeVersion(App.Version);
-            string releaseVersionNormalized = NormalizeVersion(releaseInfo.TagName);
+            string currentVer = App.Version;
+            string releaseVer = releaseInfo.TagName;
 
-            var versionComparison = Utilities.CompareVersions(currentVersionNormalized, releaseVersionNormalized);
+            var versionComparison = Utilities.CompareVersions(currentVer, releaseVer);
 
-            if (App.IsProductionBuild)
+            if (versionComparison == VersionComparison.GreaterThan || versionComparison == VersionComparison.Equal)
             {
-                if (versionComparison == VersionComparison.Equal)
-                {
-                    App.Logger.WriteLine(LOG_IDENT, $"Current version ({App.Version}) is up to date with release ({releaseInfo.TagName}), skipping update.");
-                    return false;
-                }
-                else if (versionComparison == VersionComparison.GreaterThan)
-                {
-                    App.Logger.WriteLine(LOG_IDENT, $"Current version ({App.Version}) is newer than release ({releaseInfo.TagName}), skipping update.");
-                    return false;
-                }
+                App.Logger.WriteLine(LOG_IDENT, $"No update required. Current version: {currentVer}, Release version: {releaseVer}");
+                return false;
+            }
+
+            App.Logger.WriteLine(LOG_IDENT, $"Update available: {currentVer} -> {releaseVer}");
+
+            var result = Frontend.ShowMessageBox(
+                $"A new version of {App.ProjectName} is available ({releaseVer}).\n\nWould you like to update now?",
+                MessageBoxImage.Question,
+                MessageBoxButton.YesNo
+            );
+
+            if (result != MessageBoxResult.Yes)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "User declined update.");
+                return false;
             }
 
             if (Dialog is not null)
                 Dialog.CancelEnabled = false;
 
-            string version = releaseInfo.TagName;
+            string version = releaseVer;
 #else
     string version = App.Version;
 #endif
@@ -1125,68 +1124,34 @@ namespace Bloxstrap
 #if DEBUG_UPDATER
         string downloadLocation = Path.Combine(Paths.TempUpdates, "Bloxstrap.exe");
         Directory.CreateDirectory(Paths.TempUpdates);
-        File.Copy(Paths.Process, downloadLocation, true);
+        File.Copy(Paths.Process, downloadLocation, overwrite: true);
 #else
                 var asset = releaseInfo.Assets![0];
                 string downloadLocation = Path.Combine(Paths.TempUpdates, asset.Name);
                 Directory.CreateDirectory(Paths.TempUpdates);
 
-                bool downloadRequired = true;
+                App.Logger.WriteLine(LOG_IDENT, $"Downloading {version}...");
 
-                if (File.Exists(downloadLocation))
+                if (!File.Exists(downloadLocation))
                 {
-                    try
-                    {
-                        using var headRequest = new HttpRequestMessage(HttpMethod.Head, asset.BrowserDownloadUrl);
-                        var headResponse = await App.HttpClient.SendAsync(headRequest);
-                        if (headResponse.IsSuccessStatusCode && headResponse.Content.Headers.ContentLength.HasValue)
-                        {
-                            long remoteSize = headResponse.Content.Headers.ContentLength.Value;
-                            var fileInfo = new FileInfo(downloadLocation);
-                            if (fileInfo.Length == remoteSize)
-                            {
-                                downloadRequired = false;
-                                App.Logger.WriteLine(LOG_IDENT, $"Local update file matches remote size ({remoteSize} bytes), skipping download.");
-                            }
-                            else
-                            {
-                                App.Logger.WriteLine(LOG_IDENT, $"File size mismatch (local: {fileInfo.Length}, remote: {remoteSize}), re-downloading.");
-                            }
-                        }
-                        else
-                        {
-                            App.Logger.WriteLine(LOG_IDENT, "HEAD request did not return content length, will download file.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, $"Failed to check remote file size: {ex.Message}");
-                        // fallback to download
-                    }
-                }
-
-                if (downloadRequired)
-                {
-                    App.Logger.WriteLine(LOG_IDENT, $"Downloading {releaseInfo.TagName}...");
                     using var response = await App.HttpClient.GetAsync(asset.BrowserDownloadUrl);
                     response.EnsureSuccessStatusCode();
 
-                    await using var fileStream = new FileStream(downloadLocation, FileMode.Create, FileAccess.Write);
+                    await using var fileStream = new FileStream(downloadLocation, FileMode.Create, FileAccess.Write, FileShare.None);
                     await response.Content.CopyToAsync(fileStream);
                 }
 #endif
 
-                App.Logger.WriteLine(LOG_IDENT, $"Launching updater {version}...");
+                App.Logger.WriteLine(LOG_IDENT, $"Starting updater {version}...");
 
                 var startInfo = new ProcessStartInfo(downloadLocation)
                 {
-                    UseShellExecute = true // Important for GUI apps and elevation
+                    UseShellExecute = true,
                 };
 
-                // Use ArgumentList to avoid the 'Arguments or ArgumentList' exception
                 startInfo.ArgumentList.Add("-upgrade");
 
-                foreach (string arg in App.LaunchSettings.Args)
+                foreach (var arg in App.LaunchSettings.Args)
                     startInfo.ArgumentList.Add(arg);
 
                 if (_launchMode == LaunchMode.Player && !startInfo.ArgumentList.Contains("-player"))
@@ -1198,19 +1163,27 @@ namespace Bloxstrap
 
                 using var updateLock = new InterProcessLock("AutoUpdater");
 
-                Process.Start(startInfo);
+                var process = Process.Start(startInfo);
+                if (process == null)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Failed to start updater process.");
+                    Frontend.ShowMessageBox(
+                        string.Format(Strings.Bootstrapper_AutoUpdateFailed, version),
+                        MessageBoxImage.Information);
+                    Utilities.ShellExecute(App.ProjectDownloadLink);
+                    return false;
+                }
 
                 return true;
             }
             catch (Exception ex)
             {
-                App.Logger.WriteLine(LOG_IDENT, "Exception in auto-updater:");
+                App.Logger.WriteLine(LOG_IDENT, "An exception occurred when running the auto-updater");
                 App.Logger.WriteException(LOG_IDENT, ex);
 
                 Frontend.ShowMessageBox(
                     string.Format(Strings.Bootstrapper_AutoUpdateFailed, version),
-                    MessageBoxImage.Information
-                );
+                    MessageBoxImage.Information);
 
                 Utilities.ShellExecute(App.ProjectDownloadLink);
             }
