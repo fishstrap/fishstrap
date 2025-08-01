@@ -85,10 +85,6 @@
             Text="{x:Static resources:Strings.Common_Presets}" />
 
         <!--  Option Controls  -->
-        <controls:OptionControl Description="{x:Static resources:Strings.Menu_Mods_Presets_OldDeathSound_Description}" Header="{x:Static resources:Strings.Menu_Mods_Presets_OldDeathSound_Title}">
-            <ui:ToggleSwitch IsChecked="{Binding OldDeathSoundTask.NewState, Mode=TwoWay}" />
-        </controls:OptionControl>
-
         <controls:OptionControl Description="{x:Static resources:Strings.Menu_Mods_Presets_OldAvatarEditor_Description}" Header="{x:Static resources:Strings.Menu_Mods_Presets_OldAvatarEditor_Title}">
             <ui:ToggleSwitch IsChecked="{Binding OldAvatarBackgroundTask.NewState, Mode=TwoWay}" />
         </controls:OptionControl>
@@ -151,41 +147,24 @@
             </StackPanel>
         </controls:OptionControl>
 
-        <!--  Custom Shiftlock Option  -->
-        <controls:OptionControl Description="Use your own Shiftlock in Roblox" Header="Custom Shiftlock">
+        <!--  Custom Death Sound Option  -->
+        <controls:OptionControl Header="Custom Death Sound" Description="Replaces the death sound with your own audio.">
             <StackPanel>
                 <ui:Button
-                    Command="{Binding AddCustomShiftlockModCommand}"
-                    Content="Choose"
+                    Command="{Binding AddCustomDeathSoundCommand}"
+                    Content="Choose Sound"
                     Icon="DocumentAdd16"
-                    Visibility="{Binding ChooseCustomShiftlockVisibility, Mode=OneWay}" />
+                    Visibility="{Binding ChooseCustomDeathSoundVisibility, Mode=OneWay}" />
                 <ui:Button
-                   Appearance="Danger"
-                    Command="{Binding RemoveCustomShiftlockModCommand}"
-                    Content="Remove Shiftlock"
+                    Appearance="Danger"
+                    Command="{Binding RemoveCustomDeathSoundCommand}"
+                    Content="Remove Sound"
                     Icon="Delete16"
-                    Visibility="{Binding DeleteCustomShiftlockVisibility, Mode=OneWay}" />
+                    Visibility="{Binding DeleteCustomDeathSoundVisibility, Mode=OneWay}" />
             </StackPanel>
         </controls:OptionControl>
 
-        <!--  Custom Cursor Option  -->
-        <controls:OptionControl Description="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Description}" Header="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Title}">
-            <StackPanel>
-                <ui:Button
-                    Command="{Binding AddCustomCursorModCommand}"
-                    Content="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Choose}"
-                    Icon="DocumentAdd16"
-                    Visibility="{Binding ChooseCustomCursorVisibility, Mode=OneWay}" />
-                <ui:Button
-                   Appearance="Danger"
-                    Command="{Binding RemoveCustomCursorModCommand}"
-                    Content="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Remove}"
-                    Icon="Delete16"
-                    Visibility="{Binding DeleteCustomCursorVisibility, Mode=OneWay}" />
-            </StackPanel>
-        </controls:OptionControl>
-
-        <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False" x:Name="RobloxMenuExpander" >
+        <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False">
             <ui:CardExpander.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -193,181 +172,231 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontSize="14" Text="Custom Cursor Set" />
-                        <TextBlock Margin="0,2,0,0" FontSize="12" Text="Have multiple cursor sets ready to go for use." Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
+                        <TextBlock FontSize="14" Text="Custom Cursor Features" FontWeight="Medium" />
+                        <TextBlock Margin="0,2,0,0" FontSize="12" Text="All of the Custom Cursor features you need." Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                     </StackPanel>
                 </Grid>
             </ui:CardExpander.Header>
+            
+            <StackPanel>
+                <!--  Custom Cursor Option  -->
+                <controls:OptionControl Description="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Description}" Header="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Title}">
+                    <StackPanel>
+                        <ui:Button
+                            Command="{Binding AddCustomCursorModCommand}"
+                            Content="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Choose}"
+                            Icon="DocumentAdd16"
+                            Visibility="{Binding ChooseCustomCursorVisibility, Mode=OneWay}" />
+                        <ui:Button
+                            Appearance="Danger"
+                            Command="{Binding RemoveCustomCursorModCommand}"
+                            Content="{x:Static resources:Strings.Menu_Mods_Misc_CustomCursor_Remove}"
+                            Icon="Delete16"
+                            Visibility="{Binding DeleteCustomCursorVisibility, Mode=OneWay}" />
+                    </StackPanel>
+                </controls:OptionControl>
 
-            <Grid Margin="0,8,0,0"  MinHeight="300" MaxHeight="500">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="300" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <!--  Custom Shiftlock Option  -->
+                <controls:OptionControl Description="Use your own Shiftlock in Roblox." Header="Custom Shiftlock">
+                    <StackPanel>
+                        <ui:Button
+                        Command="{Binding AddCustomShiftlockModCommand}"
+                        Content="Choose"
+                        Icon="DocumentAdd16"
+                        Visibility="{Binding ChooseCustomShiftlockVisibility, Mode=OneWay}" />
+                        <ui:Button
+                        Appearance="Danger"
+                        Command="{Binding RemoveCustomShiftlockModCommand}"
+                        Content="Remove Shiftlock"
+                        Icon="Delete16"
+                        Visibility="{Binding DeleteCustomShiftlockVisibility, Mode=OneWay}" />
+                    </StackPanel>
+                </controls:OptionControl>
 
-                <!-- Left: List and buttons -->
-                <ListBox x:Name="CustomThemesListBox" Grid.Row="0" Grid.Column="0" Margin="0,0,4,0" ItemsSource="{Binding CustomCursorSets}" DisplayMemberPath="Name" SelectedIndex="{Binding SelectedCustomCursorSetIndex, Mode=TwoWay}" />
-
-                <Grid Grid.Row="1" Grid.Column="0" Margin="0,8,4,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:Button Grid.Column="0" Margin="0,0,4,0" Height="32" VerticalAlignment="Center" Icon="Add28" Content="{x:Static resources:Strings.Common_New}" HorizontalAlignment="Stretch" FontWeight="Medium" Command="{Binding AddCustomCursorSetCommand}" />
-                    <ui:Button Grid.Column="1" Margin="4,0,0,0" Height="32" VerticalAlignment="Center" Icon="Delete28" Content="{x:Static resources:Strings.Common_Delete}" HorizontalAlignment="Stretch" FontWeight="Medium" IsEnabled="{Binding IsCustomCursorSetSelected}" Appearance="Danger" Command="{Binding DeleteCustomCursorSetCommand}" />
-                </Grid>
-
-                <StackPanel Grid.RowSpan="2" Grid.Column="1" Margin="4,0,0,0">
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsCustomCursorSetSelected}" Value="False">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
-                    <Grid Margin="0,0,0,48">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="16" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Grid.ColumnSpan="4" Margin="0,16,0,0">
+                <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False" x:Name="RobloxMenuExpander" >
+                    <ui:CardExpander.Header>
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <ui:TextBox Grid.Column="0" PlaceholderText="Custom Cursor Set 1" Text="{Binding SelectedCustomCursorSetName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
-                            <ui:Button Grid.Column="1" Margin="4,0,0,0" Icon="Edit28" Content="Rename" Command="{Binding RenameCustomCursorSetCommand}" FontWeight="Medium" />
-                        </Grid>
-
-                        <!-- ShiftLock -->
-                        <Grid Grid.Row="2" Grid.Column="0" Margin="4,16,8,16">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="ShiftLock" FontSize="14" TextAlignment="Center" />
-                            <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
-                                <Viewbox Stretch="Uniform">
-                                    <Image Source="{Binding ShiftlockCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Viewbox>
-                            </Border>
-                            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
-                                <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddShiftlockCursorCommand}" Visibility="{Binding AddShiftlockCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
-                                <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteShiftlockCursorCommand}" Visibility="{Binding DeleteShiftlockCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
+                            <StackPanel Grid.Column="0">
+                                <TextBlock FontSize="14" Text="Custom Cursor Set" />
+                                <TextBlock Margin="0,2,0,0" FontSize="12" Text="Have multiple cursor sets ready to go for use." Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
                             </StackPanel>
                         </Grid>
+                    </ui:CardExpander.Header>
 
-                        <!-- Arrow Cursor -->
-                        <Grid Grid.Row="2" Grid.Column="1" Margin="8,16,8,16">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="Arrow Cursor" FontSize="14" TextAlignment="Center" />
-                            <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
-                                <Viewbox Stretch="Uniform">
-                                    <Image Source="{Binding ArrowCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Viewbox>
-                            </Border>
-                            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
-                                <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddArrowCursorCommand}" Visibility="{Binding AddArrowCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
-                                <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteArrowCursorCommand}" Visibility="{Binding DeleteArrowCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
-                            </StackPanel>
+                    <Grid Margin="-8,4,-8,0"  MinHeight="300" MaxHeight="500">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Left: List and buttons -->
+                        <ListBox x:Name="CustomThemesListBox" Grid.Row="0" Grid.Column="0" Margin="0,0,4,0" ItemsSource="{Binding CustomCursorSets}" DisplayMemberPath="Name" SelectedIndex="{Binding SelectedCustomCursorSetIndex, Mode=TwoWay}" />
+
+                        <Grid Grid.Row="1" Grid.Column="0" Margin="0,8,4,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ui:Button Grid.Column="0" Margin="0,0,4,0" Height="32" VerticalAlignment="Center" Icon="Add28" Content="{x:Static resources:Strings.Common_New}" HorizontalAlignment="Stretch" FontWeight="Medium" Command="{Binding AddCustomCursorSetCommand}" />
+                            <ui:Button Grid.Column="1" Margin="4,0,0,0" Height="32" VerticalAlignment="Center" Icon="Delete28" Content="{x:Static resources:Strings.Common_Delete}" HorizontalAlignment="Stretch" FontWeight="Medium" IsEnabled="{Binding IsCustomCursorSetSelected}" Appearance="Danger" Command="{Binding DeleteCustomCursorSetCommand}" />
                         </Grid>
 
-                        <!-- Arrow Far Cursor -->
-                        <Grid Grid.Row="2" Grid.Column="2" Margin="8,16,8,16">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="ArrowFar Cursor" FontSize="14" TextAlignment="Center" />
-                            <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
-                                <Viewbox Stretch="Uniform">
-                                    <Image Source="{Binding ArrowFarCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Viewbox>
-                            </Border>
-                            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
-                                <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddArrowFarCursorCommand}" Visibility="{Binding AddArrowFarCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
-                                <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteArrowFarCursorCommand}" Visibility="{Binding DeleteArrowFarCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
-                            </StackPanel>
+                        <StackPanel Grid.RowSpan="2" Grid.Column="1" Margin="4,0,0,0">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsCustomCursorSetSelected}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+
+                            <Grid Margin="0,0,0,48">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="16" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Grid.ColumnSpan="4" Margin="0,16,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ui:TextBox Grid.Column="0" PlaceholderText="Custom Cursor Set 1" Text="{Binding SelectedCustomCursorSetName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
+                                    <ui:Button Grid.Column="1" Margin="4,0,0,0" Icon="Edit28" Content="Rename" Command="{Binding RenameCustomCursorSetCommand}" FontWeight="Medium" />
+                                </Grid>
+
+                                <!-- ShiftLock -->
+                                <Grid Grid.Row="2" Grid.Column="0" Margin="4,16,8,16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="ShiftLock" FontSize="14" TextAlignment="Center" />
+                                    <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
+                                        <Viewbox Stretch="Uniform">
+                                            <Image Source="{Binding ShiftlockCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Viewbox>
+                                    </Border>
+                                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
+                                        <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddShiftlockCursorCommand}" Visibility="{Binding AddShiftlockCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
+                                        <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteShiftlockCursorCommand}" Visibility="{Binding DeleteShiftlockCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Arrow Cursor -->
+                                <Grid Grid.Row="2" Grid.Column="1" Margin="8,16,8,16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="Arrow Cursor" FontSize="14" TextAlignment="Center" />
+                                    <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
+                                        <Viewbox Stretch="Uniform">
+                                            <Image Source="{Binding ArrowCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Viewbox>
+                                    </Border>
+                                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
+                                        <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddArrowCursorCommand}" Visibility="{Binding AddArrowCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
+                                        <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteArrowCursorCommand}" Visibility="{Binding DeleteArrowCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Arrow Far Cursor -->
+                                <Grid Grid.Row="2" Grid.Column="2" Margin="8,16,8,16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="ArrowFar Cursor" FontSize="14" TextAlignment="Center" />
+                                    <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
+                                        <Viewbox Stretch="Uniform">
+                                            <Image Source="{Binding ArrowFarCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Viewbox>
+                                    </Border>
+                                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
+                                        <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddArrowFarCursorCommand}" Visibility="{Binding AddArrowFarCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
+                                        <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteArrowFarCursorCommand}" Visibility="{Binding DeleteArrowFarCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- IBeam Cursor -->
+                                <Grid Grid.Row="2" Grid.Column="3" Margin="8,16,4,16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="IBeam Cursor" FontSize="14" TextAlignment="Center" />
+                                    <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
+                                        <Viewbox Stretch="Uniform">
+                                            <Image Source="{Binding IBeamCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Viewbox>
+                                    </Border>
+                                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
+                                        <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddIBeamCursorCommand}" Visibility="{Binding AddIBeamCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
+                                        <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteIBeamCursorCommand}" Visibility="{Binding DeleteIBeamCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Bottom toolbar buttons -->
+                        <Grid Grid.Row="1" Grid.Column="1" Margin="0,8,0,0" Height="36">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsCustomCursorSetSelected}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ui:Button Grid.Column="0" Height="32" Content="Apply Set" Icon="Checkmark20" Command="{Binding ApplyCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="This will apply your cursors into your Mods Folder." />
+                            <ui:Button Grid.Column="1" Height="32" Content="Fetch Set" Icon="CollectionsAdd24" Command="{Binding GetCurrentCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="This will copy the cursors from your Mods folder." />
+                            <ui:Button Grid.Column="2" Height="32" Content="Import Set" Icon="FolderZip24" Command="{Binding ImportCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="Allows you to Import Cursor from others easily." />
+                            <ui:Button Grid.Column="3" Height="32" Content="Export Set" Icon="ArrowExportRtl24" Command="{Binding ExportCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="Allows you to export your Cursor to other people or save somewhere." />
                         </Grid>
 
-                        <!-- IBeam Cursor -->
-                        <Grid Grid.Row="2" Grid.Column="3" Margin="8,16,4,16">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="IBeam Cursor" FontSize="14" TextAlignment="Center" />
-                            <Border Grid.Row="1" Background="#33000000" CornerRadius="16" Margin="0,0,0,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="200" MaxHeight="200" MinHeight="100" MinWidth="100">
-                                <Viewbox Stretch="Uniform">
-                                    <Image Source="{Binding IBeamCursorPreview}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Viewbox>
-                            </Border>
-                            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0,8,0,0" >
-                                <ui:Button Content="Browse" Icon="Folder28" Command="{Binding AddIBeamCursorCommand}" Visibility="{Binding AddIBeamCursorVisibility}" HorizontalAlignment="Stretch" Height="32" />
-                                <ui:Button Content="Remove" Icon="Delete28" Command="{Binding DeleteIBeamCursorCommand}" Visibility="{Binding DeleteIBeamCursorVisibility}" Appearance="Danger" HorizontalAlignment="Stretch" Height="32" />
-                            </StackPanel>
-                        </Grid>
+                        <TextBlock Grid.RowSpan="2" Grid.Column="1" Text="No Custom Cursor Set selected." FontWeight="Medium" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsCustomCursorSetSelected}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
-                </StackPanel>
-
-                <!-- Bottom toolbar buttons -->
-                <Grid Grid.Row="1" Grid.Column="1" Margin="0,8,0,0" Height="36">
-                    <Grid.Style>
-                        <Style TargetType="Grid">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsCustomCursorSetSelected}" Value="False">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:Button Grid.Column="0" Height="32" Content="Apply Set" Icon="Checkmark20" Command="{Binding ApplyCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="This will apply your cursors into your Mods Folder." />
-                    <ui:Button Grid.Column="1" Height="32" Content="Fetch Set" Icon="CollectionsAdd24" Command="{Binding GetCurrentCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="This will copy the cursors from your Mods folder." />
-                    <ui:Button Grid.Column="2" Height="32" Content="Import Set" Icon="FolderZip24" Command="{Binding ImportCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="Allows you to Import Cursor from others easily." />
-                    <ui:Button Grid.Column="3" Height="32" Content="Export Set" Icon="ArrowExportRtl24" Command="{Binding ExportCursorSetCommand}" FontWeight="Medium" HorizontalAlignment="Stretch" Margin="4,0,0,0" ToolTip="Allows you to export your Cursor to other people or save somewhere." />
-                </Grid>
-
-                <TextBlock Grid.RowSpan="2" Grid.Column="1" Text="No Custom Cursor Set selected." FontWeight="Medium" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsCustomCursorSetSelected}" Value="True">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-
+                </ui:CardExpander>
+            </StackPanel>
         </ui:CardExpander>
 
         <TextBlock Text="9"

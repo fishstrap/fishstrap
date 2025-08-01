@@ -61,6 +61,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ICommand AddCustomShiftlockModCommand => new RelayCommand(AddCustomShiftlockMod);
 
         public ICommand RemoveCustomShiftlockModCommand => new RelayCommand(RemoveCustomShiftlockMod);
+        public ICommand AddCustomDeathSoundCommand => new RelayCommand(AddCustomDeathSound);
+        public ICommand RemoveCustomDeathSoundCommand => new RelayCommand(RemoveCustomDeathSound);
 
         public Visibility ChooseCustomFontVisibility => !String.IsNullOrEmpty(TextFontTask.NewState) ? Visibility.Collapsed : Visibility.Visible;
 
@@ -134,201 +136,182 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         }
 
-        public Visibility ChooseCustomCursorVisibility
+        private Visibility GetVisibility(string directory, string[] filenames, bool checkExist)
         {
-            get
-            {
-                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
-                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "MouseLockedCursor.png" };
-                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
-                return anyExist ? Visibility.Collapsed : Visibility.Visible;
-            }
+            bool anyExist = filenames.Any(name => File.Exists(Path.Combine(directory, name)));
+            return (checkExist ? anyExist : !anyExist) ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public Visibility DeleteCustomCursorVisibility
+        public Visibility ChooseCustomCursorVisibility =>
+    GetVisibility(Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse"),
+                  new[] { "ArrowCursor.png", "ArrowFarCursor.png", "MouseLockedCursor.png" }, checkExist: false);
+
+        public Visibility DeleteCustomCursorVisibility =>
+            GetVisibility(Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse"),
+                          new[] { "ArrowCursor.png", "ArrowFarCursor.png", "MouseLockedCursor.png" }, checkExist: true);
+
+        public Visibility ChooseCustomShiftlockVisibility =>
+            GetVisibility(Path.Combine(Paths.Modifications, "Content", "textures"),
+                          new[] { "MouseLockedCursor.png" }, checkExist: false);
+
+        public Visibility DeleteCustomShiftlockVisibility =>
+            GetVisibility(Path.Combine(Paths.Modifications, "Content", "textures"),
+                          new[] { "MouseLockedCursor.png" }, checkExist: true);
+
+        public Visibility ChooseCustomDeathSoundVisibility =>
+            GetVisibility(Path.Combine(Paths.Modifications, "Content", "sounds"),
+                          new[] { "ouch.ogg" }, checkExist: false);
+
+        public Visibility DeleteCustomDeathSoundVisibility =>
+            GetVisibility(Path.Combine(Paths.Modifications, "Content", "sounds"),
+                          new[] { "ouch.ogg" }, checkExist: true);
+
+        private void AddCustomFile(string[] targetFiles, string targetDir, string dialogTitle, string filter, string failureText, Action postAction = null!)
         {
-            get
+            var dialog = new OpenFileDialog
             {
-                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
-                string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "MouseLockedCursor.png" };
-                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
-                return anyExist ? Visibility.Visible : Visibility.Collapsed;
+                Filter = filter,
+                Title = dialogTitle
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            string sourcePath = dialog.FileName;
+            Directory.CreateDirectory(targetDir);
+
+            try
+            {
+                foreach (var name in targetFiles)
+                {
+                    string destPath = Path.Combine(targetDir, name);
+                    File.Copy(sourcePath, destPath, overwrite: true);
+                }
             }
+            catch (Exception ex)
+            {
+                Frontend.ShowMessageBox($"Failed to add {failureText}:\n{ex.Message}", MessageBoxImage.Error);
+                return;
+            }
+
+            postAction?.Invoke();
         }
 
-        public Visibility ChooseCustomShiftlockVisibility
+        private void RemoveCustomFile(string[] targetFiles, string targetDir, string notFoundMessage, Action postAction = null!)
         {
-            get
-            {
-                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
-                string[] cursorNames = { "MouseLockedCursor.png" };
-                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
-                return anyExist ? Visibility.Collapsed : Visibility.Visible;
-            }
-        }
+            bool anyDeleted = false;
 
-        public Visibility DeleteCustomShiftlockVisibility
-        {
-            get
+            foreach (var name in targetFiles)
             {
-                string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
-                string[] cursorNames = { "MouseLockedCursor.png" };
-                bool anyExist = cursorNames.Any(name => File.Exists(Path.Combine(targetDir, name)));
-                return anyExist ? Visibility.Visible : Visibility.Collapsed;
+                string filePath = Path.Combine(targetDir, name);
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        File.Delete(filePath);
+                        anyDeleted = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Frontend.ShowMessageBox($"Failed to remove {name}:\n{ex.Message}", MessageBoxImage.Error);
+                    }
+                }
             }
+
+            if (!anyDeleted)
+            {
+                Frontend.ShowMessageBox(notFoundMessage, MessageBoxImage.Information);
+            }
+
+            postAction?.Invoke();
         }
 
         public void AddCustomCursorMod()
         {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "PNG Images (*.png)|*.png",
-                Title = "Select a PNG Cursor Image"
-            };
-
-            if (dialog.ShowDialog() != true)
-                return;
-
-            string sourcePath = dialog.FileName;
-            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
-            Directory.CreateDirectory(targetDir);
-
-            string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
-
-            try
-            {
-                foreach (var name in cursorNames)
+            AddCustomFile(
+                new[] { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" },
+                Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse"),
+                "Select a PNG Cursor Image",
+                "PNG Images (*.png)|*.png",
+                "cursors",
+                () =>
                 {
-                    string destPath = Path.Combine(targetDir, name);
-                    File.Copy(sourcePath, destPath, overwrite: true);
-                }
-            }
-            catch (Exception ex)
-            {
-                Frontend.ShowMessageBox(
-                    $"Failed to add cursors:\n{ex.Message}",
-                    MessageBoxImage.Error
-                );
-
-            }
-
-            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
-            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
+                    OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+                    OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
+                });
         }
 
         public void RemoveCustomCursorMod()
         {
-            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse");
-            string[] cursorNames = { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" };
-
-            bool anyDeleted = false;
-            foreach (var name in cursorNames)
-            {
-                string filePath = Path.Combine(targetDir, name);
-                if (File.Exists(filePath))
+            RemoveCustomFile(
+                new[] { "ArrowCursor.png", "ArrowFarCursor.png", "IBeamCursor.png" },
+                Path.Combine(Paths.Modifications, "Content", "textures", "Cursors", "KeyboardMouse"),
+                "No custom cursors found to remove.",
+                () =>
                 {
-                    try
-                    {
-                        File.Delete(filePath);
-                        anyDeleted = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Frontend.ShowMessageBox(
-                            $"Failed to remove {name}:\n{ex.Message}",
-                            MessageBoxImage.Error
-                        );
-
-                    }
-                }
-            }
-
-            if (!anyDeleted)
-                Frontend.ShowMessageBox(
-                    "No custom cursors found to remove.",
-                    MessageBoxImage.Information
-                );
-
-            OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
-            OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
+                    OnPropertyChanged(nameof(ChooseCustomCursorVisibility));
+                    OnPropertyChanged(nameof(DeleteCustomCursorVisibility));
+                });
         }
 
         public void AddCustomShiftlockMod()
         {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "PNG Images (*.png)|*.png",
-                Title = "Select a PNG Shiftlock Image"
-            };
-
-            if (dialog.ShowDialog() != true)
-                return;
-
-            string sourcePath = dialog.FileName;
-            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
-            Directory.CreateDirectory(targetDir);
-
-            string[] ShiftlockName = { "MouseLockedCursor.png" };
-
-            try
-            {
-                foreach (var name in ShiftlockName)
+            AddCustomFile(
+                new[] { "MouseLockedCursor.png" },
+                Path.Combine(Paths.Modifications, "Content", "textures"),
+                "Select a PNG Shiftlock Image",
+                "PNG Images (*.png)|*.png",
+                "Shiftlock",
+                () =>
                 {
-                    string destPath = Path.Combine(targetDir, name);
-                    File.Copy(sourcePath, destPath, overwrite: true);
-                }
-            }
-            catch (Exception ex)
-            {
-                Frontend.ShowMessageBox(
-                    $"Failed to add Shiftlock:\n{ex.Message}",
-                    MessageBoxImage.Error
-                );
-
-            }
-
-            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
-            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+                    OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+                    OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+                });
         }
 
         public void RemoveCustomShiftlockMod()
         {
-            string targetDir = Path.Combine(Paths.Modifications, "Content", "textures");
-            string[] ShiftlockNames = { "MouseLockedCursor.png" };
-
-            bool anyDeleted = false;
-            foreach (var name in ShiftlockNames)
-            {
-                string filePath = Path.Combine(targetDir, name);
-                if (File.Exists(filePath))
+            RemoveCustomFile(
+                new[] { "MouseLockedCursor.png" },
+                Path.Combine(Paths.Modifications, "Content", "textures"),
+                "No custom Shiftlock found to remove.",
+                () =>
                 {
-                    try
-                    {
-                        File.Delete(filePath);
-                        anyDeleted = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Frontend.ShowMessageBox(
-                            $"Failed to remove {name}:\n{ex.Message}",
-                            MessageBoxImage.Error
-                        );
-
-                    }
-                }
-            }
-
-            if (!anyDeleted)
-                Frontend.ShowMessageBox(
-                    "No custom Shiftlock found to remove.",
-                    MessageBoxImage.Information
-                );
-
-            OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
-            OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+                    OnPropertyChanged(nameof(ChooseCustomShiftlockVisibility));
+                    OnPropertyChanged(nameof(DeleteCustomShiftlockVisibility));
+                });
         }
 
-        #region Custom Cursor Set
+        public void AddCustomDeathSound()
+        {
+            AddCustomFile(
+                new[] { "ouch.ogg" },
+                Path.Combine(Paths.Modifications, "Content", "sounds"),
+                "Select a Custom Death Sound",
+                "OGG Audio (*.ogg)|*.ogg",
+                "death sound",
+                () =>
+                {
+                    OnPropertyChanged(nameof(ChooseCustomDeathSoundVisibility));
+                    OnPropertyChanged(nameof(DeleteCustomDeathSoundVisibility));
+                });
+        }
+
+        public void RemoveCustomDeathSound()
+        {
+            RemoveCustomFile(
+                new[] { "ouch.ogg" },
+                Path.Combine(Paths.Modifications, "Content", "sounds"),
+                "No custom death sound found to remove.",
+                () =>
+                {
+                    OnPropertyChanged(nameof(ChooseCustomDeathSoundVisibility));
+                    OnPropertyChanged(nameof(DeleteCustomDeathSoundVisibility));
+                });
+        }
+
+
+        #region Custom Cursor Set Related Code
         public ObservableCollection<CustomCursorSet> CustomCursorSets { get; } = new();
 
         private int _selectedCustomCursorSetIndex;
