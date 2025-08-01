@@ -382,7 +382,15 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             if (theme == Theme.Default)
                 theme = App.Settings.Prop.Theme;
 
-            var wpfUiTheme = theme.GetFinal() == Theme.Dark ? Wpf.Ui.Appearance.ThemeType.Dark : Wpf.Ui.Appearance.ThemeType.Light;
+            var finalTheme = theme.GetFinal();
+
+            Wpf.Ui.Appearance.ThemeType wpfUiTheme;
+            if (finalTheme == Theme.Dark)
+                wpfUiTheme = Wpf.Ui.Appearance.ThemeType.Dark;
+            else if (finalTheme == Theme.Light)
+                wpfUiTheme = Wpf.Ui.Appearance.ThemeType.Light;
+            else
+                wpfUiTheme = Wpf.Ui.Appearance.ThemeType.Dark;
 
             dialog.Resources.MergedDictionaries.Clear();
             dialog.Resources.MergedDictionaries.Add(new ThemesDictionary() { Theme = wpfUiTheme });
