@@ -1089,28 +1089,27 @@ namespace Bloxstrap
 
             var versionComparison = Utilities.CompareVersions(currentVer, releaseVer);
 
-            if (versionComparison == VersionComparison.GreaterThan || versionComparison == VersionComparison.Equal)
+            if (versionComparison == VersionComparison.LessThan)
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Update available: {currentVer} -> {releaseVer}");
+
+                var result = Frontend.ShowMessageBox(
+                    $"A new version ({releaseVer}) is available. Would you like to update now?",
+                    MessageBoxImage.Question,
+                    MessageBoxButton.YesNo
+                );
+
+                if (result != MessageBoxResult.Yes)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "User declined the update.");
+                    return false;
+                }
+            }
+            else
             {
                 App.Logger.WriteLine(LOG_IDENT, $"No update required. Current version: {currentVer}, Release version: {releaseVer}");
                 return false;
             }
-
-            App.Logger.WriteLine(LOG_IDENT, $"Update available: {currentVer} -> {releaseVer}");
-
-            var result = Frontend.ShowMessageBox(
-                $"A new version of {App.ProjectName} is available ({releaseVer}).\n\nWould you like to update now?",
-                MessageBoxImage.Question,
-                MessageBoxButton.YesNo
-            );
-
-            if (result != MessageBoxResult.Yes)
-            {
-                App.Logger.WriteLine(LOG_IDENT, "User declined update.");
-                return false;
-            }
-
-            if (Dialog is not null)
-                Dialog.CancelEnabled = false;
 
             string version = releaseVer;
 #else
@@ -1166,10 +1165,10 @@ namespace Bloxstrap
                 var process = Process.Start(startInfo);
                 if (process == null)
                 {
-                    App.Logger.WriteLine(LOG_IDENT, "Failed to start updater process.");
-                    Frontend.ShowMessageBox(
-                        string.Format(Strings.Bootstrapper_AutoUpdateFailed, version),
-                        MessageBoxImage.Information);
+                        Frontend.ShowMessageBox(
+                            string.Format(Strings.Bootstrapper_AutoUpdateFailed, version),
+                            MessageBoxImage.Information);
+
                     Utilities.ShellExecute(App.ProjectDownloadLink);
                     return false;
                 }
@@ -1181,9 +1180,9 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, "An exception occurred when running the auto-updater");
                 App.Logger.WriteException(LOG_IDENT, ex);
 
-                Frontend.ShowMessageBox(
-                    string.Format(Strings.Bootstrapper_AutoUpdateFailed, version),
-                    MessageBoxImage.Information);
+                    Frontend.ShowMessageBox(
+                        string.Format(Strings.Bootstrapper_AutoUpdateFailed, version),
+                        MessageBoxImage.Information);
 
                 Utilities.ShellExecute(App.ProjectDownloadLink);
             }
