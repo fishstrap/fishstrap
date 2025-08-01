@@ -1094,7 +1094,7 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, $"Update available: {currentVer} -> {releaseVer}");
 
                 var result = Frontend.ShowMessageBox(
-                    $"A new version ({releaseVer}) is available. Would you like to update now?",
+                    $"A new version {releaseVer} is available. Would you like to update now?",
                     MessageBoxImage.Question,
                     MessageBoxButton.YesNo
                 );
