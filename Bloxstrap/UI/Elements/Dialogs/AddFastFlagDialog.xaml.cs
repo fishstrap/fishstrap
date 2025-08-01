@@ -180,8 +180,6 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 {
                     if (tb.Text == "Enter or select a value")
                         tb.Text = "";
-
-                    tb.Foreground = Brushes.Black;
                 };
 
                 tb.LostFocus += (_, _) =>
@@ -189,12 +187,10 @@ namespace Bloxstrap.UI.Elements.Dialogs
                     if (string.IsNullOrWhiteSpace(tb.Text))
                     {
                         tb.Text = "Enter or select a value";
-                        tb.Foreground = Brushes.Gray;
                     }
                 };
 
                 tb.Text = "Enter or select a value";
-                tb.Foreground = Brushes.Gray;
             }
         }
 
@@ -206,8 +202,6 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 {
                     if (tb.Text == "Enter or select a value")
                         tb.Text = "";
-
-                    tb.Foreground = Brushes.Black;
                 };
 
                 tb.LostFocus += (_, _) =>
@@ -215,12 +209,10 @@ namespace Bloxstrap.UI.Elements.Dialogs
                     if (string.IsNullOrWhiteSpace(tb.Text))
                     {
                         tb.Text = "Enter or select a value";
-                        tb.Foreground = Brushes.Gray;
                     }
                 };
 
                 tb.Text = "Enter or select a value";
-                tb.Foreground = Brushes.Gray;
             }
         }
     }
@@ -229,5 +221,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
     {
         public string Value { get; set; } = "";
         public string Group { get; set; } = "";
+
+        public override string ToString() => Value;
     }
 }

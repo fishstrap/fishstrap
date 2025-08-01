@@ -158,7 +158,7 @@
                 <ui:Button
                     Appearance="Danger"
                     Command="{Binding RemoveCustomDeathSoundCommand}"
-                    Content="Remove Custom Sound"
+                    Content="Remove Custom Death Sound"
                     Icon="Delete16"
                     Visibility="{Binding DeleteCustomDeathSoundVisibility, Mode=OneWay}" />
             </StackPanel>
