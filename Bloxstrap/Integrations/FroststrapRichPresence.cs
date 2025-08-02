@@ -44,6 +44,11 @@ namespace Bloxstrap.Integrations
                 {
                     LargeImageKey = "Froststrap",
                     LargeImageText = "Froststrap"
+                },
+                Buttons = new[]
+                {
+                    new Button { Label = "GitHub", Url = "https://github.com/RealMeddsam/Froststrap" },
+                    new Button { Label = "Discord", Url = "https://discord.gg/KdR9vpRcUN" }
                 }
             };
 
