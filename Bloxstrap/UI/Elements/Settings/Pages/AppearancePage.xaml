@@ -68,6 +68,7 @@
                                         <ColumnDefinition Width="140"/>
                                         <ColumnDefinition Width="80"/>
                                         <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="30"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Offset:" VerticalAlignment="Center" Margin="4,0,4,0" Grid.Column="0"/>
@@ -76,6 +77,10 @@
                                     <TextBox Text="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="130" Margin="0,0,8,0" VerticalAlignment="Center" TextChanged="OnGradientColorHexChanged" Grid.Column="3" MinWidth="100"/>
                                     <Button Content="Color" Width="75" Margin="0,0,4,0" Tag="{Binding}" Click="OnChangeGradientColor_Click" Grid.Column="4"/>
                                     <Button Content="Remove" Width="95" Margin="0,0,4,0" Tag="{Binding}" Click="OnRemoveGradientStop_Click" Grid.Column="5"/>
+                                    <StackPanel Grid.Column="6">
+                                        <Button Content="▲" Width="28" Margin="0,0,4,0" Padding="0" Tag="{Binding}" Click="OnMoveUpGradientStop_Click" ToolTip="Move Up" />
+                                        <Button Content="▼" Width="28" Margin="0,0,4,0" Padding="0" Tag="{Binding}" Click="OnMoveDownGradientStop_Click" ToolTip="Move Down" />
+                                    </StackPanel>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

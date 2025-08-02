@@ -184,6 +184,40 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
             }
         }
 
+        private void OnMoveUpGradientStop_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is GradientStopData stop)
+            {
+                if (DataContext is AppearanceViewModel vm)
+                {
+                    int index = vm.GradientStops.IndexOf(stop);
+                    if (index > 0)
+                    {
+                        vm.GradientStops.Move(index, index - 1);
+                        App.Settings.Prop.CustomGradientStops = vm.GradientStops.ToList();
+                        ((MainWindow)Window.GetWindow(this)!).ApplyTheme();
+                    }
+                }
+            }
+        }
+
+        private void OnMoveDownGradientStop_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is GradientStopData stop)
+            {
+                if (DataContext is AppearanceViewModel vm)
+                {
+                    int index = vm.GradientStops.IndexOf(stop);
+                    if (index >= 0 && index < vm.GradientStops.Count - 1)
+                    {
+                        vm.GradientStops.Move(index, index + 1);
+                        App.Settings.Prop.CustomGradientStops = vm.GradientStops.ToList();
+                        ((MainWindow)Window.GetWindow(this)!).ApplyTheme();
+                    }
+                }
+            }
+        }
+
         private void OnBrowseImageClicked(object sender, RoutedEventArgs e)
         {
             (DataContext as AppearanceViewModel)?.BrowseImage();
