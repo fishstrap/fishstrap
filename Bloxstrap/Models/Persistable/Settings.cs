@@ -23,6 +23,7 @@ namespace Bloxstrap.Models.Persistable
         public string ImageBackgroundPath { get; set; } = string.Empty;
         public CustomBackgroundMode BackgroundMode { get; set; } = CustomBackgroundMode.Gradient;
         public BackgroundImageStretchMode BackgroundImageStretch { get; set; } = BackgroundImageStretchMode.Fill;
+        public double BlackOverlayOpacity { get; set; } = 0.2;
         public string UserId { get; set; } = string.Empty;
         public CleanerOptions CleanerOptions { get; set; } = CleanerOptions.Never;
         public List<string> CleanerDirectories { get; set; } = new List<string>();

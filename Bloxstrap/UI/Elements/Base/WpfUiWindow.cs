@@ -24,7 +24,6 @@ namespace Bloxstrap.UI.Elements.Base
             const int customThemeIndex = 2;
 
             var finalTheme = App.Settings.Prop.Theme.GetFinal();
-
             _themeService.SetTheme(finalTheme == Enums.Theme.Light ? ThemeType.Light : ThemeType.Dark);
             _themeService.SetSystemAccent();
 
@@ -38,24 +37,17 @@ namespace Bloxstrap.UI.Elements.Base
                     {
                         var image = new BitmapImage();
                         image.BeginInit();
-                        image.CacheOption = BitmapCacheOption.OnLoad; // avoid file lock
+                        image.CacheOption = BitmapCacheOption.OnLoad;
                         image.UriSource = new Uri(App.Settings.Prop.ImageBackgroundPath);
                         image.EndInit();
 
-                        // Determine stretch mode from settings
-                        Stretch stretch = Stretch.Fill;
-                        switch (App.Settings.Prop.BackgroundImageStretch)
+                        Stretch stretch = App.Settings.Prop.BackgroundImageStretch switch
                         {
-                            case BackgroundImageStretchMode.Fill:
-                                stretch = Stretch.Fill;
-                                break;
-                            case BackgroundImageStretchMode.Uniform:
-                                stretch = Stretch.Uniform;
-                                break;
-                            case BackgroundImageStretchMode.UniformToFill:
-                                stretch = Stretch.UniformToFill;
-                                break;
-                        }
+                            BackgroundImageStretchMode.Fill => Stretch.Fill,
+                            BackgroundImageStretchMode.Uniform => Stretch.Uniform,
+                            BackgroundImageStretchMode.UniformToFill => Stretch.UniformToFill,
+                            _ => Stretch.Fill
+                        };
 
                         var imageBrush = new ImageBrush(image)
                         {
@@ -66,15 +58,22 @@ namespace Bloxstrap.UI.Elements.Base
 
                         Application.Current.Resources["WindowBackgroundGradient"] = imageBrush;
 
+                        // Apply dark theme fallback values
                         Application.Current.Resources["NewTextEditorBackground"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2D2D2D"));
                         Application.Current.Resources["NewTextEditorForeground"] = new SolidColorBrush(Colors.White);
                         Application.Current.Resources["NewTextEditorLink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3A9CEA"));
                         Application.Current.Resources["PrimaryBackgroundColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0FFFFFFF"));
                         Application.Current.Resources["NormalDarkAndLightBackground"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0FFFFFFF"));
+
+                        // Black overlay brush using ImageOverlayOpacity
+                        double overlayOpacity = App.Settings.Prop.BlackOverlayOpacity;
+                        var overlayColor = Color.FromArgb((byte)(overlayOpacity * 255), 0, 0, 0);
+                        Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(overlayColor);
                     }
                     catch (Exception ex)
                     {
                         Application.Current.Resources["WindowBackgroundGradient"] = null;
+                        Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(Colors.Transparent);
                         Debug.WriteLine("Failed to load background image: " + ex.Message);
                     }
                 }
@@ -85,17 +84,15 @@ namespace Bloxstrap.UI.Elements.Base
                     if (App.Settings.Prop.CustomGradientStops == null || App.Settings.Prop.CustomGradientStops.Count == 0)
                     {
                         App.Settings.Prop.CustomGradientStops = new()
-                        {
-                            new GradientStopData { Offset = 0.0, Color = "#4D5560" },
-                            new GradientStopData { Offset = 0.5, Color = "#383F47" },
-                            new GradientStopData { Offset = 1.0, Color = "#252A30" }
-                        };
+                {
+                    new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+                    new GradientStopData { Offset = 0.5, Color = "#383F47" },
+                    new GradientStopData { Offset = 1.0, Color = "#252A30" }
+                };
                     }
 
-                    var startPoint = App.Settings.Prop.GradientStartPoint;
-                    var endPoint = App.Settings.Prop.GradientEndPoint;
-                    if (startPoint == default) startPoint = new Point(1, 1);
-                    if (endPoint == default) endPoint = new Point(0, 0);
+                    var startPoint = App.Settings.Prop.GradientStartPoint == default ? new Point(1, 1) : App.Settings.Prop.GradientStartPoint;
+                    var endPoint = App.Settings.Prop.GradientEndPoint == default ? new Point(0, 0) : App.Settings.Prop.GradientEndPoint;
 
                     var customBrush = new LinearGradientBrush
                     {
@@ -112,7 +109,7 @@ namespace Bloxstrap.UI.Elements.Base
                         }
                         catch
                         {
-                            // Skip invalid colors
+                            // Ignore invalid color strings
                         }
                     }
 
@@ -124,6 +121,9 @@ namespace Bloxstrap.UI.Elements.Base
                     Application.Current.Resources["PrimaryBackgroundColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#19000000"));
                     Application.Current.Resources["NormalDarkAndLightBackground"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0FFFFFFF"));
                     Application.Current.Resources["ControlFillColorDefault"] = (Color)ColorConverter.ConvertFromString("#19000000");
+
+                    // No overlay for gradient mode
+                    Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(Colors.Transparent);
                 }
 
                 Application.Current.Resources.MergedDictionaries[customThemeIndex] = new ResourceDictionary();
@@ -144,6 +144,7 @@ namespace Bloxstrap.UI.Elements.Base
                 Application.Current.Resources.Remove("PrimaryBackgroundColor");
                 Application.Current.Resources.Remove("NormalDarkAndLightBackground");
                 Application.Current.Resources.Remove("ControlFillColorDefault");
+                Application.Current.Resources.Remove("WindowBackgroundBlackOverlay");
             }
 
 #if QA_BUILD

@@ -145,6 +145,12 @@
                         <Button Content="Browse Image..." Click="OnBrowseImageClicked" Width="120" Margin="0,0,4,0" Height="34"/>
                         <Button Content="Clear Image" Click="OnClearImageClicked" Width="100" Margin="0,0,4,0" Height="34"/>
                     </StackPanel>
+
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock Text="Black Overlay Opacity" Margin="0,0,0,4" FontWeight="Medium" />
+                        <Slider Minimum="0" Maximum="1" Value="{Binding BlackOverlayOpacity, Mode=TwoWay}" TickFrequency="0.05" IsSnapToTickEnabled="True" />
+                        <TextBlock Text="{Binding BlackOverlayOpacity, StringFormat=P0}" HorizontalAlignment="Right" Margin="0,4,0,0" />
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </ui:CardExpander>

@@ -19,6 +19,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid x:Name="ImageBackgroundLayer" Panel.ZIndex="-1" Visibility="{Binding IsImageMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2">
+            <Border Background="{DynamicResource WindowBackgroundImage}" />
+            <Border Background="{DynamicResource WindowBackgroundBlackOverlay}" />
+        </Grid>
+
         <ui:TitleBar x:Name="RootTitleBar" Title="Debug Menu" ShowMinimize="False" ShowMaximize="False" CanMaximize="False" Icon="pack://application:,,,/Bloxstrap.ico" Padding="8" Grid.Row="0"/>
 
         <Grid Grid.Row="1" Margin="8,0,8,8">

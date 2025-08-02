@@ -186,6 +186,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
             GradientStops.CollectionChanged += (s, e) => { /* optionally handle changes */ };
 
             UpdateLivePreviewBrush();
+
+            _blackOverlayOpacity = App.Settings.Prop.BlackOverlayOpacity;
+            UpdateBlackOverlayBrush();
+            OnPropertyChanged(nameof(BlackOverlayOpacity));
         }
 
         public ObservableCollection<GradientStopData> GradientStops { get; } = new();
@@ -448,6 +452,36 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 _backgroundPreviewImageSource = value;
                 OnPropertyChanged(nameof(BackgroundPreviewImageSource));
             }
+        }
+
+        private double _blackOverlayOpacity = 0.2; // default 20%
+
+        public double BlackOverlayOpacity
+        {
+            get => _blackOverlayOpacity;
+            set
+            {
+                if (_blackOverlayOpacity != value)
+                {
+                    _blackOverlayOpacity = value;
+                    App.Settings.Prop.BlackOverlayOpacity = value;
+                    App.Settings.Save();
+                    OnPropertyChanged(nameof(BlackOverlayOpacity));
+                    UpdateBlackOverlayBrush();
+                }
+            }
+        }
+
+        private void UpdateBlackOverlayBrush()
+        {
+            var color = Color.FromArgb(
+                (byte)(_blackOverlayOpacity * 255), // alpha
+                0, 0, 0); // black
+
+            var brush = new SolidColorBrush(color);
+            brush.Freeze();
+
+            Application.Current.Resources["WindowBackgroundBlackOverlay"] = brush;
         }
 
         public IEnumerable<BackgroundImageStretchMode> BackgroundImageStretchModes

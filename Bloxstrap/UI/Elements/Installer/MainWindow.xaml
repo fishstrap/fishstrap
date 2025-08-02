@@ -27,6 +27,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Grid x:Name="ImageBackgroundLayer" Panel.ZIndex="-1" Visibility="{Binding IsImageMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="3">
+            <Border Background="{DynamicResource WindowBackgroundImage}" />
+            <Border Background="{DynamicResource WindowBackgroundBlackOverlay}" />
+        </Grid>
+
         <ui:TitleBar Padding="8" x:Name="RootTitleBar" Grid.Row="0" ForceShutdown="False" MinimizeToTray="False" UseSnapLayout="True" Title="{x:Static resources:Strings.Installer_Title}" Icon="pack://application:,,,/Bloxstrap.ico" />
 
         <Grid x:Name="RootGrid" Grid.Row="1" Margin="12,12,0,0" Visibility="Visible">
