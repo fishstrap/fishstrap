@@ -20,6 +20,9 @@ namespace Bloxstrap.Models.Persistable
         };
         public Point GradientStartPoint { get; set; } = new Point(1, 1);
         public Point GradientEndPoint { get; set; } = new Point(0, 0);
+        public string ImageBackgroundPath { get; set; } = string.Empty;
+        public CustomBackgroundMode BackgroundMode { get; set; } = CustomBackgroundMode.Gradient;
+        public BackgroundImageStretchMode BackgroundImageStretch { get; set; } = BackgroundImageStretchMode.Fill;
         public string UserId { get; set; } = string.Empty;
         public CleanerOptions CleanerOptions { get; set; } = CleanerOptions.Never;
         public List<string> CleanerDirectories { get; set; } = new List<string>();

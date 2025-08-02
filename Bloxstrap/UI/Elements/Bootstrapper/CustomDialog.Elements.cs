@@ -385,9 +385,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             var finalTheme = theme.GetFinal();
 
             Wpf.Ui.Appearance.ThemeType wpfUiTheme;
-            if (finalTheme == Theme.Dark)
-                wpfUiTheme = Wpf.Ui.Appearance.ThemeType.Dark;
-            else if (finalTheme == Theme.Light)
+            if (finalTheme == Theme.Light)
                 wpfUiTheme = Wpf.Ui.Appearance.ThemeType.Light;
             else
                 wpfUiTheme = Wpf.Ui.Appearance.ThemeType.Dark;

@@ -38,7 +38,20 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Margin="0,0,0,0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12" Grid.Column="0" Grid.Row="0">
+                    <RadioButton Content="Custom Gradient Background" GroupName="BackgroundMode" IsChecked="{Binding IsGradientMode, Mode=TwoWay}" Margin="0,0,12,0"/>
+                    <RadioButton Content="Custom Image Background" GroupName="BackgroundMode" IsChecked="{Binding IsImageMode, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <Separator Margin="0,0,0,12" Grid.Column="0" Grid.Row="1" />
+                
+                <StackPanel Grid.Column="0" Grid.Row="2" Margin="0,0,0,0" VerticalAlignment="Top" Visibility="{Binding IsGradientMode, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,4">
                         <TextBlock Text="Gradient Stops:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                         <Button Width="20" Height="20" Padding="0" FontSize="12" Content="?" Margin="4,4,0,0" VerticalAlignment="Center" ToolTip="Offset controls where the color appears (0 to 1). You can change the hex color or open a color picker."/>
@@ -119,6 +132,18 @@
                             <ui:TextBox x:Name="ImportJsonTextBox" MinHeight="100" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" PlaceholderText="Paste JSON gradient stops here..." />
                             <Button Content="Import from JSON Text" HorizontalAlignment="Right" Margin="0,8,0,0" Click="OnImportFromJsonText_Click" />
                         </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="2" Visibility="{Binding IsImageMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Border Background="#59000000" Width="215" Height="135" CornerRadius="4">
+                        <Image Width="200" Height="120" Stretch="Uniform" Source="{Binding BackgroundPreviewImageSource}" />
+                    </Border>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0" Height="34">
+                        <ComboBox ItemsSource="{Binding BackgroundImageStretchModes}" SelectedItem="{Binding BackgroundImageStretch, Mode=TwoWay}" Margin="0,0,4,0" Width="150" />
+                        <Button Content="Browse Image..." Click="OnBrowseImageClicked" Width="120" Margin="0,0,4,0" Height="34"/>
+                        <Button Content="Clear Image" Click="OnClearImageClicked" Width="100" Margin="0,0,4,0" Height="34"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

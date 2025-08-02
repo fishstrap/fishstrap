@@ -183,5 +183,15 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 }
             }
         }
+
+        private void OnBrowseImageClicked(object sender, RoutedEventArgs e)
+        {
+            (DataContext as AppearanceViewModel)?.BrowseImage();
+        }
+
+        private void OnClearImageClicked(object sender, RoutedEventArgs e)
+        {
+            (DataContext as AppearanceViewModel)?.ClearBackgroundImage();
+        }
     }
 }

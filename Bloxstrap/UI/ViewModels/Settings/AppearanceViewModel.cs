@@ -1,18 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿using Bloxstrap.UI.Elements.Dialogs;
+using Bloxstrap.UI.Elements.Editor;
+using Bloxstrap.UI.Elements.Settings;
+using CommunityToolkit.Mvvm.Input;
+using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
-using CommunityToolkit.Mvvm.Input;
-
-using Microsoft.Win32;
-
-using Bloxstrap.UI.Elements.Settings;
-using Bloxstrap.UI.Elements.Editor;
-using Bloxstrap.UI.Elements.Dialogs;
-using ICSharpCode.SharpZipLib.Zip;
 using System.Windows.Media;
-using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -159,12 +157,35 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     GradientStops.Add(stop);
             }
 
-            GradientStops.CollectionChanged += (s, e) => { };
+            GradientStartPointX = App.Settings.Prop.GradientStartPoint.X != 0 ? App.Settings.Prop.GradientStartPoint.X : 1;
+            GradientStartPointY = App.Settings.Prop.GradientStartPoint.Y != 0 ? App.Settings.Prop.GradientStartPoint.Y : 1;
+            GradientEndPointX = App.Settings.Prop.GradientEndPoint.X != 0 ? App.Settings.Prop.GradientEndPoint.X : 0;
+            GradientEndPointY = App.Settings.Prop.GradientEndPoint.Y != 0 ? App.Settings.Prop.GradientEndPoint.Y : 0;
 
-            GradientStartPointX = App.Settings.Prop.GradientStartPoint.X;
-            GradientStartPointY = App.Settings.Prop.GradientStartPoint.Y;
-            GradientEndPointX = App.Settings.Prop.GradientEndPoint.X;
-            GradientEndPointY = App.Settings.Prop.GradientEndPoint.Y;
+            _backgroundMode = App.Settings.Prop.BackgroundMode;
+            _imageBackgroundPath = App.Settings.Prop.ImageBackgroundPath;
+            _backgroundImageStretch = App.Settings.Prop.BackgroundImageStretch;
+
+            OnPropertyChanged(nameof(BackgroundMode));
+            OnPropertyChanged(nameof(ImageBackgroundPath));
+            OnPropertyChanged(nameof(BackgroundImageStretch));
+            OnPropertyChanged(nameof(IsGradientMode));
+            OnPropertyChanged(nameof(IsImageMode));
+
+            if (_backgroundMode == CustomBackgroundMode.Image &&
+                !string.IsNullOrWhiteSpace(_imageBackgroundPath) &&
+                File.Exists(_imageBackgroundPath))
+            {
+                LoadPreviewImage(_imageBackgroundPath);
+            }
+            else
+            {
+                BackgroundPreviewImageSource = null;
+            }
+
+            GradientStops.CollectionChanged += (s, e) => { /* optionally handle changes */ };
+
+            UpdateLivePreviewBrush();
         }
 
         public ObservableCollection<GradientStopData> GradientStops { get; } = new();
@@ -332,10 +353,191 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         private void UpdateGradientPoints()
         {
-            App.Settings.Prop.GradientStartPoint = new System.Windows.Point(GradientStartPointX, GradientStartPointY);
-            App.Settings.Prop.GradientEndPoint = new System.Windows.Point(GradientEndPointX, GradientEndPointY);
+            App.Settings.Prop.GradientStartPoint = new Point(GradientStartPointX, GradientStartPointY);
+            App.Settings.Prop.GradientEndPoint = new Point(GradientEndPointX, GradientEndPointY);
 
-            ((MainWindow)System.Windows.Window.GetWindow(_page)!).ApplyTheme();
+            ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+        }
+
+        private CustomBackgroundMode _backgroundMode = CustomBackgroundMode.Gradient;
+        public CustomBackgroundMode BackgroundMode
+        {
+            get => _backgroundMode;
+            set
+            {
+                if (_backgroundMode != value)
+                {
+                    _backgroundMode = value;
+                    App.Settings.Prop.BackgroundMode = value;
+                    App.Settings.Save();
+
+                    OnPropertyChanged(nameof(BackgroundMode));
+                    OnPropertyChanged(nameof(IsGradientMode));
+                    OnPropertyChanged(nameof(IsImageMode));
+
+                    if (_backgroundMode == CustomBackgroundMode.Image)
+                    {
+                        if (!string.IsNullOrWhiteSpace(ImageBackgroundPath) && File.Exists(ImageBackgroundPath))
+                            LoadPreviewImage(ImageBackgroundPath);
+                        else
+                            BackgroundPreviewImageSource = null;
+                    }
+                    else
+                    {
+                        BackgroundPreviewImageSource = null;
+                    }
+
+                    ((MainWindow)Window.GetWindow(_page)!)?.ApplyTheme();
+                }
+            }
+        }
+
+        public bool IsGradientMode
+        {
+            get => BackgroundMode == CustomBackgroundMode.Gradient;
+            set
+            {
+                if (value)
+                    BackgroundMode = CustomBackgroundMode.Gradient;
+            }
+        }
+
+        public bool IsImageMode
+        {
+            get => BackgroundMode == CustomBackgroundMode.Image;
+            set
+            {
+                if (value)
+                    BackgroundMode = CustomBackgroundMode.Image;
+            }
+        }
+
+        private string _imageBackgroundPath = string.Empty;
+        public string ImageBackgroundPath
+        {
+            get => _imageBackgroundPath;
+            set
+            {
+                if (_imageBackgroundPath != value)
+                {
+                    _imageBackgroundPath = value;
+                    App.Settings.Prop.ImageBackgroundPath = value;
+                    App.Settings.Save();
+
+                    OnPropertyChanged(nameof(ImageBackgroundPath));
+
+                    if (_backgroundMode == CustomBackgroundMode.Image && File.Exists(value))
+                    {
+                        LoadPreviewImage(value);
+                        ((MainWindow)Window.GetWindow(_page)!)?.ApplyTheme();
+                    }
+                    else
+                    {
+                        BackgroundPreviewImageSource = null;
+                    }
+                }
+            }
+        }
+
+        private ImageSource? _backgroundPreviewImageSource;
+        public ImageSource? BackgroundPreviewImageSource
+        {
+            get => _backgroundPreviewImageSource;
+            set
+            {
+                _backgroundPreviewImageSource = value;
+                OnPropertyChanged(nameof(BackgroundPreviewImageSource));
+            }
+        }
+
+        public IEnumerable<BackgroundImageStretchMode> BackgroundImageStretchModes
+            => Enum.GetValues(typeof(BackgroundImageStretchMode)).Cast<BackgroundImageStretchMode>();
+
+        private BackgroundImageStretchMode _backgroundImageStretch;
+        public BackgroundImageStretchMode BackgroundImageStretch
+        {
+            get => _backgroundImageStretch;
+            set
+            {
+                if (_backgroundImageStretch != value)
+                {
+                    _backgroundImageStretch = value;
+                    App.Settings.Prop.BackgroundImageStretch = value;
+                    App.Settings.Save();
+
+                    OnPropertyChanged(nameof(BackgroundImageStretch));
+                    ((MainWindow)Window.GetWindow(_page)!)?.ApplyTheme();
+                }
+            }
+        }
+
+
+
+        public void BrowseImage()
+        {
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string appDataFolder = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "Froststrap", "Backgrounds");
+                Directory.CreateDirectory(appDataFolder);
+
+                string destFile = Path.Combine(appDataFolder, "background" + Path.GetExtension(openFileDialog.FileName));
+                File.Copy(openFileDialog.FileName, destFile, overwrite: true);
+
+                App.Settings.Prop.ImageBackgroundPath = destFile;
+                App.Settings.Prop.BackgroundMode = CustomBackgroundMode.Image;
+                App.Settings.Save();
+
+                LoadPreviewImage(destFile);
+                ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+            }
+        }
+
+        public void LoadPreviewImage(string path)
+        {
+            if (App.Settings.Prop.BackgroundMode != CustomBackgroundMode.Image)
+                return;
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    image.UriSource = new Uri(path);
+                    image.EndInit();
+                    image.Freeze();
+
+                    BackgroundPreviewImageSource = image;
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show(
+                        "The selected image is currently in use by another process. Please close any apps using it and try again.",
+                        "Image Load Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
+                }
+            }
+            else
+            {
+                BackgroundPreviewImageSource = null;
+            }
+        }
+
+        public void ClearBackgroundImage()
+        {
+            App.Settings.Prop.ImageBackgroundPath = string.Empty;
+            App.Settings.Prop.BackgroundMode = CustomBackgroundMode.Gradient;
+            App.Settings.Save();
+            BackgroundPreviewImageSource = null;
+            ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
         }
 
         public static List<string> Languages => Locale.GetLanguages();
