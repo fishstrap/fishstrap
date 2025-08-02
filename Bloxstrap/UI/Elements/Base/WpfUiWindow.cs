@@ -187,6 +187,8 @@ namespace Bloxstrap.UI.Elements.Base
                 Application.Current.Resources.Remove("NormalDarkAndLightBackground");
                 Application.Current.Resources.Remove("ControlFillColorDefault");
                 Application.Current.Resources.Remove("WindowBackgroundBlackOverlay");
+
+                Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(Colors.Transparent);
             }
 
 #if QA_BUILD

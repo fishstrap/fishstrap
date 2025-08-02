@@ -46,7 +46,7 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12" Grid.Column="0" Grid.Row="0">
                     <RadioButton Content="Custom Gradient Background" GroupName="BackgroundMode" IsChecked="{Binding IsGradientMode, Mode=TwoWay}" Margin="0,0,12,0"/>
-                    <RadioButton Content="Custom Image Background" GroupName="BackgroundMode" IsChecked="{Binding IsImageMode, Mode=TwoWay}"/>
+                    <RadioButton Content="Custom Image/Animated Background" GroupName="BackgroundMode" IsChecked="{Binding IsImageMode, Mode=TwoWay}"/>
                 </StackPanel>
 
                 <Separator Margin="0,0,0,12" Grid.Column="0" Grid.Row="1" />
@@ -151,7 +151,7 @@
                         <Button Content="Clear Image" Click="OnClearImageClicked" Width="100" Margin="0,0,4,0" Height="34"/>
                     </StackPanel>
 
-                    <TextBlock Text="Animated backgrounds currently work only on the main window sadly. (i cant figure out how to make it work on other stuff for now)" FontSize="10" TextWrapping="Wrap" />
+                    <TextBlock Text="Animated backgrounds currently work only on the main window/ui sadly. (i cant figure out how to make it work on other stuff for now)" FontSize="10" TextWrapping="Wrap" />
 
                     <StackPanel Margin="0,10,0,0">
                         <TextBlock Text="Black Overlay Opacity" Margin="0,0,0,4" FontWeight="Medium" />
