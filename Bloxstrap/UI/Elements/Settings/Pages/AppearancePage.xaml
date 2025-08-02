@@ -144,12 +144,14 @@
                     <Border Background="#59000000" Width="215" Height="135" CornerRadius="4">
                         <Image Width="200" Height="120" Stretch="Uniform" Source="{Binding BackgroundPreviewImageSource}" />
                     </Border>
-                    
+
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0" Height="34">
                         <ComboBox ItemsSource="{Binding BackgroundImageStretchModes}" SelectedItem="{Binding BackgroundImageStretch, Mode=TwoWay}" Margin="0,0,4,0" Width="150" />
                         <Button Content="Browse Image..." Click="OnBrowseImageClicked" Width="120" Margin="0,0,4,0" Height="34"/>
                         <Button Content="Clear Image" Click="OnClearImageClicked" Width="100" Margin="0,0,4,0" Height="34"/>
                     </StackPanel>
+
+                    <TextBlock Text="Animated backgrounds currently work only on the main window sadly. (i cant figure out how to make it work on other stuff for now)" FontSize="10" TextWrapping="Wrap" />
 
                     <StackPanel Margin="0,10,0,0">
                         <TextBlock Text="Black Overlay Opacity" Margin="0,0,0,4" FontWeight="Medium" />
