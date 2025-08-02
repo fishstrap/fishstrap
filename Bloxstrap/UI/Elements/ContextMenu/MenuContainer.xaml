@@ -35,8 +35,22 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
-            <Separator />
+
+            <Separator/>
+
+            <MenuItem IsEnabled="False" x:Name="PlaytimeMenuItem" Visibility="Collapsed">
+                <MenuItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="PlaytimeTextBlock" Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="Playtime: 0:00" />
+                    </Grid>
+                </MenuItem.Header>
+            </MenuItem>
+
             <MenuItem x:Name="RichPresenceMenuItem" Header="{x:Static resources:Strings.Common_DiscordRichPresence}" IsCheckable="True" IsChecked="True" Visibility="Collapsed" Click="RichPresenceMenuItem_Click" />
+            
             <MenuItem x:Name="InviteDeeplinkMenuItem" Visibility="Collapsed" Click="InviteDeeplinkMenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
@@ -49,6 +63,7 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
+            
             <MenuItem x:Name="LogsMenuItem" Click="LogsMenuItem_Click" Visibility="Collapsed">
                 <MenuItem.Header>
                     <Grid>
@@ -61,6 +76,7 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
+            
             <MenuItem x:Name="ServerDetailsMenuItem" Visibility="Collapsed" Click="ServerDetailsMenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
@@ -73,6 +89,7 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
+            
             <MenuItem x:Name="GameHistoryMenuItem" Click="JoinLastServerMenuItem_Click" Visibility="Collapsed">
                 <MenuItem.Header>
                     <Grid>
@@ -85,6 +102,7 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
+            
             <MenuItem x:Name="DebugMenuItem" Visibility="Collapsed" Click="DebugMenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
@@ -97,6 +115,7 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
+            
             <MenuItem Click="CloseRobloxMenuItem_Click">
                 <MenuItem.Header>
                     <Grid>

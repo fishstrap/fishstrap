@@ -73,13 +73,15 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (!value)
                 {
                     ShowServerDetailsEnabled = false;
-                    ShowGameHistory = false;
+                    ShowGameHistoryEnabled = false;
+                    PlaytimeCounterEnabled = false;
                     DisableAppPatchEnabled = false;
                     DiscordActivityEnabled = false;
                     DiscordActivityJoinEnabled = false;
 
                     OnPropertyChanged(nameof(ShowServerDetailsEnabled));
-                    OnPropertyChanged(nameof(ShowGameHistory));
+                    OnPropertyChanged(nameof(ShowGameHistoryEnabled));
+                    OnPropertyChanged(nameof(PlaytimeCounterEnabled));
                     OnPropertyChanged(nameof(DisableAppPatchEnabled));
                     OnPropertyChanged(nameof(DiscordActivityEnabled));
                     OnPropertyChanged(nameof(DiscordActivityJoinEnabled));
@@ -95,7 +97,13 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.ShowServerDetails = value;
         }
 
-        public bool ShowGameHistory
+        public bool PlaytimeCounterEnabled
+        {
+            get => App.Settings.Prop.PlaytimeCounter;
+            set => App.Settings.Prop.PlaytimeCounter = value;
+        }
+
+        public bool ShowGameHistoryEnabled
         {
             get => App.Settings.Prop.ShowGameHistoryMenu;
             set => App.Settings.Prop.ShowGameHistoryMenu = value;

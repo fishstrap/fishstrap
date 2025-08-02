@@ -42,10 +42,17 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
+            Header="Playtime Counter"
+            Description="Display your total playtime and game session playtime."
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
+            <ui:ToggleSwitch IsChecked="{Binding PlaytimeCounterEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
             Header="Show Game History Menu"
             Description="Display the game you've played in your session and allows you to join them back."
             IsEnabled="{Binding InnerContent.IsChecked, ElementName=ActivityTrackingOption, Mode=OneWay}">
-            <ui:ToggleSwitch IsChecked="{Binding ShowGameHistory, Mode=TwoWay}" />
+            <ui:ToggleSwitch IsChecked="{Binding ShowGameHistoryEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False">

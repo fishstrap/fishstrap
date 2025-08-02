@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Threading;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -19,6 +19,11 @@ namespace Bloxstrap.UI.Elements.ContextMenu
         private ServerInformation? _serverInformationWindow;
         private ServerHistory? _gameHistoryWindow;
         private Logs? _logsWindow;
+
+        private Stopwatch _totalPlaytimeStopwatch = new Stopwatch();
+        private TimeSpan _accumulatedTotalPlaytime = TimeSpan.Zero;
+
+        private DispatcherTimer? _playtimeTimer;
 
         public MenuContainer(Watcher watcher)
         {
@@ -42,6 +47,65 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 RichPresenceMenuItem.Visibility = Visibility.Visible;
 
             VersionTextBlock.Text = $"{App.ProjectName} v{App.Version}";
+
+            if (App.Settings.Prop.PlaytimeCounter)
+            {
+                StartTotalPlaytimeTimer();
+                PlaytimeMenuItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PlaytimeMenuItem.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void StartTotalPlaytimeTimer()
+        {
+            _totalPlaytimeStopwatch.Start();
+
+            _playtimeTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            _playtimeTimer.Tick += PlaytimeTimer_Tick;
+            _playtimeTimer.Start();
+        }
+
+        private void StopTotalPlaytimeTimer()
+        {
+            _totalPlaytimeStopwatch.Stop();
+            _accumulatedTotalPlaytime += _totalPlaytimeStopwatch.Elapsed;
+            _totalPlaytimeStopwatch.Reset();
+
+            if (_playtimeTimer != null)
+            {
+                _playtimeTimer.Tick -= PlaytimeTimer_Tick;
+                _playtimeTimer.Stop();
+                _playtimeTimer = null;
+            }
+        }
+
+        private void PlaytimeTimer_Tick(object? sender, EventArgs e)
+        {
+            TimeSpan totalElapsed = _accumulatedTotalPlaytime + _totalPlaytimeStopwatch.Elapsed;
+
+            if (_activityWatcher is null || !_activityWatcher.InGame)
+            {
+                PlaytimeTextBlock.Text = $"Playtime: Total {FormatTimeSpan(totalElapsed)}";
+            }
+            else
+            {
+                TimeSpan sessionElapsed = DateTime.Now - _activityWatcher!.Data.TimeJoined;
+                PlaytimeTextBlock.Text = $"Playtime: Game {FormatTimeSpan(sessionElapsed)} | Total {FormatTimeSpan(totalElapsed)}";
+            }
+        }
+
+        private static string FormatTimeSpan(TimeSpan ts)
+        {
+            if (ts.TotalHours >= 1)
+                return $"{(int)ts.TotalHours}:{ts.Minutes:D2}:{ts.Seconds:D2}";
+            else
+                return $"{ts.Minutes}:{ts.Seconds:D2}";
         }
 
         public void ShowServerInformationWindow()
@@ -63,11 +127,9 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         private void ActivityWatcher_OnGameJoin(object? sender, EventArgs e)
         {
-            if (_activityWatcher is null)
-                return;
-
-            Dispatcher.Invoke(() => {
-                if (_activityWatcher.Data.ServerType == ServerType.Public)
+            Dispatcher.Invoke(() =>
+            {
+                if (_activityWatcher?.Data.ServerType == ServerType.Public)
                     InviteDeeplinkMenuItem.Visibility = Visibility.Visible;
 
                 ServerDetailsMenuItem.Visibility = Visibility.Visible;
@@ -79,7 +141,8 @@ namespace Bloxstrap.UI.Elements.ContextMenu
 
         private void ActivityWatcher_OnGameLeave(object? sender, EventArgs e)
         {
-            Dispatcher.Invoke(() => {
+            Dispatcher.Invoke(() =>
+            {
                 InviteDeeplinkMenuItem.Visibility = Visibility.Collapsed;
                 ServerDetailsMenuItem.Visibility = Visibility.Collapsed;
 
@@ -128,6 +191,7 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 return;
 
             _watcher.KillRobloxProcess();
+            StopTotalPlaytimeTimer();
         }
 
         private void JoinLastServerMenuItem_Click(object sender, RoutedEventArgs e)
