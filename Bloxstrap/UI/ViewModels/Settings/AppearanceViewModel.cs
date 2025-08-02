@@ -505,12 +505,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-
-
         public void BrowseImage()
         {
-            var openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All files (*.*)|*.*";
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpg;*.jpeg;*.gif)|*.png;*.jpg;*.jpeg;*.gif|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
                 string appDataFolder = Path.Combine(

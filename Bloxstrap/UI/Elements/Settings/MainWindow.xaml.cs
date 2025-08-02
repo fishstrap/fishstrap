@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
-using Microsoft.Win32;
-using System.Windows.Media;
-using System.IO;
-using System.Collections.Generic;
-using Bloxstrap;
-
-using Wpf.Ui.Controls;
 using Wpf.Ui.Controls.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 using Bloxstrap.UI.ViewModels.Settings;
 using Wpf.Ui.Common;
-using System.Windows.Media.Animation;
 
 namespace Bloxstrap.UI.Elements.Settings
 {

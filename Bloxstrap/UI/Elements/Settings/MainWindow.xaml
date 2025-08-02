@@ -32,16 +32,17 @@
             <DynamicResource ResourceKey="WindowBackgroundGradient" />
         </Grid.Background>
 
-        <Grid x:Name="ImageBackgroundLayer" Panel.ZIndex="-1" Visibility="{Binding IsImageMode, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="3">
-            <Border Background="{DynamicResource WindowBackgroundImage}" />
-            <Border Background="{DynamicResource WindowBackgroundBlackOverlay}" />
+        <Grid x:Name="ImageBackgroundLayer" Grid.RowSpan="3" Panel.ZIndex="-1" Visibility="{Binding IsImageMode, Converter={StaticResource BooleanToVisibilityConverter}}" IsHitTestVisible="False">
+            <Image x:Name="AnimatedGifBackground" Visibility="Collapsed" IsHitTestVisible="False" />
+            <Border x:Name="StaticImageBackground" Background="{DynamicResource WindowBackgroundImage}" IsHitTestVisible="False" />
+            <Border Background="{DynamicResource WindowBackgroundBlackOverlay}" IsHitTestVisible="False" />
         </Grid>
 
         <ui:Snackbar
             x:Name="AlreadyRunningSnackbar"
             Title="{x:Static resources:Strings.Menu_AlreadyRunning_Title}"
             Message="{x:Static resources:Strings.Menu_AlreadyRunning_Caption}"
-            Icon="Info20" Timeout="10000" Margin="200,0,200,20" Grid.RowSpan="10" Panel.ZIndex="10" >
+            Background="{DynamicResource NormalDarkAndLightBackground}" Icon="Info20" Timeout="10000" Margin="200,0,200,20" Grid.RowSpan="10" Panel.ZIndex="10" >
         </ui:Snackbar>
 
         <ui:Snackbar
