@@ -322,12 +322,13 @@ namespace Bloxstrap
 
                 if (App.Settings.Prop.AutoCloseCrashHandler)
                 {
+                    SetStatus("Closing Roblox Crash Handler...");
                     await Task.Delay(15000);
 
                     try
                     {
                         var crashHandlerProcesses = Process.GetProcessesByName("RobloxCrashHandler");
-
+                        
                         foreach (var proc in crashHandlerProcesses)
                         {
                             try
@@ -345,6 +346,26 @@ namespace Bloxstrap
                     {
                         App.Logger.WriteLine("Bootstrapper::StartRoblox", $"Error killing RobloxCrashHandler: {ex.Message}");
                     }
+                }
+
+                try
+                {
+                    if (App.Settings.Prop.SelectedRobloxIcon != RobloxIcon.Default)
+                    {
+                        SetStatus("Changing Topbar Roblox Icon...");
+                        await Task.Delay(1000);
+
+                        var robloxProcess = Process.GetProcessById(_appPid);
+
+                        if (!robloxProcess.HasExited)
+                        {
+                            SetRobloxWindowIcon(robloxProcess, App.Settings.Prop.SelectedRobloxIcon);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    App.Logger.WriteLine("Bootstrapper", $"Failed to set Roblox icon after crash handler: {ex}");
                 }
             }
 
@@ -907,9 +928,6 @@ namespace Bloxstrap
 
                 // Continue with the rest of your code like _appPid assignment, icon setting, etc.
                 _appPid = process.Id;
-
-                var selectedIcon = App.Settings.Prop.SelectedRobloxIcon;
-                SetRobloxWindowIcon(process, selectedIcon);
 
             }
             catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)

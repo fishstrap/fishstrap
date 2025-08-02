@@ -219,7 +219,7 @@
             </Grid.ColumnDefinitions>
 
             <ui:Button Content="Debug Menu" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,4,0" Click="OpenDebugMenu_Click" />
-            <ui:Button Content="Uninstall Froststrap" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,0,4,0" Click="UninstallButton_Click" Appearance="Danger" />
+            <ui:Button Content="Uninstall Froststrap" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,0,4,0" Click="UninstallButton_Click" />
             <ui:Button Content="Reset Settings to Default" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,0,4,0" Click="ResetSettings_Click" />
             <ui:Button Content="Import Settings" Grid.Column="3" HorizontalAlignment="Stretch" Margin="0,0,4,0" Click="ImportSettings_Click" />
             <ui:Button Content="Export Settings" Grid.Column="4" HorizontalAlignment="Stretch" Margin="0,0,0,0" Click="ExportSettings_Click" />

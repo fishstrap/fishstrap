@@ -232,7 +232,7 @@
     <value>Old Roblox Icons</value>
   </data>
   <data name="Menu.Behaviour.OldRobloxIcon.Description" xml:space="preserve">
-    <value>Reverts the Roblox taskbar icon to older roblox icons. Note: this feature is not guaranteed to always work!</value>
+    <value>Reverts the Roblox topbar icon to older roblox icons. Note: This might change the taskbar icon sometimes.</value>
   </data>
   <data name="Dialog_FindFastFlag_Title" xml:space="preserve">
   <value>Find FastFlags</value>
