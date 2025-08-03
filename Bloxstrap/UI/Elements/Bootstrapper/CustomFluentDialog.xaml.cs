@@ -1,21 +1,7 @@
 ﻿using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using Bloxstrap.UI.ViewModels.Bootstrapper;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Shell;
 using System.Windows.Threading;
 
@@ -106,21 +92,15 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         }
         #endregion
 
-        public CustomFluentDialog(bool aero)
+        public CustomFluentDialog()
         {
             InitializeComponent();
 
-            string version = Utilities.GetRobloxVersionStr(false);
-            string channel = App.Settings.Prop.Channel;
-
-            _viewModel = new CustomFluentDialogViewModel(this, aero, version, channel);
+            _viewModel = new CustomFluentDialogViewModel(this);
             DataContext = _viewModel;
             Title = App.Settings.Prop.BootstrapperTitle;
             Icon = App.Settings.Prop.BootstrapperIcon.GetIcon().GetImageSource();
 
-            // setting this to true for mica results in the window being undraggable
-            if (aero)
-                AllowsTransparency = true;
         }
 
         private void UiWindow_Closing(object sender, CancelEventArgs e)

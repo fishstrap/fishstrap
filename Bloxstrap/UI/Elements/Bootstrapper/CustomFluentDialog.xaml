@@ -26,11 +26,25 @@
     </Window.TaskbarItemInfo>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
         <Image Source="pack://application:,,,/Resources/Froststrap Custom Background.png" Stretch="UniformToFill" Panel.ZIndex="0" IsHitTestVisible="False"/>
         <Rectangle Fill="#59000000" Panel.ZIndex="1" IsHitTestVisible="False"/>
+
         <Grid Panel.ZIndex="2">
-            <ui:TitleBar VerticalAlignment="Top" CanMaximize="False" ShowClose="False" ShowMaximize="False" ShowMinimize="False"/>
-            <Border VerticalAlignment="Bottom" Height="85" Width="520">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ui:TitleBar Grid.Row="0" CanMaximize="False" ShowClose="False" ShowMaximize="False" ShowMinimize="False"/>
+            <Grid Grid.Row="1"/>
+            <Border Grid.Row="2" Padding="25,20,25,18">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
                         <GradientStop Color="#CC0A0A0A" Offset="0.8" />
@@ -38,22 +52,21 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <Grid>
-                    <Grid Margin="25,20,25,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <Border Width="60" Height="60" CornerRadius="12" Background="#15FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                <Image Source="{Binding Icon, Mode=OneWay}" Width="48" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            </Border>
-                        </Grid>
-
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" FontFamily="Segoe UI" Margin="15,0,0,0" Text="{Binding Message, Mode=OneWay}" TextTrimming="CharacterEllipsis"/>
-
-                        <Button Grid.Column="2" Width="90" Height="32" Padding="0" Margin="20,0,0,0" Content="{x:Static resources:Strings.Common_Cancel}" Command="{Binding CancelInstallCommand}" IsEnabled="{Binding CancelEnabled}" BorderThickness="0">
+                        <Border Grid.Column="0" Width="60" Height="60" CornerRadius="12" Background="#15FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,16,0">
+                            <Image Source="{Binding Icon, Mode=OneWay}" Width="48" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Border>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" FontFamily="Segoe UI" Text="{Binding Message, Mode=OneWay}" TextTrimming="CharacterEllipsis"/>
+                        <Button Grid.Column="2" Width="90" Height="34" Padding="0" Margin="16,0,0,0" VerticalAlignment="Center" Content="{x:Static resources:Strings.Common_Cancel}" Command="{Binding CancelInstallCommand}" IsEnabled="{Binding CancelEnabled}" BorderThickness="0">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="8"/>
@@ -61,9 +74,9 @@
                             </Button.Resources>
                         </Button>
                     </Grid>
+                    <ProgressBar Grid.Row="1" Height="6" Margin="0,14,0,0" IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}" Maximum="{Binding ProgressMaximum, Mode=OneWay}" Value="{Binding ProgressValue, Mode=OneWay}"/>
                 </Grid>
             </Border>
-            <ProgressBar Height="6" VerticalAlignment="Bottom" Margin="0,0,0,-3" Width="520" IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}" Maximum="{Binding ProgressMaximum, Mode=OneWay}" Value="{Binding ProgressValue, Mode=OneWay}"/>
         </Grid>
     </Grid>
 </base:WpfUiWindow>

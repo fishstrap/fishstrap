@@ -55,8 +55,8 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
-    Header="{x:Static resources:Strings.Menu_Channel_RobloxUpgrades}"
-    Description="{x:Static resources:Strings.Menu_Channel_RobloxUpgrades_Description}">
+            Header="{x:Static resources:Strings.Menu_Channel_RobloxUpgrades}"
+            Description="{x:Static resources:Strings.Menu_Channel_RobloxUpgrades_Description}">
             <controls:OptionControl.Style>
                 <Style TargetType="controls:OptionControl">
                     <Style.Triggers>
@@ -83,10 +83,10 @@
 
 
         <controls:OptionControl 
-    x:Name="FlagStateOption"
-    Header="{x:Static resources:Strings.Menu_Channel_VersionHash_Title}" 
-    Description="{x:Static resources:Strings.Menu_Channel_VersionHash_Desription}"
-    Visibility="Collapsed">
+            x:Name="FlagStateOption"
+            Header="{x:Static resources:Strings.Menu_Channel_VersionHash_Title}" 
+            Description="{x:Static resources:Strings.Menu_Channel_VersionHash_Desription}"
+            Visibility="Collapsed">
             <ui:TextBox Width="200" Padding="10,5,10,5" Text="{Binding ChannelHash, Mode=TwoWay}" />
         </controls:OptionControl>
 
