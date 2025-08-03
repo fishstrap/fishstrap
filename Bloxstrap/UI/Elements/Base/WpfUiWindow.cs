@@ -13,6 +13,8 @@ namespace Bloxstrap.UI.Elements.Base
     {
         private readonly IThemeService _themeService = new ThemeService();
 
+        private System.Windows.Controls.Image? _cachedGifImage;
+
         public WpfUiWindow()
         {
             this.Loaded += WpfUiWindow_Loaded;
@@ -25,6 +27,11 @@ namespace Bloxstrap.UI.Elements.Base
             var finalTheme = App.Settings.Prop.Theme.GetFinal();
             _themeService.SetTheme(finalTheme == Enums.Theme.Light ? ThemeType.Light : ThemeType.Dark);
             _themeService.SetSystemAccent();
+
+            if (_cachedGifImage == null)
+            {
+                _cachedGifImage = FindAnimatedGifImageControl();
+            }
 
             if (App.Settings.Prop.Theme == Enums.Theme.Custom)
             {
@@ -42,10 +49,12 @@ namespace Bloxstrap.UI.Elements.Base
                         {
                             Application.Current.Resources["WindowBackgroundGradient"] = null;
 
-                            if (TryFindAnimatedGifImageControl(out var gifImage))
+                            if (_cachedGifImage != null)
                             {
-                                gifImage!.Visibility = Visibility.Visible;
-                                gifImage.Stretch = App.Settings.Prop.BackgroundImageStretch switch
+                                if (_cachedGifImage.Visibility != Visibility.Visible)
+                                    _cachedGifImage.Visibility = Visibility.Visible;
+
+                                _cachedGifImage.Stretch = App.Settings.Prop.BackgroundImageStretch switch
                                 {
                                     BackgroundImageStretchMode.Fill => Stretch.Fill,
                                     BackgroundImageStretchMode.Uniform => Stretch.Uniform,
@@ -53,16 +62,21 @@ namespace Bloxstrap.UI.Elements.Base
                                     _ => Stretch.Fill
                                 };
 
-                                XamlAnimatedGif.AnimationBehavior.SetSourceUri(gifImage, uri);
-                                RenderOptions.SetBitmapScalingMode(gifImage, BitmapScalingMode.HighQuality);
+                                var currentSource = XamlAnimatedGif.AnimationBehavior.GetSourceUri(_cachedGifImage);
+                                if (currentSource != uri)
+                                {
+                                    XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, uri);
+                                }
+
+                                RenderOptions.SetBitmapScalingMode(_cachedGifImage, BitmapScalingMode.HighQuality);
                             }
                         }
                         else
                         {
-                            if (TryFindAnimatedGifImageControl(out var gifImage))
+                            if (_cachedGifImage != null && _cachedGifImage.Visibility != Visibility.Collapsed)
                             {
-                                gifImage!.Visibility = Visibility.Collapsed;
-                                XamlAnimatedGif.AnimationBehavior.SetSourceUri(gifImage, null);
+                                _cachedGifImage.Visibility = Visibility.Collapsed;
+                                XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
                             }
 
                             var image = new BitmapImage();
@@ -104,19 +118,19 @@ namespace Bloxstrap.UI.Elements.Base
                         Application.Current.Resources["WindowBackgroundGradient"] = null;
                         Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(Colors.Transparent);
 
-                        if (TryFindAnimatedGifImageControl(out var gifImage))
+                        if (_cachedGifImage != null)
                         {
-                            gifImage!.Visibility = Visibility.Collapsed;
-                            XamlAnimatedGif.AnimationBehavior.SetSourceUri(gifImage, null);
+                            _cachedGifImage.Visibility = Visibility.Collapsed;
+                            XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
                         }
                     }
                 }
                 else
                 {
-                    if (TryFindAnimatedGifImageControl(out var gifImage))
+                    if (_cachedGifImage != null && _cachedGifImage.Visibility != Visibility.Collapsed)
                     {
-                        gifImage!.Visibility = Visibility.Collapsed;
-                        XamlAnimatedGif.AnimationBehavior.SetSourceUri(gifImage, null);
+                        _cachedGifImage.Visibility = Visibility.Collapsed;
+                        XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
                     }
 
                     Application.Current.Resources["WindowBackgroundGradient"] = null;
@@ -124,11 +138,11 @@ namespace Bloxstrap.UI.Elements.Base
                     if (App.Settings.Prop.CustomGradientStops == null || App.Settings.Prop.CustomGradientStops.Count == 0)
                     {
                         App.Settings.Prop.CustomGradientStops = new()
-                {
-                    new GradientStopData { Offset = 0.0, Color = "#4D5560" },
-                    new GradientStopData { Offset = 0.5, Color = "#383F47" },
-                    new GradientStopData { Offset = 1.0, Color = "#252A30" }
-                };
+                        {
+                            new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+                            new GradientStopData { Offset = 0.5, Color = "#383F47" },
+                            new GradientStopData { Offset = 1.0, Color = "#252A30" }
+                        };
                     }
 
                     var startPoint = App.Settings.Prop.GradientStartPoint == default ? new Point(1, 1) : App.Settings.Prop.GradientStartPoint;
@@ -166,10 +180,10 @@ namespace Bloxstrap.UI.Elements.Base
             }
             else
             {
-                if (TryFindAnimatedGifImageControl(out var gifImage))
+                if (_cachedGifImage != null && _cachedGifImage.Visibility != Visibility.Collapsed)
                 {
-                    gifImage!.Visibility = Visibility.Collapsed;
-                    XamlAnimatedGif.AnimationBehavior.SetSourceUri(gifImage, null);
+                    _cachedGifImage.Visibility = Visibility.Collapsed;
+                    XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
                 }
 
                 var dict = new ResourceDictionary
@@ -192,23 +206,21 @@ namespace Bloxstrap.UI.Elements.Base
             }
 
 #if QA_BUILD
-    this.BorderBrush = Brushes.Red;
-    this.BorderThickness = new Thickness(4);
+            this.BorderBrush = Brushes.Red;
+            this.BorderThickness = new Thickness(4);
 #endif
         }
 
-        private bool TryFindAnimatedGifImageControl(out System.Windows.Controls.Image? gifImage)
+        private System.Windows.Controls.Image? FindAnimatedGifImageControl()
         {
-            gifImage = null;
-
             foreach (Window window in Application.Current.Windows)
             {
-                gifImage = FindElementByName<System.Windows.Controls.Image>(window, "AnimatedGifBackground");
+                var gifImage = FindElementByName<System.Windows.Controls.Image>(window, "AnimatedGifBackground");
                 if (gifImage != null)
-                    return true;
+                    return gifImage;
             }
 
-            return false;
+            return null;
         }
 
         private static T? FindElementByName<T>(DependencyObject parent, string name) where T : FrameworkElement
