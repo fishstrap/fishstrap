@@ -9,7 +9,7 @@
     xmlns:resources="clr-namespace:Bloxstrap.Resources"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vms="clr-namespace:Bloxstrap.UI.ViewModels.Bootstrapper"
-    Width="500"
+    Width="520"
     Height="280"
     MinHeight="0"
     Background="{ui:ThemeResource ApplicationBackgroundBrush}"
@@ -26,71 +26,44 @@
     </Window.TaskbarItemInfo>
 
     <Grid>
-        <!-- 1. Background Image -->
-        <Image Source="pack://application:,,,/Resources/Froststrap Custom Background.png"
-               Stretch="Fill"
-               Panel.ZIndex="0"
-               IsHitTestVisible="False"/>
-
-        <!-- 2. Semi-transparent black overlay -->
-        <Rectangle Fill="#59000000"
-                   Panel.ZIndex="1"
-                   IsHitTestVisible="False"/>
-
-        <!-- 3. UI Content -->
+        <Image Source="pack://application:,,,/Resources/Froststrap Custom Background.png" Stretch="UniformToFill" Panel.ZIndex="0" IsHitTestVisible="False"/>
+        <Rectangle Fill="#59000000" Panel.ZIndex="1" IsHitTestVisible="False"/>
         <Grid Panel.ZIndex="2">
-            <ui:TitleBar
-                VerticalAlignment="Top"
-                CanMaximize="False"
-                ShowClose="False"
-                ShowMaximize="False"
-                ShowMinimize="False" />
+            <ui:TitleBar VerticalAlignment="Top" CanMaximize="False" ShowClose="False" ShowMaximize="False" ShowMinimize="False"/>
+            <Border VerticalAlignment="Bottom" Height="85" Width="520">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                        <GradientStop Color="#CC0A0A0A" Offset="0.8" />
+                        <GradientStop Color="#000A0A0A" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid Margin="25,20,25,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <Grid Margin="32,16">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                        <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Border Width="60" Height="60" CornerRadius="12" Background="#15FFFFFF" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Image Source="{Binding Icon, Mode=OneWay}" Width="48" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border>
+                        </Grid>
 
-                <Image
-                    Grid.Row="0"
-                    Width="80"
-                    Height="80"
-                    Margin="0,30,0,0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    RenderOptions.BitmapScalingMode="HighQuality"
-                    Source="{Binding Icon, Mode=OneWay}" />
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" FontFamily="Segoe UI" Margin="15,0,0,0" Text="{Binding Message, Mode=OneWay}" TextTrimming="CharacterEllipsis"/>
 
-                <TextBlock
-                    Grid.Row="1"
-                    Margin="0,0,0,8"
-                    HorizontalAlignment="Center"
-                    TextAlignment="Center"
-                    FontSize="18"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                    Text="{Binding Message, Mode=OneWay}"
-                    TextWrapping="Wrap" />
-
-                <ProgressBar
-                    Grid.Row="2"
-                    Margin="0,0,0,16"
-                    IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}"
-                    Maximum="{Binding ProgressMaximum, Mode=OneWay}"
-                    Value="{Binding ProgressValue, Mode=OneWay}" />
-
-                <Button
-                    Grid.Row="3"
-                    Width="120"
-                    Padding="4"
-                    HorizontalAlignment="Center"
-                    Command="{Binding CancelInstallCommand}"
-                    Content="{x:Static resources:Strings.Common_Cancel}"
-                    FontSize="14"
-                    IsEnabled="{Binding CancelEnabled, Mode=OneWay}" />
-            </Grid>
+                        <Button Grid.Column="2" Width="90" Height="32" Padding="0" Margin="20,0,0,0" Content="{x:Static resources:Strings.Common_Cancel}" Command="{Binding CancelInstallCommand}" IsEnabled="{Binding CancelEnabled}" BorderThickness="0">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+            <ProgressBar Height="6" VerticalAlignment="Bottom" Margin="0,0,0,-3" Width="520" IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}" Maximum="{Binding ProgressMaximum, Mode=OneWay}" Value="{Binding ProgressValue, Mode=OneWay}"/>
         </Grid>
     </Grid>
 </base:WpfUiWindow>
