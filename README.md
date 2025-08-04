@@ -33,7 +33,6 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 - Disable Roblox in-game screenshot and video recording system
 - Multi-Instance launching
 - Cleaner
-- Stop Froststrap from running in the background after launching Roblox
 - Use old Roblox icons in the taskbar
 - Easily use Custom Cursor
 - Have a bunch of Custom Cursor Sets ready for use
