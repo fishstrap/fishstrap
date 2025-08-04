@@ -18,30 +18,9 @@
 
   <ItemGroup>
     <Resource Include="Bloxstrap.ico" />
-	<Resource Include="Resources\Checkmark.ico" />
-	<Resource Include="Resources\CrossMark.ico" />
-	<Resource Include="Resources\Froststrap Custom Background.png" />
-	<Resource Include="Resources\HelpPage\CommonBootstrapper\ConnectivityIssue.png" />
-	<Resource Include="Resources\HelpPage\CommonBootstrapper\FailedToPreviewError.png" />
-	<Resource Include="Resources\HelpPage\CommonBootstrapper\RobloxWontLaunch.png" />
-	<Resource Include="Resources\HelpPage\CommonBootstrapper\VersionFix.png" />
-	<Resource Include="Resources\HelpPage\FastFlagGuide\BufferArray.png" />
-	<Resource Include="Resources\HelpPage\FastFlagGuide\LowPolyMeshes.png" />
-	<Resource Include="Resources\HelpPage\FastFlagGuide\QualityLevelOverride.png" />
-	<Resource Include="Resources\HelpPage\FastFlagGuide\StablePing.png" />
-	<Resource Include="Resources\HelpPage\FastFlagGuide\TitleBar.png" />
-	<Resource Include="Resources\HelpPage\Features\AdvancedFastFlagEditorSettings.png" />
-	<Resource Include="Resources\HelpPage\Features\Cleaner.png" />
-	<Resource Include="Resources\HelpPage\Features\CustomMods.png" />
-	<Resource Include="Resources\HelpPage\Features\DisableHardwareAccel.png" />
-	<Resource Include="Resources\HelpPage\Features\Launcher.png" />
-	<Resource Include="Resources\HelpPage\Features\Logs.png" />
-	<Resource Include="Resources\HelpPage\Features\MessageLogs.png" />
-	<Resource Include="Resources\HelpPage\Features\MultiInstanceLaunching.png" />
-	<Resource Include="Resources\HelpPage\Features\PlayerLogs.png" />
-	<Resource Include="Resources\HelpPage\Features\PresetColumn.png" />
-	<Resource Include="Resources\HelpPage\Features\PresetFlagLists.png" />
-	<Resource Include="Resources\HelpPage\Features\SuggestionBox.png" />
+    <Resource Include="Resources\Checkmark.ico" />
+    <Resource Include="Resources\CrossMark.ico" />
+    <Resource Include="Resources\Froststrap Custom Background.png" />
     <Resource Include="Resources\LightEditor.xshd" />
     <Resource Include="Resources\Fonts\NotoSansThai-VariableFont_wdth,wght.ttf" />
     <Resource Include="Resources\Fonts\Rubik-VariableFont_wght.ttf" />
@@ -60,22 +39,22 @@
     <EmbeddedResource Include="UI\Style\Editor-Theme-Froststrap.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Green.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Light.xshd" />
-	<EmbeddedResource Include="UI\Style\Editor-Theme-Orange.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Orange.xshd" />
     <EmbeddedResource Include="UI\Style\Editor-Theme-Pink.xshd" />
-	<EmbeddedResource Include="UI\Style\Editor-Theme-Purple.xshd" />
+    <EmbeddedResource Include="UI\Style\Editor-Theme-Purple.xshd" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\CustomBootstrapperSchema.json" />
-	<EmbeddedResource Include="Resources\CustomBootstrapperTemplate_Blank.xml" />
-	<EmbeddedResource Include="Resources\CustomBootstrapperTemplate_Simple.xml" />
+    <EmbeddedResource Include="Resources\CustomBootstrapperTemplate_Blank.xml" />
+    <EmbeddedResource Include="Resources\CustomBootstrapperTemplate_Simple.xml" />
     <EmbeddedResource Include="Resources\Icon2008.ico" />
     <EmbeddedResource Include="Resources\Icon2011.ico" />
     <EmbeddedResource Include="Resources\Icon2017.ico" />
     <EmbeddedResource Include="Resources\Icon2019.ico" />
     <EmbeddedResource Include="Resources\Icon2022.ico" />
-	<EmbeddedResource Include="Resources\Icon2025.ico" />
-	<EmbeddedResource Include="Resources\IconBloxstrap.ico" />
+    <EmbeddedResource Include="Resources\Icon2025.ico" />
+    <EmbeddedResource Include="Resources\IconBloxstrap.ico" />
     <EmbeddedResource Include="Resources\IconEarly2015.ico" />
     <EmbeddedResource Include="Resources\IconLate2015.ico" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2006\ArrowCursor.png" />
@@ -94,16 +73,16 @@
     <EmbeddedResource Include="Resources\Mods\Sounds\OldWalk.mp3" />
     <EmbeddedResource Include="Resources\Mods\Sounds\Empty.mp3" />
     <EmbeddedResource Include="Resources\Mods\OldAvatarBackground.rbxl" />
-	<EmbeddedResource Include="Resources\PresetFlags\5070%27s Latency Pack V32" />
-	<EmbeddedResource Include="Resources\PresetFlags\Fps and Latency Lisy by Froststrap" />
-	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s High Graphics V35" />
-	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Balanced Graphics V35" />
-	<EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Low Graphics V35" />
-	<EmbeddedResource Include="Resources\PresetFlags\Better Synchronization" />
+    <EmbeddedResource Include="Resources\PresetFlags\5070%27s Latency Pack V32" />
+    <EmbeddedResource Include="Resources\PresetFlags\Fps and Latency Lisy by Froststrap" />
+    <EmbeddedResource Include="Resources\PresetFlags\Stoof%27s High Graphics V35" />
+    <EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Balanced Graphics V35" />
+    <EmbeddedResource Include="Resources\PresetFlags\Stoof%27s Low Graphics V35" />
+    <EmbeddedResource Include="Resources\PresetFlags\Better Synchronization" />
     <EmbeddedResource Include="Resources\PresetFlags\Reduced Input Delay" />
-	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28DX11%29" />
-	<EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28Vulkan%29" />
-	<EmbeddedResource Include="Resources\PresetFlags\Scroom%27s Unplayable Graphics" />
+    <EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28DX11%29" />
+    <EmbeddedResource Include="Resources\PresetFlags\Obsurd V5 %28Vulkan%29" />
+    <EmbeddedResource Include="Resources\PresetFlags\Scroom%27s Unplayable Graphics" />
   </ItemGroup>
 
   <ItemGroup>

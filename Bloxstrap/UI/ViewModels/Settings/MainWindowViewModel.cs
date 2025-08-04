@@ -8,7 +8,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
     public class MainWindowViewModel : NotifyPropertyChangedViewModel
     {
         public ICommand OpenAboutCommand => new RelayCommand(OpenAbout);
-        public ICommand OpenHelpCommand => new RelayCommand(OpenHelp);
         public ICommand SaveSettingsCommand => new RelayCommand(SaveSettings);
         public ICommand SaveAndLaunchSettingsCommand => new RelayCommand(SaveAndLaunchSettings);
         public ICommand RestartAppCommand => new RelayCommand(RestartApp);
@@ -43,16 +42,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             app?._froststrapRPC?.UpdatePresence("Dialog: About");
 
             new Elements.About.MainWindow().ShowDialog();
-
-            app?._froststrapRPC?.UpdatePresence("Page: Unknown");
-        }
-
-        private void OpenHelp()
-        {
-            var app = (App.Current as App);
-            app?._froststrapRPC?.UpdatePresence("Dialog: Help");
-
-            new Elements.Help.MainWindow().ShowDialog();
 
             app?._froststrapRPC?.UpdatePresence("Page: Unknown");
         }

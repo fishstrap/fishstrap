@@ -76,7 +76,6 @@
                 </ui:NavigationFluent.Items>
                 <ui:NavigationFluent.Footer>
                     <ui:NavigationItem Content="{x:Static resources:Strings.Common_Settings}" PageType="{x:Type pages:ChannelPage}" Icon="Settings20" Tag="channel" FontWeight="Medium" />
-                    <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Help_Title}" Icon="QuestionCircle28" Margin="0,0,0,12" Command="{Binding OpenHelpCommand, Mode=OneTime}" FontWeight="Medium" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="WeatherSnowflake48" IconSize="20" Margin="0,0,0,12" Command="{Binding OpenAboutCommand, Mode=OneTime}" FontWeight="Medium" />
                 </ui:NavigationFluent.Footer>
             </ui:NavigationFluent>

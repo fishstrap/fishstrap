@@ -107,7 +107,7 @@
                 Content="{x:Static resources:Strings.Menu_FastFlagEditor_ShowPresetFlags}" />
         </WrapPanel>
 
-        <Grid Grid.Row="2" Margin="0,0,1,5">
+        <Grid Grid.Row="2" Margin="0,2,1,4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
