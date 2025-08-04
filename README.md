@@ -52,6 +52,7 @@ Encountered a bug or issue? [Submit an issue](https://github.com/RealMeddsam/Fro
 ### FastFlag Enhancements
 - Toggle advanced settings
 - Better Profiles
+- Press Ctrl+Z and Ctrl+Y to Undo/Redo changes
 - Built-in FastFlag lists inside of the profiles dialog
 - Remove invalid/default flags and automatically update outdated ones in one click
 - Use Preset Column to help find which flags are toggleables in fastflag settings
