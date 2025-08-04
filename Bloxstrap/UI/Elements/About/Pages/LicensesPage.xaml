@@ -232,6 +232,21 @@
                         Text="Apache 2.0" />
                 </StackPanel>
             </ui:CardAction>
+            <ui:CardAction
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="0,8,8,0"
+                Command="models:GlobalViewModel.OpenWebpageCommand"
+                CommandParameter="https://github.com/KloBraticc/Plexity/blob/main/LICENSE">
+                <StackPanel>
+                    <TextBlock FontSize="14" Plexity/>
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="License" />
+                </StackPanel>
+            </ui:CardAction>
         </Grid>
     </StackPanel>
 </ui:UiPage>
