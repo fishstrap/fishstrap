@@ -1,7 +1,9 @@
 > [!CAUTION]
-> This and https://github.com/Meddsam/Froststrap are the only official places to install Froststrap. Any other websites offering downloads or claiming to be us are not controlled by us (Example: Froststrap.com). We strongly recommend **not** downloading from any unofficial sources.
+> This repository, [Meddsam/Froststrap](https://github.com/Meddsam/Froststrap) and our [Official Website](https://realmeddsam.github.io/Froststrap-Website/) are the **Only Official Sources** for downloading Froststrap.  
+> Any other websites (e.g., `Froststrap.com`) claiming to own Froststrap are not **affiliated** with us and potentially unsafe.  
+> Downloading from unofficial sources is not recommended.
 >
-> Had to create a new repository due to losing access to my previous Github account
+> This repository was created after losing access to a previous GitHub account.
 
 <p align="center">
     <img src="https://github.com/RealMeddsam/Froststrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only" width="700">
@@ -10,9 +12,9 @@
 
 <div align="center">
 
-**Froststrap** is a Bloxstrap/Fishstrap fork aiming to improve features and offer more Performance.
+**Froststrap** is a fork of [Bloxstrap](https://github.com/pizzaboxer/bloxstrap) and [Fishstrap](https://github.com/Exit9B/Fishstrap), focused on performance and customization.
 
-Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/KdR9vpRcUN).
+Encountered a bug or issue? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issues/new/choose) or report it on our [Discord server](https://discord.gg/KdR9vpRcUN), we mainly suggest reporting it to our discord server.
 
 [![License][badge-repo-license]][repo-license]
 [![Downloads (Total)][badge-repo-downloads-total]][repo-releases]
@@ -25,53 +27,70 @@ Found any bugs? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issu
 
 ---
 
-## 🔧 Key Differences from Bloxstrap
+# Key Improvements Over Bloxstrap
 
-### 🧩 Integrations
-- Player logs (join/leave)
-- Message logs
-- Disable Roblox in-game screenshot and video recording system
-- Multi-Instance launching
-- Cleaner
-- Use old Roblox icons in the taskbar
-- Easily use Custom Cursor
-- Have a bunch of Custom Cursor Sets ready for use
+### Integrations
+- Player and message logs are now combined into **Logs Menu**
+- Disable Roblox’s built-in screenshot and video recording system
+- Custom Froststrap Discord RPC that shows the current page/dialog
+- Replace "Playing Roblox" with the name of the game you're playing using Custom Status Display
+- Game history logging is now toggleable
+- PlayTime Counter shows both total and session playtime
 
-### 🚩 Fast Flags
-- Flag profiles
-- FastFlag Warnings
-- Removed editor warnings & validation
-- A Bunch Of Preset Flags
-- Search box to quickly find flags in settings
-- More toggleable FastFlag Editor features in advanced settings
-- Built-In Flag Lists
-- Clean your list of fake flags and default value flags and update them at once
-- Find the majority of Roblox FastFlags in Find Flag
+### Bootstrapper
+- Switch between all of the classic Roblox icons for the top bar icon
+- Change the Roblox process priority
+- Automatically close the Roblox Crash Handler to reduce memory usage
+- Integrated cleaner tool to remove leftover files (feature was made by fishstrap first not us)
+- Multi-instance launching support
 
-### 📦 Channels
-- Block Roblox updates
-- Channel changer & actions
+### Mods
+- Quick use Custom Cursors and Custom Shiftlocks easily
+- Have multiple Custom Cursor Sets ready for use with the click of a button
+- Easily add custom death sounds
 
-### 🎨 Appearance
-- Customizable Bootstrapper Launcher
-- Element Toolbox to create Custom Launchers easily
-- Built-In App Themes
-- Allow you to use a custom font for the app text
+### FastFlag Enhancements
+- Toggle advanced settings
+- Better Profiles
+- Built-in FastFlag lists inside of the profiles dialog
+- Remove invalid/default flags and automatically update outdated ones in one click
+- Use Preset Column to help find which flags are toggleables in fastflag settings
+- FastFlag Warning system to help tell you about ban worthy fastflags
+- Select values quickly using the built-in value selector when adding flags
+- Use Find Flag feature to check all of Robloxs FastFlags
+- Publish and Use other peoples published lists in Public Flag Lists
 
-### ⚙️ Extras
-- Saves the last opened settings page
-- Supports importing settings from Multiple Bootstrappers
-- Help Page to fix bugs quickly
-- Use Built-In PC Tweaks to Optimize your pc
-- Create a Game Shortcut to join a game easily
-- Easter Egg Page, i wonder whats there
+### UI & Appearance
+- Fully customizable bootstrapper launcher
+- Change the app font to any font you want
+- Supports animated GIF, image, and gradient backgrounds themes
+- Built-in App themes
+- Use element toolbox when creating custom launchers (prob removing soon cuz its hella useless) 
 
-> *More features are on the roadmap!*
+### Settings
+- Disable Hardware Acceleration to lower froststrap memory usage
+- Disable Froststrap Animations to help with performance
+- Fixed auto update that wont go off randomly
+- Easily switch Roblox update channels with action presets
+- Option to fully block Roblox updates
+- Quickly Reset/Import/Export all your settings in one place
+- Use the debug menu to read log files
+- Easily uninstall Froststrap if its not to your liking (you totally shouldnt trust trust)
+
+### Extra Features
+- Remembers the last opened tab
+- Import settings from other bootstrappers easily like Fishstrap and Bloxstrap
+- Built-in PC tweaks for performance optimization
+- Create game shortcuts for faster game joining
+- Includes a hidden Easter egg page and game
+
+> Many more features are in active development.
 
 ---
 
-## ✅ Considering a switch?
-👉 [**Download the latest version here**][repo-latest]
+## Considering a switch?
+
+[**Download the latest version here**][repo-latest]
 
 ---
 
