@@ -20,8 +20,9 @@ Encountered a bug or issue? [Submit an issue](https://github.com/RealMeddsam/Fro
 [![Downloads (Total)][badge-repo-downloads-total]][repo-releases]
 [![Downloads (Latest)][badge-repo-downloads]][repo-releases]
 [![Version][badge-repo-latest]][repo-latest]
-[![Discord][badge-discord]][discord-invite]
 [![Stars][badge-repo-stars]][repo-stargazer]
+[![Discord][badge-discord]][discord-invite]
+
 
 </div>
 
@@ -96,12 +97,12 @@ Encountered a bug or issue? [Submit an issue](https://github.com/RealMeddsam/Fro
 ---
 
 <!-- Badge Definitions -->
-[badge-repo-license]:    https://img.shields.io/github/license/RealMeddsam/Froststrap?style=flat-square&color=37add9
-[badge-repo-downloads]:  https://img.shields.io/github/downloads/RealMeddsam/Froststrap/latest/total?style=flat-square&color=37add9
-[badge-repo-downloads-total]: https://img.shields.io/github/downloads/RealMeddsam/Froststrap/total?style=flat-square&color=37add9
-[badge-repo-latest]:     https://img.shields.io/github/v/release/RealMeddsam/Froststrap?style=flat-square&color=37add9
-[badge-repo-stars]:      https://img.shields.io/github/stars/RealMeddsam/Froststrap?style=flat-square&color=37add9
-[badge-discord]:         https://img.shields.io/discord/1364660238963179520?style=flat-square&logo=discord&logoColor=white&label=discord&color=37add9
+[badge-repo-license]:         https://img.shields.io/github/license/RealMeddsam/Froststrap?style=flat&color=37add9
+[badge-repo-downloads]:       https://img.shields.io/github/downloads/RealMeddsam/Froststrap/latest/total?style=flat&color=37add9
+[badge-repo-downloads-total]: https://img.shields.io/github/downloads/RealMeddsam/Froststrap/total?style=flat&color=37add9
+[badge-repo-latest]:          https://img.shields.io/github/v/release/RealMeddsam/Froststrap?style=flat&color=37add9
+[badge-repo-stars]:           https://img.shields.io/github/stars/RealMeddsam/Froststrap?style=flat&color=37add9
+[badge-discord]:              https://img.shields.io/discord/1364660238963179520?style=flat&label=discord&color=5865f2
 
 [repo-license]:  https://github.com/RealMeddsam/Froststrap/blob/main/LICENSE
 [repo-actions]:  https://github.com/RealMeddsam/Froststrap/actions
