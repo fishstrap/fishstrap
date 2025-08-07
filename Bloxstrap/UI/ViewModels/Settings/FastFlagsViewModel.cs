@@ -536,7 +536,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 RenderingMode[] DisableD3D11 = new RenderingMode[]
                 {
                     RenderingMode.Vulkan,
-                    RenderingMode.OpenGL
+                    RenderingMode.OpenGL,
+                    RenderingMode.Metal
                 };
 
                 App.FastFlags.SetPresetEnum("Rendering.Mode", value.ToString(), "True");

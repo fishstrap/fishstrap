@@ -540,8 +540,17 @@ namespace Bloxstrap
             // clone the dictionary
             OriginalProp = new(Prop);
 
-            if (GetPreset("Rendering.ManualFullscreen") != "False")
-                SetPreset("Rendering.ManualFullscreen", "False");
+            var preferVulkan = GetValue("FFlagDebugGraphicsPreferVulkan")?.ToLower() == "true";
+
+            if (preferVulkan)
+            {
+                SetPreset("Rendering.ManualFullscreen", null);
+            }
+            else
+            {
+                if (GetPreset("Rendering.ManualFullscreen") != "False")
+                    SetPreset("Rendering.ManualFullscreen", "False");
+            }
         }
 
         public void DeleteProfile(string Profile)
