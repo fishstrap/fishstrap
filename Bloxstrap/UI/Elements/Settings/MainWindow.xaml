@@ -11,10 +11,10 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance dmodels:MainWindowViewModel, IsDesignTimeCreatable=True}"
              Title="{x:Static resources:Strings.Menu_Title}"
-             MinWidth="480"
+             MinWidth="240"
              Width="1040"
-             MinHeight="480"
-             Height="650"
+             MinHeight="240"
+             Height="600"
              Background="{ui:ThemeResource ApplicationBackgroundBrush}"
              ExtendsContentIntoTitleBar="True"
              WindowBackdropType="Mica"
@@ -164,12 +164,12 @@
         </StatusBar>
 
         <Grid x:Name="LoadingOverlay"
-      Visibility="Collapsed"
-      Background="#80000000"
-      Panel.ZIndex="9999"
-      Grid.RowSpan="3"
-      HorizontalAlignment="Stretch"
-      VerticalAlignment="Stretch">
+              Visibility="Collapsed"
+              Background="#80000000"
+              Panel.ZIndex="9999"
+              Grid.RowSpan="3"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Border Background="{DynamicResource NormalDarkAndLightBackground}"

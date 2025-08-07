@@ -8,6 +8,7 @@ using Bloxstrap.UI.Elements.Dialogs;
 using Microsoft.Win32;
 using System.Windows.Media.Animation;
 using System.Windows.Input;
+using Bloxstrap.UI.ViewModels.Dialogs;
 using System.Windows.Media;
 using System.Text.Json;
 using System.Linq;

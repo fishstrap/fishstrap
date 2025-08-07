@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Windows;
+using Bloxstrap.UI.ViewModels.Dialogs;
 using System.Windows.Input;
 using Bloxstrap.Resources;
 using CommunityToolkit.Mvvm.Input;
