@@ -22,22 +22,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        public bool UltraPerformanceMode
-        {
-            get => PcTweaks.UltraPerformanceMode.IsUltraPerformanceModeEnabled();
-            set
-            {
-                if (PcTweaks.UltraPerformanceMode.IsUltraPerformanceModeEnabled() == value)
-                    return;
-
-                bool success = PcTweaks.UltraPerformanceMode.TogglePerformanceMode(value);
-                if (success)
-                {
-                    OnPropertyChanged(nameof(UltraPerformanceMode));
-                }
-            }
-        }
-
         public bool DisableGameDVR
         {
             get => GameDvrToggle.IsGameDvrDisabled();
@@ -79,22 +63,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 bool success = FirewallRules.ToggleFirewallRule(value);
                 if (success)
                     OnPropertyChanged(nameof(AllowRobloxFirewall));
-            }
-        }
-
-        public bool Win32PrioritySeparationEnabled
-        {
-            get => Win32PrioritySeparation.IsEnabled();
-            set
-            {
-                if (Win32PrioritySeparation.IsEnabled() == value)
-                    return;
-
-                bool success = Win32PrioritySeparation.ApplyTweak();
-                if (success)
-                {
-                    OnPropertyChanged(nameof(Win32PrioritySeparationEnabled));
-                }
             }
         }
 

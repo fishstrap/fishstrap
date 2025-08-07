@@ -35,17 +35,6 @@
                 ItemWidth="260"
                 ItemHeight="210">
 
-                <controls:SquareCard Title="Ultra Performance Mode"
-                             Description="Optimizes CPU and GPU priority for games. Disables background apps and puts maximum resources into gaming."
-                             HorizontalAlignment="Stretch"
-                             CategoryIcon="⚡"
-                             PrimaryIconToolTip="Performance Optimization"
-                             VerticalAlignment="Top">
-                    <controls:SquareCard.ButtonContent>
-                        <ui:ToggleSwitch IsChecked="{Binding UltraPerformanceMode, Mode=TwoWay}" />
-                    </controls:SquareCard.ButtonContent>
-                </controls:SquareCard>
-
                 <controls:SquareCard Title="Froststrap Power Plan: Maximum FPS"
                      Description="Imports Froststrap’s custom power plandesigned for the highest frame rates.
                                      Credits to Onion for creating"
@@ -117,19 +106,6 @@
                      VerticalAlignment="Top">
                     <controls:SquareCard.ButtonContent>
                         <ui:ToggleSwitch IsChecked="{Binding NetworkAdapterOptimizationEnabled, Mode=TwoWay}" />
-                    </controls:SquareCard.ButtonContent>
-                </controls:SquareCard>
-
-                <controls:SquareCard Title="Disable Mitigations"
-                     Description="Disables security and process mitigations for reduced background activity and better performance."
-                     HorizontalAlignment="Stretch"
-                     CategoryIcon="⚠"
-                     PrimaryIconToolTip="Warning: Disabling this will reduce system security!"
-                     SecondaryCategoryIcon="⚡"
-                     SecondaryIconToolTip="Performance Optimization"
-                     VerticalAlignment="Top">
-                    <controls:SquareCard.ButtonContent>
-                        <ui:ToggleSwitch IsChecked="{Binding DisableMitigations, Mode=TwoWay}" />
                     </controls:SquareCard.ButtonContent>
                 </controls:SquareCard>
 
