@@ -93,12 +93,6 @@
                 Icon="Search12"
                 Content="Find FastFlags"
                 Click="FindFlag_Button_Click" />
-            <ui:Button
-                Margin="0,0,8,12"
-                VerticalAlignment="Top"
-                Icon="Communication24"
-                Content="Public Flag Lists"
-                Click="OpenPublicFlaglistsDialog_Click"/>
             <ToggleButton
                 x:Name="TogglePresetsButton"
                 Margin="0,0,8,12"

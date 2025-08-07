@@ -348,4 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-Bloxstrap/UI/ViewModels/Dialogs/PublicFlaglistsViewModel.cs
+Bloxstrap/UI/ViewModels/Settings/CommunityViewModel.cs
