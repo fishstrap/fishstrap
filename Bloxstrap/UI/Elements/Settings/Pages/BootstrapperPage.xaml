@@ -24,8 +24,8 @@
         </controls:OptionControl>
 
         <controls:OptionControl
-    Header="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Title}"
-    Description="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Description}">
+            Header="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_OldRobloxIcon_Description}">
             <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding RobloxIcons, Mode=OneWay}" SelectedValuePath="IconType" SelectedValue="{Binding SelectedRobloxIcon, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -60,6 +60,17 @@
             Header="Auto Close Roblox Crash Handler"
             Description="Automatically closes the RobloxCrashHandler.exe that launches with roblox to save on resources">
             <ui:ToggleSwitch IsChecked="{Binding CloseCrashHandler, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Roblox Process Priority"
+            Description="Select the CPU priority for Roblox.">
+            <ComboBox
+                Width="200"
+                Margin="5,0,0,0"
+                Padding="10,5,10,5"
+                ItemsSource="{Binding ProcessPriorityOptions, Mode=OneTime}"
+                SelectedItem="{Binding SelectedPriority, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <controls:OptionControl 

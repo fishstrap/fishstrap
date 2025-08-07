@@ -69,19 +69,6 @@
             <ui:ToggleSwitch IsChecked="{Binding UpdateRoblox, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <controls:OptionControl
-    Header="Roblox Process Priority"
-    Description="Select the CPU priority for Roblox.">
-            <ComboBox
-        Width="200"
-        Margin="5,0,0,0"
-        Padding="10,5,10,5"
-        ItemsSource="{Binding ProcessPriorityOptions, Mode=OneTime}"
-        SelectedItem="{Binding SelectedPriority, Mode=TwoWay}" />
-        </controls:OptionControl>
-
-
-
         <controls:OptionControl 
             x:Name="FlagStateOption"
             Header="{x:Static resources:Strings.Menu_Channel_VersionHash_Title}" 
