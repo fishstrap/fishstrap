@@ -227,5 +227,25 @@ namespace Bloxstrap.UI.Elements.ContextMenu
             else
                 _logsWindow.Activate();
         }
+
+        private void CloseFroststrapMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var processes = Process.GetProcessesByName("Bloxstrap");
+                foreach (var proc in processes)
+                {
+                    proc.Kill();
+                    proc.WaitForExit();
+                }
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Frontend.ShowMessageBox($"Failed to close Froststrap: {ex.Message}", MessageBoxImage.Error);
+            }
+        }
+
     }
 }

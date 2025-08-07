@@ -44,7 +44,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="PlaytimeTextBlock" Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="Playtime: 0:00" />
+                        <TextBlock x:Name="PlaytimeTextBlock" Grid.Column="1" Foreground="{DynamicResource TextFillColorSecondaryBrush}" VerticalAlignment="Center" Margin="4,0,0,0" Text="Playtime: 0:00" />
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
@@ -115,7 +115,20 @@
                     </Grid>
                 </MenuItem.Header>
             </MenuItem>
-            
+
+            <MenuItem Click="CloseFroststrapMenuItem_Click">
+                <MenuItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ui:SymbolIcon Grid.Column="0" Symbol="PresenceOffline20"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0" Text="Close Froststrap" />
+                    </Grid>
+                </MenuItem.Header>
+            </MenuItem>
+
             <MenuItem Click="CloseRobloxMenuItem_Click">
                 <MenuItem.Header>
                     <Grid>
