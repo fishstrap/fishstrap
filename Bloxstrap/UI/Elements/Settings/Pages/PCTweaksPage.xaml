@@ -122,14 +122,16 @@
                     </controls:SquareCard.ButtonContent>
                 </controls:SquareCard>
 
-                <controls:SquareCard Title="Win32 Priority Separation"
-                     Description="Automatically sets an optimal Win32PrioritySeparation value based on your CPU to improve performance."
+                <controls:SquareCard Title="Disable Mitigations"
+                     Description="Disables security and process mitigations for reduced background activity and better performance."
                      HorizontalAlignment="Stretch"
-                     CategoryIcon="⚡"
-                     PrimaryIconToolTip="Performance Optimization"
+                     CategoryIcon="⚠"
+                     PrimaryIconToolTip="Warning: Disabling this will reduce system security!"
+                     SecondaryCategoryIcon="⚡"
+                     SecondaryIconToolTip="Performance Optimization"
                      VerticalAlignment="Top">
                     <controls:SquareCard.ButtonContent>
-                        <ui:ToggleSwitch IsChecked="{Binding Win32PrioritySeparationEnabled, Mode=TwoWay}" />
+                        <ui:ToggleSwitch IsChecked="{Binding DisableMitigations, Mode=TwoWay}" />
                     </controls:SquareCard.ButtonContent>
                 </controls:SquareCard>
 
