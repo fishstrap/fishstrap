@@ -12,7 +12,7 @@
 
 <div align="center">
 
-**Froststrap** is a fork of [Bloxstrap](https://github.com/pizzaboxer/bloxstrap) and [Fishstrap](https://github.com/Exit9B/Fishstrap), focused on performance and customization.
+**Froststrap** is a fork of [Bloxstrap](https://github.com/pizzaboxer/bloxstrap) and [Fishstrap](https://github.com/fishstrap/Fishstrap), focused on performance and customization.
 
 Encountered a bug or issue? [Submit an issue](https://github.com/RealMeddsam/Froststrap/issues/new/choose) or report it on our [Discord server](https://discord.gg/KdR9vpRcUN), we mainly suggest reporting it to our discord server.
 
