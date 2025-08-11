@@ -162,17 +162,18 @@
             </Grid>
         </ui:CardExpander>
 
-
-        <controls:OptionControl
-            Header="{x:Static resources:Strings.Menu_Appearance_Language_Title}"
-            Description="{x:Static resources:Strings.Menu_Appearance_Language_Description}">
-            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
+        <controls:OptionControl Header="Window Backdrop" Description="Select the window backdrop effect. Note: you must use dark/light theme, Mica only works on windows 11">
+            <ComboBox
+        Width="200"
+        Margin="5,0,0,0"
+        Padding="10,5,10,5"
+        ItemsSource="{Binding BackdropOptions}"
+        SelectedItem="{Binding SelectedBackdrop, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <controls:OptionControl
             Header="Custom App Font"
             Description="Choose a custom font to override Froststrap default UI font.">
-
             <StackPanel>
                 <ui:Button
                     Content="Choose Font"
@@ -188,6 +189,12 @@
                     CommandParameter="Remove"
                     Visibility="{Binding DeleteCustomFontVisibility, Mode=OneWay}" />
             </StackPanel>
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="{x:Static resources:Strings.Menu_Appearance_Language_Title}"
+            Description="{x:Static resources:Strings.Menu_Appearance_Language_Description}">
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <Grid Margin="0,8,0,0">

@@ -17,7 +17,7 @@
              Height="600"
              Background="{ui:ThemeResource ApplicationBackgroundBrush}"
              ExtendsContentIntoTitleBar="True"
-             WindowBackdropType="Mica"
+             WindowBackdropType="{Binding SelectedBackdrop}"
              WindowStartupLocation="CenterScreen"
              Closing="WpfUiWindow_Closing"
              Closed="WpfUiWindow_Closed">

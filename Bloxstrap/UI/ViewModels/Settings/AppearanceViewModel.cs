@@ -194,6 +194,26 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public ObservableCollection<GradientStopData> GradientStops { get; } = new();
 
+        public IEnumerable<UIBackgroundType> BackdropOptions { get; } =
+            Enum.GetValues(typeof(UIBackgroundType)).Cast<UIBackgroundType>();
+
+        public UIBackgroundType SelectedBackdrop
+        {
+            get => App.Settings.Prop.SelectedBackdrop;
+            set
+            {
+                if (App.Settings.Prop.SelectedBackdrop == value)
+                    return;
+
+                App.Settings.Prop.SelectedBackdrop = value;
+
+                App.Settings.Prop.SelectedBackdrop = value;
+                App.Settings.Save();
+
+                OnPropertyChanged(nameof(SelectedBackdrop));
+            }
+        }
+
         public IEnumerable<Theme> Themes { get; } = Enum.GetValues(typeof(Theme)).Cast<Theme>();
 
         public Theme Theme

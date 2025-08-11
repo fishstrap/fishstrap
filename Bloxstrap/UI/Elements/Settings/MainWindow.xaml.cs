@@ -1,12 +1,10 @@
-﻿using System.ComponentModel;
+﻿using Bloxstrap.UI.ViewModels.Settings;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-
+using Wpf.Ui.Common;
 using Wpf.Ui.Controls.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
-
-using Bloxstrap.UI.ViewModels.Settings;
-using Wpf.Ui.Common;
 
 namespace Bloxstrap.UI.Elements.Settings
 {
@@ -34,6 +32,8 @@ namespace Bloxstrap.UI.Elements.Settings
                 ShowAlreadyRunningSnackbar();
 
             LoadState();
+
+            viewModel.ApplyBackdrop(App.Settings.Prop.SelectedBackdrop);
 
             int LastPage = App.State.Prop.LastPage;
 

@@ -1,7 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
+using Wpf.Ui.Controls;
+using Wpf.Ui.Appearance;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -14,7 +18,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ICommand CloseWindowCommand => new RelayCommand(CloseWindow);
 
         public EventHandler? RequestSaveNoticeEvent;
-
         public EventHandler? RequestCloseWindowEvent;
 
         public bool TestModeEnabled
@@ -25,14 +28,39 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (value && !App.State.Prop.TestModeWarningShown)
                 {
                     var result = Frontend.ShowMessageBox(Strings.Menu_TestMode_Prompt, MessageBoxImage.Information, MessageBoxButton.YesNo);
-
                     if (result != MessageBoxResult.Yes)
                         return;
 
                     App.State.Prop.TestModeWarningShown = true;
                 }
-
                 App.LaunchSettings.TestModeFlag.Active = value;
+            }
+        }
+        public void ApplyBackdrop(UIBackgroundType value)
+        {
+            var wpfBackdrop = value switch
+            {
+                UIBackgroundType.None => BackgroundType.None,
+                UIBackgroundType.Mica => BackgroundType.Mica,
+                UIBackgroundType.Acrylic => BackgroundType.Acrylic,
+                UIBackgroundType.Aero => BackgroundType.Aero,
+                _ => BackgroundType.None
+            };
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is UiWindow uiWindow)
+                {
+                    bool isTransparentBackdrop = (wpfBackdrop == BackgroundType.Acrylic || wpfBackdrop == BackgroundType.Aero);
+
+                    uiWindow.AllowsTransparency = isTransparentBackdrop;
+
+                    uiWindow.WindowStyle = isTransparentBackdrop
+                        ? WindowStyle.None
+                        : WindowStyle.SingleBorderWindow;
+
+                    uiWindow.WindowBackdropType = wpfBackdrop;
+                }
             }
         }
 
@@ -71,6 +99,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             RequestSaveNoticeEvent?.Invoke(this, EventArgs.Empty);
         }
+
         public void SaveAndLaunchSettings()
         {
             SaveSettings();
@@ -96,14 +125,5 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public ObservableCollection<GradientStopData> GradientStops { get; } =
             new(App.Settings.Prop.CustomGradientStops);
-
-        public void AddGradientStop()
-        {
-            var newStop = new GradientStopData { Offset = 0.5, Color = "#FFFFFF" };
-            GradientStops.Add(newStop);
-            App.Settings.Prop.CustomGradientStops = GradientStops.ToList();
-            OnPropertyChanged(nameof(GradientStops));
-        }
-
     }
 }
