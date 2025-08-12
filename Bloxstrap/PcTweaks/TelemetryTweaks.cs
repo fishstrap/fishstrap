@@ -102,6 +102,7 @@ namespace Bloxstrap.PcTweaks
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = exePath,
+                    Arguments = "-menu",
                     UseShellExecute = true,
                     Verb = "runas"
                 });
