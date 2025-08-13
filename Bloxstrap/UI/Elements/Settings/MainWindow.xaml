@@ -11,10 +11,10 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance dmodels:MainWindowViewModel, IsDesignTimeCreatable=True}"
              Title="{x:Static resources:Strings.Menu_Title}"
-             MinWidth="240"
-             Width="1040"
-             MinHeight="240"
-             Height="600"
+             MinWidth="250"
+             Width="1070"
+             MinHeight="250"
+             Height="675"
              Background="{ui:ThemeResource ApplicationBackgroundBrush}"
              ExtendsContentIntoTitleBar="True"
              WindowBackdropType="{Binding SelectedBackdrop}"
@@ -59,12 +59,12 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ui:NavigationFluent x:Name="RootNavigation" Grid.Row="1" Grid.Column="0" Margin="0,0,12,0" Frame="{Binding ElementName=RootFrame}" SelectedPageIndex="0">
-                <ui:NavigationFluent.Items>
+            <ui:NavigationCompact x:Name="RootNavigation" Grid.Row="1" Grid.Column="0" Margin="0,0,12,0" Frame="{Binding ElementName=RootFrame}" SelectedPageIndex="0">
+                <ui:NavigationCompact.Items>
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Integrations_Title}" PageType="{x:Type pages:IntegrationsPage}" Icon="Add28" Tag="integrations" FontWeight="Medium" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Behaviour_Title}" PageType="{x:Type pages:BehaviourPage}" Icon="PlaySettings20" Tag="bootstrapper" FontWeight="Medium" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Mods_Title}" PageType="{x:Type pages:ModsPage}" Icon="WrenchScrewdriver20" Tag="mods" FontWeight="Medium" />
@@ -73,14 +73,14 @@
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_Appearance_Title}" PageType="{x:Type pages:AppearancePage}" Icon="PaintBrush24" Tag="appearance" FontWeight="Medium" />
                     <ui:NavigationItem Content="PC Tweaks" PageType="{x:Type pages:PCTweaksPage}" Icon="DesktopCheckmark24" Tag="pctweaks" FontWeight="Medium" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Common_Shortcuts}" PageType="{x:Type pages:ShortcutsPage}" Icon="Apps28" Tag="shortcuts" FontWeight="Medium" />
-                </ui:NavigationFluent.Items>
-                <ui:NavigationFluent.Footer>
+                </ui:NavigationCompact.Items>
+                <ui:NavigationCompact.Footer>
                     <ui:NavigationItem Content="Community" PageType="{x:Type pages:CommunityPage}" Icon="People20" Tag="community" FontWeight="Medium" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Common_Settings}" PageType="{x:Type pages:ChannelPage}" Icon="Settings20" Tag="channel" FontWeight="Medium" />
                     <ui:NavigationItem Content="{x:Static resources:Strings.Menu_About_Title}" Icon="WeatherSnowflake48" IconSize="20" Margin="0,0,0,12" Command="{Binding OpenAboutCommand, Mode=OneTime}" FontWeight="Medium" />
-                </ui:NavigationFluent.Footer>
+                </ui:NavigationCompact.Footer>
 
-            </ui:NavigationFluent>
+            </ui:NavigationCompact>
 
             <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
                 <Grid.RowDefinitions>
