@@ -40,10 +40,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             var wpfBackdrop = value switch
             {
-                UIBackgroundType.None => BackgroundType.None,
                 UIBackgroundType.Mica => BackgroundType.Mica,
-                UIBackgroundType.Acrylic => BackgroundType.Acrylic,
-                UIBackgroundType.Aero => BackgroundType.Aero,
+                UIBackgroundType.None => BackgroundType.None,
                 _ => BackgroundType.None
             };
 
@@ -51,14 +49,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 if (window is UiWindow uiWindow)
                 {
-                    bool isTransparentBackdrop = (wpfBackdrop == BackgroundType.Acrylic || wpfBackdrop == BackgroundType.Aero);
-
-                    uiWindow.AllowsTransparency = isTransparentBackdrop;
-
-                    uiWindow.WindowStyle = isTransparentBackdrop
-                        ? WindowStyle.None
-                        : WindowStyle.SingleBorderWindow;
-
+                    uiWindow.AllowsTransparency = false;
+                    uiWindow.WindowStyle = WindowStyle.SingleBorderWindow;
                     uiWindow.WindowBackdropType = wpfBackdrop;
                 }
             }

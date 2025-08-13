@@ -1,8 +1,4 @@
-﻿using Bloxstrap.AppData;
-using Bloxstrap.Enums;
-using Bloxstrap.Integrations;
-using Bloxstrap.RobloxInterfaces;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -15,25 +11,21 @@ namespace Bloxstrap.UI.ViewModels.Settings
             foreach (var entry in RobloxIconEx.Selections)
                 RobloxIcons.Add(new RobloxIconEntry { IconType = (RobloxIcon)entry });
 
-            _selectedPriority = App.Settings.Prop.SelectedProcessPriority;
         }
 
         public ObservableCollection<ProcessPriorityOption> ProcessPriorityOptions { get; } =
             new ObservableCollection<ProcessPriorityOption>(Enum.GetValues(typeof(ProcessPriorityOption)).Cast<ProcessPriorityOption>());
 
-        private ProcessPriorityOption _selectedPriority;
         public ProcessPriorityOption SelectedPriority
         {
-            get => _selectedPriority;
+            get => App.Settings.Prop.SelectedProcessPriority;
             set
             {
-                if (_selectedPriority == value)
-                    return;
-
-                _selectedPriority = value;
-                App.Settings.Prop.SelectedProcessPriority = value;
-                App.Settings.Save();
-                OnPropertyChanged(nameof(SelectedPriority));
+                if (App.Settings.Prop.SelectedProcessPriority != value)
+                {
+                    App.Settings.Prop.SelectedProcessPriority = value;
+                    OnPropertyChanged(nameof(SelectedPriority));
+                }
             }
         }
 
@@ -81,7 +73,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (App.Settings.Prop.SelectedRobloxIcon != value)
                 {
                     App.Settings.Prop.SelectedRobloxIcon = value;
-                    App.Settings.Save();
                     OnPropertyChanged(nameof(SelectedRobloxIcon));
                 }
             }

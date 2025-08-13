@@ -22,14 +22,13 @@ namespace Bloxstrap.UI.Elements.Dialogs
         public AdvancedSettingsDialog()
         {
             InitializeComponent();
-            ViewModel.LoadSettings();
             DataContext = ViewModel;
             SharedViewModel = ViewModel;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.SaveSettings();
+            App.Settings.Save();
             SettingsSaved?.Invoke(this, EventArgs.Empty);
         }
     }

@@ -13,11 +13,15 @@ namespace Bloxstrap.UI.Elements.Base
     {
         private readonly IThemeService _themeService = new ThemeService();
 
-        private System.Windows.Controls.Image? _cachedGifImage;
+        private System.Windows.Controls.Image? _gifImage;
+        private Uri? _currentImageUri;
+        private bool _currentIsGif;
+        private Brush? _currentBackgroundBrush;
 
         public WpfUiWindow()
         {
-            this.Loaded += WpfUiWindow_Loaded;
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
 
         public void ApplyTheme()
@@ -28,10 +32,7 @@ namespace Bloxstrap.UI.Elements.Base
             _themeService.SetTheme(finalTheme == Enums.Theme.Light ? ThemeType.Light : ThemeType.Dark);
             _themeService.SetSystemAccent();
 
-            if (_cachedGifImage == null)
-            {
-                _cachedGifImage = FindAnimatedGifImageControl();
-            }
+            _gifImage ??= FindAnimatedGifImageControl();
 
             if (App.Settings.Prop.Theme == Enums.Theme.Custom)
             {
@@ -42,173 +43,258 @@ namespace Bloxstrap.UI.Elements.Base
                     try
                     {
                         var uri = new Uri(App.Settings.Prop.ImageBackgroundPath, UriKind.Absolute);
-                        var extension = Path.GetExtension(uri.LocalPath).ToLowerInvariant();
-                        var isAnimatedGif = extension == ".gif";
+                        var isGif = string.Equals(Path.GetExtension(uri.LocalPath), ".gif", StringComparison.OrdinalIgnoreCase);
 
-                        if (isAnimatedGif)
+                        if (isGif)
                         {
-                            Application.Current.Resources["WindowBackgroundGradient"] = null;
-
-                            if (_cachedGifImage != null)
-                            {
-                                if (_cachedGifImage.Visibility != Visibility.Visible)
-                                    _cachedGifImage.Visibility = Visibility.Visible;
-
-                                _cachedGifImage.Stretch = App.Settings.Prop.BackgroundImageStretch switch
-                                {
-                                    BackgroundImageStretchMode.Fill => Stretch.Fill,
-                                    BackgroundImageStretchMode.Uniform => Stretch.Uniform,
-                                    BackgroundImageStretchMode.UniformToFill => Stretch.UniformToFill,
-                                    _ => Stretch.Fill
-                                };
-
-                                var currentSource = XamlAnimatedGif.AnimationBehavior.GetSourceUri(_cachedGifImage);
-                                if (currentSource != uri)
-                                {
-                                    XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, uri);
-                                }
-
-                                RenderOptions.SetBitmapScalingMode(_cachedGifImage, BitmapScalingMode.HighQuality);
-                            }
+                            SetBackgroundBrush(null);
+                            EnsureGifVisible(uri);
                         }
                         else
                         {
-                            if (_cachedGifImage != null && _cachedGifImage.Visibility != Visibility.Collapsed)
-                            {
-                                _cachedGifImage.Visibility = Visibility.Collapsed;
-                                XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
-                            }
-
-                            var image = new BitmapImage();
-                            image.BeginInit();
-                            image.CacheOption = BitmapCacheOption.OnLoad;
-                            image.UriSource = uri;
-                            image.EndInit();
-
-                            var stretch = App.Settings.Prop.BackgroundImageStretch switch
-                            {
-                                BackgroundImageStretchMode.Fill => Stretch.Fill,
-                                BackgroundImageStretchMode.Uniform => Stretch.Uniform,
-                                BackgroundImageStretchMode.UniformToFill => Stretch.UniformToFill,
-                                _ => Stretch.Fill
-                            };
-
-                            var imageBrush = new ImageBrush(image)
-                            {
-                                Stretch = stretch,
-                                AlignmentX = AlignmentX.Center,
-                                AlignmentY = AlignmentY.Center
-                            };
-
-                            Application.Current.Resources["WindowBackgroundGradient"] = imageBrush;
+                            EnsureGifHidden();
+                            SetBackgroundImage(uri);
                         }
 
-                        Application.Current.Resources["NewTextEditorBackground"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2D2D2D"));
-                        Application.Current.Resources["NewTextEditorForeground"] = new SolidColorBrush(Colors.White);
-                        Application.Current.Resources["NewTextEditorLink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3A9CEA"));
-                        Application.Current.Resources["PrimaryBackgroundColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0FFFFFFF"));
-                        Application.Current.Resources["NormalDarkAndLightBackground"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0FFFFFFF"));
-
-                        double overlayOpacity = App.Settings.Prop.BlackOverlayOpacity;
-                        var overlayColor = Color.FromArgb((byte)(overlayOpacity * 255), 0, 0, 0);
-                        Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(overlayColor);
+                        SetImageModeThemeColors();
+                        SetBlackOverlay(App.Settings.Prop.BlackOverlayOpacity);
                     }
                     catch
                     {
-                        Application.Current.Resources["WindowBackgroundGradient"] = null;
-                        Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(Colors.Transparent);
-
-                        if (_cachedGifImage != null)
-                        {
-                            _cachedGifImage.Visibility = Visibility.Collapsed;
-                            XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
-                        }
+                        EnsureGifHidden();
+                        SetBackgroundBrush(null);
+                        SetBlackOverlay(0);
                     }
                 }
                 else
                 {
-                    if (_cachedGifImage != null && _cachedGifImage.Visibility != Visibility.Collapsed)
-                    {
-                        _cachedGifImage.Visibility = Visibility.Collapsed;
-                        XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
-                    }
-
-                    Application.Current.Resources["WindowBackgroundGradient"] = null;
-
-                    if (App.Settings.Prop.CustomGradientStops == null || App.Settings.Prop.CustomGradientStops.Count == 0)
-                    {
-                        App.Settings.Prop.CustomGradientStops = new()
-                        {
-                            new GradientStopData { Offset = 0.0, Color = "#4D5560" },
-                            new GradientStopData { Offset = 0.5, Color = "#383F47" },
-                            new GradientStopData { Offset = 1.0, Color = "#252A30" }
-                        };
-                    }
-
-                    var startPoint = App.Settings.Prop.GradientStartPoint == default ? new Point(1, 1) : App.Settings.Prop.GradientStartPoint;
-                    var endPoint = App.Settings.Prop.GradientEndPoint == default ? new Point(0, 0) : App.Settings.Prop.GradientEndPoint;
-
-                    var customBrush = new LinearGradientBrush
-                    {
-                        StartPoint = startPoint,
-                        EndPoint = endPoint
-                    };
-
-                    foreach (var stop in App.Settings.Prop.CustomGradientStops.OrderBy(s => s.Offset))
-                    {
-                        try
-                        {
-                            var color = (Color)ColorConverter.ConvertFromString(stop.Color);
-                            customBrush.GradientStops.Add(new GradientStop(color, stop.Offset));
-                        }
-                        catch { }
-                    }
-
-                    Application.Current.Resources["WindowBackgroundGradient"] = customBrush;
-
-                    Application.Current.Resources["NewTextEditorBackground"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#59000000"));
-                    Application.Current.Resources["NewTextEditorForeground"] = new SolidColorBrush(Colors.White);
-                    Application.Current.Resources["NewTextEditorLink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3A9CEA"));
-                    Application.Current.Resources["PrimaryBackgroundColor"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#19000000"));
-                    Application.Current.Resources["NormalDarkAndLightBackground"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#0FFFFFFF"));
-                    Application.Current.Resources["ControlFillColorDefault"] = (Color)ColorConverter.ConvertFromString("#19000000");
-
-                    Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(Colors.Transparent);
+                    EnsureGifHidden();
+                    SetBackgroundBrush(CreateCustomGradientBrush());
+                    SetGradientModeThemeColors();
+                    SetBlackOverlay(0);
                 }
 
-                Application.Current.Resources.MergedDictionaries[customThemeIndex] = new ResourceDictionary();
+                EnsureMergedDictionary(customThemeIndex, null);
             }
             else
             {
-                if (_cachedGifImage != null && _cachedGifImage.Visibility != Visibility.Collapsed)
-                {
-                    _cachedGifImage.Visibility = Visibility.Collapsed;
-                    XamlAnimatedGif.AnimationBehavior.SetSourceUri(_cachedGifImage, null);
-                }
+                EnsureGifHidden();
+                SetBackgroundBrush(null);
+                ClearThemeOverrides();
+                SetBlackOverlay(0);
 
                 var dict = new ResourceDictionary
                 {
                     Source = new Uri($"pack://application:,,,/UI/Style/{Enum.GetName(finalTheme)}.xaml")
                 };
-
-                Application.Current.Resources.MergedDictionaries[customThemeIndex] = dict;
-
-                Application.Current.Resources["WindowBackgroundGradient"] = null;
-                Application.Current.Resources.Remove("NewTextEditorBackground");
-                Application.Current.Resources.Remove("NewTextEditorForeground");
-                Application.Current.Resources.Remove("NewTextEditorLink");
-                Application.Current.Resources.Remove("PrimaryBackgroundColor");
-                Application.Current.Resources.Remove("NormalDarkAndLightBackground");
-                Application.Current.Resources.Remove("ControlFillColorDefault");
-                Application.Current.Resources.Remove("WindowBackgroundBlackOverlay");
-
-                Application.Current.Resources["WindowBackgroundBlackOverlay"] = new SolidColorBrush(Colors.Transparent);
+                EnsureMergedDictionary(customThemeIndex, dict);
             }
 
 #if QA_BUILD
-            this.BorderBrush = Brushes.Red;
-            this.BorderThickness = new Thickness(4);
+            BorderBrush = Brushes.Red;
+            BorderThickness = new Thickness(4);
 #endif
+        }
+
+        private void EnsureMergedDictionary(int index, ResourceDictionary? dict)
+        {
+            var md = Application.Current.Resources.MergedDictionaries;
+            while (md.Count <= index)
+                md.Add(new ResourceDictionary());
+            md[index] = dict ?? new ResourceDictionary();
+        }
+
+        private void EnsureGifVisible(Uri uri)
+        {
+            if (_gifImage == null)
+                return;
+
+            if (_gifImage.Visibility != Visibility.Visible)
+                _gifImage.Visibility = Visibility.Visible;
+
+            var desiredStretch = App.Settings.Prop.BackgroundImageStretch switch
+            {
+                BackgroundImageStretchMode.Fill => Stretch.Fill,
+                BackgroundImageStretchMode.Uniform => Stretch.Uniform,
+                BackgroundImageStretchMode.UniformToFill => Stretch.UniformToFill,
+                _ => Stretch.Fill
+            };
+            if (_gifImage.Stretch != desiredStretch)
+                _gifImage.Stretch = desiredStretch;
+
+            var current = XamlAnimatedGif.AnimationBehavior.GetSourceUri(_gifImage);
+            if (!_currentIsGif || _currentImageUri != uri || current != uri)
+            {
+                try
+                {
+                    XamlAnimatedGif.AnimationBehavior.SetSourceUri(_gifImage, uri);
+                }
+                catch { /* ignore */ }
+                _currentImageUri = uri;
+                _currentIsGif = true;
+            }
+
+            RenderOptions.SetBitmapScalingMode(_gifImage, BitmapScalingMode.HighQuality);
+        }
+
+        private void EnsureGifHidden()
+        {
+            if (_gifImage == null)
+                return;
+
+            if (_gifImage.Visibility != Visibility.Collapsed)
+                _gifImage.Visibility = Visibility.Collapsed;
+
+            if (_currentIsGif)
+            {
+                try
+                {
+                    XamlAnimatedGif.AnimationBehavior.SetSourceUri(_gifImage, null);
+                }
+                catch { /* ignore */ }
+                _currentIsGif = false;
+            }
+        }
+
+        private void SetBackgroundImage(Uri uri)
+        {
+            if (_currentBackgroundBrush is ImageBrush existing &&
+                _currentImageUri == uri && !_currentIsGif)
+            {
+                return;
+            }
+
+            var bmp = new BitmapImage();
+            bmp.BeginInit();
+            bmp.CacheOption = BitmapCacheOption.OnLoad;
+            bmp.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            bmp.UriSource = uri;
+            bmp.EndInit();
+            if (bmp.CanFreeze) bmp.Freeze();
+
+            var stretch = App.Settings.Prop.BackgroundImageStretch switch
+            {
+                BackgroundImageStretchMode.Fill => Stretch.Fill,
+                BackgroundImageStretchMode.Uniform => Stretch.Uniform,
+                BackgroundImageStretchMode.UniformToFill => Stretch.UniformToFill,
+                _ => Stretch.Fill
+            };
+
+            var brush = new ImageBrush(bmp)
+            {
+                Stretch = stretch,
+                AlignmentX = AlignmentX.Center,
+                AlignmentY = AlignmentY.Center
+            };
+            if (brush.CanFreeze) brush.Freeze();
+
+            SetBackgroundBrush(brush);
+
+            _currentImageUri = uri;
+            _currentIsGif = false;
+        }
+
+        private void SetBackgroundBrush(Brush? brush)
+        {
+            if (ReferenceEquals(_currentBackgroundBrush, brush))
+                return;
+
+            _currentBackgroundBrush = brush;
+            Application.Current.Resources["WindowBackgroundGradient"] = brush;
+
+            if (brush == null &&
+                Application.Current.Resources["WindowBackgroundGradient"] is ImageBrush ib)
+            {
+                ib.ImageSource = null;
+            }
+        }
+
+        private LinearGradientBrush CreateCustomGradientBrush()
+        {
+            if (App.Settings.Prop.CustomGradientStops == null || App.Settings.Prop.CustomGradientStops.Count == 0)
+            {
+                App.Settings.Prop.CustomGradientStops = new()
+                {
+                    new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+                    new GradientStopData { Offset = 0.5, Color = "#383F47" },
+                    new GradientStopData { Offset = 1.0, Color = "#252A30" }
+                };
+            }
+
+            var startPoint = App.Settings.Prop.GradientStartPoint == default ? new Point(1, 1) : App.Settings.Prop.GradientStartPoint;
+            var endPoint = App.Settings.Prop.GradientEndPoint == default ? new Point(0, 0) : App.Settings.Prop.GradientEndPoint;
+
+            var brush = new LinearGradientBrush
+            {
+                StartPoint = startPoint,
+                EndPoint = endPoint
+            };
+
+            foreach (var stop in App.Settings.Prop.CustomGradientStops.OrderBy(s => s.Offset))
+            {
+                try
+                {
+                    var color = (Color)ColorConverter.ConvertFromString(stop.Color);
+                    brush.GradientStops.Add(new GradientStop(color, stop.Offset));
+                }
+                catch { /* ignore invalid color */ }
+            }
+
+            if (brush.CanFreeze) brush.Freeze();
+            return brush;
+        }
+
+        private void SetBlackOverlay(double opacity0to1)
+        {
+            var alpha = (byte)Math.Max(0, Math.Min(255, (int)(opacity0to1 * 255)));
+            var brush = new SolidColorBrush(Color.FromArgb(alpha, 0, 0, 0));
+            if (brush.CanFreeze) brush.Freeze();
+            Application.Current.Resources["WindowBackgroundBlackOverlay"] = brush;
+        }
+
+        private static void SetImageModeThemeColors()
+        {
+            SetSolidBrush("NewTextEditorBackground", "#2D2D2D");
+            SetSolidBrush("NewTextEditorForeground", Colors.White);
+            SetSolidBrush("NewTextEditorLink", "#3A9CEA");
+            SetSolidBrush("PrimaryBackgroundColor", "#0FFFFFFF");
+            SetSolidBrush("NormalDarkAndLightBackground", "#0FFFFFFF");
+        }
+
+        private static void SetGradientModeThemeColors()
+        {
+            SetSolidBrush("NewTextEditorBackground", "#59000000");
+            SetSolidBrush("NewTextEditorForeground", Colors.White);
+            SetSolidBrush("NewTextEditorLink", "#3A9CEA");
+            SetSolidBrush("PrimaryBackgroundColor", "#19000000");
+            SetSolidBrush("NormalDarkAndLightBackground", "#0FFFFFFF");
+
+            Application.Current.Resources["ControlFillColorDefault"] =
+                (Color)ColorConverter.ConvertFromString("#19000000");
+        }
+
+        private static void ClearThemeOverrides()
+        {
+            Application.Current.Resources.Remove("NewTextEditorBackground");
+            Application.Current.Resources.Remove("NewTextEditorForeground");
+            Application.Current.Resources.Remove("NewTextEditorLink");
+            Application.Current.Resources.Remove("PrimaryBackgroundColor");
+            Application.Current.Resources.Remove("NormalDarkAndLightBackground");
+            Application.Current.Resources.Remove("ControlFillColorDefault");
+            Application.Current.Resources.Remove("WindowBackgroundBlackOverlay");
+        }
+
+        private static void SetSolidBrush(string key, string hex)
+        {
+            var color = (Color)ColorConverter.ConvertFromString(hex);
+            SetSolidBrush(key, color);
+        }
+
+        private static void SetSolidBrush(string key, Color color)
+        {
+            var brush = new SolidColorBrush(color);
+            if (brush.CanFreeze) brush.Freeze();
+            Application.Current.Resources[key] = brush;
         }
 
         private System.Windows.Controls.Image? FindAnimatedGifImageControl()
@@ -219,24 +305,22 @@ namespace Bloxstrap.UI.Elements.Base
                 if (gifImage != null)
                     return gifImage;
             }
-
             return null;
         }
 
         private static T? FindElementByName<T>(DependencyObject parent, string name) where T : FrameworkElement
         {
-            if (parent == null)
-                return null;
+            if (parent == null) return null;
 
             int childCount = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < childCount; i++)
             {
-                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+                var child = VisualTreeHelper.GetChild(parent, i);
 
                 if (child is T element && element.Name == name)
                     return element;
 
-                T? result = FindElementByName<T>(child, name);
+                var result = FindElementByName<T>(child, name);
                 if (result != null)
                     return result;
             }
@@ -244,33 +328,51 @@ namespace Bloxstrap.UI.Elements.Base
             return null;
         }
 
-        private void WpfUiWindow_Loaded(object? sender, RoutedEventArgs e)
+        private void OnLoaded(object? sender, RoutedEventArgs e)
         {
             ApplyTheme();
-            this.Loaded -= WpfUiWindow_Loaded;
+            Loaded -= OnLoaded;
         }
 
+        private void OnUnloaded(object? sender, RoutedEventArgs e)
+        {
+            Unloaded -= OnUnloaded;
+
+            if (_gifImage != null)
+            {
+                try { XamlAnimatedGif.AnimationBehavior.SetSourceUri(_gifImage, null); } catch { }
+                _gifImage.Source = null;
+                _gifImage = null;
+            }
+
+            if (Application.Current.Resources["WindowBackgroundGradient"] is ImageBrush ib)
+                ib.ImageSource = null;
+
+            Application.Current.Resources["WindowBackgroundGradient"] = null;
+            Application.Current.Resources.Remove("WindowBackgroundBlackOverlay");
+            ClearThemeOverrides();
+
+            _currentBackgroundBrush = null;
+            _currentImageUri = null;
+            _currentIsGif = false;
+        }
 
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
 
-            // Hardware Accel
             if (App.Settings.Prop.WPFSoftwareRender || App.LaunchSettings.NoGPUFlag.Active)
             {
                 if (PresentationSource.FromVisual(this) is HwndSource hwndSource)
                     hwndSource.CompositionTarget.RenderMode = RenderMode.SoftwareOnly;
             }
 
-            // CustomFont
-            string? fontPath = App.Settings.Prop.CustomFontPath;
+            var fontPath = App.Settings.Prop.CustomFontPath;
             if (!string.IsNullOrWhiteSpace(fontPath) && File.Exists(fontPath))
             {
                 var font = FontManager.LoadFontFromFile(fontPath);
                 if (font != null)
-                {
-                    this.FontFamily = font;
-                }
+                    FontFamily = font;
             }
         }
     }

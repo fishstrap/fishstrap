@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Bloxstrap;
 
 namespace Bloxstrap.UI.ViewModels.Dialogs
 {
@@ -10,23 +9,14 @@ namespace Bloxstrap.UI.ViewModels.Dialogs
         public static event EventHandler? ShowFlagCountChanged;
         public event EventHandler? ShowAddWithIDChanged;
 
-        private CopyFormatMode _selectedCopyFormat;
-        private bool _showPresetColumnSetting;
-        private bool _showCtrlCJsonFormatSetting;
-
-        public AdvancedSettingViewModel()
-        {
-            LoadSettings();
-        }
-
         public CopyFormatMode SelectedCopyFormat
         {
-            get => _selectedCopyFormat;
+            get => App.Settings.Prop.SelectedCopyFormat;
             set
             {
-                if (_selectedCopyFormat != value)
+                if (App.Settings.Prop.SelectedCopyFormat != value)
                 {
-                    _selectedCopyFormat = value;
+                    App.Settings.Prop.SelectedCopyFormat = value;
                     OnPropertyChanged(nameof(SelectedCopyFormat));
                 }
             }
@@ -34,40 +24,15 @@ namespace Bloxstrap.UI.ViewModels.Dialogs
 
         public IEnumerable<CopyFormatMode> CopyFormatModes => Enum.GetValues(typeof(CopyFormatMode)).Cast<CopyFormatMode>();
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string name) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
-        public void SaveSettings()
-        {
-            var settings = App.Settings.Prop;
-            settings.SelectedCopyFormat = SelectedCopyFormat;
-            settings.ShowPresetColumn = ShowPresetColumnSetting;
-            settings.CtrlCJsonFormat = ShowCtrlCJsonFormatSetting;
-            App.Settings.Save();
-        }
-
-        public void LoadSettings()
-        {
-            var settings = App.Settings.Prop;
-            SelectedCopyFormat = settings.SelectedCopyFormat;
-            ShowPresetColumnSetting = settings.ShowPresetColumn;
-            ShowCtrlCJsonFormatSetting = settings.CtrlCJsonFormat;
-            ShowFlagCount = settings.ShowFlagCount;
-            ShowAddWithID = settings.ShowAddWithID;
-        }
-
         public bool ShowCtrlCJsonFormatSetting
         {
-            get => _showCtrlCJsonFormatSetting;
+            get => App.Settings.Prop.CtrlCJsonFormat;
             set
             {
-                if (_showCtrlCJsonFormatSetting != value)
+                if (App.Settings.Prop.CtrlCJsonFormat != value)
                 {
-                    _showCtrlCJsonFormatSetting = value;
-                    OnPropertyChanged(nameof(ShowCtrlCJsonFormatSetting));
                     App.Settings.Prop.CtrlCJsonFormat = value;
-                    App.Settings.Save();
+                    OnPropertyChanged(nameof(ShowCtrlCJsonFormatSetting));
                     CtrlCJsonFormatChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
@@ -75,56 +40,48 @@ namespace Bloxstrap.UI.ViewModels.Dialogs
 
         public bool ShowPresetColumnSetting
         {
-            get => _showPresetColumnSetting;
+            get => App.Settings.Prop.ShowPresetColumn;
             set
             {
-                if (_showPresetColumnSetting != value)
+                if (App.Settings.Prop.ShowPresetColumn != value)
                 {
-                    _showPresetColumnSetting = value;
+                    App.Settings.Prop.ShowPresetColumn = value;
                     OnPropertyChanged(nameof(ShowPresetColumnSetting));
-                    SaveSettings();
                     ShowPresetColumnChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
 
-        private bool _showFlagCount;
         public bool ShowFlagCount
         {
-            get => _showFlagCount;
+            get => App.Settings.Prop.ShowFlagCount;
             set
             {
-                if (_showFlagCount != value)
+                if (App.Settings.Prop.ShowFlagCount != value)
                 {
-                    _showFlagCount = value;
+                    App.Settings.Prop.ShowFlagCount = value;
                     OnPropertyChanged(nameof(ShowFlagCount));
-                    var settings = App.Settings.Prop;
-                    settings.ShowFlagCount = value;
-                    App.Settings.Save();
                     ShowFlagCountChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
 
-        private bool _showAddWithID;
-
         public bool ShowAddWithID
         {
-            get => _showAddWithID;
+            get => App.Settings.Prop.ShowAddWithID;
             set
             {
-                if (_showAddWithID != value)
+                if (App.Settings.Prop.ShowAddWithID != value)
                 {
-                    _showAddWithID = value;
+                    App.Settings.Prop.ShowAddWithID = value;
                     OnPropertyChanged(nameof(ShowAddWithID));
-
-                    var settings = App.Settings.Prop;
-                    settings.ShowAddWithID = value;
-                    App.Settings.Save();
-
                     ShowAddWithIDChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string name) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

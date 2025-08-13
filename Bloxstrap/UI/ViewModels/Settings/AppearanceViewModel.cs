@@ -162,21 +162,17 @@ namespace Bloxstrap.UI.ViewModels.Settings
             GradientEndPointX = App.Settings.Prop.GradientEndPoint.X != 0 ? App.Settings.Prop.GradientEndPoint.X : 0;
             GradientEndPointY = App.Settings.Prop.GradientEndPoint.Y != 0 ? App.Settings.Prop.GradientEndPoint.Y : 0;
 
-            _backgroundMode = App.Settings.Prop.BackgroundMode;
-            _imageBackgroundPath = App.Settings.Prop.ImageBackgroundPath;
-            _backgroundImageStretch = App.Settings.Prop.BackgroundImageStretch;
-
             OnPropertyChanged(nameof(BackgroundMode));
             OnPropertyChanged(nameof(ImageBackgroundPath));
             OnPropertyChanged(nameof(BackgroundImageStretch));
             OnPropertyChanged(nameof(IsGradientMode));
             OnPropertyChanged(nameof(IsImageMode));
 
-            if (_backgroundMode == CustomBackgroundMode.Image &&
-                !string.IsNullOrWhiteSpace(_imageBackgroundPath) &&
-                File.Exists(_imageBackgroundPath))
+            if (BackgroundMode == CustomBackgroundMode.Image &&
+                !string.IsNullOrWhiteSpace(ImageBackgroundPath) &&
+                File.Exists(ImageBackgroundPath))
             {
-                LoadPreviewImage(_imageBackgroundPath);
+                LoadPreviewImage(ImageBackgroundPath);
             }
             else
             {
@@ -186,15 +182,13 @@ namespace Bloxstrap.UI.ViewModels.Settings
             GradientStops.CollectionChanged += (s, e) => { /* optionally handle changes */ };
 
             UpdateLivePreviewBrush();
-
-            _blackOverlayOpacity = App.Settings.Prop.BlackOverlayOpacity;
             UpdateBlackOverlayBrush();
             OnPropertyChanged(nameof(BlackOverlayOpacity));
         }
 
         public ObservableCollection<GradientStopData> GradientStops { get; } = new();
 
-        public IEnumerable<UIBackgroundType> BackdropOptions { get; } =
+        public IEnumerable<UIBackgroundType> BackdropOptions =>
             Enum.GetValues(typeof(UIBackgroundType)).Cast<UIBackgroundType>();
 
         public UIBackgroundType SelectedBackdrop
@@ -202,15 +196,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.Settings.Prop.SelectedBackdrop;
             set
             {
-                if (App.Settings.Prop.SelectedBackdrop == value)
-                    return;
-
-                App.Settings.Prop.SelectedBackdrop = value;
-
-                App.Settings.Prop.SelectedBackdrop = value;
-                App.Settings.Save();
-
-                OnPropertyChanged(nameof(SelectedBackdrop));
+                if (App.Settings.Prop.SelectedBackdrop != value)
+                {
+                    App.Settings.Prop.SelectedBackdrop = value;
+                    App.Settings.Save();
+                    OnPropertyChanged(nameof(SelectedBackdrop));
+                }
             }
         }
 
@@ -230,11 +221,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
                         _hasInitializedCustomGradient = true;
 
                         var defaultStops = new List<GradientStopData>
-                        {
-                            new GradientStopData { Offset = 0.0, Color = "#4D5560" },
-                            new GradientStopData { Offset = 0.5, Color = "#383F47" },
-                            new GradientStopData { Offset = 1.0, Color = "#252A30" },
-                        };
+                {
+                    new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+                    new GradientStopData { Offset = 0.5, Color = "#383F47" },
+                    new GradientStopData { Offset = 1.0, Color = "#252A30" },
+                };
 
                         App.Settings.Prop.CustomGradientStops = defaultStops;
 
@@ -274,11 +265,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
             GradientStops.Clear();
 
             var defaultStops = new List<GradientStopData>
-            {
-                new GradientStopData { Offset = 0.0, Color = "#4D5560" },
-                new GradientStopData { Offset = 0.5, Color = "#383F47" },
-                new GradientStopData { Offset = 1.0, Color = "#252A30" },
-            };
+    {
+        new GradientStopData { Offset = 0.0, Color = "#4D5560" },
+        new GradientStopData { Offset = 0.5, Color = "#383F47" },
+        new GradientStopData { Offset = 1.0, Color = "#252A30" },
+    };
 
             foreach (var stop in defaultStops)
             {
@@ -315,60 +306,60 @@ namespace Bloxstrap.UI.ViewModels.Settings
             LivePreviewBrush = brush;
         }
 
-        private double _gradientStartPointX = 1;
         public double GradientStartPointX
         {
-            get => _gradientStartPointX;
+            get => App.Settings.Prop.GradientStartPoint.X;
             set
             {
-                if (_gradientStartPointX != value)
+                if (App.Settings.Prop.GradientStartPoint.X != value)
                 {
-                    _gradientStartPointX = value;
+                    App.Settings.Prop.GradientStartPoint = new Point(value, GradientStartPointY);
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(GradientStartPointX));
                     UpdateGradientPoints();
                 }
             }
         }
 
-        private double _gradientStartPointY = 1;
         public double GradientStartPointY
         {
-            get => _gradientStartPointY;
+            get => App.Settings.Prop.GradientStartPoint.Y;
             set
             {
-                if (_gradientStartPointY != value)
+                if (App.Settings.Prop.GradientStartPoint.Y != value)
                 {
-                    _gradientStartPointY = value;
+                    App.Settings.Prop.GradientStartPoint = new Point(GradientStartPointX, value);
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(GradientStartPointY));
                     UpdateGradientPoints();
                 }
             }
         }
 
-        private double _gradientEndPointX = 0;
         public double GradientEndPointX
         {
-            get => _gradientEndPointX;
+            get => App.Settings.Prop.GradientEndPoint.X;
             set
             {
-                if (_gradientEndPointX != value)
+                if (App.Settings.Prop.GradientEndPoint.X != value)
                 {
-                    _gradientEndPointX = value;
+                    App.Settings.Prop.GradientEndPoint = new Point(value, GradientEndPointY);
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(GradientEndPointX));
                     UpdateGradientPoints();
                 }
             }
         }
 
-        private double _gradientEndPointY = 0;
         public double GradientEndPointY
         {
-            get => _gradientEndPointY;
+            get => App.Settings.Prop.GradientEndPoint.Y;
             set
             {
-                if (_gradientEndPointY != value)
+                if (App.Settings.Prop.GradientEndPoint.Y != value)
                 {
-                    _gradientEndPointY = value;
+                    App.Settings.Prop.GradientEndPoint = new Point(GradientEndPointX, value);
+                    App.Settings.Save();
                     OnPropertyChanged(nameof(GradientEndPointY));
                     UpdateGradientPoints();
                 }
@@ -377,21 +368,16 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         private void UpdateGradientPoints()
         {
-            App.Settings.Prop.GradientStartPoint = new Point(GradientStartPointX, GradientStartPointY);
-            App.Settings.Prop.GradientEndPoint = new Point(GradientEndPointX, GradientEndPointY);
-
             ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
         }
 
-        private CustomBackgroundMode _backgroundMode = CustomBackgroundMode.Gradient;
         public CustomBackgroundMode BackgroundMode
         {
-            get => _backgroundMode;
+            get => App.Settings.Prop.BackgroundMode;
             set
             {
-                if (_backgroundMode != value)
+                if (App.Settings.Prop.BackgroundMode != value)
                 {
-                    _backgroundMode = value;
                     App.Settings.Prop.BackgroundMode = value;
                     App.Settings.Save();
 
@@ -399,7 +385,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     OnPropertyChanged(nameof(IsGradientMode));
                     OnPropertyChanged(nameof(IsImageMode));
 
-                    if (_backgroundMode == CustomBackgroundMode.Image)
+                    if (value == CustomBackgroundMode.Image)
                     {
                         if (!string.IsNullOrWhiteSpace(ImageBackgroundPath) && File.Exists(ImageBackgroundPath))
                             LoadPreviewImage(ImageBackgroundPath);
@@ -436,21 +422,19 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        private string _imageBackgroundPath = string.Empty;
         public string ImageBackgroundPath
         {
-            get => _imageBackgroundPath;
+            get => App.Settings.Prop.ImageBackgroundPath;
             set
             {
-                if (_imageBackgroundPath != value)
+                if (App.Settings.Prop.ImageBackgroundPath != value)
                 {
-                    _imageBackgroundPath = value;
                     App.Settings.Prop.ImageBackgroundPath = value;
                     App.Settings.Save();
 
                     OnPropertyChanged(nameof(ImageBackgroundPath));
 
-                    if (_backgroundMode == CustomBackgroundMode.Image && File.Exists(value))
+                    if (BackgroundMode == CustomBackgroundMode.Image && File.Exists(value))
                     {
                         LoadPreviewImage(value);
                         ((MainWindow)Window.GetWindow(_page)!)?.ApplyTheme();
@@ -474,16 +458,13 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        private double _blackOverlayOpacity = 0.2; // default 20%
-
         public double BlackOverlayOpacity
         {
-            get => _blackOverlayOpacity;
+            get => App.Settings.Prop.BlackOverlayOpacity;
             set
             {
-                if (_blackOverlayOpacity != value)
+                if (App.Settings.Prop.BlackOverlayOpacity != value)
                 {
-                    _blackOverlayOpacity = value;
                     App.Settings.Prop.BlackOverlayOpacity = value;
                     App.Settings.Save();
                     OnPropertyChanged(nameof(BlackOverlayOpacity));
@@ -495,8 +476,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
         private void UpdateBlackOverlayBrush()
         {
             var color = Color.FromArgb(
-                (byte)(_blackOverlayOpacity * 255), // alpha
-                0, 0, 0); // black
+                (byte)(BlackOverlayOpacity * 255),
+                0, 0, 0);
 
             var brush = new SolidColorBrush(color);
             brush.Freeze();
@@ -504,18 +485,16 @@ namespace Bloxstrap.UI.ViewModels.Settings
             Application.Current.Resources["WindowBackgroundBlackOverlay"] = brush;
         }
 
-        public IEnumerable<BackgroundImageStretchMode> BackgroundImageStretchModes
-            => Enum.GetValues(typeof(BackgroundImageStretchMode)).Cast<BackgroundImageStretchMode>();
+        public IEnumerable<BackgroundImageStretchMode> BackgroundImageStretchModes =>
+            Enum.GetValues(typeof(BackgroundImageStretchMode)).Cast<BackgroundImageStretchMode>();
 
-        private BackgroundImageStretchMode _backgroundImageStretch;
         public BackgroundImageStretchMode BackgroundImageStretch
         {
-            get => _backgroundImageStretch;
+            get => App.Settings.Prop.BackgroundImageStretch;
             set
             {
-                if (_backgroundImageStretch != value)
+                if (App.Settings.Prop.BackgroundImageStretch != value)
                 {
-                    _backgroundImageStretch = value;
                     App.Settings.Prop.BackgroundImageStretch = value;
                     App.Settings.Save();
 
@@ -550,7 +529,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public void LoadPreviewImage(string path)
         {
-            if (App.Settings.Prop.BackgroundMode != CustomBackgroundMode.Image)
+            if (BackgroundMode != CustomBackgroundMode.Image)
                 return;
 
             if (File.Exists(path))

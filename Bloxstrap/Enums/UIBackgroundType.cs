@@ -3,8 +3,6 @@
     public enum UIBackgroundType
     {
         Mica,
-        Aero,
-        Acrylic,
         None
     }
 }
