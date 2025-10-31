@@ -3,6 +3,7 @@ using Bloxstrap.UI.ViewModels.Dialogs;
 using Microsoft.Win32;
 using System.IO.Compression;
 using System.Windows;
+using Bloxstrap;
 
 namespace Bloxstrap.UI.Elements.Dialogs
 {
@@ -12,7 +13,6 @@ namespace Bloxstrap.UI.Elements.Dialogs
     public partial class AddCustomThemeDialog : WpfUiWindow
     {
         private const int CreateNewTabId = 0;
-        private const int ImportTabId = 1;
 
         private readonly AddCustomThemeViewModel _viewModel;
 
@@ -64,7 +64,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             }
 
             // last resort
-            return $"{name}_{Random.Shared.Next(maxTries+1, 1_000_000)}";
+            return $"{name}_{Random.Shared.Next(maxTries + 1, 1_000_000)}";
         }
 
         private static void CreateCustomTheme(string name, CustomThemeTemplate template)
@@ -121,7 +121,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             {
                 _viewModel.NameError = Strings.CustomTheme_Add_Errors_NameTaken;
                 return false;
-            }    
+            }
 
             return true;
         }
@@ -139,18 +139,8 @@ namespace Bloxstrap.UI.Elements.Dialogs
             try
             {
                 using var zipFile = ZipFile.OpenRead(_viewModel.FilePath);
-                var entries = zipFile.Entries;
-
-                bool foundThemeFile = false;
-
-                foreach (var entry in entries)
-                {
-                    if (entry.FullName == "Theme.xml")
-                    {
-                        foundThemeFile = true;
-                        break;
-                    }
-                }
+                bool foundThemeFile = zipFile.Entries.Any(entry =>
+                    Path.GetFileName(entry.FullName).Equals("Theme.xml", StringComparison.OrdinalIgnoreCase));
 
                 if (!foundThemeFile)
                 {
@@ -169,6 +159,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                 return false;
             }
         }
+
 
         private void CreateNew()
         {
@@ -199,6 +190,25 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             var fastZip = new ICSharpCode.SharpZipLib.Zip.FastZip();
             fastZip.ExtractZip(_viewModel.FilePath, directory, null);
+
+            var subDirs = Directory.GetDirectories(directory);
+            if (subDirs.Length == 1)
+            {
+                string subfolder = subDirs[0];
+
+                foreach (var file in Directory.GetFiles(subfolder))
+                    File.Move(file, Path.Combine(directory, Path.GetFileName(file)), overwrite: true);
+
+                foreach (var dir in Directory.GetDirectories(subfolder))
+                {
+                    string target = Path.Combine(directory, Path.GetFileName(dir));
+                    if (Directory.Exists(target))
+                        Directory.Delete(target, true);
+                    Directory.Move(dir, target);
+                }
+
+                Directory.Delete(subfolder, true);
+            }
 
             Created = true;
             ThemeName = name;
