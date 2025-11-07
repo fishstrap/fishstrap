@@ -18,7 +18,7 @@ namespace Bloxstrap.UI.ViewModels.ContextMenu
         public string ServerUptime { get; private set; } = Strings.Common_Loading;
 
         public Visibility ServerLocationVisibility => App.Settings.Prop.ShowServerDetails ? Visibility.Visible : Visibility.Collapsed;
-        public Visibility ServerUptimeVisibility => App.Settings.Prop.ShowServerUptime ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility ServerUptimeVisibility => App.Settings.Prop.ShowServerDetails ? Visibility.Visible : Visibility.Collapsed;
 
         public ICommand CopyInstanceIdCommand => new RelayCommand(CopyInstanceId);
 
@@ -45,16 +45,14 @@ namespace Bloxstrap.UI.ViewModels.ContextMenu
             OnPropertyChanged(nameof(ServerLocation));
         }
 
-        public async void QueryServerUptime()
+        public void QueryServerUptime()
         {
-            DateTime? serverTime = await _activityWatcher.Data.QueryServerTime();
-            TimeSpan _serverUptime = DateTime.UtcNow - serverTime.Value;
+            DateTime? serverTime = _activityWatcher.Data.StartTime;
+            TimeSpan _serverUptime = TimeSpan.Zero; // uhh okay??
+            if (serverTime is not null)
+                _serverUptime = DateTime.UtcNow - serverTime.Value;
 
-            string? serverUptime = Strings.ContextMenu_ServerInformation_Notification_ServerNotTracked;
-            if (_serverUptime.TotalSeconds > 60)
-                serverUptime = Time.FormatTimeSpan(_serverUptime);
-
-            ServerUptime = serverUptime;
+            ServerUptime = Time.FormatTimeSpan(_serverUptime);
 
             OnPropertyChanged(nameof(ServerUptime));
         }

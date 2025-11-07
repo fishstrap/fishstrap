@@ -9,7 +9,7 @@ using System.Xml.XPath;
 
 namespace Bloxstrap
 {
-    public class GBSEditor
+    public class GlobalSettingsManager
     {
         public XDocument? Document { get; set; } = null!;
 

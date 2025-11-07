@@ -35,6 +35,8 @@ namespace Bloxstrap.Models.Entities
 
         public string JobId { get; set; } = string.Empty;
 
+        public DateTime? StartTime { get; set; }
+
         /// <summary>
         /// This will be empty unless the server joined is a private server
         /// </summary>
@@ -85,12 +87,14 @@ namespace Bloxstrap.Models.Entities
         public ICommand RejoinServerCommand => new RelayCommand(RejoinServer);
 
         private SemaphoreSlim serverQuerySemaphore = new(1, 1);
-        private SemaphoreSlim serverTimeSemaphore = new(1, 1);
 
-        public string GetInviteDeeplink(bool launchData = true)
+        public string GetInviteDeeplink(bool launchData = true, bool useRobloxUri = false)
         {
-            string deeplink = $"{App.RemoteData.Prop.DeeplinkUrl}?placeId={PlaceId}"; // if our data isnt loaded it uses dummy data
-                                                                                      // we only wait for important data
+            // if our data isnt loaded it uses dummy data
+            // we only wait for important data
+
+            // we need useRobloxUri for rejoin feature
+            string deeplink = $"{(useRobloxUri ? "roblox://experiences/start" : App.RemoteData.Prop.DeeplinkUrl)}?placeId={PlaceId}";
 
             if (ServerType == ServerType.Private) // thats not going to work
                 deeplink += "&accessCode=" + AccessCode;
@@ -103,73 +107,27 @@ namespace Bloxstrap.Models.Entities
             return deeplink;
         }
 
-        public async Task<DateTime?> QueryServerTime()
+        // we use rovalra's apis in fishstrap.app/joingame
+        public void ProcessServerRoValra()
         {
-            const string LOG_IDENT = "ActivityData::QueryServerTime";
-
             if (string.IsNullOrEmpty(JobId))
                 throw new InvalidOperationException("JobId is null");
 
             if (PlaceId == 0)
                 throw new InvalidOperationException("PlaceId is null");
 
-            await serverTimeSemaphore.WaitAsync();
-
-            if (GlobalCache.ServerTime.TryGetValue(JobId, out DateTime? time))
+            var serverBody = new RoValraProcessServerBody
             {
-                serverTimeSemaphore.Release();
-                return time;
-            }
+                PlaceId = PlaceId,
+                ServerIds = new() { JobId }
+            };
 
-            DateTime? firstSeen = DateTime.UtcNow;
-            try
-            {
-                var serverTimeRaw = await Http.GetJson<RoValraTimeResponse>($"https://apis.rovalra.com/v1/servers/details?place_id={PlaceId}&server_ids={JobId}");
+            string json = JsonSerializer.Serialize(serverBody);
+            HttpContent postContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var serverBody = new RoValraProcessServerBody
-                {
-                    PlaceId = PlaceId,
-                    ServerIds = new() { JobId }
-                };
-
-                string json = JsonSerializer.Serialize(serverBody);
-                HttpContent postContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // we dont need to await it since its not as important
-                // we want to return uptime quickly
-                _ = App.HttpClient.PostAsync("https://apis.rovalra.com/process_servers", postContent);
-
-
-                RoValraServer? server = null;
-
-                if (serverTimeRaw?.Servers != null && serverTimeRaw.Servers.Count > 0)
-                    server = serverTimeRaw.Servers[0];
-
-                // if the server hasnt been registered we will simply return UtcNow
-                // since firstSeen is UtcNow by default we dont have to check anything else
-                if (server?.FirstSeen != null)
-                    firstSeen = server.FirstSeen;
-
-                GlobalCache.ServerTime[JobId] = firstSeen;
-                serverTimeSemaphore.Release();
-            }
-            catch (Exception ex)
-            {
-                App.Logger.WriteLine(LOG_IDENT, $"Failed to get server time for {PlaceId}/{JobId}");
-                App.Logger.WriteException(LOG_IDENT, ex);
-
-                GlobalCache.ServerTime[JobId] = firstSeen;
-                serverTimeSemaphore.Release();
-
-                Frontend.ShowConnectivityDialog(
-                    string.Format(Strings.Dialog_Connectivity_UnableToConnect, "rovalra.com"),
-                    Strings.ActivityWatcher_LocationQueryFailed,
-                    MessageBoxImage.Warning,
-                    ex
-                );
-            }
-
-            return firstSeen;
+            // we dont need to await it since its not as important
+            // we want to return uptime quickly
+            _ = App.HttpClient.PostAsync("https://apis.rovalra.com/process_servers", postContent);
         }
 
         public async Task<string?> QueryServerLocation()
@@ -189,15 +147,20 @@ namespace Bloxstrap.Models.Entities
 
             try
             {
-                var ipInfo = await Http.GetJson<IPInfoResponse>($"https://ipinfo.io/{MachineAddress}/json");
+                var response = await Http.GetJson<RoValraGeolocation>($"https://apis.rovalra.com/v1/geolocation?ip={MachineAddress}");
+                var geolocation = response.Location;
 
-                if (string.IsNullOrEmpty(ipInfo.City))
-                    throw new InvalidHTTPResponseException("Reported city was blank");
-
-                if (ipInfo.City == ipInfo.Region)
-                    location = $"{ipInfo.Region}, {ipInfo.Country}";
+                if (geolocation is null)
+                    location = Strings.Common_Unknown;
                 else
-                    location = $"{ipInfo.City}, {ipInfo.Region}, {ipInfo.Country}";
+                {
+                    if (geolocation.City == geolocation.Region && geolocation.City == geolocation.Country)
+                        location = geolocation.Country;
+                    else if (geolocation.City == geolocation.Region)
+                        location = $"{geolocation.Region}, {geolocation.Country}";
+                    else
+                        location = $"{geolocation.City}, {geolocation.Region}, {geolocation.Country}";
+                }
 
                 GlobalCache.ServerLocation[MachineAddress] = location;
                 serverQuerySemaphore.Release();
@@ -211,7 +174,7 @@ namespace Bloxstrap.Models.Entities
                 serverQuerySemaphore.Release();
 
                 Frontend.ShowConnectivityDialog(
-                    string.Format(Strings.Dialog_Connectivity_UnableToConnect, "ipinfo.io"),
+                    string.Format(Strings.Dialog_Connectivity_UnableToConnect, "rovalra.com"),
                     Strings.ActivityWatcher_LocationQueryFailed,
                     MessageBoxImage.Warning,
                     ex
@@ -227,7 +190,7 @@ namespace Bloxstrap.Models.Entities
         {
             string playerPath = new RobloxPlayerData().ExecutablePath;
 
-            Process.Start(playerPath, GetInviteDeeplink(false));
+            Process.Start(playerPath, GetInviteDeeplink(false, true));
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Bloxstrap
         private string AuthCookie = string.Empty;
         private const string AuthCookieName = ".ROBLOSECURITY";
         private const string SupportedVersion = "1";
-        private const string AuthPattern = $@"\t{AuthCookieName}\t(.+?);";
+        private const string AuthPattern = $@"\t{AuthCookieName}\t(.+?)(;|$)";
         private string CookiesPath => Path.Combine(Paths.Roblox, "LocalStorage", "RobloxCookies.dat");
 
         public async Task<AuthenticatedUser?> GetAuthenticated()
@@ -99,6 +99,12 @@ namespace Bloxstrap
             {
                 State = CookieState.NotAllowed;
                 App.Logger.WriteLine(LOG_IDENT, "Cookie access not allowed");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(AuthCookie))
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Cookie was already loaded!");
                 return;
             }
 

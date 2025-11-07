@@ -65,7 +65,7 @@ namespace Bloxstrap
 
         public static readonly FastFlagManager FastFlags = new();
 
-        public static readonly GBSEditor GlobalSettings = new();
+        public static readonly GlobalSettingsManager GlobalSettings = new();
 
         public static readonly CookiesManager Cookies = new();
 

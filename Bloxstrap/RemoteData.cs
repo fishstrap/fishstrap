@@ -41,17 +41,31 @@ namespace Bloxstrap
 
         public async Task WaitUntilDataFetched()
         {
-            while (LoadedState == GenericTriState.Unknown)        
-                await Task.Delay(100);    
+            const int delay = 100;
+            const int maxTries = 30; // 3 seconds
+            int tries = 0;
 
-            return;
+            while (LoadedState == GenericTriState.Unknown)
+            {
+                await Task.Delay(delay);
+                tries++;
+
+                if (tries >= maxTries)
+                    break;
+            }
         }
 
         // remember that our data isnt necessary, we can fetch it in the background 
         public async Task LoadData()
         {
             const string LOG_IDENT = $"{nameof(RemoteDataManager)}::LoadData";
-            if (App.Settings.Prop.ForceLocalData)
+            if (
+                App.Settings.Prop.ForceLocalData ||
+                ( // the data was previously load by -player launch
+                    App.LaunchSettings.WatcherFlag.Active ||
+                    App.LaunchSettings.MultiInstanceWatcherFlag.Active
+                )
+                )
             {
                 App.Logger.WriteLine(LOG_IDENT, "Force loading local data");
                 this.Load(false);

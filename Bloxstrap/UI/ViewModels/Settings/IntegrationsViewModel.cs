@@ -84,17 +84,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        // TODO rename to serverlocation
         public bool ShowServerDetailsEnabled
         {
             get => App.Settings.Prop.ShowServerDetails;
             set => App.Settings.Prop.ShowServerDetails = value;
-        }
-
-        public bool ShowServerUptimeEnabled
-        {
-            get => App.Settings.Prop.ShowServerUptime;
-            set => App.Settings.Prop.ShowServerUptime = value;
         }
 
         public bool DiscordActivityEnabled

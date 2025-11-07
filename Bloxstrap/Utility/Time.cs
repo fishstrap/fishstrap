@@ -8,6 +8,9 @@ namespace Bloxstrap.Utility
 {
     internal static class Time
     {
+        // TODO:
+        // - use Strings for this
+        // - not hardcode 0 minutes in NotifyIconWrapper.cs
         public static string FormatTimeSpan(TimeSpan timeSpan)
         {
             Func<Tuple<int, string>, string> tupleFormatter = t => $"{t.Item1} {t.Item2}{(t.Item1 == 1 ? string.Empty : "s")}";

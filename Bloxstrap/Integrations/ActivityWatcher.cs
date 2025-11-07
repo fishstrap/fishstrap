@@ -10,6 +10,7 @@
         // they only get printed depending on their configured FLog level, which could change at any time
         // while levels being changed is fairly rare, please limit the number of varying number of FLog types you have to use, if possible
 
+        // gamejoinutil string no longer work lol
         private const string GameTeleportingEntry            = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToPlace";
         private const string GameJoiningPrivateServerEntry   = "[FLog::GameJoinUtil] GameJoinUtil::joinGamePostPrivateServer";
         private const string GameJoiningReservedServerEntry  = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToReservedServer";
@@ -18,6 +19,7 @@
         private const string GameJoinedEntry                 = "[FLog::Network] serverId:";
         private const string GameDisconnectedEntry           = "[FLog::Network] Time to disconnect replication data:";
         private const string GameLeavingEntry                = "[FLog::SingleSurfaceApp] leaveUGCGameInternal";
+        private const string GameServerUptimeEntry           = "[FLog::Output] Server Prefix: ";
 
         private const string GameJoiningEntryPattern         = @"! Joining game '([0-9a-f\-]{36})' place ([0-9]+) at ([0-9\.]+)";
         private const string GameJoiningPrivateServerPattern = @"""accessCode"":""([0-9a-f\-]{36})""";
@@ -25,12 +27,14 @@
         private const string GameJoiningUDMUXPattern         = @"UDMUX Address = ([0-9\.]+), Port = [0-9]+ \| RCC Server Address = ([0-9\.]+), Port = [0-9]+";
         private const string GameJoinedEntryPattern          = @"serverId: ([0-9\.]+)\|[0-9]+";
         private const string GameMessageEntryPattern         = @"\[BloxstrapRPC\] (.*)";
+        private const string GameServerUptimePattern         = @"Server Prefix:.+_(\d{8}T\d{6}Z)_RCC_[0-9a-z]+";
 
         private int _logEntriesRead = 0;
         private bool _teleportMarker = false;
         private bool _reservedTeleportMarker = false;
         
         public event EventHandler<string>? OnLogEntry;
+        public event EventHandler? ShowNotif;
         public event EventHandler? OnGameJoin;
         public event EventHandler? OnGameLeave;
         public event EventHandler? OnLogOpen;
@@ -194,11 +198,9 @@
                     Data.JobId = match.Groups[1].Value;
                     Data.MachineAddress = match.Groups[3].Value;
 
-                    if (App.Settings.Prop.ShowServerDetails && Data.MachineAddressValid)
-                        _ = Data.QueryServerLocation();
-
-                    if (App.Settings.Prop.ShowServerUptime && Data.JobId != null)
-                        _ = Data.QueryServerTime();
+                    // used for deeplinks
+                    if (App.Settings.Prop.EnableActivityTracking)
+                        Data.ProcessServerRoValra();
 
                     if (_teleportMarker)
                     {
@@ -253,9 +255,6 @@
                     }
 
                     Data.MachineAddress = match.Groups[1].Value;
-
-                    if (App.Settings.Prop.ShowServerDetails)
-                        _ = Data.QueryServerLocation();
 
                     App.Logger.WriteLine(LOG_IDENT, $"Server is UDMUX protected ({Data})");
                 }
@@ -380,6 +379,28 @@
                     OnRPCMessage?.Invoke(this, message);
 
                     LastRPCRequest = DateTime.Now;
+                } else if (entry.Contains(GameServerUptimeEntry))
+                {
+                    Match match = Regex.Match(entry, GameServerUptimePattern);
+
+                    if (!match.Success && match.Groups.Count == 2)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to assert format for server uptime entry");
+                        App.Logger.WriteLine(LOG_IDENT, entry);
+                        return;
+                    }
+
+                    string startTime = match.Groups[1].Value;
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Server started at {startTime}");
+
+                    Data.StartTime = DateTime.ParseExact(startTime, "yyyyMMdd'T'HHmmss'Z'", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+
+                    // ip should be fetched by now
+                    if (App.Settings.Prop.ShowServerDetails && Data.MachineAddressValid)
+                        _ = Data.QueryServerLocation();
+
+                    ShowNotif?.Invoke(this, null!);
                 }
             }
         }

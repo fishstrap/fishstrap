@@ -149,6 +149,9 @@ namespace Bloxstrap.RobloxInterfaces
 
         public static async Task<bool> IsChannelPrivate(string channel)
         {
+            if (channel == "production")
+                channel = "live";
+
             try
             {
                 var response = await App.HttpClient.GetAsync($"https://clientsettingscdn.roblox.com/v2/client-version/WindowsPlayer/channel/{channel}");
@@ -163,7 +166,7 @@ namespace Bloxstrap.RobloxInterfaces
             return false;
         }
 
-        public static async Task<ClientVersion> GetInfo(string? channel = null)
+        public static async Task<ClientVersion> GetInfo(string? channel = null, bool behindProductionCheck = false)
         {
             const string LOG_IDENT = "Deployment::GetInfo";
 
@@ -231,13 +234,15 @@ namespace Bloxstrap.RobloxInterfaces
                 // check if channel is behind LIVE
 
 
-                if (!isDefaultChannel)
+                if (!isDefaultChannel && behindProductionCheck)
                 {
                     var defaultClientVersion = await GetInfo(DefaultChannel);
 
                     if (Utilities.CompareVersions(clientVersion.Version, defaultClientVersion.Version) == VersionComparison.LessThan)
                         clientVersion.IsBehindDefaultChannel = true;
                 }
+                else
+                    clientVersion.IsBehindDefaultChannel = false;
 
                 ClientVersionCache[cacheKey] = clientVersion;
             }

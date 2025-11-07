@@ -95,7 +95,7 @@ namespace Bloxstrap.UI.Elements.Settings
         {
             await Task.Delay(500); // same as below
 
-            if (page == typeof(GBSEditorPage) && !App.GlobalSettings.Loaded)
+            if (page == typeof(GlobalSettingsPage) && !App.GlobalSettings.Loaded)
                 return; // prevent from navigating onto disabled page
 
             Navigate(page);

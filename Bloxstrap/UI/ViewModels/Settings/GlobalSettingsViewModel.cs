@@ -13,7 +13,7 @@ using Bloxstrap.Enums.GBSPresets;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
-    public class GBSEditorViewModel : NotifyPropertyChangedViewModel
+    public class GlobalSettingsViewModel : NotifyPropertyChangedViewModel
     {
         public bool ReadOnly
         {
@@ -55,7 +55,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.GlobalSettings.SetPreset("UI.ReducedMotion", value);
         }
 
-        public IReadOnlyDictionary<FontSize, string?> FontSizes => GBSEditor.FontSizes;
+        public IReadOnlyDictionary<FontSize, string?> FontSizes => GlobalSettingsManager.FontSizes;
         public FontSize SelectedFontSize
         {
             get => FontSizes.FirstOrDefault(x => x.Value == App.GlobalSettings.GetPreset("UI.FontSize")).Key;

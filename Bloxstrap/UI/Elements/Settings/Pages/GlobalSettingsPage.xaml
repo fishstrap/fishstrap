@@ -1,4 +1,4 @@
-﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.GBSEditorPage"
+﻿<ui:UiPage x:Class="Bloxstrap.UI.Elements.Settings.Pages.GlobalSettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -79,8 +79,8 @@
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_GBSEditor_MouseSensitivity_Title}" 
             Description="{x:Static resources:Strings.Menu_GBSEditor_MouseSensitivity_Description}">
-                    <ui:TextBox Margin="5,0,0,0" Padding="10,5,10,5" Width="200" Text="{Binding MouseSensitivity, Mode=TwoWay}" PreviewTextInput="ValidateUInt32" />
-                </controls:OptionControl>
+            <ui:TextBox Margin="5,0,0,0" Padding="10,5,10,5" Width="200" Text="{Binding MouseSensitivity, Mode=TwoWay}" PreviewTextInput="ValidateFloat" />
+        </controls:OptionControl>
 
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_GBSEditor_VREnabled_Title}">

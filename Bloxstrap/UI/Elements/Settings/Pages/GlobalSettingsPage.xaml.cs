@@ -9,11 +9,11 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
     /// <summary>
     /// Interaction logic for FastFlagsPage.xaml
     /// </summary>
-    public partial class GBSEditorPage
+    public partial class GlobalSettingsPage
     {
-        private GBSEditorViewModel _viewModel = null!;
+        private GlobalSettingsViewModel _viewModel = null!;
 
-        public GBSEditorPage()
+        public GlobalSettingsPage()
         {
             SetupViewModel();
             InitializeComponent();
@@ -21,12 +21,12 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
 
         private void SetupViewModel()
         {
-            _viewModel = new GBSEditorViewModel();
+            _viewModel = new GlobalSettingsViewModel();
 
             DataContext = _viewModel;
         }
 
         private void ValidateUInt32(object sender, TextCompositionEventArgs e) => e.Handled = !UInt32.TryParse(e.Text, out uint _);
-        private void ValidateFloat(object sender, TextCompositionEventArgs e) => e.Handled = !float.TryParse(e.Text, out float _);
+        private void ValidateFloat(object sender, TextCompositionEventArgs e) => e.Handled = !Regex.IsMatch(e.Text, @"^\d*\.?\d*$");
     }
 }

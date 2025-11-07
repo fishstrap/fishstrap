@@ -254,19 +254,16 @@
     <value>Location</value>
   </data>
   <data name="ContextMenu.ServerInformation.Uptime" xml:space="preserve">
-    <value>Estimated uptime</value>
+    <value>Uptime</value>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Text" xml:space="preserve">
     <value>Location: {0}
 Click for more information</value>
   </data>
-  <data name="ContextMenu.ServerInformationUptimeAndLocation.Notification.Text" xml:space="preserve">
+  <data name="ContextMenu.ServerDetails.Notification.Text" xml:space="preserve">
     <value>Location: {0}
-Estimated uptime: {1}</value>
-  </data>
-  <data name="ContextMenu.ServerInformationUptime.Notification.Text" xml:space="preserve">
-    <value>Estimated uptime: {0}
-Click for more information</value>
+Uptime: {1}</value>
+	<comment>since we dont have crowdin for fishstrap we will just change the string name to not have old translated strings</comment>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Public" xml:space="preserve">
     <value>Connected to public server</value>
@@ -722,16 +719,10 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Show game activity</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Description" xml:space="preserve">
-    <value>When in-game, you'll be able to see where your server is located via [ipinfo.io]({0}).</value>
+    <value>When in-game, you'll be able to see where your server is located via [rovalra.com]({0}). Additional server information may be sent.</value>
   </data>
   <data name="Menu.Integrations.QueryServerLocation.Title" xml:space="preserve">
-    <value>Query server location</value>
-  </data>
-  <data name="Menu.Integrations.QueryServerUptime.Description" xml:space="preserve">
-    <value>Displays the server’s estimated uptime using data from [RoValra's APIs]({0}). [RoValra's privacy policy]({0}/privacy) applies.</value>
-  </data>
-  <data name="Menu.Integrations.QueryServerUptime.Title" xml:space="preserve">
-    <value>Query server uptime</value>
+    <value>Query server details</value>
   </data>
   <data name="Menu.Integrations.Title" xml:space="preserve">
     <value>Integrations</value>
@@ -1338,7 +1329,7 @@ For more information join Bloxshade discord server.</value>
     <value>This channel is out of date, and is likely no longer being updated. Please use another channel.</value>
   </data>
   <data name="Bootstrapper.Dialog.ChannelOutOfDate" xml:space="preserve">
-    <value>The channel you're currently on ({0}) is out of date, and appears to no longer be receiving updates.\n
+    <value>The channel you're currently on ({0}) is out of date, and appears to no longer be receiving updates.
 Would you like to switch to the default channel ({1})?</value>
   </data>
   <data name="Menu.Channel.ChangeAction.Title" xml:space="preserve">
@@ -1725,8 +1716,8 @@ Defaulting to {1}.</value>
   <data name="Common.UnknownStatus" xml:space="preserve">
     <value>Unknown status</value>
   </data>
-  <data name="ContextMenu.ServerInformation.Notification.ServerNotTracked" xml:space="preserve">
-    <value>Not tracked</value>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Unknown</value>
   </data>
   <data name="Menu.GPSEditor.FramerateCap.Title" xml:space="preserve">
     <value>Framerate Limit</value>

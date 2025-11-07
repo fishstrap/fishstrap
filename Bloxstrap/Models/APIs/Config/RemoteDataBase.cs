@@ -24,5 +24,13 @@ namespace Bloxstrap.Models.APIs.Config
         // package maps
         [JsonPropertyName("packageMaps")]
         public PackageMaps PackageMaps { get; set; } = new();
+
+
+        // packages that will be skipped during upgrades
+        [JsonPropertyName("ignoredPackages")]
+        public List<string> IgnoredPackages { get; set; } = new()
+        {
+            "RobloxPlayerInstaller.exe"
+        };
     }
 }
