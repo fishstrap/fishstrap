@@ -370,6 +370,7 @@ namespace Bloxstrap
             void RevertChannel() => Deployment.Channel = Deployment.DefaultChannel;
 
             string EnrolledChannel = match.Groups.Count == 2 ? match.Groups[1].Value.ToLowerInvariant() : Deployment.DefaultChannel;
+            bool behindProductionCheck = App.Settings.Prop.ChannelChangeMode == ChannelChangeMode.Prompt;
 
             // Private channels
             if (App.Cookies.Loaded)
@@ -449,71 +450,62 @@ namespace Bloxstrap
             {
                 ClientVersion clientVersion;
 
-            try
-            {
-                clientVersion = await Deployment.GetInfo(Deployment.Channel);
-            }
-            catch (InvalidChannelException ex)
-            {
-                // copied from v2.5.4
-                // we are keeping similar logic just updated for newer apis
-
-                // If channel does not exist
-                if (ex.StatusCode == HttpStatusCode.NotFound)
+                try
                 {
-                    App.Logger.WriteLine(LOG_IDENT, $"Reverting enrolled channel to {Deployment.DefaultChannel} because a WindowsPlayer build does not exist for {App.Settings.Prop.Channel}");
+                    clientVersion = await Deployment.GetInfo(Deployment.Channel, behindProductionCheck);
                 }
-                // If channel is not available to the user (private/internal release channel)
-                else if (ex.StatusCode == HttpStatusCode.Unauthorized)
+                catch (InvalidChannelException ex)
                 {
-                    App.Logger.WriteLine(LOG_IDENT, $"Reverting enrolled channel to {Deployment.DefaultChannel} because {App.Settings.Prop.Channel} is restricted for public use.");
+                    // copied from v2.5.4
+                    // we are keeping similar logic just updated for newer apis
 
-                    // Only prompt if user has channel switching mode set to something other than Automatic.
-                    if (App.Settings.Prop.ChannelChangeMode != ChannelChangeMode.Automatic)
+                    // If channel does not exist
+                    if (ex.StatusCode == HttpStatusCode.NotFound)
                     {
-                        Frontend.ShowMessageBox(
-                            String.Format(
-                                Strings.Boostrapper_Dialog_UnauthorizedChannel,
-                                Deployment.Channel,
-                                Deployment.DefaultChannel
-                            ),
-                            MessageBoxImage.Information
-                        );
+                        App.Logger.WriteLine(LOG_IDENT, $"Reverting enrolled channel to {Deployment.DefaultChannel} because a WindowsPlayer build does not exist for {App.Settings.Prop.Channel}");
                     }
-                }
-                else
-                {
-                    throw;
-                }
-
-                RevertChannel();
-                clientVersion = await Deployment.GetInfo(Deployment.Channel);
-            }
-
-                if (clientVersion.IsBehindDefaultChannel)
-                {
-                    MessageBoxResult action = App.Settings.Prop.ChannelChangeMode switch
+                    // If channel is not available to the user (private/internal release channel)
+                    else if (ex.StatusCode == HttpStatusCode.Unauthorized)
                     {
-                        ChannelChangeMode.Prompt => Frontend.ShowMessageBox(
+                        App.Logger.WriteLine(LOG_IDENT, $"Reverting enrolled channel to {Deployment.DefaultChannel} because {App.Settings.Prop.Channel} is restricted for public use.");
+
+                        // Only prompt if user has channel switching mode set to something other than Automatic.
+                        if (App.Settings.Prop.ChannelChangeMode != ChannelChangeMode.Automatic)
+                        {
+                            Frontend.ShowMessageBox(
+                                String.Format(
+                                    Strings.Boostrapper_Dialog_UnauthorizedChannel,
+                                    Deployment.Channel,
+                                    Deployment.DefaultChannel
+                                ),
+                                MessageBoxImage.Information
+                            );
+                        }
+                    }
+                    else
+                    {
+                        throw;
+                    }
+
+                    RevertChannel();
+                    clientVersion = await Deployment.GetInfo(Deployment.DefaultChannel, behindProductionCheck);
+                }
+
+                if (clientVersion.IsBehindDefaultChannel && App.Settings.Prop.ChannelChangeMode == ChannelChangeMode.Prompt)
+                {
+                    MessageBoxResult action = Frontend.ShowMessageBox(
                             String.Format(Strings.Bootstrapper_Dialog_ChannelOutOfDate, Deployment.Channel, Deployment.DefaultChannel),
                             MessageBoxImage.Warning,
                             MessageBoxButton.YesNo
-                        ),
-                        ChannelChangeMode.Automatic => MessageBoxResult.Yes,
-                        ChannelChangeMode.Ignore => MessageBoxResult.No,
-                        _ => MessageBoxResult.None
-                    };
+                        );
 
                     if (action == MessageBoxResult.Yes)
                     {
                         App.Logger.WriteLine("Bootstrapper::CheckLatestVersion", $"Changed Roblox channel from {App.Settings.Prop.Channel} to {Deployment.DefaultChannel}");
 
-                            RevertChannel();
-                            clientVersion = await Deployment.GetInfo(Deployment.Channel);
+                        RevertChannel();
+                        clientVersion = await Deployment.GetInfo(Deployment.DefaultChannel);
                     }
-
-                    RevertChannel();
-                    clientVersion = await Deployment.GetInfo(); // what is this for
                 }
 
                 key.SetValueSafe("www.roblox.com", Deployment.IsDefaultChannel ? "" : Deployment.Channel);

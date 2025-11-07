@@ -1329,7 +1329,7 @@ For more information join Bloxshade discord server.</value>
     <value>This channel is out of date, and is likely no longer being updated. Please use another channel.</value>
   </data>
   <data name="Bootstrapper.Dialog.ChannelOutOfDate" xml:space="preserve">
-    <value>The channel you're currently on ({0}) is out of date, and appears to no longer be receiving updates.\n
+    <value>The channel you're currently on ({0}) is out of date, and appears to no longer be receiving updates.
 Would you like to switch to the default channel ({1})?</value>
   </data>
   <data name="Menu.Channel.ChangeAction.Title" xml:space="preserve">
