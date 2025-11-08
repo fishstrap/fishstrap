@@ -3,6 +3,8 @@ using Bloxstrap.UI.ViewModels.Dialogs;
 using Microsoft.Win32;
 using System.IO.Compression;
 using System.Windows;
+using Bloxstrap;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace Bloxstrap.UI.Elements.Dialogs
 {
@@ -12,7 +14,6 @@ namespace Bloxstrap.UI.Elements.Dialogs
     public partial class AddCustomThemeDialog : WpfUiWindow
     {
         private const int CreateNewTabId = 0;
-        private const int ImportTabId = 1;
 
         private readonly AddCustomThemeViewModel _viewModel;
 
@@ -64,7 +65,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             }
 
             // last resort
-            return $"{name}_{Random.Shared.Next(maxTries+1, 1_000_000)}";
+            return $"{name}_{Random.Shared.Next(maxTries + 1, 1_000_000)}";
         }
 
         private static void CreateCustomTheme(string name, CustomThemeTemplate template)
@@ -121,7 +122,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             {
                 _viewModel.NameError = Strings.CustomTheme_Add_Errors_NameTaken;
                 return false;
-            }    
+            }
 
             return true;
         }
@@ -138,19 +139,9 @@ namespace Bloxstrap.UI.Elements.Dialogs
 
             try
             {
-                using var zipFile = ZipFile.OpenRead(_viewModel.FilePath);
-                var entries = zipFile.Entries;
-
-                bool foundThemeFile = false;
-
-                foreach (var entry in entries)
-                {
-                    if (entry.FullName == "Theme.xml")
-                    {
-                        foundThemeFile = true;
-                        break;
-                    }
-                }
+                using var zipFile = System.IO.Compression.ZipFile.OpenRead(_viewModel.FilePath);
+                bool foundThemeFile = zipFile.Entries.Any(entry =>
+                    Path.GetFileName(entry.FullName).Equals("Theme.xml", StringComparison.OrdinalIgnoreCase));
 
                 if (!foundThemeFile)
                 {
@@ -170,6 +161,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
             }
         }
 
+
         private void CreateNew()
         {
             if (!ValidateCreateNew())
@@ -184,6 +176,25 @@ namespace Bloxstrap.UI.Elements.Dialogs
             Close();
         }
 
+        private static void MoveDirectoryContents(string sourceDir, string targetDir)
+        {
+            foreach (var file in Directory.GetFiles(sourceDir))
+            {
+                string destFile = Path.Combine(targetDir, Path.GetFileName(file));
+                File.Copy(file, destFile, overwrite: true);
+            }
+
+            foreach (var dir in Directory.GetDirectories(sourceDir))
+            {
+                string destDir = Path.Combine(targetDir, Path.GetFileName(dir));
+
+                if (Directory.Exists(destDir))
+                    MoveDirectoryContents(dir, destDir);
+                else
+                    Directory.Move(dir, destDir);
+            }
+        }
+
         private void Import()
         {
             if (!ValidateImport())
@@ -192,13 +203,43 @@ namespace Bloxstrap.UI.Elements.Dialogs
             string fileName = Path.GetFileNameWithoutExtension(_viewModel.FilePath);
             string name = GetUniqueName(fileName);
 
-            string directory = Path.Combine(Paths.CustomThemes, name);
-            if (Directory.Exists(directory))
-                Directory.Delete(directory, true);
-            Directory.CreateDirectory(directory);
+            string finalDir = Path.Combine(Paths.CustomThemes, name);
+            if (Directory.Exists(finalDir))
+                Directory.Delete(finalDir, true);
+            Directory.CreateDirectory(finalDir);
 
-            var fastZip = new ICSharpCode.SharpZipLib.Zip.FastZip();
-            fastZip.ExtractZip(_viewModel.FilePath, directory, null);
+            string staging = Path.Combine(Path.GetTempPath(), "theme-import-" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(staging);
+
+            var fastZip = new FastZip();
+            fastZip.ExtractZip(_viewModel.FilePath, staging, null);
+
+            try
+            {
+                var entries = Directory.GetFileSystemEntries(staging);
+
+                if (entries.Length == 1 && Directory.Exists(entries[0]))
+                {
+                    Directory.Delete(finalDir, true);
+                    Directory.Move(entries[0], finalDir);
+                }
+                else
+                {
+                    foreach (var entry in entries)
+                    {
+                        string dest = Path.Combine(finalDir, Path.GetFileName(entry));
+                        if (Directory.Exists(entry))
+                            Directory.Move(entry, dest);
+                        else
+                            File.Copy(entry, dest, overwrite: true);
+                    }
+                }
+            }
+            finally
+            {
+                if (Directory.Exists(staging))
+                    Directory.Delete(staging, true);
+            }
 
             Created = true;
             ThemeName = name;
