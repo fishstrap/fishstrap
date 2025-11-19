@@ -33,6 +33,9 @@ namespace Bloxstrap
             {
 #if DEBUG
                 string path = new RobloxPlayerData().ExecutablePath;
+                if (!File.Exists(path))
+                    throw new ApplicationException("Roblox player is not been installed");
+
                 using var gameClientProcess = Process.Start(path);
 
                 _watcherData = new() { ProcessId = gameClientProcess.Id };
