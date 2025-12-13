@@ -117,11 +117,5 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     CleanerItems.Remove("FishstrapLogs");
             }
         }
-        
-        public bool ForceRobloxReinstallation
-        {
-            get => App.State.Prop.ForceReinstall || IsRobloxInstallationMissing;
-            set => App.State.Prop.ForceReinstall = value;
-        }
     }
 }

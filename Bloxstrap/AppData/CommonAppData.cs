@@ -10,7 +10,12 @@ namespace Bloxstrap.AppData
     {
         public virtual string ExecutableName { get; } = null!;
 
-        public string Directory => Path.Combine(Paths.Versions, String.IsNullOrEmpty(State.VersionGuid) ? "" : State.VersionGuid);
+        public virtual string BinaryType { get; } = null!;
+
+        public string StaticDirectory => Path.Combine(Paths.Versions, BinaryType);
+        public string DynamicDirectory => Path.Combine(Paths.Versions, State.VersionGuid);
+
+        public string Directory => App.Settings.Prop.StaticDirectory ? StaticDirectory : DynamicDirectory;
 
         public string ExecutablePath => Path.Combine(Directory, ExecutableName);
 

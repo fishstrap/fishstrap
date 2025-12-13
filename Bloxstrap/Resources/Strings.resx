@@ -1248,11 +1248,11 @@ Please close any applications that may be using Roblox's files, and relaunch.</v
   <data name="Common.VersionGuid" xml:space="preserve">
     <value>VersionGuid</value>
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" xml:space="preserve">
-    <value>Roblox upgrades</value>
+  <data name="Menu.Channel.StaticDirectory.Title" xml:space="preserve">
+    <value>Static directory</value>
   </data>
-  <data name="Menu.Channel.RobloxUpgrades.Description" xml:space="preserve">
-    <value>When disabled Roblox client won't upgrade to newer version.</value>
+  <data name="Menu.Channel.StaticDirectory.Description" xml:space="preserve">
+    <value>Switch from version-xxx to BinaryType based install directories.</value>
   </data>
   <data name="Bootstrapper.Status.Downloading" xml:space="preserve">
     <value>Downloading</value>

@@ -10,6 +10,10 @@
 
         string ExecutableName { get; }
 
+        string StaticDirectory {  get; }
+
+        string DynamicDirectory {  get; }
+
         string Directory { get; }
 
         string ExecutablePath { get; }

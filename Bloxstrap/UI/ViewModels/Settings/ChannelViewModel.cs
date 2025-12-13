@@ -1,13 +1,11 @@
-﻿using Bloxstrap.AppData;
-using Bloxstrap.RobloxInterfaces;
+﻿using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
     public class ChannelViewModel : NotifyPropertyChangedViewModel
     {
-        private string _oldPlayerVersionGuid = "";
-        private string _oldStudioVersionGuid = "";
-
+        public bool IsRobloxInstallationMissing => String.IsNullOrEmpty(App.RobloxState.Prop.Player.VersionGuid) && String.IsNullOrEmpty(App.RobloxState.Prop.Studio.VersionGuid);
+        
         public ChannelViewModel()
         {
             Task.Run(() => LoadChannelDeployInfo(App.Settings.Prop.Channel));
@@ -94,24 +92,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
-        public string ChannelHash
+        public bool StaticDirectory
         {
-            get => App.Settings.Prop.ChannelHash;
-            set
-            {
-                const string VersionHashFormat = "version-(.*)";
-                Match match = Regex.Match(value, VersionHashFormat);
-                if (match.Success || String.IsNullOrEmpty(value))
-                {
-                    App.Settings.Prop.ChannelHash = value;
-                }
-            }
-        }
-
-        public bool UpdateRoblox
-        {
-            get => App.Settings.Prop.UpdateRoblox;
-            set => App.Settings.Prop.UpdateRoblox = value;
+            get => App.Settings.Prop.StaticDirectory;
+            set => App.Settings.Prop.StaticDirectory = value;
         }
 
         public IReadOnlyDictionary<string, ChannelChangeMode> ChannelChangeModes => new Dictionary<string, ChannelChangeMode>
@@ -129,24 +113,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool ForceRobloxReinstallation
         {
-            // wouldnt it be better to check old version guids?
-            // what about fresh installs?
-            get => String.IsNullOrEmpty(App.RobloxState.Prop.Player.VersionGuid) && String.IsNullOrEmpty(App.RobloxState.Prop.Studio.VersionGuid);
-            set
-            {
-                if (value)
-                {
-                    _oldPlayerVersionGuid = App.RobloxState.Prop.Player.VersionGuid;
-                    _oldStudioVersionGuid = App.RobloxState.Prop.Studio.VersionGuid;
-                    App.RobloxState.Prop.Player.VersionGuid = "";
-                    App.RobloxState.Prop.Studio.VersionGuid = "";
-                }
-                else
-                {
-                    App.RobloxState.Prop.Player.VersionGuid = _oldPlayerVersionGuid;
-                    App.RobloxState.Prop.Studio.VersionGuid = _oldStudioVersionGuid;
-                }
-            }
+            get => App.State.Prop.ForceReinstall || IsRobloxInstallationMissing;
+            set => App.State.Prop.ForceReinstall = value;
         }
     }
 }

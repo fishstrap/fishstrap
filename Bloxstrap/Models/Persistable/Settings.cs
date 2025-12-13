@@ -25,6 +25,7 @@ namespace Bloxstrap.Models.Persistable
         public bool WPFSoftwareRender { get; set; } = false;
         public bool EnableAnalytics { get; set; } = false;
         public bool UpdateRoblox { get; set; } = true;
+        public bool StaticDirectory { get; set; } = false;
         public string Channel { get; set; } = RobloxInterfaces.Deployment.DefaultChannel;
         public ChannelChangeMode ChannelChangeMode { get; set; } = ChannelChangeMode.Automatic;
         public string ChannelHash { get; set; } = "";
