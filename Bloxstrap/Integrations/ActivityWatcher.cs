@@ -209,10 +209,6 @@
                     Data.JobId = match.Groups[1].Value;
                     Data.MachineAddress = match.Groups[3].Value;
 
-                    // used for deeplinks
-                    if (App.Settings.Prop.EnableActivityTracking)
-                        Data.ProcessServerRoValra();
-
                     if (_teleportMarker)
                     {
                         Data.IsTeleport = true;

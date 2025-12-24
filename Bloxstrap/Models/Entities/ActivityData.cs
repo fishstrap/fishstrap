@@ -4,7 +4,6 @@ using System.Web;
 using System.Windows;
 using System.Windows.Input;
 using Bloxstrap.AppData;
-using Bloxstrap.Models.APIs;
 using Bloxstrap.Models.APIs.RoValra;
 using CommunityToolkit.Mvvm.Input;
 
@@ -105,29 +104,6 @@ namespace Bloxstrap.Models.Entities
                 deeplink += "&launchData=" + HttpUtility.UrlEncode(RPCLaunchData);
 
             return deeplink;
-        }
-
-        // we use rovalra's apis in fishstrap.app/joingame
-        public void ProcessServerRoValra()
-        {
-            if (string.IsNullOrEmpty(JobId))
-                throw new InvalidOperationException("JobId is null");
-
-            if (PlaceId == 0)
-                throw new InvalidOperationException("PlaceId is null");
-
-            var serverBody = new RoValraProcessServerBody
-            {
-                PlaceId = PlaceId,
-                ServerIds = new() { JobId }
-            };
-
-            string json = JsonSerializer.Serialize(serverBody);
-            HttpContent postContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-            // we dont need to await it since its not as important
-            // we want to return uptime quickly
-            _ = App.HttpClient.PostAsync("https://apis.rovalra.com/process_servers", postContent);
         }
 
         public async Task<string?> QueryServerLocation()
