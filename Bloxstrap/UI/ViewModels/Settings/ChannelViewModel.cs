@@ -39,7 +39,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                         Deployment.ChannelToken = userChannel.Token;
                 }
 
-                ClientVersion info = await Deployment.GetInfo(channel, true);
+                ClientVersion info = await Deployment.GetInfo(channel, true, true);
 
                 ShowChannelWarning = info.IsBehindDefaultChannel;
                 OnPropertyChanged(nameof(ShowChannelWarning));
@@ -47,7 +47,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 ChannelDeployInfo = new DeployInfo
                 {
                     Version = info.Version,
-                    VersionGuid = isPrivate ? "version-private" : info.VersionGuid // we dont want to return the hash of private channels for obvious reason
+                    VersionGuid = isPrivate ? "version-private" : info.VersionGuid, // we dont want to return the hash of private channels for obvious reason
+                    Timestamp = info.Timestamp?.ToLocalTime().ToString() ?? "?"
                 };
 
                 App.State.Prop.IgnoreOutdatedChannel = true;

@@ -166,7 +166,39 @@ namespace Bloxstrap.RobloxInterfaces
             return false;
         }
 
-        public static async Task<ClientVersion> GetInfo(string? channel = null, bool behindProductionCheck = false)
+        public static async Task<DateTime?> GetVersionTimestamp(string version)
+        {
+            const string LOG_IDENT = "Deployment::GetVersionTimestamp";
+            const string header = "last-modified";
+
+            // since we arent getting the timestamp during launch there shouldnt be any collisions
+            if (string.IsNullOrEmpty(BaseUrl))
+                await InitializeConnectivity();
+
+            try
+            {
+                string location = GetLocation($"/{version}-rbxPkgManifest.txt");
+                var response = await App.HttpClient.GetAsync(location);
+                response.EnsureSuccessStatusCode();
+
+                if (response.Content.Headers.TryGetValues(header, out var values))
+                {
+                    string lastModified = values.First();
+                    DateTime dateTime = DateTime.Parse(lastModified);
+
+                    return dateTime;
+                }
+            } 
+            catch (HttpRequestException ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Failed to get timestamp for {version}");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+
+            return null;
+        }
+
+        public static async Task<ClientVersion> GetInfo(string? channel = null, bool behindProductionCheck = false, bool includeTimestamp = false)
         {
             const string LOG_IDENT = "Deployment::GetInfo";
 
@@ -232,8 +264,6 @@ namespace Bloxstrap.RobloxInterfaces
                 }
 
                 // check if channel is behind LIVE
-
-
                 if (!isDefaultChannel && behindProductionCheck)
                 {
                     var defaultClientVersion = await GetInfo(DefaultChannel);
@@ -243,6 +273,9 @@ namespace Bloxstrap.RobloxInterfaces
                 }
                 else
                     clientVersion.IsBehindDefaultChannel = false;
+
+                if (includeTimestamp && clientVersion.Timestamp is null)
+                    clientVersion.Timestamp = await GetVersionTimestamp(clientVersion.VersionGuid);
 
                 ClientVersionCache[cacheKey] = clientVersion;
             }

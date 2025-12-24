@@ -1788,4 +1788,7 @@ Defaulting to {1}.</value>
   <data name="Menu.Bootstrapper.AllowCookieAccess.Description" xml:space="preserve">
     <value>Provide access to Roblox APIs using your authentication cookie. [What will Fishstrap access?]({0})</value>
   </data>
+  <data name="Common.Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
 </root>
