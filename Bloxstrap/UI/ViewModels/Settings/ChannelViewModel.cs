@@ -33,7 +33,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 bool isPrivate = await Deployment.IsChannelPrivate(channel);
                 if (App.Cookies.Loaded && isPrivate && string.IsNullOrEmpty(Deployment.ChannelToken))
                 {
-                    UserChannel? userChannel = await App.Cookies.GetUserChannel("WindowsPlayer");
+                    UserChannel? userChannel = await Deployment.GetUserChannel("WindowsPlayer");
 
                     if (userChannel?.Token is not null)
                         Deployment.ChannelToken = userChannel.Token;

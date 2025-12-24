@@ -376,7 +376,7 @@ namespace Bloxstrap
             // Private channels
             if (App.Cookies.Loaded)
             {
-                UserChannel? userChannel = await App.Cookies.GetUserChannel(Deployment.BinaryType);
+                UserChannel? userChannel = await Deployment.GetUserChannel(Deployment.BinaryType);
             
                 if (
                     userChannel?.Token is not null &&

@@ -147,6 +147,28 @@ namespace Bloxstrap.RobloxInterfaces
             return location;
         }
 
+        public async static Task<UserChannel?> GetUserChannel(string binaryType)
+        {
+            const string LOG_IDENT = "Deployment::GetUserChannel";
+            try
+            {
+                HttpResponseMessage response = await App.Cookies.AuthGet($"https://clientsettings.roblox.com/v2/user-channel?binaryType={binaryType}");
+                response.EnsureSuccessStatusCode();
+
+                string content = await response.Content.ReadAsStringAsync();
+                UserChannel channelInfo = JsonSerializer.Deserialize<UserChannel>(content)!;
+
+                return channelInfo;
+            }
+            catch (HttpRequestException ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to get user channel");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+
+            return null;
+        }
+
         public static async Task<bool> IsChannelPrivate(string channel)
         {
             if (channel == "production")

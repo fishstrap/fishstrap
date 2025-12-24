@@ -28,21 +28,39 @@ namespace Bloxstrap
         private const string AuthPattern = $@"\t{AuthCookieName}\t(.+?)(;|$)";
         private string CookiesPath => Path.Combine(Paths.Roblox, "LocalStorage", "RobloxCookies.dat");
 
+        public async Task<HttpResponseMessage> AuthRequest(HttpRequestMessage request)
+        {
+            string? host = request.RequestUri?.Host;
+
+            // basic host validation in case we accidentally send authenticated request somewhere unwanted
+            if (host is null)
+                throw new ArgumentNullException("Host cannot be null");
+
+            if (
+                !host.Equals("roblox.com", StringComparison.OrdinalIgnoreCase) &&
+                !host.EndsWith(".roblox.com", StringComparison.OrdinalIgnoreCase)
+                )
+                throw new HttpRequestException("Host must end with roblox.com");
+
+            if (!Enabled)
+                throw new NullReferenceException("Cookie access is not enabled");
+
+            request.Headers.Add("Cookie", $".ROBLOSECURITY={AuthCookie}");
+            var response = await App.HttpClient.SendAsync(request);
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> AuthGet(string uri) => await AuthRequest(new HttpRequestMessage { RequestUri = new Uri(uri), Method = HttpMethod.Get });
+        public async Task<HttpResponseMessage> AuthPost(string uri, HttpContent? content) => await AuthRequest(new HttpRequestMessage { RequestUri = new Uri(uri), Content = content, Method = HttpMethod.Post });
+
         public async Task<AuthenticatedUser?> GetAuthenticated()
         {
             const string LOG_IDENT = "CookiesManager::GetAuthenticated";
-
-            var request = new HttpRequestMessage()
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://users.roblox.com/v1/users/authenticated")
-            };
-
-            request.Headers.Add("Cookie", $".ROBLOSECURITY={AuthCookie}");
-
+            
             try
             {
-                HttpResponseMessage response = await App.HttpClient.SendAsync(request);
+                HttpResponseMessage response = await AuthGet("https://users.roblox.com/v1/users/authenticated");
                 response.EnsureSuccessStatusCode();
 
                 string content = await response.Content.ReadAsStringAsync();
@@ -53,37 +71,6 @@ namespace Bloxstrap
             catch (HttpRequestException ex)
             {
                 App.Logger.WriteLine(LOG_IDENT, "Failed to get authenticated user");
-                App.Logger.WriteException(LOG_IDENT, ex);
-            }
-
-            return null;
-        }
-
-        public async Task<UserChannel?> GetUserChannel(string binaryType)
-        {
-            const string LOG_IDENT = "CookiesManager::GetUserChannel";
-
-            var request = new HttpRequestMessage()
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://clientsettings.roblox.com/v2/user-channel?binaryType={binaryType}")
-            };
-
-            request.Headers.Add("Cookie", $".ROBLOSECURITY={AuthCookie}");
-
-            try
-            {
-                HttpResponseMessage response = await App.HttpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-
-                string content = await response.Content.ReadAsStringAsync();
-                UserChannel channelInfo = JsonSerializer.Deserialize<UserChannel>(content)!;
-
-                return channelInfo;
-            }
-            catch (HttpRequestException ex)
-            {
-                App.Logger.WriteLine(LOG_IDENT, "Failed to get user channel");
                 App.Logger.WriteException(LOG_IDENT, ex);
             }
 
