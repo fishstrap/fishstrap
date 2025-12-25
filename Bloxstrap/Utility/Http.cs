@@ -30,5 +30,30 @@
 
             return JsonSerializer.Deserialize<T>(json)!;
         }
+
+        public static async Task<T> AuthGetJson<T>(string url)
+        {
+            var request = await App.Cookies.AuthGet(url);
+
+            request.EnsureSuccessStatusCode();
+
+            string json = await request.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<T>(json)!;
+        }
+
+        public static async Task<T> AuthSendJson<T>(HttpRequestMessage requestMessage)
+        {
+            string uri = requestMessage.RequestUri?.ToString()!;
+            HttpContent content = requestMessage.Content!;
+
+            var request = await App.Cookies.AuthPost(uri, content);
+
+            request.EnsureSuccessStatusCode();
+
+            string json = await request.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<T>(json)!;
+        }
     }
 }

@@ -358,6 +358,12 @@ namespace Bloxstrap.Integrations
                 {
                     await UniverseDetails.FetchSingle(activity.UniverseId);
                 }
+                catch (InvalidHTTPResponseException ex)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Universe {activity.UniverseId} is restricted");
+                    App.Logger.WriteException(LOG_IDENT, ex);
+                    return false;
+                }
                 catch (Exception ex)
                 {
                     App.Logger.WriteException(LOG_IDENT, ex);
