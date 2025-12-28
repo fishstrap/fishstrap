@@ -1094,7 +1094,6 @@ namespace Bloxstrap
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        // TODO: should we try to use Filesystem.AssertReadOnlyDirectory() here?
                         App.Logger.WriteLine(LOG_IDENT, $"Failed to delete {dir}");
                         App.Logger.WriteException(LOG_IDENT, ex);
                     }
