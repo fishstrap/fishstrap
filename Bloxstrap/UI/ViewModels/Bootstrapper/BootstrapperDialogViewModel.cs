@@ -27,7 +27,7 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
         public bool CancelEnabled { get; set; } = false;
         public Visibility CancelButtonVisibility => CancelEnabled ? Visibility.Visible : Visibility.Collapsed;
 
-        public string VersionText { get; set; }
+        public string VersionText { get; set; } = string.Empty;
         public string ChannelText
         {
             get => _channelText;
