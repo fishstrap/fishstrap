@@ -671,10 +671,22 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             textBlock.Text = GetTranslatedText(xmlElement.Attribute("Text")?.Value);
 
-            if (xmlElement.Attribute("Name")?.Value == "StatusText")
+            string? name = xmlElement.Attribute("Name")?.Value;
+
+            if (name == "StatusText")
             {
-                Binding textBinding = new Binding("Message") { Mode = BindingMode.OneWay };
-                BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, textBinding);
+                Binding statusBinding = new Binding("Message") { Mode = BindingMode.OneWay };
+                BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, statusBinding);
+            }
+            else if (name == "VersionText")
+            {
+                Binding versionBinding = new Binding("VersionText") { Mode = BindingMode.OneWay };
+                BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, versionBinding);
+            }
+            else if (name == "ChannelText")
+            {
+                Binding channelBinding = new Binding("ChannelText") { Mode = BindingMode.OneWay };
+                BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, channelBinding);
             }
 
             return textBlock;
