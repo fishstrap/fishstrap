@@ -1034,12 +1034,14 @@ namespace Bloxstrap
 
         private static bool TryDeleteRobloxInDirectory(string dir)
         {
-            string clientPath = Path.Combine(dir, "RobloxPlayerBeta.exe");
-            if (!File.Exists(dir))
+            // If neither of these exist in the directory, return true.
+            // This was not implemented properly.
+            string clientPath = Path.Combine(dir, App.RobloxPlayerAppName);
+            if (!File.Exists(clientPath))
             {
-                clientPath = Path.Combine(dir, "RobloxStudioBeta.exe");
-                if (!File.Exists(dir))
-                    return true; // ok???
+                clientPath = Path.Combine(dir, App.RobloxStudioAppName);
+                if (!File.Exists(clientPath))
+                    return true;
             }
 
             try
@@ -1090,7 +1092,12 @@ namespace Bloxstrap
                     {
                         Directory.Delete(dir, true);
                     }
-                    catch (Exception ex)
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to delete {dir}");
+                        App.Logger.WriteException(LOG_IDENT, ex);
+                    }
+                    catch (IOException ex)
                     {
                         App.Logger.WriteLine(LOG_IDENT, $"Failed to delete {dir}");
                         App.Logger.WriteException(LOG_IDENT, ex);
