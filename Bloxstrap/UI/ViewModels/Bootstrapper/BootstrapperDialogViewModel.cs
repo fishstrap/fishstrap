@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using Bloxstrap.RobloxInterfaces;
 
 using CommunityToolkit.Mvvm.Input;
 
@@ -26,6 +27,18 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
         public bool CancelEnabled { get; set; } = false;
         public Visibility CancelButtonVisibility => CancelEnabled ? Visibility.Visible : Visibility.Collapsed;
 
+        public string VersionText { get; set; }
+        public string ChannelText
+        {
+            get => _channelText;
+            set
+            {
+                _channelText = value;
+                OnPropertyChanged(nameof(ChannelText));
+            }
+        }
+        private string _channelText = string.Empty;
+
         [Obsolete("Do not use this! This is for the designer only.", true)]
         public BootstrapperDialogViewModel()
         {
@@ -35,6 +48,15 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
         public BootstrapperDialogViewModel(IBootstrapperDialog dialog)
         {
             _dialog = dialog;
+            
+            string version = Utilities.GetRobloxVersionStr(_dialog.Bootstrapper?.IsStudioLaunch ?? false);
+            VersionText = $"{Strings.Common_Version}: {version}";
+            ChannelText = $"{Strings.Common_Channel}: {Deployment.Channel}";
+
+            Deployment.ChannelChanged += (_, newChannel) =>
+            {
+                ChannelText = $"{Strings.Common_Channel}: {newChannel}";
+            };
         }
 
         private void CancelInstall()
