@@ -25,7 +25,7 @@
 > [!NOTE]
 > FIshstrap only supports **Windows 10 and above**. We do not plan on supporting other Operating Systems.
 > You can use **[AppleBlox](https://github.com/AppleBlox/appleblox)** *(for MacOS)* or **[Sober](https://sober.vinegarhq.org/)** *(for Linux)*.
-> More experienced Linux users can use tools like **[Lotion](https://github.com/wookhq/Lution)** for example.
+> More experienced Linux users can use tools like **[Lution](https://github.com/wookhq/Lution)** for example.
 
 **Download the latest release [here][repo-latest]**
 
