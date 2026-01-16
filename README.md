@@ -14,15 +14,18 @@
 > The only official places to download Fishstrap are this GitHub repository and [fishstrap.app](https://fishstrap.app).
 > Any other websites offering downloads or claiming to be us are not controlled by us *(eg. fishstrap.org, fishstrap.com).* Do not download from them.
 
-*Fishstrap is a custom bootstrapper for Roblox based on Bloxstrap.*
+*Fishstrap is a custom bootstrapper for Roblox based on [Bloxstrap](https://github.com/bloxstraplabs/bloxstrap).*<br>
 *It aims to provide additional features to compliment your experience.*
 
-***Found any bugs? [Submit an issue](https://github.com/fishstrap/fishstrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/SRs5zb9BJd).***
+***Found any bugs? Please [Submit an issue](https://github.com/fishstrap/fishstrap/issues/new/choose) or create a bug report in our [Discord server](https://discord.gg/SRs5zb9BJd).***
 
 > [!NOTE]
 > Fishstrap only supports **Windows 10 and above**. We do not plan on supporting other Operating Systems.
+
+> [!TIP]
 > You can use **[AppleBlox](https://github.com/AppleBlox/appleblox)** *(for MacOS)* or **[Sober](https://sober.vinegarhq.org/)** *(for Linux)*.
-> More experienced Linux users can use tools like **[Lution](https://github.com/wookhq/Lution)** for example.
+> 
+> More experienced Linux users can use tools like **[Lution](https://github.com/wookhq/Lution)**, for example.
 
 **Download the latest release [here][repo-latest]**
 
