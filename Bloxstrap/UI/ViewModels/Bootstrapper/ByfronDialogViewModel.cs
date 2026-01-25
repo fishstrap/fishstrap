@@ -16,8 +16,6 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
 
         public Visibility VersionTextVisibility => CancelEnabled ? Visibility.Collapsed : Visibility.Visible;
 
-        public string VersionText { get; init; }
-
         public ByfronDialogViewModel(IBootstrapperDialog dialog, string version) : base(dialog)
         {
             VersionText = version;
