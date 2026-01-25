@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bootstrapper.AutoUpdateFailed" xml:space="preserve">
-    <value>A Bloxstrap nem tudott automatikusan frissülni a {0} verzióra. Kérjük frissítse manuálisan úgy, hogy letölti és futtatja a webhelyről.</value>
+    <value>A Fishstrap nem tudott automatikusan frissülni a {0} verzióra. Kérjük frissítse manuálisan úgy, hogy letölti és futtatja a webhelyről.</value>
   </data>
   <data name="Bootstrapper.ConfirmLaunch" xml:space="preserve">
     <value>A Roblox jelenleg fut, és egy másik példány elindítása bezárja azt. Biztos, hogy folytatni akarod az indítást?</value>
@@ -127,13 +127,13 @@
     <value>A Roblox jelenleg nem elérhető. További információkért lásd {0}.</value>
   </data>
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
-    <value>Nem sikerült kapcsolatot létesíteni, ami valószínűleg rossz internetkapcsolatra vagy tűzfalblokkolásra utal. Ha a kapcsolat rendben van, kérjük, győződjön meg róla, hogy a vírusirtója nem blokkolja a Bloxstrap-et.</value>
+    <value>Nem sikerült kapcsolatot létesíteni, ami valószínűleg rossz internetkapcsolatra vagy tűzfalblokkolásra utal. Ha a kapcsolat rendben van, kérjük, győződjön meg róla, hogy a vírusirtója nem blokkolja a Fishstrap-et.</value>
   </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
-    <value>Először telepítenie kell Bloxstrap-et az eltávolítás előtt.</value>
+    <value>Először telepítenie kell Fishstrap-et az eltávolítás előtt.</value>
   </data>
   <data name="Bootstrapper.NotEnoughSpace" xml:space="preserve">
-    <value>A Bloxstrap-nek nincsen elég tárhelye a Roblox telepítéséhez. Kérjük, szabadítson fel lemezterületet, és próbálja újra.</value>
+    <value>A Fishstrap-nek nincsen elég tárhelye a Roblox telepítéséhez. Kérjük, szabadítson fel lemezterületet, és próbálja újra.</value>
   </data>
   <data name="Bootstrapper.Status.ApplyingModifications" xml:space="preserve">
     <value>Roblox módosítások alkalmazása...</value>
@@ -157,9 +157,6 @@
   <data name="Bootstrapper.Status.Upgrading" xml:space="preserve">
     <value>{product} frissítése...</value>
   </data>
-  <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
-    <value>A legújabb Bloxstrap beszerzése...</value>
-  </data>
   <data name="Bootstrapper.Status.WaitingOtherInstances" xml:space="preserve">
     <value>Várakozás más példányokra...</value>
   </data>
@@ -172,10 +169,10 @@
     <comment>Text for style previews that use text button that says "Cancel"</comment>
   </data>
   <data name="Bootstrapper.SuccessfullyUninstalled" xml:space="preserve">
-    <value>A Bloxstrap sikeresen eltávolításra került</value>
+    <value>A Fishstrap sikeresen eltávolításra került</value>
   </data>
   <data name="Bootstrapper.Uninstall.RobloxRunning" xml:space="preserve">
-    <value>A Roblox jelenleg fut, de a Bloxstrap eltávolítása előtt be kell zárni. Szeretné bezárni a Robloxot most?</value>
+    <value>A Roblox jelenleg fut, de a Fishstrap eltávolítása előtt be kell zárni. Szeretné bezárni a Robloxot most?</value>
   </data>
   <data name="Bootstrapper.WMFNotFound" xml:space="preserve">
     <value>A Roblox megköveteli a Windows Media Foundation komponensek használatát. Úgy tűnik, ezek hiányoznak, valószínűleg azért, mert a Windows N kiadását használja. Kérjük, először telepítse őket, majd indítsa el a Robloxot.</value>
@@ -279,22 +276,22 @@ Kattintson további információért</value>
     <value>Csatlakozási hiba</value>
   </data>
   <data name="Dialog.Connectivity.UnableToConnect" xml:space="preserve">
-    <value>A Bloxstrap nem tudott kapcsolódni a {0}-hoz/hez/höz</value>
+    <value>A Fishstrap nem tudott kapcsolódni a {0}-hoz/hez/höz</value>
     <comment>{0} is the name of a service (i.e. Roblox, GitHub)</comment>
   </data>
   <data name="Dialog.Exception.CopyLogContents" xml:space="preserve">
     <value>Napló tartalmának másolása</value>
   </data>
   <data name="Dialog.Exception.Info.1" xml:space="preserve">
-    <value>Kivétel lépett fel a Bloxstrap futtatása közben</value>
+    <value>Kivétel lépett fel a Fishstrap futtatása közben</value>
   </data>
   <data name="Dialog.Exception.Info.2" xml:space="preserve">
     <value>Először nézze át a [Bloxstrap Wikit]({0}), mert lehet, hogy a problémáját már megválaszoltuk.
 
-Ha nem, kérjük, hogy jelentse ezt egy [GitHub problémaként]({1}) a Bloxstrap által készített naplófájllal együtt.</value>
+Ha nem, kérjük, hogy jelentse ezt egy [GitHub problémaként]({1}) a Fishstrap által készített naplófájllal együtt.</value>
   </data>
   <data name="Dialog.Exception.Title" xml:space="preserve">
-    <value>Bloxstrap kivétel</value>
+    <value>Fishstrap kivétel</value>
   </data>
   <data name="Common.Custom" xml:space="preserve">
     <value>Saját</value>
@@ -309,10 +306,10 @@ Ha nem, kérjük, hogy jelentse ezt egy [GitHub problémaként]({1}) a Bloxstrap
     <value>Kamu Byfron (2023)</value>
   </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
-    <value>Bloxstrap (Klasszikus)</value>
+    <value>Fishstrap (Klasszikus)</value>
   </data>
   <data name="Enums.BootstrapperStyle.FluentAeroDialog" xml:space="preserve">
-    <value>Bloxstrap (Üveg)</value>
+    <value>Fishstrap (Üveg)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2008" xml:space="preserve">
     <value>Régi (2008 - 2011)</value>
@@ -390,10 +387,10 @@ Ha nem, kérjük, hogy jelentse ezt egy [GitHub problémaként]({1}) a Bloxstrap
     <value>Világos</value>
   </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
-    <value>A Bloxstrap frissítve lett v{0}-ra/re</value>
+    <value>A Fishstrap frissítve lett v{0}-ra/re</value>
   </data>
   <data name="InstallChecker.VersionDifferentThanInstalled" xml:space="preserve">
-    <value>A Bloxstrap elindított verziója eltér a jelenleg telepített verziótól.
+    <value>A Fishstrap elindított verziója eltér a jelenleg telepített verziótól.
 Szeretné frissíteni a jelenleg telepített verzióját?</value>
   </data>
   <data name="Menu.About.Contributors" xml:space="preserve">
@@ -403,7 +400,7 @@ Szeretné frissíteni a jelenleg telepített verzióját?</value>
     <value>Programozók</value>
   </data>
   <data name="Menu.About.Contributors.Description" xml:space="preserve">
-    <value>Ezek azok az emberek, akik jelentős mértékben hozzájárultak a Bloxstraphez, és segítettek abban, hogy azzá váljon, ami.</value>
+    <value>Ezek azok az emberek, akik jelentős mértékben hozzájárultak a Fishstraphez, és segítettek abban, hogy azzá váljon, ami.</value>
   </data>
   <data name="Menu.About.Contributors.FeatureIdeas" xml:space="preserve">
     <value>Funkció Ajánlók</value>
@@ -436,7 +433,7 @@ Szeretné frissíteni a jelenleg telepített verzióját?</value>
     <value>Hiba bejelentése</value>
   </data>
   <data name="Menu.About.Title" xml:space="preserve">
-    <value>Bloxstrap-ről</value>
+    <value>Fishstrap-ről</value>
   </data>
   <data name="Menu.About.Version" xml:space="preserve">
     <value>Verzió {0}</value>
@@ -449,7 +446,7 @@ Szeretné frissíteni a jelenleg telepített verzióját?</value>
     <value>Vegye figyelembe, hogy nem minden módosítása fog érvényesülni, amíg nem zárja be Roblox összes feladatát.</value>
   </data>
   <data name="Menu.AlreadyRunning.Title" xml:space="preserve">
-    <value>A Bloxstrap már fut</value>
+    <value>A Fishstrap már fut</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Description" xml:space="preserve">
     <value>A kinézete lehet teljesen más, lehet retró, vagy csak normális Roblox kinézetű.</value>
@@ -476,7 +473,7 @@ Szeretné frissíteni a jelenleg telepített verzióját?</value>
     <value>Név</value>
   </data>
   <data name="Menu.Appearance.Description" xml:space="preserve">
-    <value>Állítsa be a Bloxstrap kinézetét.</value>
+    <value>Állítsa be a Fishstrap kinézetét.</value>
   </data>
   <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
     <value>Globális Téma</value>
@@ -500,10 +497,10 @@ Szeretné frissíteni a jelenleg telepített verzióját?</value>
     <value>Kinézet</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Description" xml:space="preserve">
-    <value>A Bloxstrap automatikusan ellenőrzi és frissíti magát a Roblox indításakor.</value>
+    <value>A Fishstrap automatikusan ellenőrzi és frissíti magát a Roblox indításakor.</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
-    <value>Bloxstrap automatikus frissítése</value>
+    <value>Fishstrap automatikus frissítése</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Description" xml:space="preserve">
     <value>Megakadályozza, hogy a meglévő játéka bezárjódjon, amikor véletlenül egy újat indít el.</value>
@@ -512,7 +509,7 @@ Szeretné frissíteni a jelenleg telepített verzióját?</value>
     <value>Kérdezzen rá, amikor egy másik Roblox feladatot indítok el</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
-    <value>Annak beállítása, hogy a Bloxstrap mit tegyen a Roblox indításakor.</value>
+    <value>Annak beállítása, hogy a Fishstrap mit tegyen a Roblox indításakor.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Description" xml:space="preserve">
     <value>A Roblox a következő induláskor frissen lesz telepítve.</value>
@@ -611,32 +608,11 @@ Biztosan folytatja?</value>
   <data name="Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo" xml:space="preserve">
     <value>A Direct3D [kizárólagos teljes képernyő]({0}) az Alt+Enter billentyűkombináció használatával alapértelmezés szerint engedélyezve van.</value>
   </data>
-  <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
-    <value>Előnyben részesített játék menü verzió</value>
-  </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Description" xml:space="preserve">
     <value>A Roblox csökkenti a renderelési minőséget attól függően, hogy a kijelző hogyan van méretezve a Windows-ban.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Title" xml:space="preserve">
     <value>A megjelenítés minőségének megőrzése a kijelző méretezésével</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
-    <value>Állítsd 0-ra az alapértelmezettért, ha a Roblox saját FPS korlát eltörlőjét akarod használni.</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
-    <value>FPS korlát</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
-    <value>A [billentyűparancsok]({0}) segítségével kapcsolható. Csak akkor működik, ha a [Bloxstrap Roblox csoportban]({1}) vagy.</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
-    <value>A GUI-k elrejtésének lehetővé tétele</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
-    <value>A kiválasztott feltétlenül meg fog jelenni az összes játékban. [Vigyázz, ez el tudja rontani a játék kinézetét!]({0})</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
-    <value>Előnyben részesített világítási technológia</value>
   </data>
   <data name="Menu.FastFlags.Presets.RenderingMode.Title" xml:space="preserve">
     <value>Renderelési mód</value>
@@ -651,10 +627,10 @@ Biztosan folytatja?</value>
     <value>Ikon fájlok</value>
   </data>
   <data name="Menu.InstallLocation.CantInstall" xml:space="preserve">
-    <value>A Bloxstrap nem telepíthető ide. Kérjük, válasszon másik helyet, vagy térjen vissza az alapértelmezett helyre a visszaállítás gombra kattintva.</value>
+    <value>A Fishstrap nem telepíthető ide. Kérjük, válasszon másik helyet, vagy térjen vissza az alapértelmezett helyre a visszaállítás gombra kattintva.</value>
   </data>
   <data name="Menu.InstallLocation.NotEmpty" xml:space="preserve">
-    <value>A mappa, amelybe a Bloxstrap telepítését választotta, már létezik, és NEM üres. Erősen ajánlott a Bloxstrap-et saját, független mappába telepíteni.
+    <value>A mappa, amelybe a Fishstrap telepítését választotta, már létezik, és NEM üres. Erősen ajánlott a Fishstrap-et saját, független mappába telepíteni.
 
 A következő helyre történő váltás javasolt:
 {0}
@@ -667,7 +643,7 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
     <value>Először be kell állítania egy telepítési helyet</value>
   </data>
   <data name="Menu.InstallLocation.NoWritePerms" xml:space="preserve">
-    <value>A Bloxstrap nem rendelkezik írási hozzáféréssel a kiválasztott telepítési helyhez. Kérjük, válasszon másik helyet.</value>
+    <value>A Fishstrap nem rendelkezik írási hozzáféréssel a kiválasztott telepítési helyhez. Kérjük, válasszon másik helyet.</value>
   </data>
   <data name="Menu.Integrations.ActivityTracking" xml:space="preserve">
     <value>Tevékenység nyomon követése</value>
@@ -718,7 +694,7 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
     <value>Ne lépjen ki az asztali alkalmazásba</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
-    <value>Lehetővé teszi a Bloxstrap számára, hogy felismerje, milyen Roblox játékkal játszol. Bizonyos funkciók megkövetelhetik ezt.</value>
+    <value>Lehetővé teszi a Fishstrap számára, hogy felismerje, milyen Roblox játékkal játszol. Bizonyos funkciók megkövetelhetik ezt.</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
     <value>Aktivitáskövetés engedélyezése</value>
@@ -793,12 +769,6 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
   <data name="Menu.Mods.Presets.OldCharacterSounds.Title" xml:space="preserve">
     <value>Régi karakterhangok visszahozása</value>
   </data>
-  <data name="Menu.Mods.Presets.OldDeathSound.Description" xml:space="preserve">
-    <value>A klasszikus 'oof' hang visszahozása.</value>
-  </data>
-  <data name="Menu.Mods.Presets.OldDeathSound.Title" xml:space="preserve">
-    <value>Régi halálhang használata</value>
-  </data>
   <data name="Menu.Mods.Title" xml:space="preserve">
     <value>Modok</value>
   </data>
@@ -815,7 +785,7 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
     <value>Beállítások mentve!</value>
   </data>
   <data name="Menu.Title" xml:space="preserve">
-    <value>Bloxstrap beállítások</value>
+    <value>Fishstrap beállítások</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
     <value>Kívánt nyelv kiválasztása</value>
@@ -845,19 +815,13 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
     <value>Felhasználói felület és Elrendezés</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Title" xml:space="preserve">
-    <value>Fast Flag kezelés engedélyezése a Bloxstrap-nek</value>
+    <value>Fast Flag kezelés engedélyezése a Fishstrap-nek</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Description" xml:space="preserve">
     <value>Ha ezt kikapcsolja, bármi, amit itt beállít, nem fog a Roblox-ra hatni.</value>
   </data>
   <data name="Menu.FastFlags.Presets.MSAA.Title" xml:space="preserve">
     <value>Élsimítás minőség (MSAA)</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
-    <value>Utófeldolgozási effektusok letiltása</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
-    <value>A teljesképernyős címsor letiltása</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Description" xml:space="preserve">
     <value>Nem fog megjelenni, ha az egerét a képernyő tetejére mozdítja.</value>
@@ -877,20 +841,8 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
   <data name="Enums.FlagPresets.TextureQuality.Level3" xml:space="preserve">
     <value>3. szint (Legmagasabb)</value>
   </data>
-  <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
-    <value>Játékosok árnyékai letiltása</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
-    <value>Betűtípus méret</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
-    <value>Az alapértelmezett érték 1. Változtassa meg ezt, ha egy saját betűtípust használ.</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
-    <value>Tereptextúrák kikapcsolása</value>
-  </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
-    <value>A Bloxstrap nem tudja letölteni a Roblox-ot</value>
+    <value>A Fishstrap nem tudja letölteni a Roblox-ot</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownloadReason" xml:space="preserve">
     <value>A Roblox-ot nem lehet most letölteni. Kérjük, olvassa el a sugóoldalt további információért: {0}</value>
@@ -911,7 +863,7 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
     <value>A(z) '{0}' nem érvényes, mivel az érték csak egy szám lehet</value>
   </data>
   <data name="Logger.NoWriteMode" xml:space="preserve">
-    <value>Ehhez az indításhoz nem fog naplófájl íródni, mert a Bloxstrap nem tud írni a '{0}' mappába</value>
+    <value>Ehhez az indításhoz nem fog naplófájl íródni, mert a Fishstrap nem tud írni a '{0}' mappába</value>
   </data>
   <data name="Common.Default" xml:space="preserve">
     <value>Alapértelmezett</value>
@@ -926,7 +878,7 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
     <value>A '{0}' sor érvénytelen, mivel a place filter nem megfelelően van formázva.</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
-    <value>Bloxstrap telepítő</value>
+    <value>Fishstrap telepítő</value>
   </data>
   <data name="Installer.Welcome.Title" xml:space="preserve">
     <value>Üdvözöljük</value>
@@ -945,18 +897,18 @@ A 'Nem' választása figyelmen kívül hagyja ezt a figyelmeztetést, és folyta
     <value>Következő</value>
   </data>
   <data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>Köszönjük a Bloxstrap letöltését. 
+    <value>Köszönjük a Fishstrap letöltését. 
 
-A Bloxstrap letöltéséhez csak a(z) {0} és a(z) {1} hivatalos oldal áll rendelkezésre, ezért kérjük ellenőrizd, hogy hivatalos forrásból származik-e a letöltés.
+A Fishstrap letöltéséhez csak a(z) {0} és a(z) {1} hivatalos oldal áll rendelkezésre, ezért kérjük ellenőrizd, hogy hivatalos forrásból származik-e a letöltés.
 
-A telepítési folyamat gyors és egyszerű lesz, és a telepítés után a Bloxstrap bármelyik beállítását konfigurálhatja.</value>
+A telepítési folyamat gyors és egyszerű lesz, és a telepítés után a Fishstrap bármelyik beállítását konfigurálhatja.</value>
     <comment>{0} and {1} are URLs</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
     <value>A folytatáshoz kattintson a 'Tovább' gombra.</value>
   </data>
   <data name="Installer.Welcome.UpdateNotice" xml:space="preserve">
-    <value>A Bloxstrap {0} verzióját próbálja telepíteni, de a legújabb elérhető verzió {1}. Szeretné letölteni?</value>
+    <value>A Fishstrap {0} verzióját próbálja telepíteni, de a legújabb elérhető verzió {1}. Szeretné letölteni?</value>
   </data>
   <data name="Installer.Install.Location.Title" xml:space="preserve">
     <value>Válassza ki, hogy hova telepítse</value>
@@ -977,16 +929,16 @@ A telepítési folyamat gyors és egyszerű lesz, és a telepítés után a Blox
     <value>Start menü ikon</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
-    <value>A Bloxstrap sikeresen telepítve.
+    <value>A Fishstrap sikeresen telepítve.
 
-A Roblox még nem lett telepítve, ez akkor fog megtörténni, amikor először indítod el a Bloxstrap segítségével. Mielőtt azonban ezt megtennéd, érdemes először a Bloxstrap beállításait konfigurálni.
+A Roblox még nem lett telepítve, ez akkor fog megtörténni, amikor először indítod el a Fishstrap segítségével. Mielőtt azonban ezt megtennéd, érdemes először a Fishstrap beállításait konfigurálni.
 
-Továbbá kerülje a „Roblox Player” parancsikon használatát a Roblox elindításához, mivel a Bloxstrap nem fog elindulni a Roblox-szal együtt. Ha a weboldalról való indításkor nem jelenik meg a Bloxstrap, egyszerűen indítsd el a Robloxot a Bloxstrap segítségével egyszer az asztalról, hogy a probléma megoldódjon.
+Továbbá kerülje a „Roblox Player” parancsikon használatát a Roblox elindításához, mivel a Fishstrap nem fog elindulni a Roblox-szal együtt. Ha a weboldalról való indításkor nem jelenik meg a Fishstrap, egyszerűen indítsd el a Robloxot a Fishstrap segítségével egyszer az asztalról, hogy a probléma megoldódjon.
 
 Mit szeretnél tenni?</value>
   </data>
   <data name="Installer.Completion.Settings.Title" xml:space="preserve">
-    <value>A Bloxstrap beállításainak konfigurálása</value>
+    <value>A Fishstrap beállításainak konfigurálása</value>
   </data>
   <data name="Installer.Completion.Settings.Description" xml:space="preserve">
     <value>Trükközzön az összes funkcióval, amit kínál</value>
@@ -998,22 +950,22 @@ Mit szeretnél tenni?</value>
     <value>Az asztali alkalmazásba kerülsz, amint minden készen van</value>
   </data>
   <data name="Uninstaller.Title" xml:space="preserve">
-    <value>Bloxstrap eltávolítása</value>
+    <value>Fishstrap eltávolítása</value>
   </data>
   <data name="Uninstaller.Text" xml:space="preserve">
-    <value>Az eltávolítás eltávolítja a Bloxstrap-et a rendszerből, és automatikusan átállítja az alapértelmezett Roblox indítóprogramot, ha az még telepítve van.
+    <value>Az eltávolítás eltávolítja a Fishstrap-et a rendszerből, és automatikusan átállítja az alapértelmezett Roblox indítóprogramot, ha az még telepítve van.
 
 Ha azért távolítod el vagy telepíted újra, mert problémáid vannak a Roblox-al, először olvasd el [ezt a súgóoldalt]({0}).
 
-Előfordulhat, hogy az eltávolítási folyamat nem képes teljesen kitakarítani magát, ezért előfordulhat, hogy kézzel kell kitakarítani a megmaradt fájlokat, ahová a Bloxstrap telepítve volt.
+Előfordulhat, hogy az eltávolítási folyamat nem képes teljesen kitakarítani magát, ezért előfordulhat, hogy kézzel kell kitakarítani a megmaradt fájlokat, ahová a Fishstrap telepítve volt.
 
-A Bloxstrap telepítése a „{1}” helyre történt.</value>
+A Fishstrap telepítése a „{1}” helyre történt.</value>
   </data>
   <data name="Uninstaller.KeepData.Label" xml:space="preserve">
     <value>Tartsa meg a beállításaimat és modjaimat</value>
   </data>
   <data name="Uninstaller.KeepData.Description" xml:space="preserve">
-    <value>Ezek ott maradnak, ahová a Bloxstrap telepítve volt, és automatikusan visszaállnak egy újratelepítéskor.</value>
+    <value>Ezek ott maradnak, ahová a Fishstrap telepítve volt, és automatikusan visszaállnak egy újratelepítéskor.</value>
   </data>
   <data name="Uninstaller.Uninstall" xml:space="preserve">
     <value>Eltávolítás</value>
@@ -1034,19 +986,19 @@ A Bloxstrap telepítése a „{1}” helyre történt.</value>
     <value>Jelenleg nincs telepítve a WebView2 runtime. Egyes Roblox funkciók nem fognak megfelelően működni nélküle, például az asztali alkalmazás. Szeretnéd most letölteni?</value>
   </data>
   <data name="Dialog.CannotCreateShortcuts" xml:space="preserve">
-    <value>A Bloxstrap nem tudott parancsikonokat létrehozni az Asztal és a Start menü számára. Próbálja meg később létrehozni őket a beállításokon keresztül.</value>
+    <value>A Fishstrap nem tudott parancsikonokat létrehozni az Asztal és a Start menü számára. Próbálja meg később létrehozni őket a beállításokon keresztül.</value>
   </data>
   <data name="Dialog.Exception.Info.2.Alt" xml:space="preserve">
     <value>Nézd meg először a [Bloxstrap Wiki]({0}) oldalát, hátha már találtak megoldást erre a problémára.
 
-Ha nem, akkor kérjük, jelentse ezt a kivételt a fork karbantartóinak. NE jelentse ezt a Bloxstrap GitHub issue-jeiben, mivel ez egy nem hivatalos build.</value>
+Ha nem, akkor kérjük, jelentse ezt a kivételt a fork karbantartóinak. NE jelentse ezt a Fishstrap GitHub issue-jeiben, mivel ez egy nem hivatalos build.</value>
     <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
     <value>Ezek általános parancsikonok, amelyek egy több választási lehetőséget tartalmazó indítási menüt hoznak létre. Az egyes funkciókhoz tartozó parancsikonok később a beállításokban hozhatók létre.</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
-    <value>Annak beállítása, hogy a Bloxstrap könnyen elindítható legyen.</value>
+    <value>Annak beállítása, hogy a Fishstrap könnyen elindítható legyen.</value>
   </data>
   <data name="Menu.Shortcuts.General.Title" xml:space="preserve">
     <value>Általános</value>
@@ -1075,9 +1027,6 @@ Ha nem, akkor kérjük, jelentse ezt a kivételt a fork karbantartóinak. NE jel
   <data name="Dialog.AlreadyRunning.Uninstaller" xml:space="preserve">
     <value>Kérjük, várjon, amíg az eltávolítás befejeződik.</value>
   </data>
-  <data name="About.Title" xml:space="preserve">
-    <value>A Bloxstrapről</value>
-  </data>
   <data name="About.Licenses.Title" xml:space="preserve">
     <value>Licencek</value>
     <comment>Referring to code licenses; see https://opensource.org/licenses for example</comment>
@@ -1089,7 +1038,7 @@ Ha nem, akkor kérjük, jelentse ezt a kivételt a fork karbantartóinak. NE jel
     <value>El nem mentett módosításai vannak. Biztos, hogy mentés nélkül akarja bezárni?</value>
   </data>
   <data name="InstallChecker.VersionLessThanInstalled" xml:space="preserve">
-    <value>A Bloxstrap elindított verziója régebbi, mint a jelenleg telepített verzió.
+    <value>A Fishstrap elindított verziója régebbi, mint a jelenleg telepített verzió.
 Problémák léphetnek fel, és a beállításai megváltozhatnak. Ajánlott az újratelepítés.
 Biztos, hogy folytatni szeretné?</value>
   </data>
@@ -1102,7 +1051,7 @@ Biztos, hogy folytatni szeretné?</value>
   <data name="Dialog.PlayerError.HelpInformation" xml:space="preserve">
     <value>Arról, hogy ez miért fordulhat elő, és hogyan lehet megoldani, olvassa el [ezt a súgócikket]({0}).
 
-Ellenőrizd, hogy a Roblox működik-e az [eredeti indítóprogrammal]({1}). Ha nem, akkor ez nem a Bloxstrap problémája. Ha igen, akkor olvassa el a súgócikket.</value>
+Ellenőrizd, hogy a Roblox működik-e az [eredeti indítóprogrammal]({1}). Ha nem, akkor ez nem a Fishstrap problémája. Ha igen, akkor olvassa el a súgócikket.</value>
   </data>
   <data name="Common.NetworkError" xml:space="preserve">
     <value>Hálózati hiba miatt nem sikerült betölteni az adatokat.</value>
@@ -1114,7 +1063,7 @@ Ellenőrizd, hogy a Roblox működik-e az [eredeti indítóprogrammal]({1}). Ha 
     <value>Támogatók</value>
   </data>
   <data name="About.Supporters.Description" xml:space="preserve">
-    <value>Ezek azok az emberek, akik a Ko-fi révén támogatták a Bloxstrap-et. Hatalmas köszönet mindenkinek!
+    <value>Ezek azok az emberek, akik a Ko-fi révén támogatták a Fishstrap-et. Hatalmas köszönet mindenkinek!
 Itt minden személyt a teljes felajánlásuk alapján rangsorolunk.</value>
   </data>
   <data name="JsonManager.SettingsLoadFailed" xml:space="preserve">
@@ -1145,12 +1094,12 @@ Itt minden személyt a teljes felajánlásuk alapján rangsorolunk.</value>
     <value>A mostani induláskor a Roblox nem lesz ellenőrizve frissítések szempontjából, és a modok módosításai nem lesznek alkalmazva.</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeNeeded" xml:space="preserve">
-    <value>Mivel a Robloxot telepíteni vagy frissíteni kell, a Bloxstrap nem tud folytatódni.</value>
+    <value>Mivel a Robloxot telepíteni vagy frissíteni kell, a Fishstrap nem tud folytatódni.</value>
   </data>
   <data name="Installer.Install.CannotOverwrite" xml:space="preserve">
-    <value>A Bloxstrap már korábban is települt erre a helyre, és még mindig jelen van, azonban a telepítő nem tudja felülírni a régi futtatható fájlt. 
+    <value>A Fishstrap már korábban is települt erre a helyre, és még mindig jelen van, azonban a telepítő nem tudja felülírni a régi futtatható fájlt. 
 
-Kérjük, manuálisan törölje a Bloxstrap.exe fájlt a telepítési helyről, vagy próbálja meg újraindítani a rendszert, majd ezt követően próbálja meg újra a telepítést.</value>
+Kérjük, manuálisan törölje a Fishstrap.exe fájlt a telepítési helyről, vagy próbálja meg újraindítani a rendszert, majd ezt követően próbálja meg újra a telepítést.</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
     <value>Nem elérhető</value>
@@ -1162,7 +1111,7 @@ Kérjük, manuálisan törölje a Bloxstrap.exe fájlt a telepítési helyről, 
     <value>Az alkalmazás paramétereinek konfigurálása, például a DPI-skálázási viselkedés és a [teljes képernyős optimalizálás]({0}).</value>
   </data>
   <data name="Common.RobloxNotInstalled" xml:space="preserve">
-    <value>A Roblox még nem lett telepítve. Kérjük, legalább egyszer indítsa el a Robloxot a Bloxstrap segítségével, mielőtt megpróbálná használni ezt az opciót.</value>
+    <value>A Roblox még nem lett telepítve. Kérjük, legalább egyszer indítsa el a Robloxot a Fishstrap segítségével, mielőtt megpróbálná használni ezt az opciót.</value>
   </data>
   <data name="Installer.ShouldCancel" xml:space="preserve">
     <value>Biztos, hogy le akarja állítani a telepítést?</value>
@@ -1180,25 +1129,16 @@ Kérjük, manuálisan törölje a Bloxstrap.exe fájlt a telepítési helyről, 
     <value>Roblox ikonok átmásolása mappába</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
-    <value>Lehetővé teszi, hogy a Bloxstrap Roblox ikonok választékát használd a parancsikonokhoz. [Lásd hogyan.]({0})</value>
+    <value>Lehetővé teszi, hogy a Fishstrap Roblox ikonok választékát használd a parancsikonokhoz. [Lásd hogyan.]({0})</value>
   </data>
   <data name="Dialog.RegistryWriteError" xml:space="preserve">
-    <value>A Bloxstrap nem tud írni a Windows Registry-be. Valószínűleg egy vírusirtó zavarja és problémákat okoz. Kérjük, ellenőrizze, hogy nincs-e valami, ami korlátozná a Bloxstrap működését.</value>
+    <value>A Fishstrap nem tud írni a Windows Registry-be. Valószínűleg egy vírusirtó zavarja és problémákat okoz. Kérjük, ellenőrizze, hogy nincs-e valami, ami korlátozná a Fishstrap működését.</value>
   </data>
   <data name="About.Supporters.Monthly" xml:space="preserve">
     <value>Havi</value>
   </data>
   <data name="About.Supporters.OneOff" xml:space="preserve">
     <value>Egyszeri</value>
-  </data>
-  <data name="Menu.Bloxstrap.Description" xml:space="preserve">
-    <value>A Bloxstrap viselkedésével kapcsolatos beállítások konfigurálása.</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Az analitika küldésének engedélyezése</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Névtelen és semmi rossz, ígérjük. Ha többet szeretne megtudni arról, hogy mit és miért gyűjtünk, olvassa el az [adatvédelmi szabályzatunkat]({0}).</value>
   </data>
   <data name="Common.Analytics" xml:space="preserve">
     <value>Analitika</value>
@@ -1221,7 +1161,7 @@ Amíg engedélyezve van, a beállítások bezárása után automatikusan elindí
 Szeretné engedélyezni a teszt üzemmódot?</value>
   </data>
   <data name="About.Translators.Description" xml:space="preserve">
-    <value>A Bloxstrap összes fordítása a [Crowdin]({0}) segítségével készül. Mindenki, aki itt szerepel, olyan ember, aki nagylelkűen önkéntes munkát végzett, hogy segítsen a Bloxstrap lokalizálásában. Hatalmas köszönet mindenkinek!</value>
+    <value>A Fishstrap összes fordítása a [Crowdin]({0}) segítségével készül. Mindenki, aki itt szerepel, olyan ember, aki nagylelkűen önkéntes munkát végzett, hogy segítsen a Fishstrap lokalizálásában. Hatalmas köszönet mindenkinek!</value>
   </data>
   <data name="Common.Navigation.Install" xml:space="preserve">
     <value>Telepítés</value>
@@ -1231,8 +1171,31 @@ Szeretné engedélyezni a teszt üzemmódot?</value>
     <value>Ikonok</value>
     <comment>Name of the folder that gets created according to the "create shortcut icons" option. Ensure that it is a valid folder name.</comment>
   </data>
+  <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
+    <value>Roblox Studio elindítása</value>
+  </data>
+  <data name="Dialog.Exception.Version" xml:space="preserve">
+    <value>Verzió {0}</value>
+  </data>
+  <data name="Enums.BootstrapperStyle.CustomDialog" xml:space="preserve">
+    <value>Egyéni</value>
+  </data>
+  <data name="Bootstrapper.FilesInUse" xml:space="preserve">
+    <value>A Fishstrap megpróbálta frissíteni a Robloxot, de nem tudja, mert a Roblox fájljai még mindig használatban vannak.
+
+Kérjük, zárjon be minden olyan alkalmazást, amely a Roblox fájljait használja, és indítsa újra.</value>
+    <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
+  </data>
+  <data name="FileTypes.ZipArchive" xml:space="preserve">
+    <value>Zip archívum</value>
+    <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
+  </data>
+  <data name="Common.Export" xml:space="preserve">
+    <value>Exportálás</value>
+    <comment>Currently used under the "Fishstrap" settings tab for the button to export diagnostic data</comment>
+  </data>
   <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
-    <value>Valami valószínűleg megakadályozza, hogy a Bloxstrap csatlakozzon az internethez.</value>
+    <value>Valami valószínűleg megakadályozza, hogy a Fishstrap csatlakozzon az internethez.</value>
   </data>
   <data name="Dialog.Connectivity.TimedOut" xml:space="preserve">
     <value>A kapcsolat megszakadt, ami rossz internetkapcsolatra vagy tűzfalblokkolásra utalhat.</value>
@@ -1256,24 +1219,299 @@ Szeretné engedélyezni a teszt üzemmódot?</value>
   <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
-    <value>Roblox Studio elindítása</value>
+  <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
+    <value>A Roblox már nem támogatja a Windows 7 vagy 8.1 operációs rendszert. A Roblox játék folytatásához kérjük, frissítsen Windows 10-re vagy újabb verzióra.</value>
   </data>
-  <data name="Dialog.Exception.Version" xml:space="preserve">
-    <value>Verzió {0}</value>
+  <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
+    <value>A legújabb Fishstrap beszerzése...</value>
   </data>
-  <data name="Bootstrapper.FilesInUse" xml:space="preserve">
-    <value>A Bloxstrap megpróbálta frissíteni a Robloxot, de nem tudja, mert a Roblox fájljai még mindig használatban vannak.
-
-Kérjük, zárjon be minden olyan alkalmazást, amely a Roblox fájljait használja, és indítsa újra.</value>
-    <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
+  <data name="Menu.Fishstrap.Description" xml:space="preserve">
+    <value>A Fishstrap viselkedésével kapcsolatos beállítások konfigurálása.</value>
   </data>
-  <data name="FileTypes.ZipArchive" xml:space="preserve">
-    <value>Zip archívum</value>
-    <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
+  <data name="Menu.Fishstrap.Analytics.Title" xml:space="preserve">
+    <value>Az analitika küldésének engedélyezése</value>
   </data>
-  <data name="Common.Export" xml:space="preserve">
-    <value>Exportálás</value>
-    <comment>Currently used under the "Bloxstrap" settings tab for the button to export diagnostic data</comment>
+  <data name="Menu.Fishstrap.Analytics.Description" xml:space="preserve">
+    <value>Névtelen és semmi rossz, ígérjük. Ha többet szeretne megtudni arról, hogy mit és miért gyűjtünk, olvassa el az [adatvédelmi szabályzatunkat]({0}).</value>
+  </data>
+  <data name="Enums.CustomThemeTemplate.Blank" xml:space="preserve">
+    <value>Üres</value>
+  </data>
+  <data name="Enums.CustomThemeTemplate.Simple" xml:space="preserve">
+    <value>Egyszerű</value>
+  </data>
+  <data name="CustomTheme.Errors.InvalidRoot" xml:space="preserve">
+    <value>A téma XML gyökere nem {0}</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.DialogAlreadyInitialised" xml:space="preserve">
+    <value>Az egyéni párbeszédpanel már inicializálásra került</value>
+  </data>
+  <data name="CustomTheme.Errors.TooManyElements" xml:space="preserve">
+    <value>Az egyéni bootstrapperek legfeljebb {0} elemet tartalmazhatnak, {1} találva</value>
+    <comment>{0} and {1} are numbers</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotSet" xml:space="preserve">
+    <value>{0} verzió nincs megadva</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotNumber" xml:space="preserve">
+    <value>{0} verzió nem egy szám</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotSupported" xml:space="preserve">
+    <value>{0} a {1} verzió már nem támogatott</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotRecognised" xml:space="preserve">
+    <value>{0} a {1} verziót nem ismerjük fel</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementInvalidChild" xml:space="preserve">
+    <value>{0} nem lehet {1} gyermeke</value>
+    <comment>{0} and {1} are element names (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.UnknownElement" xml:space="preserve">
+    <value>Ismeretlen elem {0}</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.XMLParseFailed" xml:space="preserve">
+    <value>Nem sikerült elemezni a témafájlt: {0}</value>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeConversionError" xml:space="preserve">
+    <value>{0} érvénytelen {1}: {2}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMissing" xml:space="preserve">
+    <value>Az {0} elemből hiányzik az {1} attribútum</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeInvalidType" xml:space="preserve">
+    <value>{0}.{1} nem érvényes {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMustBeLargerThanMin" xml:space="preserve">
+    <value>{0}.{1} nagyobbnak kell lennie, mint {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMustBeSmallerThanMax" xml:space="preserve">
+    <value>{0}.{1} kisebbnek kell lennie, mint {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
+  </data>
+  <data name="CustomTheme.Errors.UnknownEnumValue" xml:space="preserve">
+    <value>{0} Ismeretlen {1} '{2}'</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the enum name (e.g. WindowCornerType), {2} is the value</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMultipleDefinitions" xml:space="preserve">
+    <value>{0} csak egy {1} lehet definiálva</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMultipleChildren" xml:space="preserve">
+    <value>{0}.{1} csak egy gyermeke lehet</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementMultipleChildren" xml:space="preserve">
+    <value>{0} csak egy gyermeke lehet</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMissingChild" xml:space="preserve">
+    <value>{0}.{1} hiányzik a gyermeke</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeParseError" xml:space="preserve">
+    <value>{0}.{1} nem lehetett {2}-nek elemezni</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeParseErrorNull" xml:space="preserve">
+    <value>{0}.{1} {2} null</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeBlacklistedUriScheme" xml:space="preserve">
+    <value>{0}.{1} feketelistán szereplő sémát használ {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the URI scheme (e.g. http)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementTypeCreationFailed" xml:space="preserve">
+    <value>{0} nem sikerült létrehozni {1}: {2}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
+  </data>
+  <data name="CustomTheme.Editor.Title" xml:space="preserve">
+    <value>Szerkesztése „{0}”</value>
+  </data>
+  <data name="CustomTheme.Editor.Save.Success" xml:space="preserve">
+    <value>Téma sikeresen mentve!</value>
+  </data>
+  <data name="CustomTheme.Editor.Save.Error" xml:space="preserve">
+    <value>Hiba történt a téma mentése közben.</value>
+  </data>
+  <data name="CustomTheme.Editor.ConfirmSave" xml:space="preserve">
+    <value>Változások mentése {0}?</value>
+  </data>
+  <data name="CustomTheme.Editor.Save" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="CustomTheme.Editor.Preview" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="CustomTheme.Editor.OpenThemeDirectory" xml:space="preserve">
+    <value>Téma könvyvtár kinyitása</value>
+  </data>
+  <data name="CustomTheme.Add.Title" xml:space="preserve">
+    <value>Egyéni téma hozzáadása</value>
+  </data>
+  <data name="Common.Template" xml:space="preserve">
+    <value>Sablon</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameEmpty" xml:space="preserve">
+    <value>A név megadása kötelező</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameIllegalCharacters" xml:space="preserve">
+    <value>A név tiltott karaktereket tartalmaz</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameReserved" xml:space="preserve">
+    <value>A név nem használható</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.Unknown" xml:space="preserve">
+    <value>Ismeretlen hiba</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameTaken" xml:space="preserve">
+    <value>A név már használatban van</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.FileNotZip" xml:space="preserve">
+    <value>A fájlnak ZIP-nek kell lennie</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.ZipMissingThemeFile" xml:space="preserve">
+    <value>A témafájl nem található a ZIP fájlban</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.ZipInvalidData" xml:space="preserve">
+    <value>Érvénytelen vagy sérült ZIP fájl</value>
+  </data>
+  <data name="CustomTheme.Errors.NoThemeSelected" xml:space="preserve">
+    <value>Nincs egyéni téma kiválasztva</value>
+  </data>
+  <data name="CustomTheme.Errors.SetupFailed" xml:space="preserve">
+    <value>Sikertelen az egyéni bootstrapper beállítása: {0}.
+Alapértelmezés szerint {1}.</value>
+    <comment>{0} is the error reason, {1} is the theme name (e.g. Bloxstrap (Classic))</comment>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.NoneSelected" xml:space="preserve">
+    <value>Nincs egyéni téma kiválasztva.</value>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.DeleteFailed" xml:space="preserve">
+    <value>Nem sikerült törölni az egyéni témát {0}: {1}</value>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.RenameFailed" xml:space="preserve">
+    <value>Nem sikerült átnevezni az egyéni témát {0}: {1}</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.UIElements" xml:space="preserve">
+    <value>UI elemek elhelyezése ide</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.MoreExamples" xml:space="preserve">
+    <value>Példák egyéni bootstrapperekre találhatók a {0}</value>
+  </data>
+  <data name="CustomTheme.Templates.Simple.MoreExamples" xml:space="preserve">
+    <value>További egyéni bootstrapper példákat találsz a {0}</value>
+  </data>
+  <data name="CustomTheme.DefaultName" xml:space="preserve">
+    <value>Egyedi téma {0}</value>
+    <comment>{0} is a string (e.g. '1', '1-1234')</comment>
+  </data>
+  <data name="CustomTheme.Editor.Save.Success.Description" xml:space="preserve">
+    <value>A témád el lett mentve!</value>
+  </data>
+  <data name="CustomTheme.Editor.Errors.PreviewFailed" xml:space="preserve">
+    <value>Nem sikerült előnézetben megjeleníteni a témát: {0}</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Title" xml:space="preserve">
+    <value>Nem sikerült alkalmazni a módosításokat</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Message" xml:space="preserve">
+    <value>Nem minden módosítás lesz jelen a jelenlegi indításban.</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Title" xml:space="preserve">
+    <value>Nem sikerült extraktálni a fájlokat</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Message" xml:space="preserve">
+    <value>Néhány tartalom hiányozhat. A Roblox újratelepítésének kényszerítése a beállítások között javítja ezt.</value>
+  </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Title" xml:space="preserve">
+    <value>Több példányos indítás engedélyezése</value>
+  </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Description" xml:space="preserve">
+    <value>Lehetővé teszi, hogy egynél több Roblox játékkliens-példány legyen egyszerre nyitva.</value>
+  </data>
+  <data name="Common.Rename" xml:space="preserve">
+    <value>Átnevezés</value>
+  </data>
+  <data name="Common.CreateNew" xml:space="preserve">
+    <value>Új létrehozása</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Title" xml:space="preserve">
+    <value>Háttérfrissítések</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Description" xml:space="preserve">
+    <value>Várakozás helyett a háttérben frissítheti a Robloxot. Lassú hálózatokon nem ajánlott. A funkció működéséhez legalább 3GB szabad tárhely szükséges.</value>
+  </data>
+  <data name="Common.Import" xml:space="preserve">
+    <value>Importálás</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Módosítás</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>A Fishstrapről</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
+    <value>Előnyben részesített játék menü verzió</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
+    <value>Állítsd 0-ra az alapértelmezettért, ha a Roblox saját FPS korlát eltörlőjét akarod használni.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
+    <value>FPS korlát</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
+    <value>A [billentyűparancsok]({0}) segítségével kapcsolható. Csak akkor működik, ha a [Fishstrap Roblox csoportban]({1}) vagy.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
+    <value>A GUI-k elrejtésének lehetővé tétele</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
+    <value>A kiválasztott feltétlenül meg fog jelenni az összes játékban. [Vigyázz, ez el tudja rontani a játék kinézetét!]({0})</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
+    <value>Előnyben részesített világítási technológia</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
+    <value>Utófeldolgozási effektusok letiltása</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
+    <value>A teljesképernyős címsor letiltása</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
+    <value>Játékosok árnyékai letiltása</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
+    <value>Betűtípus méret</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
+    <value>Az alapértelmezett érték 1. Változtassa meg ezt, ha egy saját betűtípust használ.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
+    <value>Tereptextúrák kikapcsolása</value>
+  </data>
+  <data name="Menu.About.Licenses.Apache" xml:space="preserve">
+    <value>Apache License 2.0</value>
+  </data>
+  <data name="Menu.GBSEditor.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Transparency.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Transparency.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
   </data>
 </root>

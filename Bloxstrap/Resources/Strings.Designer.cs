@@ -70,7 +70,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These are the people who&apos;ve supported Bloxstrap through Ko-fi. A massive thank you to everyone here!
+        ///   Looks up a localized string similar to These are the people who&apos;ve supported Fishstrap through Ko-fi. A massive thank you to everyone here!
         ///Every person here is ranked by their overall pledge..
         /// </summary>
         public static string About_Supporters_Description {
@@ -98,7 +98,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bloxstrap supporters.
+        ///   Looks up a localized string similar to Fishstrap supporters.
         /// </summary>
         public static string About_Supporters_Title {
             get {
@@ -116,7 +116,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All of Bloxstrap&apos;s translations are crowdsourced through [Crowdin]({0}). Everyone listed here are people who generously volunteered their time and effort to help localise Bloxstrap. A massive thank you to everyone here!.
+        ///   Looks up a localized string similar to All of Fishstrap&apos;s translations are crowdsourced through [Crowdin]({0}). Everyone listed here are people who generously volunteered their time and effort to help localise Fishstrap. A massive thank you to everyone here!.
         /// </summary>
         public static string About_Translators_Description {
             get {
@@ -152,11 +152,41 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roblox no longer supports Windows 7 or 8.1. To continue playing Roblox, please upgrade to Windows 10 or newer..
+        /// </summary>
+        public static string App_OSDeprecation_Win7_81 {
+            get {
+                return ResourceManager.GetString("App.OSDeprecation.Win7_81", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The channel you&apos;re currently on ({0}) has now been restricted from public use. You will now be on the default channel ({1})..
+        /// </summary>
+        public static string Boostrapper_Dialog_UnauthorizedChannel {
+            get {
+                return ResourceManager.GetString("Boostrapper.Dialog.UnauthorizedChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fishstrap was unable to automatically update to version {0}. Please update it manually by downloading and running it from the website..
         /// </summary>
         public static string Bootstrapper_AutoUpdateFailed {
             get {
                 return ResourceManager.GetString("Bootstrapper.AutoUpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox is attempting to set your channel to {0}, however your current preferred channel is {1}.
+        ///
+        ///
+        ///Would you like to switch your preferred channel to {0}?.
+        /// </summary>
+        public static string Bootstrapper_Bootstrapper_Dialog_PromptChannelChange {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Bootstrapper.Dialog.PromptChannelChange", resourceCulture);
             }
         }
         
@@ -170,12 +200,50 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Launching failed due to missing client.
-        ///		Please enable Roblox upgrades..
+        ///   Looks up a localized string similar to Ansel is not supported.
+        ///You can no longer use Bloxshade with Fishstrap..
+        /// </summary>
+        public static string Bootstrapper_Dialog_AnselDisabled {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Dialog.AnselDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The channel you&apos;re currently on ({0}) is out of date, and appears to no longer be receiving updates.
+        ///Would you like to switch to the default channel ({1})?.
+        /// </summary>
+        public static string Bootstrapper_Dialog_ChannelOutOfDate {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Dialog.ChannelOutOfDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upgrades were disabled with missing client.
+        ///	To prevent issues upgrading will continue..
         /// </summary>
         public static string Bootstrapper_Dialog_NoUpgradeWithoutClient {
             get {
                 return ResourceManager.GetString("Bootstrapper.Dialog.NoUpgradeWithoutClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some content may be missing. Force a Roblox reinstallation in settings to fix this..
+        /// </summary>
+        public static string Bootstrapper_ExtractionFailed_Message {
+            get {
+                return ResourceManager.GetString("Bootstrapper.ExtractionFailed.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to extract files.
+        /// </summary>
+        public static string Bootstrapper_ExtractionFailed_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.ExtractionFailed.Title", resourceCulture);
             }
         }
         
@@ -191,7 +259,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must first install Bloxstrap before uninstalling..
+        ///   Looks up a localized string similar to You must first install Fishstrap before uninstalling..
         /// </summary>
         public static string Bootstrapper_FirstRunUninstall {
             get {
@@ -205,6 +273,24 @@ namespace Bloxstrap.Resources {
         public static string Bootstrapper_JsonManagerSaveFailed {
             get {
                 return ResourceManager.GetString("Bootstrapper.JsonManagerSaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not all modifications will be present in the current launch..
+        /// </summary>
+        public static string Bootstrapper_ModificationsFailed_Message {
+            get {
+                return ResourceManager.GetString("Bootstrapper.ModificationsFailed.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to apply modifications.
+        /// </summary>
+        public static string Bootstrapper_ModificationsFailed_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.ModificationsFailed.Title", resourceCulture);
             }
         }
         
@@ -308,6 +394,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waiting for data.
+        /// </summary>
+        public static string Bootstrapper_Status_WaitingForData {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Status.WaitingForData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waiting for other instances....
         /// </summary>
         public static string Bootstrapper_Status_WaitingOtherInstances {
@@ -344,7 +439,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roblox is currently running, but must be closed before uninstalling Bloxstrap. Would you like to close Roblox now?.
+        ///   Looks up a localized string similar to Roblox is currently running, but must be closed before uninstalling Fishstrap. Would you like to close Roblox now?.
         /// </summary>
         public static string Bootstrapper_Uninstall_RobloxRunning {
             get {
@@ -434,6 +529,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create New.
+        /// </summary>
+        public static string Common_CreateNew {
+            get {
+                return ResourceManager.GetString("Common.CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom.
         /// </summary>
         public static string Common_Custom {
@@ -488,6 +592,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Common_Edit {
+            get {
+                return ResourceManager.GetString("Common.Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string Common_Export {
@@ -506,11 +619,47 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geometry.
+        /// </summary>
+        public static string Common_Geometry {
+            get {
+                return ResourceManager.GetString("Common.Geometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global Settings.
+        /// </summary>
+        public static string Common_GlobalSettings {
+            get {
+                return ResourceManager.GetString("Common.GlobalSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Common_Help {
             get {
                 return ResourceManager.GetString("Common.Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highest quality.
+        /// </summary>
+        public static string Common_HighestQuality {
+            get {
+                return ResourceManager.GetString("Common.HighestQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string Common_Import {
+            get {
+                return ResourceManager.GetString("Common.Import", resourceCulture);
             }
         }
         
@@ -538,6 +687,15 @@ namespace Bloxstrap.Resources {
         public static string Common_Loading {
             get {
                 return ResourceManager.GetString("Common.Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lowest quality.
+        /// </summary>
+        public static string Common_LowestQuality {
+            get {
+                return ResourceManager.GetString("Common.LowestQuality", resourceCulture);
             }
         }
         
@@ -650,6 +808,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Common_Other {
+            get {
+                return ResourceManager.GetString("Common.Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Presets.
         /// </summary>
         public static string Common_Presets {
@@ -664,6 +831,15 @@ namespace Bloxstrap.Resources {
         public static string Common_Profiles {
             get {
                 return ResourceManager.GetString("Common.Profiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string Common_Rename {
+            get {
+                return ResourceManager.GetString("Common.Rename", resourceCulture);
             }
         }
         
@@ -740,11 +916,20 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time.
+        ///   Looks up a localized string similar to Template.
         /// </summary>
-        public static string Common_Time {
+        public static string Common_Template {
             get {
-                return ResourceManager.GetString("Common.Time", resourceCulture);
+                return ResourceManager.GetString("Common.Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamp.
+        /// </summary>
+        public static string Common_Timestamp {
+            get {
+                return ResourceManager.GetString("Common.Timestamp", resourceCulture);
             }
         }
         
@@ -758,20 +943,20 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User Id.
+        ///   Looks up a localized string similar to Unknown.
         /// </summary>
-        public static string Common_UserId {
+        public static string Common_Unknown {
             get {
-                return ResourceManager.GetString("Common.UserId", resourceCulture);
+                return ResourceManager.GetString("Common.Unknown", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username.
+        ///   Looks up a localized string similar to Unknown status.
         /// </summary>
-        public static string Common_Username {
+        public static string Common_UnknownStatus {
             get {
-                return ResourceManager.GetString("Common.Username", resourceCulture);
+                return ResourceManager.GetString("Common.UnknownStatus", resourceCulture);
             }
         }
         
@@ -875,29 +1060,21 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displays recently sent messages by players..
-        /// </summary>
-        public static string ContextMenu_MessageLogs_Description {
-            get {
-                return ResourceManager.GetString("ContextMenu.MessageLogs.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Message logs.
-        /// </summary>
-        public static string ContextMenu_MessageLogs_Title {
-            get {
-                return ResourceManager.GetString("ContextMenu.MessageLogs.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Player logs.
         /// </summary>
         public static string ContextMenu_PlayerLogs_Title {
             get {
                 return ResourceManager.GetString("ContextMenu.PlayerLogs.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location: {0}
+        ///Uptime: {1}.
+        /// </summary>
+        public static string ContextMenu_ServerDetails_Notification_Text {
+            get {
+                return ResourceManager.GetString("ContextMenu.ServerDetails.Notification.Text", resourceCulture);
             }
         }
         
@@ -984,6 +1161,448 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uptime.
+        /// </summary>
+        public static string ContextMenu_ServerInformation_Uptime {
+            get {
+                return ResourceManager.GetString("ContextMenu.ServerInformation.Uptime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File must be a ZIP.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_FileNotZip {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.FileNotZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name cannot be empty.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_NameEmpty {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.NameEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name contains illegal characters.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_NameIllegalCharacters {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.NameIllegalCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name cannot be used.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_NameReserved {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.NameReserved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is already in use.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_NameTaken {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.NameTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_Unknown {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid or corrupted ZIP file.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_ZipInvalidData {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.ZipInvalidData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme file could not be found in the ZIP file.
+        /// </summary>
+        public static string CustomTheme_Add_Errors_ZipMissingThemeFile {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Errors.ZipMissingThemeFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Custom Theme.
+        /// </summary>
+        public static string CustomTheme_Add_Title {
+            get {
+                return ResourceManager.GetString("CustomTheme.Add.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Theme {0}.
+        /// </summary>
+        public static string CustomTheme_DefaultName {
+            get {
+                return ResourceManager.GetString("CustomTheme.DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes to {0}?.
+        /// </summary>
+        public static string CustomTheme_Editor_ConfirmSave {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.ConfirmSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to preview theme: {0}.
+        /// </summary>
+        public static string CustomTheme_Editor_Errors_PreviewFailed {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Errors.PreviewFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Theme Directory.
+        /// </summary>
+        public static string CustomTheme_Editor_OpenThemeDirectory {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.OpenThemeDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string CustomTheme_Editor_Preview {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string CustomTheme_Editor_Save {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while saving your theme..
+        /// </summary>
+        public static string CustomTheme_Editor_Save_Error {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Save.Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme successfully saved!.
+        /// </summary>
+        public static string CustomTheme_Editor_Save_Success {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Save.Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your theme has been saved!.
+        /// </summary>
+        public static string CustomTheme_Editor_Save_Success_Description {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Save.Success.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing &quot;{0}&quot;.
+        /// </summary>
+        public static string CustomTheme_Editor_Title {
+            get {
+                return ResourceManager.GetString("CustomTheme.Editor.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom dialog has already been initialised.
+        /// </summary>
+        public static string CustomTheme_Errors_DialogAlreadyInitialised {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.DialogAlreadyInitialised", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} uses blacklisted scheme {2}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeBlacklistedUriScheme {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeBlacklistedUriScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has invalid {1}: {2}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeConversionError {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeConversionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} is not a valid {2}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeInvalidType {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeInvalidType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Element {0} is missing the {1} attribute.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeMissing {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} is missing its child.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeMissingChild {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeMissingChild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} can only have one child.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeMultipleChildren {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeMultipleChildren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} can only have one {1} defined.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeMultipleDefinitions {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeMultipleDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} must be larger than {2}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeMustBeLargerThanMin {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeMustBeLargerThanMin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} must be smaller than {2}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeMustBeSmallerThanMax {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeMustBeSmallerThanMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} could not be parsed into a {2}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeParseError {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}.{1} {2} is null.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementAttributeParseErrorNull {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementAttributeParseErrorNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} cannot have a child of {1}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementInvalidChild {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementInvalidChild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} can only have one child.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementMultipleChildren {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementMultipleChildren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} failed to create {1}: {2}.
+        /// </summary>
+        public static string CustomTheme_Errors_ElementTypeCreationFailed {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.ElementTypeCreationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme XML root is not {0}.
+        /// </summary>
+        public static string CustomTheme_Errors_InvalidRoot {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.InvalidRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No custom theme selected.
+        /// </summary>
+        public static string CustomTheme_Errors_NoThemeSelected {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.NoThemeSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to setup custom bootstrapper: {0}.
+        ///Defaulting to {1}..
+        /// </summary>
+        public static string CustomTheme_Errors_SetupFailed {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.SetupFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom bootstrappers can only have a maximum of {0} elements, got {1}.
+        /// </summary>
+        public static string CustomTheme_Errors_TooManyElements {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.TooManyElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown element {0}.
+        /// </summary>
+        public static string CustomTheme_Errors_UnknownElement {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.UnknownElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Unknown {1} &apos;{2}&apos;.
+        /// </summary>
+        public static string CustomTheme_Errors_UnknownEnumValue {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.UnknownEnumValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} version is not a number.
+        /// </summary>
+        public static string CustomTheme_Errors_VersionNotNumber {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.VersionNotNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} version {1} is not recognised.
+        /// </summary>
+        public static string CustomTheme_Errors_VersionNotRecognised {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.VersionNotRecognised", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} version is not set.
+        /// </summary>
+        public static string CustomTheme_Errors_VersionNotSet {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.VersionNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} version {1} is no longer supported.
+        /// </summary>
+        public static string CustomTheme_Errors_VersionNotSupported {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.VersionNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to parse the theme file: {0}.
+        /// </summary>
+        public static string CustomTheme_Errors_XMLParseFailed {
+            get {
+                return ResourceManager.GetString("CustomTheme.Errors.XMLParseFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Examples of custom bootstrappers can be found at {0}.
+        /// </summary>
+        public static string CustomTheme_Templates_Blank_MoreExamples {
+            get {
+                return ResourceManager.GetString("CustomTheme.Templates.Blank.MoreExamples", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put UI elements here.
+        /// </summary>
+        public static string CustomTheme_Templates_Blank_UIElements {
+            get {
+                return ResourceManager.GetString("CustomTheme.Templates.Blank.UIElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find more custom bootstrapper examples at {0}.
+        /// </summary>
+        public static string CustomTheme_Templates_Simple_MoreExamples {
+            get {
+                return ResourceManager.GetString("CustomTheme.Templates.Simple.MoreExamples", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Fast Flag.
         /// </summary>
         public static string Dialog_AddFastFlag_Title {
@@ -1011,7 +1630,8 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ansel support has been enabled.
+        ///   Looks up a localized string similar to Fishstrap no longer supports Bloxshade.
+        ///For more information join Bloxshade discord server..
         /// </summary>
         public static string Dialog_Bloxshade_Setting {
             get {
@@ -1020,7 +1640,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for using Bloxshade with Fishstrap.
+        ///   Looks up a localized string similar to Sorry.
         /// </summary>
         public static string Dialog_Bloxshade_ThankYou {
             get {
@@ -1038,7 +1658,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A connection could not be made, which likely indicates a poor internet connection or a firewall block. If your connection is fine, please ensure that your antivirus isn&apos;t blocking Bloxstrap..
+        ///   Looks up a localized string similar to A connection could not be made, which likely indicates a poor internet connection or a firewall block. If your connection is fine, please ensure that your antivirus isn&apos;t blocking Fishstrap..
         /// </summary>
         public static string Dialog_Connectivity_BadConnection {
             get {
@@ -1074,7 +1694,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Because Roblox needs to be installed or upgraded, Bloxstrap cannot continue..
+        ///   Looks up a localized string similar to Because Roblox needs to be installed or upgraded, Fishstrap cannot continue..
         /// </summary>
         public static string Dialog_Connectivity_RobloxUpgradeNeeded {
             get {
@@ -1263,7 +1883,7 @@ namespace Bloxstrap.Resources {
         /// <summary>
         ///   Looks up a localized string similar to For information about why this could be happening and how this can be resolved, please read [this help article]({0}).
         ///
-        ///Check if Roblox works with [the original launcher]({1}). If it doesn&apos;t, then this isn&apos;t a Bloxstrap issue. If it does, then refer to the help article..
+        ///Check if Roblox works with [the original launcher]({1}). If it doesn&apos;t, then this isn&apos;t a Fishstrap issue. If it does, then refer to the help article..
         /// </summary>
         public static string Dialog_PlayerError_HelpInformation {
             get {
@@ -1371,6 +1991,51 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        public static string Enums_CleanerOptions_Never {
+            get {
+                return ResourceManager.GetString("Enums.CleanerOptions.Never", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After 1 day.
+        /// </summary>
+        public static string Enums_CleanerOptions_OneDay {
+            get {
+                return ResourceManager.GetString("Enums.CleanerOptions.OneDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After 1 month.
+        /// </summary>
+        public static string Enums_CleanerOptions_OneMonth {
+            get {
+                return ResourceManager.GetString("Enums.CleanerOptions.OneMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After 1 week.
+        /// </summary>
+        public static string Enums_CleanerOptions_OneWeek {
+            get {
+                return ResourceManager.GetString("Enums.CleanerOptions.OneWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After 2 months.
+        /// </summary>
+        public static string Enums_CleanerOptions_TwoMonths {
+            get {
+                return ResourceManager.GetString("Enums.CleanerOptions.TwoMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 2006 (Cartoony).
         /// </summary>
         public static string Enums_CursorType_From2006 {
@@ -1385,6 +2050,24 @@ namespace Bloxstrap.Resources {
         public static string Enums_CursorType_From2013 {
             get {
                 return ResourceManager.GetString("Enums.CursorType.From2013", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blank.
+        /// </summary>
+        public static string Enums_CustomThemeTemplate_Blank {
+            get {
+                return ResourceManager.GetString("Enums.CustomThemeTemplate.Blank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simple.
+        /// </summary>
+        public static string Enums_CustomThemeTemplate_Simple {
+            get {
+                return ResourceManager.GetString("Enums.CustomThemeTemplate.Simple", resourceCulture);
             }
         }
         
@@ -1731,6 +2414,26 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to import Bloxstrap settings.
+        ///
+        ///{0}.
+        /// </summary>
+        public static string Installer_FailedToImportSettings {
+            get {
+                return ResourceManager.GetString("Installer.FailedToImportSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import settings from Bloxstrap.
+        /// </summary>
+        public static string Installer_ImportSettings {
+            get {
+                return ResourceManager.GetString("Installer.ImportSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fishstrap has been installed to this location before and is still present, however the installer cannot overwrite the old executable. 
         ///
         ///Please manually delete Fishstrap.exe from the install location or try restarting your system, and then retry installation afterwards..
@@ -1783,6 +2486,15 @@ namespace Bloxstrap.Resources {
         public static string Installer_Install_Title {
             get {
                 return ResourceManager.GetString("Installer.Install.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bloxstrap installation was not found..
+        /// </summary>
+        public static string Installer_InstallationNotFound {
+            get {
+                return ResourceManager.GetString("Installer.InstallationNotFound", resourceCulture);
             }
         }
         
@@ -1872,11 +2584,11 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join our discord server.
+        ///   Looks up a localized string similar to Join our Discord server.
         /// </summary>
-        public static string LaunchMenu_Donate {
+        public static string LaunchMenu_Discord {
             get {
-                return ResourceManager.GetString("LaunchMenu.Donate", resourceCulture);
+                return ResourceManager.GetString("LaunchMenu.Discord", resourceCulture);
             }
         }
         
@@ -1917,7 +2629,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No log file will be written for this launch because Bloxstrap is unable to write to the folder at &apos;{0}&apos;.
+        ///   Looks up a localized string similar to No log file will be written for this launch because Fishstrap is unable to write to the folder at &apos;{0}&apos;.
         /// </summary>
         public static string Logger_NoWriteMode {
             get {
@@ -1944,7 +2656,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These are the people who have made notable contributions to Bloxstrap/Fishstrap, helping make it what it is..
+        ///   Looks up a localized string similar to These are the people who have made notable contributions to Fishstrap/Bloxstrap, helping make it what it is..
         /// </summary>
         public static string Menu_About_Contributors_Description {
             get {
@@ -1971,7 +2683,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A Bloxstrap fork..
+        ///   Looks up a localized string similar to A Bloxstrap Fork..
         /// </summary>
         public static string Menu_About_Description {
             get {
@@ -2178,6 +2890,33 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to delete custom theme {0}: {1}.
+        /// </summary>
+        public static string Menu_Appearance_CustomThemes_DeleteFailed {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.CustomThemes.DeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No custom theme selected..
+        /// </summary>
+        public static string Menu_Appearance_CustomThemes_NoneSelected {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.CustomThemes.NoneSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to rename custom theme {0}: {1}.
+        /// </summary>
+        public static string Menu_Appearance_CustomThemes_RenameFailed {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.CustomThemes.RenameFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure how Fishstrap should look..
         /// </summary>
         public static string Menu_Appearance_Description {
@@ -2268,15 +3007,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ansel support is required for shaders..
-        /// </summary>
-        public static string Menu_Behaviour_AnselBanner {
-            get {
-                return ResourceManager.GetString("Menu.Behaviour.AnselBanner", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fishstrap will automatically check and update itself when launching Roblox..
         /// </summary>
         public static string Menu_Behaviour_AutoUpdate_Description {
@@ -2291,6 +3021,24 @@ namespace Bloxstrap.Resources {
         public static string Menu_Behaviour_AutoUpdate_Title {
             get {
                 return ResourceManager.GetString("Menu.Behaviour.AutoUpdate.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Roblox in the background instead of waiting. Not recommended for slow networks. At least 3GB of free storage space is required for this feature to work..
+        /// </summary>
+        public static string Menu_Behaviour_BackgroundUpdates_Description {
+            get {
+                return ResourceManager.GetString("Menu.Behaviour.BackgroundUpdates.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background updates.
+        /// </summary>
+        public static string Menu_Behaviour_BackgroundUpdates_Title {
+            get {
+                return ResourceManager.GetString("Menu.Behaviour.BackgroundUpdates.Title", resourceCulture);
             }
         }
         
@@ -2385,48 +3133,11 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Renames Roblox to &quot;eurotrucks2&quot;. Requires [supported graphic card](https://www.nvidia.com/en-us/geforce/technologies/ansel/supported-gpus/).
-        ///	This feature is required for shaders..
-        /// </summary>
-        public static string Menu_Behaviour_RenameToEurotrucks_Description {
-            get {
-                return ResourceManager.GetString("Menu.Behaviour.RenameToEurotrucks.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ansel support.
-        /// </summary>
-        public static string Menu_Behaviour_RenameToEurotrucks_Title {
-            get {
-                return ResourceManager.GetString("Menu.Behaviour.RenameToEurotrucks.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bootstrapper.
         /// </summary>
         public static string Menu_Behaviour_Title {
             get {
                 return ResourceManager.GetString("Menu.Behaviour.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It&apos;s anonymous and nothing evil, promise. For insight on what Bloxstrap collects and why, see Bloxstrap&apos;s [privacy policy]({0})..
-        /// </summary>
-        public static string Menu_Bloxstrap_Analytics_Description {
-            get {
-                return ResourceManager.GetString("Menu.Bloxstrap.Analytics.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable sending of analytics to Bloxstrap.
-        /// </summary>
-        public static string Menu_Bloxstrap_Analytics_Title {
-            get {
-                return ResourceManager.GetString("Menu.Bloxstrap.Analytics.Title", resourceCulture);
             }
         }
         
@@ -2440,38 +3151,155 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gather information that can be uploaded online to troubleshoot a problem you&apos;re having..
+        ///   Looks up a localized string similar to Provide access to Roblox APIs using your authentication cookie. [What will Fishstrap access?]({0}).
         /// </summary>
-        public static string Menu_Bloxstrap_ExportData_Description {
+        public static string Menu_Bootstrapper_AllowCookieAccess_Description {
             get {
-                return ResourceManager.GetString("Menu.Bloxstrap.ExportData.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Bootstrapper.AllowCookieAccess.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bloxstrap configuration.
+        ///   Looks up a localized string similar to Allow Fishstrap to access your Roblox account.
         /// </summary>
-        public static string Menu_Bloxstrap_ExportData_ExportConfig {
+        public static string Menu_Bootstrapper_AllowCookieAccess_Title {
             get {
-                return ResourceManager.GetString("Menu.Bloxstrap.ExportData.ExportConfig", resourceCulture);
+                return ResourceManager.GetString("Menu.Bootstrapper.AllowCookieAccess.Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All Bloxstrap logs.
+        ///   Looks up a localized string similar to Files older than set amount will be deleted..
         /// </summary>
-        public static string Menu_Bloxstrap_ExportData_ExportLogs {
+        public static string Menu_Bootstrapper_Cleaner_Age_Description {
             get {
-                return ResourceManager.GetString("Menu.Bloxstrap.ExportData.ExportLogs", resourceCulture);
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.Age.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export diagnostic data.
+        ///   Looks up a localized string similar to When should the files get deleted.
         /// </summary>
-        public static string Menu_Bloxstrap_ExportData_Title {
+        public static string Menu_Bootstrapper_Cleaner_Age_Title {
             get {
-                return ResourceManager.GetString("Menu.Bloxstrap.ExportData.Title", resourceCulture);
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.Age.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old downloads will be deleted..
+        /// </summary>
+        public static string Menu_Bootstrapper_Cleaner_Cache_Description {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.Cache.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cache.
+        /// </summary>
+        public static string Menu_Bootstrapper_Cleaner_Cache_Title {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.Cache.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fishstrap logs will be deleted..
+        /// </summary>
+        public static string Menu_Bootstrapper_Cleaner_IncludeBloxstrap_Description {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fishstrap logs.
+        /// </summary>
+        public static string Menu_Bootstrapper_Cleaner_IncludeBloxstrap_Title {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.IncludeBloxstrap.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old log files will be deleted..
+        /// </summary>
+        public static string Menu_Bootstrapper_Cleaner_Logs_Description {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.Logs.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logs.
+        /// </summary>
+        public static string Menu_Bootstrapper_Cleaner_Logs_Title {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.Cleaner.Logs.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fishstrap will remove old data to save on space.
+        /// </summary>
+        public static string Menu_Bootstrapper_CleanUp_Description {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.CleanUp.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cleaner.
+        /// </summary>
+        public static string Menu_Bootstrapper_CleanUp_Title {
+            get {
+                return ResourceManager.GetString("Menu.Bootstrapper.CleanUp.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change automatically.
+        /// </summary>
+        public static string Menu_Channel_ChangeAction_Automatic {
+            get {
+                return ResourceManager.GetString("Menu.Channel.ChangeAction.Automatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox or Fishstrap may try to change your preferred channel..
+        /// </summary>
+        public static string Menu_Channel_ChangeAction_Description {
+            get {
+                return ResourceManager.GetString("Menu.Channel.ChangeAction.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never change.
+        /// </summary>
+        public static string Menu_Channel_ChangeAction_Ignore {
+            get {
+                return ResourceManager.GetString("Menu.Channel.ChangeAction.Ignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always prompt.
+        /// </summary>
+        public static string Menu_Channel_ChangeAction_Prompt {
+            get {
+                return ResourceManager.GetString("Menu.Channel.ChangeAction.Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic channel change action.
+        /// </summary>
+        public static string Menu_Channel_ChangeAction_Title {
+            get {
+                return ResourceManager.GetString("Menu.Channel.ChangeAction.Title", resourceCulture);
             }
         }
         
@@ -2485,20 +3313,38 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roblox upgrades.
+        ///   Looks up a localized string similar to Switch from version-xxx to BinaryType based install directories..
         /// </summary>
-        public static string Menu_Channel_RobloxUpgrades {
+        public static string Menu_Channel_StaticDirectory_Description {
             get {
-                return ResourceManager.GetString("Menu.Channel.RobloxUpgrades", resourceCulture);
+                return ResourceManager.GetString("Menu.Channel.StaticDirectory.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When disabled Roblox client won&apos;t upgrade to newer version..
+        ///   Looks up a localized string similar to Static directory.
         /// </summary>
-        public static string Menu_Channel_RobloxUpgrades_Description {
+        public static string Menu_Channel_StaticDirectory_Title {
             get {
-                return ResourceManager.GetString("Menu.Channel.RobloxUpgrades.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Channel.StaticDirectory.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetching latest deploy info, please wait....
+        /// </summary>
+        public static string Menu_Channel_Switcher_Fetching {
+            get {
+                return ResourceManager.GetString("Menu.Channel.Switcher.Fetching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified channel either doesn&apos;t exist or is private.
+        /// </summary>
+        public static string Menu_Channel_Switcher_Unauthorized {
+            get {
+                return ResourceManager.GetString("Menu.Channel.Switcher.Unauthorized", resourceCulture);
             }
         }
         
@@ -2526,15 +3372,6 @@ namespace Bloxstrap.Resources {
         public static string Menu_ChannelChanger_Description {
             get {
                 return ResourceManager.GetString("Menu.ChannelChanger.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Player logs.
-        /// </summary>
-        public static string Menu_Context_PlayerLogs {
-            get {
-                return ResourceManager.GetString("Menu.Context.PlayerLogs", resourceCulture);
             }
         }
         
@@ -2641,6 +3478,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would you like to include preset FFlags?.
+        /// </summary>
+        public static string Menu_FastFlagEditor_ExportJson_IncludePresets {
+            get {
+                return ResourceManager.GetString("Menu.FastFlagEditor.ExportJson.IncludePresets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The entry for &apos;{0}&apos; is not valid as the value must be a boolean (either &apos;True&apos; or &apos;False&apos;).
         /// </summary>
         public static string Menu_FastFlagEditor_InvalidBoolValue {
@@ -2718,15 +3564,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Flag Profiles.
-        /// </summary>
-        public static string Menu_FastFlagEditor_ProfilesDescription {
-            get {
-                return ResourceManager.GetString("Menu.FastFlagEditor.ProfilesDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Menu_FastFlagEditor_Search {
@@ -2792,15 +3629,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save current flags.
-        /// </summary>
-        public static string Menu_FastFlagProfiles_Save {
-            get {
-                return ResourceManager.GetString("Menu_FastFlagProfiles_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Control how specific Roblox engine parameters and features are configured..
         /// </summary>
         public static string Menu_FastFlags_Description {
@@ -2815,6 +3643,42 @@ namespace Bloxstrap.Resources {
         public static string Menu_FastFlags_Editor_Description {
             get {
                 return ResourceManager.GetString("Menu.FastFlags.Editor.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox only applies whitelisted FFlags. Double click to learn more..
+        /// </summary>
+        public static string Menu_FastFlags_EditorInfo {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.EditorInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the FRM quality that Roblox should use..
+        /// </summary>
+        public static string Menu_FastFlags_FRMQualityOverride_Description {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.FRMQualityOverride.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FRM Quality Override.
+        /// </summary>
+        public static string Menu_FastFlags_FRMQualityOverride_Title {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.FRMQualityOverride.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control how Roblox renders 3D geometry..
+        /// </summary>
+        public static string Menu_FastFlags_Geometry_Description {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.Geometry.Description", resourceCulture);
             }
         }
         
@@ -2846,6 +3710,33 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Control how detailed meshes appear in-game..
+        /// </summary>
+        public static string Menu_FastFlags_MeshDetail_Description {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.MeshDetail.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mesh detail.
+        /// </summary>
+        public static string Menu_FastFlags_MeshDetail_Header {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.MeshDetail.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lower qualities may cause meshes to disappear..
+        /// </summary>
+        public static string Menu_FastFlags_MeshDetail_LowQualityWarning {
+            get {
+                return ResourceManager.GetString("Menu.FastFlags.MeshDetail.LowQualityWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Roblox Menu.
         /// </summary>
         public static string Menu_FastFlags_Presets_Categories_IngameMenu {
@@ -2855,7 +3746,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debloat Roblox menu with custom toggles.
+        ///   Looks up a localized string similar to Debloat Roblox menu with FFlags.
         /// </summary>
         public static string Menu_FastFlags_Presets_Categories_IngameMenu_Description {
             get {
@@ -2882,65 +3773,11 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When disabled Roblox will use old top bar..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_Chromeui_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.Chromeui.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chrome UI.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_Chromeui_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.Chromeui.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Direct3D exclusive fullscreen using Alt+Enter is enabled by default..
         /// </summary>
         public static string Menu_FastFlags_Presets_D3DExclusiveFullscreenInfo {
             get {
                 return ResourceManager.GetString("Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable player shadows.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_DisablePlayerShadows_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.DisablePlayerShadows.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable post-processing effects.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_DisablePostFX_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.DisablePostFX.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable terrain textures.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_DisableTerrainTextures_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.DisableTerrainTextures.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Preferred escape menu version.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_EscapeMenuVersion_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.EscapeMenuVersion.Title", resourceCulture);
             }
         }
         
@@ -2963,218 +3800,11 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show values of specified flags during runtime. Each flag is comma separated..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_FlagState_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.FlagState.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Flag state.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_FlagState_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.FlagState.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default value is 1. Adjust if you use a custom font..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_FontPadding_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.FontPadding.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Font size.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_FontPadding_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.FontPadding.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set to 0 for defaults if you want to use Roblox&apos;s native framerate unlocker..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_FPSLimit_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.FPSLimit.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Framerate limit.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_FPSLimit_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.FPSLimit.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stops it from showing whenever you move your mouse to the top of the screen..
         /// </summary>
         public static string Menu_FastFlags_Presets_FullscreenTitlebar_Description {
             get {
                 return ResourceManager.GetString("Menu.FastFlags.Presets.FullscreenTitlebar.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable full-screen titlebar.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_FullscreenTitlebar_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.FullscreenTitlebar.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggled with [keyboard shortcuts]({0}). Input id of a group you&apos;re in..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_HideGuis_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.HideGuis.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hiding GUIs.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_HideGuis_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.HideGuis.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disables automatic translation of chat messages..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_ChatTranslation_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.ChatTranslation.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chat translation.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_ChatTranslation_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.ChatTranslation.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Removes FPS presets from the menu..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_Framerate_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.Framerate.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Framerate cap.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_Framerate_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.Framerate.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disables haptic feedback features, such as vibrations for controllers..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_Haptics_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.Haptics.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Haptics button.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_Haptics_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.Haptics.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allows players to disable interface translation..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_LanguageSelector_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.LanguageSelector.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language selector.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_LanguageSelector_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.LanguageSelector.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hides the button for submitting feedback on translation quality..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_SoothsayerCheck_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.SoothsayerCheck.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Feedback button.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_SoothsayerCheck_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.SoothsayerCheck.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allows to disable VR mode toggle..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_VRToggle_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.VRToggle.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VR toggle.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_IngameMenu_VRToggle_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.IngameMenu.VRToggle.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chosen one will be force enabled in all games. [Beware, may cause lighting issues!]({0}).
-        /// </summary>
-        public static string Menu_FastFlags_Presets_LightingTechnology_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.LightingTechnology.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Preferred lighting technology.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_LightingTechnology_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.LightingTechnology.Title", resourceCulture);
             }
         }
         
@@ -3188,56 +3818,11 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sends detailed ping information to the Roblox console..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_PingBreakdown_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.PingBreakdown.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ping breakdown.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_PingBreakdown_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.PingBreakdown.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rendering mode.
         /// </summary>
         public static string Menu_FastFlags_Presets_RenderingMode_Title {
             get {
                 return ResourceManager.GetString("Menu.FastFlags.Presets.RenderingMode.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Telemetry.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_Telemetry {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.Telemetry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Note this disables only some of the Roblox telemetry..
-        /// </summary>
-        public static string Menu_FastFlags_Presets_Telemetry_Description {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.Telemetry.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Roblox telemetry.
-        /// </summary>
-        public static string Menu_FastFlags_Presets_Telemetry_Title {
-            get {
-                return ResourceManager.GetString("Menu.FastFlags.Presets.Telemetry.Title", resourceCulture);
             }
         }
         
@@ -3269,6 +3854,87 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For more information join Fishstrap Discord server.
+        /// </summary>
+        public static string Menu_FastFlagsDisabled_Description {
+            get {
+                return ResourceManager.GetString("Menu.FastFlagsDisabled.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FastFlags have been temporarily disabled.
+        /// </summary>
+        public static string Menu_FastFlagsDisabled_Header {
+            get {
+                return ResourceManager.GetString("Menu.FastFlagsDisabled.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It&apos;s anonymous and nothing evil, promise. For insight on what Fishstrap collects and why, see Fishstrap&apos;s [privacy policy]({0})..
+        /// </summary>
+        public static string Menu_Fishstrap_Analytics_Description {
+            get {
+                return ResourceManager.GetString("Menu.Fishstrap.Analytics.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable sending of analytics to Fishstrap.
+        /// </summary>
+        public static string Menu_Fishstrap_Analytics_Title {
+            get {
+                return ResourceManager.GetString("Menu.Fishstrap.Analytics.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure options related to Fishstrap&apos;s behaviour itself..
+        /// </summary>
+        public static string Menu_Fishstrap_Description {
+            get {
+                return ResourceManager.GetString("Menu.Fishstrap.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gather information that can be uploaded online to troubleshoot a problem you&apos;re having..
+        /// </summary>
+        public static string Menu_Fishstrap_ExportData_Description {
+            get {
+                return ResourceManager.GetString("Menu.Fishstrap.ExportData.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fishstrap configuration.
+        /// </summary>
+        public static string Menu_Fishstrap_ExportData_ExportConfig {
+            get {
+                return ResourceManager.GetString("Menu.Fishstrap.ExportData.ExportConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Fishstrap logs.
+        /// </summary>
+        public static string Menu_Fishstrap_ExportData_ExportLogs {
+            get {
+                return ResourceManager.GetString("Menu.Fishstrap.ExportData.ExportLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export diagnostic data.
+        /// </summary>
+        public static string Menu_Fishstrap_ExportData_Title {
+            get {
+                return ResourceManager.GetString("Menu.Fishstrap.ExportData.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear FFlags.
         /// </summary>
         public static string Menu_FlagProfiles_ClearFlags {
@@ -3278,29 +3944,155 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save and load fast flag profiles..
-        /// </summary>
-        public static string Menu_FlagProfiles_Description {
-            get {
-                return ResourceManager.GetString("Menu_FlagProfiles_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fast Flag Profiles.
-        /// </summary>
-        public static string Menu_FlagProfiles_Title {
-            get {
-                return ResourceManager.GetString("Menu_FlagProfiles_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Font files.
         /// </summary>
         public static string Menu_FontFiles {
             get {
                 return ResourceManager.GetString("Menu.FontFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set in-game settings from Fishstrap menu..
+        /// </summary>
+        public static string Menu_GBSEditor_Description {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose how large the font should appear..
+        /// </summary>
+        public static string Menu_GBSEditor_FontSize_Description {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.FontSize.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font Size.
+        /// </summary>
+        public static string Menu_GBSEditor_FontSize_Title {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.FontSize.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the graphics quality of your game.
+        /// </summary>
+        public static string Menu_GBSEditor_GraphicsQuality_Description {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.GraphicsQuality.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graphics Quality.
+        /// </summary>
+        public static string Menu_GBSEditor_GraphicsQuality_Title {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.GraphicsQuality.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change how fast the camera will move in-game..
+        /// </summary>
+        public static string Menu_GBSEditor_MouseSensitivity_Description {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.MouseSensitivity.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse Sensitivity.
+        /// </summary>
+        public static string Menu_GBSEditor_MouseSensitivity_Title {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.MouseSensitivity.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prevent Roblox from overriding global settings..
+        /// </summary>
+        public static string Menu_GBSEditor_ReadOnly_Description {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.ReadOnly.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set as Read-Only.
+        /// </summary>
+        public static string Menu_GBSEditor_ReadOnly_Title {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.ReadOnly.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes the animation on the escape menu..
+        /// </summary>
+        public static string Menu_GBSEditor_ReducedMotion_Description {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.ReducedMotion.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reduced Motion.
+        /// </summary>
+        public static string Menu_GBSEditor_ReducedMotion_Title {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.ReducedMotion.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom transparency for UI elements..
+        /// </summary>
+        public static string Menu_GBSEditor_UITransparency_Description {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.UITransparency.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparency.
+        /// </summary>
+        public static string Menu_GBSEditor_UITransparency_Title {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.UITransparency.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VR Enabled.
+        /// </summary>
+        public static string Menu_GBSEditor_VREnabled_Title {
+            get {
+                return ResourceManager.GetString("Menu.GBSEditor.VREnabled.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlock framerate limit for Roblox. Going above 240 FPS is not recommended..
+        /// </summary>
+        public static string Menu_GPSEditor_FramerateCap_Description {
+            get {
+                return ResourceManager.GetString("Menu.GPSEditor.FramerateCap.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Framerate Limit.
+        /// </summary>
+        public static string Menu_GPSEditor_FramerateCap_Title {
+            get {
+                return ResourceManager.GetString("Menu.GPSEditor.FramerateCap.Title", resourceCulture);
             }
         }
         
@@ -3500,26 +4292,25 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shows you players joining/leaving and messages being sent.
-        ///		Only works with [text chat service](https://devforum.roblox.com/t/new-in-experience-text-chat-system-public-release/1848837)..
+        ///   Looks up a localized string similar to Allows for having more than one Roblox game client instance open simultaneously..
         /// </summary>
-        public static string Menu_Integrations_PlayerMessageLogs_Description {
+        public static string Menu_Integrations_MultiInstanceLaunching_Description {
             get {
-                return ResourceManager.GetString("Menu.Integrations.PlayerMessageLogs.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.MultiInstanceLaunching.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Player and Message logs.
+        ///   Looks up a localized string similar to Allow multi-instance launching.
         /// </summary>
-        public static string Menu_Integrations_PlayerMessageLogs_Title {
+        public static string Menu_Integrations_MultiInstanceLaunching_Title {
             get {
-                return ResourceManager.GetString("Menu.Integrations.PlayerMessageLogs.Title", resourceCulture);
+                return ResourceManager.GetString("Menu.Integrations.MultiInstanceLaunching.Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When in-game, you&apos;ll be able to see where your server is located via [ipinfo.io]({0})..
+        ///   Looks up a localized string similar to When in-game, you&apos;ll be able to see where your server is located via [rovalra.com]({0}). Additional server information may be sent..
         /// </summary>
         public static string Menu_Integrations_QueryServerLocation_Description {
             get {
@@ -3528,7 +4319,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Query server location.
+        ///   Looks up a localized string similar to Query server details.
         /// </summary>
         public static string Menu_Integrations_QueryServerLocation_Title {
             get {
@@ -3776,24 +4567,6 @@ namespace Bloxstrap.Resources {
         public static string Menu_Mods_Presets_OldCharacterSounds_Title {
             get {
                 return ResourceManager.GetString("Menu.Mods.Presets.OldCharacterSounds.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bring back the classic &apos;oof&apos; death sound..
-        /// </summary>
-        public static string Menu_Mods_Presets_OldDeathSound_Description {
-            get {
-                return ResourceManager.GetString("Menu.Mods.Presets.OldDeathSound.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use old death sound.
-        /// </summary>
-        public static string Menu_Mods_Presets_OldDeathSound_Title {
-            get {
-                return ResourceManager.GetString("Menu.Mods.Presets.OldDeathSound.Title", resourceCulture);
             }
         }
         

@@ -27,6 +27,10 @@
         public static string Roblox { get; private set; } = "";
         public static string CustomThemes { get; private set; } = "";
 
+        // cleaner paths
+        public static string RobloxLogs { get; private set; } = "";
+        public static string RobloxCache { get; private set; } = "";
+
         public static string Application { get; private set; } = "";
 
         public static string CustomFont => Path.Combine(Modifications, "content\\fonts\\CustomFont.ttf");
@@ -37,13 +41,15 @@
         {
             Base = baseDirectory;
             Downloads = Path.Combine(Base, "Downloads");
-            SavedFlagProfiles = Path.Combine(Base, "SavedFlagProfiles");
             Logs = Path.Combine(Base, "Logs");
             Integrations = Path.Combine(Base, "Integrations");
             Versions = Path.Combine(Base, "Versions");
             Modifications = Path.Combine(Base, "Modifications");
-            Roblox = Path.Combine(Base, "Roblox");
             CustomThemes = Path.Combine(Base, "CustomThemes");
+            Roblox = Path.Combine(LocalAppData, "Roblox"); // that was base before?
+
+            RobloxLogs = Path.Combine(Roblox, "logs");
+            RobloxCache = Path.Combine(Path.GetTempPath(), "Roblox");
 
             Application = Path.Combine(Base, $"{App.ProjectName}.exe");
         }

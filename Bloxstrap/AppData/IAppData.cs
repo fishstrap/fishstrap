@@ -10,12 +10,14 @@
 
         string ExecutableName { get; }
 
+        string StaticDirectory {  get; }
+
+        string DynamicDirectory {  get; }
+
         string Directory { get; }
 
         string ExecutablePath { get; }
 
         AppState State { get; }
-
-        IReadOnlyDictionary<string, string> PackageDirectoryMap { get; set; }
     }
 }

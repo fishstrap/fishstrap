@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bootstrapper.AutoUpdateFailed" xml:space="preserve">
-    <value>Bloxstrap не смог автоматически обновиться до версии {0}. Пожалуйста, обновите его вручную, установив последнюю версию с веб-сайта.</value>
+    <value>Fishstrap не смог автоматически обновиться до версии {0}. Пожалуйста, обновите его вручную, установив последнюю версию с веб-сайта.</value>
   </data>
   <data name="Bootstrapper.ConfirmLaunch" xml:space="preserve">
     <value>Roblox сейчас запущен, и запуск другого окна закроет его. Вы уверены, что хотите продолжить запуск?</value>
@@ -127,10 +127,10 @@
     <value>Возможно, Roblox сейчас не работает. Посетите {0}, чтобы узнать больше.</value>
   </data>
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
-    <value>Не удалось установить соединение, что, скорее всего, указывает на плохое интернет-соединение или блокировку брандмауэра. Если соединение нормальное, убедитесь, что ваш антивирус не блокирует Bloxstrap.</value>
+    <value>Не удалось установить соединение, что, скорее всего, указывает на плохое интернет-соединение или блокировку брандмауэра. Если соединение нормальное, убедитесь, что ваш антивирус не блокирует Fishstrap.</value>
   </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
-    <value>Вы не можете удалить Bloxstrap, если он не установлен.</value>
+    <value>Вы не можете удалить Fishstrap, если он не установлен.</value>
   </data>
   <data name="Bootstrapper.NotEnoughSpace" xml:space="preserve">
     <value>Недостаточно свободного места на диске для загрузки и установки Roblox. Пожалуйста, освободите место на диске и повторите попытку.</value>
@@ -157,9 +157,6 @@
   <data name="Bootstrapper.Status.Upgrading" xml:space="preserve">
     <value>Обновляем {product}...</value>
   </data>
-  <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
-    <value>Получаем последнюю версию Bloxstrap...</value>
-  </data>
   <data name="Bootstrapper.Status.WaitingOtherInstances" xml:space="preserve">
     <value>Ожидаем другие окна...</value>
   </data>
@@ -172,10 +169,10 @@
     <comment>Text for style previews that use text button that says "Cancel"</comment>
   </data>
   <data name="Bootstrapper.SuccessfullyUninstalled" xml:space="preserve">
-    <value>Bloxstrap был успешно удалён</value>
+    <value>Fishstrap был успешно удалён</value>
   </data>
   <data name="Bootstrapper.Uninstall.RobloxRunning" xml:space="preserve">
-    <value>Roblox сейчас запущен, но должен быть закрыт перед удалением Bloxstrap. Хотите закрыть Roblox сейчас?</value>
+    <value>Roblox сейчас запущен, но должен быть закрыт перед удалением Fishstrap. Хотите закрыть Roblox сейчас?</value>
   </data>
   <data name="Bootstrapper.WMFNotFound" xml:space="preserve">
     <value>Roblox требует компоненты Windows Media Foundation. Похоже, у Вас они отсутствуют, скорее всего, из-за использования N-выпуска Windows. Пожалуйста, сначала установите компоненты, а затем запустите Roblox.</value>
@@ -279,14 +276,14 @@
     <value>Ошибка подключения</value>
   </data>
   <data name="Dialog.Connectivity.UnableToConnect" xml:space="preserve">
-    <value>Bloxstrap не может подключиться к {0}</value>
+    <value>Fishstrap не может подключиться к {0}</value>
     <comment>{0} is the name of a service (i.e. Roblox, GitHub)</comment>
   </data>
   <data name="Dialog.Exception.CopyLogContents" xml:space="preserve">
     <value>Скопировать содержимое журнала</value>
   </data>
   <data name="Dialog.Exception.Info.1" xml:space="preserve">
-    <value>Возникла ошибка при работе Bloxstrap</value>
+    <value>Возникла ошибка при работе Fishstrap</value>
   </data>
   <data name="Dialog.Exception.Info.2" xml:space="preserve">
     <value>Сначала проверьте [Bloxstrap Wiki]({0}), чтобы увидеть, была ли эта проблема уже решена.
@@ -294,7 +291,7 @@
 Если нет, то сообщите об этом исключении через [GitHub issue]({1}) вместе с копией созданного файла журнала.</value>
   </data>
   <data name="Dialog.Exception.Title" xml:space="preserve">
-    <value>Ошибка Bloxstrap</value>
+    <value>Ошибка Fishstrap</value>
   </data>
   <data name="Common.Custom" xml:space="preserve">
     <value>Пользовательский</value>
@@ -309,10 +306,10 @@
     <value>Fake Byfron (2023)</value>
   </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
-    <value>Bloxstrap (Классический)</value>
+    <value>Fishstrap (Классический)</value>
   </data>
   <data name="Enums.BootstrapperStyle.FluentAeroDialog" xml:space="preserve">
-    <value>Bloxstrap (Прозрачный)</value>
+    <value>Fishstrap (Прозрачный)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2008" xml:space="preserve">
     <value>Legacy (2008 - 2011)</value>
@@ -390,10 +387,10 @@
     <value>Светлая</value>
   </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
-    <value>Bloxstrap был обновлён до версии {0}</value>
+    <value>Fishstrap был обновлён до версии {0}</value>
   </data>
   <data name="InstallChecker.VersionDifferentThanInstalled" xml:space="preserve">
-    <value>Запущенная версия Bloxstrap отличается от версии, которая установлена у вас сейчас.
+    <value>Запущенная версия Fishstrap отличается от версии, которая установлена у вас сейчас.
 Хотите ли вы обновить текущую версию?</value>
   </data>
   <data name="Menu.About.Contributors" xml:space="preserve">
@@ -403,7 +400,7 @@
     <value>Код</value>
   </data>
   <data name="Menu.About.Contributors.Description" xml:space="preserve">
-    <value>Это люди, которые внесли значительный вклад в Bloxstrap, помогая сделать его таким, какой он есть.</value>
+    <value>Это люди, которые внесли значительный вклад в Fishstrap, помогая сделать его таким, какой он есть.</value>
   </data>
   <data name="Menu.About.Contributors.FeatureIdeas" xml:space="preserve">
     <value>Идеи для Функций</value>
@@ -436,7 +433,7 @@
     <value>Сообщить об ошибке</value>
   </data>
   <data name="Menu.About.Title" xml:space="preserve">
-    <value>О Bloxstrap</value>
+    <value>О Fishstrap</value>
   </data>
   <data name="Menu.About.Version" xml:space="preserve">
     <value>Версия {0}</value>
@@ -449,7 +446,7 @@
     <value>Пожалуйста, обратите внимание, что не все ваши изменения вступят в силу немедленно, пока вы не закроете все открытые окна Roblox.</value>
   </data>
   <data name="Menu.AlreadyRunning.Title" xml:space="preserve">
-    <value>Bloxstrap уже запущен</value>
+    <value>Fishstrap уже запущен</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Description" xml:space="preserve">
     <value>Вы можете персонализировать всё по своему вкусу: от ретро до стиля Roblox.</value>
@@ -476,7 +473,7 @@
     <value>Заголовок</value>
   </data>
   <data name="Menu.Appearance.Description" xml:space="preserve">
-    <value>Настройте, как должен выглядеть Bloxstrap.</value>
+    <value>Настройте, как должен выглядеть Fishstrap.</value>
   </data>
   <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
     <value>Глобальная тема</value>
@@ -500,10 +497,10 @@
     <value>Внешний вид</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Description" xml:space="preserve">
-    <value>Bloxstrap будет автоматически проверять и обновлять себя при запуске Roblox.</value>
+    <value>Fishstrap будет автоматически проверять и обновлять себя при запуске Roblox.</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
-    <value>Автоматически обновлять Bloxstrap</value>
+    <value>Автоматически обновлять Fishstrap</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Description" xml:space="preserve">
     <value>Предотвратить закрытие запущенной игры из-за случайного запуска другого окна.</value>
@@ -512,7 +509,7 @@
     <value>Запрос на подтверждение при запуске другого окна Roblox</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
-    <value>Настройте действия Bloxstrap при запуске Roblox.</value>
+    <value>Настройте действия Fishstrap при запуске Roblox.</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Description" xml:space="preserve">
     <value>Roblox будет установлен заново при следующем запуске.</value>
@@ -613,32 +610,11 @@
   <data name="Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo" xml:space="preserve">
     <value>[Полноэкранный режим]({0}) Direct3D с помощью Alt+Enter включен по умолчанию.</value>
   </data>
-  <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
-    <value>Предпочитаемая версия меню-выхода</value>
-  </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Description" xml:space="preserve">
     <value>Roblox снижает качество прорисовки в зависимости от настроек масштабирования экрана в Windows.</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Title" xml:space="preserve">
     <value>Сохранять качество рендеринга при масштабировании дисплея</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
-    <value>Установите на 0, если хотите использовать встроенный разблокировщик частоты кадров Roblox.</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
-    <value>Лимит кадров в секунду</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
-    <value>Переключается с помощью [сочетания клавиш]({0}). Работает только если вы находитесь в [группе Bloxstrap]({1}).</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
-    <value>Активировать возможность скрывать элементы пользовательского интерфейса</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
-    <value>Выбранное освещение будет всегда включено во всех играх. [Может вызывать проблемы с освещением!]({0})</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
-    <value>Предпочитаемая технология освещения</value>
   </data>
   <data name="Menu.FastFlags.Presets.RenderingMode.Title" xml:space="preserve">
     <value>Режим рендеринга</value>
@@ -653,10 +629,10 @@
     <value>Файл иконки</value>
   </data>
   <data name="Menu.InstallLocation.CantInstall" xml:space="preserve">
-    <value>Bloxstrap не может быть установлен здесь. Пожалуйста, выберите другой путь, или используйте стандартный путь нажав на кнопку Сброса.</value>
+    <value>Fishstrap не может быть установлен здесь. Пожалуйста, выберите другой путь, или используйте стандартный путь нажав на кнопку Сброса.</value>
   </data>
   <data name="Menu.InstallLocation.NotEmpty" xml:space="preserve">
-    <value>Папка, в которую вы решили установить Bloxstrap, уже существует и НЕ пуста. Настоятельно рекомендуется, чтобы Bloxstrap был установлен в отдельную папку.
+    <value>Папка, в которую вы решили установить Fishstrap, уже существует и НЕ пуста. Настоятельно рекомендуется, чтобы Fishstrap был установлен в отдельную папку.
 
 Предлагается изменить местоположение на следующее:
 {0}
@@ -669,7 +645,7 @@
     <value>Вы должны выбрать место установки</value>
   </data>
   <data name="Menu.InstallLocation.NoWritePerms" xml:space="preserve">
-    <value>Bloxstrap не имеет доступа к месту установки которое вы выбрали. Пожалуйста, выберите другое место установки.</value>
+    <value>Fishstrap не имеет доступа к месту установки которое вы выбрали. Пожалуйста, выберите другое место установки.</value>
   </data>
   <data name="Menu.Integrations.ActivityTracking" xml:space="preserve">
     <value>Отслеживание активности</value>
@@ -720,7 +696,7 @@
     <value>Не выходить в приложение</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
-    <value>Разрешить Bloxstrap определять, в какую Roblox игру вы играете. Некоторые функции будут нуждаться в этом.</value>
+    <value>Разрешить Fishstrap определять, в какую Roblox игру вы играете. Некоторые функции будут нуждаться в этом.</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
     <value>Включить отслеживание активности</value>
@@ -795,12 +771,6 @@
   <data name="Menu.Mods.Presets.OldCharacterSounds.Title" xml:space="preserve">
     <value>Эмулировать старые звуки персонажей</value>
   </data>
-  <data name="Menu.Mods.Presets.OldDeathSound.Description" xml:space="preserve">
-    <value>Возвращает классический звук смерти "oof".</value>
-  </data>
-  <data name="Menu.Mods.Presets.OldDeathSound.Title" xml:space="preserve">
-    <value>Использовать старый звук смерти</value>
-  </data>
   <data name="Menu.Mods.Title" xml:space="preserve">
     <value>Модификации</value>
   </data>
@@ -817,7 +787,7 @@
     <value>Настройки сохранены!</value>
   </data>
   <data name="Menu.Title" xml:space="preserve">
-    <value>Настройки Bloxstrap</value>
+    <value>Настройки Fishstrap</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
     <value>Выбрать предпочитаемый язык</value>
@@ -847,19 +817,13 @@
     <value>Пользовательский интерфейс и схема</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Title" xml:space="preserve">
-    <value>Разрешить Bloxstrap управлять Fast Flags</value>
+    <value>Разрешить Fishstrap управлять Fast Flags</value>
   </data>
   <data name="Menu.FastFlags.ManagerEnabled.Description" xml:space="preserve">
     <value>Отключение этого предотвратит применение всего настроенного здесь к Roblox.</value>
   </data>
   <data name="Menu.FastFlags.Presets.MSAA.Title" xml:space="preserve">
     <value>Качество сглаживания (MSAA)</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
-    <value>Отключить эффекты постобработки</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
-    <value>Отключить заголовок полноэкранного режима</value>
   </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Description" xml:space="preserve">
     <value>Останавливает его показ при переносе курсора в верхнюю часть экрана.</value>
@@ -879,20 +843,8 @@
   <data name="Enums.FlagPresets.TextureQuality.Level3" xml:space="preserve">
     <value>Уровень 3 (Наивысший)</value>
   </data>
-  <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
-    <value>Отключить тени игроков</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
-    <value>Размер шрифта</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
-    <value>Значение по умолчанию - 1. При использовании пользовательского шрифта настройте под себя.</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
-    <value>Отключить текстуры ландшафта</value>
-  </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
-    <value>Bloxstrap не удаётся скачать Roblox</value>
+    <value>Fishstrap не удаётся скачать Roblox</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownloadReason" xml:space="preserve">
     <value>В данный момент не удаётся скачать Roblox. Пожалуйста, прочтите {0} для дополнительной информации</value>
@@ -913,7 +865,7 @@
     <value>Запись для '{0}' недействительна, так как значение должно быть числом</value>
   </data>
   <data name="Logger.NoWriteMode" xml:space="preserve">
-    <value>Файл журнала не будет написан для этого запуска, потому что Bloxstrap не может записать в папку в '{0}'</value>
+    <value>Файл журнала не будет написан для этого запуска, потому что Fishstrap не может записать в папку в '{0}'</value>
   </data>
   <data name="Common.Default" xml:space="preserve">
     <value>По умолчанию</value>
@@ -928,7 +880,7 @@
     <value>Значение '{0}' неверно, так как place filter отформатирован неправильно.</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
-    <value>Установщик Bloxstrap</value>
+    <value>Установщик Fishstrap</value>
   </data>
   <data name="Installer.Welcome.Title" xml:space="preserve">
     <value>Добро пожаловать</value>
@@ -947,11 +899,11 @@
     <value>Далее</value>
   </data>
   <data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>Спасибо за загрузку Bloxstrap.
+    <value>Спасибо за загрузку Fishstrap.
 
-Единственные официальные сайты для загрузки Bloxstrap — {0} и {1}, поэтому убедитесь, что Вы скачали его из официального источника.
+Единственные официальные сайты для загрузки Fishstrap — {0} и {1}, поэтому убедитесь, что Вы скачали его из официального источника.
 
-Процесс установки будет быстрым и простым, и после установки вы сможете настроить любые параметры Bloxstrap.</value>
+Процесс установки будет быстрым и простым, и после установки вы сможете настроить любые параметры Fishstrap.</value>
     <comment>{0} and {1} are URLs</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
@@ -979,19 +931,19 @@
     <value>Ярлык в меню «Пуск»</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
-    <value>Bloxstrap успешно установлен.
+    <value>Fishstrap успешно установлен.
 
-Roblox еще не установлен, это произойдет, когда вы впервые запустите его с помощью Bloxstrap. Однако перед этим вы можете сначала настроить параметры Bloxstrap.
+Roblox еще не установлен, это произойдет, когда вы впервые запустите его с помощью Fishstrap. Однако перед этим вы можете сначала настроить параметры Fishstrap.
 
-Кроме того, не используйте ярлык "Roblox Player" для запуска Roblox, так как Bloxstrap не будет запускаться вместе с Roblox. Если вы не видите Bloxstrap при запуске с веб-сайта, просто запустите Roblox с помощью Bloxstrap один раз с рабочего стола, чтобы исправить это.
+Кроме того, не используйте ярлык "Roblox Player" для запуска Roblox, так как Fishstrap не будет запускаться вместе с Roblox. Если вы не видите Fishstrap при запуске с веб-сайта, просто запустите Roblox с помощью Fishstrap один раз с рабочего стола, чтобы исправить это.
 
 Что бы вы хотели сделать?</value>
   </data>
   <data name="Installer.Completion.Settings.Title" xml:space="preserve">
-    <value>Настроить параметры Bloxstrap</value>
+    <value>Настроить параметры Fishstrap</value>
   </data>
   <data name="Installer.Completion.Settings.Description" xml:space="preserve">
-    <value>Настройте все функции, которые Bloxstrap может предложить</value>
+    <value>Настройте все функции, которые Fishstrap может предложить</value>
   </data>
   <data name="Installer.Completion.Launch.Title" xml:space="preserve">
     <value>Установить и запустить Roblox</value>
@@ -1000,22 +952,22 @@ Roblox еще не установлен, это произойдет, когда
     <value>После того как все будет готово, вы перейдете в настольное приложение</value>
   </data>
   <data name="Uninstaller.Title" xml:space="preserve">
-    <value>Удаление Bloxstrap</value>
+    <value>Удаление Fishstrap</value>
   </data>
   <data name="Uninstaller.Text" xml:space="preserve">
-    <value>Деинсталляция удалит Bloxstrap из вашей системы и автоматически перенастроит пусковую установку Roblox по умолчанию, если она все еще установлена.
+    <value>Деинсталляция удалит Fishstrap из вашей системы и автоматически перенастроит пусковую установку Roblox по умолчанию, если она все еще установлена.
 
 Если вы удаляете или переустанавливаете программу из-за проблем с Roblox, сначала прочитайте [эту страницу помощи]({0}).
 
-Возможно, процесс удаления может не полностью завершиться сам по себе, поэтому вам может потребоваться вручную очистить оставшиеся файлы, где был установлен Bloxstrap.
+Возможно, процесс удаления может не полностью завершиться сам по себе, поэтому вам может потребоваться вручную очистить оставшиеся файлы, где был установлен Fishstrap.
 
-Bloxstrap был установлен по адресу "{1}".</value>
+Fishstrap был установлен по адресу "{1}".</value>
   </data>
   <data name="Uninstaller.KeepData.Label" xml:space="preserve">
     <value>Оставить мои настройки и моды</value>
   </data>
   <data name="Uninstaller.KeepData.Description" xml:space="preserve">
-    <value>Они будут храниться там, где был установлен Bloxstrap, и будут автоматически восстановлены при переустановке.</value>
+    <value>Они будут храниться там, где был установлен Fishstrap, и будут автоматически восстановлены при переустановке.</value>
   </data>
   <data name="Uninstaller.Uninstall" xml:space="preserve">
     <value>Удалить</value>
@@ -1036,19 +988,19 @@ Bloxstrap был установлен по адресу "{1}".</value>
     <value>В настоящее время у вас отсутствует среда выполнения WebView2. Некоторые возможности Roblox не будут работать должным образом без неё, такие, как настольное приложение. Желаете ли вы загрузить её сейчас?</value>
   </data>
   <data name="Dialog.CannotCreateShortcuts" xml:space="preserve">
-    <value>Bloxstrap не смог создать ярлыки для Рабочего стола и меню Пуск. Попробуйте создать их позже через настройки.</value>
+    <value>Fishstrap не смог создать ярлыки для Рабочего стола и меню Пуск. Попробуйте создать их позже через настройки.</value>
   </data>
   <data name="Dialog.Exception.Info.2.Alt" xml:space="preserve">
-    <value>Сначала проверьте [Wiki Bloxstrap]({0}), чтобы узнать, была ли эта проблема уже решена с помощью исправления.
+    <value>Сначала проверьте [Wiki Fishstrap]({0}), чтобы узнать, была ли эта проблема уже решена с помощью исправления.
 
-Если нет, то, пожалуйста, сообщите об этом исключении разработчикам этой сборки. НЕ сообщайте о проблеме в GitHub Bloxstrap, так как это неофициальная сборка.</value>
+Если нет, то, пожалуйста, сообщите об этом исключении разработчикам этой сборки. НЕ сообщайте о проблеме в GitHub Fishstrap, так как это неофициальная сборка.</value>
     <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
     <value>Это общие ярлыки, которые вызывают меню запуска с несколькими вариантами выбора. Ярлыки для конкретных функций можно создать позже в настройках.</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
-    <value>Настройте, как можно легко запустить Bloxstrap.</value>
+    <value>Настройте, как можно легко запустить Fishstrap.</value>
   </data>
   <data name="Menu.Shortcuts.General.Title" xml:space="preserve">
     <value>Общие</value>
@@ -1077,9 +1029,6 @@ Bloxstrap был установлен по адресу "{1}".</value>
   <data name="Dialog.AlreadyRunning.Uninstaller" xml:space="preserve">
     <value>Пожалуйста, дождитесь окончания удаления.</value>
   </data>
-  <data name="About.Title" xml:space="preserve">
-    <value>О Bloxstrap</value>
-  </data>
   <data name="About.Licenses.Title" xml:space="preserve">
     <value>Лицензии</value>
     <comment>Referring to code licenses; see https://opensource.org/licenses for example</comment>
@@ -1091,7 +1040,7 @@ Bloxstrap был установлен по адресу "{1}".</value>
     <value>У вас есть несохранённые изменения. Вы уверены, что хотите закрыть без сохранения?</value>
   </data>
   <data name="InstallChecker.VersionLessThanInstalled" xml:space="preserve">
-    <value>Версия Bloxstrap, которую вы запустили, старше той, что установлена у вас сейчас. Могут возникнуть проблемы, и измениться настройки. Рекомендуется переустановка. Вы уверены, что хотите продолжить?</value>
+    <value>Версия Fishstrap, которую вы запустили, старше той, что установлена у вас сейчас. Могут возникнуть проблемы, и измениться настройки. Рекомендуется переустановка. Вы уверены, что хотите продолжить?</value>
   </data>
   <data name="Dialog.PlayerError.FailedLaunch" xml:space="preserve">
     <value>Не удалось запустить Roblox.</value>
@@ -1102,7 +1051,7 @@ Bloxstrap был установлен по адресу "{1}".</value>
   <data name="Dialog.PlayerError.HelpInformation" xml:space="preserve">
     <value>О том, почему это может происходить и как это можно решить, читайте в [этой справочной статье]({0}).
 
-Проверьте, работает ли Roblox с [оригинальным загрузчиком]({1}). Если нет, то это не проблема Bloxstrap. Если работает, то обратитесь к справочной статье.</value>
+Проверьте, работает ли Roblox с [оригинальным загрузчиком]({1}). Если нет, то это не проблема Fishstrap. Если работает, то обратитесь к справочной статье.</value>
   </data>
   <data name="Common.NetworkError" xml:space="preserve">
     <value>Не удалось загрузить данные из-за возникшей сетевой ошибки.</value>
@@ -1114,7 +1063,7 @@ Bloxstrap был установлен по адресу "{1}".</value>
     <value>Спонсоры</value>
   </data>
   <data name="About.Supporters.Description" xml:space="preserve">
-    <value>Это люди, поддержавшие Bloxstrap через Ko-fi. Огромное спасибо каждому из вас!
+    <value>Это люди, поддержавшие Fishstrap через Ko-fi. Огромное спасибо каждому из вас!
 Приведённые здесь люди упорядочены по их общему вкладу.</value>
   </data>
   <data name="JsonManager.SettingsLoadFailed" xml:space="preserve">
@@ -1145,12 +1094,12 @@ Bloxstrap был установлен по адресу "{1}".</value>
     <value>При этом запуске, Roblox не будет проверять обновления, и изменения в модификациях не будут применяться.</value>
   </data>
   <data name="Dialog.Connectivity.RobloxUpgradeNeeded" xml:space="preserve">
-    <value>Поскольку Roblox нуждается в установке или обновлении, Bloxstrap не может продолжить работу.</value>
+    <value>Поскольку Roblox нуждается в установке или обновлении, Fishstrap не может продолжить работу.</value>
   </data>
   <data name="Installer.Install.CannotOverwrite" xml:space="preserve">
-    <value>Bloxstrap был установлен в это место раньше и до сих пор присутствует, однако программа установки не может перезаписать старый исполняемый файл. 
+    <value>Fishstrap был установлен в это место раньше и до сих пор присутствует, однако программа установки не может перезаписать старый исполняемый файл. 
 
-Пожалуйста, удалите вручную Bloxstrap.exe из местоположения установки или попробуйте перезапустить систему, а затем попробуйте установить снова.</value>
+Пожалуйста, удалите вручную Fishstrap.exe из местоположения установки или попробуйте перезапустить систему, а затем попробуйте установить снова.</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
     <value>Недоступно</value>
@@ -1162,7 +1111,7 @@ Bloxstrap был установлен по адресу "{1}".</value>
     <value>Настройте параметры приложения, такие как поведение масштабирования DPI и [полноэкранные оптимизации]({0}).</value>
   </data>
   <data name="Common.RobloxNotInstalled" xml:space="preserve">
-    <value>Roblox ещё не установлен. Пожалуйста, запустите Roblox используя Bloxstrap хотя бы один раз перед тем, как использовать эту опцию.</value>
+    <value>Roblox ещё не установлен. Пожалуйста, запустите Roblox используя Fishstrap хотя бы один раз перед тем, как использовать эту опцию.</value>
   </data>
   <data name="Installer.ShouldCancel" xml:space="preserve">
     <value>Вы уверены, что хотите отменить установку?</value>
@@ -1180,25 +1129,16 @@ Bloxstrap был установлен по адресу "{1}".</value>
     <value>Извлечь значки Roblox в папку</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
-    <value>Позволяет использовать ряд иконок Roblox от Bloxstrap для ваших ярлыков. [Смотрите как.]({0})</value>
+    <value>Позволяет использовать ряд иконок Roblox от Fishstrap для ваших ярлыков. [Смотрите как.]({0})</value>
   </data>
   <data name="Dialog.RegistryWriteError" xml:space="preserve">
-    <value>Bloxstrap не может записать данные в реестр Windows. Вероятно, в работу программы вмешивается антивирус, и вызывает проблемы. Пожалуйста, убедитесь, что нет ничего, что могло бы ограничить работу Bloxstrap.</value>
+    <value>Fishstrap не может записать данные в реестр Windows. Вероятно, в работу программы вмешивается антивирус, и вызывает проблемы. Пожалуйста, убедитесь, что нет ничего, что могло бы ограничить работу Fishstrap.</value>
   </data>
   <data name="About.Supporters.Monthly" xml:space="preserve">
     <value>Ежемесячные подписчики</value>
   </data>
   <data name="About.Supporters.OneOff" xml:space="preserve">
     <value>Одноразовые донатеры</value>
-  </data>
-  <data name="Menu.Bloxstrap.Description" xml:space="preserve">
-    <value>Настройка параметров, связанных с поведением Bloxstrap.</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>Включить отправку аналитики</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>Это анонимно и ничего плохого, обещаем. О том, что мы собираем и зачем, читайте в нашей [политике конфиденциальности]({0}).</value>
   </data>
   <data name="Common.Analytics" xml:space="preserve">
     <value>Аналитика</value>
@@ -1221,7 +1161,7 @@ Bloxstrap был установлен по адресу "{1}".</value>
 Хотите включить тестовый режим?</value>
   </data>
   <data name="About.Translators.Description" xml:space="preserve">
-    <value>Все переводы Bloxstrap выполнены с помощью краудсорсинга [Crowdin]({0}). Все, кто здесь перечислены, — это люди, которые щедро пожертвовали своим временем и усилиями, чтобы помочь локализовать Bloxstrap. Огромное спасибо всем присутствующим!</value>
+    <value>Все переводы Fishstrap выполнены с помощью краудсорсинга [Crowdin]({0}). Все, кто здесь перечислены, — это люди, которые щедро пожертвовали своим временем и усилиями, чтобы помочь локализовать Fishstrap. Огромное спасибо всем присутствующим!</value>
   </data>
   <data name="Common.Navigation.Install" xml:space="preserve">
     <value>Установить</value>
@@ -1231,8 +1171,31 @@ Bloxstrap был установлен по адресу "{1}".</value>
     <value>Иконки</value>
     <comment>Name of the folder that gets created according to the "create shortcut icons" option. Ensure that it is a valid folder name.</comment>
   </data>
+  <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
+    <value>Запустить Roblox Studio</value>
+  </data>
+  <data name="Dialog.Exception.Version" xml:space="preserve">
+    <value>Версия {0}</value>
+  </data>
+  <data name="Enums.BootstrapperStyle.CustomDialog" xml:space="preserve">
+    <value>Пользовательский</value>
+  </data>
+  <data name="Bootstrapper.FilesInUse" xml:space="preserve">
+    <value>Fishstrap попытался обновить Roblox, но не может, так как файлы Roblox все ещё используются.
+
+Пожалуйста, закройте приложения, которые могут использовать файлы Roblox, и перезапустите Fishstrap.</value>
+    <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
+  </data>
+  <data name="FileTypes.ZipArchive" xml:space="preserve">
+    <value>ZIP-архив</value>
+    <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
+  </data>
+  <data name="Common.Export" xml:space="preserve">
+    <value>Экспортировать</value>
+    <comment>Currently used under the "Fishstrap" settings tab for the button to export diagnostic data</comment>
+  </data>
   <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
-    <value>Вероятно, что-то мешает Bloxstrap подключиться к Интернету.</value>
+    <value>Вероятно, что-то мешает Fishstrap подключиться к Интернету.</value>
   </data>
   <data name="Dialog.Connectivity.TimedOut" xml:space="preserve">
     <value>Время ожидания соединения истекло, что может указывать на плохое интернет-соединение или блокировку брандмауэра.</value>
@@ -1256,24 +1219,299 @@ Bloxstrap был установлен по адресу "{1}".</value>
   <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
-    <value>Запустить Roblox Studio</value>
+  <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
+    <value>Roblox больше не поддерживает Windows 7 или 8.1. Чтобы продолжить играть в Roblox, обновитесь до Windows 10 или выше.</value>
   </data>
-  <data name="Dialog.Exception.Version" xml:space="preserve">
-    <value>Версия {0}</value>
+  <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
+    <value>Получаем последнюю версию Fishstrap...</value>
   </data>
-  <data name="Bootstrapper.FilesInUse" xml:space="preserve">
-    <value>Bloxstrap попытался обновить Roblox, но не может, так как файлы Roblox все ещё используются.
-
-Пожалуйста, закройте приложения, которые могут использовать файлы Roblox, и перезапустите Bloxstrap.</value>
-    <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
+  <data name="Menu.Fishstrap.Description" xml:space="preserve">
+    <value>Настройка параметров, связанных с поведением Fishstrap.</value>
   </data>
-  <data name="FileTypes.ZipArchive" xml:space="preserve">
-    <value>ZIP-архив</value>
-    <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
+  <data name="Menu.Fishstrap.Analytics.Title" xml:space="preserve">
+    <value>Включить отправку аналитики</value>
   </data>
-  <data name="Common.Export" xml:space="preserve">
-    <value>Экспортировать</value>
-    <comment>Currently used under the "Bloxstrap" settings tab for the button to export diagnostic data</comment>
+  <data name="Menu.Fishstrap.Analytics.Description" xml:space="preserve">
+    <value>Это анонимно и ничего плохого, обещаем. О том, что мы собираем и зачем, читайте в нашей [политике конфиденциальности]({0}).</value>
+  </data>
+  <data name="Enums.CustomThemeTemplate.Blank" xml:space="preserve">
+    <value>Пустой</value>
+  </data>
+  <data name="Enums.CustomThemeTemplate.Simple" xml:space="preserve">
+    <value>Простой</value>
+  </data>
+  <data name="CustomTheme.Errors.InvalidRoot" xml:space="preserve">
+    <value>XML-корень темы не {0}</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.DialogAlreadyInitialised" xml:space="preserve">
+    <value>Пользовательское окно уже инициализировано</value>
+  </data>
+  <data name="CustomTheme.Errors.TooManyElements" xml:space="preserve">
+    <value>Пользовательские лаунчеры могут иметь максимум {0} элементов, получили {1}</value>
+    <comment>{0} and {1} are numbers</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotSet" xml:space="preserve">
+    <value>Версия {0} не установлена</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotNumber" xml:space="preserve">
+    <value>Версия {0} не является числом</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotSupported" xml:space="preserve">
+    <value>Версия {0} больше не поддерживается версией {1}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotRecognised" xml:space="preserve">
+    <value>Версия {0} не распознала версию {1}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementInvalidChild" xml:space="preserve">
+    <value>Элемент {0} не может иметь дочернего элемента {1}</value>
+    <comment>{0} and {1} are element names (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.UnknownElement" xml:space="preserve">
+    <value>Неизвестный элемент {0}</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.XMLParseFailed" xml:space="preserve">
+    <value>Не удалось разобрать файл темы: {0}</value>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeConversionError" xml:space="preserve">
+    <value>Элемент {0} имеет недопустимое значение {1}: {2}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMissing" xml:space="preserve">
+    <value>В элементе {0} отсутствует атрибут {1}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeInvalidType" xml:space="preserve">
+    <value>Элемент {0}.{1} является недопустимым {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMustBeLargerThanMin" xml:space="preserve">
+    <value>Элемент {0}.{1} должен быть больше чем {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMustBeSmallerThanMax" xml:space="preserve">
+    <value>Элемент {0}.{1} должен быть меньше чем {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
+  </data>
+  <data name="CustomTheme.Errors.UnknownEnumValue" xml:space="preserve">
+    <value>{0} Неизвестный {1} '{2}'</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the enum name (e.g. WindowCornerType), {2} is the value</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMultipleDefinitions" xml:space="preserve">
+    <value>Элемент {0} может иметь только один определенный {1}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMultipleChildren" xml:space="preserve">
+    <value>{0}.{1} может иметь только одного дочернего элемента</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementMultipleChildren" xml:space="preserve">
+    <value>Элемент {0} может иметь только один дочерний элемент</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMissingChild" xml:space="preserve">
+    <value>В элементе {0}.{1} отсутствует дочерний элемент</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeParseError" xml:space="preserve">
+    <value>Элемент {0}.{1} не может быть разобран в {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeParseErrorNull" xml:space="preserve">
+    <value>Элемент {0}.{1} {2} является null</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeBlacklistedUriScheme" xml:space="preserve">
+    <value>Элемент {0}.{1} использует схему из черного списка {2}</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the URI scheme (e.g. http)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementTypeCreationFailed" xml:space="preserve">
+    <value>Элементу {0} не удалось создать {1}: {2}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
+  </data>
+  <data name="CustomTheme.Editor.Title" xml:space="preserve">
+    <value>Редактирование "{0}"</value>
+  </data>
+  <data name="CustomTheme.Editor.Save.Success" xml:space="preserve">
+    <value>Тема успешно сохранена!</value>
+  </data>
+  <data name="CustomTheme.Editor.Save.Error" xml:space="preserve">
+    <value>Произошла ошибка при сохранении вашей темы.</value>
+  </data>
+  <data name="CustomTheme.Editor.ConfirmSave" xml:space="preserve">
+    <value>Сохранить изменения в {0}?</value>
+  </data>
+  <data name="CustomTheme.Editor.Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="CustomTheme.Editor.Preview" xml:space="preserve">
+    <value>Предпросмотр</value>
+  </data>
+  <data name="CustomTheme.Editor.OpenThemeDirectory" xml:space="preserve">
+    <value>Открыть папку темы</value>
+  </data>
+  <data name="CustomTheme.Add.Title" xml:space="preserve">
+    <value>Добавить пользовательскую тему</value>
+  </data>
+  <data name="Common.Template" xml:space="preserve">
+    <value>Шаблон</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameEmpty" xml:space="preserve">
+    <value>Имя не может быть пустым</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameIllegalCharacters" xml:space="preserve">
+    <value>Имя содержит недопустимые символы</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameReserved" xml:space="preserve">
+    <value>Имя не может быть использовано</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.Unknown" xml:space="preserve">
+    <value>Неизвестная ошибка</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameTaken" xml:space="preserve">
+    <value>Имя уже используется</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.FileNotZip" xml:space="preserve">
+    <value>Файл должен быть ZIP</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.ZipMissingThemeFile" xml:space="preserve">
+    <value>Не удалось найти файл темы в ZIP файле</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.ZipInvalidData" xml:space="preserve">
+    <value>Неверный или поврежденный ZIP файл</value>
+  </data>
+  <data name="CustomTheme.Errors.NoThemeSelected" xml:space="preserve">
+    <value>Пользовательская тема не выбрана</value>
+  </data>
+  <data name="CustomTheme.Errors.SetupFailed" xml:space="preserve">
+    <value>Не удалось установить пользовательскую тему лаунчера: {0}.
+Возвращаемся к {1}.</value>
+    <comment>{0} is the error reason, {1} is the theme name (e.g. Bloxstrap (Classic))</comment>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.NoneSelected" xml:space="preserve">
+    <value>Пользовательская тема не выбрана.</value>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.DeleteFailed" xml:space="preserve">
+    <value>Не удалось удалить пользовательскую тему {0}: {1}</value>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.RenameFailed" xml:space="preserve">
+    <value>Не удалось переименовать пользовательскую тему {0}: {1}</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.UIElements" xml:space="preserve">
+    <value>Поместите сюда элементы в пользовательский интерфейс</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.MoreExamples" xml:space="preserve">
+    <value>Примеры пользовательских загрузок можно найти на {0}</value>
+  </data>
+  <data name="CustomTheme.Templates.Simple.MoreExamples" xml:space="preserve">
+    <value>Больше примеров пользовательских лаунчеров в {0}</value>
+  </data>
+  <data name="CustomTheme.DefaultName" xml:space="preserve">
+    <value>Пользовательская тема {0}</value>
+    <comment>{0} is a string (e.g. '1', '1-1234')</comment>
+  </data>
+  <data name="CustomTheme.Editor.Save.Success.Description" xml:space="preserve">
+    <value>Ваша тема сохранена!</value>
+  </data>
+  <data name="CustomTheme.Editor.Errors.PreviewFailed" xml:space="preserve">
+    <value>Не удалось просмотреть тему: {0}</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Title" xml:space="preserve">
+    <value>Не удалось применить модификации</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Message" xml:space="preserve">
+    <value>Не все изменения будут присутствовать при текущем запуске.</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Title" xml:space="preserve">
+    <value>Не удалось извлечь файлы</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Message" xml:space="preserve">
+    <value>Некоторое содержимое может быть нету. Чтобы исправить это, сделайте принудительную переустановку Роблокса в настройках.</value>
+  </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Title" xml:space="preserve">
+    <value>Разрешить запуск нескольких окон</value>
+  </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Description" xml:space="preserve">
+    <value>Позволяет запускать Roblox в нескольких окнах одновременно.</value>
+  </data>
+  <data name="Common.Rename" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="Common.CreateNew" xml:space="preserve">
+    <value>Создать новый</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Title" xml:space="preserve">
+    <value>Фоновые обновления</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Description" xml:space="preserve">
+    <value>Обновите Roblox в фоновом режиме вместо ожидания. Не рекомендуется для медленных сетей. Для корректной работы этой функции требуется как минимум 3ГБ свободного места на диске.</value>
+  </data>
+  <data name="Common.Import" xml:space="preserve">
+    <value>Импортировать</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>О Fishstrap</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
+    <value>Предпочитаемая версия меню-выхода</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
+    <value>Установите на 0, если хотите использовать встроенный разблокировщик частоты кадров Roblox.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
+    <value>Лимит кадров в секунду</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
+    <value>Переключается с помощью [сочетания клавиш]({0}). Работает только если вы находитесь в [группе Fishstrap]({1}).</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
+    <value>Активировать возможность скрывать элементы пользовательского интерфейса</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
+    <value>Выбранное освещение будет всегда включено во всех играх. [Может вызывать проблемы с освещением!]({0})</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
+    <value>Предпочитаемая технология освещения</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
+    <value>Отключить эффекты постобработки</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
+    <value>Отключить заголовок полноэкранного режима</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
+    <value>Отключить тени игроков</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
+    <value>Размер шрифта</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
+    <value>Значение по умолчанию - 1. При использовании пользовательского шрифта настройте под себя.</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
+    <value>Отключить текстуры ландшафта</value>
+  </data>
+  <data name="Menu.About.Licenses.Apache" xml:space="preserve">
+    <value>Лицензия Apache 2.0</value>
+  </data>
+  <data name="Menu.GBSEditor.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Transparency.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Transparency.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
   </data>
 </root>

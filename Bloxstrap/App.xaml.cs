@@ -23,9 +23,12 @@ namespace Bloxstrap
         public const string ProjectDownloadLink = "https://github.com/returnrqt/fishstrap/releases";
         public const string ProjectHelpLink = "https://github.com/bloxstraplabs/bloxstrap/wiki";
         public const string ProjectSupportLink = "https://github.com/returnrqt/fishstrap/issues/new";
+        public const string ProjectRemoteDataLink = "https://config.fishstrap.app/v1/Data.json";
 
-        public const string RobloxPlayerAppName = "RobloxPlayerBeta";
-        public const string RobloxStudioAppName = "RobloxStudioBeta";
+        public const string RobloxPlayerAppName = "RobloxPlayerBeta.exe";
+        public const string RobloxStudioAppName = "RobloxStudioBeta.exe";
+        // one day ill add studio support, haha i never did!
+        public const string RobloxAnselAppName = "eurotrucks2.exe";
 
         // simple shorthand for extremely frequently used and long string - this goes under HKCU
         public const string UninstallKey = $@"Software\Microsoft\Windows\CurrentVersion\Uninstall\{ProjectName}";
@@ -44,7 +47,7 @@ namespace Bloxstrap
 
         public static bool IsProductionBuild => IsActionBuild && BuildMetadata.CommitRef.StartsWith("tag", StringComparison.Ordinal);
 
-        public static bool IsStudioVisible => !String.IsNullOrEmpty(App.State.Prop.Studio.VersionGuid);
+        public static bool IsStudioVisible => !String.IsNullOrEmpty(App.RobloxState.Prop.Studio.VersionGuid);
 
         public static readonly MD5 MD5Provider = MD5.Create();
 
@@ -56,7 +59,15 @@ namespace Bloxstrap
 
         public static readonly JsonManager<State> State = new();
 
+        public static readonly JsonManager<RobloxState> RobloxState = new();
+
+        public static readonly RemoteDataManager RemoteData = new();
+
         public static readonly FastFlagManager FastFlags = new();
+
+        public static readonly GlobalSettingsManager GlobalSettings = new();
+
+        public static readonly CookiesManager Cookies = new();
 
         public static readonly HttpClient HttpClient = new(
             new HttpClientLoggingHandler(
@@ -65,7 +76,7 @@ namespace Bloxstrap
         );
 
         private static bool _showingExceptionDialog = false;
-        
+
         public static void Terminate(ErrorCode exitCode = ErrorCode.ERROR_SUCCESS)
         {
             int exitCodeNum = (int)exitCode;
@@ -149,15 +160,28 @@ namespace Bloxstrap
 
             return null;
         }
-        public static void SendStat(string key, string value)
-        {
-            
-        }
 
         public static void SendLog()
         {
-            
+
         }
+
+        public static void AssertWindowsOSVersion()
+        {
+            const string LOG_IDENT = "App::AssertWindowsOSVersion";
+
+            int major = Environment.OSVersion.Version.Major;
+            if (major < 10) // Windows 10 and newer only
+            {
+                Logger.WriteLine(LOG_IDENT, $"Detected unsupported Windows version ({Environment.OSVersion.Version}).");
+
+                if (!LaunchSettings.QuietFlag.Active)
+                    Frontend.ShowMessageBox(Strings.App_OSDeprecation_Win7_81, MessageBoxImage.Error);
+
+                Terminate(ErrorCode.ERROR_INVALID_FUNCTION);
+            }
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             const string LOG_IDENT = "App::OnStartup";
@@ -190,6 +214,7 @@ namespace Bloxstrap
 #endif
             }
 
+            Logger.WriteLine(LOG_IDENT, $"OSVersion: {Environment.OSVersion}");
             Logger.WriteLine(LOG_IDENT, $"Loaded from {Paths.Process}");
             Logger.WriteLine(LOG_IDENT, $"Temp path is {Paths.Temp}");
             Logger.WriteLine(LOG_IDENT, $"WindowsStartMenu path is {Paths.WindowsStartMenu}");
@@ -207,7 +232,7 @@ namespace Bloxstrap
             using var uninstallKey = Registry.CurrentUser.OpenSubKey(UninstallKey);
             string? installLocation = null;
             bool fixInstallLocation = false;
-            
+
             if (uninstallKey?.GetValue("InstallLocation") is string value)
             {
                 if (Directory.Exists(value))
@@ -268,6 +293,9 @@ namespace Bloxstrap
             if (installLocation is null)
             {
                 Logger.Initialize(true);
+                AssertWindowsOSVersion();
+                Logger.WriteLine(LOG_IDENT, "Not installed, launching the installer");
+                AssertWindowsOSVersion(); // prevent new installs from unsupported operating systems
                 LaunchHandler.LaunchInstaller();
             }
             else
@@ -288,7 +316,12 @@ namespace Bloxstrap
 
                 Settings.Load();
                 State.Load();
+                RobloxState.Load();
                 FastFlags.Load();
+                GlobalSettings.Load();
+
+                if (Settings.Prop.AllowCookieAccess)
+                    Task.Run(Cookies.LoadCookies);
 
                 if (!Locale.SupportedLocales.ContainsKey(Settings.Prop.Locale))
                 {
@@ -300,6 +333,8 @@ namespace Bloxstrap
 
                 if (!LaunchSettings.BypassUpdateCheck)
                     Installer.HandleUpgrade();
+
+                Task.Run(App.RemoteData.LoadData); // ok
 
                 WindowsRegistry.RegisterApis(); // we want to register those early on
                                                 // so we wont have any issues with bloxshade

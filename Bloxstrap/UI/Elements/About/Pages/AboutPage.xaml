@@ -32,7 +32,7 @@
 
             <Image x:Name="Image1" Grid.Column="0" Width="72" Height="72" VerticalAlignment="Center" Source="pack://application:,,,/Bloxstrap.ico" RenderOptions.BitmapScalingMode="HighQuality" />
             <Image x:Name="Image2" Grid.Column="0" Width="72" Height="72" VerticalAlignment="Center" Source="pack://application:,,,/Resources/BootstrapperStyles/ByfronDialog/Matt.png" RenderOptions.BitmapScalingMode="HighQuality" Opacity="0" />
-            
+
             <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -47,9 +47,9 @@
         </Grid>
 
         <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
-            <ui:Anchor Margin="0,0,8,8" Content="{x:Static resources:Strings.Menu_About_GithubRepository}" Icon="Code24" NavigateUri="https://github.com/returnrqt/bloxstrap" />
+            <ui:Anchor Margin="0,0,8,8" Content="{x:Static resources:Strings.Menu_About_GithubRepository}" Icon="Code24" NavigateUri="https://github.com/fishstrap/fishstrap" />
             <ui:Anchor Margin="0,0,8,8" Content="{x:Static resources:Strings.Menu_About_HelpInformation}" Icon="BookQuestionMark24" NavigateUri="https://github.com/bloxstraplabs/bloxstrap/wiki" />
-            <ui:Anchor Margin="0,0,8,8" Content="{x:Static resources:Strings.Menu_About_ReportIssue}" Icon="BookExclamationMark24" NavigateUri="https://github.com/returnrqt/bloxstrap/issues" />
+            <ui:Anchor Margin="0,0,8,8" Content="{x:Static resources:Strings.Menu_About_ReportIssue}" Icon="BookExclamationMark24" NavigateUri="https://github.com/fishstrap/fishstrap/issues" />
             <ui:Anchor Margin="0,0,0,8" Content="{x:Static resources:Strings.Menu_About_DiscordServer}" Icon="Chat48" NavigateUri="https://discord.gg/xSsamjAU84" />
         </WrapPanel>
 
@@ -98,8 +98,10 @@
             <controls:Expander Grid.Column="0" Margin="0,0,4,0" HeaderIcon="Code24" HeaderText="{x:Static resources:Strings.Menu_About_Contributors_Code}" IsExpanded="True">
                 <StackPanel>
                     <controls:MarkdownTextBlock MarkdownText="[return_request](https://github.com/returnrqt)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Alexa](https://github.com/GoingCrazyDude/)" />
                     <controls:MarkdownTextBlock MarkdownText="[pizzaboxer](https://github.com/pizzaboxer)" />
                     <controls:MarkdownTextBlock MarkdownText="[Matt](https://github.com/bluepilledgreat)" />
+                    <controls:MarkdownTextBlock MarkdownText="[juliaoverflow](https://github.com/juliaoverflow)" />
                     <controls:MarkdownTextBlock MarkdownText="[GSczbfXn](https://github.com/ZFkQSZ3GxWFy6bthZ)" />
                     <controls:MarkdownTextBlock MarkdownText="[lolmanurfunny](https://github.com/lolmanurfunny)" />
                     <controls:MarkdownTextBlock MarkdownText="[1011025m](https://github.com/1011025m)" />
@@ -122,7 +124,9 @@
                 <StackPanel>
                     <controls:MarkdownTextBlock MarkdownText="[kezcn](https://www.roblox.com/users/4401881748/profile)" />
                     <controls:MarkdownTextBlock MarkdownText="[bloodraven](https://github.com/bloodrvn)" />
-                    <controls:MarkdownTextBlock MarkdownText="[lachine](https://github.com/lachine1)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Skylan](https://github.com/Skylan031/)" />
+                    <controls:MarkdownTextBlock MarkdownText="[cam1494](https://github.com/cam1494)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Encythe](https://github.com/Encythe)" />
                     <controls:MarkdownTextBlock MarkdownText="[he3als](https://github.com/he3als)" />
                     <controls:MarkdownTextBlock MarkdownText="[NikSavchenk0](https://github.com/NikSavchenk0)" />
                     <controls:MarkdownTextBlock MarkdownText="[carter0nline](https://github.com/carter0nline)" />
@@ -135,7 +139,7 @@
                     <controls:MarkdownTextBlock MarkdownText="[nakoyasha](https://github.com/nakoyasha)" />
                     <controls:MarkdownTextBlock MarkdownText="[exurd](https://github.com/exurd)" />
                     <controls:MarkdownTextBlock MarkdownText="[0xFE0F](https://github.com/0xFE0F)" />
-                    <controls:MarkdownTextBlock MarkdownText="[Tezos](https://github.com/GoingCrazyDude)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Alexa](https://github.com/GoingCrazyDude)" />
                     <controls:MarkdownTextBlock MarkdownText="[CfwSky](https://www.roblox.com/users/129425241/profile)" />
                     <controls:MarkdownTextBlock MarkdownText="[ruubloo](https://www.roblox.com/users/158082266/profile)" />
                     <controls:MarkdownTextBlock MarkdownText="[toyoda165](https://www.roblox.com/users/923416649/profile)" />
@@ -145,6 +149,7 @@
                     <controls:MarkdownTextBlock MarkdownText="[Encythe](https://github.com/Encythe)" />
                     <controls:MarkdownTextBlock MarkdownText="[hugo9655](https://github.com/hugo9655)" />
                     <controls:MarkdownTextBlock MarkdownText="[CubesterYT](https://github.com/CubesterYT)" />
+                    <controls:MarkdownTextBlock MarkdownText="[lachine](https://github.com/lachine1)" />
                     <controls:MarkdownTextBlock MarkdownText="[TheRealSpriteMan1337](https://github.com/TheRealSpriteMan1337)" />
                     <controls:MarkdownTextBlock MarkdownText="[ms-gitblox](https://github.com/ms-gitblox)" />
                     <controls:MarkdownTextBlock MarkdownText="[Luximoz](https://github.com/Luximoz)" />
@@ -154,6 +159,7 @@
             <controls:Expander Grid.Column="2" Margin="4,0,0,0" HeaderIcon="Heart16" HeaderText="{x:Static resources:Strings.Menu_About_Contributors_SpecialThanks}" IsExpanded="True">
                 <StackPanel>
                     <controls:MarkdownTextBlock MarkdownText="[MaximumADHD](https://github.com/MaximumADHD)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Valra](https://github.com/NotValra)" />
                     <controls:MarkdownTextBlock MarkdownText="[Multako](https://www.roblox.com/users/2485612194/profile)" />
                     <controls:MarkdownTextBlock MarkdownText="[axstin](https://github.com/axstin)" />
                     <controls:MarkdownTextBlock MarkdownText="[Mantaraix](https://github.com/Mantaraix)" />
@@ -161,6 +167,10 @@
                     <controls:MarkdownTextBlock MarkdownText="[axellse](https://github.com/axellse)" />
                     <controls:MarkdownTextBlock MarkdownText="[NetSoftworks](https://github.com/netsoftwork)" />
                     <controls:MarkdownTextBlock MarkdownText="[BlueOutside](https://github.com/BlueOutside)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Naveandice](https://github.com/Naveandice)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Skylan](https://github.com/Skylan031)" />
+                    <controls:MarkdownTextBlock MarkdownText="[Xaurchark](https://github.com/nicolasfp1)" />
+                    <controls:MarkdownTextBlock MarkdownText="[c_llie](https://discord.com/users/1053052072779583488)" />
                 </StackPanel>
             </controls:Expander>
         </Grid>

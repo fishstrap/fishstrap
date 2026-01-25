@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bootstrapper.AutoUpdateFailed" xml:space="preserve">
-    <value>Bloxstrap {0}への自動更新に失敗しました。Webサイトから手動でインストールしてください。</value>
+    <value>Fishstrap {0}への自動更新に失敗しました。Webサイトから手動でインストールしてください。</value>
   </data>
   <data name="Bootstrapper.ConfirmLaunch" xml:space="preserve">
-    <value>Robloxは現在実行中です。新しくゲームを開く場合、もとのゲームは終了します。本当に開きますか？</value>
+    <value>Robloxは現在実行中です。新しくゲームを起動する場合、もとのゲームは終了します。本当に起動しますか？</value>
   </data>
   <data name="Dialog.Connectivity.RobloxDown" xml:space="preserve">
     <value>Robloxにサーバー障害が発生している可能性があります。{0}より詳細な情報を確認できます。</value>
   </data>
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
-    <value>接続できませんでした。これは、インターネット接続が不安定、またはファイアウォールによるブロックが原因の可能性があります。接続に問題がない場合は、ウイルス対策ソフトがBloxstrapをブロックしていないか確認してください。</value>
+    <value>接続できませんでした。これは、インターネット接続が不安定、またはファイアウォールによるブロックが原因の可能性があります。接続に問題がない場合は、ウイルス対策ソフトがFishstrapをブロックしていないか確認してください。</value>
   </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
-    <value>Bloxstrapをアンインストールする前に、インストールする必要があります。</value>
+    <value>Fishstrapをアンインストールする前に、インストールする必要があります。</value>
   </data>
   <data name="Bootstrapper.NotEnoughSpace" xml:space="preserve">
     <value>容量が不足しているため、Robloxをインストールできません。容量を空けて再度お試しください。</value>
@@ -157,9 +157,6 @@
   <data name="Bootstrapper.Status.Upgrading" xml:space="preserve">
     <value>{product}を更新中...</value>
   </data>
-  <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
-    <value>Bloxstrapの最新版を取得中...</value>
-  </data>
   <data name="Bootstrapper.Status.WaitingOtherInstances" xml:space="preserve">
     <value>他のインスタンスを待機中...</value>
   </data>
@@ -172,13 +169,13 @@
     <comment>Text for style previews that use text button that says "Cancel"</comment>
   </data>
   <data name="Bootstrapper.SuccessfullyUninstalled" xml:space="preserve">
-    <value>Bloxstrapがアンインストールされました。</value>
+    <value>Fishstrapがアンインストールされました。</value>
   </data>
   <data name="Bootstrapper.Uninstall.RobloxRunning" xml:space="preserve">
-    <value>Robloxが現在実行中です。Bloxstrapをアンインストールする前に終了する必要があります。今すぐRobloxを終了しますか？</value>
+    <value>Robloxが現在実行中です。Fishstrapをアンインストールする前に終了する必要があります。今すぐRobloxを終了しますか？</value>
   </data>
   <data name="Bootstrapper.WMFNotFound" xml:space="preserve">
-    <value>Robloxを実行するには"Windows Media Foundation"が必要です。Windows Nエディションを利用している場合はインストールされていません。インストールしてからRobloxを実行してください。</value>
+    <value>Robloxを実行するには「Windows Media Foundation」が必要です。Windows Nエディションを利用している場合はインストールされていません。インストールしてからRobloxを実行してください。</value>
   </data>
   <data name="Common.AddSingle" xml:space="preserve">
     <value>FastFlagを追加</value>
@@ -286,7 +283,7 @@
     <value>ログをコピー</value>
   </data>
   <data name="Dialog.Exception.Info.1" xml:space="preserve">
-    <value>Bloxstrapの実行中に例外が発生しました</value>
+    <value>Fishstrapの実行中に例外が発生しました</value>
   </data>
   <data name="Dialog.Exception.Info.2" xml:space="preserve">
     <value>最初に[Bloxstrap Wiki]({0})で解決策がないか確認してください。
@@ -309,10 +306,10 @@
     <value>ﾆｾByfron (2023)</value>
   </data>
   <data name="Enums.BootstrapperStyle.ClassicFluentDialog" xml:space="preserve">
-    <value>Bloxstrap (クラシック)</value>
+    <value>Fishstrap (クラシック)</value>
   </data>
   <data name="Enums.BootstrapperStyle.FluentAeroDialog" xml:space="preserve">
-    <value>Bloxstrap (透明)</value>
+    <value>Fishstrap (透明)</value>
   </data>
   <data name="Enums.BootstrapperStyle.LegacyDialog2008" xml:space="preserve">
     <value>レガシー (2008 ~ 2011)</value>
@@ -390,10 +387,10 @@
     <value>ライト</value>
   </data>
   <data name="InstallChecker.Updated" xml:space="preserve">
-    <value>BloxstrapはVer. {0}に更新されました。</value>
+    <value>FishstrapはVer. {0}に更新されました。</value>
   </data>
   <data name="InstallChecker.VersionDifferentThanInstalled" xml:space="preserve">
-    <value>起動したBloxstrapのバージョンは、現在インストールされているバージョンと異なります。
+    <value>起動したFishstrapのバージョンは、現在インストールされているバージョンと異なります。
 現在インストールされているバージョンを更新しますか？</value>
   </data>
   <data name="Menu.About.Contributors" xml:space="preserve">
@@ -403,7 +400,7 @@
     <value>コード</value>
   </data>
   <data name="Menu.About.Contributors.Description" xml:space="preserve">
-    <value>Bloxstrapの開発に貢献し、今の姿を作り上げた人々です。</value>
+    <value>Fishstrapの開発に貢献し、今の姿を作り上げた人々です。</value>
   </data>
   <data name="Menu.About.Contributors.FeatureIdeas" xml:space="preserve">
     <value>機能アイデア</value>
@@ -449,7 +446,7 @@
     <value>現在実行中のRobloxが終了するまで、すべての設定は適用されません。</value>
   </data>
   <data name="Menu.AlreadyRunning.Title" xml:space="preserve">
-    <value>Bloxstrapはすでに実行中です</value>
+    <value>Fishstrapはすでに実行中です</value>
   </data>
   <data name="Menu.Appearance.Bootstrapper.Description" xml:space="preserve">
     <value>見た目を変えてレトロにしたり、Roblox風にしたりできます。</value>
@@ -476,7 +473,7 @@
     <value>タイトル</value>
   </data>
   <data name="Menu.Appearance.Description" xml:space="preserve">
-    <value>Bloxstrapの見た目を変更できます。</value>
+    <value>Fishstrapの見た目を変更できます。</value>
   </data>
   <data name="Menu.Appearance.Global.Theme.Title" xml:space="preserve">
     <value>全体のテーマ</value>
@@ -500,10 +497,10 @@
     <value>見た目</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Description" xml:space="preserve">
-    <value>Roblox起動時にBloxstrapの更新がある場合は自動的に行います。</value>
+    <value>Roblox起動時にFishstrapの更新がある場合は自動的に行います。</value>
   </data>
   <data name="Menu.Behaviour.AutoUpdate.Title" xml:space="preserve">
-    <value>Bloxstrapを自動的に更新する</value>
+    <value>Fishstrapを自動的に更新する</value>
   </data>
   <data name="Menu.Behaviour.ConfirmLaunches.Description" xml:space="preserve">
     <value>新しく別のゲームを起動した際に、既存のゲームが終了するのを防ぎます。</value>
@@ -512,7 +509,7 @@
     <value>新しくゲームを開く際、実行中のゲームがある場合は確認する</value>
   </data>
   <data name="Menu.Behaviour.Description" xml:space="preserve">
-    <value>Roblox起動時におけるBloxstrapの動作を設定できます。</value>
+    <value>Roblox起動時におけるFishstrapの動作を設定できます。</value>
   </data>
   <data name="Menu.Behaviour.ForceRobloxReinstall.Description" xml:space="preserve">
     <value>Robloxを次回起動時に再インストールします。</value>
@@ -601,10 +598,10 @@
 動作が不安定になったり、機能が破損するなどの深刻な問題が発生することがあります。 
 心配な場合は絶対に行わないでください。
 
-また、"Flag一覧" (英語で"flag lists") などの他人が配布しているFlag設定を絶対に使用しないでください。
+また、「Flag一覧」 (英語で"Flag lists") などの他人が配布しているFlag設定を絶対に使用しないでください。
 「Robloxが軽くなる」などを謳って配布されていることがありますが、前述の通り深刻な問題が発生したり、
 設定の内容を理解していないために問題が発生することがあります。
-もしそのような行為を行おうとしていた場合は、"今すぐ"この画面を閉じてください。</value>
+もしそのような行為を行おうとしていた場合は、「今すぐ」この画面を閉じてください。</value>
   </data>
   <data name="Menu.FastFlags.Description" xml:space="preserve">
     <value>Robloxエンジンのパラメーターや機能を変更できます。</value>
@@ -620,32 +617,11 @@
   <data name="Menu.FastFlags.Presets.D3DExclusiveFullscreenInfo" xml:space="preserve">
     <value>Alt+EnterでDirect3Dの[排他的フルスクリーン]({0})に変更できるようにする設定はデフォルトで有効です。</value>
   </data>
-  <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
-    <value>Robloxメニュー画面を変更</value>
-  </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Description" xml:space="preserve">
     <value>RobloxはWindowsのスケール設定に基づき画面解像度を下げることがあります。</value>
   </data>
   <data name="Menu.FastFlags.Presets.FixDisplayScaling.Title" xml:space="preserve">
     <value>ディスプレイのスケール設定時に解像度を維持する</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
-    <value>0に設定することでRoblox標準のフレームレート開放機能を利用できます。</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
-    <value>フレームレート上限</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
-    <value>[ショートカットキー]({0})で切り替えることができます。[Bloxstrapグループ]({1})に参加している場合のみ有効です。</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
-    <value>GUIを非表示にする機能を有効にする</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
-    <value>すべてのゲームで強制的に設定されます。[照明の描画に問題が発生する可能性があります。]({0})</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
-    <value>Lighting technologyを選択</value>
   </data>
   <data name="Menu.FastFlags.Presets.RenderingMode.Title" xml:space="preserve">
     <value>レンダラーの変更</value>
@@ -660,16 +636,16 @@
     <value>アイコンファイル</value>
   </data>
   <data name="Menu.InstallLocation.CantInstall" xml:space="preserve">
-    <value>Bloxstrapをこの場所にインストールすることはできません。他の場所を選択するか、リセットボタンを押してデフォルトの場所に変更してください。</value>
+    <value>Fishstrapをこの場所にインストールすることはできません。他の場所を選択するか、リセットボタンを押してデフォルトの場所に変更してください。</value>
   </data>
   <data name="Menu.InstallLocation.NotEmpty" xml:space="preserve">
-    <value>選択したBloxstrapのインストール場所には中身が含まれています。独立したフォルダにインストールすることを強く推奨します。
+    <value>選択したFishstrapのインストール場所には中身が含まれています。独立したフォルダにインストールすることを強く推奨します。
 
 この場所に変更することをおすすめします。
 {0}
 
 おすすめの場所に変更しますか？
-"いいえ"を選択するとこの警告を無視し、インストールが続行されます。</value>
+「いいえ」を選択するとこの警告を無視し、インストールが続行されます。</value>
     <comment>{0} is a file path</comment>
   </data>
   <data name="Menu.InstallLocation.NotSet" xml:space="preserve">
@@ -727,7 +703,7 @@
     <value>デスクトップアプリを無効化</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Description" xml:space="preserve">
-    <value>BloxstrapがRobloxでプレイ中のゲームを検出できるようにします。一部機能に必要です。</value>
+    <value>FishstrapがRobloxでプレイ中のゲームを検出できるようにします。一部機能に必要です。</value>
   </data>
   <data name="Menu.Integrations.EnableActivityTracking.Title" xml:space="preserve">
     <value>プレイ中ゲームの追跡</value>
@@ -802,12 +778,6 @@
   <data name="Menu.Mods.Presets.OldCharacterSounds.Title" xml:space="preserve">
     <value>旧キャラクター効果音を再現</value>
   </data>
-  <data name="Menu.Mods.Presets.OldDeathSound.Description" xml:space="preserve">
-    <value>古き良きOof(死亡時の効果音)に変更します。</value>
-  </data>
-  <data name="Menu.Mods.Presets.OldDeathSound.Title" xml:space="preserve">
-    <value>古いOof音を使用</value>
-  </data>
   <data name="Menu.Mods.Title" xml:space="preserve">
     <value>Mod</value>
   </data>
@@ -824,7 +794,7 @@
     <value>設定が保存されました</value>
   </data>
   <data name="Menu.Title" xml:space="preserve">
-    <value>Bloxstrap設定</value>
+    <value>Fishstrap設定</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
     <value>言語を選択</value>
@@ -862,12 +832,6 @@
   <data name="Menu.FastFlags.Presets.MSAA.Title" xml:space="preserve">
     <value>アンチエイリアス品質 (MSAA)</value>
   </data>
-  <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
-    <value>ポストプロセスエフェクトを無効にする</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
-    <value>フルスクリーンでのタイトルバーを無効にする</value>
-  </data>
   <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Description" xml:space="preserve">
     <value>画面上部にカーソルを動かした際に表示されなくなります。</value>
   </data>
@@ -885,18 +849,6 @@
   </data>
   <data name="Enums.FlagPresets.TextureQuality.Level3" xml:space="preserve">
     <value>レベル3 (最高)</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
-    <value>プレイヤーの影を非表示にする</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
-    <value>フォントサイズ</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
-    <value>デフォルトは1です。カスタムフォントを使用する際に設定してください。</value>
-  </data>
-  <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
-    <value>地形テクスチャを無効にする</value>
   </data>
   <data name="Dialog.Connectivity.UnableToDownload" xml:space="preserve">
     <value>Robloxをダウンロードできませんでした</value>
@@ -935,7 +887,7 @@
     <value>値が無効です。このFlag「{0}」のプレースフィルターが正しく入力されていません。</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
-    <value>Bloxstrapインストーラー</value>
+    <value>Fishstrapインストーラー</value>
   </data>
   <data name="Installer.Welcome.Title" xml:space="preserve">
     <value>ようこそ</value>
@@ -954,19 +906,19 @@
     <value>次へ</value>
   </data>
   <data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>Bloxstrapをダウンロードしていただき、ありがとうございます。
+    <value>Fishstrapをダウンロードしていただき、ありがとうございます。
 
-Bloxstrapの公式サイトは{0}または{1}です。
+Fishstrapの公式サイトは{0}または{1}です。
 公式サイトからダウンロードしたことを確認してください。
 
-インストールは簡単かつ短時間で終了します。またインストール後からBloxstrapの設定を変更することが出来ます。</value>
+インストールは簡単かつ短時間で終了します。またインストール後からFishstrapの設定を変更することが出来ます。</value>
     <comment>{0} and {1} are URLs</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
     <value>続けるには「次へ」‪を押してください。</value>
   </data>
   <data name="Installer.Welcome.UpdateNotice" xml:space="preserve">
-    <value>現在Bloxstrap {0}をインストールしようとしていますが、最新版は{1}です。最新版をダウンロードしますか？</value>
+    <value>現在Fishstrap {0}をインストールしようとしていますが、最新版は{1}です。最新版をダウンロードしますか？</value>
   </data>
   <data name="Installer.Install.Location.Title" xml:space="preserve">
     <value>インストール先を選択</value>
@@ -988,21 +940,21 @@ Bloxstrapの公式サイトは{0}または{1}です。
     <value>スタートメニュー</value>
   </data>
   <data name="Installer.Completion.Text" xml:space="preserve">
-    <value>Bloxstrapのインストールが完了しました。
+    <value>Fishstrapのインストールが完了しました。
 
-Robloxはまだインストールされていません。Bloxstrapから最初に起動した時にインストールされます。
-まずは、Bloxstrapの設定を行うことができます。
+Robloxはまだインストールされていません。Fishstrapから最初に起動した時にインストールされます。
+まずは、Fishstrapの設定を行うことができます。
 
-また、「Roblox Player」ショートカットを使用しないでください。Bloxstrapを介さずにRobloxが起動します。
-WebサイトからRobloxを起動した際にBloxstrapの画面が表示されない場合は、デスクトップからBloxstrapを介してRobloxを起動することで解消します。
+また、「Roblox Player」ショートカットを使用しないでください。Fishstrapを介さずにRobloxが起動します。
+WebサイトからRobloxを起動した際にFishstrapの画面が表示されない場合は、デスクトップからFishstrapを介してRobloxを起動することで解消します。
 
 次の操作を選択してください。</value>
   </data>
   <data name="Installer.Completion.Settings.Title" xml:space="preserve">
-    <value>Bloxstrapの設定を変更する</value>
+    <value>Fishstrapの設定を変更する</value>
   </data>
   <data name="Installer.Completion.Settings.Description" xml:space="preserve">
-    <value>Bloxstrapのすべての機能を設定できます</value>
+    <value>Fishstrapのすべての機能を設定できます</value>
   </data>
   <data name="Installer.Completion.Launch.Title" xml:space="preserve">
     <value>Robloxをインストールして起動する</value>
@@ -1011,22 +963,22 @@ WebサイトからRobloxを起動した際にBloxstrapの画面が表示され�
     <value>インストール完了後にデスクトップアプリを表示します</value>
   </data>
   <data name="Uninstaller.Title" xml:space="preserve">
-    <value>Bloxstrapをアンインストール</value>
+    <value>Fishstrapをアンインストール</value>
   </data>
   <data name="Uninstaller.Text" xml:space="preserve">
-    <value>アンインストールでは、Bloxstrapをシステムから削除し、インストールされている場合はデフォルトのRobloxランチャーに再設定します。
+    <value>アンインストールでは、Fishstrapをシステムから削除し、インストールされている場合はデフォルトのRobloxランチャーに再設定します。
 
 もしRobloxに関する問題によってアンインストール、または再インストールを行っている場合は、最初に[ヘルプ]({0})を確認してください。
 
-アンインストール作業はすべてのファイルを完全に削除することはできません。Bloxstrapのインストール場所から手動で削除することができます。
+アンインストール作業はすべてのファイルを完全に削除することはできません。Fishstrapのインストール場所から手動で削除することができます。
 
-Bloxstrapのインストール場所: {1}</value>
+Fishstrapのインストール場所: {1}</value>
   </data>
   <data name="Uninstaller.KeepData.Label" xml:space="preserve">
     <value>設定とModを残す</value>
   </data>
   <data name="Uninstaller.KeepData.Description" xml:space="preserve">
-    <value>Bloxstrapがインストールされている場所に保存され、再インストール時に自動的に復元されます。</value>
+    <value>Fishstrapがインストールされている場所に保存され、再インストール時に自動的に復元されます。</value>
   </data>
   <data name="Uninstaller.Uninstall" xml:space="preserve">
     <value>アンインストール</value>
@@ -1052,8 +1004,8 @@ Bloxstrapのインストール場所: {1}</value>
   <data name="Dialog.Exception.Info.2.Alt" xml:space="preserve">
     <value>最初に[Bloxstrap Wiki]({0})で解決策がないか確認してください。
 
-解決策が見つからない場合は、エラーをこのフォークのメンテナーに報告してください。絶対に公式版BloxstrapのGitHub issuesに投稿しないでください。
-このBloxstrapは非公式版です。</value>
+解決策が見つからない場合は、エラーをこのフォークのメンテナーに報告してください。絶対に公式版FishstrapのGitHub issuesに投稿しないでください。
+このFishstrapは非公式版です。</value>
     <comment>"fork" in general means "a variation of" or "a different version of". You can alternatively write the first sentence as "...to the maintainers of this version."</comment>
   </data>
   <data name="Installer.Install.Shortcuts.Description" xml:space="preserve">
@@ -1061,7 +1013,7 @@ Bloxstrapのインストール場所: {1}</value>
 特定の操作のショートカットは、のちほど設定から作成することができます。</value>
   </data>
   <data name="Menu.Shortcuts.Description" xml:space="preserve">
-    <value>Bloxstrapを簡単に起動する方法を設定できます。</value>
+    <value>Fishstrapを簡単に起動する方法を設定できます。</value>
   </data>
   <data name="Menu.Shortcuts.General.Title" xml:space="preserve">
     <value>一般</value>
@@ -1090,9 +1042,6 @@ Bloxstrapのインストール場所: {1}</value>
   <data name="Dialog.AlreadyRunning.Uninstaller" xml:space="preserve">
     <value>アンインストールが完了するまでお待ちください。</value>
   </data>
-  <data name="About.Title" xml:space="preserve">
-    <value>Bloxstrapについて</value>
-  </data>
   <data name="About.Licenses.Title" xml:space="preserve">
     <value>ライセンス</value>
     <comment>Referring to code licenses; see https://opensource.org/licenses for example</comment>
@@ -1104,7 +1053,7 @@ Bloxstrapのインストール場所: {1}</value>
     <value>未保存の変更があります。保存せずに閉じますか？</value>
   </data>
   <data name="InstallChecker.VersionLessThanInstalled" xml:space="preserve">
-    <value>起動したBloxstrapは、インストールされているBloxstrapよりも古いバージョンです。
+    <value>起動したFishstrapは、インストールされているFishstrapよりも古いバージョンです。
 問題が発生したり、設定が変更されるおそれがあります。再インストールをおすすめします。
 このまま続行しますか？</value>
   </data>
@@ -1117,7 +1066,7 @@ Bloxstrapのインストール場所: {1}</value>
   <data name="Dialog.PlayerError.HelpInformation" xml:space="preserve">
     <value>このエラーが発生する理由や解決方法については、[ヘルプ記事]({0})をお読みください。 
 
-Robloxが[正規のランチャー]({1})で動作するか確認してください。それでも動作しない場合は、このエラーはBloxstrapが原因ではありません。正規のランチャーで動作する場合は、ヘルプ記事をご覧ください。</value>
+Robloxが[正規のランチャー]({1})で動作するか確認してください。それでも動作しない場合は、このエラーはFishstrapが原因ではありません。正規のランチャーで動作する場合は、ヘルプ記事をご覧ください。</value>
   </data>
   <data name="Common.NetworkError" xml:space="preserve">
     <value>ネットワークエラーにより、データの読み込みに失敗しました。</value>
@@ -1129,7 +1078,7 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
     <value>支援</value>
   </data>
   <data name="About.Supporters.Description" xml:space="preserve">
-    <value>Ko-fiを通じてBloxstrapの開発を支援した方々です(寄付額順)。厚いご支援ありがとうございます！</value>
+    <value>Ko-fiを通じてFishstrapの開発を支援した方々です(寄付額順)。厚いご支援ありがとうございます！</value>
   </data>
   <data name="JsonManager.SettingsLoadFailed" xml:space="preserve">
     <value>設定の読み込みに失敗しました。デフォルト設定にリセットされます。</value>
@@ -1162,9 +1111,9 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
     <value>続けるにはRobloxのインストールまたはアップデートが必要です。</value>
   </data>
   <data name="Installer.Install.CannotOverwrite" xml:space="preserve">
-    <value>Bloxstrapはすでにこの場所にインストールされていますが、古いプログラムに上書きすることができませんでした。
+    <value>Fishstrapはすでにこの場所にインストールされていますが、古いプログラムに上書きすることができませんでした。
 
-インストール場所から手動でBloxstrap.exeを削除、またはPCの再起動を行ってから、再度インストールをお試しください。</value>
+インストール場所から手動でFishstrap.exeを削除、またはPCの再起動を行ってから、再度インストールをお試しください。</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
     <value>利用不可</value>
@@ -1176,7 +1125,7 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
     <value>DPI設定の動作や[全画面表示の最適化]({0})などを設定できます。</value>
   </data>
   <data name="Common.RobloxNotInstalled" xml:space="preserve">
-    <value>Robloxはまだインストールされていません。Bloxstrapを介してRobloxを起動してからこの設定を行ってください。</value>
+    <value>Robloxはまだインストールされていません。Fishstrapを介してRobloxを起動してからこの設定を行ってください。</value>
   </data>
   <data name="Installer.ShouldCancel" xml:space="preserve">
     <value>インストールをキャンセルしますか？</value>
@@ -1194,25 +1143,16 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
     <value>Robloxアイコンをフォルダに抽出する</value>
   </data>
   <data name="Menu.Shortcuts.ExtractIcons.Description" xml:space="preserve">
-    <value>Bloxstrapのショートカットアイコンとして使用できるようにします。[詳細はこちら]({0})</value>
+    <value>Fishstrapのショートカットアイコンとして使用できるようにします。[詳細はこちら]({0})</value>
   </data>
   <data name="Dialog.RegistryWriteError" xml:space="preserve">
-    <value>Windowsレジストリに書き込むことができません。ウイルス対策ソフトが干渉している可能性があります。 Bloxstrapの動作を制限するものがないか確認してください。</value>
+    <value>Windowsレジストリに書き込むことができません。ウイルス対策ソフトが干渉している可能性があります。 Fishstrapの動作を制限するものがないか確認してください。</value>
   </data>
   <data name="About.Supporters.Monthly" xml:space="preserve">
     <value>定期支援</value>
   </data>
   <data name="About.Supporters.OneOff" xml:space="preserve">
     <value>一回払い</value>
-  </data>
-  <data name="Menu.Bloxstrap.Description" xml:space="preserve">
-    <value>Bloxstrapの動作に関する設定を変更できます。</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Title" xml:space="preserve">
-    <value>使用状況と診断情報を送信</value>
-  </data>
-  <data name="Menu.Bloxstrap.Analytics.Description" xml:space="preserve">
-    <value>匿名かつ悪意のない用途で使用されます。収集する内容とその理由は、[プライバシーポリシー]({0})を確認してください。</value>
   </data>
   <data name="Common.Analytics" xml:space="preserve">
     <value>使用状況と診断情報</value>
@@ -1228,7 +1168,7 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
     <comment>See the prompt for more context</comment>
   </data>
   <data name="Menu.TestMode.Prompt" xml:space="preserve">
-    <value>テストモードでは、Bloxstrapでの設定によるRobloxの影響を確認しやすくなります。
+    <value>テストモードでは、Fishstrapでの設定によるRobloxの影響を確認しやすくなります。
 
 オンの場合、設定画面を閉じたのちに自動的にRobloxが起動し、終了した際には再度設定画面が表示されます。オフにするまで繰り返します。
 
@@ -1236,7 +1176,7 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
 </value>
   </data>
   <data name="About.Translators.Description" xml:space="preserve">
-    <value>Bloxstrapにおけるすべての翻訳は[Crowdin]({0})を通じたクラウドソーシングによって行われています。ここに掲載されている皆様は、Bloxstrapをローカライズするために多大なる時間と努力を費やした人々です。翻訳者の皆様、本当にありがとうございます！</value>
+    <value>Fishstrapにおけるすべての翻訳は[Crowdin]({0})を通じたクラウドソーシングによって行われています。ここに掲載されている皆様は、Fishstrapをローカライズするために多大なる時間と努力を費やした人々です。翻訳者の皆様、本当にありがとうございます！</value>
   </data>
   <data name="Common.Navigation.Install" xml:space="preserve">
     <value>インストール</value>
@@ -1246,8 +1186,31 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
     <value>アイコン</value>
     <comment>Name of the folder that gets created according to the "create shortcut icons" option. Ensure that it is a valid folder name.</comment>
   </data>
+  <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
+    <value>Roblox Studioを起動</value>
+  </data>
+  <data name="Dialog.Exception.Version" xml:space="preserve">
+    <value>Ver. {0}</value>
+  </data>
+  <data name="Enums.BootstrapperStyle.CustomDialog" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="Bootstrapper.FilesInUse" xml:space="preserve">
+    <value>Robloxのアプリファイルが使用中のため、Robloxを更新できませんでした。
+
+Robloxのアプリファイルを使用している可能性のあるアプリを閉じて、もう一度お試しください。</value>
+    <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
+  </data>
+  <data name="FileTypes.ZipArchive" xml:space="preserve">
+    <value>zip 形式</value>
+    <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
+  </data>
+  <data name="Common.Export" xml:space="preserve">
+    <value>エクスポート</value>
+    <comment>Currently used under the "Fishstrap" settings tab for the button to export diagnostic data</comment>
+  </data>
   <data name="Dialog.Connectivity.Preventing" xml:space="preserve">
-    <value>何らかの原因でBloxstrapはインターネット接続を制限されています。</value>
+    <value>何らかの原因でFishstrapはインターネット接続を制限されています。</value>
   </data>
   <data name="Dialog.Connectivity.TimedOut" xml:space="preserve">
     <value>インターネット接続がタイムアウトしました。インターネット回線が不安定、またはファイアウォールによるブロックの可能性があります。</value>
@@ -1271,24 +1234,299 @@ Robloxが[正規のランチャー]({1})で動作するか確認してくださ�
   <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="LaunchMenu.LaunchRobloxStudio" xml:space="preserve">
-    <value>Roblox Studioを起動</value>
+  <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
+    <value>RobloxはWindows 7や8.1のサポートを終了しました。Robloxをプレイしたい場合は、Windows 10以降にアップグレードしてください。</value>
   </data>
-  <data name="Dialog.Exception.Version" xml:space="preserve">
-    <value>Ver. {0}</value>
+  <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
+    <value>Fishstrapの最新版を取得中...</value>
   </data>
-  <data name="Bootstrapper.FilesInUse" xml:space="preserve">
-    <value>Robloxのアプリファイルが使用中のため、Robloxを更新できませんでした。
-
-Robloxのアプリファイルを使用している可能性のあるアプリを閉じて、もう一度お試しください。</value>
-    <comment>This is *not* for when Roblox is still running when trying to upgrade. This applies to files being open (i.e. image assets)</comment>
+  <data name="Menu.Fishstrap.Description" xml:space="preserve">
+    <value>Fishstrapの動作に関する設定を変更できます。</value>
   </data>
-  <data name="FileTypes.ZipArchive" xml:space="preserve">
-    <value>zip 形式</value>
-    <comment>Shown in the save file dialog, where the file type selection dropdown is, e.g. "Zip archive (*.zip)"</comment>
+  <data name="Menu.Fishstrap.Analytics.Title" xml:space="preserve">
+    <value>使用状況と診断情報を送信</value>
   </data>
-  <data name="Common.Export" xml:space="preserve">
-    <value>エクスポート</value>
-    <comment>Currently used under the "Bloxstrap" settings tab for the button to export diagnostic data</comment>
+  <data name="Menu.Fishstrap.Analytics.Description" xml:space="preserve">
+    <value>匿名かつ悪意のない用途で使用されます。収集する内容とその理由は、[プライバシーポリシー]({0})を確認してください。</value>
+  </data>
+  <data name="Enums.CustomThemeTemplate.Blank" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="Enums.CustomThemeTemplate.Simple" xml:space="preserve">
+    <value>シンプル</value>
+  </data>
+  <data name="CustomTheme.Errors.InvalidRoot" xml:space="preserve">
+    <value>テーマファイルのXMLのルート要素は「{0}」である必要があります</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.DialogAlreadyInitialised" xml:space="preserve">
+    <value>カスタムダイアログはすでに初期化されています</value>
+  </data>
+  <data name="CustomTheme.Errors.TooManyElements" xml:space="preserve">
+    <value>カスタムランチャーの要素は最大{0}個までです。現在{1}個の要素が記述されています</value>
+    <comment>{0} and {1} are numbers</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotSet" xml:space="preserve">
+    <value>「{0}」のバージョンが設定されていません</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotNumber" xml:space="preserve">
+    <value>「{0}」のバージョンは数字である必要があります</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotSupported" xml:space="preserve">
+    <value>「{0}」のバージョン{1}のサポートは終了しています</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
+  </data>
+  <data name="CustomTheme.Errors.VersionNotRecognised" xml:space="preserve">
+    <value>「{0}」のバージョン{1}には対応していません</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the version number</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementInvalidChild" xml:space="preserve">
+    <value>「{0}」が子要素に「{1}」を持つことはできません</value>
+    <comment>{0} and {1} are element names (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.UnknownElement" xml:space="preserve">
+    <value>「{0}」は不明な要素です</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.XMLParseFailed" xml:space="preserve">
+    <value>テーマファイルの解析に失敗しました。 {0}</value>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeConversionError" xml:space="preserve">
+    <value>「{0}」の属性「{1}」が不正です。 {2}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMissing" xml:space="preserve">
+    <value>「{0}」要素に、「{1}」属性が不足しています</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeInvalidType" xml:space="preserve">
+    <value>「{0}.{1}」は有効な「{2}」ではありません</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMustBeLargerThanMin" xml:space="preserve">
+    <value>「{0}.{1}」は{2}より大きい必要があります</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMustBeSmallerThanMax" xml:space="preserve">
+    <value>「{0}.{1}」は{2}未満である必要があります</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is a number</comment>
+  </data>
+  <data name="CustomTheme.Errors.UnknownEnumValue" xml:space="preserve">
+    <value>「{0}」における{1}「{2}」は不明です</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the enum name (e.g. WindowCornerType), {2} is the value</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMultipleDefinitions" xml:space="preserve">
+    <value>「{0}」ではひとつの「{1}」のみ定義することができます</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMultipleChildren" xml:space="preserve">
+    <value>「{0}.{1}」は子要素がひとつである必要があります</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementMultipleChildren" xml:space="preserve">
+    <value>「{0}」は子要素がひとつである必要があります</value>
+    <comment>{0} is the element name (e.g. Button)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeMissingChild" xml:space="preserve">
+    <value>「{0}.{1}」に子要素が不足しています</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeParseError" xml:space="preserve">
+    <value>「{0}.{1}」における「{2}」への変換に失敗しました</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeParseErrorNull" xml:space="preserve">
+    <value>「{0}.{1}」における「{2}」がnullです</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the type name (e.g. string)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementAttributeBlacklistedUriScheme" xml:space="preserve">
+    <value>「{0}.{1}」がブラックリストに登録されているスキーム「{2}」を使用しています</value>
+    <comment>{0}.{1} is the element &amp; attribute name (e.g. Button.Text), {2} is the URI scheme (e.g. http)</comment>
+  </data>
+  <data name="CustomTheme.Errors.ElementTypeCreationFailed" xml:space="preserve">
+    <value>「{0}」における「{1}」の生成に失敗しました。 {2}</value>
+    <comment>{0} is the element name (e.g. Button), {1} is the attribute name (e.g. Text), {2} is the error reason</comment>
+  </data>
+  <data name="CustomTheme.Editor.Title" xml:space="preserve">
+    <value>「{0}」 を編集中</value>
+  </data>
+  <data name="CustomTheme.Editor.Save.Success" xml:space="preserve">
+    <value>テーマが保存されました</value>
+  </data>
+  <data name="CustomTheme.Editor.Save.Error" xml:space="preserve">
+    <value>テーマの保存中にエラーが発生しました。</value>
+  </data>
+  <data name="CustomTheme.Editor.ConfirmSave" xml:space="preserve">
+    <value>編集内容を「{0}」に保存しますか？</value>
+  </data>
+  <data name="CustomTheme.Editor.Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="CustomTheme.Editor.Preview" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="CustomTheme.Editor.OpenThemeDirectory" xml:space="preserve">
+    <value>テーマファイルを開く</value>
+  </data>
+  <data name="CustomTheme.Add.Title" xml:space="preserve">
+    <value>カスタムテーマを追加</value>
+  </data>
+  <data name="Common.Template" xml:space="preserve">
+    <value>テンプレート</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameEmpty" xml:space="preserve">
+    <value>名前を入力してください</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameIllegalCharacters" xml:space="preserve">
+    <value>名前に無効な文字が含まれています</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameReserved" xml:space="preserve">
+    <value>この名前は使用できません</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.Unknown" xml:space="preserve">
+    <value>不明なエラーが発生しました</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.NameTaken" xml:space="preserve">
+    <value>この名前はすでに使用されています</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.FileNotZip" xml:space="preserve">
+    <value>ZIP形式のファイルを選択してください</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.ZipMissingThemeFile" xml:space="preserve">
+    <value>このZIPファイル内にテーマファイルがありません</value>
+  </data>
+  <data name="CustomTheme.Add.Errors.ZipInvalidData" xml:space="preserve">
+    <value>ZIPファイルが無効、または破損しています</value>
+  </data>
+  <data name="CustomTheme.Errors.NoThemeSelected" xml:space="preserve">
+    <value>カスタムテーマが選択されていません</value>
+  </data>
+  <data name="CustomTheme.Errors.SetupFailed" xml:space="preserve">
+    <value>カスタムランチャーのセットアップに失敗しました。{0}。
+テーマ設定を{1}に変更します。</value>
+    <comment>{0} is the error reason, {1} is the theme name (e.g. Bloxstrap (Classic))</comment>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.NoneSelected" xml:space="preserve">
+    <value>カスタムテーマが選択されていません。</value>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.DeleteFailed" xml:space="preserve">
+    <value>テーマ「{0}」を削除できませんでした。 {1}</value>
+  </data>
+  <data name="Menu.Appearance.CustomThemes.RenameFailed" xml:space="preserve">
+    <value>テーマ「{0}」の名前を変更できませんでした。 {1}</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.UIElements" xml:space="preserve">
+    <value>ここにUI要素を記述してください</value>
+  </data>
+  <data name="CustomTheme.Templates.Blank.MoreExamples" xml:space="preserve">
+    <value>カスタムランチャーの例はこちら {0}</value>
+  </data>
+  <data name="CustomTheme.Templates.Simple.MoreExamples" xml:space="preserve">
+    <value>そのほかのカスタムランチャーの例はこちら {0}</value>
+  </data>
+  <data name="CustomTheme.DefaultName" xml:space="preserve">
+    <value>カスタムテーマ {0}</value>
+    <comment>{0} is a string (e.g. '1', '1-1234')</comment>
+  </data>
+  <data name="CustomTheme.Editor.Save.Success.Description" xml:space="preserve">
+    <value>テーマの保存が完了しました。</value>
+  </data>
+  <data name="CustomTheme.Editor.Errors.PreviewFailed" xml:space="preserve">
+    <value>テーマのプレビューに失敗しました。 {0}</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Title" xml:space="preserve">
+    <value>Modの適用に失敗</value>
+  </data>
+  <data name="Bootstrapper.ModificationsFailed.Message" xml:space="preserve">
+    <value>今回の起動では、一部のModが適用されていません。</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Title" xml:space="preserve">
+    <value>ファイルの抽出に失敗</value>
+  </data>
+  <data name="Bootstrapper.ExtractionFailed.Message" xml:space="preserve">
+    <value>一部のファイルが不足している可能性があります。設定からRobloxの強制再インストールを行ってください。</value>
+  </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Title" xml:space="preserve">
+    <value>複数アカウントでの起動を有効にする</value>
+  </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Description" xml:space="preserve">
+    <value>複数のゲームクライアントを同時に起動できるようになります。</value>
+  </data>
+  <data name="Common.Rename" xml:space="preserve">
+    <value>名前を変更</value>
+  </data>
+  <data name="Common.CreateNew" xml:space="preserve">
+    <value>新規作成</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Title" xml:space="preserve">
+    <value>バックグラウンド更新を有効にする</value>
+  </data>
+  <data name="Menu.Behaviour.BackgroundUpdates.Description" xml:space="preserve">
+    <value>Robloxをバックグラウンドで更新することで、Robloxの起動時間を短縮することができます。インターネット回線の速度が遅い場合はおすすめしません。この機能を使用する際は、3GBの空き容量が必要です。</value>
+  </data>
+  <data name="Common.Import" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Fishstrapについて</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
+    <value>Robloxメニュー画面を変更</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSLimit.Description" xml:space="preserve">
+    <value>0に設定することでRoblox標準のフレームレート開放機能を利用できます。</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FPSLimit.Title" xml:space="preserve">
+    <value>フレームレート上限</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HideGuis.Description" xml:space="preserve">
+    <value>[ショートカットキー]({0})で切り替えることができます。[Fishstrapグループ]({1})に参加している場合のみ有効です。</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.HideGuis.Title" xml:space="preserve">
+    <value>GUIを非表示にする機能を有効にする</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LightingTechnology.Description" xml:space="preserve">
+    <value>すべてのゲームで強制的に設定されます。[照明の描画に問題が発生する可能性があります。]({0})</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.LightingTechnology.Title" xml:space="preserve">
+    <value>Lighting technologyを選択</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisablePostFX.Title" xml:space="preserve">
+    <value>ポストプロセスエフェクトを無効にする</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FullscreenTitlebar.Title" xml:space="preserve">
+    <value>フルスクリーンでのタイトルバーを無効にする</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisablePlayerShadows.Title" xml:space="preserve">
+    <value>プレイヤーの影を非表示にする</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FontPadding.Title" xml:space="preserve">
+    <value>フォントサイズ</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.FontPadding.Description" xml:space="preserve">
+    <value>デフォルトは1です。カスタムフォントを使用する際に設定してください。</value>
+  </data>
+  <data name="Menu.FastFlags.Presets.DisableTerrainTextures.Title" xml:space="preserve">
+    <value>地形テクスチャを無効にする</value>
+  </data>
+  <data name="Menu.About.Licenses.Apache" xml:space="preserve">
+    <value>Apache License 2.0</value>
+  </data>
+  <data name="Menu.GBSEditor.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Transparency.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Transparency.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
   </data>
 </root>

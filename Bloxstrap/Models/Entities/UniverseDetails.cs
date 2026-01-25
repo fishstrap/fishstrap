@@ -28,7 +28,13 @@
 
         public static async Task FetchBulk(string ids)
         {
-            var gameDetailResponse = await Http.GetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.roblox.com/v1/games?universeIds={ids}");
+            ApiArrayResponse<GameDetailResponse> gameDetailResponse;
+
+            // some universes can't be viewed by logged out user (ex. 18+)
+            if (App.Cookies.Loaded)
+                gameDetailResponse = await Http.AuthGetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.roblox.com/v1/games?universeIds={ids}");
+            else
+                gameDetailResponse = await Http.GetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.roblox.com/v1/games?universeIds={ids}");
 
             if (!gameDetailResponse.Data.Any())
                 throw new InvalidHTTPResponseException("Roblox API for Game Details returned invalid data");

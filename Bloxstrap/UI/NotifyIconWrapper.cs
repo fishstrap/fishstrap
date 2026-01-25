@@ -36,7 +36,7 @@ namespace Bloxstrap.UI
             _notifyIcon.MouseClick += MouseClickEventHandler;
 
             if (_activityWatcher is not null && App.Settings.Prop.ShowServerDetails)
-                _activityWatcher.OnGameJoin += OnGameJoin;
+                _activityWatcher.ShowNotif += ShowNotif;
 
             _menuContainer = new(_watcher);
             _menuContainer.Show();
@@ -54,14 +54,9 @@ namespace Bloxstrap.UI
         #endregion
 
         #region Activity handlers
-        public async void OnGameJoin(object? sender, EventArgs e)
+        public async void ShowNotif(object? sender, EventArgs e)
         {
             if (_activityWatcher is null)
-                return;
-            
-            string? serverLocation = await _activityWatcher.Data.QueryServerLocation();
-
-            if (string.IsNullOrEmpty(serverLocation))
                 return;
 
             string title = _activityWatcher.Data.ServerType switch
@@ -72,9 +67,29 @@ namespace Bloxstrap.UI
                 _ => ""
             };
 
+            string? serverLocation = await _activityWatcher.Data.QueryServerLocation();
+            string? serverUptime;
+
+            DateTime? serverTime = _activityWatcher.Data.StartTime;
+            if (serverTime is not null)
+            {
+                TimeSpan _serverUptime = DateTime.UtcNow - serverTime.Value;
+
+                if (_serverUptime.TotalMinutes == 0)
+                    serverUptime = "0 minutes"; // :sob:
+                else
+                    serverUptime = Time.FormatTimeSpan(_serverUptime);
+            }
+            else
+                serverUptime = Strings.Common_Unknown; // this should never happen
+
             ShowAlert(
                 title,
-                String.Format(Strings.ContextMenu_ServerInformation_Notification_Text, serverLocation),
+                String.Format(
+                    Strings.ContextMenu_ServerDetails_Notification_Text,
+                    serverLocation,
+                    serverUptime
+                    ),
                 10,
                 (_, _) => _menuContainer.ShowServerInformationWindow()
             );

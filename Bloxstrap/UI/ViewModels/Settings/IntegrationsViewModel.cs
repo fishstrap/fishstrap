@@ -90,15 +90,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.ShowServerDetails = value;
         }
 
-        public bool PlayerLogsEnabled
-        {
-            get => App.FastFlags.GetPreset("Players.LogLevel") == "trace"; // we r using this to determine if its enabled
-            set {
-                App.FastFlags.SetPreset("Players.LogLevel", value ? "trace" : null);
-                App.FastFlags.SetPreset("Players.LogPattern", value ? "ExpChat/mountClientApp" : null);
-            }
-        }
-
         public bool DiscordActivityEnabled
         {
             get => App.Settings.Prop.UseDiscordRichPresence;
@@ -132,6 +123,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => App.Settings.Prop.UseDisableAppPatch;
             set => App.Settings.Prop.UseDisableAppPatch = value;
+        }
+
+        public bool MultiInstanceLaunchingEnabled
+        {
+            get => App.Settings.Prop.MultiInstanceLaunching;
+            set => App.Settings.Prop.MultiInstanceLaunching = value;
         }
 
         public ObservableCollection<CustomIntegration> CustomIntegrations

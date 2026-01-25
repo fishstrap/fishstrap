@@ -46,7 +46,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         private static GeometryConverter? _geometryConverter = null;
         private static GeometryConverter GeometryConverter { get => _geometryConverter ??= new GeometryConverter(); }
-
         private static object? GetGeometryFromXElement(XElement xmlElement, string attributeName) => GetTypeFromXElement(GeometryConverter, xmlElement, attributeName);
 
         private static RectConverter? _rectConverter = null;

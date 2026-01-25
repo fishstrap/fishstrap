@@ -42,24 +42,16 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
-    Header="{x:Static resources:Strings.Menu_Channel_RobloxUpgrades}"
-    Description="{x:Static resources:Strings.Menu_Channel_RobloxUpgrades_Description}">
-            <controls:OptionControl.Style>
-                <Style TargetType="controls:OptionControl">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ForceRobloxReinstallation, Mode=OneTime}" Value="True">
-                            <Setter Property="IsEnabled" Value="False" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </controls:OptionControl.Style>
-            <ui:ToggleSwitch IsChecked="{Binding UpdateRoblox, Mode=TwoWay}" />
+    Header="{x:Static resources:Strings.Menu_Channel_StaticDirectory_Title}"
+    Description="{x:Static resources:Strings.Menu_Channel_StaticDirectory_Description}">
+            <ui:ToggleSwitch IsChecked="{Binding StaticDirectory, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <controls:OptionControl 
     x:Name="FlagStateOption"
     Header="{x:Static resources:Strings.Menu_Channel_VersionHash_Title}" 
-    Description="{x:Static resources:Strings.Menu_Channel_VersionHash_Desription}">
+    Description="{x:Static resources:Strings.Menu_Channel_VersionHash_Desription}"
+    Visibility="Collapsed">
             <ui:TextBox Width="200" Padding="10,5,10,5" Text="{Binding ChannelHash, Mode=TwoWay}" />
         </controls:OptionControl>
 
@@ -108,6 +100,9 @@
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,16,8" VerticalAlignment="Center" Text="{x:Static resources:Strings.Common_VersionGuid}" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding ChannelDeployInfo.VersionGuid, Mode=OneWay}" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,16,8" VerticalAlignment="Center" Text="{x:Static resources:Strings.Common_Timestamp}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding ChannelDeployInfo.Timestamp, Mode=OneWay}" />
 
                     <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,16,0,0" Orientation="Horizontal">
                         <StackPanel.Style>
@@ -172,5 +167,15 @@
                 </Grid>
             </StackPanel>
         </ui:CardExpander>
+
+        <ui:CardControl Margin="0,8,0,0">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Channel_ChangeAction_Title}" />
+                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Channel_ChangeAction_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ComboBox Margin="5,0,0,0" Padding="10,5,10,5" Width="200" ItemsSource="{Binding ChannelChangeModes.Keys, Mode=OneTime}" Text="{Binding SelectedChannelChangeMode, Mode=TwoWay}" />
+        </ui:CardControl>
     </StackPanel>
 </ui:UiPage>

@@ -7,11 +7,12 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Bloxstrap.ico</ApplicationIcon>
-    <Version>2.8.6.7</Version>
-    <FileVersion>2.8.6.6</FileVersion>
+    <Version>3.0.1.0</Version>
+    <FileVersion>3.0.1.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+	<AssemblyName>Fishstrap</AssemblyName>
     <Product>$(AssemblyName)</Product>
     <RootNamespace>Bloxstrap</RootNamespace>
   </PropertyGroup>
@@ -39,6 +40,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\CustomBootstrapperSchema.json" />
     <EmbeddedResource Include="Resources\CustomBootstrapperTemplate.xml" />
+    <EmbeddedResource Include="Resources\CustomBootstrapperTemplate_Blank.xml" />
+    <EmbeddedResource Include="Resources\CustomBootstrapperTemplate_Simple.xml" />
     <EmbeddedResource Include="Resources\Icon2008.ico" />
     <EmbeddedResource Include="Resources\Icon2011.ico" />
     <EmbeddedResource Include="Resources\Icon2017.ico" />
@@ -51,7 +54,6 @@
     <EmbeddedResource Include="Resources\Mods\Cursor\From2006\ArrowFarCursor.png" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2013\ArrowCursor.png" />
     <EmbeddedResource Include="Resources\Mods\Cursor\From2013\ArrowFarCursor.png" />
-    <EmbeddedResource Include="Resources\Mods\Sounds\OldDeath.ogg" />
     <EmbeddedResource Include="Resources\Mods\Sounds\OldGetUp.mp3" />
     <EmbeddedResource Include="Resources\Mods\Sounds\OldJump.mp3" />
     <EmbeddedResource Include="Resources\Mods\Sounds\OldWalk.mp3" />
@@ -61,10 +63,10 @@
 
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
-    <PackageReference Include="Markdig" Version="0.37.0" />
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106">
+    <PackageReference Include="Markdig" Version="0.40.0" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
       <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

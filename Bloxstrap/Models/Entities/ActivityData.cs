@@ -4,7 +4,7 @@ using System.Web;
 using System.Windows;
 using System.Windows.Input;
 using Bloxstrap.AppData;
-using Bloxstrap.Models.APIs;
+using Bloxstrap.Models.APIs.RoValra;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Bloxstrap.Models.Entities
@@ -30,23 +30,11 @@ namespace Bloxstrap.Models.Entities
             }
         }
 
-        public class UserLog
-        {
-            public string UserId { get; set; } = "Unknown";
-            public string Username { get; set; } = "Unknown";
-            public string Type { get; set; } = "Unknown";
-            public DateTime Time {  get; set; } = DateTime.Now;
-        }
-
-        public class UserMessage
-        {
-            public string Message { get; set; } = "Unknown";
-            public DateTime Time { get; set; } = DateTime.Now;
-        }
-
         public long PlaceId { get; set; } = 0;
 
         public string JobId { get; set; } = string.Empty;
+
+        public DateTime? StartTime { get; set; }
 
         /// <summary>
         /// This will be empty unless the server joined is a private server
@@ -97,15 +85,15 @@ namespace Bloxstrap.Models.Entities
 
         public ICommand RejoinServerCommand => new RelayCommand(RejoinServer);
 
-        public Dictionary<int, UserLog> PlayerLogs { get; internal set; } = new();
-
-        public Dictionary<int, UserMessage> MessageLogs { get; internal set; } = new();
-
         private SemaphoreSlim serverQuerySemaphore = new(1, 1);
 
-        public string GetInviteDeeplink(bool launchData = true)
+        public string GetInviteDeeplink(bool launchData = true, bool useRobloxUri = false)
         {
-            string deeplink = $"https://www.roblox.com/games/start?placeId={PlaceId}";
+            // if our data isnt loaded it uses dummy data
+            // we only wait for important data
+
+            // we need useRobloxUri for rejoin feature
+            string deeplink = $"{(useRobloxUri ? "roblox://experiences/start" : App.RemoteData.Prop.DeeplinkUrl)}?placeId={PlaceId}";
 
             if (ServerType == ServerType.Private) // thats not going to work
                 deeplink += "&accessCode=" + AccessCode;
@@ -135,15 +123,20 @@ namespace Bloxstrap.Models.Entities
 
             try
             {
-                var ipInfo = await Http.GetJson<IPInfoResponse>($"https://ipinfo.io/{MachineAddress}/json");
+                var response = await Http.GetJson<RoValraGeolocation>($"https://apis.rovalra.com/v1/geolocation?ip={MachineAddress}");
+                var geolocation = response.Location;
 
-                if (string.IsNullOrEmpty(ipInfo.City))
-                    throw new InvalidHTTPResponseException("Reported city was blank");
-
-                if (ipInfo.City == ipInfo.Region)
-                    location = $"{ipInfo.Region}, {ipInfo.Country}";
+                if (geolocation is null)
+                    location = Strings.Common_Unknown;
                 else
-                    location = $"{ipInfo.City}, {ipInfo.Region}, {ipInfo.Country}";
+                {
+                    if (geolocation.City == geolocation.Region && geolocation.City == geolocation.Country)
+                        location = geolocation.Country;
+                    else if (geolocation.City == geolocation.Region)
+                        location = $"{geolocation.Region}, {geolocation.Country}";
+                    else
+                        location = $"{geolocation.City}, {geolocation.Region}, {geolocation.Country}";
+                }
 
                 GlobalCache.ServerLocation[MachineAddress] = location;
                 serverQuerySemaphore.Release();
@@ -157,7 +150,7 @@ namespace Bloxstrap.Models.Entities
                 serverQuerySemaphore.Release();
 
                 Frontend.ShowConnectivityDialog(
-                    string.Format(Strings.Dialog_Connectivity_UnableToConnect, "ipinfo.io"),
+                    string.Format(Strings.Dialog_Connectivity_UnableToConnect, "rovalra.com"),
                     Strings.ActivityWatcher_LocationQueryFailed,
                     MessageBoxImage.Warning,
                     ex
@@ -173,7 +166,7 @@ namespace Bloxstrap.Models.Entities
         {
             string playerPath = new RobloxPlayerData().ExecutablePath;
 
-            Process.Start(playerPath, GetInviteDeeplink(false));
+            Process.Start(playerPath, GetInviteDeeplink(false, true));
         }
     }
 }

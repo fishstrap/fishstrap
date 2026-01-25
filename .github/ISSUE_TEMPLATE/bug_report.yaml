@@ -7,7 +7,7 @@ body:
     attributes:
       label: Fishstrap Version
       description: "What version of Fishstrap are you using?"
-      placeholder: "v2.8.1.3"
+      placeholder: "v2.9.0.0"
     validations:
       required: true
   - type: textarea
@@ -18,9 +18,19 @@ body:
     validations:
       required: true
   - type: textarea
+    id: repro-steps
+    attributes:
+      label: How do you reproduce the problem?
+      description: Include the steps to reproduce the problem from start to finish. Include details such as FastFlags you added and settings you changed.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+  - type: textarea
     id: log
     attributes:
-      label: Bloxstrap Log
+      label: Fishstrap Log
       description: If you're getting a Fishstrap Exception error, upload your log file here. Otherwise, just leave it empty.
       value: "N/A"
       render: text
