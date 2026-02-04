@@ -1,4 +1,5 @@
 ﻿using Bloxstrap.Models.RobloxApi;
+using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.Models.Entities
 {
@@ -17,13 +18,13 @@ namespace Bloxstrap.Models.Entities
             if (cacheQuery.Any())
                 return cacheQuery.First();
 
-            var userResponse = await Http.GetJson<GetUserResponse>($"https://users.roblox.com/v1/users/{id}");
+            var userResponse = await Http.GetJson<GetUserResponse>($"https://users.{Deployment.RobloxDomain}/v1/users/{id}");
 
             if (userResponse is null)
                 throw new InvalidHTTPResponseException("Roblox API for User Details returned invalid data");
 
             // we can remove '-headshot' from the url if we want a full avatar picture
-            var thumbnailResponse = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>($"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={id}&size=180x180&format=Png&isCircular=false");
+            var thumbnailResponse = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>($"https://thumbnails.{Deployment.RobloxDomain}/v1/users/avatar-headshot?userIds={id}&size=180x180&format=Png&isCircular=false");
 
             if (thumbnailResponse is null || !thumbnailResponse.Data.Any())
                 throw new InvalidHTTPResponseException("Roblox API for Thumbnails returned invalid data");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bloxstrap.RobloxInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,7 @@ namespace Bloxstrap.Utility
 
             for (int i = 1; i <= RETRIES; i++)
             {
-                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>("https://thumbnails.roblox.com/v1/batch", payload, 3, token);
+                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>($"https://thumbnails.{Deployment.RobloxDomain}/v1/batch", payload, 3, token);
                 if (json == null)
                     throw new InvalidHTTPResponseException("Deserialised ThumbnailBatchResponse is null");
 
@@ -75,7 +76,7 @@ namespace Bloxstrap.Utility
 
             for (int i = 1; i <= RETRIES; i++)
             {
-                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>("https://thumbnails.roblox.com/v1/batch", payload, 3, token);
+                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>($"https://thumbnails.{Deployment.RobloxDomain}/v1/batch", payload, 3, token);
                 if (json == null)
                     throw new InvalidHTTPResponseException("Deserialised ThumbnailBatchResponse is null");
 

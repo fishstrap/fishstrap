@@ -1,4 +1,6 @@
-﻿namespace Bloxstrap.Models.Entities
+﻿using Bloxstrap.RobloxInterfaces;
+
+namespace Bloxstrap.Models.Entities
 {
     /// <summary>
     /// Explicit loading. Load from cache before and after a fetch.
@@ -32,14 +34,14 @@
 
             // some universes can't be viewed by logged out user (ex. 18+)
             if (App.Cookies.Loaded)
-                gameDetailResponse = await Http.AuthGetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.roblox.com/v1/games?universeIds={ids}");
+                gameDetailResponse = await Http.AuthGetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.{Deployment.RobloxDomain}/v1/games?universeIds={ids}");
             else
-                gameDetailResponse = await Http.GetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.roblox.com/v1/games?universeIds={ids}");
+                gameDetailResponse = await Http.GetJson<ApiArrayResponse<GameDetailResponse>>($"https://games.{Deployment.RobloxDomain}/v1/games?universeIds={ids}");
 
             if (!gameDetailResponse.Data.Any())
                 throw new InvalidHTTPResponseException("Roblox API for Game Details returned invalid data");
 
-            var universeThumbnailResponse = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>($"https://thumbnails.roblox.com/v1/games/icons?universeIds={ids}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=false");
+            var universeThumbnailResponse = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>($"https://thumbnails.{Deployment.RobloxDomain}/v1/games/icons?universeIds={ids}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=false");
 
             if (!universeThumbnailResponse.Data.Any())
                 throw new InvalidHTTPResponseException("Roblox API for Game Thumbnails returned invalid data");

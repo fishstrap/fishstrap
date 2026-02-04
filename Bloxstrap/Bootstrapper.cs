@@ -509,7 +509,7 @@ namespace Bloxstrap
                     }
                 }
 
-                key.SetValueSafe("www.roblox.com", Deployment.IsDefaultChannel ? "" : Deployment.Channel);
+                key.SetValueSafe("www." + Deployment.RobloxDomain, Deployment.IsDefaultChannel ? "" : Deployment.Channel);
 
                 _latestVersionGuid = clientVersion.VersionGuid;
                 _latestVersion = Utilities.ParseVersionSafe(clientVersion.Version);
@@ -1270,9 +1270,6 @@ namespace Bloxstrap
 
             await Task.WhenAll(extractionTasks);
 
-            App.Logger.WriteLine(LOG_IDENT, "Writing AppSettings.xml...");
-            await File.WriteAllTextAsync(Path.Combine(_latestVersionDirectory, "AppSettings.xml"), AppSettings);
-
             if (_cancelTokenSource.IsCancellationRequested)
                 return;
 
@@ -1484,6 +1481,11 @@ namespace Bloxstrap
             {
                 Directory.Delete(modFontFamiliesFolder, true);
             }
+
+            // we apply it here since RobloxDomain could be changed by the user
+            App.Logger.WriteLine(LOG_IDENT, "Writing AppSettings.xml...");
+            if (!File.Exists(Paths.Modifications + "\\AppSettings.xml"))
+                await File.WriteAllTextAsync(Path.Combine(_latestVersionDirectory, "AppSettings.xml"), AppSettings.Replace("roblox.com", Deployment.RobloxDomain));
 
             foreach (string file in Directory.GetFiles(Paths.Modifications, "*.*", SearchOption.AllDirectories))
             {
