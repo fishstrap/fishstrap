@@ -1220,9 +1220,6 @@ Fishstrap 安裝在 "{1}"。</value>
   <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
     <value>Roblox 已不再支援 Windows 7 和 8.1。 如果您想要繼續遊玩的話，請更新至 Windows 10 或更新的作業系統。</value>
   </data>
@@ -1464,6 +1461,9 @@ Fishstrap 安裝在 "{1}"。</value>
   <data name="About.Title" xml:space="preserve">
     <value>關於 Fishstrap</value>
   </data>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>首選的ESC選單版本</value>
   </data>
@@ -1516,6 +1516,9 @@ Fishstrap 安裝在 "{1}"。</value>
     <value />
   </data>
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

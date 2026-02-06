@@ -1218,9 +1218,6 @@ Bitte schließe alle Anwendungen, die möglicherweise auf die Dateien von Roblox
   <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
     <value>Windows 7 und 8.1 werden von Roblox nicht mehr unterstützt. Um weiterhin Roblox zu spielen, müsstest du auf Windows 10 oder höher upgraden.</value>
   </data>
@@ -1462,6 +1459,9 @@ Es wurde automatisch {1} ausgewählt.</value>
   <data name="About.Title" xml:space="preserve">
     <value>Über Fishstrap</value>
   </data>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Bevorzugte Version des Escape Menüs</value>
   </data>
@@ -1514,6 +1514,9 @@ Es wurde automatisch {1} ausgewählt.</value>
     <value />
   </data>
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

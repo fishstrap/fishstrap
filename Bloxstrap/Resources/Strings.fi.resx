@@ -1218,9 +1218,6 @@ Sulje kaikki sovellukset, jotka saattavat käyttää Robloxin tiedostoja, ja kä
   <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
     <value>Roblox ei enää tue Windows 7 tai 8.1, jatkaaksesi Robloxin pelaamista, ole hyvä ja päivitä Windows 10 tai uudempaan.</value>
   </data>
@@ -1462,6 +1459,9 @@ Palataan oletukseen {1}.</value>
   <data name="About.Title" xml:space="preserve">
     <value>Tietoja Fishstrapista</value>
   </data>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Suosittu escape-valikon versio</value>
   </data>
@@ -1514,6 +1514,9 @@ Palataan oletukseen {1}.</value>
     <value />
   </data>
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

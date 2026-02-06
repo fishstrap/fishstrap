@@ -7,6 +7,7 @@
         LegacyDialog2011,
         ProgressDialog,
         ClassicFluentDialog,
+        TwentyFiveDialog,
         ByfronDialog,
         [EnumName(StaticName = "Fishstrap")]
         FluentDialog,

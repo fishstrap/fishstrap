@@ -1215,9 +1215,6 @@ Lütfen Roblox'un dosyalarını kullanabiliyor olan uygulamaları kapatın, ve t
   <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
     <value>Roblox artık Windows 7 ve 8,1. desteklemiyor. Roblox'u oynamaya devam etmek için Windows 10 veya daha üst versiyona geçiş yapınız.</value>
   </data>
@@ -1459,6 +1456,9 @@ Otomatiklen {1}'e alınılıyor.</value>
   <data name="About.Title" xml:space="preserve">
     <value>Fishstrap Hakkında</value>
   </data>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Tercih edilen ESC menüsü versiyonu</value>
   </data>
@@ -1511,6 +1511,9 @@ Otomatiklen {1}'e alınılıyor.</value>
     <value />
   </data>
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

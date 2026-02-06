@@ -1216,9 +1216,6 @@ Fishstrap был установлен по адресу "{1}".</value>
   <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
     <value>Roblox больше не поддерживает Windows 7 или 8.1. Чтобы продолжить играть в Roblox, обновитесь до Windows 10 или выше.</value>
   </data>
@@ -1460,6 +1457,9 @@ Fishstrap был установлен по адресу "{1}".</value>
   <data name="About.Title" xml:space="preserve">
     <value>О Fishstrap</value>
   </data>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Предпочитаемая версия меню-выхода</value>
   </data>
@@ -1512,6 +1512,9 @@ Fishstrap был установлен по адресу "{1}".</value>
     <value />
   </data>
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

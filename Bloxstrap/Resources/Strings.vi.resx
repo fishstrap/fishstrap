@@ -1220,9 +1220,6 @@ Xin hãy đóng các ứng dụng đang sử dụng các tập tin của Roblox,
   <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
     <value>Roblox không còn hỗ trợ Windows 7 hoặc 8.1 nữa. Xin hãy nâng cấp lên Windows 10 hoặc mới hơn.</value>
   </data>
@@ -1464,6 +1461,9 @@ Mặc định về {1}.</value>
   <data name="About.Title" xml:space="preserve">
     <value>Về Fishstrap</value>
   </data>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Phiên bản menu thoát ưa thích</value>
   </data>
@@ -1516,6 +1516,9 @@ Mặc định về {1}.</value>
     <value />
   </data>
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>
