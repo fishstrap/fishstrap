@@ -1379,10 +1379,6 @@ Would you like to switch your preferred channel to {0}?</value>
   <data name="Installer.InstallationNotFound" xml:space="preserve">
     <value>Bloxstrap installation was not found.</value>
   </data>
-  <data name="Bootstrapper.Dialog.AnselDisabled" xml:space="preserve">
-    <value>Ansel is not supported.
-You can no longer use Bloxshade with Fishstrap.</value>
-  </data>
   <data name="Bootstrapper.Status.UpgradingBloxstrap" xml:space="preserve">
     <value>Getting the latest Fishstrap...</value>
   </data>
