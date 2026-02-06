@@ -1963,11 +1963,20 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roblox (~2014).
+        ///   Looks up a localized string similar to Roblox (2014~2025).
         /// </summary>
         public static string Enums_BootstrapperStyle_ProgressDialog {
             get {
                 return ResourceManager.GetString("Enums.BootstrapperStyle.ProgressDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox (~2025).
+        /// </summary>
+        public static string Enums_BootstrapperStyle_TwentyFiveDialog {
+            get {
+                return ResourceManager.GetString("Enums.BootstrapperStyle.TwentyFiveDialog", resourceCulture);
             }
         }
         

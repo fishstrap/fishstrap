@@ -263,7 +263,7 @@ Click for more information</value>
   <data name="ContextMenu.ServerDetails.Notification.Text" xml:space="preserve">
     <value>Location: {0}
 Uptime: {1}</value>
-	<comment>since we dont have crowdin for fishstrap we will just change the string name to not have old translated strings</comment>
+    <comment>since we dont have crowdin for fishstrap we will just change the string name to not have old translated strings</comment>
   </data>
   <data name="ContextMenu.ServerInformation.Notification.Title.Public" xml:space="preserve">
     <value>Connected to public server</value>
@@ -326,7 +326,7 @@ If not, then please report this exception through a [GitHub issue]({1}) along wi
     <value>Legacy (2011 - 2014)</value>
   </data>
   <data name="Enums.BootstrapperStyle.ProgressDialog" xml:space="preserve">
-    <value>Roblox (~2014)</value>
+    <value>Roblox (2014~2025)</value>
   </data>
   <data name="Enums.BootstrapperStyle.VistaDialog" xml:space="preserve">
     <value>Vista (2008 - 2011)</value>
@@ -1786,5 +1786,8 @@ Defaulting to {1}.</value>
   </data>
   <data name="Common.Timestamp" xml:space="preserve">
     <value>Timestamp</value>
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" xml:space="preserve">
+    <value>Roblox (~2025)</value>
   </data>
 </root>

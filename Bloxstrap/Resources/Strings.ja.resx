@@ -1231,9 +1231,6 @@ Robloxのアプリファイルを使用している可能性のあるアプリ�
   <data name="Common.VersionGuid" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="App.OSDeprecation.Win7_81" xml:space="preserve">
     <value>RobloxはWindows 7や8.1のサポートを終了しました。Robloxをプレイしたい場合は、Windows 10以降にアップグレードしてください。</value>
   </data>
@@ -1475,6 +1472,9 @@ Robloxのアプリファイルを使用している可能性のあるアプリ�
   <data name="About.Title" xml:space="preserve">
     <value>Fishstrapについて</value>
   </data>
+  <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Robloxメニュー画面を変更</value>
   </data>
@@ -1527,6 +1527,9 @@ Robloxのアプリファイルを使用している可能性のあるアプリ�
     <value />
   </data>
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>
