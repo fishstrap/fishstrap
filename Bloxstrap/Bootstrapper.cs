@@ -1491,6 +1491,12 @@ namespace Bloxstrap
                 if (relativeFile.EndsWith(".lock"))
                     continue;
 
+                if (relativeFile.EndsWith(".mesh"))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Skipping file: {relativeFile}");
+                    continue;
+                }
+
                 modFolderFiles.Add(relativeFile);
 
                 string fileModFolder = Path.Combine(Paths.Modifications, relativeFile);
