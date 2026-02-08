@@ -6,11 +6,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         submodules: true
 
-    - uses: actions/setup-dotnet@v4
+    - uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '6.0.x'
 
@@ -24,7 +24,7 @@ jobs:
       run: dotnet publish -p:PublishSingleFile=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained false .\Bloxstrap\Bloxstrap.csproj
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: Fishstrap (Release) (${{ github.sha }})
         path: .\Bloxstrap\bin\Release\net6.0-windows\win-x64\publish\*
@@ -44,13 +44,13 @@ jobs:
           path: release
 
       - name: Rename binaries
-        run: mv release/Fishstrap.exe Fishstrap-${{ github.ref_name }}.exe
+        run: mv release/Fishstrap.exe Fishstrap.exe
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           draft: true
-          files: Fishstrap-${{ github.ref_name }}.exe
+          files: Fishstrap.exe
           name: Fishstrap ${{ github.ref_name }}
           fail_on_unmatched_files: true
 
@@ -69,12 +69,12 @@ jobs:
           path: release
 
       - name: Rename binaries
-        run: mv release/Fishstrap.exe Fishstrap-${{ github.ref_name }}.exe
+        run: mv release/Fishstrap.exe Fishstrap.exe
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           draft: true
-          files: Fishstrap-${{ github.ref_name }}.exe
+          files: Fishstrap.exe
           name: Fishstrap ${{ github.ref_name }}
           fail_on_unmatched_files: true
