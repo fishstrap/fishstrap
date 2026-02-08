@@ -91,6 +91,14 @@ namespace Bloxstrap
             return version;
         }
 
+        public static bool IsRobloxRunning()
+        {
+            Process[] processes = GetProcessesSafe();
+            string processName = Path.GetFileNameWithoutExtension(App.RobloxPlayerAppName);
+
+            return processes.Any(x => x.ProcessName == processName);
+        }
+
         public static string GetRobloxVersionStr(IAppData data)
         {
             string playerLocation = data.ExecutablePath;
