@@ -10,6 +10,12 @@
 ![Stars][badge-repo-stars]
 </div>
 
+> [!IMPORTANT]
+> **Fishstrap is currently in maintenance mode.** Only bugs and security issues will be fixed.\
+> All other PRs will be denied.\
+> We are expected to **leave maintenance mode soon**; however, there is _no_ ETA.\
+> For more information, please join our [discord][discord-invite].
+
 > [!CAUTION]
 > The only official places to download Fishstrap are this GitHub repository and [fishstrap.app](https://fishstrap.app).
 > Any other websites offering downloads or claiming to be us are not controlled by us *(eg. fishstrap.org, fishstrap.com).* Do not download from them.
