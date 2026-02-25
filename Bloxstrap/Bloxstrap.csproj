@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
-    <ApplicationIcon>ResourcesIconFishstrap.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\IconFishstrap.ico</ApplicationIcon>
     <AssemblyName>Leafstrap</AssemblyName>
     <Company>Ieavemealone012</Company>
     <Version>3.0.2</Version>
