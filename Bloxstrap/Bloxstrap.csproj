@@ -6,9 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
-    <ApplicationIcon>Bloxstrap.ico</ApplicationIcon>
-    <Version>2.9.1.1</Version>
-    <FileVersion>2.9.1.1</FileVersion>
+    <ApplicationIcon>ResourcesIconFishstrap.ico</ApplicationIcon>
+    <AssemblyName>Leafstrap</AssemblyName>
+    <Company>Ieavemealone012</Company>
+    <Version>3.0.2</Version>
+    <FileVersion>3.0.2</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
