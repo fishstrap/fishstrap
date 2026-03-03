@@ -659,6 +659,9 @@ namespace Bloxstrap
                             $"robloxLocale:{match.Groups[1].Value}",
                             StringComparison.OrdinalIgnoreCase);
                 }
+
+                if (!Deployment.IsDefaultRobloxDomain && string.IsNullOrEmpty(_launchCommandLine))
+                    _launchCommandLine = "roblox://navigation/home"; // fixes a bug on rblx.org where its stuck on the login screen, doesnt affect anything else
             }
 
             string[] Names = { App.RobloxPlayerAppName, App.RobloxAnselAppName, App.RobloxStudioAppName };
