@@ -633,9 +633,9 @@ namespace Bloxstrap
 
             if (_launchMode == LaunchMode.Player)
             {
-                // this needs to be done before roblox launches
-                if (App.Settings.Prop.MultiInstanceLaunching)
-                    LaunchMultiInstanceWatcher();
+                //// this needs to be done before roblox launches
+                //if (App.Settings.Prop.MultiInstanceLaunching)
+                //    LaunchMultiInstanceWatcher();
 
                 if (App.Settings.Prop.ForceRobloxLanguage)
                 {
