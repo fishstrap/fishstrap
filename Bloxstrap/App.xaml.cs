@@ -235,6 +235,7 @@ namespace Bloxstrap
 
             if (uninstallKey?.GetValue("InstallLocation") is string value)
             {
+                value = Environment.ExpandEnvironmentVariables(value);
                 if (Directory.Exists(value))
                 {
                     installLocation = value;
