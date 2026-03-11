@@ -12,14 +12,18 @@
 #endif
 
 using Bloxstrap.AppData;
+using Bloxstrap.Models.APIs;
 using Bloxstrap.Models.APIs.Roblox;
+using Bloxstrap.Models.APIs.RoValra;
 using Bloxstrap.RobloxInterfaces;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using ICSharpCode.SharpZipLib.Zip;
+using LocationDataModels;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Tracing;
+using System.Security.Policy;
 using System.Threading.Channels;
 using System.Web;
 using System.Windows;
@@ -325,7 +329,7 @@ namespace Bloxstrap
                         Frontend.ShowBalloonTip(Strings.Bootstrapper_ModificationsFailed_Title, Strings.Bootstrapper_ModificationsFailed_Message, ToolTipIcon.Warning);
                 }
 
-                StartRoblox();
+                await StartRoblox();
             }
 
             await mutex.ReleaseAsync();
@@ -719,7 +723,76 @@ namespace Bloxstrap
             return joinData;
         }
 
-        private async void StartRoblox()
+        private double Deg2Rad(double deg)
+        {
+            return deg * (MathF.PI / 180);
+        }
+
+        // thank you valra
+        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            const double R = 6371;
+
+            double dLat = Deg2Rad(lat2 - lat1);
+            double dLon = Deg2Rad(lon2 - lon1);
+            double a =
+                Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2)) *
+                Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return R * c;
+        }
+
+        private async Task<string> GetBetterMatchmakingServerID()
+        {
+            const string LOG_IDENT = "Bootstrapper::GetBetterMatchmakingServerID";
+
+            var ipinfo = await Http.GetJson<IPInfoResponse>("https://ipinfo.io/json");
+
+            if (string.IsNullOrEmpty(ipinfo.Country))
+                throw new HttpRequestException("Country is blank.");
+
+            var datacenters = await Http.GetJson<List<RoValraDatacenter>>($"https://apis.rovalra.com/v1/datacenters/list");
+
+            if (datacenters is null)
+                throw new HttpRequestException("No datacenters in response.");
+
+            string region = null;
+            string[] location = ipinfo.Loc.Split(",");
+
+            double lat1 = double.Parse(location[0]);
+            double lon1 = double.Parse(location[1]);
+
+            RoValraDatacenter closestDataCenter;
+            double minDistance = double.MaxValue;
+
+            foreach (var datacenter in datacenters)
+            {
+                if (datacenter.Location.Country.Equals(ipinfo.Country, StringComparison.OrdinalIgnoreCase))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Found datacenter for region");
+                    region = datacenter.Location.Country;
+                }
+
+                double currentDistance = GetDistance(lat1, lon1, datacenter.Location.Latitude, datacenter.Location.Longitude);
+
+                if (currentDistance < minDistance)
+                {
+                    minDistance = currentDistance;
+                    closestDataCenter = datacenter;
+                }
+            }
+
+            var valraResponse = await Http.GetJson<RoValraServers>($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
+
+            if (valraResponse.Servers[0].ServerId == null)
+                throw new HttpRequestException("No servers in response.");
+
+            return valraResponse.Servers[0].ServerId;
+        }
+
+        private async Task StartRoblox()
         {
             const string LOG_IDENT = "Bootstrapper::StartRoblox";
 
@@ -730,6 +803,13 @@ namespace Bloxstrap
                 _joinData = GetJoinDataByLaunchCommand();
                 if (_joinData.JoinType == GameJoinType.Unknown)
                     App.Logger.WriteLine(LOG_IDENT, "Unable to get join data");
+
+                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.PlaceId is not null)
+                {
+                    string serverid = await GetBetterMatchmakingServerID();
+
+                    _launchCommandLine = $"roblox://experiences/start?placeId={_joinData.PlaceId}&gameInstanceId={serverid}";
+                }
 
                 //// this needs to be done before roblox launches
                 //if (App.Settings.Prop.MultiInstanceLaunching)
