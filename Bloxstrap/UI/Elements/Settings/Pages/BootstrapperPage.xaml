@@ -111,16 +111,10 @@
                     <ui:SymbolIcon.Style>
                         <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
                             <Setter Property="Visibility" Value="Collapsed"/>
-
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.CookieLoadingFailed, RelativeSource={RelativeSource AncestorType=ui:UiPage}}" Value="True">
-                                    <Setter Property="ui:SymbolIcon.Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
                         </Style>
                     </ui:SymbolIcon.Style>
                 </ui:SymbolIcon>
-                <ui:ToggleSwitch IsChecked="{Binding CookieAccess, Mode=TwoWay}" />
+                <ui:ToggleSwitch IsChecked="{Binding UseBetterMatchmaking, Mode=TwoWay}" />
             </StackPanel>
         </controls:OptionControl>
     </StackPanel>

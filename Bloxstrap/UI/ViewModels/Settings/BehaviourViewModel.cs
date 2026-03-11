@@ -39,6 +39,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public bool UseBetterMatchmaking
+        {
+            get => App.Settings.Prop.EnableBetterMatchmaking;
+            set => App.Settings.Prop.EnableBetterMatchmaking = value;
+        }
+
         public bool UpdateRoblox
         {
             get => App.Settings.Prop.UpdateRoblox && !IsRobloxInstallationMissing;
