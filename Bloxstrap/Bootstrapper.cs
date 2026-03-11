@@ -660,7 +660,7 @@ namespace Bloxstrap
                     {
                         Match placeIdMatch = Regex.Match(url, "placeId=" + commonIntPattern);
                         if (!placeIdMatch.Success) return joinData;
-                        int.TryParse(placeIdMatch.Groups[1].Value, out int placeId);
+                        long.TryParse(placeIdMatch.Groups[1].Value, out long placeId);
 
                         joinData.JoinType = GameJoinType.RequestGame;
                         joinData.PlaceId = placeId;
