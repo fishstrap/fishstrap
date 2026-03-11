@@ -831,7 +831,7 @@ namespace Bloxstrap
                 }
 
 
-                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.PlaceId != null && !isFollowUser)
+                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinType != GameJoinType.RequestPrivateGame && _joinData.PlaceId != null && !isFollowUser)
                 {
                     string serverid = await GetBetterMatchmakingServerID();
 
