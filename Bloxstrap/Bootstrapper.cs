@@ -756,53 +756,47 @@ namespace Bloxstrap
 
             var datacenters = await Http.GetJson<List<RoValraDatacenter>>($"https://apis.rovalra.com/v1/datacenters/list");
 
-            if (datacenters is null)
+            if (datacenters == null || !datacenters.Any())
                 throw new HttpRequestException("No datacenters in response.");
 
-            string region = null;
             string[] location = ipinfo.Loc.Split(",");
+            double lat1 = double.Parse(location[0], CultureInfo.InvariantCulture);
+            double lon1 = double.Parse(location[1], CultureInfo.InvariantCulture);
 
-            double lat1 = double.Parse(location[0]);
-            double lon1 = double.Parse(location[1]);
+            var regions = datacenters
+                .OrderBy(dc => GetDistance(lat1, lon1, dc.Location.Latitude, dc.Location.Longitude))
+                .Select(dc => dc.Location.Country)
+                .Distinct()
+                .ToList();
 
-            RoValraDatacenter closestDataCenter = new();
-            double minDistance = double.MaxValue;
-
-            foreach (var datacenter in datacenters)
+            if (regions.Contains(ipinfo.Country, StringComparer.OrdinalIgnoreCase))
             {
-                if (datacenter.Location.Country.Equals(ipinfo.Country, StringComparison.OrdinalIgnoreCase))
+                regions.Remove(ipinfo.Country);
+                regions.Insert(0, ipinfo.Country);
+            }
+
+            foreach (var region in regions) 
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Checking for servers in user region");
+
+                var valraResponse = await Http.GetJson<RoValraServers>($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
+
+                if (valraResponse?.Servers != null && valraResponse.Servers.Count > 0 && valraResponse.Servers[0].ServerId != null)
                 {
-                    App.Logger.WriteLine(LOG_IDENT, $"Found datacenter for region");
-                    region = datacenter.Location.Country;
+
+                    if (App.Settings.Prop.EnableBetterMatchmakingRandomization)
+                    {
+                        int index = Random.Shared.Next(0, valraResponse.Servers.Count);
+                        return valraResponse.Servers[index].ServerId;
+                    }
+
+                    return valraResponse.Servers[0].ServerId;
                 }
 
-                double currentDistance = GetDistance(lat1, lon1, datacenter.Location.Latitude, datacenter.Location.Longitude);
-
-                if (currentDistance < minDistance)
-                {
-                    minDistance = currentDistance;
-                    closestDataCenter = datacenter;
-                }
+                App.Logger.WriteLine(LOG_IDENT, $"No servers available in user region. Falling back to the next closest...");
             }
 
-            if (region == null)
-            {
-                App.Logger.WriteLine(LOG_IDENT, $"No datacenter found for user's region, using closest datacenter");
-                region = closestDataCenter.Location.Country;
-            }
-
-            var valraResponse = await Http.GetJson<RoValraServers>($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
-
-            if (valraResponse.Servers[0].ServerId == null)
-                throw new HttpRequestException("No servers in response.");
-
-            if (App.Settings.Prop.EnableBetterMatchmakingRandomization)
-            {
-                int index = Random.Shared.Next(0, valraResponse.Servers.Count - 1);
-                return valraResponse.Servers[index].ServerId;
-            }
-            
-            return valraResponse.Servers[0].ServerId;
+            return "";
         }
 
         private async Task StartRoblox()
@@ -835,7 +829,8 @@ namespace Bloxstrap
                 {
                     string serverid = await GetBetterMatchmakingServerID();
 
-                    _launchCommandLine = $"roblox://experiences/start?placeId={_joinData.PlaceId}&gameInstanceId={serverid}";
+                    if (!string.IsNullOrEmpty(serverid))
+                        _launchCommandLine = $"roblox://experiences/start?placeId={_joinData.PlaceId}&gameInstanceId={serverid}";
                 }
 
                 //// this needs to be done before roblox launches
