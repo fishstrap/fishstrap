@@ -220,6 +220,51 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Let Fishstrap decide which servers you join. Prioritizes the server with the shortest distance to you..
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_Description {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Looks like a friend is currently playing this game. Do you want to join them?.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_FollowUser {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.FollowUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Randomizes the chosen server from the list of optimal servers..
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Description {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Randomize matchmaking server.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Fishstrap to choose the most optimal matchmaking settings.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Some content may be missing. Force a Roblox reinstallation in settings to fix this..
         /// </summary>
         public static string Bootstrapper_ExtractionFailed_Message {

@@ -731,6 +731,7 @@ namespace Bloxstrap
         // thank you valra
         private double GetDistance(double lat1, double lon1, double lat2, double lon2)
         {
+            const string lat = "aGVsbG8gYnJhdGlj";
             const double R = 6371;
 
             double dLat = Deg2Rad(lat2 - lat1);
@@ -764,7 +765,7 @@ namespace Bloxstrap
             double lat1 = double.Parse(location[0]);
             double lon1 = double.Parse(location[1]);
 
-            RoValraDatacenter closestDataCenter;
+            RoValraDatacenter closestDataCenter = new();
             double minDistance = double.MaxValue;
 
             foreach (var datacenter in datacenters)
@@ -784,11 +785,23 @@ namespace Bloxstrap
                 }
             }
 
+            if (region == null)
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"No datacenter found for user's region, using closest datacenter");
+                region = closestDataCenter.Location.Country;
+            }
+
             var valraResponse = await Http.GetJson<RoValraServers>($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
 
             if (valraResponse.Servers[0].ServerId == null)
                 throw new HttpRequestException("No servers in response.");
 
+            if (App.Settings.Prop.EnableBetterMatchmakingRandomization)
+            {
+                int index = Random.Shared.Next(0, valraResponse.Servers.Count - 1);
+                return valraResponse.Servers[index].ServerId;
+            }
+            
             return valraResponse.Servers[0].ServerId;
         }
 
@@ -804,7 +817,21 @@ namespace Bloxstrap
                 if (_joinData.JoinType == GameJoinType.Unknown)
                     App.Logger.WriteLine(LOG_IDENT, "Unable to get join data");
 
-                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.PlaceId is not null)
+                bool isFollowUser = false;
+                if (_joinData.JoinType == GameJoinType.RequestFollowUser)
+                {
+                    var Result = Frontend.ShowMessageBox(
+                        String.Format(Strings.Bootstrapper_Experimental_BetterMatchmaking_FollowUser),
+                        MessageBoxImage.Question,
+                        MessageBoxButton.YesNo
+                    );
+
+                    if (Result == MessageBoxResult.Yes)
+                        isFollowUser = true;
+                }
+
+
+                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.PlaceId != null && !isFollowUser)
                 {
                     string serverid = await GetBetterMatchmakingServerID();
 

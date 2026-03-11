@@ -104,8 +104,8 @@
         </controls:OptionControl>
 
         <controls:OptionControl 
-            Header="Allow Fishstrap to choose the most optimal matchmaking settings"
-            Description="Let Fishstrap decide which servers you join. Prioritizes the server with the shortest distance to you.">
+            Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Title}"
+            Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Description}">
             <StackPanel Orientation="Horizontal">
                 <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
                     <ui:SymbolIcon.Style>
@@ -114,7 +114,22 @@
                         </Style>
                     </ui:SymbolIcon.Style>
                 </ui:SymbolIcon>
-                <ui:ToggleSwitch IsChecked="{Binding UseBetterMatchmaking, Mode=TwoWay}" />
+                <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmaking, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title}"
+            Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Description}">
+            <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
+                    <ui:SymbolIcon.Style>
+                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </ui:SymbolIcon.Style>
+                </ui:SymbolIcon>
+                <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmakingRandomization, Mode=TwoWay}" />
             </StackPanel>
         </controls:OptionControl>
     </StackPanel>
