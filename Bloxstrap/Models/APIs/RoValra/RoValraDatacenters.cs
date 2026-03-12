@@ -23,7 +23,7 @@ namespace LocationDataModels
         {
             get
             {
-                if (LatLong != null && LatLong.Length > 0 && double.TryParse(LatLong[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double lat))
+                if (LatLong != null && LatLong.Length > 0 && double.TryParse(LatLong[0], out double lat))
                 {
                     return lat;
                 }
@@ -36,7 +36,7 @@ namespace LocationDataModels
         {
             get
             {
-                if (LatLong != null && LatLong.Length > 1 && double.TryParse(LatLong[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double lon))
+                if (LatLong != null && LatLong.Length > 1 && double.TryParse(LatLong[1], out double lon))
                 {
                     return lon;
                 }
