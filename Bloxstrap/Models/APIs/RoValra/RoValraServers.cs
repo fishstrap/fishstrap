@@ -11,4 +11,10 @@ namespace Bloxstrap.Models.APIs.RoValra
         [JsonPropertyName("servers")]
         public List<RoValraServer> Servers { get; set; } = null!;
     }
+
+    public class RoValraServer
+    {
+        [JsonPropertyName("server_id")]
+        public string ServerId { get; set; } = string.Empty;
+    }
 }
