@@ -20,6 +20,7 @@ using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using ICSharpCode.SharpZipLib.Zip;
 using LocationDataModels;
 using Microsoft.Win32;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Tracing;
@@ -631,98 +632,6 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, "Did not receive the initialisation finished signal, continuing.");
         }
 
-        private GameJoinData GetJoinDataByLaunchCommand()
-        {
-            const string LOG_IDENT = "Bootstrapper::GetJoinDataByLaunchCommand";
-
-            const string placelauncherPattern = @"placelauncherurl:(.+?)(\+|$)";
-            const string requestTypePattern = @"request=(.+?)&";
-            const string commonIntPattern = @"([0-9]+)";
-            const string commonIdPattern = @"([a-zA-Z0-9-]+?)(&|\+|$)";
-
-            string? url = null;
-            GameJoinData joinData = new(); // by default its unknown
-
-            if (!_launchCommandLine.StartsWith("roblox-player:"))
-                return joinData; // its either empty or deeplink start, those arent supported (yet?)
-
-            Match urlMatch = Regex.Match(_launchCommandLine, placelauncherPattern);
-            if (!urlMatch.Success || urlMatch.Groups.Count != 3) return joinData; // the regex failed
-
-            url = HttpUtility.UrlDecode(urlMatch.Groups[1].Value);
-            if (string.IsNullOrEmpty(url)) return joinData;
-
-            Match typeMatch = Regex.Match(url, requestTypePattern);
-            if (!typeMatch.Success || typeMatch.Groups.Count != 2) return joinData;
-
-            App.Logger.WriteLine(LOG_IDENT, "Detecting join type");
-
-            // this is ugly
-            switch (typeMatch.Groups[1].Value)
-            {
-                case "RequestGame":
-                    {
-                        Match placeIdMatch = Regex.Match(url, "placeId=" + commonIntPattern);
-                        if (!placeIdMatch.Success) return joinData;
-                        long.TryParse(placeIdMatch.Groups[1].Value, out long placeId);
-
-                        joinData.JoinType = GameJoinType.RequestGame;
-                        joinData.PlaceId = placeId;
-                        break;
-                    }
-                case "RequestGameJob":
-                    {
-                        Match placeIdMatch = Regex.Match(url, "placeId=" + commonIntPattern);
-                        Match jobIdMatch = Regex.Match(url, "gameId=" + commonIdPattern);
-                        if (!placeIdMatch.Success || !jobIdMatch.Success) return joinData;
-                        int.TryParse(placeIdMatch.Groups[1].Value, out int placeId);
-
-                        joinData.JoinType = GameJoinType.RequestGameJob;
-                        joinData.PlaceId = placeId;
-                        joinData.JobId = jobIdMatch.Groups[1].Value;
-                        break;
-                    }
-                case "RequestPrivateGame":
-                    {
-                        Match placeIdMatch = Regex.Match(url, "placeId=" + commonIntPattern);
-                        Match accessCodeMatch = Regex.Match(url, "accessCode=" + commonIdPattern);
-                        if (!placeIdMatch.Success || !accessCodeMatch.Success) return joinData;
-                        int.TryParse(placeIdMatch.Groups[1].Value, out int placeId);
-
-                        joinData.JoinType = GameJoinType.RequestPrivateGame;
-                        joinData.PlaceId = placeId;
-                        joinData.AccessCode = accessCodeMatch.Groups[1].Value;
-                        break;
-                    }
-                case "RequestFollowUser":
-                    {
-                        Match userIdMatch = Regex.Match(url, "userId=" + commonIntPattern);
-                        if (!userIdMatch.Success) return joinData;
-                        int.TryParse(userIdMatch.Groups[1].Value, out int userId);
-
-                        joinData.JoinType = GameJoinType.RequestFollowUser;
-                        joinData.UserId = userId;
-                        break;
-                    }
-                case "RequestPlayTogetherGame":
-                    {
-                        Match placeIdMatch = Regex.Match(url, "placeId=" + commonIntPattern);
-                        Match conversationIdMatch = Regex.Match(url, "conversationId=" + commonIdPattern);
-                        if (!placeIdMatch.Success || !conversationIdMatch.Success) return joinData;
-                        int.TryParse(placeIdMatch.Groups[1].Value, out int placeId);
-
-                        joinData.JoinType = GameJoinType.RequestPlayTogetherGame;
-                        joinData.PlaceId = placeId;
-                        joinData.JobId = conversationIdMatch.Groups[1].Value;
-                        break;
-                    }
-            }
-
-            App.Logger.WriteLine(LOG_IDENT, $"Join type: {joinData.JoinType}");
-
-            return joinData;
-        }
-
         private double Deg2Rad(double deg)
         {
             return deg * (MathF.PI / 180);
@@ -806,13 +715,20 @@ namespace Bloxstrap
 
             if (_launchMode == LaunchMode.Player)
             {
-                _joinData = GetJoinDataByLaunchCommand();
+                GameJoin gameJoin = new();
+
+                _joinData = gameJoin.GetJoinDataByLaunchCommand(_launchCommandLine);
                 if (_joinData.JoinType == GameJoinType.Unknown)
                     App.Logger.WriteLine(LOG_IDENT, "Unable to get join data");
 
                 bool isFollowUser = false;
-                if (_joinData.JoinType == GameJoinType.RequestFollowUser)
+
+                // _joinData.JoinType == GameJoinType.RequestFollowUser just doesnt work at all
+                // idk why they dont use it when the user is following a friend, but ok
+                App.Logger.WriteLine(LOG_IDENT, $"join origin: {_joinData.JoinOrigin}");
+                if (_joinData.JoinOrigin == "friendServerListJoin" || _joinData.JoinOrigin == "placesListInHomePage")
                 {
+                    App.Logger.WriteLine(LOG_IDENT, "User is trying to join a friend, show dialog box");
                     var Result = Frontend.ShowMessageBox(
                         String.Format(Strings.Bootstrapper_Experimental_BetterMatchmaking_FollowUser),
                         MessageBoxImage.Question,

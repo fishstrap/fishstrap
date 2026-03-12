@@ -6,7 +6,8 @@
 
         public long? PlaceId { get; set; }
         public string? JobId { get; set; }
-        public int? UserId { get; set; }
+        public long? UserId { get; set; }
+        public string? JoinOrigin;
         public string? AccessCode { get; set; }
     }
 }
