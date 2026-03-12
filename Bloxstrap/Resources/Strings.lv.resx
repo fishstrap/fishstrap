@@ -1436,6 +1436,21 @@ Nav ieteicams, ja tev ir lēns internets. Vismaz 3GB ar brīvu vietu ir nepiecie
   <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.FollowUser" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Vēlamā escape izvēlnes versija</value>
   </data>
@@ -1511,19 +1526,7 @@ Nav ieteicams, ja tev ir lēns internets. Vismaz 3GB ar brīvu vietu ir nepiecie
     <value>Visi Bloxstrap žurnāli</value>
     <comment>Label that appears next to a checkbox</comment>
   </data>
-  <data name="Bootstrapper.Experimental.BetterMatchmaking.FollowUser" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Bootstrapper.Experimental.BetterMatchmaking.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Bootstrapper.Experimental.BetterMatchmaking.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="Menu.Integrations.MultiInstanceLaunching.Warning" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

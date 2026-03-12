@@ -1805,4 +1805,7 @@ Defaulting to {1}.</value>
   <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" xml:space="preserve">
     <value>Randomizes the chosen server from the list of optimal servers.</value>
   </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Warning" xml:space="preserve">
+    <value>Multi-Instancing is prone to breaking. We will not provide support for issues with Multi-Instancing, since Roblox is actively adding measures to make sure it doesn't work. We cannot and won't attempt to bypass these measures.</value>
+  </data>
 </root>

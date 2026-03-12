@@ -4354,6 +4354,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multi-Instancing is prone to breaking. We will not provide support for issues with Multi-Instancing, since Roblox is actively adding measures to make sure it doesn&apos;t work. We cannot and won&apos;t attempt to bypass these measures..
+        /// </summary>
+        public static string Menu_Integrations_MultiInstanceLaunching_Warning {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.MultiInstanceLaunching.Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When in-game, you&apos;ll be able to see where your server is located via [rovalra.com]({0}). Additional server information may be sent..
         /// </summary>
         public static string Menu_Integrations_QueryServerLocation_Description {
