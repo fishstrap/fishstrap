@@ -748,9 +748,9 @@ namespace Bloxstrap
                         _launchCommandLine = $"roblox://experiences/start?placeId={_joinData.PlaceId}&gameInstanceId={serverid}";
                 }
 
-                //// this needs to be done before roblox launches
-                //if (App.Settings.Prop.MultiInstanceLaunching)
-                //    LaunchMultiInstanceWatcher();
+                // this needs to be done before roblox launches
+                if (App.Settings.Prop.MultiInstanceLaunching)
+                    LaunchMultiInstanceWatcher();
 
                 if (App.Settings.Prop.ForceRobloxLanguage)
                 {
