@@ -728,10 +728,9 @@ namespace Bloxstrap
             return deg * (MathF.PI / 180);
         }
 
-        // thank you valra
+        // thank you valra, aGVsbG8gYnJhdGlj
         private double GetDistance(double lat1, double lon1, double lat2, double lon2)
         {
-            const string lat = "aGVsbG8gYnJhdGlj";
             const double R = 6371;
 
             double dLat = Deg2Rad(lat2 - lat1);

@@ -7,7 +7,7 @@ namespace LocationDataModels
     public class RoValraDatacenter
     {
         [JsonPropertyName("location")]
-        public RoValraDatacenterLocation Location { get; set; }
+        public RoValraDatacenterLocation Location { get; set; } = null!;
     }
 
     public class RoValraDatacenterLocation
@@ -15,35 +15,32 @@ namespace LocationDataModels
         [JsonPropertyName("country")]
         public string Country { get; set; } = string.Empty;
 
-        // This captures the raw JSON array
         [JsonPropertyName("latLong")]
-        public string[] RawLatLong { get; set; }
+        public string[] LatLong { get; set; } = null!;
 
-        // Expose Latitude as a distinct, usable double
         [JsonIgnore]
         public double Latitude
         {
             get
             {
-                if (RawLatLong != null && RawLatLong.Length > 0 && double.TryParse(RawLatLong[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double lat))
+                if (LatLong != null && LatLong.Length > 0 && double.TryParse(LatLong[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double lat))
                 {
                     return lat;
                 }
-                return 0; // Or handle missing data as you prefer
+                return 0;
             }
         }
 
-        // Expose Longitude as a distinct, usable double
         [JsonIgnore]
         public double Longitude
         {
             get
             {
-                if (RawLatLong != null && RawLatLong.Length > 1 && double.TryParse(RawLatLong[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double lon))
+                if (LatLong != null && LatLong.Length > 1 && double.TryParse(LatLong[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double lon))
                 {
                     return lon;
                 }
-                return 0; // Or handle missing data as you prefer
+                return 0;
             }
         }
     }
