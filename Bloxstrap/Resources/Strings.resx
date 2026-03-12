@@ -1794,13 +1794,13 @@ Defaulting to {1}.</value>
     <value>Looks like a friend is currently playing this game. Do you want to join them?</value>
   </data>
   <data name="Bootstrapper.Experimental.BetterMatchmaking.Title" xml:space="preserve">
-    <value>Allow Fishstrap to choose the most optimal matchmaking settings</value>
+    <value>Enable BetterMatchmaking</value>
   </data>
   <data name="Bootstrapper.Experimental.BetterMatchmaking.Description" xml:space="preserve">
     <value>Let Fishstrap decide which servers you join. Prioritizes the server with the shortest distance to you.</value>
   </data>
   <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title" xml:space="preserve">
-    <value>Randomize matchmaking server</value>
+    <value>Randomize BetterMatchmaking server</value>
   </data>
   <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" xml:space="preserve">
     <value>Randomizes the chosen server from the list of optimal servers.</value>

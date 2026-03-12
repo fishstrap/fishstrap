@@ -247,7 +247,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Randomize matchmaking server.
+        ///   Looks up a localized string similar to Randomize BetterMatchmaking server.
         /// </summary>
         public static string Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title {
             get {
@@ -256,7 +256,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow Fishstrap to choose the most optimal matchmaking settings.
+        ///   Looks up a localized string similar to Enable BetterMatchmaking.
         /// </summary>
         public static string Bootstrapper_Experimental_BetterMatchmaking_Title {
             get {
