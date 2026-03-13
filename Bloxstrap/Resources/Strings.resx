@@ -1790,4 +1790,22 @@ Defaulting to {1}.</value>
   <data name="Enums.BootstrapperStyle.TwentyFiveDialog" xml:space="preserve">
     <value>Roblox (~2025)</value>
   </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.FollowUser" xml:space="preserve">
+    <value>Looks like a friend is currently playing this game. Do you want to join them?</value>
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Title" xml:space="preserve">
+    <value>Enable BetterMatchmaking</value>
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Description" xml:space="preserve">
+    <value>Let Fishstrap decide which servers you join. Prioritizes the server with the shortest distance to you.</value>
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title" xml:space="preserve">
+    <value>Randomize BetterMatchmaking server</value>
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" xml:space="preserve">
+    <value>Randomizes the chosen server from the list of optimal servers.</value>
+  </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Warning" xml:space="preserve">
+    <value>Multi-Instancing is prone to breaking. We will not provide support for issues with Multi-Instancing, since Roblox is actively adding measures to make sure it doesn't work. We cannot and won't attempt to bypass these measures.</value>
+  </data>
 </root>

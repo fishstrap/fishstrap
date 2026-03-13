@@ -33,6 +33,8 @@ namespace Bloxstrap.Models.Persistable
         public string? SelectedCustomTheme { get; set; } = null;
         public bool BackgroundUpdatesEnabled { get; set; } = false;
         public bool DebugDisableVersionPackageCleanup { get; set; } = false;
+        public bool EnableBetterMatchmaking { get; set; } = true;
+        public bool EnableBetterMatchmakingRandomization { get; set; } = false;
         public WebEnvironment WebEnvironment { get; set; } = WebEnvironment.Production;
 
         // integration configuration

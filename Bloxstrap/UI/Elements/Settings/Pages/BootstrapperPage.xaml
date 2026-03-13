@@ -10,33 +10,12 @@
       xmlns:resources="clr-namespace:Bloxstrap.Resources"
       d:DataContext="{d:DesignInstance Type=models:BehaviourViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
+      d:DesignHeight="1000" d:DesignWidth="800"
       Title="BehaviourPage"
       Scrollable="True">
 
     <StackPanel Margin="0,0,14,14">
         <TextBlock Margin="0,0,0,8" Text="{x:Static resources:Strings.Menu_Behaviour_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-
-        <controls:OptionControl 
-            Header="{x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Title}"
-            Description="{Binding Source={x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/fishstrap/fishstrap/wiki/Account-Access#what-will-fishstrap-access-with-your-account'}">
-            <StackPanel Orientation="Horizontal">
-                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
-                    <ui:SymbolIcon.Style>
-                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.CookieLoadingFailed, RelativeSource={RelativeSource AncestorType=ui:UiPage}}" Value="True">
-                                    <Setter Property="ui:SymbolIcon.Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ui:SymbolIcon.Style>
-                </ui:SymbolIcon>
-                <ui:ToggleSwitch IsChecked="{Binding CookieAccess, Mode=TwoWay}" />
-            </StackPanel>
-        </controls:OptionControl>
 
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Behaviour_ConfirmLaunches_Title}"
@@ -100,5 +79,58 @@
                 </controls:OptionControl>
             </StackPanel>
         </ui:CardExpander>
+        <TextBlock Text="Experimental" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
+        <controls:MarkdownTextBlock MarkdownText="A collection of experimental settings. Be careful while using them, as they may or may not work as intended." TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Title}"
+            Description="{Binding Source={x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/fishstrap/fishstrap/wiki/Account-Access#what-will-fishstrap-access-with-your-account'}">
+            
+            <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
+                    <ui:SymbolIcon.Style>
+                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.CookieLoadingFailed, RelativeSource={RelativeSource AncestorType=ui:UiPage}}" Value="True">
+                                    <Setter Property="ui:SymbolIcon.Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ui:SymbolIcon.Style>
+                </ui:SymbolIcon>
+                <ui:ToggleSwitch IsChecked="{Binding CookieAccess, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Title}"
+            Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Description}">
+            <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
+                    <ui:SymbolIcon.Style>
+                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </ui:SymbolIcon.Style>
+                </ui:SymbolIcon>
+                <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmaking, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title}"
+            Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Description}">
+            <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
+                    <ui:SymbolIcon.Style>
+                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </ui:SymbolIcon.Style>
+                </ui:SymbolIcon>
+                <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmakingRandomization, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
     </StackPanel>
 </ui:UiPage>

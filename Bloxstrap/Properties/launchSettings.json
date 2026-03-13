@@ -21,7 +21,11 @@
     },
     "Fishstrap (Deeplink)": {
       "commandName": "Project",
-      "commandLineArgs": "-player \"roblox://experiences/start?placeId=13700835620\""
+      "commandLineArgs": "-player \"roblox://experiences/start?placeId=9391468976\""
+    },
+    "Fishstrap (Web launch)": {
+      "commandName": "Project",
+      "commandLineArgs": "-player \"roblox-player:1+launchmode:play+placelauncherurl:https%3A%2F%2Fwww.roblox.com%2FGame%2FPlaceLauncher.ashx%3Frequest%3DRequestGame%26placeId%3D9391468976%26isPlayTogetherGame%3Dfalse%26referredByPlayerId%3D0%26joinAttemptId%3D210cd814-1135-403a-a5a8-352b94974d3a%26joinAttemptOrigin%3DPlayButton+robloxLocale:en_us+gameLocale:en_us+LaunchExp:InApp\""
     },
     "Fishstrap (Channel Launch)": {
       "commandName": "Project",

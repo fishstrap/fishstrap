@@ -220,6 +220,51 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Let Fishstrap decide which servers you join. Prioritizes the server with the shortest distance to you..
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_Description {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Looks like a friend is currently playing this game. Do you want to join them?.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_FollowUser {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.FollowUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Randomizes the chosen server from the list of optimal servers..
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Description {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Randomize BetterMatchmaking server.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable BetterMatchmaking.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Some content may be missing. Force a Roblox reinstallation in settings to fix this..
         /// </summary>
         public static string Bootstrapper_ExtractionFailed_Message {
@@ -4305,6 +4350,15 @@ namespace Bloxstrap.Resources {
         public static string Menu_Integrations_MultiInstanceLaunching_Title {
             get {
                 return ResourceManager.GetString("Menu.Integrations.MultiInstanceLaunching.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-Instancing is prone to breaking. We will not provide support for issues with Multi-Instancing, since Roblox is actively adding measures to make sure it doesn&apos;t work. We cannot and won&apos;t attempt to bypass these measures..
+        /// </summary>
+        public static string Menu_Integrations_MultiInstanceLaunching_Warning {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.MultiInstanceLaunching.Warning", resourceCulture);
             }
         }
         

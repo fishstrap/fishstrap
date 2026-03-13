@@ -1448,6 +1448,24 @@ Sila tutup sebarang aplikasi yang mungkin menggunakan fail Roblox, dan cuba lagi
   <data name="About.Title" xml:space="preserve">
     <value>Perihal Fishstrap</value>
   </data>
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.FollowUser" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.Channel.RobloxUpgrades" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
@@ -1505,7 +1523,7 @@ Sila tutup sebarang aplikasi yang mungkin menggunakan fail Roblox, dan cuba lagi
   <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
     <value />
   </data>
-  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="Menu.Integrations.MultiInstanceLaunching.Warning" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>
