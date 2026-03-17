@@ -8,6 +8,6 @@
 
         public List<int>? AutoclosePids { get; set; }
 
-        public IntPtr WindowHandle { get; set; }
+        public long Handle { get; set; }
     }
 }

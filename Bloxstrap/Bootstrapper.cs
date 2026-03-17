@@ -13,22 +13,14 @@
 
 using Bloxstrap.AppData;
 using Bloxstrap.Models.APIs;
-using Bloxstrap.Models.APIs.Roblox;
 using Bloxstrap.Models.APIs.RoValra;
 using Bloxstrap.RobloxInterfaces;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using ICSharpCode.SharpZipLib.Zip;
-using LocationDataModels;
 using Microsoft.Win32;
-using System;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.Tracing;
-using System.Security.Policy;
-using System.Threading.Channels;
-using System.Web;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Shell;
 
@@ -949,7 +941,7 @@ namespace Bloxstrap
                     ProcessId = _appPid,
                     LogFile = logFileName,
                     AutoclosePids = autoclosePids,
-                    WindowHandle = _appWindowHandle,
+                    Handle = _appWindowHandle.ToInt64()
                 };
 
                 string watcherDataArg = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(watcherData)));

@@ -46,7 +46,7 @@ namespace Bloxstrap
                 while (gameClientProcess.MainWindowHandle == IntPtr.Zero)
                     Thread.Sleep(100);
 
-                _watcherData = new() { ProcessId = gameClientProcess.Id, WindowHandle = gameClientProcess.MainWindowHandle };
+                _watcherData = new() { ProcessId = gameClientProcess.Id, Handle = gameClientProcess.MainWindowHandle.ToInt64() };
 #else
                 throw new Exception("Watcher data not specified");
 #endif
@@ -153,7 +153,7 @@ namespace Bloxstrap
             ActivityWatcher?.Start();
 
             if (App.Settings.Prop.FakeBorderlessFullscreen)
-                FakeBorderless(_watcherData.WindowHandle);
+                FakeBorderless((IntPtr)_watcherData.Handle);
 
             while (Utilities.GetProcessesSafe().Any(x => x.Id == _watcherData.ProcessId))
                 await Task.Delay(1000);
