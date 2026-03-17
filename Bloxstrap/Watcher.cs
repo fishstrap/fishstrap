@@ -1,6 +1,11 @@
 ﻿using Bloxstrap.AppData;
 using Bloxstrap.Integrations;
 using Bloxstrap.Models;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.WindowsAndMessaging;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace Bloxstrap
 {
@@ -38,7 +43,10 @@ namespace Bloxstrap
 
                 using var gameClientProcess = Process.Start(path);
 
-                _watcherData = new() { ProcessId = gameClientProcess.Id };
+                while (gameClientProcess.MainWindowHandle == IntPtr.Zero)
+                    Thread.Sleep(100);
+
+                _watcherData = new() { ProcessId = gameClientProcess.Id, WindowHandle = gameClientProcess.MainWindowHandle };
 #else
                 throw new Exception("Watcher data not specified");
 #endif

@@ -77,6 +77,7 @@ namespace Bloxstrap
         private AsyncMutex? _mutex;
 
         private int _appPid = 0;
+        private IntPtr _appWindowHandle = IntPtr.Zero;
 
         public IBootstrapperDialog? Dialog = null;
 
@@ -864,7 +865,12 @@ namespace Bloxstrap
             try
             {
                 using var process = Process.Start(startInfo)!;
+
+                while (process.MainWindowHandle == IntPtr.Zero)
+                    Thread.Sleep(100);
+
                 _appPid = process.Id;
+                _appWindowHandle = process.MainWindowHandle;
             }
             catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
             {
@@ -942,7 +948,8 @@ namespace Bloxstrap
                 {
                     ProcessId = _appPid,
                     LogFile = logFileName,
-                    AutoclosePids = autoclosePids
+                    AutoclosePids = autoclosePids,
+                    WindowHandle = _appWindowHandle,
                 };
 
                 string watcherDataArg = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(watcherData)));
