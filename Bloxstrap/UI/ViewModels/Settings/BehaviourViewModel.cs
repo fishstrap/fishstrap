@@ -50,6 +50,11 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.Settings.Prop.EnableBetterMatchmakingRandomization;
             set => App.Settings.Prop.EnableBetterMatchmakingRandomization = value;
         }
+        public bool EnableFakeBorderlessFullscreen
+        {
+            get => App.Settings.Prop.FakeBorderlessFullscreen;
+            set => App.Settings.Prop.FakeBorderlessFullscreen = value;
+        }
 
         public bool UpdateRoblox
         {

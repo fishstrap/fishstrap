@@ -113,12 +113,47 @@ namespace Bloxstrap
             }
         }
 
+        // should this be here?
+        public void FakeBorderless(IntPtr hWnd)
+        {
+            const string LOG_IDENT = "Watcher::BorderlessFullscreen";
+
+            App.Logger.WriteLine(LOG_IDENT, "Setting Roblox to borderless fullscreen");
+
+            const int GWLSTYLE = -16;
+
+            int style = PInvoke.GetWindowLong((HWND)hWnd, (WINDOW_LONG_PTR_INDEX)GWLSTYLE);
+
+            const int WS_CAPTION = 0x00C00000;
+            const int WS_THICKFRAME = 0x00040000;
+            const int WS_MINIMIZEBOX = 0x00020000;
+            const int WS_MAXIMIZEBOX = 0x00010000;
+            const int WS_SYSMENU = 0x00080000;
+
+
+            style &= ~WS_CAPTION;
+            style &= ~WS_THICKFRAME;
+            style &= ~WS_MINIMIZEBOX;
+            style &= ~WS_MAXIMIZEBOX;
+            style &= ~WS_SYSMENU;
+
+            Rectangle resolution = Screen.PrimaryScreen.Bounds;
+
+            PInvoke.SetWindowLong((HWND)hWnd, (WINDOW_LONG_PTR_INDEX)GWLSTYLE, style);
+
+            // hack or else it'll still be exclusive
+            PInvoke.SetWindowPos((HWND)hWnd, (HWND)IntPtr.Zero, 0, 0, resolution.Width, resolution.Height - 1, SET_WINDOW_POS_FLAGS.SWP_FRAMECHANGED | SET_WINDOW_POS_FLAGS.SWP_SHOWWINDOW);
+        }
+
         public async Task Run()
         {
             if (!_lock.IsAcquired || _watcherData is null)
                 return;
 
             ActivityWatcher?.Start();
+
+            if (App.Settings.Prop.FakeBorderlessFullscreen)
+                FakeBorderless(_watcherData.WindowHandle);
 
             while (Utilities.GetProcessesSafe().Any(x => x.Id == _watcherData.ProcessId))
                 await Task.Delay(1000);

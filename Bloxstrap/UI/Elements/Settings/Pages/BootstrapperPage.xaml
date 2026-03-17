@@ -10,7 +10,7 @@
       xmlns:resources="clr-namespace:Bloxstrap.Resources"
       d:DataContext="{d:DesignInstance Type=models:BehaviourViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="1000" d:DesignWidth="800"
+      d:DesignHeight="2000" d:DesignWidth="800"
       Title="BehaviourPage"
       Scrollable="True">
 
@@ -107,13 +107,6 @@
             Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Title}"
             Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Description}">
             <StackPanel Orientation="Horizontal">
-                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
-                    <ui:SymbolIcon.Style>
-                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </ui:SymbolIcon.Style>
-                </ui:SymbolIcon>
                 <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmaking, Mode=TwoWay}" />
             </StackPanel>
         </controls:OptionControl>
@@ -122,14 +115,15 @@
             Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title}"
             Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Description}">
             <StackPanel Orientation="Horizontal">
-                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
-                    <ui:SymbolIcon.Style>
-                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </Style>
-                    </ui:SymbolIcon.Style>
-                </ui:SymbolIcon>
                 <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmakingRandomization, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="Enable Borderless Fullscreen for Vulkan"
+            Description="Let's you use a fake version of borderless fullscreen while using Vulkan.">
+            <StackPanel Orientation="Horizontal">
+                <ui:ToggleSwitch IsChecked="{Binding EnableFakeBorderlessFullscreen, Mode=TwoWay}" />
             </StackPanel>
         </controls:OptionControl>
     </StackPanel>
