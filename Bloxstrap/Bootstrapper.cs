@@ -719,7 +719,8 @@ namespace Bloxstrap
                 // _joinData.JoinType == GameJoinType.RequestFollowUser just doesnt work at all
                 // idk why they dont use it when the user is following a friend, but ok
                 App.Logger.WriteLine(LOG_IDENT, $"join origin: {_joinData.JoinOrigin}");
-                if (_joinData.JoinOrigin == "friendServerListJoin" || _joinData.JoinOrigin == "placesListInHomePage")
+
+                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinOrigin == "friendServerListJoin" || _joinData.JoinOrigin == "placesListInHomePage")
                 {
                     App.Logger.WriteLine(LOG_IDENT, "User is trying to join a friend, show dialog box");
                     var Result = Frontend.ShowMessageBox(
