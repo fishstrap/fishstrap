@@ -130,7 +130,6 @@ namespace Bloxstrap
             const int WS_MAXIMIZEBOX = 0x00010000;
             const int WS_SYSMENU = 0x00080000;
 
-
             style &= ~WS_CAPTION;
             style &= ~WS_THICKFRAME;
             style &= ~WS_MINIMIZEBOX;
@@ -142,7 +141,7 @@ namespace Bloxstrap
             PInvoke.SetWindowLong((HWND)hWnd, (WINDOW_LONG_PTR_INDEX)GWLSTYLE, style);
 
             // hack or else it'll still be exclusive
-            PInvoke.SetWindowPos((HWND)hWnd, (HWND)IntPtr.Zero, 0, 0, resolution.Width, resolution.Height - 1, SET_WINDOW_POS_FLAGS.SWP_FRAMECHANGED | SET_WINDOW_POS_FLAGS.SWP_SHOWWINDOW);
+            PInvoke.SetWindowPos((HWND)hWnd, (HWND)IntPtr.Zero, 0, 0, resolution.Width, resolution.Height + 1, SET_WINDOW_POS_FLAGS.SWP_FRAMECHANGED | SET_WINDOW_POS_FLAGS.SWP_SHOWWINDOW);
         }
 
         public async Task Run()
