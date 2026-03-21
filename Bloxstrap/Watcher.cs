@@ -1,11 +1,5 @@
 ﻿using Bloxstrap.AppData;
 using Bloxstrap.Integrations;
-using Bloxstrap.Models;
-using Windows.Win32;
-using Windows.Win32.Foundation;
-using Windows.Win32.UI.WindowsAndMessaging;
-using System.Windows.Forms;
-using System.Drawing;
 
 namespace Bloxstrap
 {
@@ -18,6 +12,8 @@ namespace Bloxstrap
         private readonly NotifyIconWrapper? _notifyIcon;
 
         public readonly ActivityWatcher? ActivityWatcher;
+
+        public readonly WindowManipulation? WindowManipulation;
 
         public readonly DiscordRichPresence? RichPresence;
 
@@ -58,6 +54,8 @@ namespace Bloxstrap
 
             if (_watcherData is null)
                 throw new Exception("Watcher data is invalid");
+
+            WindowManipulation = new(_watcherData.Handle);
 
             if (App.Settings.Prop.EnableActivityTracking)
             {
@@ -113,46 +111,16 @@ namespace Bloxstrap
             }
         }
 
-        // should this be here?
-        public void FakeBorderless(IntPtr hWnd)
-        {
-            const string LOG_IDENT = "Watcher::BorderlessFullscreen";
-
-            App.Logger.WriteLine(LOG_IDENT, "Setting Roblox to borderless fullscreen");
-
-            const int GWLSTYLE = -16;
-
-            int style = PInvoke.GetWindowLong((HWND)hWnd, (WINDOW_LONG_PTR_INDEX)GWLSTYLE);
-
-            const int WS_CAPTION = 0x00C00000;
-            const int WS_THICKFRAME = 0x00040000;
-            const int WS_MINIMIZEBOX = 0x00020000;
-            const int WS_MAXIMIZEBOX = 0x00010000;
-            const int WS_SYSMENU = 0x00080000;
-
-            style &= ~WS_CAPTION;
-            style &= ~WS_THICKFRAME;
-            style &= ~WS_MINIMIZEBOX;
-            style &= ~WS_MAXIMIZEBOX;
-            style &= ~WS_SYSMENU;
-
-            Rectangle resolution = Screen.PrimaryScreen.Bounds;
-
-            PInvoke.SetWindowLong((HWND)hWnd, (WINDOW_LONG_PTR_INDEX)GWLSTYLE, style);
-
-            // hack or else it'll still be exclusive
-            PInvoke.SetWindowPos((HWND)hWnd, (HWND)IntPtr.Zero, 0, 0, resolution.Width, resolution.Height + 1, SET_WINDOW_POS_FLAGS.SWP_FRAMECHANGED | SET_WINDOW_POS_FLAGS.SWP_SHOWWINDOW);
-        }
-
         public async Task Run()
         {
             if (!_lock.IsAcquired || _watcherData is null)
                 return;
 
             ActivityWatcher?.Start();
+            WindowManipulation?.ApplyWindowModifications();
 
             if (App.Settings.Prop.FakeBorderlessFullscreen)
-                FakeBorderless((IntPtr)_watcherData.Handle);
+                WindowManipulation?.FakeBorderless();
 
             while (Utilities.GetProcessesSafe().Any(x => x.Id == _watcherData.ProcessId))
                 await Task.Delay(1000);

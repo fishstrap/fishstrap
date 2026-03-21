@@ -3,4 +3,7 @@ FlashWindow
 GetWindowLong
 SetWindowLong
 SetWindowPos
+CopyIcon
+SetWindowText
+SendMessage
 SHObjectProperties

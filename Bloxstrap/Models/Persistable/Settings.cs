@@ -12,6 +12,9 @@ namespace Bloxstrap.Models.Persistable
         public BootstrapperIcon BootstrapperIcon { get; set; } = BootstrapperIcon.IconBloxstrap;
         public string BootstrapperTitle { get; set; } = App.ProjectName;
         public string BootstrapperIconCustomLocation { get; set; } = "";
+        public RobloxIcon RobloxIcon { get; set; } = RobloxIcon.IconDefault;
+        public string RobloxTitle { get; set; } = "Roblox";
+        public string RobloxIconCustomLocation { get; set; } = "";
         public Theme Theme { get; set; } = Theme.Default;
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool DeveloperMode { get; set; } = false;
