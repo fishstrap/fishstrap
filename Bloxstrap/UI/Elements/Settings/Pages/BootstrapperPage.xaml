@@ -152,7 +152,7 @@
                                     </TextBlock>
                                 </StackPanel>
 
-                                <Button Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0" Command="{Binding DownloadButtonClickedCommand, ElementName=ArtifactsList}" CommandParameter="{Binding}">
+                                <Button Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0" Command="{Binding DataContext.DownloadButtonClickedCommand, ElementName=ArtifactsList}" CommandParameter="{Binding}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Download" VerticalAlignment="Center" />
                                         <ui:SymbolIcon Margin="8,0,0,0" Symbol="ArrowDownload24" />
