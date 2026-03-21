@@ -84,7 +84,7 @@
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Title}"
             Description="{Binding Source={x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/fishstrap/fishstrap/wiki/Account-Access#what-will-fishstrap-access-with-your-account'}">
-            
+
             <StackPanel Orientation="Horizontal">
                 <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
                     <ui:SymbolIcon.Style>
@@ -126,5 +126,44 @@
                 <ui:ToggleSwitch IsChecked="{Binding EnableFakeBorderlessFullscreen, Mode=TwoWay}" />
             </StackPanel>
         </controls:OptionControl>
+
+        <TextBlock Visibility="{Binding CanaryDownloaderVisibility}" Text="Build Artifacts" FontSize="20" FontWeight="Medium" Margin="0,16,0,4" />
+
+        <Grid Visibility="{Binding CanaryDownloaderVisibility}" Loaded="OnCanaryDownloaderLoaded">
+            <ItemsControl x:Name="ArtifactsList" HorizontalContentAlignment="Stretch" Padding="12" ItemsSource="{Binding Artifacts}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,0,4" Background="#0FFFFFFF" BorderThickness="1" BorderBrush="{DynamicResource ControlElevationBorderBrush}" CornerRadius="4" Padding="16">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock FontSize="14" Text="{Binding Message}" FontWeight="SemiBold" />
+                                    <TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} - {1}">
+                                                <Binding Path="Branch" />
+                                                <Binding Path="Hash" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <Button Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0" Command="{Binding DownloadButtonClickedCommand, ElementName=ArtifactsList}" CommandParameter="{Binding}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Download" VerticalAlignment="Center" />
+                                        <ui:SymbolIcon Margin="8,0,0,0" Symbol="ArrowDownload24" />
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ui:ProgressRing Visibility="{Binding IsLoading}" Width="48" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center" IsIndeterminate="True" />
+        </Grid>
     </StackPanel>
 </ui:UiPage>

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Bloxstrap.Models.APIs.Fishstrap;
+using Bloxstrap.UI.ViewModels.Settings;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,24 +16,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Bloxstrap.UI.ViewModels.Settings;
-
 namespace Bloxstrap.UI.Elements.Settings.Pages
 {
     /// <summary>
     /// Interaction logic for BehaviourPage.xaml
     /// </summary>
+
     public partial class BehaviourPage
     {
+        private BehaviourViewModel _viewModel = new BehaviourViewModel();
+
         public BehaviourPage()
         {
-            DataContext = new BehaviourViewModel();
+            _viewModel = new BehaviourViewModel();
+
+            this.DataContext = _viewModel;
             InitializeComponent();
         }
 
-        private void ToggleSwitch_Checked(object sender, RoutedEventArgs e)
+        public async void OnCanaryDownloaderLoaded(object sender, RoutedEventArgs e)
         {
-
+            if (App.Settings.Prop.DeveloperMode)
+                await _viewModel.GetCanaryBuilds();
         }
     }
 }

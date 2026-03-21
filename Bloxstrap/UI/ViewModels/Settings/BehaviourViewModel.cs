@@ -1,15 +1,107 @@
 ﻿using Bloxstrap.AppData;
 using Bloxstrap.Enums;
+using Bloxstrap.Models.APIs.Fishstrap;
 using Bloxstrap.RobloxInterfaces;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
-    public class BehaviourViewModel : NotifyPropertyChangedViewModel
+    public partial class BehaviourViewModel : NotifyPropertyChangedViewModel
     {
+        public ObservableCollection<Artifact>? Artifacts { get; set; } = new ObservableCollection<Artifact>();
 
         public BehaviourViewModel()
         {
             App.Cookies.StateChanged += (object? _, CookieState state) => CookieLoadingFailed = state != CookieState.Success && state != CookieState.Unknown;
+        }
+
+        [RelayCommand]
+        public async Task DownloadButtonClicked(Artifact artifact)
+        {
+            if (artifact != null)
+                await DownloadArtifact(artifact);
+        }
+
+        //modified version of CheckForUpdates
+        private async Task DownloadArtifact(Artifact artifact)
+        {
+            const string LOG_IDENT = "BehaviourViewModel::DownloadArtifact";
+
+            try
+            {
+                string downloadLocation = Path.Combine(Paths.TempUpdates, $"Fishstrap-{artifact.Hash}.exe");
+
+                Directory.CreateDirectory(Paths.TempUpdates);
+
+                App.Logger.WriteLine(LOG_IDENT, $"Downloading artifact with (branch: {artifact.Branch}, hash: {artifact.Hash})...");
+
+                if (!File.Exists(downloadLocation))
+                {
+                    var response = await App.HttpClient.GetAsync(artifact.Url);
+
+                    await using var fileStream = new FileStream(downloadLocation, FileMode.OpenOrCreate, FileAccess.Write);
+                    await response.Content.CopyToAsync(fileStream);
+                }
+
+                App.Logger.WriteLine(LOG_IDENT, $"Starting artifact (branch: {artifact.Branch}, hash: {artifact.Hash})...");
+
+                ProcessStartInfo startInfo = new()
+                {
+                    FileName = downloadLocation,
+                };
+
+                startInfo.ArgumentList.Add("-upgrade");
+
+                foreach (string arg in App.LaunchSettings.Args)
+                    startInfo.ArgumentList.Add(arg);
+
+                App.Settings.Save();
+
+                new InterProcessLock("AutoUpdater");
+                Process.Start(startInfo);
+
+                // glup.
+                Application.Current.Shutdown();
+            } catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "An exception occurred when running the auto-updater");
+                App.Logger.WriteException(LOG_IDENT, ex);
+
+                Frontend.ShowMessageBox(
+                    string.Format("Failed to fetch artifact with hash: ", artifact.Hash),
+                    MessageBoxImage.Information
+                );
+            }
+
+        }
+
+        public async Task GetCanaryBuilds()
+        {
+            const string LOG_IDENT = "BehaviourViewModel::GetLatestArtifacts";
+
+            try
+            {
+                var artifacts = await Http.GetJson<List<Artifact>>("https://fishstrap.app/fetchArtifact?workflow=Release&amount=10");
+
+                if (artifacts != null)
+                {
+                    Artifacts.Clear();
+
+                    foreach (var artifact in artifacts)
+                        Artifacts.Add(artifact);
+                } else
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "artifacts api responded with empty response...");
+                }
+            } finally
+            {
+                IsLoading = Visibility.Collapsed;
+            }
         }
 
         public bool IsRobloxInstallationMissing => String.IsNullOrEmpty(App.RobloxState.Prop.Player.VersionGuid) && String.IsNullOrEmpty(App.RobloxState.Prop.Studio.VersionGuid);
@@ -24,6 +116,28 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     Task.Run(App.Cookies.LoadCookies);
 
                 OnPropertyChanged(nameof(CookieAccess));
+            }
+        }
+
+        private Visibility _isLoading = Visibility.Visible;
+        public Visibility IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+
+        private Visibility _canaryDownloaderVisibility = App.Settings.Prop.DeveloperMode ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility CanaryDownloaderVisibility
+        {
+            get => _canaryDownloaderVisibility;
+            set  
+            {
+                _canaryDownloaderVisibility = value;
+                OnPropertyChanged(nameof(CanaryDownloaderVisibility));
             }
         }
 
