@@ -60,14 +60,12 @@ namespace Bloxstrap.Integrations
             // icon
             App.Logger.WriteLine(LOG_IDENT, "Setting Roblox icon");
             RobloxIcon robloxIcon = App.Settings.Prop.RobloxIcon;
-            if (robloxIcon == RobloxIcon.IconDefault)
-                return;
-
-            using (var icon = robloxIcon.GetIcon())
-            {
-                IntPtr hIconCopy = PInvoke.CopyIcon((HICON)icon.Handle); // copy the icon so its under Roblox
-                PInvoke.SendMessage(hWnd, WM_SETICON, 0, hIconCopy);
-            }
+            if (robloxIcon != RobloxIcon.IconDefault)
+                using (var icon = robloxIcon.GetIcon())
+                {
+                    IntPtr hIconCopy = PInvoke.CopyIcon((HICON)icon.Handle); // copy the icon so its under Roblox
+                    PInvoke.SendMessage(hWnd, WM_SETICON, 0, hIconCopy);
+                }
 
 
             // title
