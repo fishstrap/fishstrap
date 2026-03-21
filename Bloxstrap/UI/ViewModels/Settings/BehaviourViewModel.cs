@@ -86,7 +86,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             try
             {
-                var artifacts = await Http.GetJson<List<Artifact>>("https://fishstrap.app/fetchArtifact?workflow=Release&amount=10");
+                var artifacts = await Http.GetJson<List<Artifact>>("https://fishstrap.app/fetchArtifact?workflow=Release&amount=5");
 
                 if (artifacts != null)
                 {
