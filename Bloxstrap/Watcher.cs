@@ -55,7 +55,7 @@ namespace Bloxstrap
             if (_watcherData is null)
                 throw new Exception("Watcher data is invalid");
 
-            WindowManipulation = new(_watcherData.Handle);
+            WindowManipulation = new(_watcherData.Handle, _watcherData.ProcessId);
 
             if (App.Settings.Prop.EnableActivityTracking)
             {
