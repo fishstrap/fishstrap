@@ -30,6 +30,39 @@
             Description="{x:Static resources:Strings.Menu_Appearance_Language_Description}">
             <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
         </controls:OptionControl>
+        <TextBlock Text="Roblox" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
+
+        <controls:OptionControl Header="Set Roblox Title" Description="Set the title for the Roblox window.">
+            <ui:TextBox PlaceholderText="Roblox" Width="200" Text="{Binding WindowTitle, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl Header="Set Roblox Icon" Description="Set the titlebar and taskbar icon for the Roblox window.">
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding RobloxIcons, Mode=OneWay}" SelectedValuePath="IconType" SelectedValue="{Binding RobloxIcon, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Height="16" Source="{Binding ImageSource, Mode=OneWay}" RenderOptions.BitmapScalingMode="HighQuality" />
+                            <TextBlock Grid.Column="1" Margin="8,0,0,0" Text="{Binding Path=IconType, Converter={StaticResource EnumNameConverter}}" />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </controls:OptionControl>
+
+        <controls:OptionControl Header="Custom Icon" Description="Set a custom icon instead of using a preset. NOTE: Icon must be a multi-size .ico file">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:TextBox Grid.Column="0" Margin="0,0,4,0" Text="{Binding CustomRobloxIconLocation, Mode=TwoWay}" />
+                <ui:Button Grid.Column="1" Margin="4,0,0,0" Height="35" Icon="Folder24" Content="{x:Static resources:Strings.Common_Browse}" Command="{Binding BrowseCustomRobloxIconLocationCommand}" />
+            </Grid>
+        </controls:OptionControl>
 
         <Grid Margin="0,8,0,0">
             <Grid.ColumnDefinitions>
