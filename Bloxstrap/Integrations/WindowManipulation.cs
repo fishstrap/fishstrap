@@ -9,7 +9,7 @@ namespace Bloxstrap.Integrations
 {
     public class WindowManipulation
     {
-        private WINEVENTPROC _setTitleHook;
+        private WINEVENTPROC? _setTitleHook;
 
         private HWND _hWnd;
         private uint _robloxPID;

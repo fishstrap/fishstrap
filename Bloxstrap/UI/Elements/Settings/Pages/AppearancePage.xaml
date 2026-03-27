@@ -32,11 +32,11 @@
         </controls:OptionControl>
         <TextBlock Text="Roblox" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
 
-        <controls:OptionControl Header="Set Roblox Title" Description="Set the title for the Roblox window.">
+        <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_RobloxTitle_Title}" Description="{x:Static resources:Strings.Menu_Appearance_RobloxTitle_Description}">
             <ui:TextBox PlaceholderText="Roblox" Width="200" Text="{Binding WindowTitle, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <controls:OptionControl Header="Set Roblox Icon" Description="Set the titlebar and taskbar icon for the Roblox window.">
+        <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_RobloxIcon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_RobloxIcon_Description}">
             <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding RobloxIcons, Mode=OneWay}" SelectedValuePath="IconType" SelectedValue="{Binding RobloxIcon, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -53,7 +53,7 @@
             </ComboBox>
         </controls:OptionControl>
 
-        <controls:OptionControl Header="Custom Icon" Description="Set a custom icon instead of using a preset. NOTE: Icon must be a multi-size .ico file">
+        <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_CustomisationIcon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_CustomisationIcon_Description}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />

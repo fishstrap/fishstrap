@@ -3024,6 +3024,42 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose what icon Roblox should display on the taskbar..
+        /// </summary>
+        public static string Menu_Appearance_RobloxIcon_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxIcon.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox icon.
+        /// </summary>
+        public static string Menu_Appearance_RobloxIcon_Title {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxIcon.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose what title Roblox window should have..
+        /// </summary>
+        public static string Menu_Appearance_RobloxTitle_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxTitle.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox title.
+        /// </summary>
+        public static string Menu_Appearance_RobloxTitle_Title {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxTitle.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose how it should look. Dark theme does not apply to Legacy/Vista..
         /// </summary>
         public static string Menu_Appearance_Style_Description {

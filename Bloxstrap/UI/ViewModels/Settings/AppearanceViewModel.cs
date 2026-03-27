@@ -65,8 +65,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             if (dialog.ShowDialog() != true)
                 return;
 
-            CustomIconLocation = dialog.FileName;
-            OnPropertyChanged(nameof(CustomIconLocation));
+            CustomRobloxIconLocation = dialog.FileName;
+            OnPropertyChanged(nameof(CustomRobloxIconLocation));
         }
 
         public AppearanceViewModel(Page page)

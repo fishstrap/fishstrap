@@ -1808,4 +1808,16 @@ Defaulting to {1}.</value>
   <data name="Menu.Integrations.MultiInstanceLaunching.Warning" xml:space="preserve">
     <value>Multi-Instancing is prone to breaking. We will not provide support for issues with Multi-Instancing, since Roblox is actively adding measures to make sure it doesn't work. We cannot and won't attempt to bypass these measures.</value>
   </data>
+  <data name="Menu.Appearance.RobloxTitle.Title" xml:space="preserve">
+    <value>Roblox title</value>
+  </data>
+	<data name="Menu.Appearance.RobloxTitle.Description" xml:space="preserve">
+    <value>Choose what title Roblox window should have.</value>
+  </data>
+  <data name="Menu.Appearance.RobloxIcon.Title" xml:space="preserve">
+    <value>Roblox icon</value>
+  </data>
+  <data name="Menu.Appearance.RobloxIcon.Description" xml:space="preserve">
+    <value>Choose what icon Roblox should display on the taskbar.</value>
+  </data>
 </root>
