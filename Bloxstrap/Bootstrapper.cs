@@ -859,7 +859,7 @@ namespace Bloxstrap
             {
                 using var process = Process.Start(startInfo)!;
 
-                while (process.MainWindowHandle == IntPtr.Zero)
+                while (process.MainWindowHandle == IntPtr.Zero && !process.HasExited)
                     Thread.Sleep(100);
 
                 _appPid = process.Id;
