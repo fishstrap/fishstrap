@@ -52,8 +52,8 @@ namespace Bloxstrap
             return response;
         }
 
-        public async Task<HttpResponseMessage> AuthGet(string uri) => await AuthRequest(new HttpRequestMessage { RequestUri = new Uri(uri), Method = HttpMethod.Get });
-        public async Task<HttpResponseMessage> AuthPost(string uri, HttpContent? content) => await AuthRequest(new HttpRequestMessage { RequestUri = new Uri(uri), Content = content, Method = HttpMethod.Post });
+        public async Task<HttpResponseMessage> AuthGet(Uri? uri) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Method = HttpMethod.Get });
+        public async Task<HttpResponseMessage> AuthPost(Uri? uri, HttpContent? content) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Content = content, Method = HttpMethod.Post });
 
         public async Task<AuthenticatedUser?> GetAuthenticated()
         {
@@ -61,7 +61,8 @@ namespace Bloxstrap
             
             try
             {
-                HttpResponseMessage response = await AuthGet($"https://users.{Deployment.RobloxDomain}/v1/users/authenticated");
+                Uri apiUrl = UrlBuilder.BuildApiUrl("users", "v1/users/authenticated");
+                HttpResponseMessage response = await AuthGet(apiUrl);
                 response.EnsureSuccessStatusCode();
 
                 string content = await response.Content.ReadAsStringAsync();

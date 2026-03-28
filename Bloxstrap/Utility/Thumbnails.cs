@@ -1,4 +1,5 @@
-﻿using Bloxstrap.RobloxInterfaces;
+﻿using Bloxstrap.Extensions;
+using Bloxstrap.RobloxInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,8 @@ namespace Bloxstrap.Utility
 
             for (int i = 1; i <= RETRIES; i++)
             {
-                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>($"https://thumbnails.{Deployment.RobloxDomain}/v1/batch", payload, 3, token);
+                Uri apiUrl = UrlBuilder.BuildApiUrl("thumbnails", "v1/batch");
+                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>(apiUrl, payload, 3, token);
                 if (json == null)
                     throw new InvalidHTTPResponseException("Deserialised ThumbnailBatchResponse is null");
 
@@ -76,7 +78,8 @@ namespace Bloxstrap.Utility
 
             for (int i = 1; i <= RETRIES; i++)
             {
-                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>($"https://thumbnails.{Deployment.RobloxDomain}/v1/batch", payload, 3, token);
+                Uri apiUrl = UrlBuilder.BuildApiUrl("thumbnails", "v1/batch");
+                var json = await App.HttpClient.PostFromJsonWithRetriesAsync<ThumbnailBatchResponse>(apiUrl, payload, 3, token);
                 if (json == null)
                     throw new InvalidHTTPResponseException("Deserialised ThumbnailBatchResponse is null");
 

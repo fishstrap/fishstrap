@@ -74,7 +74,8 @@ namespace Bloxstrap
             } else
                 try
                 {
-                    Prop = await Http.GetJson<RemoteDataBase>(App.ProjectRemoteDataLink);
+                    Uri remoteDataUri = new(App.ProjectRemoteDataLink);
+                    Prop = await Http.GetJson<RemoteDataBase>(remoteDataUri);
 
                     LoadedState = GenericTriState.Successful;
                     App.Logger.WriteLine(LOG_IDENT, "Remote data loaded");

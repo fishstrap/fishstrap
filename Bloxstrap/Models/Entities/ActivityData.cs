@@ -123,7 +123,8 @@ namespace Bloxstrap.Models.Entities
 
             try
             {
-                var response = await Http.GetJson<RoValraGeolocation>($"https://apis.rovalra.com/v1/geolocation?ip={MachineAddress}");
+                Uri RoValraGeolocationUrl = new($"https://apis.rovalra.com/v1/geolocation?ip={MachineAddress}");
+                var response = await Http.GetJson<RoValraGeolocation>(RoValraGeolocationUrl);
                 var geolocation = response.Location;
 
                 if (geolocation is null)
