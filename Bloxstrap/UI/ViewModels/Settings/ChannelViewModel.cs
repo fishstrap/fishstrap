@@ -10,11 +10,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             Task.Run(() => LoadChannelDeployInfo(App.Settings.Prop.Channel));
         }
-
-        public bool UpdateCheckingEnabled
+        
+        private bool ValidateDomain(string domain)
         {
-            get => App.Settings.Prop.CheckForUpdates;
-            set => App.Settings.Prop.CheckForUpdates = value;
+            const string domainPattern = @"^([a-zA-Z0-9.-]+)\.([a-zA-Z0-9]+)$";
+
+            return Regex.IsMatch(domain, domainPattern);
         }
 
         private async Task LoadChannelDeployInfo(string channel)
@@ -70,6 +71,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+
         public bool ShowLoadingError { get; set; } = false;
         public bool ShowChannelWarning { get; set; } = false;
 
@@ -93,10 +95,28 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public bool UpdateCheckingEnabled
+        {
+            get => App.Settings.Prop.CheckForUpdates;
+            set => App.Settings.Prop.CheckForUpdates = value;
+        }
+
         public bool StaticDirectory
         {
             get => App.Settings.Prop.StaticDirectory;
             set => App.Settings.Prop.StaticDirectory = value;
+        }
+
+        public string RobloxDomain
+        {
+            get => App.Settings.Prop.RobloxDomain;
+            set
+            {
+                if (ValidateDomain(value))
+                    App.Settings.Prop.RobloxDomain = value;
+                else
+                    Frontend.ShowMessageBox("uh oh\nyit appeaws y-you'we entewed inwawid domain\npweasee dont mess with this as y-y-you cweawwy h-hawe nyo idea what youwe **wags my tail** doing!1~", System.Windows.MessageBoxImage.Warning, System.Windows.MessageBoxButton.OK);
+            }
         }
 
         public IReadOnlyDictionary<string, ChannelChangeMode> ChannelChangeModes => new Dictionary<string, ChannelChangeMode>
