@@ -9,5 +9,7 @@
         public long? UserId { get; set; }
         public string? JoinOrigin;
         public string? AccessCode { get; set; }
+
+        public string PlaceLauncherUrl { get; set; } = string.Empty;
     }
 }

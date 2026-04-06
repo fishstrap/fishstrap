@@ -36,6 +36,7 @@ namespace Bloxstrap
             const string commonIdPattern = @"([a-zA-Z0-9-]+?)(&|\+|$)";
 
             string? url = null;
+            string rawPlaceLancherUrl = null!;
             GameJoinData joinData = new(); // by default its unknown
 
             if (!launchCommandLine.StartsWith("roblox-player:"))
@@ -44,7 +45,10 @@ namespace Bloxstrap
             Match urlMatch = Regex.Match(launchCommandLine, placelauncherPattern);
             if (!urlMatch.Success || urlMatch.Groups.Count != 3) return joinData; // the regex failed
 
-            url = HttpUtility.UrlDecode(urlMatch.Groups[1].Value);
+            rawPlaceLancherUrl = urlMatch.Groups[1].Value;
+            joinData.PlaceLauncherUrl = rawPlaceLancherUrl;
+
+            url = HttpUtility.UrlDecode(rawPlaceLancherUrl);
             if (string.IsNullOrEmpty(url)) return joinData;
 
             Match typeMatch = Regex.Match(url, requestTypePattern);

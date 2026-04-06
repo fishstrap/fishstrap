@@ -20,6 +20,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Data;
+using System.Web;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Shell;
@@ -740,9 +741,10 @@ namespace Bloxstrap
                 if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinType != GameJoinType.RequestPrivateGame && _joinData.PlaceId != null && !isFollowUser)
                 {
                     string serverid = await GetBetterMatchmakingServerID();
+                    string placeLauncherUrl = UrlBuilder.BuildPlacelauncherUrl((long)_joinData.PlaceId, serverid);
 
                     if (!string.IsNullOrEmpty(serverid))
-                        _launchCommandLine = $"roblox://experiences/start?placeId={_joinData.PlaceId}&gameInstanceId={serverid}";
+                        _launchCommandLine = _launchCommandLine.Replace(_joinData.PlaceLauncherUrl, HttpUtility.UrlEncode(placeLauncherUrl));
                 }
 
                 // this needs to be done before roblox launches
