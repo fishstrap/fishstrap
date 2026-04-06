@@ -20,6 +20,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public ICommand PreviewBootstrapperCommand => new RelayCommand(PreviewBootstrapper);
         public ICommand BrowseCustomIconLocationCommand => new RelayCommand(BrowseCustomIconLocation);
+        public ICommand BrowseCustomRobloxIconLocationCommand => new RelayCommand(BrowseCustomRobloxIconLocation);
 
         public ICommand AddCustomThemeCommand => new RelayCommand(AddCustomTheme);
         public ICommand DeleteCustomThemeCommand => new RelayCommand(DeleteCustomTheme);
@@ -54,12 +55,29 @@ namespace Bloxstrap.UI.ViewModels.Settings
             OnPropertyChanged(nameof(CustomIconLocation));
         }
 
+        private void BrowseCustomRobloxIconLocation()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = $"{Strings.Menu_IconFiles}|*.ico"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            CustomRobloxIconLocation = dialog.FileName;
+            OnPropertyChanged(nameof(CustomRobloxIconLocation));
+        }
+
         public AppearanceViewModel(Page page)
         {
             _page = page;
 
             foreach (var entry in BootstrapperIconEx.Selections)
                 Icons.Add(new BootstrapperIconEntry { IconType = entry });
+
+            foreach (var entry in RobloxIconEx.Selections)
+                RobloxIcons.Add(new RobloxIconEntry { IconType = entry });
 
             PopulateCustomThemes();
         }
@@ -99,6 +117,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public bool CustomThemesExpanded => App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.CustomDialog;
 
         public ObservableCollection<BootstrapperIconEntry> Icons { get; set; } = new();
+        public ObservableCollection<RobloxIconEntry> RobloxIcons { get; set; } = new();
+
 
         public BootstrapperIcon Icon
         {
@@ -110,6 +130,38 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => App.Settings.Prop.BootstrapperTitle;
             set => App.Settings.Prop.BootstrapperTitle = value;
+        }
+        public string CustomRobloxIconLocation
+        {
+            get => App.Settings.Prop.RobloxIconCustomLocation;
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    if (App.Settings.Prop.RobloxIcon == RobloxIcon.IconCustom)
+                        App.Settings.Prop.RobloxIcon = RobloxIcon.IconDefault;
+                } else
+                {
+                    App.Settings.Prop.RobloxIcon = RobloxIcon.IconCustom;
+                }
+
+                App.Settings.Prop.RobloxIconCustomLocation = value;
+
+                OnPropertyChanged(nameof(RobloxIcon));
+                OnPropertyChanged(nameof(RobloxIcons));
+            }
+        }
+
+        public RobloxIcon RobloxIcon
+        {
+            get => App.Settings.Prop.RobloxIcon;
+            set => App.Settings.Prop.RobloxIcon = value;
+        }
+
+        public string WindowTitle
+        {
+            get => App.Settings.Prop.RobloxTitle;
+            set => App.Settings.Prop.RobloxTitle = value;
         }
 
         public string CustomIconLocation

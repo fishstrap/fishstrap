@@ -39,6 +39,23 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public bool EnableBetterMatchmaking
+        {
+            get => App.Settings.Prop.EnableBetterMatchmaking;
+            set => App.Settings.Prop.EnableBetterMatchmaking = value;
+        }
+
+        public bool EnableBetterMatchmakingRandomization
+        {
+            get => App.Settings.Prop.EnableBetterMatchmakingRandomization;
+            set => App.Settings.Prop.EnableBetterMatchmakingRandomization = value;
+        }
+        public bool EnableFakeBorderlessFullscreen
+        {
+            get => App.Settings.Prop.FakeBorderlessFullscreen;
+            set => App.Settings.Prop.FakeBorderlessFullscreen = value;
+        }
+
         public bool UpdateRoblox
         {
             get => App.Settings.Prop.UpdateRoblox && !IsRobloxInstallationMissing;

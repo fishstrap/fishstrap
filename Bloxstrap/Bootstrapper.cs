@@ -12,17 +12,15 @@
 #endif
 
 using Bloxstrap.AppData;
-using Bloxstrap.Models.APIs.Roblox;
+using Bloxstrap.Models.APIs;
+using Bloxstrap.Models.APIs.RoValra;
 using Bloxstrap.RobloxInterfaces;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.Tracing;
-using System.Threading.Channels;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Shell;
 
@@ -55,6 +53,7 @@ namespace Bloxstrap
         private string _latestVersionGuid = null!;
         private string _latestVersionDirectory = null!;
         private PackageManifest _versionPackageManifest = null!;
+        private GameJoinData _joinData = null!;
         public static bool _staticDirectory => App.Settings.Prop.StaticDirectory;
 
         private bool _isInstalling = false;
@@ -70,6 +69,7 @@ namespace Bloxstrap
         private AsyncMutex? _mutex;
 
         private int _appPid = 0;
+        private IntPtr _appWindowHandle = IntPtr.Zero;
 
         public IBootstrapperDialog? Dialog = null;
 
@@ -268,18 +268,6 @@ namespace Bloxstrap
 
                 await SetupPackageDictionaries(); // mods also require it
 
-                // we are checking if eurotrucks2 exists in client directory
-                if (
-                    File.Exists(Path.Combine(AppData.Directory, App.RobloxAnselAppName))
-                    )
-                {
-                    Frontend.ShowMessageBox(
-                        Strings.Bootstrapper_Dialog_AnselDisabled,
-                        MessageBoxImage.Warning
-                    );
-                    await UpgradeRoblox();
-                }
-
                 if (AppData.State.VersionGuid != _latestVersionGuid || _mustUpgrade)
                 {
                     bool backgroundUpdaterMutexOpen = Utilities.DoesMutexExist("Bloxstrap-BackgroundUpdater");
@@ -335,7 +323,7 @@ namespace Bloxstrap
                         Frontend.ShowBalloonTip(Strings.Bootstrapper_ModificationsFailed_Title, Strings.Bootstrapper_ModificationsFailed_Message, ToolTipIcon.Warning);
                 }
 
-                StartRoblox();
+                await StartRoblox();
             }
 
             await mutex.ReleaseAsync();
@@ -637,7 +625,82 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, "Did not receive the initialisation finished signal, continuing.");
         }
 
-        private async void StartRoblox()
+        private double Deg2Rad(double deg)
+        {
+            return deg * (MathF.PI / 180);
+        }
+
+        // thank you valra, aGVsbG8gYnJhdGlj
+        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            const double R = 6371;
+
+            double dLat = Deg2Rad(lat2 - lat1);
+            double dLon = Deg2Rad(lon2 - lon1);
+            double a =
+                Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2)) *
+                Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return R * c;
+        }
+
+        private async Task<string> GetBetterMatchmakingServerID()
+        {
+            const string LOG_IDENT = "Bootstrapper::GetBetterMatchmakingServerID";
+
+            var ipinfo = await Http.GetJson<IPInfoResponse>("https://ipinfo.io/json");
+
+            if (string.IsNullOrEmpty(ipinfo.Country))
+                throw new HttpRequestException("Country is blank.");
+
+            var datacenters = await Http.GetJson<List<RoValraDatacenter>>($"https://apis.rovalra.com/v1/datacenters/list");
+
+            if (datacenters == null || !datacenters.Any())
+                throw new HttpRequestException("No datacenters in response.");
+
+            string[] location = ipinfo.Loc.Split(",");
+            double lat1 = double.Parse(location[0], CultureInfo.InvariantCulture);
+            double lon1 = double.Parse(location[1], CultureInfo.InvariantCulture);
+
+            var regions = datacenters
+                .OrderBy(dc => GetDistance(lat1, lon1, dc.Location.Latitude, dc.Location.Longitude))
+                .Select(dc => dc.Location.Country)
+                .Distinct()
+                .ToList();
+
+            if (regions.Contains(ipinfo.Country, StringComparer.OrdinalIgnoreCase))
+            {
+                regions.Remove(ipinfo.Country);
+                regions.Insert(0, ipinfo.Country);
+            }
+
+            foreach (var region in regions) 
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Checking for servers in user region");
+
+                var valraResponse = await Http.GetJson<RoValraServers>($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
+
+                if (valraResponse?.Servers != null && valraResponse.Servers.Count > 0 && valraResponse.Servers[0].ServerId != null)
+                {
+
+                    if (App.Settings.Prop.EnableBetterMatchmakingRandomization)
+                    {
+                        int index = Random.Shared.Next(0, valraResponse.Servers.Count);
+                        return valraResponse.Servers[index].ServerId;
+                    }
+
+                    return valraResponse.Servers[0].ServerId;
+                }
+
+                App.Logger.WriteLine(LOG_IDENT, $"No servers available in user region. Falling back to the next closest...");
+            }
+
+            return "";
+        }
+
+        private async Task StartRoblox()
         {
             const string LOG_IDENT = "Bootstrapper::StartRoblox";
 
@@ -645,6 +708,40 @@ namespace Bloxstrap
 
             if (_launchMode == LaunchMode.Player)
             {
+                GameJoin gameJoin = new();
+
+                _joinData = gameJoin.GetJoinDataByLaunchCommand(_launchCommandLine);
+                if (_joinData.JoinType == GameJoinType.Unknown)
+                    App.Logger.WriteLine(LOG_IDENT, "Unable to get join data");
+
+                bool isFollowUser = false;
+
+                // _joinData.JoinType == GameJoinType.RequestFollowUser just doesnt work at all
+                // idk why they dont use it when the user is following a friend, but ok
+                App.Logger.WriteLine(LOG_IDENT, $"join origin: {_joinData.JoinOrigin}");
+
+                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinOrigin == "friendServerListJoin" || _joinData.JoinOrigin == "placesListInHomePage")
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "User is trying to join a friend, show dialog box");
+                    var Result = Frontend.ShowMessageBox(
+                        String.Format(Strings.Bootstrapper_Experimental_BetterMatchmaking_FollowUser),
+                        MessageBoxImage.Question,
+                        MessageBoxButton.YesNo
+                    );
+
+                    if (Result == MessageBoxResult.Yes)
+                        isFollowUser = true;
+                }
+
+
+                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinType != GameJoinType.RequestPrivateGame && _joinData.PlaceId != null && !isFollowUser)
+                {
+                    string serverid = await GetBetterMatchmakingServerID();
+
+                    if (!string.IsNullOrEmpty(serverid))
+                        _launchCommandLine = $"roblox://experiences/start?placeId={_joinData.PlaceId}&gameInstanceId={serverid}";
+                }
+
                 // this needs to be done before roblox launches
                 if (App.Settings.Prop.MultiInstanceLaunching)
                     LaunchMultiInstanceWatcher();
@@ -664,154 +761,77 @@ namespace Bloxstrap
                     _launchCommandLine = "roblox://navigation/home"; // fixes a bug on rblx.org where its stuck on the login screen, doesnt affect anything else
             }
 
-            string[] Names = { App.RobloxPlayerAppName, App.RobloxAnselAppName, App.RobloxStudioAppName };
+            string[] Names = { App.RobloxPlayerAppName, App.RobloxStudioAppName };
             string ResolvedName = null!;
 
-                foreach (string Name in Names)
+            foreach (string Name in Names)
+            {
+                string Directory = Path.Combine((string)AppData.Directory, Name);
+                if (File.Exists(Directory))
                 {
-                    string Directory = Path.Combine((string)AppData.Directory, Name);
-                    if (File.Exists(Directory))
-                    {
-                        ResolvedName = Name;
-                    }
+                    ResolvedName = Name;
                 }
+            }
 
-                if (String.IsNullOrEmpty(ResolvedName))
+            if (String.IsNullOrEmpty(ResolvedName))
+            {
+                await UpgradeRoblox();
+            }
+
+            var startInfo = new ProcessStartInfo()
+            {
+                FileName = Path.Combine(AppData.Directory, ResolvedName),
+                Arguments = _launchCommandLine,
+                WorkingDirectory = AppData.Directory
+            };
+
+            if (_launchMode == LaunchMode.Player && ShouldRunAsAdmin())
+            {
+                startInfo.Verb = "runas";
+                startInfo.UseShellExecute = true;
+            }
+            else if (_launchMode == LaunchMode.StudioAuth)
+            {
+                Process.Start(startInfo);
+                return;
+            }
+
+            string? logFileName = null;
+
+            string rbxDir = Path.Combine(Paths.LocalAppData, "Roblox");
+            if (!Directory.Exists(rbxDir))
+                Directory.CreateDirectory(rbxDir);
+
+            string rbxLogDir = Path.Combine(rbxDir, "logs");
+            if (!Directory.Exists(rbxLogDir))
+                Directory.CreateDirectory(rbxLogDir);
+
+            var logWatcher = new FileSystemWatcher()
+            {
+                Path = rbxLogDir,
+                Filter = "*.log",
+                EnableRaisingEvents = true
+            };
+
+            var logCreatedEvent = new AutoResetEvent(false);
+
+            logWatcher.Created += (_, e) =>
+            {
+                logWatcher.EnableRaisingEvents = false;
+                logFileName = e.FullPath;
+                logCreatedEvent.Set();
+            };
+
+            var autoclosePids = new List<int>();
+
+            // the code you're gonna read ahead is horrible. sorry for the hack, but it works ¯\_(ツ)_/¯
+            // check if prelaunch is checked
+            foreach (var integration in App.Settings.Prop.CustomIntegrations)
+            {
+                if (integration?.PreLaunch == true)
                 {
-                    await UpgradeRoblox();
-                }
-
-                var startInfo = new ProcessStartInfo()
-                {
-                    FileName = Path.Combine(AppData.Directory, ResolvedName),
-                    Arguments = _launchCommandLine,
-                    WorkingDirectory = AppData.Directory
-                };
-
-                if (_launchMode == LaunchMode.Player && ShouldRunAsAdmin())
-                {
-                    startInfo.Verb = "runas";
-                    startInfo.UseShellExecute = true;
-                }
-                else if (_launchMode == LaunchMode.StudioAuth)
-                {
-                    Process.Start(startInfo);
-                    return;
-                }
-
-                string? logFileName = null;
-
-                string rbxDir = Path.Combine(Paths.LocalAppData, "Roblox");
-                if (!Directory.Exists(rbxDir))
-                    Directory.CreateDirectory(rbxDir);
-
-                string rbxLogDir = Path.Combine(rbxDir, "logs");
-                if (!Directory.Exists(rbxLogDir))
-                    Directory.CreateDirectory(rbxLogDir);
-
-                var logWatcher = new FileSystemWatcher()
-                {
-                    Path = rbxLogDir,
-                    Filter = "*.log",
-                    EnableRaisingEvents = true
-                };
-
-                var logCreatedEvent = new AutoResetEvent(false);
-
-                logWatcher.Created += (_, e) =>
-                {
-                    logWatcher.EnableRaisingEvents = false;
-                    logFileName = e.FullPath;
-                    logCreatedEvent.Set();
-                };
-
-                var autoclosePids = new List<int>();
-
-                // the code you're gonna read ahead is horrible. sorry for the hack, but it works ¯\_(ツ)_/¯
-                // check if prelaunch is checked
-                foreach (var integration in App.Settings.Prop.CustomIntegrations)
-                {
-                    if (integration?.PreLaunch == true)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, $"Pre-Launching custom integration '{integration.Name}' ({integration.Location} {integration.LaunchArgs} - autoclose is {integration.AutoClose})");
-                        int pid = 0;
-                        try
-                        {
-                            var process = Process.Start(new ProcessStartInfo
-                            {
-                                FileName = integration.Location,
-                                Arguments = integration.LaunchArgs.Replace("\r\n", " "),
-                                WorkingDirectory = Path.GetDirectoryName(integration.Location),
-                                UseShellExecute = true
-                            })!;
-                            pid = process.Id;
-                        }
-                        catch (Exception ex)
-                        {
-                            App.Logger.WriteLine(LOG_IDENT, $"Failed to pre-launch integration '{integration.Name}'!");
-                            App.Logger.WriteLine(LOG_IDENT, ex.Message);
-                        }
-
-                        if (integration?.AutoClose == true && pid != 0)
-                            autoclosePids.Add(pid);
-
-                        if (integration?.Delay != null)
-                            Thread.Sleep(integration.Delay);
-                    }
-                }
-
-                // v2.2.0 - byfron will trip if we keep a process handle open for over a minute, so we're doing this now
-                try
-                {
-                    using var process = Process.Start(startInfo)!;
-                    _appPid = process.Id;
-                }
-                catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
-                {
-                    // 1223 = ERROR_CANCELLED, gets thrown if a UAC prompt is cancelled
-                    return;
-                }
-                catch (Exception)
-                {
-                    // attempt a reinstall on next launch
-                    File.Delete(AppData.ExecutablePath);
-                    throw;
-                }
-
-                App.Logger.WriteLine(LOG_IDENT, $"Started Roblox (PID {_appPid}), waiting for log file");
-
-                logCreatedEvent.WaitOne(TimeSpan.FromSeconds(15));
-
-                if (String.IsNullOrEmpty(logFileName))
-                {
-                    App.Logger.WriteLine(LOG_IDENT, "Unable to identify log file");
-                    // Frontend.ShowPlayerErrorDialog();
-                    return;
-                }
-                else
-                {
-                    App.Logger.WriteLine(LOG_IDENT, $"Got log file as {logFileName}");
-                }
-
-                _mutex?.ReleaseAsync();
-
-                if (IsStudioLaunch)
-                    return;
-
-                // lord.... forgive me for this hack.....
-                // launch custom integrations now
-                foreach (var integration in App.Settings.Prop.CustomIntegrations)
-                {
-                    if (integration == null)
-                        continue;
-
-                    if (integration?.PreLaunch == true)
-                        continue; // skip pre-launch integrations
-
-                    App.Logger.WriteLine(LOG_IDENT, $"Launching custom integration '{integration!.Name}' ({integration.Location} {integration?.LaunchArgs} - autoclose is {integration!.AutoClose})");
-
+                    App.Logger.WriteLine(LOG_IDENT, $"Pre-Launching custom integration '{integration.Name}' ({integration.Location} {integration.LaunchArgs} - autoclose is {integration.AutoClose})");
                     int pid = 0;
-
                     try
                     {
                         var process = Process.Start(new ProcessStartInfo
@@ -821,43 +841,126 @@ namespace Bloxstrap
                             WorkingDirectory = Path.GetDirectoryName(integration.Location),
                             UseShellExecute = true
                         })!;
-
                         pid = process.Id;
                     }
                     catch (Exception ex)
                     {
-                        App.Logger.WriteLine(LOG_IDENT, $"Failed to launch integration '{integration.Name}'!");
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to pre-launch integration '{integration.Name}'!");
                         App.Logger.WriteLine(LOG_IDENT, ex.Message);
                     }
 
-                    if (integration.AutoClose && pid != 0)
+                    if (integration?.AutoClose == true && pid != 0)
                         autoclosePids.Add(pid);
-                }
 
-                if (App.Settings.Prop.EnableActivityTracking || App.LaunchSettings.TestModeFlag.Active || autoclosePids.Any())
+                    if (integration?.Delay != null)
+                        Thread.Sleep(integration.Delay);
+                }
+            }
+
+            // v2.2.0 - byfron will trip if we keep a process handle open for over a minute, so we're doing this now
+            try
+            {
+                using var process = Process.Start(startInfo)!;
+
+                while (process.MainWindowHandle == IntPtr.Zero && !process.HasExited)
+                    Thread.Sleep(100);
+
+                _appPid = process.Id;
+                _appWindowHandle = process.MainWindowHandle;
+            }
+            catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+            {
+                // 1223 = ERROR_CANCELLED, gets thrown if a UAC prompt is cancelled
+                return;
+            }
+            catch (Exception)
+            {
+                // attempt a reinstall on next launch
+                File.Delete(AppData.ExecutablePath);
+                throw;
+            }
+
+            App.Logger.WriteLine(LOG_IDENT, $"Started Roblox (PID {_appPid}), waiting for log file");
+
+            logCreatedEvent.WaitOne(TimeSpan.FromSeconds(15));
+
+            if (String.IsNullOrEmpty(logFileName))
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Unable to identify log file");
+                // Frontend.ShowPlayerErrorDialog();
+                return;
+            }
+            else
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Got log file as {logFileName}");
+            }
+
+            _mutex?.ReleaseAsync();
+
+            if (IsStudioLaunch)
+                return;
+
+            // lord.... forgive me for this hack.....
+            // launch custom integrations now
+            foreach (var integration in App.Settings.Prop.CustomIntegrations)
+            {
+                if (integration == null)
+                    continue;
+
+                if (integration?.PreLaunch == true)
+                    continue; // skip pre-launch integrations
+
+                App.Logger.WriteLine(LOG_IDENT, $"Launching custom integration '{integration!.Name}' ({integration.Location} {integration?.LaunchArgs} - autoclose is {integration!.AutoClose})");
+
+                int pid = 0;
+
+                try
                 {
-                    using var ipl = new InterProcessLock("Watcher", TimeSpan.FromSeconds(5));
-
-                    var watcherData = new WatcherData
+                    var process = Process.Start(new ProcessStartInfo
                     {
-                        ProcessId = _appPid,
-                        LogFile = logFileName,
-                        AutoclosePids = autoclosePids
-                    };
+                        FileName = integration.Location,
+                        Arguments = integration.LaunchArgs.Replace("\r\n", " "),
+                        WorkingDirectory = Path.GetDirectoryName(integration.Location),
+                        UseShellExecute = true
+                    })!;
 
-                    string watcherDataArg = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(watcherData)));
-
-                    string args = $"-watcher \"{watcherDataArg}\"";
-
-                    if (App.LaunchSettings.TestModeFlag.Active)
-                        args += " -testmode";
-
-                    if (ipl.IsAcquired || true)
-                        Process.Start(Paths.Process, args);
+                    pid = process.Id;
+                }
+                catch (Exception ex)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Failed to launch integration '{integration.Name}'!");
+                    App.Logger.WriteLine(LOG_IDENT, ex.Message);
                 }
 
-                // allow for window to show, since the log is created pretty far beforehand
-                Thread.Sleep(1000);
+                if (integration.AutoClose && pid != 0)
+                    autoclosePids.Add(pid);
+            }
+
+            if (App.Settings.Prop.EnableActivityTracking || App.LaunchSettings.TestModeFlag.Active || autoclosePids.Any())
+            {
+                using var ipl = new InterProcessLock("Watcher", TimeSpan.FromSeconds(5));
+
+                var watcherData = new WatcherData
+                {
+                    ProcessId = _appPid,
+                    LogFile = logFileName,
+                    AutoclosePids = autoclosePids,
+                    Handle = _appWindowHandle.ToInt64()
+                };
+
+                string watcherDataArg = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(watcherData)));
+
+                string args = $"-watcher \"{watcherDataArg}\"";
+
+                if (App.LaunchSettings.TestModeFlag.Active)
+                    args += " -testmode";
+
+                if (ipl.IsAcquired || true)
+                    Process.Start(Paths.Process, args);
+            }
+
+            // allow for window to show, since the log is created pretty far beforehand
+            Thread.Sleep(1000);
         }
 
         private bool ShouldRunAsAdmin()
@@ -1133,7 +1236,6 @@ namespace Bloxstrap
 
             List<Process> processes = new List<Process>();
             processes.AddRange(Process.GetProcessesByName("RobloxPlayerBeta"));
-            processes.AddRange(Process.GetProcessesByName("eurotrucks2"));
             processes.AddRange(Process.GetProcessesByName("RobloxCrashHandler")); // roblox studio doesnt depend on crash handler being open, so this should be fine
 
             foreach (Process process in processes)
@@ -1512,7 +1614,10 @@ namespace Bloxstrap
                     continue;
 
                 if (relativeFile.EndsWith(".mesh"))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Skipping file: {relativeFile}");
                     continue;
+                }
 
                 modFolderFiles.Add(relativeFile);
 

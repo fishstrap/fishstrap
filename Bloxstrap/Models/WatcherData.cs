@@ -7,5 +7,7 @@
         public string? LogFile { get; set; }
 
         public List<int>? AutoclosePids { get; set; }
+
+        public long Handle { get; set; }
     }
 }

@@ -68,6 +68,19 @@
 
         <TextBlock Text="{x:Static resources:Strings.Common_Miscellaneous}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
 
+        <Border Margin="0,4,0,0" CornerRadius="4" BorderThickness="1" BorderBrush="#41F2290A" Background="#F2290A">
+            <Grid Height="64">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border BorderThickness="0,0,2,0" BorderBrush="#41000000">
+                    <ui:SymbolIcon Grid.Column="0" Symbol="Warning28" Foreground="White" FontSize="28" HorizontalAlignment="Left" Margin="14,0" />
+                </Border>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Text="{x:Static resources:Strings.Menu_Integrations_MultiInstanceLaunching_Warning}" TextWrapping="Wrap" Foreground="White" FontSize="14" />
+            </Grid>
+        </Border>
+        
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Integrations_MultiInstanceLaunching_Title}" 
             Description="{x:Static resources:Strings.Menu_Integrations_MultiInstanceLaunching_Description}">

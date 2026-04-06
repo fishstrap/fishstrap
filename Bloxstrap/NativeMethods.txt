@@ -2,4 +2,10 @@
 FlashWindow
 GetWindowLong
 SetWindowLong
+SetWindowPos
+CopyIcon
+GetWindowText
+SetWindowText
+SetWinEventHook
+SendMessage
 SHObjectProperties

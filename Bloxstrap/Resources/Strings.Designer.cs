@@ -200,16 +200,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ansel is not supported.
-        ///You can no longer use Bloxshade with Fishstrap..
-        /// </summary>
-        public static string Bootstrapper_Dialog_AnselDisabled {
-            get {
-                return ResourceManager.GetString("Bootstrapper.Dialog.AnselDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The channel you&apos;re currently on ({0}) is out of date, and appears to no longer be receiving updates.
         ///Would you like to switch to the default channel ({1})?.
         /// </summary>
@@ -226,6 +216,51 @@ namespace Bloxstrap.Resources {
         public static string Bootstrapper_Dialog_NoUpgradeWithoutClient {
             get {
                 return ResourceManager.GetString("Bootstrapper.Dialog.NoUpgradeWithoutClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Let Fishstrap decide which servers you join. Prioritizes the server with the shortest distance to you..
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_Description {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Looks like a friend is currently playing this game. Do you want to join them?.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_FollowUser {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.FollowUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Randomizes the chosen server from the list of optimal servers..
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Description {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Randomize BetterMatchmaking server.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable BetterMatchmaking.
+        /// </summary>
+        public static string Bootstrapper_Experimental_BetterMatchmaking_Title {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Experimental.BetterMatchmaking.Title", resourceCulture);
             }
         }
         
@@ -1973,11 +2008,20 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roblox (~2014).
+        ///   Looks up a localized string similar to Roblox (2014~2025).
         /// </summary>
         public static string Enums_BootstrapperStyle_ProgressDialog {
             get {
                 return ResourceManager.GetString("Enums.BootstrapperStyle.ProgressDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox (~2025).
+        /// </summary>
+        public static string Enums_BootstrapperStyle_TwentyFiveDialog {
+            get {
+                return ResourceManager.GetString("Enums.BootstrapperStyle.TwentyFiveDialog", resourceCulture);
             }
         }
         
@@ -2976,6 +3020,42 @@ namespace Bloxstrap.Resources {
         public static string Menu_Appearance_Preview {
             get {
                 return ResourceManager.GetString("Menu.Appearance.Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose what icon Roblox should display on the taskbar..
+        /// </summary>
+        public static string Menu_Appearance_RobloxIcon_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxIcon.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox icon.
+        /// </summary>
+        public static string Menu_Appearance_RobloxIcon_Title {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxIcon.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose what title Roblox window should have..
+        /// </summary>
+        public static string Menu_Appearance_RobloxTitle_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxTitle.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox title.
+        /// </summary>
+        public static string Menu_Appearance_RobloxTitle_Title {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.RobloxTitle.Title", resourceCulture);
             }
         }
         
@@ -4324,6 +4404,15 @@ namespace Bloxstrap.Resources {
         public static string Menu_Integrations_MultiInstanceLaunching_Title {
             get {
                 return ResourceManager.GetString("Menu.Integrations.MultiInstanceLaunching.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-Instancing is prone to breaking. We will not provide support for issues with Multi-Instancing, since Roblox is actively adding measures to make sure it doesn&apos;t work. We cannot and won&apos;t attempt to bypass these measures..
+        /// </summary>
+        public static string Menu_Integrations_MultiInstanceLaunching_Warning {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.MultiInstanceLaunching.Warning", resourceCulture);
             }
         }
         

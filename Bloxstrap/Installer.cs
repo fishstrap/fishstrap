@@ -284,8 +284,7 @@ namespace Bloxstrap
             }
             else
             {
-                bool AnselApp = File.Exists(Path.Combine((string)playerFolder, App.RobloxAnselAppName));
-                string playerPath = Path.Combine((string)playerFolder, AnselApp ? App.RobloxAnselAppName : "RobloxPlayerBeta.exe");
+                string playerPath = Path.Combine((string)playerFolder, App.RobloxPlayerAppName);
 
                 WindowsRegistry.RegisterPlayer(playerPath, "%1");
             }
@@ -306,7 +305,7 @@ namespace Bloxstrap
             }
             else
             {
-                string studioPath = Path.Combine((string)studioFolder, "RobloxStudioBeta.exe");
+                string studioPath = Path.Combine((string)studioFolder, App.RobloxStudioAppName);
                 string studioLauncherPath = Path.Combine((string)studioFolder, "RobloxStudioLauncherBeta.exe");
 
                 WindowsRegistry.RegisterStudioProtocol(studioPath, "%1");

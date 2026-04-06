@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Controls;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
@@ -135,6 +136,18 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => App.Settings.Prop.CustomIntegrations;
             set => App.Settings.Prop.CustomIntegrations = value;
+        }
+
+        public RobloxIcon Icon
+        {
+            get => App.Settings.Prop.RobloxIcon;
+            set => App.Settings.Prop.RobloxIcon = value;
+        }
+
+        public string WindowTitle
+        {
+            get => App.Settings.Prop.RobloxTitle;
+            set => App.Settings.Prop.RobloxTitle = value;
         }
 
         public CustomIntegration? SelectedCustomIntegration { get; set; }

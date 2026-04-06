@@ -1,6 +1,5 @@
 ﻿using Bloxstrap.AppData;
 using Bloxstrap.Integrations;
-using Bloxstrap.Models;
 
 namespace Bloxstrap
 {
@@ -13,6 +12,8 @@ namespace Bloxstrap
         private readonly NotifyIconWrapper? _notifyIcon;
 
         public readonly ActivityWatcher? ActivityWatcher;
+
+        public readonly WindowManipulation? WindowManipulation;
 
         public readonly DiscordRichPresence? RichPresence;
 
@@ -38,7 +39,10 @@ namespace Bloxstrap
 
                 using var gameClientProcess = Process.Start(path);
 
-                _watcherData = new() { ProcessId = gameClientProcess.Id };
+                while (gameClientProcess.MainWindowHandle == IntPtr.Zero)
+                    Thread.Sleep(100);
+
+                _watcherData = new() { ProcessId = gameClientProcess.Id, Handle = gameClientProcess.MainWindowHandle.ToInt64() };
 #else
                 throw new Exception("Watcher data not specified");
 #endif
@@ -50,6 +54,8 @@ namespace Bloxstrap
 
             if (_watcherData is null)
                 throw new Exception("Watcher data is invalid");
+
+            WindowManipulation = new(_watcherData.Handle, _watcherData.ProcessId);
 
             if (App.Settings.Prop.EnableActivityTracking)
             {
@@ -111,6 +117,10 @@ namespace Bloxstrap
                 return;
 
             ActivityWatcher?.Start();
+            WindowManipulation?.ApplyWindowModifications();
+
+            if (App.Settings.Prop.FakeBorderlessFullscreen)
+                WindowManipulation?.FakeBorderless();
 
             while (Utilities.GetProcessesSafe().Any(x => x.Id == _watcherData.ProcessId))
                 await Task.Delay(1000);

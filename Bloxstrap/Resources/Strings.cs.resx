@@ -1428,6 +1428,25 @@ Používám motiv {1}.</value>
   <data name="About.Title" xml:space="preserve">
     <value>O Fishstrapu</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Enums.BootstrapperStyle.TwentyFiveDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.FollowUser" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Vybraná verze escape nabídky</value>
   </data>
@@ -1479,6 +1498,9 @@ Používám motiv {1}.</value>
   <data name="Menu.GBSEditor.Transparency.Description" xml:space="preserve">
     <value />
   </data>
+  <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+    <value />
+  </data>
   <data name="Menu.Bloxstrap.ExportData.Description" xml:space="preserve">
     <value>Shromažďujte informace, které lze nahrát online, abyste vyřešili problém, který máte.</value>
   </data>
@@ -1490,7 +1512,7 @@ Používám motiv {1}.</value>
     <value>Všechny bloxstrap logy</value>
     <comment>Label that appears next to a checkbox</comment>
   </data>
-  <data name="Menu.GBSEditor.Graphics.Description" xml:space="preserve">
+  <data name="Menu.Integrations.MultiInstanceLaunching.Warning" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>
