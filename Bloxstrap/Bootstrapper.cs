@@ -649,13 +649,15 @@ namespace Bloxstrap
         private async Task<string> GetBetterMatchmakingServerID()
         {
             const string LOG_IDENT = "Bootstrapper::GetBetterMatchmakingServerID";
+            Uri ipinfoUrl = new("https://ipinfo.io/json");
+            Uri roValraDatacentersUrl = new("https://apis.rovalra.com/v1/datacenters/list");
 
-            var ipinfo = await Http.GetJson<IPInfoResponse>("https://ipinfo.io/json");
+            var ipinfo = await Http.GetJson<IPInfoResponse>(ipinfoUrl);
 
             if (string.IsNullOrEmpty(ipinfo.Country))
                 throw new HttpRequestException("Country is blank.");
 
-            var datacenters = await Http.GetJson<List<RoValraDatacenter>>($"https://apis.rovalra.com/v1/datacenters/list");
+            var datacenters = await Http.GetJson<List<RoValraDatacenter>>(roValraDatacentersUrl);
 
             if (datacenters == null || !datacenters.Any())
                 throw new HttpRequestException("No datacenters in response.");
@@ -678,9 +680,10 @@ namespace Bloxstrap
 
             foreach (var region in regions) 
             {
+                Uri roValraServersApi = new($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
                 App.Logger.WriteLine(LOG_IDENT, $"Checking for servers in user region");
 
-                var valraResponse = await Http.GetJson<RoValraServers>($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
+                var valraResponse = await Http.GetJson<RoValraServers>(roValraServersApi);
 
                 if (valraResponse?.Servers != null && valraResponse.Servers.Count > 0 && valraResponse.Servers[0].ServerId != null)
                 {
