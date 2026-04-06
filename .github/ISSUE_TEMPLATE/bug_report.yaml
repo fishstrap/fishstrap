@@ -18,6 +18,15 @@ body:
     validations:
       required: true
   - type: textarea
+    id: behavior
+    attributes:
+      label: Expected vs Actual Behavior
+      placeholder: |
+        Expected: ...
+        Actual: ...
+    validations:
+      required: true
+  - type: textarea
     id: repro-steps
     attributes:
       label: How do you reproduce the problem?
@@ -27,6 +36,12 @@ body:
         2. Click on '...'
         3. Scroll down to '...'
         4. See error
+  - type: textarea
+    id: config
+    attributes:
+      label: Settings File
+      description: Please paste the contents of your settings file (at `%localappdata%\Fishstrap\Settings.json`) here.
+      render: json
   - type: textarea
     id: log
     attributes:
