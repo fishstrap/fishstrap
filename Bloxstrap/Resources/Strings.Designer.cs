@@ -3393,6 +3393,24 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set what domain Roblox and Fishstrap will use. Enter only trusted domains..
+        /// </summary>
+        public static string Menu_Channel_RobloxDomain_Description {
+            get {
+                return ResourceManager.GetString("Menu.Channel.RobloxDomain.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox domain.
+        /// </summary>
+        public static string Menu_Channel_RobloxDomain_Title {
+            get {
+                return ResourceManager.GetString("Menu.Channel.RobloxDomain.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Switch from version-xxx to BinaryType based install directories..
         /// </summary>
         public static string Menu_Channel_StaticDirectory_Description {

@@ -43,14 +43,14 @@ namespace Bloxstrap.RobloxInterfaces
 
                 try
                 {
-                    response = await App.HttpClient.GetAsync("https://clientsettingscdn.roblox.com" + path);
+                    response = await App.HttpClient.GetAsync("https://clientsettingscdn." + Deployment.RobloxDomain + path);
                 }
                 catch (Exception ex)
                 {
                     App.Logger.WriteLine(logIndent, "Failed to contact clientsettingscdn! Falling back to clientsettings...");
                     App.Logger.WriteException(logIndent, ex);
 
-                    response = await App.HttpClient.GetAsync("https://clientsettings.roblox.com" + path);
+                    response = await App.HttpClient.GetAsync("https://clientsettings." + Deployment.RobloxDomain + path);
                 }
 
                 string rawResponse = await response.Content.ReadAsStringAsync();

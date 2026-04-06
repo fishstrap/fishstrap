@@ -1787,6 +1787,12 @@ Defaulting to {1}.</value>
   <data name="Common.Timestamp" xml:space="preserve">
     <value>Timestamp</value>
   </data>
+  <data name="Menu.Channel.RobloxDomain.Title" xml:space="preserve">
+	  <value>Roblox domain</value>
+  </data>
+  <data name="Menu.Channel.RobloxDomain.Description" xml:space="preserve">
+	  <value>Set what domain Roblox and Fishstrap will use. Enter only trusted domains.</value>
+  </data>
   <data name="Enums.BootstrapperStyle.TwentyFiveDialog" xml:space="preserve">
     <value>Roblox (~2025)</value>
   </data>

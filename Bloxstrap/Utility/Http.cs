@@ -9,7 +9,7 @@
         /// <param name="url"></param>
         /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="JsonException"></exception>
-        public static async Task<T> GetJson<T>(string url)
+        public static async Task<T> GetJson<T>(Uri url)
         {
             var request = await App.HttpClient.GetAsync(url);
 
@@ -31,7 +31,7 @@
             return JsonSerializer.Deserialize<T>(json)!;
         }
 
-        public static async Task<T> AuthGetJson<T>(string url)
+        public static async Task<T> AuthGetJson<T>(Uri url)
         {
             var request = await App.Cookies.AuthGet(url);
 
@@ -44,10 +44,9 @@
 
         public static async Task<T> AuthSendJson<T>(HttpRequestMessage requestMessage)
         {
-            string uri = requestMessage.RequestUri?.ToString()!;
             HttpContent content = requestMessage.Content!;
 
-            var request = await App.Cookies.AuthPost(uri, content);
+            var request = await App.Cookies.AuthPost(requestMessage.RequestUri, content);
 
             request.EnsureSuccessStatusCode();
 

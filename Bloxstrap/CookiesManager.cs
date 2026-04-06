@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Bloxstrap.RobloxInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Security.Cryptography;
 
 namespace Bloxstrap
 {
@@ -26,7 +27,7 @@ namespace Bloxstrap
         private const string AuthCookieName = ".ROBLOSECURITY";
         private const string SupportedVersion = "1";
         private const string AuthPattern = $@"\t{AuthCookieName}\t(.+?)(;|$)";
-        private string CookiesPath => Path.Combine(Paths.Roblox, "LocalStorage", "RobloxCookies.dat");
+        private string CookiesPath => Path.Combine(Paths.Roblox, "LocalStorage", Deployment.IsDefaultRobloxDomain ? "RobloxCookies.dat" : $"{Deployment.RobloxDomain}_RobloxCookies.dat");
 
         public async Task<HttpResponseMessage> AuthRequest(HttpRequestMessage request)
         {
@@ -37,10 +38,10 @@ namespace Bloxstrap
                 throw new ArgumentNullException("Host cannot be null");
 
             if (
-                !host.Equals("roblox.com", StringComparison.OrdinalIgnoreCase) &&
-                !host.EndsWith(".roblox.com", StringComparison.OrdinalIgnoreCase)
+                !host.Equals(Deployment.RobloxDomain, StringComparison.OrdinalIgnoreCase) &&
+                !host.EndsWith("." + Deployment.RobloxDomain, StringComparison.OrdinalIgnoreCase)
                 )
-                throw new HttpRequestException("Host must end with roblox.com");
+                throw new HttpRequestException($"Host must end with Roblox domain ({Deployment.RobloxDomain})");
 
             if (!Enabled)
                 throw new NullReferenceException("Cookie access is not enabled");
@@ -51,8 +52,8 @@ namespace Bloxstrap
             return response;
         }
 
-        public async Task<HttpResponseMessage> AuthGet(string uri) => await AuthRequest(new HttpRequestMessage { RequestUri = new Uri(uri), Method = HttpMethod.Get });
-        public async Task<HttpResponseMessage> AuthPost(string uri, HttpContent? content) => await AuthRequest(new HttpRequestMessage { RequestUri = new Uri(uri), Content = content, Method = HttpMethod.Post });
+        public async Task<HttpResponseMessage> AuthGet(Uri? uri) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Method = HttpMethod.Get });
+        public async Task<HttpResponseMessage> AuthPost(Uri? uri, HttpContent? content) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Content = content, Method = HttpMethod.Post });
 
         public async Task<AuthenticatedUser?> GetAuthenticated()
         {
@@ -60,7 +61,8 @@ namespace Bloxstrap
             
             try
             {
-                HttpResponseMessage response = await AuthGet("https://users.roblox.com/v1/users/authenticated");
+                Uri apiUrl = UrlBuilder.BuildApiUrl("users", "v1/users/authenticated");
+                HttpResponseMessage response = await AuthGet(apiUrl);
                 response.EnsureSuccessStatusCode();
 
                 string content = await response.Content.ReadAsStringAsync();
