@@ -1,16 +1,19 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 using Wpf.Ui.Controls.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
-
-using Bloxstrap.UI.ViewModels.Settings;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
+
+using Bloxstrap.UI.ViewModels.Settings;
 using Bloxstrap.UI.Elements.Settings.Pages;
-using SharpVectors.Scripting;
-using System.Drawing;
+using Bloxstrap.UI.Elements.Controls;
 
 namespace Bloxstrap.UI.Elements.Settings
 {
@@ -20,6 +23,9 @@ namespace Bloxstrap.UI.Elements.Settings
     public partial class MainWindow : INavigationWindow
     {
         private Models.Persistable.WindowState _state => App.State.Prop.SettingsWindow;
+
+        // we should cache this
+        private List<SearchBarItem> _searchIndex;
 
         public MainWindow(bool showAlreadyRunningWarning)
         {
@@ -67,6 +73,15 @@ namespace Bloxstrap.UI.Elements.Settings
 
                 App.State.Prop.LastPage = currentPage?.PageType.FullName!;
             }
+
+            // run scraper
+            this.Loaded += (s, e) =>
+            {
+                Dispatcher.InvokeAsync(() =>
+                {
+                    BuildSearchIndexAutomatically();
+                }, System.Windows.Threading.DispatcherPriority.Background);
+            };
         }
 
         public void LoadState()
@@ -148,6 +163,87 @@ namespace Bloxstrap.UI.Elements.Settings
                 LaunchHandler.LaunchRoblox(LaunchMode.Player);
             else
                 App.SoftTerminate();
+        }
+
+        private void BuildSearchIndexAutomatically()
+        {
+            _searchIndex = new List<SearchBarItem>();
+
+            var navItems = RootNavigation.Items.OfType<NavigationItem>();
+
+            foreach (var item in navItems)
+            {
+                if (item.PageType == null)
+                    continue;
+
+                if (Activator.CreateInstance(item.PageType) is Page pageInstance)
+                {
+                    var optionControls = FindLogicalChildren<OptionControl>(pageInstance);
+
+                    foreach (var optionControl in optionControls)
+                    {
+                        if (optionControl.Header is string headerText && !string.IsNullOrWhiteSpace(headerText))
+                        {
+                            _searchIndex.Add(new SearchBarItem
+                            {
+                                DisplayName = headerText,
+                                PageType = item.PageType
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
+        private static IEnumerable<T> FindLogicalChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null)
+                yield break;
+
+            foreach (object rawChild in LogicalTreeHelper.GetChildren(depObj))
+            {
+                if (rawChild is DependencyObject child)
+                {
+                    if (child is T t)
+                    {
+                        yield return t;
+                    }
+
+                    foreach (T childOfChild in FindLogicalChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+
+        // should move to viewmodels but uhhh im kinda lazy
+        private void AutoSuggestBoxTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is AutoSuggestBox autoSuggestBox)
+            {
+                var currentText = autoSuggestBox.Text;
+
+                if (string.IsNullOrWhiteSpace(currentText))
+                {
+                    autoSuggestBox.ItemsSource = null;
+                    return;
+                }
+
+                var selectedSetting = _searchIndex.FirstOrDefault(x => x.DisplayName.Equals(currentText, StringComparison.OrdinalIgnoreCase));
+
+                if (selectedSetting != null)
+                {
+                    Navigate(selectedSetting.PageType);
+                    return;
+                }
+
+                var query = currentText.ToLower();
+                autoSuggestBox.ItemsSource = _searchIndex
+                    .Where(x => x.DisplayName.ToLower().Contains(query))
+                    .Select(x => x.DisplayName)
+                    .ToList();
+            }
         }
     }
 }
