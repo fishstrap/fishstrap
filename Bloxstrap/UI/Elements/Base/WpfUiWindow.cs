@@ -39,14 +39,10 @@ namespace Bloxstrap.UI.Elements.Base
 
             // there doesn't seem to be a way to query the name for merged dictionaries
             var dict = new ResourceDictionary { Source = new Uri($"pack://application:,,,/UI/Style/{Enum.GetName(App.Settings.Prop.Theme.GetFinal())}.xaml") };
-<<<<<<< HEAD
 
             this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(1, 255, 255, 255));
-
-=======
             
             // way better ways to do this but uhhh...
->>>>>>> parent of c42b76c (feat: implement acrylic in ui with extra settings)
             if (App.Settings.Prop.UseAcylicBackground)
                 dict = new ResourceDictionary { Source = new Uri($"pack://application:,,,/UI/Style/Acrylic-{Enum.GetName(App.Settings.Prop.Theme.GetFinal())}.xaml") };
 

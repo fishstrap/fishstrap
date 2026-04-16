@@ -30,7 +30,6 @@
             Description="{x:Static resources:Strings.Menu_Appearance_Language_Description}">
             <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
         </controls:OptionControl>
-<<<<<<< HEAD
 
         <controls:OptionControl
             Header="Enable Acrylic"
@@ -52,8 +51,6 @@
                 </Border>
             </Grid>
         </controls:OptionControl>
-=======
->>>>>>> parent of c42b76c (feat: implement acrylic in ui with extra settings)
         <TextBlock Text="Roblox" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
 
         <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_RobloxTitle_Title}" Description="{x:Static resources:Strings.Menu_Appearance_RobloxTitle_Description}">
