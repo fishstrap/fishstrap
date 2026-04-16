@@ -23,7 +23,7 @@
         <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
     </base:WpfUiWindow.TaskbarItemInfo>
 
-    <Grid>
+    <Grid Background="{DynamicResource MainWindowBackgroundBrush}">
         <ui:TitleBar Title="" Width="576" Height="32" ShowMaximize="False" ShowMinimize="False" ShowClose="False"/>
         <Image Height="254" Width="254" HorizontalAlignment="Center" VerticalAlignment="Top" Source="/Resources/BootstrapperStyles/TwentyFiveDialog/PlayerLogo.png" Margin="0,60,0,0" />
 

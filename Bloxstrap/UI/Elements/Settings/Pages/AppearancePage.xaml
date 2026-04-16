@@ -45,7 +45,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Slider Grid.Column="0" Margin="0,0,8,0" Minimum="1" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding AcrylicBackgroundOpacity, Mode=TwoWay}" />
+                <Slider Grid.Column="0" Margin="0,0,8,0" Minimum="1" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding AcrylicBackgroundOpacity, Mode=TwoWay, Delay=250}" />
                 <Border Margin="0,-4,0,0" Grid.Column="1" Width="30" BorderBrush="{ui:ThemeResource SolidBackgroundFillColorSecondarybrush}" Background="{ui:ThemeResource SolidBackgroundFillColorSecondarybrush}" BorderThickness="1" CornerRadius="4">
                     <TextBlock HorizontalAlignment="Center" Padding="4" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AcrylicBackgroundOpacity, Mode=TwoWay}" />
                 </Border>

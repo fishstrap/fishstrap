@@ -16,7 +16,6 @@
              AllowsTransparency="True"
              Background="{ui:ThemeResource ApplicationBackgroundBrush}"
              ExtendsContentIntoTitleBar="True"
-             WindowBackdropType="Acrylic"
              Width="1000"
              Height="580"
              WindowStartupLocation="CenterScreen"
