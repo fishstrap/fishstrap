@@ -19,7 +19,8 @@ namespace Bloxstrap.Models.Persistable
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool DeveloperMode { get; set; } = false;
         // PLEASE DONT FORGET TO TURN THIS OFF !!!!
-        public bool UseAcylicBackground { get; set; } = true;
+        public bool UseAcylicBackground { get; set; } = false;
+        public byte AcrylicBackgroundOpacity { get; set; } = 165;
         public bool ForceLocalData { get; set; } = false;
         public bool CheckForUpdates { get; set; } = true;
         public bool MultiInstanceLaunching { get; set; } = false;
