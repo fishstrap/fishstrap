@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 
-using Windows.Win32.Foundation;
 using Windows.Win32;
+using Windows.Win32.Foundation;
 
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -28,6 +29,14 @@ namespace Bloxstrap.UI.Elements.Base
         public WpfUiWindow()
         {
             ApplyTheme();
+
+            if (App.Settings.Prop.UseAcylicBackground)
+            {
+                this.ExtendsContentIntoTitleBar = true;
+                this.AllowsTransparency = true;
+                this.WindowStyle = WindowStyle.None;
+                this.WindowBackdropType = BackgroundType.Acrylic;
+            }
         }
 
         public void ApplyTheme()
@@ -39,10 +48,17 @@ namespace Bloxstrap.UI.Elements.Base
 
             // there doesn't seem to be a way to query the name for merged dictionaries
             var dict = new ResourceDictionary { Source = new Uri($"pack://application:,,,/UI/Style/{Enum.GetName(App.Settings.Prop.Theme.GetFinal())}.xaml") };
-            
-            // way better ways to do this but uhhh...
+
             if (App.Settings.Prop.UseAcylicBackground)
-                dict = new ResourceDictionary { Source = new Uri($"pack://application:,,,/UI/Style/Acrylic-{Enum.GetName(App.Settings.Prop.Theme.GetFinal())}.xaml") };
+            {
+                byte opacity = App.Settings.Prop.AcrylicBackgroundOpacity;
+
+                if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Light)
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 255, 255, 255));
+                else
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 32, 32, 32));
+            }
+
 
             Application.Current.Resources.MergedDictionaries[customThemeIndex] = dict;
 
@@ -68,7 +84,7 @@ namespace Bloxstrap.UI.Elements.Base
         // the reason afaik is due to the window being redrawn every single time it moves, which is a no no
         // so, we're going to do the window moving ourselves.
         // the drag delay is controlled by the _dragDelay variable (wow). any variable between 5 and 15 should work good.
-        //  5 should not cause that much lag but i'm going to keep it at that for now
+        // 5 should not cause that much lag but i'm going to keep it at that for now
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (e.ClickCount > 1)
@@ -82,7 +98,7 @@ namespace Bloxstrap.UI.Elements.Base
 
             while (clickedElement != null)
             {
-                if (clickedElement is System.Windows.Controls.Button || clickedElement is Button)
+                if (clickedElement is System.Windows.Controls.Button || clickedElement is Wpf.Ui.Controls.Button)
                 {
                     base.OnPreviewMouseLeftButtonDown(e);
                     return;

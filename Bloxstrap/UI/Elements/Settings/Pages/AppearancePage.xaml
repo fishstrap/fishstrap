@@ -30,6 +30,27 @@
             Description="{x:Static resources:Strings.Menu_Appearance_Language_Description}">
             <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
         </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Enable Acrylic"
+            Description="Enable Acylic backdground for Fishstrap.">
+            <ui:ToggleSwitch IsChecked="{Binding AcrylicBackdropEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl
+            Header="Acrylic Opacity"
+            Description="Set the opacity for the Acrylic background.">
+            <Grid Width="204">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Slider Grid.Column="0" Margin="0,0,8,0" Minimum="1" Maximum="255" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding AcrylicBackgroundOpacity, Mode=TwoWay}" />
+                <Border Margin="0,-4,0,0" Grid.Column="1" Width="30" BorderBrush="{ui:ThemeResource SolidBackgroundFillColorSecondarybrush}" Background="{ui:ThemeResource SolidBackgroundFillColorSecondarybrush}" BorderThickness="1" CornerRadius="4">
+                    <TextBlock HorizontalAlignment="Center" Padding="4" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding AcrylicBackgroundOpacity, Mode=TwoWay}" />
+                </Border>
+            </Grid>
+        </controls:OptionControl>
         <TextBlock Text="Roblox" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
 
         <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_RobloxTitle_Title}" Description="{x:Static resources:Strings.Menu_Appearance_RobloxTitle_Description}">
