@@ -20,7 +20,7 @@ namespace Bloxstrap.UI.Elements.Base
         private System.Drawing.Point _dragStartMousePos;
         private System.Drawing.Point _dragStartWindowPos;
         private DateTime _hitTime = DateTime.Now;
-        private readonly int _dragDelay = 5;
+        private readonly int _dragDelay = 15;
         #endregion
 
         private readonly IThemeService _themeService = new ThemeService();
@@ -47,18 +47,18 @@ namespace Bloxstrap.UI.Elements.Base
 
             // there doesn't seem to be a way to query the name for merged dictionaries
             var dict = new ResourceDictionary { Source = new Uri($"pack://application:,,,/UI/Style/{Enum.GetName(App.Settings.Prop.Theme.GetFinal())}.xaml") };
+            
+            // this entire logic needs to be redone imo
+            this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(1, 255, 255, 255));
 
-            this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(1, 255, 255, 255));
-
-            // doesnt really work but yeah
             if (App.Settings.Prop.UseAcylicBackground)
             {
                 byte opacity = App.Settings.Prop.AcrylicBackgroundOpacity;
 
                 if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Light)
-                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 255, 255, 255));
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(opacity, 255, 255, 255));
                 else
-                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 32, 32, 32));
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(opacity, 32, 32, 32));
             }
 
                 Application.Current.Resources.MergedDictionaries[customThemeIndex] = dict;
