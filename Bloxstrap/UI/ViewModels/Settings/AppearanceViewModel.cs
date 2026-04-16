@@ -83,7 +83,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
         }
 
         public IEnumerable<Theme> Themes { get; } = Enum.GetValues(typeof(Theme)).Cast<Theme>();
-        
+
         public Theme Theme
         {
             get => App.Settings.Prop.Theme;
@@ -100,26 +100,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => Locale.SupportedLocales[App.Settings.Prop.Locale];
             set => App.Settings.Prop.Locale = Locale.GetIdentifierFromName(value);
-        }
-
-        public bool AcrylicBackdropEnabled
-        {
-            get => App.Settings.Prop.UseAcylicBackground;
-            set
-            {
-                App.Settings.Prop.UseAcylicBackground = value;
-                ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
-            }
-        }
-
-        public byte AcrylicBackgroundOpacity
-        {
-            get => App.Settings.Prop.AcrylicBackgroundOpacity;
-            set
-            {
-                App.Settings.Prop.AcrylicBackgroundOpacity = value;
-                ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
-            }
         }
 
         public IEnumerable<BootstrapperStyle> Dialogs { get; } = BootstrapperStyleEx.Selections;
