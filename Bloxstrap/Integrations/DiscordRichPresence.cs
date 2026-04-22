@@ -453,7 +453,7 @@ namespace Bloxstrap.Integrations
                     buttons.Add(new Button
                     {
                         Label = "Join server",
-                        Url = data.GetInviteDeeplink()
+                        Url = data.GetInviteDeeplink(true, true)
                     });
                 }
             }
