@@ -1347,18 +1347,23 @@ namespace Bloxstrap
             }
 
             var extractionTasks = new List<Task>();
+            var downloadTask = new List<Task>();
+
+            foreach (var package in _versionPackageManifest)
+            {
+                // check if the package should be ignored
+                if (App.RemoteData.Prop.IgnoredPackages.Contains(package.Name))
+                    continue;
+
+                // should we limit the amount of packages being downloaded at once?
+                downloadTask.Add(Task.Run(() => DownloadPackage(package), _cancelTokenSource.Token));
+            }
+            await Task.WhenAll(downloadTask);
 
             foreach (var package in _versionPackageManifest)
             {
                 if (_cancelTokenSource.IsCancellationRequested)
                     return;
-
-                // check if the package should be ignored
-                if (App.RemoteData.Prop.IgnoredPackages.Contains(package.Name))
-                    continue;
-
-                // download all the packages synchronously
-                await DownloadPackage(package);
 
                 // we'll extract the runtime installer later if we need to
                 if (package.Name == "WebView2RuntimeInstaller.zip")
@@ -1811,12 +1816,6 @@ namespace Bloxstrap
                         await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), _cancelTokenSource.Token);
 
                         _totalDownloadedBytes += bytesRead;
-                        SetStatus(
-                            String.Format(App.Settings.Prop.DownloadingStringFormat,
-                            package.Name,
-                            totalBytesRead / 1048576,
-                            package.Size / 1048576
-                            ));
                         UpdateProgressBar();
                     }
 
