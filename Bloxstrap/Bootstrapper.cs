@@ -18,6 +18,7 @@ using Bloxstrap.RobloxInterfaces;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Data;
 using System.Web;
@@ -1261,6 +1262,7 @@ namespace Bloxstrap
         private async Task UpgradeRoblox()
         {
             const string LOG_IDENT = "Bootstrapper::UpgradeRoblox";
+            const int THREAD_LIMIT = 5;
 
             bool CancelUpgrade = !App.Settings.Prop.UpdateRoblox;
 
@@ -1349,18 +1351,27 @@ namespace Bloxstrap
             var extractionTasks = new List<Task>();
             var downloadTask = new List<Task>();
 
-            foreach (var package in _versionPackageManifest)
-            {
-                // check if the package should be ignored
-                if (App.RemoteData.Prop.IgnoredPackages.Contains(package.Name))
-                    continue;
+            var ignoredPackages = App.RemoteData.Prop.IgnoredPackages.ToArray();
 
-                // should we limit the amount of packages being downloaded at once?
-                downloadTask.Add(Task.Run(() => DownloadPackage(package), _cancelTokenSource.Token));
+            // from largest to smallest, this is so larger packages (which need more time) get queued first
+            var packages = _versionPackageManifest.Where(p => !ignoredPackages.Contains(p.Name)).OrderBy(p => -p.PackedSize);
+
+            SemaphoreSlim downloadSemaphore = new(THREAD_LIMIT);
+            foreach (var package in packages)
+            {
+                await downloadSemaphore.WaitAsync(_cancelTokenSource.Token);
+
+                var task = Task.Run(async () => {
+                    await DownloadPackage(package);
+
+                    downloadSemaphore.Release();
+                }, _cancelTokenSource.Token);
+
+                downloadTask.Add(task);
             }
             await Task.WhenAll(downloadTask);
 
-            foreach (var package in _versionPackageManifest)
+            foreach (var package in packages)
             {
                 if (_cancelTokenSource.IsCancellationRequested)
                     return;
