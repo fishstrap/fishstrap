@@ -384,6 +384,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading - {0} left.
+        /// </summary>
+        public static string Bootstrapper_Status_DownloadingPackages {
+            get {
+                return ResourceManager.GetString("Bootstrapper.Status.DownloadingPackages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Installing {product}....
         /// </summary>
         public static string Bootstrapper_Status_Installing {

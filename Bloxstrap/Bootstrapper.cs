@@ -1355,14 +1355,20 @@ namespace Bloxstrap
 
             // from largest to smallest, this is so larger packages (which need more time) get queued first
             var packages = _versionPackageManifest.Where(p => !ignoredPackages.Contains(p.Name)).OrderBy(p => -p.PackedSize);
+            var downloadedPackages = new List<Package>();
+
+            SetStatus(string.Format(Strings.Bootstrapper_Status_DownloadingPackages, packages.Count()));
 
             SemaphoreSlim downloadSemaphore = new(THREAD_LIMIT);
             foreach (var package in packages)
             {
                 await downloadSemaphore.WaitAsync(_cancelTokenSource.Token);
+                
 
                 var task = Task.Run(async () => {
                     await DownloadPackage(package);
+                    downloadedPackages.Add(package);
+                    SetStatus(string.Format(Strings.Bootstrapper_Status_DownloadingPackages, packages.Count() - downloadedPackages.Count()));
 
                     downloadSemaphore.Release();
                 }, _cancelTokenSource.Token);
