@@ -2017,6 +2017,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Windows Terminal.
+        /// </summary>
+        public static string Enums_BootstrapperStyle_TerminalDialog {
+            get {
+                return ResourceManager.GetString("Enums.BootstrapperStyle.TerminalDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Roblox (~2025).
         /// </summary>
         public static string Enums_BootstrapperStyle_TwentyFiveDialog {

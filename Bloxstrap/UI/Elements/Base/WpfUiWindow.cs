@@ -20,7 +20,7 @@ namespace Bloxstrap.UI.Elements.Base
         private System.Drawing.Point _dragStartMousePos;
         private System.Drawing.Point _dragStartWindowPos;
         private DateTime _hitTime = DateTime.Now;
-        private readonly int _dragDelay = 15;
+        private readonly int _dragDelay = 10;
         #endregion
 
         private readonly IThemeService _themeService = new ThemeService();
@@ -80,7 +80,7 @@ namespace Bloxstrap.UI.Elements.Base
             base.OnSourceInitialized(e);
         }
 
-        #region KILL THE STUPID FUCKING ACRYLIC LAG
+        #region Acrylic Drag Logic
         // basically, the default acrylic implementation is horrible as it causes a crap ton of lag (on windows 10) when the window is moved
         // the reason afaik is due to the window being redrawn every single time it moves, which is a no no
         // so, we're going to do the window moving ourselves.

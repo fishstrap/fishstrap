@@ -8,6 +8,7 @@
         ProgressDialog,
         ClassicFluentDialog,
         TwentyFiveDialog,
+        TerminalDialog,
         ByfronDialog,
         [EnumName(StaticName = "Fishstrap")]
         FluentDialog,
