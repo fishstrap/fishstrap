@@ -6,10 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Bootstrapper"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        mc:Ignorable="d" Height="520" Width="1000"
+        mc:Ignorable="d" Height="520" Width="800"
         ExtendsContentIntoTitleBar="True"
         WindowStyle="None"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
     
     <base:WpfUiWindow.TaskbarItemInfo>
         <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
@@ -24,13 +25,12 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Background="{ui:ThemeResource ApplicationBackgroundBrush}">
-            <ui:TitleBar x:Name="TerminalTitleBar" Height="40" ShowMaximize="True" ShowMinimize="True" ShowClose="True" Loaded="TerminalTitleBar_Loaded" Panel.ZIndex="100" />
+            <ui:TitleBar x:Name="TerminalTitleBar" Height="40" ShowMaximize="True" ShowMinimize="True" ShowClose="True" Loaded="TerminalTitleBar_Loaded" CloseClicked="UiWindow_Closing" Panel.ZIndex="100" />
             <TabControl Grid.Column="0" Margin="8,0,0,0" Height="32" VerticalAlignment="Bottom" BorderBrush="Transparent">
                 <TabItem Background="Black" BorderBrush="Transparent" BorderThickness="0">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4,2">
                             <ui:SymbolIcon Symbol="WindowConsole20" FontSize="14" Margin="0,0,8,0" />
-
                             <TextBlock Text="pwsh in Fishstrap" VerticalAlignment="Center" Margin="0,0,16,2" />
                         </StackPanel>
                     </TabItem.Header>
@@ -38,17 +38,16 @@
             </TabControl>
         </Grid>
         <Grid Grid.Row="1" Background="Black">
-            <ScrollViewer x:Name="ScrollViewer" FontFamily="Cascadia Code" FontSize="16" ScrollChanged="ScrollViewer_ScrollChanged">
+            <ScrollViewer x:Name="ScrollViewer" FontSize="14" ScrollChanged="ScrollViewer_ScrollChanged">
                 <StackPanel Margin="12">
-                    <TextBlock Text="Windows Powershell" Foreground="White" Opacity="0.95" TextWrapping="Wrap" />
-                    <TextBlock Text="Copyright (C) Microsoft Corporation. All rights reserved." Foreground="White" Opacity="0.95" TextWrapping="Wrap" />
+                    <TextBlock Text="Windows Powershell" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
+                    <TextBlock Text="Copyright (C) Microsoft Corporation. All rights reserved." Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
                     <TextBlock />
-                    <TextBlock Text="Try the new cross-platform PowerShell https://aka.ms/pscore6" Foreground="White" Opacity="0.95" TextWrapping="Wrap" />
+                    <TextBlock Text="Try the new cross-platform PowerShell https://aka.ms/pscore6" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
                     <TextBlock />
-                    <TextBlock Text="PS> ./Fishstrap.exe" Foreground="White" Opacity="0.95" TextWrapping="Wrap" />
+                    <TextBlock Text="PS> ./Fishstrap.exe" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
                     <TextBlock />
-                    <ProgressBar Style="{StaticResource SquareProgressBarStyle}" Width="300" Height="24" HorizontalAlignment="Left" IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}" Maximum="{Binding ProgressMaximum, Mode=OneWay}" Value="{Binding ProgressValue, Mode=OneWay}" Foreground="Red" Margin="0,0,0,8" />
-                    <TextBlock Text="{Binding Message}" Foreground="White" Opacity="0.95" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding Message}" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>
