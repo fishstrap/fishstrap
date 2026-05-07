@@ -6,6 +6,7 @@ using System.Windows;
 
 using Bloxstrap.UI.ViewModels.Bootstrapper;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
+using System.Windows.Media;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
@@ -126,6 +127,10 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             _viewModel = new TerminalDialogViewModel(this);
             DataContext = _viewModel;
+
+            if (!App.Settings.Prop.UseAcylicBackground)
+                this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+
             Title = App.Settings.Prop.BootstrapperTitle;
             Icon = App.Settings.Prop.BootstrapperIcon.GetIcon().GetImageSource();
         }

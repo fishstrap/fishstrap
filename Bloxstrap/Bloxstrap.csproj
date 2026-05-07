@@ -18,11 +18,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\BootstrapperStyles\TerminalDialog\Powershell.png" />
     <None Remove="Resources\Fonts\CascadiaCode.ttf" />
   </ItemGroup>
     
   <ItemGroup>
     <Resource Include="Bloxstrap.ico" />
+    <Resource Include="Resources\BootstrapperStyles\TerminalDialog\Powershell.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\PlayerLogo.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\Roblox.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\Studio.png" />
