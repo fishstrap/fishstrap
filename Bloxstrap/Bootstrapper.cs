@@ -1348,8 +1348,7 @@ namespace Bloxstrap
                 _taskbarProgressIncrement = _taskbarProgressMaximum / (double)totalPackedSize;
             }
 
-            var extractionTasks = new List<Task>();
-            var downloadTask = new List<Task>();
+            var packageTasks = new List<Task>();
 
             var ignoredPackages = App.RemoteData.Prop.IgnoredPackages.ToArray();
 
@@ -1367,28 +1366,20 @@ namespace Bloxstrap
 
                 var task = Task.Run(async () => {
                     await DownloadPackage(package);
+
+                    // we'll extract the runtime installer later if we need to
+                    if (package.Name != "WebView2RuntimeInstaller.zip")
+                        ExtractPackage(package);
+
                     downloadedPackages.Add(package);
                     SetStatus(string.Format(Strings.Bootstrapper_Status_DownloadingPackages, packages.Count() - downloadedPackages.Count()));
 
                     downloadSemaphore.Release();
                 }, _cancelTokenSource.Token);
 
-                downloadTask.Add(task);
+                packageTasks.Add(task);
             }
-            await Task.WhenAll(downloadTask);
-
-            foreach (var package in packages)
-            {
-                if (_cancelTokenSource.IsCancellationRequested)
-                    return;
-
-                // we'll extract the runtime installer later if we need to
-                if (package.Name == "WebView2RuntimeInstaller.zip")
-                    continue;
-
-                // extract the package async immediately after download
-                extractionTasks.Add(Task.Run(() => ExtractPackage(package), _cancelTokenSource.Token));
-            }
+            await Task.WhenAll(packageTasks);
 
             if (_cancelTokenSource.IsCancellationRequested)
                 return;
@@ -1399,11 +1390,6 @@ namespace Bloxstrap
                 Dialog.TaskbarProgressState = TaskbarItemProgressState.Indeterminate;
                 SetStatus(Strings.Bootstrapper_Status_Configuring);
             }
-
-            await Task.WhenAll(extractionTasks);
-
-            if (_cancelTokenSource.IsCancellationRequested)
-                return;
 
             if (App.State.Prop.PromptWebView2Install)
             {
