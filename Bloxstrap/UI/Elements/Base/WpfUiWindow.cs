@@ -28,14 +28,6 @@ namespace Bloxstrap.UI.Elements.Base
         public WpfUiWindow()
         {
             ApplyTheme();
-
-            if (App.Settings.Prop.UseAcylicBackground)
-            {
-                this.ExtendsContentIntoTitleBar = true;
-                this.AllowsTransparency = true;
-                this.WindowStyle = WindowStyle.None;
-                this.WindowBackdropType = BackgroundType.Acrylic;
-            }
         }
 
         public void ApplyTheme()
@@ -47,21 +39,31 @@ namespace Bloxstrap.UI.Elements.Base
 
             // there doesn't seem to be a way to query the name for merged dictionaries
             var dict = new ResourceDictionary { Source = new Uri($"pack://application:,,,/UI/Style/{Enum.GetName(App.Settings.Prop.Theme.GetFinal())}.xaml") };
-            
-            // this entire logic needs to be redone imo
-            this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(1, 255, 255, 255));
 
             if (App.Settings.Prop.UseAcylicBackground)
             {
+                this.ExtendsContentIntoTitleBar = true;
+                this.WindowBackdropType = BackgroundType.Acrylic;
+
                 byte opacity = App.Settings.Prop.AcrylicBackgroundOpacity;
 
                 if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Light)
-                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(opacity, 255, 255, 255));
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(opacity, 250, 250, 250));
                 else
                     this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(opacity, 32, 32, 32));
+            } 
+            else
+            {
+                this.ExtendsContentIntoTitleBar = true;
+                this.WindowBackdropType = BackgroundType.Mica;
+
+                if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Light)
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(255, 250, 250, 250));
+                else
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(255, 32, 32, 32));
             }
 
-                Application.Current.Resources.MergedDictionaries[customThemeIndex] = dict;
+            Application.Current.Resources.MergedDictionaries[customThemeIndex] = dict;
 
 #if QA_BUILD
             this.BorderBrush = System.Windows.Media.Brushes.Red;
@@ -88,6 +90,13 @@ namespace Bloxstrap.UI.Elements.Base
         // 5 should not cause that much lag but i'm going to keep it at that for now
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
+            // skip if acrylic is not on
+            if (!App.Settings.Prop.UseAcylicBackground)
+            {
+                base.OnPreviewMouseLeftButtonDown(e);
+                return;
+            }
+
             if (e.ClickCount > 1)
             {
                 base.OnPreviewMouseLeftButtonDown(e);

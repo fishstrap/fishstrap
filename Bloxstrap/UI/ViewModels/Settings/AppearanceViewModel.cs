@@ -101,6 +101,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 App.Settings.Prop.UseAcylicBackground = value;
                 ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+
+                OnPropertyChanged(nameof(AcrylicBackdropEnabled));
             }
         }
 
@@ -111,6 +113,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 App.Settings.Prop.AcrylicBackgroundOpacity = value;
                 ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+
+                OnPropertyChanged(nameof(AcrylicBackgroundOpacity));
             }
         }
 
