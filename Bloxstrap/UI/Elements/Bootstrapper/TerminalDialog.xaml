@@ -27,7 +27,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Background="#333333">
-            <ui:TitleBar x:Name="TerminalTitleBar" Height="40" ShowMaximize="True" ShowMinimize="True" ShowClose="True" Loaded="TerminalTitleBar_Loaded" CloseClicked="UiWindow_Closing" Panel.ZIndex="100" />
+            <ui:TitleBar x:Name="TerminalTitleBar" Background="Transparent" Height="40" ShowMaximize="True" ShowMinimize="True" ShowClose="True" Loaded="TerminalTitleBar_Loaded" CloseClicked="UiWindow_Closing" CanMaximize="False" Panel.ZIndex="100" />
             
             <TabControl Grid.Column="0" Margin="12,0,0,0" Height="32" VerticalAlignment="Bottom" Background="Transparent" BorderBrush="Transparent" Padding="0">
                 <TabItem Background="Black" BorderBrush="Transparent" BorderThickness="0" Width="200">
