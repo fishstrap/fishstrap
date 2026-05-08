@@ -51,6 +51,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
                     RenderingMode.OpenGL
                 };
 
+                if (value != RenderingMode.Vulkan)
+                    App.Settings.Prop.FakeBorderlessFullscreen = false; // vulkan exclusive
+
                 App.FastFlags.SetPresetEnum("Rendering.Mode", value.ToString(), "True");
                 App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", DisableD3D11.Contains(value) ? "True" : null);
             }
@@ -136,11 +139,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => int.TryParse(App.FastFlags.GetPreset("Geometry.MeshLOD.Static"), out var x) ? x : 0;
             set
             {
+                // holy..
                 int clamped = Math.Clamp(value, 0, LODLevels.Length - 1);
 
                 for (int i = 0; i < LODLevels.Length; i++)
                 {
-                    int lodValue = Math.Clamp(clamped - i, 0, 3);
+                    int lodValue = (Math.Clamp(clamped - i, 0, 3) + 1) * 250;
                     string lodLevel = LODLevels[i];
 
                     App.FastFlags.SetPreset($"Geometry.MeshLOD.{lodLevel}", lodValue);
