@@ -11,7 +11,8 @@
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MainWindowBackgroundBrush}">
     
     <base:WpfUiWindow.TaskbarItemInfo>
         <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
@@ -64,10 +65,10 @@
                 </TabItem>
             </TabControl>
         </Grid>
-        <Grid Grid.Row="1" Background="{DynamicResource MainWindowBackgroundBrush}">
+        <Grid Grid.Row="1" Background="Transparent">
             <ScrollViewer x:Name="ScrollViewer" Margin="12" FontSize="16" ScrollChanged="ScrollViewer_ScrollChanged">
                 <StackPanel>
-                    <TextBlock Text="Windows Powershell" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" FontWeight="Light" />
+                    <TextBlock Text="Windows Powershell" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
                     <TextBlock Text="Copyright (C) Microsoft Corporation. All rights reserved." Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
                     <TextBlock />
                     <TextBlock Text="Try the new cross-platform PowerShell https://aka.ms/pscore6" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
