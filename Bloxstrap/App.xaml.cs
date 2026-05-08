@@ -305,6 +305,9 @@ namespace Bloxstrap
                 if (Paths.Process != Paths.Application && !File.Exists(Paths.Application))
                     File.Copy(Paths.Process, Paths.Application);
 
+                // Load settings first so Logger can check CleanerOptions
+                Settings.Load();
+                
                 Logger.Initialize(LaunchSettings.UninstallFlag.Active);
 
                 if (!Logger.Initialized && !Logger.NoWriteMode)
@@ -313,7 +316,6 @@ namespace Bloxstrap
                     Terminate();
                 }
 
-                Settings.Load();
                 State.Load();
                 RobloxState.Load();
                 FastFlags.Load();

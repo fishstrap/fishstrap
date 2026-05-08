@@ -309,7 +309,7 @@ namespace Bloxstrap
                 }
 
                 // shouldnt this be done after client closes?
-                if (App.Settings.Prop.CleanerOptions != CleanerOptions.Never)
+                if (App.Settings.Prop.CleanerOptions != CleanerOptions.Never && App.Settings.Prop.CleanerOptions != CleanerOptions.Disabled)
                     Cleaner.DoCleaning();
 
                 App.Terminate();

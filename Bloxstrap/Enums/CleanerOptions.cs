@@ -6,6 +6,7 @@
         OneDay,
         OneWeek,
         OneMonth,
-        TwoMonths
+        TwoMonths,
+        Disabled
     }
 }

@@ -2044,6 +2044,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabled (Don't create logs).
+        /// </summary>
+        public static string Enums_CleanerOptions_Disabled {
+            get {
+                return ResourceManager.GetString("Enums.CleanerOptions.Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to After 1 day.
         /// </summary>
         public static string Enums_CleanerOptions_OneDay {

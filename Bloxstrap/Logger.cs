@@ -18,6 +18,14 @@
         {
             const string LOG_IDENT = "Logger::Initialize";
 
+            // Check if log creation is disabled via Cleaner settings
+            if (!useTempDir && App.Settings.Prop.CleanerOptions == CleanerOptions.Disabled)
+            {
+                WriteLine(LOG_IDENT, "Log creation is disabled in settings");
+                NoWriteMode = true;
+                return;
+            }
+
             string directory = useTempDir ? Path.Combine(Paths.TempLogs) : Path.Combine(Paths.Base, "Logs");
             string timestamp = DateTime.UtcNow.ToString("yyyyMMdd'T'HHmmss'Z'");
             string filename = $"{App.ProjectName}_{timestamp}.log";
