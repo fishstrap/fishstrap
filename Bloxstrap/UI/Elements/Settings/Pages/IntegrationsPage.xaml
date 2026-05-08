@@ -68,7 +68,7 @@
 
         <TextBlock Text="{x:Static resources:Strings.Common_Miscellaneous}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
 
-        <Border Margin="0,4,0,0" CornerRadius="4" BorderThickness="1" BorderBrush="#41F2290A" Background="#F2290A">
+        <Border Margin="0,4,0,0" Padding="8" CornerRadius="4" BorderThickness="1" BorderBrush="#41F2290A" Background="#F2290A">
             <Grid Height="64">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
