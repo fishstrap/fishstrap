@@ -393,7 +393,22 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             uiElement.Name = name;
 
-            uiElement.Visibility = ParseXmlAttribute<Visibility>(xmlElement, "Visibility", Visibility.Visible);
+            var isStudioLaunch = App.Bootstrapper?.IsStudioLaunch;
+
+            var customVisibility = ParseXmlAttribute<ElementVisibility>(xmlElement, "Visibility", ElementVisibility.Visible);
+
+            uiElement.Visibility = customVisibility switch
+            {
+                ElementVisibility.Visible => Visibility.Visible,
+                ElementVisibility.Collapsed => Visibility.Collapsed,
+                ElementVisibility.Hidden => Visibility.Hidden,
+
+                ElementVisibility.Studio => isStudioLaunch == true ? Visibility.Visible : Visibility.Collapsed,
+                ElementVisibility.Player => isStudioLaunch == false ? Visibility.Visible : Visibility.Collapsed,
+
+                _ => Visibility.Visible
+            };
+
             uiElement.IsEnabled = ParseXmlAttribute<bool>(xmlElement, "IsEnabled", true);
 
             object? margin = GetThicknessFromXElement(xmlElement, "Margin");
