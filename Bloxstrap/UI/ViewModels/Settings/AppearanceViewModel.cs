@@ -96,10 +96,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool AcrylicBackdropEnabled
         {
-            get => App.Settings.Prop.UseAcylicBackground;
+            get => App.Settings.Prop.UseAcrylicBackground;
             set
             {
-                App.Settings.Prop.UseAcylicBackground = value;
+                App.Settings.Prop.UseAcrylicBackground = value;
                 ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
 
                 OnPropertyChanged(nameof(AcrylicBackdropEnabled));

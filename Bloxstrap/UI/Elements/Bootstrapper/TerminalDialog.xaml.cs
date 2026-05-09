@@ -128,7 +128,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             _viewModel = new TerminalDialogViewModel(this);
             DataContext = _viewModel;
 
-            if (!App.Settings.Prop.UseAcylicBackground)
+            if (!App.Settings.Prop.UseAcrylicBackground)
                 this.Resources["ApplicationBackgroundBrush"] = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
 
             Title = App.Settings.Prop.BootstrapperTitle;

@@ -40,7 +40,7 @@ namespace Bloxstrap.UI.Elements.Base
             // there doesn't seem to be a way to query the name for merged dictionaries
             var dict = new ResourceDictionary { Source = new Uri($"pack://application:,,,/UI/Style/{Enum.GetName(App.Settings.Prop.Theme.GetFinal())}.xaml") };
 
-            if (App.Settings.Prop.UseAcylicBackground)
+            if (App.Settings.Prop.UseAcrylicBackground)
             {
                 this.WindowStyle = WindowStyle.None;
 
@@ -96,7 +96,7 @@ namespace Bloxstrap.UI.Elements.Base
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             // skip if acrylic is not on
-            if (!App.Settings.Prop.UseAcylicBackground)
+            if (!App.Settings.Prop.UseAcrylicBackground)
             {
                 base.OnPreviewMouseLeftButtonDown(e);
                 return;
