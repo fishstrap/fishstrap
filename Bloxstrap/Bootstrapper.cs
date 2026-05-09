@@ -766,26 +766,9 @@ namespace Bloxstrap
                     _launchCommandLine = "roblox://navigation/home"; // fixes a bug on rblx.org where its stuck on the login screen, doesnt affect anything else
             }
 
-            string[] Names = { App.RobloxPlayerAppName, App.RobloxStudioAppName };
-            string ResolvedName = null!;
-
-            foreach (string Name in Names)
-            {
-                string Directory = Path.Combine((string)AppData.Directory, Name);
-                if (File.Exists(Directory))
-                {
-                    ResolvedName = Name;
-                }
-            }
-
-            if (String.IsNullOrEmpty(ResolvedName))
-            {
-                await UpgradeRoblox();
-            }
-
             var startInfo = new ProcessStartInfo()
             {
-                FileName = Path.Combine(AppData.Directory, ResolvedName),
+                FileName = AppData.ExecutablePath,
                 Arguments = _launchCommandLine,
                 WorkingDirectory = AppData.Directory
             };
