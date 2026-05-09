@@ -49,7 +49,7 @@ namespace Bloxstrap.UI.Elements.Settings.Pages
                 {
                     // Enabled = true,
                     Name = pair.Key,
-                    Value = pair.Value.ToString()!
+                    Value = pair.Value?.ToString() ?? ""
                 };
 
                 /* if (entry.Name.StartsWith("Disable"))
