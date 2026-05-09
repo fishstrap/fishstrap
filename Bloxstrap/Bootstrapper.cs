@@ -737,14 +737,24 @@ namespace Bloxstrap
                         isFollowUser = true;
                 }
 
-
-                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinType != GameJoinType.RequestPrivateGame && _joinData.PlaceId != null && !isFollowUser)
+                try
                 {
-                    string serverid = await GetBetterMatchmakingServerID();
-                    string placeLauncherUrl = UrlBuilder.BuildPlacelauncherUrl((long)_joinData.PlaceId, serverid);
+                    if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinType != GameJoinType.RequestPrivateGame && _joinData.PlaceId != null && !isFollowUser)
+                    {
+                        string serverid = await GetBetterMatchmakingServerID();
+                        string placeLauncherUrl = UrlBuilder.BuildPlacelauncherUrl((long)_joinData.PlaceId, serverid);
 
-                    if (!string.IsNullOrEmpty(serverid))
-                        _launchCommandLine = _launchCommandLine.Replace(_joinData.PlaceLauncherUrl, HttpUtility.UrlEncode(placeLauncherUrl));
+                        if (!string.IsNullOrEmpty(serverid))
+                            _launchCommandLine = _launchCommandLine.Replace(_joinData.PlaceLauncherUrl, HttpUtility.UrlEncode(placeLauncherUrl));
+                    }
+                } catch (HttpRequestException ex)
+                {
+                    Frontend.ShowConnectivityDialog(
+                        String.Format(Strings.Dialog_Connectivity_UnableToConnect, "rovalra.com"),
+                        Strings.Dialog_Connectivity_MatchmakingFailed,
+                        MessageBoxImage.Warning,
+                        ex
+                        );
                 }
 
                 // this needs to be done before roblox launches

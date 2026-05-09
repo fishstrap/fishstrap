@@ -129,6 +129,9 @@
   <data name="Dialog.Connectivity.BadConnection" xml:space="preserve">
     <value>A connection could not be made, which likely indicates a poor internet connection or a firewall block. If your connection is fine, please ensure that your antivirus isn't blocking Fishstrap.</value>
   </data>
+  <data name="Dialog.Connectivity.MatchmakingFailed" xml:space="preserve">
+    <value>BetterMatchmaking will be disabled for this session.</value>
+  </data>
   <data name="Bootstrapper.FirstRunUninstall" xml:space="preserve">
     <value>You must first install Fishstrap before uninstalling.</value>
   </data>

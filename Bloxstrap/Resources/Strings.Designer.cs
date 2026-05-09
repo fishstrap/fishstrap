@@ -1702,6 +1702,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BetterMatchmaking will be disabled for this session..
+        /// </summary>
+        public static string Dialog_Connectivity_MatchmakingFailed {
+            get {
+                return ResourceManager.GetString("Dialog.Connectivity.MatchmakingFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More information:.
         /// </summary>
         public static string Dialog_Connectivity_MoreInfo {
