@@ -13,6 +13,8 @@
              MinWidth="800"
              Width="800"
              Height="440"
+             WindowStyle="None"
+             AllowsTransparency="True"
              ExtendsContentIntoTitleBar="True"
              WindowBackdropType="Mica"
              WindowStartupLocation="CenterScreen">

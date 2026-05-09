@@ -42,6 +42,11 @@ namespace Bloxstrap.UI.Elements.Base
 
             if (App.Settings.Prop.UseAcylicBackground)
             {
+                this.WindowStyle = WindowStyle.None;
+
+                if (!AllowsTransparency)
+                    this.AllowsTransparency = true;
+
                 this.ExtendsContentIntoTitleBar = true;
                 this.WindowBackdropType = BackgroundType.Acrylic;
 
