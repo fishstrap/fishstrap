@@ -5,7 +5,6 @@
         [EnumName(FromTranslation = "Common.Automatic")]
         Default,
         Vulkan,
-        OpenGL,
         D3D11,
     }
 }

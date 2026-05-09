@@ -45,17 +45,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
             get => App.FastFlags.GetPresetEnum(RenderingModes, "Rendering.Mode", "True");
             set
             {
-                RenderingMode[] DisableD3D11 = new RenderingMode[]
-                {
-                    RenderingMode.Vulkan,
-                    RenderingMode.OpenGL
-                };
-
                 if (value != RenderingMode.Vulkan)
                     App.Settings.Prop.FakeBorderlessFullscreen = false; // vulkan exclusive
 
                 App.FastFlags.SetPresetEnum("Rendering.Mode", value.ToString(), "True");
-                App.FastFlags.SetPreset("Rendering.Mode.DisableD3D11", DisableD3D11.Contains(value) ? "True" : null);
             }
         }
 

@@ -26,10 +26,8 @@ namespace Bloxstrap
             { "Rendering.FRMQualityOverride", "DFIntDebugFRMQualityLevelOverride" },
 
             // Rendering engines
-            { "Rendering.Mode.DisableD3D11", "FFlagDebugGraphicsDisableDirect3D11" },
             { "Rendering.Mode.D3D11", "FFlagDebugGraphicsPreferD3D11" },
             { "Rendering.Mode.Vulkan", "FFlagDebugGraphicsPreferVulkan" },
-            { "Rendering.Mode.OpenGL", "FFlagDebugGraphicsPreferOpenGL" },
 
             // Geometry
             { "Geometry.MeshLOD.Static", "DFIntCSGLevelOfDetailSwitchingDistanceStatic" }, // this isnt actually a flag, we use it to determine current value, not the best way of doing that :sob:
@@ -47,7 +45,6 @@ namespace Bloxstrap
         {
             { RenderingMode.Default, "None" },
             { RenderingMode.Vulkan, "Vulkan" },
-            { RenderingMode.OpenGL, "OpenGL" },
             { RenderingMode.D3D11, "D3D11" },
         };
 
