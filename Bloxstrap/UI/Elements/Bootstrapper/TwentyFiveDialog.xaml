@@ -25,11 +25,11 @@
 
     <Grid Background="{DynamicResource MainWindowBackgroundBrush}">
         <ui:TitleBar Title="" Width="576" Height="32" ShowMaximize="False" CanMaximize="False" ShowMinimize="False" ShowClose="False"/>
-        <Image Height="254" Width="254" HorizontalAlignment="Center" VerticalAlignment="Top" Source="/Resources/BootstrapperStyles/TwentyFiveDialog/PlayerLogo.png" Margin="0,60,0,0" />
+        <Image Height="254" Width="254" HorizontalAlignment="Center" VerticalAlignment="Top" Source="{Binding Icon}" Margin="0,60,0,0" />
 
         <Grid VerticalAlignment="Bottom" Background="#191A1F" Height="91">
             <ProgressBar Height="6" Width="576" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Transparent" BorderThickness="0" Foreground="White" Style="{StaticResource SquareProgressBarStyle}" Tag="39" IsIndeterminate="{Binding ProgressIndeterminate, Mode=OneWay}" Maximum="{Binding ProgressMaximum, Mode=OneWay}" Value="{Binding ProgressValue, Mode=OneWay}" />
-            <Image Height="32" Width="103" Source="/Resources/BootstrapperStyles/TwentyFiveDialog/Roblox.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" />
+            <Image Height="32" Source="{Binding Logo}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" />
 
             <Button Margin="0,0,32,0" Width="64" Height="38" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{x:Static resources:Strings.Common_Cancel}" IsEnabled="{Binding CancelEnabled, Mode=OneWay}" Command="{Binding CancelInstallCommand}">
                 <Button.Resources>

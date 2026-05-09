@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-using System.Windows.Shell;
-
+﻿using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using Bloxstrap.UI.ViewModels.Bootstrapper;
-using Bloxstrap.UI.Elements.Bootstrapper.Base;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Shell;
+using Wpf.Ui.Appearance;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
@@ -12,7 +14,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
     /// </summary>
     public partial class TwentyFiveDialog : IBootstrapperDialog
     {
-        private readonly BootstrapperDialogViewModel _viewModel;
+        private readonly TwentyFiveDialogViewModel _viewModel;
 
         public Bloxstrap.Bootstrapper? Bootstrapper { get; set; }
 
@@ -96,10 +98,22 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         {
             InitializeComponent();
 
-            _viewModel = new BootstrapperDialogViewModel(this);
+            _viewModel = new TwentyFiveDialogViewModel(this);
             DataContext = _viewModel;
+
+            this.Resources["MainWindowBackgroundBrush"] = System.Windows.Media.Brushes.Transparent;
+
+            byte opacity = App.Settings.Prop.AcrylicBackgroundOpacity;
+
+            if (App.Settings.Prop.UseAcrylicBackground)
+            {
+                this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 250, 250, 250));
+
+                if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Light)
+                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 32, 32, 32));
+            }
+
             Title = App.Settings.Prop.BootstrapperTitle;
-            Icon = App.Settings.Prop.BootstrapperIcon.GetIcon().GetImageSource();
         }
 
         private void UiWindow_Closing(object sender, CancelEventArgs e)
