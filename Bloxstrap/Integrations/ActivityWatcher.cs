@@ -385,14 +385,14 @@
 
                     LastRPCRequest = DateTime.Now;
                 }
-                else if (entry.Contains(GameServerUptimeEntry))
+                else if (logMessage.StartsWith(GameServerUptimeEntry))
                 {
-                    Match match = Regex.Match(entry, GameServerUptimePattern);
+                    Match match = Regex.Match(logMessage, GameServerUptimePattern);
 
                     if (!match.Success && match.Groups.Count == 2)
                     {
                         App.Logger.WriteLine(LOG_IDENT, $"Failed to assert format for server uptime entry");
-                        App.Logger.WriteLine(LOG_IDENT, entry);
+                        App.Logger.WriteLine(LOG_IDENT, logMessage);
                         return;
                     }
 
