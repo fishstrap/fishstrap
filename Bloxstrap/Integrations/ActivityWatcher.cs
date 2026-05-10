@@ -10,9 +10,7 @@
         // they only get printed depending on their configured FLog level, which could change at any time
         // while levels being changed is fairly rare, please limit the number of varying number of FLog types you have to use, if possible
 
-        // gamejoinutil string no longer work lol
-        private const string GameTeleportingEntry            = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToPlace";
-        private const string GameJoiningReservedServerEntry  = "[FLog::GameJoinUtil] GameJoinUtil::initiateTeleportToReservedServer";
+        private const string GameTeleportingEntry            = "[FLog::UgcExperienceController] UgcExperienceController: doTeleport: joinScriptUrl";
         private const string GameJoiningUniverseEntry        = "[FLog::GameJoinLoadTime] Report game_join_loadtime:";
         private const string GameJoiningUDMUXEntry           = "[FLog::Network] UDMUX Address = ";
         private const string GameJoinedEntry                 = "[FLog::Network] serverId:";
@@ -22,6 +20,7 @@
 
         private const string GameJoiningEntryPattern         = @"! Joining game '([0-9a-f\-]{36})' place ([0-9]+) at ([0-9\.]+)";
         private const string GameJoinReferralPattern         = @"referral_page:([^,]+)";
+        private const string GameTeleportJoinTypePattern     = @"JoinTypeId""%3a(\d+)%2c";
         private const string GameJoiningUniversePattern      = @"universeid:([0-9]+).*userid:([0-9]+)";
         private const string GameJoiningUDMUXPattern         = @"UDMUX Address = ([0-9\.]+), Port = [0-9]+ \| RCC Server Address = ([0-9\.]+), Port = [0-9]+";
         private const string GameJoinedEntryPattern          = @"serverId: ([0-9\.]+)\|[0-9]+";
@@ -31,7 +30,7 @@
         private int _logEntriesRead = 0;
         private bool _teleportMarker = false;
         private bool _reservedTeleportMarker = false;
-        
+
         public event EventHandler<string>? OnLogEntry;
         public event EventHandler? ShowNotif;
         public event EventHandler? OnGameJoin;
@@ -296,11 +295,18 @@
                 {
                     App.Logger.WriteLine(LOG_IDENT, $"Initiating teleport to server ({Data})");
                     _teleportMarker = true;
-                }
-                else if (logMessage.StartsWith(GameJoiningReservedServerEntry))
-                {
-                    _teleportMarker = true;
-                    _reservedTeleportMarker = true;
+                    var joinTypeMatch = Regex.Match(logMessage, GameTeleportJoinTypePattern);
+                    if (joinTypeMatch.Success)
+                    {
+                        int joinTypeId = int.Parse(joinTypeMatch.Groups[1].Value);
+                        App.Logger.WriteLine(LOG_IDENT, $"Teleport JoinTypeId: {joinTypeId}");
+
+                        if (joinTypeId == 4 || joinTypeId == 6)
+                        {
+                            _reservedTeleportMarker = true;
+                            App.Logger.WriteLine(LOG_IDENT, "Detected reserved server teleport");
+                        }
+                    }
                 }
                 else if (logMessage.StartsWith(GameMessageEntry))
                 {
@@ -378,7 +384,8 @@
                     OnRPCMessage?.Invoke(this, message);
 
                     LastRPCRequest = DateTime.Now;
-                } else if (entry.Contains(GameServerUptimeEntry))
+                }
+                else if (entry.Contains(GameServerUptimeEntry))
                 {
                     Match match = Regex.Match(entry, GameServerUptimePattern);
 
