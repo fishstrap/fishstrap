@@ -182,7 +182,7 @@ namespace Bloxstrap.RobloxInterfaces
                 channel = "live";
 
             if (channel == "live")
-                return true;
+                return false;
 
             try
             {
