@@ -30,15 +30,16 @@ namespace Bloxstrap.Models.Entities
 
         public static async Task FetchBulk(string ids)
         {
+            // some universes can't be viewed by logged out user (ex. 18+)
+            // requesting multiple universe ids bypasses this
+            if (!ids.Contains(','))
+                ids += ",1";
+
             Uri gameDetailsUrl = UrlBuilder.BuildApiUrl("games", $"v1/games?universeIds={ids}");
             Uri thumbnailsUrl = UrlBuilder.BuildApiUrl("thumbnails", $"v1/games/icons?universeIds={ids}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=false");
             ApiArrayResponse<GameDetailResponse> gameDetailResponse;
 
-            // some universes can't be viewed by logged out user (ex. 18+)
-            if (App.Cookies.Loaded)
-                gameDetailResponse = await Http.AuthGetJson<ApiArrayResponse<GameDetailResponse>>(gameDetailsUrl);
-            else
-                gameDetailResponse = await Http.GetJson<ApiArrayResponse<GameDetailResponse>>(gameDetailsUrl);
+            gameDetailResponse = await Http.GetJson<ApiArrayResponse<GameDetailResponse>>(gameDetailsUrl);
 
             if (!gameDetailResponse.Data.Any())
                 throw new InvalidHTTPResponseException("Roblox API for Game Details returned invalid data");
