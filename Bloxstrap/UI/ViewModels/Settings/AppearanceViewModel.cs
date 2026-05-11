@@ -1,20 +1,19 @@
-﻿using System.Collections.ObjectModel;
+﻿using Bloxstrap.Integrations;
+using Bloxstrap.UI.Elements.Dialogs;
+using Bloxstrap.UI.Elements.Editor;
+using Bloxstrap.UI.Elements.Settings;
+using CommunityToolkit.Mvvm.Input;
+using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
-using CommunityToolkit.Mvvm.Input;
-using ICSharpCode.SharpZipLib.Zip;
-
-using Microsoft.Win32;
-
-using Bloxstrap.UI.Elements.Settings;
-using Bloxstrap.UI.Elements.Editor;
-using Bloxstrap.UI.Elements.Dialogs;
+using Wpf.Ui.Common.Interfaces;
 
 namespace Bloxstrap.UI.ViewModels.Settings
 {
-    public class AppearanceViewModel : NotifyPropertyChangedViewModel
+    public class AppearanceViewModel : NotifyPropertyChangedViewModel, INavigationAware
     {
         private readonly Page _page;
 
@@ -27,6 +26,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ICommand RenameCustomThemeCommand => new RelayCommand(RenameCustomTheme);
         public ICommand EditCustomThemeCommand => new RelayCommand(EditCustomTheme);
         public ICommand ExportCustomThemeCommand => new RelayCommand(ExportCustomTheme);
+
+        public bool WindowManipulationEnabled => WindowManipulation.WindowManipulationAvailable;
+
+        public void OnNavigatedTo() => OnPropertyChanged(nameof(WindowManipulationEnabled));
+
+        public void OnNavigatedFrom() { } // has to be here because of INavigationAware, we will just leave it empty
 
         private void PreviewBootstrapper()
         {

@@ -122,7 +122,7 @@
         <controls:OptionControl 
             Header="Enable Borderless Fullscreen for Vulkan"
             Description="Let's you use a fake version of borderless fullscreen while using Vulkan."
-            IsEnabled="{Binding IsVulkanEnabled, Mode=OneWay}">
+            IsEnabled="{Binding VulkanFullscreenAllowed, Mode=OneWay}">
             <StackPanel Orientation="Horizontal">
                 <ui:ToggleSwitch IsChecked="{Binding EnableFakeBorderlessFullscreen, Mode=TwoWay}" />
             </StackPanel>

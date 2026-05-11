@@ -23,6 +23,8 @@ namespace Bloxstrap.Integrations
             _robloxPID = (uint)robloxProcessId;
         }
 
+        public static bool WindowManipulationAvailable => App.Settings.Prop.EnableActivityTracking;
+
         public void FakeBorderless()
         {
             const string LOG_IDENT = "WindowManipulation::BorderlessFullscreen";

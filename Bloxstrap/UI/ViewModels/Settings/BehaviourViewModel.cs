@@ -1,5 +1,6 @@
 ﻿using Bloxstrap.AppData;
 using Bloxstrap.Enums;
+using Bloxstrap.Integrations;
 using Bloxstrap.RobloxInterfaces;
 using Wpf.Ui.Common.Interfaces;
 
@@ -15,14 +16,14 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public void OnNavigatedTo() 
         {
-            OnPropertyChanged(nameof(IsVulkanEnabled));
+            OnPropertyChanged(nameof(VulkanFullscreenAllowed));
             OnPropertyChanged(nameof(EnableFakeBorderlessFullscreen));
         }
 
         public void OnNavigatedFrom() { } // has to be here because of INavigationAware, we will just leave it empty
 
         public bool IsRobloxInstallationMissing => String.IsNullOrEmpty(App.RobloxState.Prop.Player.VersionGuid) && String.IsNullOrEmpty(App.RobloxState.Prop.Studio.VersionGuid);
-        public bool IsVulkanEnabled => (App.FastFlags.GetPreset("Rendering.Mode.Vulkan") ?? "False").Equals("True", StringComparison.OrdinalIgnoreCase);
+        public bool VulkanFullscreenAllowed => WindowManipulation.WindowManipulationAvailable && (App.FastFlags.GetPreset("Rendering.Mode.Vulkan") ?? "False").Equals("True", StringComparison.OrdinalIgnoreCase);
 
         public bool CookieAccess
         {
