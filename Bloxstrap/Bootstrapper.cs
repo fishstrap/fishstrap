@@ -1255,24 +1255,6 @@ namespace Bloxstrap
         {
             const string LOG_IDENT = "Bootstrapper::UpgradeRoblox";
 
-            bool CancelUpgrade = !App.Settings.Prop.UpdateRoblox;
-
-            if (CancelUpgrade)
-            {
-                SetStatus(Strings.Bootstrapper_Status_CancelUpgrade);
-                App.Logger.WriteLine(LOG_IDENT, "Upgrading disabled, cancelling the upgrade.");
-                Thread.Sleep(2000);
-            }
-
-            if (CancelUpgrade && !Directory.Exists(_latestVersionDirectory))
-            {
-                Frontend.ShowMessageBox(Strings.Bootstrapper_Dialog_NoUpgradeWithoutClient, MessageBoxImage.Warning, MessageBoxButton.OK);
-            }
-            else if (CancelUpgrade)
-            {
-                return;
-            }
-
             if (String.IsNullOrEmpty(AppData.State.VersionGuid))
                 SetStatus(Strings.Bootstrapper_Status_Installing);
             else

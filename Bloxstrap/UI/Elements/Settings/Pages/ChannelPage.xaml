@@ -53,14 +53,6 @@
             <ui:TextBox Grid.Column="1" Margin="8,0,8,0" Padding="10,5,10,5" Width="200" PlaceholderText="roblox.com" Text="{Binding RobloxDomain}" />
         </controls:OptionControl>
 
-        <controls:OptionControl 
-    x:Name="FlagStateOption"
-    Header="{x:Static resources:Strings.Menu_Channel_VersionHash_Title}" 
-    Description="{x:Static resources:Strings.Menu_Channel_VersionHash_Desription}"
-    Visibility="Collapsed">
-            <ui:TextBox Width="200" Padding="10,5,10,5" Text="{Binding ChannelHash, Mode=TwoWay}" />
-        </controls:OptionControl>
-
         <ui:CardExpander Margin="0,8,0,0" IsExpanded="True">
             <ui:CardExpander.Header>
                 <Grid>

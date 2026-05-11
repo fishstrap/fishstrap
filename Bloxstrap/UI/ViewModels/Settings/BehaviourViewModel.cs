@@ -66,12 +66,6 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.FakeBorderlessFullscreen = value;
         }
 
-        public bool UpdateRoblox
-        {
-            get => App.Settings.Prop.UpdateRoblox && !IsRobloxInstallationMissing;
-            set => App.Settings.Prop.UpdateRoblox = value;
-        }
-
         public bool ConfirmLaunches
         {
             get => App.Settings.Prop.ConfirmLaunches;
