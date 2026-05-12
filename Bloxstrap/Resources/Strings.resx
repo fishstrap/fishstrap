@@ -1415,7 +1415,7 @@ Would you like to switch your preferred channel to {0}?</value>
     <value>Never</value>
   </data>
   <data name="Enums.CleanerOptions.Disabled" xml:space="preserve">
-    <value>Disabled (Don't create logs)</value>
+    <value>Disabled (Errors only)</value>
   </data>
   <data name="Enums.CleanerOptions.OneDay" xml:space="preserve">
     <value>After 1 day</value>
