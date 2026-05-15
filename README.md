@@ -50,12 +50,13 @@ post in [our Discord server][discord-invite]'s `#support-and-bugs` channel.
 
 <div align="center">
 
-![][repo-showcase]
+![][repo-showcase-light]
+![][repo-showcase-dark]
 
 </div>
 
-[banner-light]: https://github.com/fishstrap/fishstrap/raw/main/Images/Bloxstrap-full-light.png#gh-light-mode-only
-[banner-dark]:  https://github.com/fishstrap/fishstrap/raw/main/Images/Bloxstrap-full-dark.png#gh-dark-mode-only
+[banner-light]: https://github.com/fishstrap/fishstrap/raw/main/Images/Fishstrap-Light.png#gh-light-mode-only
+[banner-dark]:  https://github.com/fishstrap/fishstrap/raw/main/Images/Fishstrap-Dark.png#gh-dark-mode-only
 
 [badge-license]:   https://img.shields.io/github/license/fishstrap/fishstrap?style=flat-square
 [badge-actions]:   https://img.shields.io/github/actions/workflow/status/fishstrap/fishstrap/ci-release.yml?branch=main&style=flat-square&label=builds
@@ -66,7 +67,9 @@ post in [our Discord server][discord-invite]'s `#support-and-bugs` channel.
 
 [repo-latest]:    https://github.com/fishstrap/fishstrap/releases/latest
 [repo-new-issue]: https://github.com/fishstrap/fishstrap/issues/new/choose
-[repo-showcase]:  https://www.fishstrap.app/img/Showcase.webp
+
+[repo-showcase-dark]:  https://www.fishstrap.app/img/Showcase-Dark.png#gh-light-mode-only
+[repo-showcase-light]:  https://www.fishstrap.app/img/Showcase-Light.png#gh-dark-mode-only
 
 [discord-invite]: https://discord.gg/SRs5zb9BJd
 
