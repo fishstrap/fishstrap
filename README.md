@@ -68,8 +68,8 @@ post in [our Discord server][discord-invite]'s `#support-and-bugs` channel.
 [repo-latest]:    https://github.com/fishstrap/fishstrap/releases/latest
 [repo-new-issue]: https://github.com/fishstrap/fishstrap/issues/new/choose
 
-[repo-showcase-dark]:  https://www.fishstrap.app/img/Showcase-Dark.png#gh-light-mode-only
-[repo-showcase-light]:  https://www.fishstrap.app/img/Showcase-Light.png#gh-dark-mode-only
+[repo-showcase-dark]:  https://github.com/fishstrap/fishstrap/raw/main/Images/Showcase-Dark.png#gh-light-mode-only
+[repo-showcase-light]:  https://github.com/fishstrap/fishstrap/raw/main/Images/Showcase-Light.png#gh-dark-mode-only
 
 [discord-invite]: https://discord.gg/SRs5zb9BJd
 
