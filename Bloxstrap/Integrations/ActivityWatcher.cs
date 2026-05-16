@@ -296,17 +296,19 @@
                     App.Logger.WriteLine(LOG_IDENT, $"Initiating teleport to server ({Data})");
                     _teleportMarker = true;
                     var joinTypeMatch = Regex.Match(logMessage, GameTeleportJoinTypePattern);
-                    if (joinTypeMatch.Success)
+                    if (joinTypeMatch.Success && int.TryParse(joinTypeMatch.Groups[1].Value, out int joinTypeId))
                     {
-                        var joinTypeId = (ServerSessionJoinType)int.Parse(joinTypeMatch.Groups[1].Value);
+                        var joinType = (ServerSessionJoinType)joinTypeId;
                         App.Logger.WriteLine(LOG_IDENT, $"Teleport JoinTypeId: {joinTypeId}");
 
-                        if (joinTypeId is ServerSessionJoinType.NewGamePrivateGame or ServerSessionJoinType.SpecificPrivateGame)
+                        if (joinType is ServerSessionJoinType.NewGamePrivateGame or ServerSessionJoinType.SpecificPrivateGame)
                         {
                             _reservedTeleportMarker = true;
                             App.Logger.WriteLine(LOG_IDENT, "Detected reserved server teleport");
                         }
                     }
+                    else
+                        App.Logger.WriteLine(LOG_IDENT, "Failed to detect teleport type");
                 }
                 else if (logMessage.StartsWith(GameMessageEntry))
                 {
