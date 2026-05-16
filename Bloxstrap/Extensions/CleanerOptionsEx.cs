@@ -4,6 +4,7 @@
     {
         public static IReadOnlyCollection<CleanerOptions> Selections => new CleanerOptions[]
         {
+            CleanerOptions.Disabled,
             CleanerOptions.Never,
             CleanerOptions.OneDay,
             CleanerOptions.OneWeek,

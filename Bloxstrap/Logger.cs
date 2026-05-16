@@ -18,6 +18,15 @@
         {
             const string LOG_IDENT = "Logger::Initialize";
 
+            // Check if log creation is disabled via Cleaner settings
+            // When disabled, only exceptions are logged to file
+            if (!useTempDir && App.Settings.Prop.CleanerOptions == CleanerOptions.Disabled)
+            {
+                WriteLine(LOG_IDENT, "Regular log creation is disabled, only exceptions will be logged");
+                NoWriteMode = true;
+                return;
+            }
+
             string directory = useTempDir ? Path.Combine(Paths.TempLogs) : Path.Combine(Paths.Base, "Logs");
             string timestamp = DateTime.UtcNow.ToString("yyyyMMdd'T'HHmmss'Z'");
             string filename = $"{App.ProjectName}_{timestamp}.log";
@@ -122,6 +131,31 @@
             WriteLine($"[{identifier}] ({hresult}) {ex}");
 
             Thread.CurrentThread.CurrentUICulture = Locale.CurrentCulture;
+
+            // If regular logging is disabled, ensure exceptions are still written to file with context
+            if (NoWriteMode && !Initialized && App.Settings.Prop.CleanerOptions == CleanerOptions.Disabled)
+            {
+                // Initialize logger just for this exception
+                string directory = Path.Combine(Paths.Base, "Logs");
+                string timestamp = DateTime.UtcNow.ToString("yyyyMMdd'T'HHmmss'Z'");
+                string filename = $"{App.ProjectName}_errors_{timestamp}.log";
+                string location = Path.Combine(directory, filename);
+
+                try
+                {
+                    Directory.CreateDirectory(directory);
+                    
+                    // Include context: last 50 log lines before the exception
+                    int contextLines = Math.Min(50, History.Count);
+                    var contextLog = string.Join("\r\n", History.Skip(History.Count - contextLines));
+                    
+                    File.AppendAllText(location, contextLog + "\r\n");
+                }
+                catch
+                {
+                    // If we can't write exceptions, there's nothing we can do
+                }
+            }
         }
 
         private async void WriteToLog(string message)

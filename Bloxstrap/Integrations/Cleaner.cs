@@ -32,6 +32,7 @@ namespace Bloxstrap.Integrations
                 CleanerOptions.OneMonth => 30,
                 CleanerOptions.TwoMonths => 60,
                 CleanerOptions.Never => int.MaxValue,
+                CleanerOptions.Disabled => int.MaxValue,
                 _ => int.MaxValue,
             };
 
