@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.VisualBasic.Logging;
+using System.Drawing;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
-
-using CommunityToolkit.Mvvm.Input;
 
 namespace Bloxstrap.UI.ViewModels.Bootstrapper
 {
@@ -20,7 +21,7 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
 
         public ImageSource Icon { get; set; }
         public ImageSource Logo { get; set; }
-        public string Message { get; set; } = "Please wait...";
+        public string Message { get; set; } = Strings.Bootstrapper_Status_Connecting;
         public bool ProgressIndeterminate { get; set; } = true;
         public int ProgressMaximum { get; set; } = 0;
         public int ProgressValue { get; set; } = 0;
@@ -34,7 +35,13 @@ namespace Bloxstrap.UI.ViewModels.Bootstrapper
         [Obsolete("Do not use this! This is for the designer only.", true)]
         public TwentyFiveDialogViewModel()
         {
+            Uri icon = new("pack://application:,,,/Resources/BootstrapperStyles/TwentyFiveDialog/PlayerLogo.png");
+            Uri logo = new("pack://application:,,,/Resources/BootstrapperStyles/TwentyFiveDialog/Roblox.png");
+
             _dialog = null!;
+
+            Icon = new BitmapImage(icon);
+            Logo = new BitmapImage(logo);
         }
 
         public TwentyFiveDialogViewModel(IBootstrapperDialog dialog)
