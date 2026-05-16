@@ -25,7 +25,7 @@ namespace Bloxstrap.UI.Elements.Settings
         private Models.Persistable.WindowState _state => App.State.Prop.SettingsWindow;
 
         // we should cache this
-        private List<SearchBarItem> _searchIndex;
+        private List<SearchBarItem>? _searchIndex;
 
         public MainWindow(bool showAlreadyRunningWarning)
         {
@@ -230,16 +230,16 @@ namespace Bloxstrap.UI.Elements.Settings
                     return;
                 }
 
-                var selectedSetting = _searchIndex.FirstOrDefault(x => x.DisplayName.Equals(currentText, StringComparison.OrdinalIgnoreCase));
+                var selectedSetting = _searchIndex?.FirstOrDefault(x => x.DisplayName.Equals(currentText, StringComparison.OrdinalIgnoreCase));
 
-                if (selectedSetting != null)
+                if (selectedSetting is not null)
                 {
                     Navigate(selectedSetting.PageType);
                     return;
                 }
 
                 var query = currentText.ToLower();
-                autoSuggestBox.ItemsSource = _searchIndex
+                autoSuggestBox.ItemsSource = _searchIndex?
                     .Where(x => x.DisplayName.ToLower().Contains(query))
                     .Select(x => x.DisplayName)
                     .ToList();
