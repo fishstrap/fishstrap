@@ -132,7 +132,7 @@
 
             Thread.CurrentThread.CurrentUICulture = Locale.CurrentCulture;
 
-            // If regular logging is disabled, ensure exceptions are still written to file
+            // If regular logging is disabled, ensure exceptions are still written to file with context
             if (NoWriteMode && !Initialized && App.Settings.Prop.CleanerOptions == CleanerOptions.Disabled)
             {
                 // Initialize logger just for this exception
@@ -144,7 +144,12 @@
                 try
                 {
                     Directory.CreateDirectory(directory);
-                    File.AppendAllText(location, $"{History[^1]}\r\n");
+                    
+                    // Include context: last 50 log lines before the exception
+                    int contextLines = Math.Min(50, History.Count);
+                    var contextLog = string.Join("\r\n", History.Skip(History.Count - contextLines));
+                    
+                    File.AppendAllText(location, contextLog + "\r\n");
                 }
                 catch
                 {
