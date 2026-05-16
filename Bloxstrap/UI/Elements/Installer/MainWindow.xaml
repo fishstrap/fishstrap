@@ -14,10 +14,12 @@
         Title="{x:Static resources:Strings.Installer_Title}"
         Height="540" Width="840" MinWidth="840"
         Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+        WindowStyle="None"
+        AllowsTransparency="True"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="{DynamicResource MainWindowBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

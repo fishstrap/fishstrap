@@ -1,0 +1,83 @@
+﻿<base:WpfUiWindow x:Class="Bloxstrap.UI.Elements.Bootstrapper.TerminalDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bloxstrap.UI.Elements.Bootstrapper"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        mc:Ignorable="d" Height="520" Width="800" MaxHeight="520" MaxWidth="800"
+        ExtendsContentIntoTitleBar="True"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MainWindowBackgroundBrush}">
+    
+    <base:WpfUiWindow.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
+    </base:WpfUiWindow.TaskbarItemInfo>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Background="#333333">
+            <ui:TitleBar x:Name="TerminalTitleBar" Background="Transparent" Height="40" ShowMaximize="True" ShowMinimize="True" ShowClose="True" Loaded="TerminalTitleBar_Loaded" CloseClicked="UiWindow_Closing" CanMaximize="False" Panel.ZIndex="100" />
+            
+            <TabControl Grid.Column="0" Margin="12,0,0,0" Height="32" VerticalAlignment="Bottom" Background="Transparent" BorderBrush="Transparent" Padding="0">
+                <TabItem Background="Black" BorderBrush="Transparent" BorderThickness="0" Width="200">
+                    <TabItem.Template>
+                        <ControlTemplate TargetType="TabItem">
+                            <Grid Height="32">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="8,8,0,0" />
+
+                                <Path Fill="{TemplateBinding Background}" Data="M 8,0 a 8,8 0 0 1 -8,8 h 8 Z" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-8,0,0,0" />
+
+                                <Path Fill="{TemplateBinding Background}" Data="M 0,0 a 8,8 0 0 0 8,8 h -8 Z" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-8,0" />
+
+                                <ContentPresenter ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                            </Grid>
+                        </ControlTemplate>
+                    </TabItem.Template>
+
+                    <TabItem.Header>
+                        <Grid Margin="8,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="\Resources\BootstrapperStyles\TerminalDialog\Powershell.png" Height="18" Margin="0,0,6,0" VerticalAlignment="Center" />
+
+                            <TextBlock Grid.Column="1" Text="Windows Powershell" VerticalAlignment="Center" Margin="0,0,8,2" TextTrimming="CharacterEllipsis" />
+
+                            <ui:Button Grid.Column="2" Appearance="Transparent" Padding="4" BorderThickness="0" VerticalAlignment="Center" Margin="0,0,2,0" Click="UiWindow_Closing">
+                                <ui:SymbolIcon Symbol="Dismiss20" FontSize="14" Foreground="White" />
+                            </ui:Button>
+                        </Grid>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Grid Grid.Row="1" Background="Transparent">
+            <ScrollViewer x:Name="ScrollViewer" Margin="12" FontSize="16" ScrollChanged="ScrollViewer_ScrollChanged">
+                <StackPanel>
+                    <TextBlock Text="Windows Powershell" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
+                    <TextBlock Text="Copyright (C) Microsoft Corporation. All rights reserved." Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
+                    <TextBlock />
+                    <TextBlock Text="Try the new cross-platform PowerShell https://aka.ms/pscore6" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
+                    <TextBlock />
+                    <TextBlock Text="PS> ./Fishstrap.exe" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
+                    <TextBlock />
+                    <TextBlock Text="{Binding Message}" Foreground="White" Opacity="0.95" TextWrapping="Wrap" FontFamily="{StaticResource CascadiaCode}" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</base:WpfUiWindow>

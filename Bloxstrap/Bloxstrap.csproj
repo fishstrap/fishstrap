@@ -16,13 +16,20 @@
     <Product>$(AssemblyName)</Product>
     <RootNamespace>Bloxstrap</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\BootstrapperStyles\TerminalDialog\Powershell.png" />
+    <None Remove="Resources\Fonts\CascadiaCode.ttf" />
+  </ItemGroup>
     
   <ItemGroup>
     <Resource Include="Bloxstrap.ico" />
+    <Resource Include="Resources\BootstrapperStyles\TerminalDialog\Powershell.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\PlayerLogo.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\Roblox.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\Studio.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\StudioLogo.png" />
+    <Resource Include="Resources\Fonts\CascadiaCode.ttf" />
     <Resource Include="Resources\LightEditor.xshd" />
     <Resource Include="Resources\Fonts\NotoSansThai-VariableFont_wdth,wght.ttf" />
     <Resource Include="Resources\Fonts\Rubik-VariableFont_wght.ttf" />
