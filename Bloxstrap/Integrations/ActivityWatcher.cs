@@ -298,10 +298,10 @@
                     var joinTypeMatch = Regex.Match(logMessage, GameTeleportJoinTypePattern);
                     if (joinTypeMatch.Success)
                     {
-                        int joinTypeId = int.Parse(joinTypeMatch.Groups[1].Value);
+                        var joinTypeId = (ServerSessionJoinType)int.Parse(joinTypeMatch.Groups[1].Value);
                         App.Logger.WriteLine(LOG_IDENT, $"Teleport JoinTypeId: {joinTypeId}");
 
-                        if (joinTypeId == 4 || joinTypeId == 6)
+                        if (joinTypeId is ServerSessionJoinType.NewGamePrivateGame or ServerSessionJoinType.SpecificPrivateGame)
                         {
                             _reservedTeleportMarker = true;
                             App.Logger.WriteLine(LOG_IDENT, "Detected reserved server teleport");
