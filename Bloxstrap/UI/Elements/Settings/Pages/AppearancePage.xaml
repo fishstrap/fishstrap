@@ -32,14 +32,14 @@
         </controls:OptionControl>
 
         <controls:OptionControl
-            Header="Enable Acrylic"
-            Description="Enable Acylic backdground for Fishstrap.">
+            Header="{x:Static resources:Strings.Common_Acrylic}"
+            Description="{x:Static resources:Strings.Menu_Appearance_Acrylic_Description}">
             <ui:ToggleSwitch IsChecked="{Binding AcrylicBackdropEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <controls:OptionControl
-            Header="Acrylic Opacity"
-            Description="Set the opacity for the Acrylic background.">
+            Header="{x:Static resources:Strings.Menu_Appearance_AcrylicOpacity_Title}"
+            Description="{x:Static resources:Strings.Menu_Appearance_AcrylicOpacity_Description}">
             <Grid Width="204">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
