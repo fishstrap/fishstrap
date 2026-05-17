@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Windows;
@@ -69,7 +70,31 @@ namespace Bloxstrap
 
         public static readonly HttpClient HttpClient = new(
             new HttpClientLoggingHandler(
-                new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All }
+                new SocketsHttpHandler {
+                    AutomaticDecompression = DecompressionMethods.All,
+
+                    // bug fix for #1243
+                    // this forces all connections to be ipv4
+                    // credits to this blogger https://www.meziantou.net/forcing-httpclient-to-use-ipv4-or-ipv6-addresses.htm
+                    ConnectCallback = async (context, cancellationToken) =>
+                    {
+                        var entry = await Dns.GetHostEntryAsync(context.DnsEndPoint.Host, AddressFamily.InterNetwork, cancellationToken);
+                        var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                        socket.NoDelay = true;
+
+                        try
+                        {
+                            await socket.ConnectAsync(entry.AddressList, context.DnsEndPoint.Port, cancellationToken);
+
+                            return new NetworkStream(socket, ownsSocket: true);
+                        }
+                        catch
+                        {
+                            socket.Dispose();
+                            throw;
+                        }
+                    }
+                }
             )
         );
 
