@@ -37,7 +37,7 @@ namespace Bloxstrap.Integrations
                 _ => int.MaxValue,
             };
 
-            var Threshold = DateTime.Now.AddHours(-MaxFileAge);
+            var Threshold = DateTime.Now.AddDays(-MaxFileAge);
             int DeletedItems = 0;
 
             foreach (var directory in Directories)
