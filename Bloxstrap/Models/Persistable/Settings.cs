@@ -40,7 +40,13 @@ namespace Bloxstrap.Models.Persistable
 
         // integration configuration
         public CleanerOptions CleanerOptions { get; set; } = CleanerOptions.TwoWeeks;
-        public List<string> CleanerDirectories { get; set; } = new List<string>();
+        // how do i automate this? -Naveandice
+        public List<string> CleanerDirectories { get; set; } = new List<string> {
+            "RobloxCache",
+            "RobloxStudioCache",
+            "RobloxLogs",
+            "FishstrapLogs"
+        };
         public bool FakeBorderlessFullscreen { get; set; } = false;
         public bool EnableActivityTracking { get; set; } = true;
         public bool UseDiscordRichPresence { get; set; } = true;
