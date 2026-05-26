@@ -9,3 +9,6 @@ SetWindowText
 SetWinEventHook
 SendMessage
 SHObjectProperties
+GetCursorPos
+MoveWindow
+GetWindowRect

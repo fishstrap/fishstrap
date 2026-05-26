@@ -10,6 +10,7 @@
             BootstrapperStyle.FluentAeroDialog,
             BootstrapperStyle.ClassicFluentDialog,
             BootstrapperStyle.ByfronDialog,
+            BootstrapperStyle.TerminalDialog,
             BootstrapperStyle.TwentyFiveDialog,
             BootstrapperStyle.ProgressDialog,
             BootstrapperStyle.LegacyDialog2011,

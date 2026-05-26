@@ -510,6 +510,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Acrylic backdrop.
+        /// </summary>
+        public static string Common_Acrylic {
+            get {
+                return ResourceManager.GetString("Common.Acrylic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add single.
         /// </summary>
         public static string Common_AddSingle {
@@ -2035,6 +2044,15 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Windows Terminal.
+        /// </summary>
+        public static string Enums_BootstrapperStyle_TerminalDialog {
+            get {
+                return ResourceManager.GetString("Enums.BootstrapperStyle.TerminalDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Roblox (~2025).
         /// </summary>
         public static string Enums_BootstrapperStyle_TwentyFiveDialog {
@@ -2858,6 +2876,33 @@ namespace Bloxstrap.Resources {
         public static string Menu_AlreadyRunning_Title {
             get {
                 return ResourceManager.GetString("Menu.AlreadyRunning.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Acrylic backdrop for the settings menu and other dialogs. (Note: Does not work on Windows 11).
+        /// </summary>
+        public static string Menu_Appearance_Acrylic_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.Acrylic.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the opacity for the Acrylic background..
+        /// </summary>
+        public static string Menu_Appearance_AcrylicOpacity_Description {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.AcrylicOpacity.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acrylic backdrop opacity.
+        /// </summary>
+        public static string Menu_Appearance_AcrylicOpacity_Title {
+            get {
+                return ResourceManager.GetString("Menu.Appearance.AcrylicOpacity.Title", resourceCulture);
             }
         }
         

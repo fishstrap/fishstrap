@@ -1449,6 +1449,9 @@ Neće sve modifikacije biti prisutne u trenutnom lansiranju.</value>
   <data name="Bootstrapper.Experimental.BetterMatchmaking.RandomizeServer.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Menu.Integrations.MultiInstanceLaunching.Warning" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="Menu.FastFlags.Presets.EscapeMenuVersion.Title" xml:space="preserve">
     <value>Preferirana verzija escape menija</value>
   </data>
@@ -1523,7 +1526,7 @@ Neće sve modifikacije biti prisutne u trenutnom lansiranju.</value>
     <value>Svi bloxstrap zapisnici</value>
     <comment>Label that appears next to a checkbox</comment>
   </data>
-  <data name="Menu.Integrations.MultiInstanceLaunching.Warning" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="Enums.BootstrapperStyle.TerminalDialog" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

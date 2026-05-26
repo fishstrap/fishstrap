@@ -99,6 +99,30 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public bool AcrylicBackdropEnabled
+        {
+            get => App.Settings.Prop.UseAcrylicBackground;
+            set
+            {
+                App.Settings.Prop.UseAcrylicBackground = value;
+                ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+
+                OnPropertyChanged(nameof(AcrylicBackdropEnabled));
+            }
+        }
+
+        public byte AcrylicBackgroundOpacity
+        {
+            get => App.Settings.Prop.AcrylicBackgroundOpacity;
+            set
+            {
+                App.Settings.Prop.AcrylicBackgroundOpacity = value;
+                ((MainWindow)Window.GetWindow(_page)!).ApplyTheme();
+
+                OnPropertyChanged(nameof(AcrylicBackgroundOpacity));
+            }
+        }
+
         public static List<string> Languages => Locale.GetLanguages();
 
         public string SelectedLanguage

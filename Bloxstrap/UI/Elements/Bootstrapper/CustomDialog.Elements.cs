@@ -393,7 +393,22 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             uiElement.Name = name;
 
-            uiElement.Visibility = ParseXmlAttribute<Visibility>(xmlElement, "Visibility", Visibility.Visible);
+            var isStudioLaunch = App.Bootstrapper?.IsStudioLaunch;
+
+            var customVisibility = ParseXmlAttribute<ElementVisibility>(xmlElement, "Visibility", ElementVisibility.Visible);
+
+            uiElement.Visibility = customVisibility switch
+            {
+                ElementVisibility.Visible => Visibility.Visible,
+                ElementVisibility.Collapsed => Visibility.Collapsed,
+                ElementVisibility.Hidden => Visibility.Hidden,
+
+                ElementVisibility.Studio => isStudioLaunch == true ? Visibility.Visible : Visibility.Collapsed,
+                ElementVisibility.Player => isStudioLaunch == false ? Visibility.Visible : Visibility.Collapsed,
+
+                _ => Visibility.Visible
+            };
+
             uiElement.IsEnabled = ParseXmlAttribute<bool>(xmlElement, "IsEnabled", true);
 
             object? margin = GetThicknessFromXElement(xmlElement, "Margin");
@@ -463,13 +478,19 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         private static UIElement HandleXmlElement_BloxstrapCustomBootstrapper(CustomDialog dialog, XElement xmlElement)
         {
+            // dont let acrylic affect existing themes
+            dialog.ApplyTheme(false);
+
             xmlElement.SetAttributeValue("Visibility", "Collapsed"); // don't show the bootstrapper yet!!!
             xmlElement.SetAttributeValue("IsEnabled", "True");
             HandleXmlElement_Control(dialog, dialog, xmlElement);
 
             dialog.AllowsTransparency = ParseXmlAttribute<bool>(xmlElement, "AllowsTransparency", true);
             dialog.WindowCornerPreference = ParseXmlAttribute<WindowCornerPreference>(xmlElement, "WindowCornerPreference", WindowCornerPreference.Default);
+
             dialog.WindowBackdropType = ParseXmlAttribute<BackgroundType>(xmlElement, "WindowBackdropType", BackgroundType.Disable);
+            dialog.ApplyTheme(dialog.WindowBackdropType == BackgroundType.Acrylic);
+
             dialog.Opacity = 1;
 
             // transfer effect to element grid
@@ -709,7 +730,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 // bind the icon property
                 Binding binding = new Binding("Icon") { Mode = BindingMode.OneWay };
                 BindingOperations.SetBinding(image, Image.SourceProperty, binding);
-            }
+            } 
             else
             {
                 bool isAnimated = ParseXmlAttribute<bool>(xmlElement, "IsAnimated", false);
@@ -719,19 +740,19 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                     try
                     {
                         bitmapImage = new BitmapImage(sourceData.Uri!);
-                    }
-                    catch (Exception ex)
+                    } catch (Exception ex)
                     {
-                        throw new Exception($"Image Failed to create BitmapImage: {ex.Message}", ex);
+                        throw new CustomThemeException(ex, "CustomTheme.Errors.ElementTypeCreationFailed", "Image", "BitmapImage", ex.Message);
                     }
 
                     image.Source = bitmapImage;
                 }
                 else
                 {
-                    RepeatBehavior repeatBehaviour = GetImageRepeatBehaviourData(xmlElement);
-                    XamlAnimatedGif.AnimationBehavior.SetRepeatBehavior(image, repeatBehaviour);
                     XamlAnimatedGif.AnimationBehavior.SetSourceUri(image, sourceData.Uri!);
+
+                    RepeatBehavior repeatBehavior = ParseXmlAttribute<RepeatBehavior>(xmlElement, "RepeatBehavior", RepeatBehavior.Forever);
+                    XamlAnimatedGif.AnimationBehavior.SetRepeatBehavior(image, repeatBehavior);
                 }
             }
 
@@ -745,8 +766,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             RenderOptions.SetBitmapScalingMode(media, BitmapScalingMode.HighQuality);
 
-            media.LoadedBehavior = ParseXmlAttribute<MediaState>(xmlElement, "LoadedBehaviour", MediaState.Play);
-            media.UnloadedBehavior = ParseXmlAttribute<MediaState>(xmlElement, "UnloadedBehaviour", MediaState.Close);
+            media.LoadedBehavior = MediaState.Play;
+            media.UnloadedBehavior = MediaState.Close;
 
             media.Volume = ParseXmlAttribute<double>(xmlElement, "Volume", 0.5);
 
@@ -755,7 +776,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             media.Source = GetSourceData(dialog, "Source", xmlElement);
 
-            if (ParseXmlAttribute<bool>(xmlElement, "Looped", true))
+            if (ParseXmlAttribute<bool>(xmlElement, "Looped", false))
             {
                 media.MediaEnded += (Sender, e) =>
                 {

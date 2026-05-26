@@ -1800,10 +1800,10 @@ Defaulting to {1}.</value>
     <value>Timestamp</value>
   </data>
   <data name="Menu.Channel.RobloxDomain.Title" xml:space="preserve">
-	  <value>Roblox domain</value>
+    <value>Roblox domain</value>
   </data>
   <data name="Menu.Channel.RobloxDomain.Description" xml:space="preserve">
-	  <value>Set what domain Roblox and Fishstrap will use. Enter only trusted domains.</value>
+    <value>Set what domain Roblox and Fishstrap will use. Enter only trusted domains.</value>
   </data>
   <data name="Enums.BootstrapperStyle.TwentyFiveDialog" xml:space="preserve">
     <value>Roblox (~2025)</value>
@@ -1829,7 +1829,7 @@ Defaulting to {1}.</value>
   <data name="Menu.Appearance.RobloxTitle.Title" xml:space="preserve">
     <value>Roblox title</value>
   </data>
-	<data name="Menu.Appearance.RobloxTitle.Description" xml:space="preserve">
+  <data name="Menu.Appearance.RobloxTitle.Description" xml:space="preserve">
     <value>Choose what title Roblox window should have.</value>
   </data>
   <data name="Menu.Appearance.RobloxIcon.Title" xml:space="preserve">
@@ -1837,5 +1837,20 @@ Defaulting to {1}.</value>
   </data>
   <data name="Menu.Appearance.RobloxIcon.Description" xml:space="preserve">
     <value>Choose what icon Roblox should display on the taskbar.</value>
+  </data>
+  <data name="Enums.BootstrapperStyle.TerminalDialog" xml:space="preserve">
+    <value>Windows Terminal</value>
+  </data>
+  <data name="Common.Acrylic" xml:space="preserve">
+    <value>Acrylic backdrop</value>
+  </data>
+  <data name="Menu.Appearance.Acrylic.Description" xml:space="preserve">
+    <value>Enable Acrylic backdrop for the settings menu and other dialogs. (Note: Does not work on Windows 11)</value>
+  </data>
+  <data name="Menu.Appearance.AcrylicOpacity.Title" xml:space="preserve">
+    <value>Acrylic backdrop opacity</value>
+  </data>
+  <data name="Menu.Appearance.AcrylicOpacity.Description" xml:space="preserve">
+    <value>Set the opacity for the Acrylic background.</value>
   </data>
 </root>

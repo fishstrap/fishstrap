@@ -16,8 +16,9 @@
             </ResourceDictionary.MergedDictionaries>
 
             <FontFamily x:Key="Rubik">pack://application:,,,/Resources/Fonts/#Rubik Light</FontFamily>
+            <FontFamily x:Key="CascadiaCode">pack://application:,,,/Resources/Fonts/#Cascadia Code</FontFamily>
 
-            <Style TargetType="Hyperlink">
+                <Style TargetType="Hyperlink">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Foreground">

@@ -1,20 +1,21 @@
-﻿using Bloxstrap.UI.Elements.Bootstrapper.Base;
-using Bloxstrap.UI.ViewModels.Bootstrapper;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
-using System.Windows.Media;
 using System.Windows.Shell;
-using Wpf.Ui.Appearance;
+using System.Windows.Controls;
+using System.Windows;
+
+using Bloxstrap.UI.ViewModels.Bootstrapper;
+using Bloxstrap.UI.Elements.Bootstrapper.Base;
+using System.Windows.Media;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
     /// <summary>
-    /// Interaction logic for TwentyFiveDialog.xaml
+    /// Interaction logic for TerminalDialog.xaml
     /// </summary>
-    public partial class TwentyFiveDialog : IBootstrapperDialog
+    public partial class TerminalDialog : IBootstrapperDialog
     {
-        private readonly TwentyFiveDialogViewModel _viewModel;
+        private readonly TerminalDialogViewModel _viewModel;
 
         public Bloxstrap.Bootstrapper? Bootstrapper { get; set; }
 
@@ -26,7 +27,36 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             get => _viewModel.Message;
             set
             {
-                _viewModel.Message = value;
+                if (string.IsNullOrEmpty(_viewModel.Message))
+                {
+                    _viewModel.Message = value;
+                }
+                else
+                {
+                    string downloadPrefix = Strings.Bootstrapper_Status_Downloading;
+                    int lastNewlineIndex = _viewModel.Message.LastIndexOf('\n');
+                    string lastLine = lastNewlineIndex == -1 ? _viewModel.Message : _viewModel.Message.Substring(lastNewlineIndex + 1).Trim();
+
+                    string lastLineIdentity = lastLine.LastIndexOf(" - ") != -1 ? lastLine.Substring(0, lastLine.LastIndexOf(" - ")) : lastLine;
+                    string valueIdentity = value.LastIndexOf(" - ") != -1 ? value.Substring(0, value.LastIndexOf(" - ")) : value;
+
+                    if (lastLine.StartsWith(downloadPrefix) && value.StartsWith(downloadPrefix) && lastLineIdentity == valueIdentity)
+                    {
+                        if (lastNewlineIndex == -1)
+                        {
+                            _viewModel.Message = value;
+                        }
+                        else
+                        {
+                            _viewModel.Message = _viewModel.Message.Substring(0, lastNewlineIndex + 1) + value;
+                        }
+                    }
+                    else
+                    {
+                        _viewModel.Message += "\n" + value;
+                    }
+                }
+
                 _viewModel.OnPropertyChanged(nameof(_viewModel.Message));
             }
         }
@@ -94,34 +124,47 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         }
         #endregion
 
-        public TwentyFiveDialog()
+        public TerminalDialog()
         {
             InitializeComponent();
 
-            _viewModel = new TwentyFiveDialogViewModel(this);
+            _viewModel = new TerminalDialogViewModel(this);
             DataContext = _viewModel;
 
-            this.Resources["MainWindowBackgroundBrush"] = System.Windows.Media.Brushes.Transparent;
-
-            byte opacity = App.Settings.Prop.AcrylicBackgroundOpacity;
-
-            if (App.Settings.Prop.UseAcrylicBackground)
-            {
-                this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 250, 250, 250));
-
-                if (App.Settings.Prop.Theme.GetFinal() == Enums.Theme.Dark)
-                    this.Resources["MainWindowBackgroundBrush"] = new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 32, 32, 32));
-                else
-                    new SolidColorBrush(System.Windows.Media.Color.FromArgb(opacity, 255, 255, 255));
-            }
-
             Title = App.Settings.Prop.BootstrapperTitle;
+            Icon = App.Settings.Prop.BootstrapperIcon.GetIcon().GetImageSource();
         }
 
-        private void UiWindow_Closing(object sender, CancelEventArgs e)
+        private void UiWindow_Closing(object sender, RoutedEventArgs e)
         {
             if (!_isClosing)
                 Bootstrapper?.Cancel();
+        }
+
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e) 
+        {
+            if (e.ExtentHeightChange > 0)
+                ScrollViewer.ScrollToBottom();
+        }
+
+        // this is needed to center the titlebar buttonns
+        private void TerminalTitleBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            var closeButton = TerminalTitleBar.Template.FindName("PART_CloseButton", TerminalTitleBar) as FrameworkElement;
+            var buttonGrid = closeButton?.Parent as Grid;
+
+            if (buttonGrid != null)
+            {
+                buttonGrid.VerticalAlignment = VerticalAlignment.Center;
+
+                foreach (UIElement child in buttonGrid.Children)
+                {
+                    var button = child as FrameworkElement;
+
+                    if (button != null)
+                        button.Height = 40;
+                }
+            }
         }
 
         #region IBootstrapperDialog Methods

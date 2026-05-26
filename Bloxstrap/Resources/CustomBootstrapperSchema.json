@@ -398,7 +398,10 @@
 			"Values": [
 				"Visible",
 				"Hidden",
-				"Collapsed"
+				"Collapsed",
+				"Any",
+				"Player",
+				"Studio"
 			]
 		},
 		"MediaState": {
