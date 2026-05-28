@@ -45,7 +45,7 @@ namespace Bloxstrap
 
         public bool Loaded { get; set; } = false;
 
-        public string FileLocation => Path.Combine(Paths.Roblox, "GlobalBasicSettings_13.xml");
+        public string FileLocation => Path.Combine(App.Distribution.RobloxPath, "GlobalBasicSettings_13.xml");
 
         public void SetPreset(string prefix, object? value)
         {

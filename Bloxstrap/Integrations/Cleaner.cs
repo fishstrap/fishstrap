@@ -15,8 +15,8 @@ namespace Bloxstrap.Integrations
         public static Dictionary<string, string?> Directories = new Dictionary<string, string?> {
             { "FishstrapLogs", Paths.Logs },
             { "FishstrapCache", Paths.Downloads },
-            { "RobloxLogs", Paths.RobloxLogs },
-            { "RobloxCache", Paths.RobloxCache }
+            { "RobloxLogs", App.Distribution.RobloxLogs },
+            { "RobloxCache", Paths.RobloxCache } // TODO
         };
 
         public static void DoCleaning()

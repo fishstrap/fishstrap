@@ -1,10 +1,10 @@
+using Bloxstrap.Distribution;
+using Microsoft.Win32;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Shell;
 using System.Windows.Threading;
-
-using Microsoft.Win32;
 
 namespace Bloxstrap
 {
@@ -72,6 +72,8 @@ namespace Bloxstrap
                 new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All }
             )
         );
+
+        public static IDistribution Distribution { get; private set; } = null!;
 
         private static bool _showingExceptionDialog = false;
 
@@ -314,10 +316,14 @@ namespace Bloxstrap
                 }
 
                 Settings.Load();
+                Distribution = Distributions.GetCurrent();
+
                 State.Load();
                 RobloxState.Load();
                 FastFlags.Load();
                 GlobalSettings.Load();
+
+                Logger.WriteLine(LOG_IDENT, $"Distributor: {Settings.Prop.DistributorType}");
 
                 if (Settings.Prop.AllowCookieAccess)
                     Task.Run(Cookies.LoadCookies);

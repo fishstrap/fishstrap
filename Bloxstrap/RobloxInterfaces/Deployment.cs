@@ -1,11 +1,4 @@
-﻿using Bloxstrap.Utility;
-using Bloxstrap.Properties;
-using System;
-using System.Configuration;
-using System.Windows.Automation;
-using Windows.Win32.Foundation;
-
-namespace Bloxstrap.RobloxInterfaces
+﻿namespace Bloxstrap.RobloxInterfaces
 {
     public static class Deployment
     {
@@ -39,7 +32,7 @@ namespace Bloxstrap.RobloxInterfaces
         public static bool IsDefaultChannel => Channel.Equals(DefaultChannel, StringComparison.OrdinalIgnoreCase) || Channel.Equals("live", StringComparison.OrdinalIgnoreCase);
         public static bool IsDefaultRobloxDomain => RobloxDomain.Equals(DefaultRobloxDomain, StringComparison.OrdinalIgnoreCase);
 
-        public static string BaseUrl { get; private set; } = null!;
+        public static string CdnUrl { get; private set; } = null!;
 
         public static readonly List<HttpStatusCode?> BadChannelCodes = new()
         {
@@ -49,17 +42,6 @@ namespace Bloxstrap.RobloxInterfaces
         };
 
         private static readonly Dictionary<string, ClientVersion> ClientVersionCache = new();
-
-        // a list of roblox deployment locations that we check for, in case one of them don't work
-        // these are all weighted based on their priority, so that we pick the most optimal one that we can. 0 = highest
-        private static readonly Dictionary<string, int> BaseUrls = new()
-        {
-            { "https://setup.rbxcdn.com", 0 },
-            { "https://setup-aws.rbxcdn.com", 2 },
-            { "https://setup-ak.rbxcdn.com", 2 },
-            { "https://roblox-setup.cachefly.net", 2 },
-            { "https://s3.amazonaws.com/setup.roblox.com", 4 }
-        };
 
         private static async Task<string?> TestConnection(string url, int priority, CancellationToken token)
         {
@@ -108,11 +90,11 @@ namespace Bloxstrap.RobloxInterfaces
             var tokenSource = new CancellationTokenSource();
 
             var exceptions = new List<Exception>();
-            var tasks = (from entry in BaseUrls select TestConnection(entry.Key, entry.Value, tokenSource.Token)).ToList();
+            var tasks = (from entry in App.Distribution.CdnUrls select TestConnection(entry.Key, entry.Value, tokenSource.Token)).ToList();
 
             App.Logger.WriteLine(LOG_IDENT, "Testing connectivity...");
 
-            while (tasks.Any() && String.IsNullOrEmpty(BaseUrl))
+            while (tasks.Any() && String.IsNullOrEmpty(CdnUrl))
             {
                 var finishedTask = await Task.WhenAny(tasks);
 
@@ -121,13 +103,13 @@ namespace Bloxstrap.RobloxInterfaces
                 if (finishedTask.IsFaulted)
                     exceptions.Add(finishedTask.Exception!.InnerException!);
                 else if (!finishedTask.IsCanceled)
-                    BaseUrl = finishedTask.Result;
+                    CdnUrl = finishedTask.Result;
             }
 
             // stop other running connectivity tests
             tokenSource.Cancel();
 
-            if (string.IsNullOrEmpty(BaseUrl))
+            if (string.IsNullOrEmpty(CdnUrl))
             {
                 if (exceptions.Any())
                     return exceptions[0];
@@ -136,18 +118,20 @@ namespace Bloxstrap.RobloxInterfaces
                 return new TaskCanceledException("All connection attempts timed out.");
             }
 
-            App.Logger.WriteLine(LOG_IDENT, $"Got {BaseUrl} as the optimal base URL");
+            App.Logger.WriteLine(LOG_IDENT, $"Got {CdnUrl} as the optimal base URL");
 
             return null;
         }
 
         public static string GetLocation(string resource)
         {
-            string location = BaseUrl;
+            string location = CdnUrl;
+            var distribution = App.Distribution;
 
-            if (!IsDefaultChannel)
+            if (!IsDefaultChannel && distribution.SupportsCustomDeployments)
                 location += "/channel/common";
 
+            location += distribution.CdnPathExtension;
             location += resource;
 
             return location;
@@ -205,7 +189,7 @@ namespace Bloxstrap.RobloxInterfaces
             const string header = "last-modified";
 
             // since we arent getting the timestamp during launch there shouldnt be any collisions
-            if (string.IsNullOrEmpty(BaseUrl))
+            if (string.IsNullOrEmpty(CdnUrl))
                 await InitializeConnectivity();
 
             try

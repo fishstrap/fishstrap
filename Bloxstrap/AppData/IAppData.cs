@@ -1,6 +1,6 @@
 ﻿namespace Bloxstrap.AppData
 {
-    internal interface IAppData
+    public interface IAppData
     {
         string ProductName { get; }
 
