@@ -78,7 +78,7 @@ namespace Bloxstrap
 
         public bool IsStudioLaunch => _launchMode != LaunchMode.Player;
 
-        public string MutexName { get; set; } = "Bloxstrap-Bootstrapper";
+        public string MutexName { get; set; } = $"{App.ProjectName}-Bootstrapper";
         public bool QuitIfMutexExists { get; set; } = false;
         #endregion
 
@@ -216,7 +216,7 @@ namespace Bloxstrap
             if (App.Settings.Prop.CheckForUpdates && !App.LaunchSettings.UpgradeFlag.Active)
             {
                 bool updatePresent = await CheckForUpdates();
-                
+
                 if (updatePresent)
                     return;
             }
@@ -280,7 +280,7 @@ namespace Bloxstrap
 
                 if (AppData.State.VersionGuid != _latestVersionGuid || _mustUpgrade)
                 {
-                    bool backgroundUpdaterMutexOpen = Utilities.DoesMutexExist("Bloxstrap-BackgroundUpdater");
+                    bool backgroundUpdaterMutexOpen = Utilities.DoesMutexExist($"{App.ProjectName}-BackgroundUpdater");
                     if (App.LaunchSettings.BackgroundUpdaterFlag.Active)
                         backgroundUpdaterMutexOpen = false; // we want to actually update lol
 
@@ -292,7 +292,7 @@ namespace Bloxstrap
                         Utilities.KillBackgroundUpdater();
                         backgroundUpdaterMutexOpen = false;
                     }
-                   
+
                     if (!backgroundUpdaterMutexOpen)
                     {
                         if (IsEligibleForBackgroundUpdate())
@@ -375,7 +375,7 @@ namespace Bloxstrap
             if (App.Cookies.Loaded)
             {
                 UserChannel? userChannel = await Deployment.GetUserChannel(Deployment.BinaryType);
-            
+
                 if (
                     userChannel?.Token is not null &&
                     userChannel.AssignmentType != 1 // might need a change in the future
@@ -674,7 +674,7 @@ namespace Bloxstrap
                 regions.Insert(0, ipinfo.Country);
             }
 
-            foreach (var region in regions) 
+            foreach (var region in regions)
             {
                 Uri roValraServersApi = new($"https://apis.rovalra.com/v1/servers/region?place_id={_joinData.PlaceId}&region={region}");
                 App.Logger.WriteLine(LOG_IDENT, $"Checking for servers in user region");
@@ -1324,7 +1324,7 @@ namespace Bloxstrap
             foreach (var package in packages)
             {
                 await downloadSemaphore.WaitAsync(_cancelTokenSource.Token);
-                
+
 
                 var task = Task.Run(async () => {
                     await DownloadPackage(package);
@@ -1470,7 +1470,7 @@ namespace Bloxstrap
         {
             const string LOG_IDENT = "Bootstrapper::StartBackgroundUpdater";
 
-            if (Utilities.DoesMutexExist("Bloxstrap-BackgroundUpdater"))
+            if (Utilities.DoesMutexExist($"{App.ProjectName}-BackgroundUpdater"))
             {
                 App.Logger.WriteLine(LOG_IDENT, "Background updater already running");
                 return;
@@ -1637,7 +1637,7 @@ namespace Bloxstrap
             {
                 if (modFolderFiles.Contains(fileLocation))
                     continue;
-                
+
                 var packageMapEntry = PackageDirectoryMap.SingleOrDefault(x => !String.IsNullOrEmpty(x.Value) && fileLocation.StartsWith(x.Value));
                 string packageName = packageMapEntry.Key;
 
