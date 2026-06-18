@@ -8,6 +8,7 @@
       xmlns:resources="clr-namespace:Bloxstrap.Resources"
       xmlns:controls="clr-namespace:Bloxstrap.UI.Elements.Controls"
       xmlns:dmodels="clr-namespace:Bloxstrap.UI.ViewModels.Settings"
+      xmlns:persistable="clr-namespace:Bloxstrap.Models.Persistable"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance dmodels:ModsViewModel, IsDesignTimeCreatable=True}"
       d:DesignHeight="800" d:DesignWidth="800"
@@ -17,36 +18,107 @@
         <TextBlock Text="{x:Static resources:Strings.Menu_Mods_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
         <Grid Margin="0,16,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
-            <ui:CardAction Grid.Row="0" Grid.Column="0" x:Name="OpenModFolderCardAction" Margin="0,0,4,0" Icon="Folder24" Command="{Binding OpenModsFolderCommand}">
-                <StackPanel>
-                    <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Mods_OpenModsFolder_Title}" TextWrapping="Wrap" />
-                    <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Mods_OpenModsFolder_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
-                </StackPanel>
-            </ui:CardAction>
-            
-            <ui:CardAction Grid.Row="0" Grid.Column="1" Margin="4,0,0,0" Icon="BookQuestionMark24" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/bloxstraplabs/bloxstrap/wiki/Adding-custom-mods">
+
+            <ui:CardAction Grid.Column="0" Margin="0,0,4,0" Icon="BookQuestionMark24" Command="models:GlobalViewModel.OpenWebpageCommand" CommandParameter="https://github.com/bloxstraplabs/bloxstrap/wiki/Adding-custom-mods">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="{x:Static resources:Strings.Common_Help}" />
                     <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Mods_Help_Description}" Padding="0,0,16,0"  Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
                 </StackPanel>
             </ui:CardAction>
 
-            <ui:CardAction Grid.Row="1" Grid.ColumnSpan="2" Margin="0,8,0,0" Icon="WindowWrench24" Command="{Binding OpenCompatSettingsCommand}">
+            <ui:CardAction Grid.Row="1" Grid.Column="1" Margin="4,0,0,0" Icon="WindowWrench24" Command="{Binding OpenCompatSettingsCommand}">
                 <StackPanel>
                     <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Mods_Misc_CompatibilitySettings_Title}" TextWrapping="Wrap" />
-                    <controls:MarkdownTextBlock Margin="0,2,0,0" FontSize="12" MarkdownText="{Binding Source={x:Static resources:Strings.Menu_Mods_Misc_CompatibilitySettings_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://devblogs.microsoft.com/directx/demystifying-full-screen-optimizations/'}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
+                    <controls:MarkdownTextBlock Margin="0,2,0,0" FontSize="12" MarkdownText="{x:Static resources:Strings.Menu_Mods_Misc_CompatibilitySettings_Description}" TextWrapping="Wrap" />
                 </StackPanel>
             </ui:CardAction>
         </Grid>
+
+        <TextBlock Text="{x:Static resources:Strings.Menu_Mods_InstalledMods}" FontSize="20" FontWeight="Medium" Margin="0,8,0,0" TextWrapping="Wrap" />
+        <TextBlock Text="{x:Static resources:Strings.Menu_Mods_InstalledMods_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,2,0,0" TextWrapping="Wrap" />
+
+        <Grid Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ui:CardAction Grid.Row="0" x:Name="OpenModFolderCardAction" Margin="0,0,4,0" Icon="Folder24" Command="{Binding OpenModsFolderCommand}">
+                    <StackPanel>
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Mods_OpenModsFolder_Title}" TextWrapping="Wrap" />
+                        <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Mods_OpenModsFolder_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardAction>
+                <ui:CardAction Grid.Row="1" Margin="0,4,4,0" Icon="FolderZip24" Command="{Binding ImportModCommand}">
+                    <StackPanel>
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Mods_ImportMod_Title}" />
+                        <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Mods_ImportMod_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" TextWrapping="Wrap" />
+                    </StackPanel>
+                </ui:CardAction>
+            </Grid>
+
+            <Border Grid.Column="0" Height="256" Padding="12" Margin="0,0,8,0" CornerRadius="4" Background="{StaticResource ControlFillColorSecondaryBrush}" BorderBrush="{DynamicResource ControlElevationBorderBrush}">
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding InstalledMods}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type persistable:InstalledMod}">
+                            <Border Margin="0,0,0,4" Padding="12,10" CornerRadius="6" BorderThickness="1" BorderBrush="{DynamicResource ControlElevationBorderBrush}" Background="{DynamicResource ControlFillColorDefaultBrush}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,8,0">
+                                        <ui:Button Icon="ArrowUp24" ToolTip="{x:Static resources:Strings.Menu_Mods_MoveUp}" Command="{Binding DataContext.MoveModUpCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Margin="0,0,4,0" Width="32" Height="32" Padding="0" />
+                                        <ui:Button Icon="ArrowDown24" ToolTip="{x:Static resources:Strings.Menu_Mods_MoveDown}" Command="{Binding DataContext.MoveModDownCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Margin="0,0,4,0" Width="32" Height="32" Padding="0" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock FontSize="14" Text="{Binding Name}" TextWrapping="Wrap" FontWeight="Medium" />
+                                        <TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,2,0,0">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} files • Load order: {1}">
+                                                    <Binding Path="Files.Count" />
+                                                    <Binding Path="LoadOrder" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <ui:ToggleSwitch Grid.Column="0" IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="0,0,12,0" />
+                                        <ui:Button Icon="Delete16" ToolTip="{x:Static resources:Strings.Menu_Mods_DeleteMod}" Command="{Binding DataContext.DeleteModCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Appearance="Danger" Width="32" Height="32" Padding="0" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <TextBlock Text="{x:Static resources:Strings.Menu_Mods_NoModsInstalled}" FontSize="14" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,8,0,0" HorizontalAlignment="Center" Visibility="Collapsed">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding InstalledMods.Count}" Value="0">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
         <TextBlock Text="{x:Static resources:Strings.Common_Presets}" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
 

@@ -7,5 +7,7 @@
         public AppState Studio { get; set; } = new();
 
         public List<string> ModManifest { get; set; } = new();
+
+        public List<InstalledMod> InstalledMods { get; set; } = new();
     }
 }

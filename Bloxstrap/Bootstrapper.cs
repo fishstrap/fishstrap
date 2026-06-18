@@ -1600,6 +1600,10 @@ namespace Bloxstrap
                 if (relativeFile.EndsWith(".lock"))
                     continue;
 
+                if (App.RobloxState.Prop.InstalledMods.Any(m =>
+                    relativeFile.StartsWith(m.Name + "\\", StringComparison.OrdinalIgnoreCase)))
+                    continue;
+
                 bool isBlacklisted = relativeFile.Contains("content\\avatar\\heads") || relativeFile.Contains("content\\avatar\\compositing") || relativeFile.Contains("content\\avatar\\meshes");
 
                 if (relativeFile.EndsWith(".mesh") && isBlacklisted)
@@ -1633,6 +1637,71 @@ namespace Bloxstrap
                     App.Logger.WriteLine(LOG_IDENT, $"Failed to apply modification ({relativeFile})");
                     App.Logger.WriteException(LOG_IDENT, ex);
                     success = false;
+                }
+            }
+
+            if (App.RobloxState.Loaded)
+            {
+                var enabledMods = App.RobloxState.Prop.InstalledMods
+                    .Where(m => m.Enabled)
+                    .OrderBy(m => m.LoadOrder);
+
+                foreach (var mod in enabledMods)
+                {
+                    string modDir = Path.Combine(Paths.Modifications, mod.Name);
+
+                    if (!Directory.Exists(modDir))
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Mod '{mod.Name}' is enabled but its directory is missing. Skipping.");
+                        continue;
+                    }
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Applying mod '{mod.Name}' (load order: {mod.LoadOrder})");
+
+                    foreach (string file in Directory.GetFiles(modDir, "*.*", SearchOption.AllDirectories))
+                    {
+                        if (_cancelTokenSource.IsCancellationRequested)
+                            return true;
+
+                        string relativeFile = file.Substring(modDir.Length + 1);
+
+                        if (relativeFile.EndsWith(".lock"))
+                            continue;
+
+                        bool isBlacklisted = relativeFile.Contains("content\\avatar\\heads") || relativeFile.Contains("content\\avatar\\compositing") || relativeFile.Contains("content\\avatar\\meshes");
+
+                        if (relativeFile.EndsWith(".mesh") && isBlacklisted)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, $"Skipping file from mod '{mod.Name}': {relativeFile}");
+                            continue;
+                        }
+
+                        modFolderFiles.Add(relativeFile);
+
+                        string fileVersionFolder = Path.Combine(_latestVersionDirectory, relativeFile);
+
+                        if (File.Exists(fileVersionFolder) && MD5Hash.FromFile(file) == MD5Hash.FromFile(fileVersionFolder))
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, $"{relativeFile} from mod '{mod.Name}' already exists in the version folder, and is a match");
+                            continue;
+                        }
+
+                        Directory.CreateDirectory(Path.GetDirectoryName(fileVersionFolder)!);
+
+                        Filesystem.AssertReadOnly(fileVersionFolder);
+                        try
+                        {
+                            File.Copy(file, fileVersionFolder, true);
+                            Filesystem.AssertReadOnly(fileVersionFolder);
+                            App.Logger.WriteLine(LOG_IDENT, $"{relativeFile} from mod '{mod.Name}' has been copied to the version folder");
+                        }
+                        catch (Exception ex)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, $"Failed to apply mod file '{relativeFile}' from mod '{mod.Name}'");
+                            App.Logger.WriteException(LOG_IDENT, ex);
+                            success = false;
+                        }
+                    }
                 }
             }
 

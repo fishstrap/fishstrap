@@ -72,6 +72,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public void SaveAndLaunchSettings()
         {
             SaveSettings();
+            
+            // save before launching to make sure mods are applied
+            App.RobloxState.Save();
 
             if (!App.LaunchSettings.TestModeFlag.Active) // test mode already launches an instance
                 Process.Start(Paths.Application, "-player");

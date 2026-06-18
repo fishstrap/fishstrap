@@ -4631,9 +4631,153 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Menu.Mods.Help.Description", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Configure application parameters such as DPI scaling behaviour and [fullscreen optimizations]({0})..
+        ///   Looks up a localized string similar to Installed Mods.
+        /// </summary>
+        public static string Menu_Mods_InstalledMods {
+            get {
+                return ResourceManager.GetString("Menu.Mods.InstalledMods", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mods you have imported. Toggle to enable or disable, use the arrows to change load order (higher = applied later, wins conflicts)..
+        /// </summary>
+        public static string Menu_Mods_InstalledMods_Description {
+            get {
+                return ResourceManager.GetString("Menu.Mods.InstalledMods.Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete mod.
+        /// </summary>
+        public static string Menu_Mods_DeleteMod {
+            get {
+                return ResourceManager.GetString("Menu.Mods.DeleteMod", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Move up (higher load order).
+        /// </summary>
+        public static string Menu_Mods_MoveUp {
+            get {
+                return ResourceManager.GetString("Menu.Mods.MoveUp", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Move down (lower load order).
+        /// </summary>
+        public static string Menu_Mods_MoveDown {
+            get {
+                return ResourceManager.GetString("Menu.Mods.MoveDown", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Import Mod.
+        /// </summary>
+        public static string Menu_Mods_ImportMod_Title {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Import a mod from a .zip file..
+        /// </summary>
+        public static string Menu_Mods_ImportMod_Description {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mod zip|*.zip.
+        /// </summary>
+        public static string Menu_Mods_ImportMod_FileFilter {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.FileFilter", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Import Error: Invalid file type for mod archive provided..
+        /// </summary>
+        public static string Menu_Mods_ImportMod_InvalidFileType {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.InvalidFileType", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A mod named &quot;{0}&quot; is already installed..
+        /// </summary>
+        public static string Menu_Mods_ImportMod_AlreadyInstalled {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.AlreadyInstalled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Import Error: The selected archive does not appear to be a valid Roblox mod. A mod must contain at least one of the following folders at its root: ClientSettings, content, ExtraContent, PlatformContent..
+        /// </summary>
+        public static string Menu_Mods_ImportMod_InvalidStructure {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.InvalidStructure", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Import Error: The selected archive contains no files..
+        /// </summary>
+        public static string Menu_Mods_ImportMod_NoFiles {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.NoFiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Import Error: The selected file is not a valid zip archive. {0}.
+        /// </summary>
+        public static string Menu_Mods_ImportMod_InvalidZip {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.InvalidZip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Import Error: Failed to import mod. {0}.
+        /// </summary>
+        public static string Menu_Mods_ImportMod_Failed {
+            get {
+                return ResourceManager.GetString("Menu.Mods.ImportMod.Failed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete &quot;{0}&quot;? This will remove all of its files from the mods folder..
+        /// </summary>
+        public static string Menu_Mods_DeleteMod_Confirm {
+            get {
+                return ResourceManager.GetString("Menu.Mods.DeleteMod.Confirm", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to No mods installed..
+        /// </summary>
+        public static string Menu_Mods_NoModsInstalled {
+            get {
+                return ResourceManager.GetString("Menu.Mods.NoModsInstalled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Configure application parameters..
         /// </summary>
         public static string Menu_Mods_Misc_CompatibilitySettings_Description {
             get {
