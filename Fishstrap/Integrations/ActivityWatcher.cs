@@ -1,0 +1,422 @@
+namespace Fishstrap.Integrations
+{
+    public class ActivityWatcher : IDisposable
+    {
+
+        private const string GameMessageEntry                = "[FLog::Output] [FishstrapRPC]";
+        private const string GameJoiningEntry                = "[FLog::Output] ! Joining game";
+
+        // these entries are technically volatile!
+        // they only get printed depending on their configured FLog level, which could change at any time
+        // while levels being changed is fairly rare, please limit the number of varying number of FLog types you have to use, if possible
+
+        private const string GameTeleportingEntry            = "[FLog::UgcExperienceController] UgcExperienceController: doTeleport: joinScriptUrl";
+        private const string GameJoiningUniverseEntry        = "[FLog::GameJoinLoadTime] Report game_join_loadtime:";
+        private const string GameJoiningUDMUXEntry           = "[FLog::Network] UDMUX Address = ";
+        private const string GameJoinedEntry                 = "[FLog::Network] serverId:";
+        private const string GameDisconnectedEntry           = "[FLog::Network] Time to disconnect replication data:";
+        private const string GameLeavingEntry                = "[FLog::SingleSurfaceApp] leaveUGCGameInternal";
+        private const string GameServerUptimeEntry           = "[FLog::Output] Server Prefix: ";
+
+        private const string GameJoiningEntryPattern         = @"! Joining game '([0-9a-f\-]{36})' place ([0-9]+) at ([0-9\.]+)";
+        private const string GameJoinReferralPattern         = @"referral_page:([^,]+)";
+        private const string GameTeleportJoinTypePattern     = @"JoinTypeId""%3a(\d+)%2c";
+        private const string GameJoiningUniversePattern      = @"universeid:([0-9]+).*userid:([0-9]+)";
+        private const string GameJoiningUDMUXPattern         = @"UDMUX Address = ([0-9\.]+), Port = [0-9]+ \| RCC Server Address = ([0-9\.]+), Port = [0-9]+";
+        private const string GameJoinedEntryPattern          = @"serverId: ([0-9\.]+)\|[0-9]+";
+        private const string GameMessageEntryPattern         = @"\[FishstrapRPC\] (.*)";
+        private const string GameServerUptimePattern         = @"Server Prefix:.+_(\d{8}T\d{6}Z)_RCC_[0-9a-z]+";
+
+        private int _logEntriesRead = 0;
+        private bool _teleportMarker = false;
+        private bool _reservedTeleportMarker = false;
+
+        public event EventHandler<string>? OnLogEntry;
+        public event EventHandler? ShowNotif;
+        public event EventHandler? OnGameJoin;
+        public event EventHandler? OnGameLeave;
+        public event EventHandler? OnLogOpen;
+        public event EventHandler? OnAppClose;
+        public event EventHandler<Message>? OnRPCMessage;
+
+        private DateTime LastRPCRequest;
+
+        public string LogLocation = null!;
+
+        public bool InGame = false;
+        
+        public ActivityData Data { get; private set; } = new();
+
+        /// <summary>
+        /// Ordered by newest to oldest
+        /// </summary>
+        public List<ActivityData> History = new();
+
+        public bool IsDisposed = false;
+
+        public ActivityWatcher(string? logFile = null)
+        {
+            if (!String.IsNullOrEmpty(logFile))
+                LogLocation = logFile;
+        }
+
+        public async void Start()
+        {
+            const string LOG_IDENT = "ActivityWatcher::Start";
+
+            // okay, here's the process:
+            //
+            // - tail the latest log file from %localappdata%\roblox\logs
+            // - check for specific lines to determine player's game activity as shown below:
+            //
+            // - get the place id, job id and machine address from '! Joining game '{{JOBID}}' place {{PLACEID}} at {{MACHINEADDRESS}}' entry
+            // - confirm place join with 'serverId: {{MACHINEADDRESS}}|{{MACHINEPORT}}' entry
+            // - check for leaves/disconnects with 'Time to disconnect replication data: {{TIME}}' entry
+            //
+            // we'll tail the log file continuously, monitoring for any log entries that we need to determine the current game activity
+            
+            FileInfo logFileInfo;
+
+            if (String.IsNullOrEmpty(LogLocation))
+            {
+                string logDirectory = Path.Combine(Paths.LocalAppData, "Roblox\\logs");
+
+                if (!Directory.Exists(logDirectory))
+                    return;
+
+                // we need to make sure we're fetching the absolute latest log file
+                // if roblox doesn't start quickly enough, we can wind up fetching the previous log file
+                // good rule of thumb is to find a log file that was created in the last 15 seconds or so
+
+                App.Logger.WriteLine(LOG_IDENT, "Opening Roblox log file...");
+
+                while (true)
+                {
+                    logFileInfo = new DirectoryInfo(logDirectory)
+                        .GetFiles()
+                        .Where(x => x.Name.Contains("Player", StringComparison.OrdinalIgnoreCase) && x.CreationTime <= DateTime.Now)
+                        .OrderByDescending(x => x.CreationTime)
+                        .First();
+
+                    if (logFileInfo.CreationTime.AddSeconds(15) > DateTime.Now)
+                        break;
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Could not find recent enough log file, waiting... (newest is {logFileInfo.Name})");
+                    await Task.Delay(1000);
+                }
+
+                LogLocation = logFileInfo.FullName;
+            }
+            else
+            {
+                logFileInfo = new FileInfo(LogLocation);
+            }
+
+            OnLogOpen?.Invoke(this, EventArgs.Empty);
+            
+            var logFileStream = logFileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+            App.Logger.WriteLine(LOG_IDENT, $"Opened {LogLocation}");
+
+            using var streamReader = new StreamReader(logFileStream);
+
+            while (!IsDisposed)
+            {
+                string? log = await streamReader.ReadLineAsync();
+
+                if (log is null)
+                    await Task.Delay(1000);
+                else
+                    ReadLogEntry(log);
+            }
+        }
+
+        private void ReadLogEntry(string entry)
+        {
+            const string LOG_IDENT = "ActivityWatcher::ReadLogEntry";
+
+            OnLogEntry?.Invoke(this, entry);
+
+            _logEntriesRead += 1;
+
+            // debug stats to ensure that the log reader is working correctly
+            // if more than 1000 log entries have been read, only log per 100 to save on spam
+            if (_logEntriesRead <= 1000 && _logEntriesRead % 50 == 0)
+                App.Logger.WriteLine(LOG_IDENT, $"Read {_logEntriesRead} log entries");
+            else if (_logEntriesRead % 100 == 0)
+                App.Logger.WriteLine(LOG_IDENT, $"Read {_logEntriesRead} log entries");
+
+            // get the log message from the read line
+            int logMessageIdx = entry.IndexOf(' ');
+            if (logMessageIdx == -1)
+            {
+                // likely a log message that spanned multiple lines
+                return;
+            }
+
+            string logMessage = entry[(logMessageIdx + 1)..];
+
+            if (logMessage.StartsWith(GameLeavingEntry))
+            {
+                App.Logger.WriteLine(LOG_IDENT, "User is back into the desktop app");
+                
+                OnAppClose?.Invoke(this, EventArgs.Empty);
+
+                if (Data.PlaceId != 0 && !InGame)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "User appears to be leaving from a cancelled/errored join");
+                    Data = new();
+                }
+
+                return;
+            }
+
+            if (!InGame && Data.PlaceId == 0)
+            {
+                // We are not in a game, nor are in the process of joining one
+                if (logMessage.StartsWith(GameJoiningEntry))
+                {
+                    Match match = Regex.Match(logMessage, GameJoiningEntryPattern);
+
+                    if (match.Groups.Count != 4)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to assert format for game join entry");
+                        App.Logger.WriteLine(LOG_IDENT, logMessage);
+                        return;
+                    }
+
+                    InGame = false;
+                    Data.PlaceId = long.Parse(match.Groups[2].Value);
+                    Data.JobId = match.Groups[1].Value;
+                    Data.MachineAddress = match.Groups[3].Value;
+
+                    if (_teleportMarker)
+                    {
+                        Data.IsTeleport = true;
+                        _teleportMarker = false;
+                    }
+
+                    if (_reservedTeleportMarker)
+                    {
+                        Data.ServerType = ServerType.Reserved;
+                        _reservedTeleportMarker = false;
+                    }
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Joining Game ({Data})");
+                }
+            }
+            else if (!InGame && Data.PlaceId != 0)
+            {
+                // We are not confirmed to be in a game, but we are in the process of joining one
+
+                if (logMessage.StartsWith(GameJoiningUniverseEntry))
+                {
+                    var match = Regex.Match(logMessage, GameJoiningUniversePattern);
+
+                    if (match.Groups.Count != 3)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, "Failed to assert format for game join universe entry");
+                        App.Logger.WriteLine(LOG_IDENT, logMessage);
+                        return;
+                    }
+
+                    Data.UniverseId = Int64.Parse(match.Groups[1].Value);
+                    Data.UserId = Int64.Parse(match.Groups[2].Value);
+
+                    var loadTimeMatch = Regex.Match(logMessage, GameJoinReferralPattern);
+
+                    if (loadTimeMatch.Groups.Count == 2)
+                    {
+                        string referral = loadTimeMatch.Groups[1].Value;
+
+                        if (referral.Contains("RequestPrivateGame", StringComparison.OrdinalIgnoreCase) || referral.Contains("GameDetailPageJSHybridEvent", StringComparison.OrdinalIgnoreCase))
+                            Data.ServerType = ServerType.Private;
+                    }
+
+                    if (History.Any())
+                    {
+                        var lastActivity = History.First();
+
+                        if (Data.UniverseId == lastActivity.UniverseId && Data.IsTeleport)
+                            Data.RootActivity = lastActivity.RootActivity ?? lastActivity;
+                    }
+                }
+                else if (logMessage.StartsWith(GameJoiningUDMUXEntry))
+                {
+                    var match = Regex.Match(logMessage, GameJoiningUDMUXPattern);
+
+                    if (match.Groups.Count != 3 || match.Groups[2].Value != Data.MachineAddress)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, "Failed to assert format for game join UDMUX entry");
+                        App.Logger.WriteLine(LOG_IDENT, logMessage);
+                        return;
+                    }
+
+                    Data.MachineAddress = match.Groups[1].Value;
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Server is UDMUX protected ({Data})");
+                }
+                else if (logMessage.StartsWith(GameJoinedEntry))
+                {
+                    Match match = Regex.Match(logMessage, GameJoinedEntryPattern);
+
+                    if (match.Groups.Count != 2 || match.Groups[1].Value != Data.MachineAddress)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to assert format for game joined entry");
+                        App.Logger.WriteLine(LOG_IDENT, logMessage);
+                        return;
+                    }
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Joined Game ({Data})");
+
+                    InGame = true;
+                    Data.TimeJoined = DateTime.Now;
+
+                    OnGameJoin?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            else if (InGame && Data.PlaceId != 0)
+            {
+                // We are confirmed to be in a game
+
+                if (logMessage.StartsWith(GameDisconnectedEntry))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Disconnected from Game ({Data})");
+
+                    Data.TimeLeft = DateTime.Now;
+                    History.Insert(0, Data);
+
+                    InGame = false;
+                    Data = new();
+
+                    OnGameLeave?.Invoke(this, EventArgs.Empty);
+                }
+                else if (logMessage.StartsWith(GameTeleportingEntry))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, $"Initiating teleport to server ({Data})");
+                    _teleportMarker = true;
+                    var joinTypeMatch = Regex.Match(logMessage, GameTeleportJoinTypePattern);
+                    if (joinTypeMatch.Success && int.TryParse(joinTypeMatch.Groups[1].Value, out int joinTypeId))
+                    {
+                        var joinType = (ServerSessionJoinType)joinTypeId;
+                        App.Logger.WriteLine(LOG_IDENT, $"Teleport JoinTypeId: {joinTypeId}");
+
+                        if (joinType is ServerSessionJoinType.NewGamePrivateGame or ServerSessionJoinType.SpecificPrivateGame)
+                        {
+                            _reservedTeleportMarker = true;
+                            App.Logger.WriteLine(LOG_IDENT, "Detected reserved server teleport");
+                        }
+                    }
+                    else
+                        App.Logger.WriteLine(LOG_IDENT, "Failed to detect teleport type");
+                }
+                else if (logMessage.StartsWith(GameMessageEntry))
+                {
+                    var match = Regex.Match(logMessage, GameMessageEntryPattern);
+
+                    if (match.Groups.Count != 2)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to assert format for RPC message entry");
+                        App.Logger.WriteLine(LOG_IDENT, logMessage);
+                        return;
+                    }
+
+                    string messagePlain = match.Groups[1].Value;
+                    Message? message;
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Received message: '{messagePlain}'");
+
+                    if ((DateTime.Now - LastRPCRequest).TotalSeconds <= 1)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, "Dropping message as ratelimit has been hit");
+                        return;
+                    }
+
+                    try
+                    {
+                        message = JsonSerializer.Deserialize<Message>(messagePlain);
+                    }
+                    catch (Exception)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization threw an exception)");
+                        return;
+                    }
+
+                    if (message is null)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization returned null)");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(message.Command))
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (Command is empty)");
+                        return;
+                    }
+
+                    if (message.Command == "SetLaunchData")
+                    {
+                        string? data;
+
+                        try
+                        {
+                            data = message.Data.Deserialize<string>();
+                        }
+                        catch (Exception)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization threw an exception)");
+                            return;
+                        }
+
+                        if (data is null)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Failed to parse message! (JSON deserialization returned null)");
+                            return;
+                        }
+
+                        if (data.Length > 200)
+                        {
+                            App.Logger.WriteLine(LOG_IDENT, "Data cannot be longer than 200 characters");
+                            return;
+                        }
+
+                        Data.RPCLaunchData = data;
+                    }
+
+                    OnRPCMessage?.Invoke(this, message);
+
+                    LastRPCRequest = DateTime.Now;
+                }
+                else if (logMessage.StartsWith(GameServerUptimeEntry))
+                {
+                    Match match = Regex.Match(logMessage, GameServerUptimePattern);
+
+                    if (!match.Success && match.Groups.Count == 2)
+                    {
+                        App.Logger.WriteLine(LOG_IDENT, $"Failed to assert format for server uptime entry");
+                        App.Logger.WriteLine(LOG_IDENT, logMessage);
+                        return;
+                    }
+
+                    string startTime = match.Groups[1].Value;
+
+                    App.Logger.WriteLine(LOG_IDENT, $"Server started at {startTime}");
+
+                    Data.StartTime = DateTime.ParseExact(startTime, "yyyyMMdd'T'HHmmss'Z'", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
+
+                    // ip should be fetched by now
+                    if (App.Settings.Prop.ShowServerDetails && Data.MachineAddressValid)
+                        _ = Data.QueryServerLocation();
+
+                    ShowNotif?.Invoke(this, null!);
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            IsDisposed = true;
+            GC.SuppressFinalize(this);
+        }
+    }
+}

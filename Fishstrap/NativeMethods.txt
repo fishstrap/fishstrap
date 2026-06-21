@@ -1,0 +1,15 @@
+﻿SetForegroundWindow
+FlashWindow
+GetWindowLong
+SetWindowLong
+SetWindowPos
+CopyIcon
+GetWindowText
+SetWindowText
+IsWindowVisible
+SetWinEventHook
+SendMessage
+SHObjectProperties
+GetCursorPos
+MoveWindow
+GetWindowRect

@@ -1,0 +1,32 @@
+using System.Windows;
+using System.Windows.Input;
+
+using Fishstrap.UI.ViewModels.Settings;
+using Wpf.Ui.Mvvm.Contracts;
+
+namespace Fishstrap.UI.Elements.Settings.Pages
+{
+    /// <summary>
+    /// Interaction logic for FastFlagsPage.xaml
+    /// </summary>
+    public partial class GlobalSettingsPage
+    {
+        private GlobalSettingsViewModel _viewModel = null!;
+
+        public GlobalSettingsPage()
+        {
+            SetupViewModel();
+            InitializeComponent();
+        }
+
+        private void SetupViewModel()
+        {
+            _viewModel = new GlobalSettingsViewModel();
+
+            DataContext = _viewModel;
+        }
+
+        private void ValidateUInt32(object sender, TextCompositionEventArgs e) => e.Handled = !UInt32.TryParse(e.Text, out uint _);
+        private void ValidateFloat(object sender, TextCompositionEventArgs e) => e.Handled = !Regex.IsMatch(e.Text, @"^\d*\.?\d*$");
+    }
+}

@@ -1,0 +1,193 @@
+using Fishstrap.AppData;
+using System.ComponentModel;
+
+namespace Fishstrap
+{
+    static class Utilities
+    {
+        public static void ShellExecute(string website)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo 
+                { 
+                    FileName = website, 
+                    UseShellExecute = true 
+                });
+            }
+            catch (Win32Exception ex)
+            {
+                // lmfao
+
+                if (ex.NativeErrorCode != (int)ErrorCode.CO_E_APPNOTFOUND)
+                    throw;
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "rundll32.exe",
+                    Arguments = $"shell32,OpenAs_RunDLL {website}"
+                });
+            }
+        }
+
+        public static Version GetVersionFromString(string version)
+        {
+            if (version.StartsWith('v'))
+                version = version[1..];
+
+            int idx = version.IndexOf('+'); // commit info
+            if (idx != -1)
+                version = version[..idx];
+
+            return new Version(version);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="versionStr1"></param>
+        /// <param name="versionStr2"></param>
+        /// <returns>
+        /// Result of System.Version.CompareTo <br />
+        /// -1: version1 &lt; version2 <br />
+        ///  0: version1 == version2 <br />
+        ///  1: version1 &gt; version2
+        /// </returns>
+        public static VersionComparison CompareVersions(string versionStr1, string versionStr2)
+        {
+            try
+            {
+                var version1 = GetVersionFromString(versionStr1);
+                var version2 = GetVersionFromString(versionStr2);
+
+                return (VersionComparison)version1.CompareTo(version2);
+            }
+            catch (Exception)
+            {
+                // temporary diagnostic log for the issue described here:
+                // https://github.com/fishstraplabs/fishstrap/issues/3193
+                // the problem is that this happens only on upgrade, so my only hope of catching this is bug reports following the next release
+
+                App.Logger.WriteLine("Utilities::CompareVersions", "An exception occurred when comparing versions");
+                App.Logger.WriteLine("Utilities::CompareVersions", $"versionStr1={versionStr1} versionStr2={versionStr2}");
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Parses the input version string and prints if fails
+        /// </summary>
+        public static Version? ParseVersionSafe(string versionStr)
+        {
+            const string LOG_IDENT = "Utilities::ParseVersionSafe";
+
+            if (!Version.TryParse(versionStr, out Version? version))
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Failed to convert {versionStr} to a valid Version type.");
+                return version;
+            }
+
+            return version;
+        }
+
+        public static bool IsRobloxRunning()
+        {
+            Process[] processes = GetProcessesSafe();
+            string processName = Path.GetFileNameWithoutExtension(App.RobloxPlayerAppName);
+
+            return processes.Any(x => x.ProcessName == processName);
+        }
+
+        public static void CloseRobloxPlayerProcesses(bool includeVisibleWindows, bool force = true, string logIdent = "Utilities::CloseRobloxPlayerProcesses")
+        {
+            string playerProcessName = Path.GetFileNameWithoutExtension(App.RobloxPlayerAppName);
+
+            foreach (Process process in GetProcessesSafe().Where(x => x.ProcessName == playerProcessName || x.ProcessName == "RobloxCrashHandler"))
+            {
+                try
+                {
+                    bool isCrashHandler = process.ProcessName == "RobloxCrashHandler";
+
+                    if (!includeVisibleWindows && !isCrashHandler && process.MainWindowHandle != IntPtr.Zero)
+                        continue;
+
+                    App.Logger.WriteLine(logIdent, $"Closing Roblox process '{process.ProcessName}' (pid={process.Id}, force={force})");
+
+                    if (force)
+                        process.Kill();
+                    else
+                        process.CloseMainWindow();
+                }
+                catch (Exception ex)
+                {
+                    App.Logger.WriteLine(logIdent, $"Failed to close Roblox process {process.Id}");
+                    App.Logger.WriteException(logIdent, ex);
+                }
+            }
+        }
+
+        public static string GetRobloxVersionStr(IAppData data)
+        {
+            string playerLocation = data.ExecutablePath;
+
+            if (!File.Exists(playerLocation))
+                return "";
+
+            FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(playerLocation);
+
+            if (versionInfo.ProductVersion is null)
+                return "";
+
+            return versionInfo.ProductVersion.Replace(", ", ".");
+        }
+
+        public static string GetRobloxVersionStr(bool studio)
+        {
+            IAppData data = studio ? new RobloxStudioData() : new RobloxPlayerData();
+
+            return GetRobloxVersionStr(data);
+        }
+
+        public static Version? GetRobloxVersion(IAppData data)
+        {
+            string str = GetRobloxVersionStr(data);
+            return ParseVersionSafe(str);
+        }
+
+        public static Process[] GetProcessesSafe()
+        {
+            const string LOG_IDENT = "Utilities::GetProcessesSafe";
+
+            try
+            {
+                return Process.GetProcesses();
+            }
+            catch (ArithmeticException ex) // thanks microsoft
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Unable to fetch processes!");
+                App.Logger.WriteException(LOG_IDENT, ex);
+                return Array.Empty<Process>(); // can we retry?
+            }
+        }
+
+        public static bool DoesMutexExist(string name)
+        {
+            try
+            {
+                Mutex.OpenExisting(name).Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static void KillBackgroundUpdater()
+        {
+            using EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, "Fishstrap-BackgroundUpdaterKillEvent");
+            handle.Set();
+        }
+    }
+}

@@ -1,0 +1,127 @@
+<ui:UiPage x:Class="Fishstrap.UI.Elements.Settings.Pages.BehaviourPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:Fishstrap.UI.Elements.Settings.Pages"
+      xmlns:controls="clr-namespace:Fishstrap.UI.Elements.Controls"
+      xmlns:models="clr-namespace:Fishstrap.UI.ViewModels.Settings"
+      xmlns:resources="clr-namespace:Fishstrap.Resources"
+      d:DataContext="{d:DesignInstance Type=models:BehaviourViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="2000" d:DesignWidth="800"
+      Title="BehaviourPage"
+      Scrollable="True">
+
+    <StackPanel Margin="0,0,14,14">
+        <TextBlock Margin="0,0,0,8" Text="{x:Static resources:Strings.Menu_Behaviour_Description}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Behaviour_ConfirmLaunches_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_ConfirmLaunches_Description}">
+            <ui:ToggleSwitch IsChecked="{Binding ConfirmLaunches, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Behaviour_ForceRobloxLanguage_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_ForceRobloxLanguage_Description}"
+            HelpLink="https://github.com/fishstraplabs/fishstrap/wiki/Information-on-Roblox-app-localisation">
+            <ui:ToggleSwitch IsChecked="{Binding ForceRobloxLanguage, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Behaviour_BackgroundUpdates_Title}"
+            Description="{x:Static resources:Strings.Menu_Behaviour_BackgroundUpdates_Description}">
+            <ui:ToggleSwitch IsChecked="{Binding BackgroundUpdates, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <ui:CardExpander Grid.Row="1" Margin="0,8,0,0" IsExpanded="False">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock FontSize="14" Text="{x:Static resources:Strings.Menu_Bootstrapper_CleanUp_Title}" />
+                        <TextBlock Margin="0,2,0,0" FontSize="12" Text="{x:Static resources:Strings.Menu_Bootstrapper_CleanUp_Description}" Foreground="{DynamicResource TextFillColorTertiaryBrush}"  />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+
+            <StackPanel>
+                <controls:OptionControl 
+    Header="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_Age_Title}" 
+    Description="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_Age_Description}">
+                    <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding CleanerOptions, Mode=OneTime}" SelectedItem="{Binding CleanerOption, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </controls:OptionControl>
+                <controls:OptionControl 
+    Header="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_Cache_Title}" 
+    Description="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_Cache_Description}">
+                    <ui:ToggleSwitch IsChecked="{Binding CleanerCache, Mode=TwoWay}" />
+                </controls:OptionControl>
+                <controls:OptionControl
+    Header="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_StudioCache_Title}"
+    Description="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_StudioCache_Description}">
+                    <ui:ToggleSwitch IsChecked="{Binding CleanerStudioCache, Mode=TwoWay}" />
+                </controls:OptionControl>
+                <controls:OptionControl 
+    Header="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_Logs_Title}" 
+    Description="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_Logs_Description}">
+                    <ui:ToggleSwitch IsChecked="{Binding CleanerLogs, Mode=TwoWay}" />
+                </controls:OptionControl>
+                <controls:OptionControl 
+    Header="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_IncludeFishstrap_Title}"
+    Description="{x:Static resources:Strings.Menu_Bootstrapper_Cleaner_IncludeFishstrap_Description}">
+                    <ui:ToggleSwitch IsChecked="{Binding CleanerFishstrap, Mode=TwoWay}" />
+                </controls:OptionControl>
+            </StackPanel>
+        </ui:CardExpander>
+        <TextBlock Text="Experimental" FontSize="20" FontWeight="Medium" Margin="0,16,0,0" />
+        <controls:MarkdownTextBlock MarkdownText="A collection of experimental settings. Be careful while using them, as they may or may not work as intended." TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Title}"
+            Description="{Binding Source={x:Static resources:Strings.Menu_Bootstrapper_AllowCookieAccess_Description}, Converter={StaticResource StringFormatConverter}, ConverterParameter='https://github.com/fishstrap/fishstrap/wiki/Account-Access#what-will-fishstrap-access-with-your-account'}">
+            
+            <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon Symbol="Warning20" Margin="0,2,8,0" Foreground="Orange">
+                    <ui:SymbolIcon.Style>
+                        <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.CookieLoadingFailed, RelativeSource={RelativeSource AncestorType=ui:UiPage}}" Value="True">
+                                    <Setter Property="ui:SymbolIcon.Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ui:SymbolIcon.Style>
+                </ui:SymbolIcon>
+                <ui:ToggleSwitch IsChecked="{Binding CookieAccess, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Title}"
+            Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_Description}">
+            <StackPanel Orientation="Horizontal">
+                <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmaking, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+
+        <controls:OptionControl 
+            Header="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Title}"
+            Description="{x:Static resources:Strings.Bootstrapper_Experimental_BetterMatchmaking_RandomizeServer_Description}">
+            <StackPanel Orientation="Horizontal">
+                <ui:ToggleSwitch IsChecked="{Binding EnableBetterMatchmakingRandomization, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:OptionControl>
+    </StackPanel>
+</ui:UiPage>

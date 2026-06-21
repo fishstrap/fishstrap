@@ -18,7 +18,7 @@
 </div>
 
 Fishstrap (pronounced fish-strap) is a custom bootstrapper for Roblox based on
-[Bloxstrap][bloxstrap] (pronounced blox-strap). It provides additional features
+[Fishstrap][fishstrap] (pronounced blox-strap). It provides additional features
 to enhance your experience.
 
 If you found any bugs, please [open an issue here][repo-new-issue] or make a new
@@ -73,7 +73,7 @@ post in [our Discord server][discord-invite]'s `#support-and-bugs` channel.
 
 [discord-invite]: https://discord.gg/SRs5zb9BJd
 
-[bloxstrap]: https://bloxstraplabs.com
+[fishstrap]: https://fishstraplabs.com
 [appleblox]: https://github.com/AppleBlox/appleblox
 [sober]:     https://sober.vinegarhq.org
 [rovalra]:   https://www.rovalra.com
