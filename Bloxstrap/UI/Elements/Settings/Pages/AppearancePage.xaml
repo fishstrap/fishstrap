@@ -28,7 +28,7 @@
         <controls:OptionControl
             Header="{x:Static resources:Strings.Menu_Appearance_Language_Title}"
             Description="{x:Static resources:Strings.Menu_Appearance_Language_Description}">
-            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding Languages, Mode=OneTime}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" />
         </controls:OptionControl>
 
         <!--<controls:OptionControl

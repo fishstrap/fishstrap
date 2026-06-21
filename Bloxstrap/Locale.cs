@@ -4,6 +4,8 @@ namespace Bloxstrap
 {
     internal static class Locale
     {
+        private static readonly CultureInfo _systemDefaultCulture = CultureInfo.CurrentUICulture;
+
         public static CultureInfo CurrentCulture { get; private set; } = CultureInfo.InvariantCulture;
 
         public static bool RightToLeft { get; private set; } = false;
@@ -96,7 +98,10 @@ namespace Bloxstrap
 
             if (identifier == "nil")
             {
-                CurrentCulture = Thread.CurrentThread.CurrentUICulture;
+                CurrentCulture = _systemDefaultCulture;
+
+                CultureInfo.DefaultThreadCurrentUICulture = null;
+                Thread.CurrentThread.CurrentUICulture = CurrentCulture;
             }
             else
             {
