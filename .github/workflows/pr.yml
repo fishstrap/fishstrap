@@ -1,0 +1,38 @@
+name: PR
+
+# Taken and modified from github.com/refined-github/refined-github, thank you!
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  block-ai:
+    if: github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const { owner, repo } = context.repo;
+
+            const isAI = /Verification|Validation|Summary|Changes|Testing|—/.test(pr.body);
+            if (!isAI) return;
+
+            await github.rest.pulls.update({
+              owner,
+              repo,
+              pull_number: pr.number,
+              state: 'closed',
+              title: 'AI SPAM',
+            });
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: pr.number,
+              body: "This pull request appears to be AI-generated, so it was preemptively closed. If you are a human and have tested it, include a screenshot/video/gif of the working pull request and we can reopen it. Don't open more pull requests until this one is resolved.",
+            });
