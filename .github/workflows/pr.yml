@@ -19,7 +19,7 @@ jobs:
             const pr = context.payload.pull_request;
             const { owner, repo } = context.repo;
 
-            const isAI = /Verification|Validation|Summary|Changes|Testing|—/.test(pr.body);
+            const isAI = /(#+\s*)+?(Verification|Validation|Summary|Changes|Testing)|—/.test(pr.body);
             if (!isAI) return;
 
             await github.rest.pulls.update({
