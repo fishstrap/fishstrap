@@ -1,12 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Shapes;
-
-namespace Bloxstrap.Integrations
+﻿namespace Bloxstrap.Integrations
 {
     public class Cleaner
     {
@@ -15,7 +7,7 @@ namespace Bloxstrap.Integrations
         public static Dictionary<string, string?> Directories = new Dictionary<string, string?> {
             { "FishstrapLogs", Paths.Logs },
             { "FishstrapCache", Paths.Downloads },
-            { "RobloxLogs", App.Distribution.RobloxLogs },
+            { "RobloxLogs", Path.Combine(App.RobloxAppData, "logs") },
             { "RobloxCache", Paths.RobloxCache } // TODO
         };
 

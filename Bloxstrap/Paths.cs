@@ -24,13 +24,9 @@
         public static string Integrations { get; private set; } = "";
         public static string Versions { get; private set; } = "";
         public static string Modifications { get; private set; } = "";
-        [Obsolete("Use IDistribution.RobloxPath instead")]
-        public static string Roblox { get; private set; } = "";
         public static string CustomThemes { get; private set; } = "";
 
         // cleaner paths
-        [Obsolete("Use IDistribution.RobloxLogs instead")]
-        public static string RobloxLogs { get; private set; } = "";
         public static string RobloxCache { get; private set; } = "";
 
         public static string Application { get; private set; } = "";
@@ -48,9 +44,7 @@
             Versions = Path.Combine(Base, "Versions");
             Modifications = Path.Combine(Base, "Modifications");
             CustomThemes = Path.Combine(Base, "CustomThemes");
-            Roblox = Path.Combine(LocalAppData, "Roblox");
 
-            RobloxLogs = Path.Combine(Roblox, "logs");
             RobloxCache = Path.Combine(Path.GetTempPath(), "Roblox");
 
             Application = Path.Combine(Base, $"{App.ProjectName}.exe");

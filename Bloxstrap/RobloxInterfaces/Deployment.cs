@@ -126,12 +126,12 @@
         public static string GetLocation(string resource)
         {
             string location = CdnUrl;
-            var distribution = App.Distribution;
-
-            if (!IsDefaultChannel && distribution.SupportsCustomDeployments)
+            
+            // VNG distribution doesn't support custom deployments
+            // so we still need this check since /vng/channek/common will fail
+            if (!IsDefaultChannel)
                 location += "/channel/common";
 
-            location += distribution.CdnPathExtension;
             location += resource;
 
             return location;

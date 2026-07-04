@@ -47,6 +47,9 @@ namespace Bloxstrap
 
         public static bool IsStudioVisible => !String.IsNullOrEmpty(App.RobloxState.Prop.Studio.VersionGuid);
 
+        public static string RobloxAppData => Distribution.RobloxPlayerData.AppDataDirectory;
+        public static string RobloxStudioAppData => Distribution.RobloxStudioData.AppDataDirectory;
+
         public static readonly MD5 MD5Provider = MD5.Create();
 
         public static readonly Logger Logger = new();

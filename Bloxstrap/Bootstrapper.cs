@@ -448,7 +448,7 @@ namespace Bloxstrap
                 try
                 {
                     clientVersion = await Deployment.GetInfo(
-                        Distribution.SupportsCustomDeployments ? Deployment.Channel : Deployment.DefaultChannel,
+                        AppData.SupportsCustomDeployments ? Deployment.Channel : Deployment.DefaultChannel,
                         behindProductionCheck
                         );
                 }
@@ -523,7 +523,7 @@ namespace Bloxstrap
             else
                 _latestVersionDirectory = Path.Combine(Paths.Versions, _latestVersionGuid);
 
-            string pkgManifestUrl = Deployment.GetLocation($"/{_latestVersionGuid}-rbxPkgManifest.txt");
+            string pkgManifestUrl = Deployment.GetLocation($"{AppData.CdnExtension}/{_latestVersionGuid}-rbxPkgManifest.txt");
             var pkgManifestData = await App.HttpClient.GetStringAsync(pkgManifestUrl);
 
             _versionPackageManifest = new(pkgManifestData);
@@ -804,7 +804,7 @@ namespace Bloxstrap
 
             string? logFileName = null;
 
-            string rbxLogDir = App.Distribution.RobloxLogs;
+            string rbxLogDir = AppData.AppDataDirectory;
             Directory.CreateDirectory(rbxLogDir);
 
             var logWatcher = new FileSystemWatcher()
@@ -1717,8 +1717,8 @@ namespace Bloxstrap
 
             Directory.CreateDirectory(Paths.Downloads);
 
-            string packageUrl = Deployment.GetLocation($"/{_latestVersionGuid}-{package.Name}");
-            string robloxPackageLocation = Path.Combine(App.Distribution.RobloxPath, "Downloads", package.Signature);
+            string packageUrl = Deployment.GetLocation($"{AppData.CdnExtension}/{_latestVersionGuid}-{package.Name}");
+            string robloxPackageLocation = Path.Combine(AppData.AppDataDirectory, "Downloads", package.Signature);
 
             if (File.Exists(package.DownloadPath))
             {
