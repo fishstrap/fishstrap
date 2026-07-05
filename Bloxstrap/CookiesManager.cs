@@ -22,8 +22,7 @@ namespace Bloxstrap
         private const string AuthCookieName = ".ROBLOSECURITY";
         private const string SupportedVersion = "1";
         private const string AuthPattern = $@"\t{AuthCookieName}\t(.+?)(;|$)";
-        private string CookiesPath => Path.Combine(App.RobloxAppData, "LocalStorage", Deployment.IsDefaultRobloxDomain ? "RobloxCookies.dat" : $"{Deployment.RobloxDomain}_RobloxCookies.dat");
-                                                   // this sucks, something shorter would be better
+        private string CookiesPath => Path.Combine(Paths.Roblox, "LocalStorage", Deployment.IsDefaultRobloxDomain ? "RobloxCookies.dat" : $"{Deployment.RobloxDomain}_RobloxCookies.dat");
         public async Task<HttpResponseMessage> AuthRequest(HttpRequestMessage request)
         {
             string? host = request.RequestUri?.Host;

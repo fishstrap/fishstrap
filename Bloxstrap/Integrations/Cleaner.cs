@@ -7,7 +7,7 @@
         public static Dictionary<string, string?> Directories = new Dictionary<string, string?> {
             { "FishstrapLogs", Paths.Logs },
             { "FishstrapCache", Paths.Downloads },
-            { "RobloxLogs", Path.Combine(App.RobloxAppData, "logs") },
+            { "RobloxLogs", Paths.RobloxLogs },
             { "RobloxCache", Paths.RobloxCache } // TODO
         };
 

@@ -1,9 +1,4 @@
-﻿using Bloxstrap.Enums.FlagPresets;
-using Bloxstrap.Enums.GBSPresets;
-using Microsoft.VisualBasic;
-using System.ComponentModel.Design.Serialization;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using Bloxstrap.Enums.GBSPresets;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -45,7 +40,7 @@ namespace Bloxstrap
 
         public bool Loaded { get; set; } = false;
 
-        public string FileLocation => Path.Combine(App.RobloxAppData, "GlobalBasicSettings_13.xml");
+        public string FileLocation => Path.Combine(Paths.Roblox, "GlobalBasicSettings_13.xml");
 
         public void SetPreset(string prefix, object? value)
         {

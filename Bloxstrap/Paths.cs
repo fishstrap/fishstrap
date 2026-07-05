@@ -31,6 +31,11 @@
 
         public static string Application { get; private set; } = "";
 
+        // different distributions have different appdatas
+        public static string Roblox => App.Distribution.RobloxPlayerData.AppDataDirectory;
+        public static string RobloxStudio => App.Distribution.RobloxStudioData.AppDataDirectory;
+        public static string RobloxLogs => Path.Combine(Roblox, "logs");
+
         public static string CustomFont => Path.Combine(Modifications, "content\\fonts\\CustomFont.ttf");
 
         public static bool Initialized => !String.IsNullOrEmpty(Base);

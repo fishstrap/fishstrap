@@ -337,7 +337,7 @@ namespace Bloxstrap
 
                 () =>
                 {
-                string rbxPath = App.RobloxAppData;
+                string rbxPath = Paths.Roblox;
 
                 if (rbxPath == Path.Combine(Paths.Base, "Roblox")) // checking if roblox is installed in base directory
                     Directory.Delete(rbxPath, true);               // made that to prevent accidental removals of different builds
