@@ -9,10 +9,10 @@ namespace Bloxstrap
         {
             try
             {
-                Process.Start(new ProcessStartInfo 
-                { 
-                    FileName = website, 
-                    UseShellExecute = true 
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = website,
+                    UseShellExecute = true
                 });
             }
             catch (Win32Exception ex)
@@ -43,7 +43,7 @@ namespace Bloxstrap
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="versionStr1"></param>
         /// <param name="versionStr2"></param>
@@ -158,7 +158,7 @@ namespace Bloxstrap
 
         public static void KillBackgroundUpdater()
         {
-            using EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, "Bloxstrap-BackgroundUpdaterKillEvent");
+            using EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.AutoReset, $"{App.ProjectName}-BackgroundUpdaterKillEvent");
             handle.Set();
         }
     }
