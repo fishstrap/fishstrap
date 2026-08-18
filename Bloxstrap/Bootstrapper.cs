@@ -719,7 +719,7 @@ namespace Bloxstrap
                 // idk why they dont use it when the user is following a friend, but ok
                 App.Logger.WriteLine(LOG_IDENT, $"join origin: {_joinData.JoinOrigin}");
 
-                if (App.Settings.Prop.EnableBetterMatchmaking && _joinData.JoinOrigin == "friendServerListJoin" || _joinData.JoinOrigin == "placesListInHomePage")
+                if (App.Settings.Prop.EnableBetterMatchmaking && (_joinData.JoinOrigin == "friendServerListJoin" || _joinData.JoinOrigin == "placesListInHomePage"))
                 {
                     App.Logger.WriteLine(LOG_IDENT, "User is trying to join a friend, show dialog box");
                     var Result = Frontend.ShowMessageBox(
