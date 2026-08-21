@@ -168,6 +168,9 @@ namespace Bloxstrap
             if (InstallLocation.Contains("Local\\Bloxstrap"))
                 return false;
 
+            if (InstallLocation.Contains("WindowsApps"))
+                return false;
+
             return true;
         }
 
