@@ -1855,6 +1855,18 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Using VNG distribution outside Vietnam is not recommended.
+        ///Agreeing VNGGames terms could cause irreversible changes to your Roblox account.
+        ///
+        ///Press cancel to go back..
+        /// </summary>
+        public static string Dialog_DistributorSelector_VNGWarning {
+            get {
+                return ResourceManager.GetString("Dialog.DistributorSelector.VNGWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy log contents.
         /// </summary>
         public static string Dialog_Exception_CopyLogContents {

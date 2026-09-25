@@ -29,6 +29,19 @@ namespace Bloxstrap.UI.ViewModels.Dialogs
             Locale.Set(identifier);
             App.Settings.Prop.Locale = identifier;
 
+            if (distributor == DistributorType.VNGGames && identifier != "vi")
+            {
+                var result = Frontend.ShowMessageBox(
+                    Strings.Dialog_DistributorSelector_VNGWarning,
+                    System.Windows.MessageBoxImage.Warning,
+                    System.Windows.MessageBoxButton.OKCancel
+                    );
+
+                if (result == System.Windows.MessageBoxResult.Cancel)
+                    return;
+            }
+
+
             Distributions.Set(distributor);
 
             CloseRequestEvent?.Invoke(this, new());

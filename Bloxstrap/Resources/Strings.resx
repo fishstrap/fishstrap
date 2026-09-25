@@ -1893,4 +1893,10 @@ Please don't change this setting unless you know what you're doing.</value>
 	<data name="Menu.Channel.ClientDistribution.Description" xml:space="preserve">
     <value>Choose the client deployment Fishstrap should use. Please note, you may not be able to revert your account status after agreeing to the terms shown by Roblox.</value>
   </data>
+  <data name="Dialog.DistributorSelector.VNGWarning" xml:space="preserve">
+    <value>Using VNG distribution outside Vietnam is not recommended.
+Agreeing VNGGames terms could cause irreversible changes to your Roblox account.
+
+Press cancel to go back.</value>
+  </data>
 </root>
