@@ -895,10 +895,10 @@ Some text might not be translated to preferred language.</value>
   <data name="Common.Navigation.Next" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="Installer.Welcome.MainText" xml:space="preserve">
+	<data name="Installer.Welcome.MainText" xml:space="preserve">
     <value>Thank you for downloading Fishstrap. 
 
-The only official source to download Fishstrap from is {0} so please verify that you got it from an official source.
+The only official websites to download Fishstrap from are {0} and {1}, so please verify that you got it from an official source.
 
 This installation process will be quick and simple, and you will be able to configure any of Fishstrap's settings after installation.</value>
     <comment>{0} and {1} are URLs</comment>
@@ -1880,5 +1880,23 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Menu.Integrations.RobloxTheme.Description" xml:space="preserve">
     <value>The theme used by the Roblox app.</value>
+  </data>
+  <data name="Dialog.DistributorSelector.Header" xml:space="preserve">
+    <value>Choose Roblox version</value>
+  </data>
+  <data name="Dialog.DistributorSelector.Subtext" xml:space="preserve">
+    <value>Choose which client distribution Fishstrap should use.</value>
+  </data>
+  <data name="Menu.Channel.ClientDistribution.Title" xml:space="preserve">
+    <value>Roblox version</value>
+  </data>
+	<data name="Menu.Channel.ClientDistribution.Description" xml:space="preserve">
+    <value>Choose the client deployment Fishstrap should use. Please note, you may not be able to revert your account status after agreeing to the terms shown by Roblox.</value>
+  </data>
+  <data name="Dialog.DistributorSelector.VNGWarning" xml:space="preserve">
+    <value>Using VNG distribution outside Vietnam is not recommended.
+Agreeing VNGGames terms could cause irreversible changes to your Roblox account.
+
+Press cancel to go back.</value>
   </data>
 </root>

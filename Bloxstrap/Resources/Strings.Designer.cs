@@ -1837,6 +1837,36 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose Roblox version.
+        /// </summary>
+        public static string Dialog_DistributorSelector_Header {
+            get {
+                return ResourceManager.GetString("Dialog.DistributorSelector.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which client distribution Fishstrap should use..
+        /// </summary>
+        public static string Dialog_DistributorSelector_Subtext {
+            get {
+                return ResourceManager.GetString("Dialog.DistributorSelector.Subtext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using VNG distribution outside Vietnam is not recommended.
+        ///Agreeing VNGGames terms could cause irreversible changes to your Roblox account.
+        ///
+        ///Press cancel to go back..
+        /// </summary>
+        public static string Dialog_DistributorSelector_VNGWarning {
+            get {
+                return ResourceManager.GetString("Dialog.DistributorSelector.VNGWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy log contents.
         /// </summary>
         public static string Dialog_Exception_CopyLogContents {
@@ -2617,7 +2647,7 @@ namespace Bloxstrap.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Thank you for downloading Fishstrap. 
         ///
-        ///The only official source to download Fishstrap from is {0} so please verify that you got it from an official source.
+        ///The only official websites to download Fishstrap from are {0} and {1}, so please verify that you got it from an official source.
         ///
         ///This installation process will be quick and simple, and you will be able to configure any of Fishstrap&apos;s settings after installation..
         /// </summary>
@@ -3470,6 +3500,24 @@ namespace Bloxstrap.Resources {
         public static string Menu_Channel_ChangeAction_Title {
             get {
                 return ResourceManager.GetString("Menu.Channel.ChangeAction.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the client deployment Fishstrap should use. Please note, you may not be able to revert your account status after agreeing to the terms shown by Roblox..
+        /// </summary>
+        public static string Menu_Channel_ClientDistribution_Description {
+            get {
+                return ResourceManager.GetString("Menu.Channel.ClientDistribution.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox version.
+        /// </summary>
+        public static string Menu_Channel_ClientDistribution_Title {
+            get {
+                return ResourceManager.GetString("Menu.Channel.ClientDistribution.Title", resourceCulture);
             }
         }
         

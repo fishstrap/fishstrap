@@ -12,6 +12,7 @@
 #endif
 
 using Bloxstrap.AppData;
+using Bloxstrap.Distribution;
 using Bloxstrap.Models.APIs;
 using Bloxstrap.Models.APIs.RoValra;
 using Bloxstrap.RobloxInterfaces;
@@ -46,6 +47,7 @@ namespace Bloxstrap
         private readonly FastZipEvents _fastZipEvents = new();
         private readonly CancellationTokenSource _cancelTokenSource = new();
 
+        private IDistribution Distribution = default!;
         private IAppData AppData = default!;
         private Dictionary<string, string> PackageDirectoryMap = null!;
         private LaunchMode _launchMode;
@@ -101,12 +103,14 @@ namespace Bloxstrap
             _fastZipEvents.DirectoryFailure += (_, e) => throw e.Exception;
             _fastZipEvents.ProcessFile += (_, e) => e.ContinueRunning = !_cancelTokenSource.IsCancellationRequested;
 
-            SetupAppData();
+            SetupData();
         }
 
-        private void SetupAppData()
+        private void SetupData()
         {
-            AppData = IsStudioLaunch ? new RobloxStudioData() : new RobloxPlayerData();
+            Distribution = App.Distribution;
+
+            AppData = IsStudioLaunch ? Distribution.RobloxStudioData : Distribution.RobloxPlayerData;
             Deployment.BinaryType = AppData.BinaryType;
         }
 
@@ -451,7 +455,10 @@ namespace Bloxstrap
 
                 try
                 {
-                    clientVersion = await Deployment.GetInfo(Deployment.Channel, behindProductionCheck);
+                    clientVersion = await Deployment.GetInfo(
+                        AppData.SupportsCustomDeployments ? Deployment.Channel : Deployment.DefaultChannel,
+                        behindProductionCheck
+                        );
                 }
                 catch (InvalidChannelException ex)
                 {
@@ -524,7 +531,7 @@ namespace Bloxstrap
             else
                 _latestVersionDirectory = Path.Combine(Paths.Versions, _latestVersionGuid);
 
-            string pkgManifestUrl = Deployment.GetLocation($"/{_latestVersionGuid}-rbxPkgManifest.txt");
+            string pkgManifestUrl = Deployment.GetLocation($"{AppData.CdnExtension}/{_latestVersionGuid}-rbxPkgManifest.txt");
             var pkgManifestData = await App.HttpClient.GetStringAsync(pkgManifestUrl);
 
             _versionPackageManifest = new(pkgManifestData);
@@ -538,7 +545,7 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, $"isPlayer: {isPlayer}");
 
                 _launchMode = isPlayer ? LaunchMode.Player : LaunchMode.Studio;
-                SetupAppData(); // we need to set it up again
+                SetupData(); // we need to set it up again
             }
         }
 
@@ -791,13 +798,8 @@ namespace Bloxstrap
 
             string? logFileName = null;
 
-            string rbxDir = Path.Combine(Paths.LocalAppData, "Roblox");
-            if (!Directory.Exists(rbxDir))
-                Directory.CreateDirectory(rbxDir);
-
-            string rbxLogDir = Path.Combine(rbxDir, "logs");
-            if (!Directory.Exists(rbxLogDir))
-                Directory.CreateDirectory(rbxLogDir);
+            string rbxLogDir = AppData.AppDataDirectory;
+            Directory.CreateDirectory(rbxLogDir);
 
             var logWatcher = new FileSystemWatcher()
             {
@@ -1711,8 +1713,8 @@ namespace Bloxstrap
 
             Directory.CreateDirectory(Paths.Downloads);
 
-            string packageUrl = Deployment.GetLocation($"/{_latestVersionGuid}-{package.Name}");
-            string robloxPackageLocation = Path.Combine(Paths.LocalAppData, "Roblox", "Downloads", package.Signature);
+            string packageUrl = Deployment.GetLocation($"{AppData.CdnExtension}/{_latestVersionGuid}-{package.Name}");
+            string robloxPackageLocation = Path.Combine(AppData.AppDataDirectory, "Downloads", package.Signature);
 
             if (File.Exists(package.DownloadPath))
             {

@@ -340,8 +340,10 @@ namespace Bloxstrap
 
                 () =>
                 {
-                if (Paths.Roblox == Path.Combine(Paths.Base, "Roblox")) // checking if roblox is installed in base directory
-                    Directory.Delete(Paths.Roblox, true);               // made that to prevent accidental removals of different builds
+                string rbxPath = Paths.Roblox;
+
+                if (rbxPath == Path.Combine(Paths.Base, "Roblox")) // checking if roblox is installed in base directory
+                    Directory.Delete(rbxPath, true);               // made that to prevent accidental removals of different builds
                 }
             };
 

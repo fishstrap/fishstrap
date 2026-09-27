@@ -30,11 +30,15 @@
             <TextBlock Text="{x:Static resources:Strings.Dialog_LanguageSelector_Header}" FontSize="20" FontWeight="SemiBold" />
             <TextBlock Text="{x:Static resources:Strings.Dialog_LanguageSelector_Subtext}" TextWrapping="Wrap" Margin="0,0,0,12" />
             <ComboBox ItemsSource="{Binding Languages, Mode=OneTime}" Text="{Binding SelectedLanguage, Mode=TwoWay}" />
+
+            <TextBlock Text="{x:Static resources:Strings.Dialog_DistributorSelector_Header}" Padding="0,8,0,0" FontSize="20" FontWeight="SemiBold" />
+            <TextBlock Text="{x:Static resources:Strings.Dialog_DistributorSelector_Subtext}" TextWrapping="Wrap" Margin="0,0,0,12" />
+            <ComboBox ItemsSource="{Binding ClientDistributions, Mode=OneTime}" Text="{Binding SelectedDistribution, Mode=TwoWay}" />
         </StackPanel>
 
         <Border Grid.Row="2" Margin="0,10,0,0" Padding="15" Background="{ui:ThemeResource SolidBackgroundFillColorSecondaryBrush}">
             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Right">
-                <Button MinWidth="100" Content="{x:Static resources:Strings.Common_OK}" Command="{Binding SetLocaleCommand}" />
+                <Button MinWidth="100" Content="{x:Static resources:Strings.Common_OK}" Command="{Binding SetRegionalSettingsCommand}" />
                 <!--<Button MinWidth="100" Margin="12,0,0,0" Content="{x:Static resources:Strings.Common_Cancel}" IsCancel="True" />-->
             </StackPanel>
         </Border>
