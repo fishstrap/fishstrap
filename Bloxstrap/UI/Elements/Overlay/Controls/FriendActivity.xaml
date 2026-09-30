@@ -4,25 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resources="clr-namespace:Bloxstrap.Resources"
+             xmlns:models="clr-namespace:Bloxstrap.Models.Overlay"
+             xmlns:enums="clr-namespace:Bloxstrap.Enums.Overlay"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d"
-             d:DesignHeight="560" d:DesignWidth="820"
-             FontFamily="{StaticResource Inter}"
-             Loaded="OnLoaded">
+             d:DesignHeight="580" d:DesignWidth="860"
+             FontFamily="{StaticResource Inter}">
 
     <UserControl.Resources>
-        <Style x:Key="ConversationItem" TargetType="ListBoxItem">
+        <SolidColorBrush x:Key="InGameRing" Color="#FF02B757" />
+        <SolidColorBrush x:Key="OnlineRing" Color="#FF00A2FF" />
+        <SolidColorBrush x:Key="StudioRing" Color="#FFF68802" />
+        <SolidColorBrush x:Key="InGameText" Color="#FF6BDB8C" />
+        <SolidColorBrush x:Key="OnlineText" Color="#FF5CB8FF" />
+        <SolidColorBrush x:Key="StudioText" Color="#FFFFAE5C" />
+
+        <Style x:Key="FlatButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Bd" CornerRadius="4" Background="Transparent" Padding="8" Margin="0,0,0,2">
-                            <ContentPresenter />
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
                             </Trigger>
-                            <Trigger Property="IsSelected" Value="True">
+                            <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorTertiaryBrush}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -30,122 +41,421 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="RowContainer" TargetType="ListBoxItem">
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter Margin="6,0" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate DataType="{x:Type models:FriendListHeader}">
+            <Button Style="{StaticResource FlatButton}" Margin="0,8,0,2" Padding="6,4"
+                    Command="{Binding DataContext.ToggleSectionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding}">
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon x:Name="Chevron" Symbol="ChevronDown16" FontSize="11" Margin="0,0,8,0"
+                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                    <TextBlock Text="{Binding Title}" FontSize="13" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                    <TextBlock Text="{Binding CountText}" FontSize="13" Margin="6,0,0,0" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </Button>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IsExpanded}" Value="False">
+                    <Setter TargetName="Chevron" Property="Symbol" Value="ChevronRight16" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:ChatFriend}">
+            <Button Style="{StaticResource FlatButton}" Padding="8,5"
+                    Command="{Binding DataContext.OpenChatCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="Ring" Width="36" Height="36" CornerRadius="18" BorderThickness="2" Margin="0,0,10,0"
+                            BorderBrush="{ui:ThemeResource ControlStrongStrokeColorDisabledBrush}">
+                        <Grid>
+                            <Border CornerRadius="15" Margin="1" Background="{ui:ThemeResource ControlFillColorSecondaryBrush}">
+                                <ui:SymbolIcon x:Name="GroupIcon" Symbol="PeopleTeam24" FontSize="15" Visibility="Collapsed"
+                                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                            </Border>
+                            <Border CornerRadius="15" Margin="1">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding Headshot}" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock x:Name="Name" Text="{Binding DisplayName}" FontSize="13" FontWeight="SemiBold"
+                                   TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                        <TextBlock x:Name="State" Text="{Binding StatusText}" FontSize="11" Margin="0,1,0,0"
+                                   TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                    </StackPanel>
+
+                    <Border Grid.Column="2" MinWidth="18" Height="18" CornerRadius="9" Padding="5,0" Margin="8,0,0,0" VerticalAlignment="Center"
+                            Background="{DynamicResource AccentFillColorDefaultBrush}"
+                            Visibility="{Binding HasUnread, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="{Binding UnreadText}" FontSize="10" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="{ui:ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                    </Border>
+                </Grid>
+            </Button>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InGame}">
+                    <Setter TargetName="Ring" Property="BorderBrush" Value="{StaticResource InGameRing}" />
+                    <Setter TargetName="Name" Property="Foreground" Value="{StaticResource InGameText}" />
+                    <Setter TargetName="State" Property="Foreground" Value="{StaticResource InGameText}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.Online}">
+                    <Setter TargetName="Ring" Property="BorderBrush" Value="{StaticResource OnlineRing}" />
+                    <Setter TargetName="Name" Property="Foreground" Value="{StaticResource OnlineText}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InStudio}">
+                    <Setter TargetName="Ring" Property="BorderBrush" Value="{StaticResource StudioRing}" />
+                    <Setter TargetName="Name" Property="Foreground" Value="{StaticResource StudioText}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsGroup}" Value="True">
+                    <Setter TargetName="Ring" Property="BorderBrush" Value="Transparent" />
+                    <Setter TargetName="GroupIcon" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="Name" Property="Foreground" Value="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:ChatDayDivider}">
+            <Grid Margin="0,14,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.Column="0" Height="1" VerticalAlignment="Center" Fill="{ui:ThemeResource DividerStrokeColorDefaultBrush}" />
+                <TextBlock Grid.Column="1" Text="{Binding Text}" FontSize="11" Margin="12,0"
+                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                <Rectangle Grid.Column="2" Height="1" VerticalAlignment="Center" Fill="{ui:ThemeResource DividerStrokeColorDefaultBrush}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:ChatSystemLine}">
+            <TextBlock Text="{Binding Text}" FontSize="12" FontStyle="Italic" Margin="46,4,0,4" TextWrapping="Wrap"
+                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:ChatMessageGroup}">
+            <Grid Margin="0,6,0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Width="34" Height="34" CornerRadius="17" Margin="0,2,12,0" VerticalAlignment="Top"
+                        Background="{ui:ThemeResource ControlFillColorSecondaryBrush}">
+                    <Border CornerRadius="17">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding Avatar}" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
+                </Border>
+
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,2">
+                        <TextBlock x:Name="Sender" Text="{Binding Sender}" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource OnlineText}" />
+                        <TextBlock Text="{Binding TimeText}" FontSize="11" Margin="8,0,0,0" VerticalAlignment="Bottom"
+                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                    </StackPanel>
+
+                    <ItemsControl ItemsSource="{Binding Lines}" Focusable="False">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel x:Name="Line" Margin="0,1">
+                                    <TextBlock x:Name="Body" Text="{Binding Text}" FontSize="13" TextWrapping="Wrap"
+                                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                    <TextBlock x:Name="Failure" Text="{Binding Failure}" FontSize="11" Visibility="Collapsed"
+                                               Foreground="{ui:ThemeResource SystemFillColorCriticalBrush}" />
+                                </StackPanel>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsPending}" Value="True">
+                                        <Setter TargetName="Line" Property="Opacity" Value="0.55" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsFailed}" Value="True">
+                                        <Setter TargetName="Body" Property="Foreground" Value="{ui:ThemeResource SystemFillColorCriticalBrush}" />
+                                        <Setter TargetName="Failure" Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IsMine}" Value="True">
+                    <Setter TargetName="Sender" Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260" MinWidth="200" MaxWidth="360" />
+            <ColumnDefinition Width="280" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Margin="8,8,6,8">
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <ui:TextBox Grid.Row="0" Margin="0,0,0,6" FontSize="13"
-                        PlaceholderText="{x:Static resources:Strings.Menu_Overlay_Messages_Search}"
-                        Text="{Binding SearchTextBoxContent, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Grid.Row="0" Padding="14,12" BorderThickness="0,0,0,1"
+                    Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                    BorderBrush="{ui:ThemeResource DividerStrokeColorDefaultBrush}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="1">
-                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Messages_Empty}" FontSize="12"
+                    <Border Width="42" Height="42" CornerRadius="21" BorderThickness="2" Margin="0,0,12,0" BorderBrush="{StaticResource OnlineRing}">
+                        <Border CornerRadius="18" Margin="1" Background="{ui:ThemeResource ControlFillColorSecondaryBrush}">
+                            <Border CornerRadius="18">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding MyAvatar}" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                        </Border>
+                    </Border>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding MyName}" FontSize="15" FontWeight="SemiBold"
+                                   TextTrimming="CharacterEllipsis" Foreground="{StaticResource OnlineText}" />
+                        <TextBlock Text="{Binding MyHandle}" FontSize="12" Margin="0,1,0,0"
+                                   TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <ui:TextBox Grid.Row="1" Margin="10,10,10,2" FontSize="13" Icon="Search24"
+                        PlaceholderText="{x:Static resources:Strings.Menu_Overlay_Messages_Search}"
+                        Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Grid Grid.Row="2">
+                <ListBox x:Name="FriendList" ItemsSource="{Binding Rows}" Background="Transparent" BorderThickness="0" Padding="0,0,0,8"
+                         ItemContainerStyle="{StaticResource RowContainer}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling"
+                         VirtualizingPanel.ScrollUnit="Pixel" />
+
+                <TextBlock Text="{Binding ListStatus}" FontSize="12" Margin="24,0" TextWrapping="Wrap"
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
                            Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                           Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-                <ListBox ItemsSource="{Binding FriendsList}" Background="Transparent" BorderThickness="0"
-                         VirtualizingPanel.ScrollUnit="Pixel"
-                         ItemContainerStyle="{StaticResource ConversationItem}"
-                         SelectionChanged="ConversationsSelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="40">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Border Width="36" Height="36" CornerRadius="18" Margin="0,0,10,0"
-                                        Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
-                                    <Border CornerRadius="18">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding ProfileImage}" Stretch="UniformToFill" />
-                                        </Border.Background>
-                                    </Border>
-                                </Border>
-
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Username}" FontSize="13" FontWeight="SemiBold"
-                                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
-                                               TextTrimming="CharacterEllipsis" />
-                                    <TextBlock Text="{Binding StatusText}" FontSize="11" Margin="0,1,0,0"
-                                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                                               TextTrimming="CharacterEllipsis" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                           Visibility="{Binding ShowListStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
         </Grid>
 
         <Rectangle Grid.Column="1" Width="1" Fill="{ui:ThemeResource DividerStrokeColorDefaultBrush}" />
 
         <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Visibility="{Binding ShowPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ui:SymbolIcon Symbol="Chat24" FontSize="36" HorizontalAlignment="Center" Margin="0,0,0,10"
+                               Foreground="{ui:ThemeResource TextFillColorDisabledBrush}" />
+                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Messages_PickConversation}" FontSize="13" TextAlignment="Center"
+                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
 
-            <TextBlock Grid.Row="0" Text="{x:Static resources:Strings.Menu_Overlay_Messages_PickConversation}"
-                       FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
-                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                       Visibility="{Binding ShowConversationPlaceholder, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Grid Visibility="{Binding HasTab, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="10,10,4,0"
-                          VirtualizingPanel.ScrollUnit="Pixel">
-                <ItemsControl ItemsSource="{Binding MessagesList}" Margin="0,0,6,0">
-                    <ItemsControl.ItemTemplate>
+                <Border Grid.Row="0" BorderThickness="0,0,0,1"
+                        Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                        BorderBrush="{ui:ThemeResource DividerStrokeColorDefaultBrush}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                        <ItemsControl ItemsSource="{Binding Tabs}" Focusable="False">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border x:Name="Tab" Height="40" BorderThickness="0,0,0,2" BorderBrush="Transparent" Cursor="Hand"
+                                            Background="Transparent">
+                                        <Border.InputBindings>
+                                            <MouseBinding MouseAction="LeftClick"
+                                                          Command="{Binding DataContext.SelectTabCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                          CommandParameter="{Binding}" />
+                                        </Border.InputBindings>
+                                        <StackPanel Orientation="Horizontal" Margin="12,0,6,0" VerticalAlignment="Center">
+                                            <Border Width="22" Height="22" CornerRadius="11" Margin="0,0,8,0"
+                                                    Background="{ui:ThemeResource ControlFillColorSecondaryBrush}">
+                                                <Border CornerRadius="11">
+                                                    <Border.Background>
+                                                        <ImageBrush ImageSource="{Binding Friend.Headshot}" Stretch="UniformToFill" />
+                                                    </Border.Background>
+                                                </Border>
+                                            </Border>
+                                            <TextBlock Text="{Binding Friend.DisplayName}" FontSize="13" MaxWidth="150" VerticalAlignment="Center"
+                                                       TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" x:Name="TabName" />
+                                            <Ellipse Width="7" Height="7" Margin="6,0,0,0" VerticalAlignment="Center"
+                                                     Fill="{DynamicResource AccentFillColorDefaultBrush}"
+                                                     Visibility="{Binding Friend.HasUnread, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            <Button Style="{StaticResource FlatButton}" Width="24" Height="24" Padding="0" Margin="6,0,0,0"
+                                                    ToolTip="{x:Static resources:Strings.Menu_Overlay_Messages_CloseTab}"
+                                                    Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}">
+                                                <ui:SymbolIcon Symbol="Dismiss12" FontSize="10" HorizontalAlignment="Center"
+                                                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                            </Button>
+                                        </StackPanel>
+                                    </Border>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                            <Setter TargetName="Tab" Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                                            <Setter TargetName="Tab" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                            <Setter TargetName="TabName" Property="Foreground" Value="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+
+                <ContentControl x:Name="ChatHeader" Grid.Row="1" Margin="16,12,16,8" Focusable="False" Content="{Binding SelectedTab.Friend}">
+                    <ContentControl.ContentTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,6" HorizontalAlignment="{Binding Alignment}">
-                                <Border CornerRadius="8" Padding="12,8" MaxWidth="420"
-                                        Background="{Binding Background}" Opacity="{Binding Opacity}">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Sender}" FontSize="11" Margin="0,0,0,3"
-                                                   Visibility="{Binding SenderVisibility}"
-                                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                                        <TextBlock x:Name="Body" Text="{Binding Text}" FontSize="13" TextWrapping="Wrap"
-                                                   Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
-                                    </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border x:Name="HeaderRing" Width="40" Height="40" CornerRadius="20" BorderThickness="2" Margin="0,0,12,0"
+                                        BorderBrush="{ui:ThemeResource ControlStrongStrokeColorDisabledBrush}">
+                                    <Grid>
+                                        <Border CornerRadius="17" Margin="1" Background="{ui:ThemeResource ControlFillColorSecondaryBrush}">
+                                            <ui:SymbolIcon x:Name="HeaderGroupIcon" Symbol="PeopleTeam24" FontSize="16" Visibility="Collapsed"
+                                                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                                        </Border>
+                                        <Border CornerRadius="17" Margin="1">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding Headshot}" Stretch="UniformToFill" />
+                                            </Border.Background>
+                                        </Border>
+                                    </Grid>
                                 </Border>
+
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="HeaderName" Text="{Binding DisplayName}" FontSize="15" FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                        <TextBlock Text="{Binding Handle}" FontSize="12" Margin="8,0,0,1" VerticalAlignment="Bottom"
+                                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                    </StackPanel>
+                                    <TextBlock x:Name="HeaderState" Text="{Binding StatusText}" FontSize="12" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"
+                                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <ui:Button x:Name="JoinFriendButton" Appearance="Primary" Margin="12,0,0,0"
+                                               Visibility="{Binding CanJoin, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                               Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                               CommandParameter="{Binding}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <ui:SymbolIcon Symbol="Play24" FontSize="14" Margin="0,0,6,0" />
+                                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Messages_Join}" FontSize="13" />
+                                        </StackPanel>
+                                    </ui:Button>
+                                    <ui:Button x:Name="ViewGameButton" Appearance="Secondary" Margin="12,0,0,0"
+                                               Visibility="{Binding CanViewGame, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                               Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                               CommandParameter="{Binding}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <ui:SymbolIcon Symbol="Open24" FontSize="14" Margin="0,0,6,0" />
+                                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Messages_ViewGame}" FontSize="13" />
+                                        </StackPanel>
+                                    </ui:Button>
+                                </StackPanel>
                             </Grid>
                             <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding IsCurrentUser}" Value="True">
-                                    <Setter TargetName="Body" Property="Foreground"
-                                            Value="{ui:ThemeResource TextOnAccentFillColorPrimaryBrush}" />
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InGame}">
+                                    <Setter TargetName="HeaderRing" Property="BorderBrush" Value="{StaticResource InGameRing}" />
+                                    <Setter TargetName="HeaderName" Property="Foreground" Value="{StaticResource InGameText}" />
+                                    <Setter TargetName="HeaderState" Property="Foreground" Value="{StaticResource InGameText}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.Online}">
+                                    <Setter TargetName="HeaderRing" Property="BorderBrush" Value="{StaticResource OnlineRing}" />
+                                    <Setter TargetName="HeaderName" Property="Foreground" Value="{StaticResource OnlineText}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InStudio}">
+                                    <Setter TargetName="HeaderRing" Property="BorderBrush" Value="{StaticResource StudioRing}" />
+                                    <Setter TargetName="HeaderName" Property="Foreground" Value="{StaticResource StudioText}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsGroup}" Value="True">
+                                    <Setter TargetName="HeaderRing" Property="BorderBrush" Value="Transparent" />
+                                    <Setter TargetName="HeaderGroupIcon" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="HeaderName" Property="Foreground" Value="{ui:ThemeResource TextFillColorPrimaryBrush}" />
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
 
-            <Grid Grid.Row="1" Margin="10,8,10,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="2">
+                    <ScrollViewer x:Name="MessageScroller" VerticalScrollBarVisibility="Auto" Padding="16,0,12,8">
+                        <ItemsControl ItemsSource="{Binding SelectedTab.Rows}" Focusable="False" />
+                    </ScrollViewer>
 
-                <ui:TextBox x:Name="MessageTextBox" Grid.Column="0" FontSize="13" Margin="0,0,6,0"
-                            PlaceholderText="{x:Static resources:Strings.Menu_Overlay_Messages_Write}"
-                            Text="{Binding MessageTextBoxContent, UpdateSourceTrigger=PropertyChanged}"
-                            KeyDown="MessageTextBoxKeyDown" />
+                    <TextBlock Text="{Binding SelectedTab.EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap" Margin="24,0"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
+                               Visibility="{Binding SelectedTab.ShowEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <ui:Button Grid.Column="1" MinWidth="76" Appearance="Primary"
-                           Content="{x:Static resources:Strings.Menu_Overlay_Messages_Send}"
-                           Command="{Binding SendMessageCommand}" />
+                    <ui:ProgressRing IsIndeterminate="True" Width="28" Height="28" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                     Visibility="{Binding SelectedTab.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </Grid>
+
+                <Grid Grid.Row="3" Margin="14,4,14,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:TextBox x:Name="DraftBox" Grid.Column="0" FontSize="13" MaxHeight="120"
+                                AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ClearButtonEnabled="False"
+                                PlaceholderText="{x:Static resources:Strings.Menu_Overlay_Messages_Write}"
+                                Text="{Binding SelectedTab.Draft, UpdateSourceTrigger=PropertyChanged}"
+                                PreviewKeyDown="DraftKeyDown" />
+
+                    <ui:Button x:Name="SendButton" Grid.Column="1" Width="40" Height="34" Padding="0" Margin="8,0,0,0" VerticalAlignment="Bottom"
+                               Appearance="Primary" Icon="Send24"
+                               ToolTip="{x:Static resources:Strings.Menu_Overlay_Messages_Send}"
+                               IsEnabled="{Binding SelectedTab.CanSend}"
+                               Command="{Binding SendCommand}" />
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

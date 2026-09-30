@@ -5192,7 +5192,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No conversations..
+        ///   Looks up a localized string similar to No friends or chats yet..
         /// </summary>
         public static string Menu_Overlay_Messages_Empty {
             get {
@@ -5201,7 +5201,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a conversation to start chatting..
+        ///   Looks up a localized string similar to Pick a friend to start chatting..
         /// </summary>
         public static string Menu_Overlay_Messages_PickConversation {
             get {
@@ -5210,7 +5210,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search conversations.
+        ///   Looks up a localized string similar to Search friends.
         /// </summary>
         public static string Menu_Overlay_Messages_Search {
             get {
@@ -6430,6 +6430,156 @@ namespace Bloxstrap.Resources {
         public static string Menu_Overlay_Notify_ClickToView {
             get {
                 return ResourceManager.GetString("Menu.Overlay.Notify.ClickToView", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionInGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionInGame", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionOnline {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionOnline", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionOffline {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionOffline", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionGroups {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionGroups", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Members {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Members", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_InAGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.InAGame", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Playing {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Playing", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_InStudio {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.InStudio", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Online {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Online", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Offline {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Offline", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NeedsCookies {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NeedsCookies", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Loading {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Loading", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_LoadFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.LoadFailed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_UnnamedGroup {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.UnnamedGroup", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NoMatches {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NoMatches", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NoHistory {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NoHistory", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_You {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.You", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Today {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Today", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Yesterday {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Yesterday", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_CouldntStart {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.CouldntStart", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Moderated {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Moderated", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NotSent {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NotSent", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Join {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Join", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_ViewGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.ViewGame", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_CloseTab {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.CloseTab", resourceCulture);
             }
         }
 

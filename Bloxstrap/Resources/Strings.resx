@@ -2089,16 +2089,16 @@ Please don't change this setting unless you know what you're doing.</value>
     <value>Hide full servers</value>
   </data>
   <data name="Menu.Overlay.Messages.Search" xml:space="preserve">
-    <value>Search conversations</value>
+    <value>Search friends</value>
   </data>
   <data name="Menu.Overlay.Messages.Send" xml:space="preserve">
     <value>Send</value>
   </data>
   <data name="Menu.Overlay.Messages.Empty" xml:space="preserve">
-    <value>No conversations.</value>
+    <value>No friends or chats yet.</value>
   </data>
   <data name="Menu.Overlay.Messages.PickConversation" xml:space="preserve">
-    <value>Select a conversation to start chatting.</value>
+    <value>Pick a friend to start chatting.</value>
   </data>
   <data name="Menu.Overlay.Messages.Write" xml:space="preserve">
     <value>Write a message</value>
@@ -2504,6 +2504,81 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Menu.Overlay.Notify.ClickToView" xml:space="preserve">
     <value>Click to see the game</value>
+  </data>
+  <data name="Menu.Overlay.Messages.SectionInGame" xml:space="preserve">
+    <value>In game</value>
+  </data>
+  <data name="Menu.Overlay.Messages.SectionOnline" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Menu.Overlay.Messages.SectionOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="Menu.Overlay.Messages.SectionGroups" xml:space="preserve">
+    <value>Group chats</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Members" xml:space="preserve">
+    <value>{0} members</value>
+  </data>
+  <data name="Menu.Overlay.Messages.InAGame" xml:space="preserve">
+    <value>In a game</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Playing" xml:space="preserve">
+    <value>Playing {0}</value>
+  </data>
+  <data name="Menu.Overlay.Messages.InStudio" xml:space="preserve">
+    <value>In Studio</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="Menu.Overlay.Messages.NeedsCookies" xml:space="preserve">
+    <value>Allow cookie access in Fishstrap's settings to see your friends and chats.</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Loading" xml:space="preserve">
+    <value>Loading friends…</value>
+  </data>
+  <data name="Menu.Overlay.Messages.LoadFailed" xml:space="preserve">
+    <value>Couldn't load your friends. Try again in a moment.</value>
+  </data>
+  <data name="Menu.Overlay.Messages.UnnamedGroup" xml:space="preserve">
+    <value>Group chat</value>
+  </data>
+  <data name="Menu.Overlay.Messages.NoMatches" xml:space="preserve">
+    <value>No one matches “{0}”</value>
+  </data>
+  <data name="Menu.Overlay.Messages.NoHistory" xml:space="preserve">
+    <value>No messages with {0} yet.</value>
+  </data>
+  <data name="Menu.Overlay.Messages.You" xml:space="preserve">
+    <value>You</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="Menu.Overlay.Messages.CouldntStart" xml:space="preserve">
+    <value>Couldn't start a chat with {0}.</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Moderated" xml:space="preserve">
+    <value>Roblox didn't allow this message.</value>
+  </data>
+  <data name="Menu.Overlay.Messages.NotSent" xml:space="preserve">
+    <value>Not sent. Try again in a moment.</value>
+  </data>
+  <data name="Menu.Overlay.Messages.Join" xml:space="preserve">
+    <value>Join</value>
+  </data>
+  <data name="Menu.Overlay.Messages.ViewGame" xml:space="preserve">
+    <value>View game</value>
+  </data>
+  <data name="Menu.Overlay.Messages.CloseTab" xml:space="preserve">
+    <value>Close</value>
   </data>
   <data name="Menu.Overlay.Tab.Browser" xml:space="preserve">
     <value>Browser</value>

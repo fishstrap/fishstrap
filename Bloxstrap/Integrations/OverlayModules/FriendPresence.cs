@@ -17,6 +17,8 @@ namespace Bloxstrap.Integrations.OverlayModules
 
         public event EventHandler<FriendPresenceChange>? Changed;
 
+        public event EventHandler? Updated;
+
         private readonly ActivityWatcher? _activityWatcher;
 
         private readonly Dictionary<(long UserId, string Place), DateTime> _notified = new();
@@ -30,6 +32,12 @@ namespace Bloxstrap.Integrations.OverlayModules
         private CancellationTokenSource? _cancellation;
 
         private bool _seeded;
+
+        public IReadOnlyList<long> FriendIds => _friends.ToList();
+
+        public IReadOnlyDictionary<long, UserPresence> Presences => new Dictionary<long, UserPresence>(_last);
+
+        public bool HasLooked => _seeded;
 
         public FriendPresence(ActivityWatcher? activityWatcher)
         {
@@ -108,7 +116,11 @@ namespace Bloxstrap.Integrations.OverlayModules
             }
 
             if (!_friends.Any())
+            {
+                _seeded = true;
+                Updated?.Invoke(this, EventArgs.Empty);
                 return;
+            }
 
             var now = new Dictionary<long, UserPresence>();
 
@@ -125,6 +137,8 @@ namespace Bloxstrap.Integrations.OverlayModules
 
             _last = now;
             _seeded = true;
+
+            Updated?.Invoke(this, EventArgs.Empty);
 
             foreach (FriendPresenceChange change in changes.OrderBy(x => x.Kind).Take(MaxPerPoll))
                 Changed?.Invoke(this, change);

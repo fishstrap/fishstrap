@@ -1,16 +1,12 @@
-using System.Windows;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
-using Bloxstrap.Integrations.OverlayModules;
-using Bloxstrap.Models.Overlay;
 using Bloxstrap.UI.ViewModels.Overlay.Controls;
 
 namespace Bloxstrap.UI.Elements.Overlay.Controls
 {
-    /// <summary>
-    /// Interaction logic for FriendActivity.xaml
-    /// </summary>
     public partial class FriendActivity : UserControl
     {
         private FriendActivityViewModel _viewModel;
@@ -22,31 +18,49 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             DataContext = _viewModel;
 
             InitializeComponent();
+
+            IsVisibleChanged += async (_, _) =>
+            {
+                if (IsVisible)
+                    await _viewModel.LoadAsync();
+            };
         }
 
-        public void Attach(RobloxParty? party)
+        public void Attach(Integrations.Overlay? overlay)
         {
-            _viewModel = new FriendActivityViewModel(party);
+            _viewModel.MessagesAdded -= OnMessagesAdded;
+            _viewModel.PropertyChanged -= OnViewModelChanged;
+
+            _viewModel = new FriendActivityViewModel(overlay);
+            _viewModel.MessagesAdded += OnMessagesAdded;
+            _viewModel.PropertyChanged += OnViewModelChanged;
 
             DataContext = _viewModel;
         }
 
-        private async void OnLoaded(object sender, RoutedEventArgs e) => await _viewModel.LoadConversations();
-
-        private async void ConversationsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnViewModelChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (sender is ListBox listBox && listBox.SelectedItem is FriendItem selected)
-                await _viewModel.LoadConversationHistory(selected);
-        }
-
-        private async void MessageTextBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter)
+            if (e.PropertyName != nameof(FriendActivityViewModel.SelectedTab))
                 return;
 
-            await _viewModel.SendMessage();
+            ScrollToEnd();
+
+            if (_viewModel.HasTab)
+                Dispatcher.BeginInvoke(() => DraftBox.Focus(), DispatcherPriority.Input);
         }
 
-        private void CloseOverlay(object sender, RoutedEventArgs e) => Window.GetWindow(this)?.Hide();
+        private void OnMessagesAdded(object? sender, EventArgs e) => ScrollToEnd();
+
+        private void ScrollToEnd() => Dispatcher.BeginInvoke(() => MessageScroller.ScrollToEnd(), DispatcherPriority.Loaded);
+
+        private void DraftKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter || Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+                return;
+
+            e.Handled = true;
+
+            _viewModel.SendCommand.Execute(null);
+        }
     }
 }

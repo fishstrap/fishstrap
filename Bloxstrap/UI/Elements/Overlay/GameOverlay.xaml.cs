@@ -89,7 +89,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             Deactivated += OnDeactivated;
 
-            ChatWindow.Attach(overlay?.Messaging.Party);
+            ChatWindow.Attach(overlay);
             BadgeTracker.Attach(overlay?.ActivityWatcher);
             BadgeTracker.BadgeEarned += OnBadgeEarned;
             ServerBrowser.Attach(overlay?.ActivityWatcher);
@@ -143,6 +143,7 @@ namespace Bloxstrap.UI.Elements.Overlay
                 OverlayPanelKind.History => (580d, 440d),
                 OverlayPanelKind.Browser => (960d, 600d),
                 OverlayPanelKind.Settings => (520d, 640d),
+                OverlayPanelKind.Messages => (880d, 580d),
                 _ => (720d, 500d)
             };
 

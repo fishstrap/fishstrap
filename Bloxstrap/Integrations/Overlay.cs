@@ -51,6 +51,7 @@ namespace Bloxstrap.Integrations
         private OverlayBounds? _lastBounds;
         private bool _disposed;
         private bool _hinted;
+        private bool _friendsForPanel;
 
         private readonly Queue<OverlayNotice> _notices = new();
 
@@ -109,8 +110,7 @@ namespace Bloxstrap.Integrations
             if (ActivityWatcher is not null)
                 ActivityWatcher.OnGameJoin += OnGameJoin;
 
-            if (App.Settings.Prop.OverlayFriendNotifications)
-                Friends.Start();
+            UpdateFriendWatch();
         }
 
         public void SyncBounds()
@@ -252,9 +252,18 @@ namespace Bloxstrap.Integrations
             });
         }
 
-        public void SetFriendNotifications(bool enabled)
+        public void SetFriendNotifications(bool enabled) => UpdateFriendWatch();
+
+        public void WatchFriendsForPanel()
         {
-            if (enabled)
+            _friendsForPanel = true;
+
+            UpdateFriendWatch();
+        }
+
+        private void UpdateFriendWatch()
+        {
+            if (App.Settings.Prop.OverlayFriendNotifications || _friendsForPanel)
                 Friends.Start();
             else
                 Friends.Stop();
@@ -272,6 +281,8 @@ namespace Bloxstrap.Integrations
         }
 
         public void Open() => Application.Current.Dispatcher.Invoke(() => _window?.Open());
+
+        public void OpenPage(Uri address) => Application.Current.Dispatcher.Invoke(() => _window?.OpenPage(address));
 
         public void DismissToast()
         {

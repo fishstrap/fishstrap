@@ -1,32 +1,81 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Data;
 using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.Input;
 
+using Bloxstrap.Enums.Overlay;
 using Bloxstrap.Integrations.OverlayModules;
 using Bloxstrap.Models.APIs.RobloxParty;
 using Bloxstrap.Models.APIs.RobloxParty.Events;
-using Bloxstrap.Models.Overlay;
+using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 {
     public class FriendActivityViewModel : NotifyPropertyChangedViewModel
     {
+        private static readonly TimeSpan GroupGap = TimeSpan.FromMinutes(5);
+
+        private const int DetailsBatch = 100;
+
+        private readonly Integrations.Overlay? _overlay;
+
         private readonly RobloxParty? _party;
-        private readonly ICollectionView _friendsView;
 
-        private AuthenticatedUser? _current;
-        private FriendItem? _selected;
+        private readonly FriendPresence? _presence;
 
-        public ObservableCollection<ChatMessage> MessagesList { get; } = new();
+        private readonly Dictionary<long, ChatFriend> _people = new();
 
-        public ObservableCollection<FriendItem> FriendsList { get; } = new();
+        private readonly List<ChatFriend> _groups = new();
+
+        private readonly Dictionary<FriendSection, FriendListHeader> _headers;
+
+        private AuthenticatedUser? _me;
+
+        private string? _myAvatar;
+
+        private bool _loading;
+
+        private bool _loaded;
+
+        private string? _listStatus;
+
+        public ObservableCollection<object> Rows { get; } = new();
+
+        public ObservableCollection<ChatTab> Tabs { get; } = new();
+
+        public event EventHandler? MessagesAdded;
+
+        private ChatTab? _selectedTab;
+
+        public ChatTab? SelectedTab
+        {
+            get => _selectedTab;
+            private set
+            {
+                if (_selectedTab is not null)
+                    _selectedTab.IsSelected = false;
+
+                _selectedTab = value;
+
+                if (_selectedTab is not null)
+                {
+                    _selectedTab.IsSelected = true;
+                    _selectedTab.Friend.Unread = 0;
+                }
+
+                OnPropertyChanged(nameof(SelectedTab));
+                OnPropertyChanged(nameof(HasTab));
+                OnPropertyChanged(nameof(ShowPlaceholder));
+            }
+        }
+
+        public bool HasTab => _selectedTab is not null;
+
+        public bool ShowPlaceholder => _selectedTab is null;
 
         private string _searchText = String.Empty;
 
-        public string SearchTextBoxContent
+        public string SearchText
         {
             get => _searchText;
             set
@@ -36,199 +85,545 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
                 _searchText = value;
 
-                OnPropertyChanged(nameof(SearchTextBoxContent));
+                OnPropertyChanged(nameof(SearchText));
 
-                _friendsView.Refresh();
+                Rebuild();
             }
         }
 
-        private string _messageText = String.Empty;
+        public string MyName { get; private set; } = String.Empty;
 
-        public string MessageTextBoxContent
+        public string MyHandle { get; private set; } = String.Empty;
+
+        public string? MyAvatar => _myAvatar;
+
+        public string ListStatus => _listStatus ?? String.Empty;
+
+        public bool ShowListStatus => !String.IsNullOrEmpty(_listStatus);
+
+        public ICommand OpenChatCommand => new RelayCommand<ChatFriend>(friend => _ = OpenChatAsync(friend));
+
+        public ICommand SelectTabCommand => new RelayCommand<ChatTab>(tab => SelectedTab = tab);
+
+        public ICommand CloseTabCommand => new RelayCommand<ChatTab>(CloseTab);
+
+        public ICommand ToggleSectionCommand => new RelayCommand<FriendListHeader>(ToggleSection);
+
+        public ICommand SendCommand => new RelayCommand(() => _ = SendAsync());
+
+        public ICommand JoinCommand => new RelayCommand<ChatFriend>(Join);
+
+        public FriendActivityViewModel(Integrations.Overlay? overlay)
         {
-            get => _messageText;
-            set
+            _overlay = overlay;
+            _party = overlay?.Messaging.Party;
+            _presence = overlay?.Friends;
+
+            _headers = new Dictionary<FriendSection, FriendListHeader>
             {
-                if (_messageText == value)
-                    return;
-
-                _messageText = value;
-
-                OnPropertyChanged(nameof(MessageTextBoxContent));
-            }
-        }
-
-        public bool ShowEmptyState => !FriendsList.Any();
-
-        public bool ShowConversationPlaceholder => _selected is null;
-
-        public ICommand SendMessageCommand => new RelayCommand(async () => await SendMessage());
-
-        public FriendActivityViewModel(RobloxParty? party)
-        {
-            _party = party;
-
-            _friendsView = CollectionViewSource.GetDefaultView(FriendsList);
-            _friendsView.Filter = FilterFriends;
+                [FriendSection.InGame] = new FriendListHeader { Section = FriendSection.InGame, Title = Strings.Menu_Overlay_Messages_SectionInGame },
+                [FriendSection.Online] = new FriendListHeader { Section = FriendSection.Online, Title = Strings.Menu_Overlay_Messages_SectionOnline },
+                [FriendSection.Offline] = new FriendListHeader { Section = FriendSection.Offline, Title = Strings.Menu_Overlay_Messages_SectionOffline },
+                [FriendSection.Groups] = new FriendListHeader { Section = FriendSection.Groups, Title = Strings.Menu_Overlay_Messages_SectionGroups }
+            };
 
             if (_party is not null)
                 _party.IncomingMessage += OnIncomingMessage;
+
+            if (_presence is not null)
+                _presence.Updated += (_, _) => App.Current.Dispatcher.InvokeAsync(ApplyPresence);
         }
 
-        private bool FilterFriends(object item)
+        public async Task LoadAsync(bool force = false)
         {
-            if (item is not FriendItem friend)
-                return false;
+            const string LOG_IDENT = "FriendActivityViewModel::LoadAsync";
 
-            return String.IsNullOrEmpty(_searchText)
-                || friend.Username.Contains(_searchText, StringComparison.OrdinalIgnoreCase);
-        }
-
-        private void OnIncomingMessage(object? sender, MessageEvent message)
-        {
-            if (_selected is null || _selected.ConversationId != message.ConversationId)
+            if (_loading || (_loaded && !force))
                 return;
 
-            _ = App.Current.Dispatcher.InvokeAsync(async () => await RefreshConversation(_selected));
-        }
-
-        public async Task LoadConversations()
-        {
-            const string LOG_IDENT = "FriendActivityViewModel::LoadConversations";
-
-            if (_party is null || !App.Settings.Prop.AllowCookieAccess)
+            if (!App.Settings.Prop.AllowCookieAccess)
+            {
+                SetListStatus(Strings.Menu_Overlay_Messages_NeedsCookies);
                 return;
+            }
+
+            _loading = true;
+
+            if (!_people.Any())
+                SetListStatus(Strings.Menu_Overlay_Messages_Loading);
 
             try
             {
                 if (!App.Cookies.Loaded)
                     await Task.Run(App.Cookies.LoadCookies);
 
-                _current = App.Cookies.CurrentUser;
+                _me = App.Cookies.CurrentUser;
 
-                if (_current is null)
-                    return;
-
-                ConversationsPage? page = await _party.GetConversations();
-
-                if (page is null)
-                    return;
-
-                var participants = page.Conversations.SelectMany(x => x.Participants).Distinct().ToList();
-                var users = await UserDetails.FetchBatch(participants);
-
-                FriendsList.Clear();
-
-                foreach (Conversation conversation in page.Conversations)
+                if (_me is null)
                 {
-                    long otherUserId = conversation.Participants.FirstOrDefault(x => x != _current.Id);
+                    SetListStatus(Strings.Menu_Overlay_Messages_NeedsCookies);
+                    return;
+                }
 
-                    users.TryGetValue(otherUserId, out UserDetails? details);
+                _overlay?.WatchFriendsForPanel();
 
-                    FriendsList.Add(new FriendItem
+                if (_presence is not null && !_presence.HasLooked)
+                    await _presence.PollAsync();
+
+                List<Conversation> conversations = _party is null ? new() : await _party.GetAllConversations();
+
+                var ids = new HashSet<long>(_presence?.FriendIds ?? Array.Empty<long>());
+
+                foreach (Conversation conversation in conversations.Where(IsOneToOne))
+                {
+                    long other = conversation.Participants.FirstOrDefault(x => x != _me.Id);
+
+                    if (other > 0)
+                        ids.Add(other);
+                }
+
+                ids.Add(_me.Id);
+
+                var details = await FetchDetailsAsync(ids.ToList());
+
+                _myAvatar = details.TryGetValue(_me.Id, out UserDetails? mine) ? mine.Thumbnail?.ImageUrl : null;
+
+                MyName = mine?.Data.DisplayName ?? mine?.Data.Name ?? String.Empty;
+                MyHandle = String.IsNullOrEmpty(mine?.Data.Name) ? String.Empty : $"@{mine!.Data.Name}";
+
+                OnPropertyChanged(nameof(MyName));
+                OnPropertyChanged(nameof(MyHandle));
+                OnPropertyChanged(nameof(MyAvatar));
+
+                ids.Remove(_me.Id);
+
+                foreach (long id in ids)
+                {
+                    if (_people.ContainsKey(id))
+                        continue;
+
+                    details.TryGetValue(id, out UserDetails? person);
+
+                    _people[id] = new ChatFriend
                     {
-                        Username = conversation.Name,
-                        StatusText = details?.Data.Name is null ? String.Empty : $"@{details.Data.Name}",
-                        ProfileImage = details?.Thumbnail.ImageUrl,
+                        UserId = id,
+                        DisplayName = person?.Data.DisplayName ?? person?.Data.Name ?? id.ToString(),
+                        Username = person?.Data.Name ?? String.Empty,
+                        Headshot = person?.Thumbnail?.ImageUrl
+                    };
+                }
+
+                _groups.Clear();
+
+                foreach (Conversation conversation in conversations)
+                {
+                    if (IsOneToOne(conversation))
+                    {
+                        long other = conversation.Participants.FirstOrDefault(x => x != _me.Id);
+
+                        if (_people.TryGetValue(other, out ChatFriend? friend))
+                        {
+                            friend.ConversationId = conversation.Id;
+                            friend.Unread = conversation.UnreadMessagesCount;
+                        }
+
+                        continue;
+                    }
+
+                    _groups.Add(new ChatFriend
+                    {
+                        IsGroup = true,
+                        DisplayName = String.IsNullOrWhiteSpace(conversation.Name) ? Strings.Menu_Overlay_Messages_UnnamedGroup : conversation.Name,
+                        MemberCount = conversation.Participants.Length,
                         ConversationId = conversation.Id,
-                        Data = await _party.GetMessages(conversation)
+                        Unread = conversation.UnreadMessagesCount
                     });
                 }
 
-                OnPropertyChanged(nameof(ShowEmptyState));
+                _loaded = true;
+
+                SetListStatus(null);
+
+                ApplyPresence();
             }
             catch (Exception ex)
             {
-                App.Logger.WriteLine(LOG_IDENT, "Failed to load conversations");
+                App.Logger.WriteLine(LOG_IDENT, "Failed to load friends and conversations");
                 App.Logger.WriteException(LOG_IDENT, ex);
+
+                if (!_people.Any())
+                    SetListStatus(Strings.Menu_Overlay_Messages_LoadFailed);
+            }
+            finally
+            {
+                _loading = false;
             }
         }
 
-        public Task LoadConversationHistory(FriendItem conversation)
+        private static bool IsOneToOne(Conversation conversation) =>
+            conversation.Type == "one_to_one" || conversation.Participants.Length <= 2;
+
+        private static async Task<Dictionary<long, UserDetails>> FetchDetailsAsync(List<long> ids)
         {
-            const string LOG_IDENT = "FriendActivityViewModel::LoadConversationHistory";
+            var details = new Dictionary<long, UserDetails>();
 
-            _selected = conversation;
-
-            MessagesList.Clear();
-
-            OnPropertyChanged(nameof(ShowConversationPlaceholder));
-
-            if (conversation.Data?.Messages is null)
+            foreach (long[] batch in ids.Chunk(DetailsBatch))
             {
-                App.Logger.WriteLine(LOG_IDENT, $"No history for {conversation.Username}");
-                return Task.CompletedTask;
+                foreach ((long id, UserDetails user) in await UserDetails.FetchBatch(batch.ToList()))
+                    details[id] = user;
             }
 
-            App.Logger.WriteLine(LOG_IDENT, $"Loading conversation for {conversation.Username}");
-
-            foreach (UserMessage message in conversation.Data.Messages)
-                AddMessage(message);
-
-            return Task.CompletedTask;
+            return details;
         }
 
-        private async Task RefreshConversation(FriendItem conversation)
+        private void ApplyPresence()
         {
-            if (_party is null)
-                return;
+            IReadOnlyDictionary<long, UserPresence> presences = _presence?.Presences ?? new Dictionary<long, UserPresence>();
 
-            conversation.Data = await _party.GetMessages(new Conversation { Id = conversation.ConversationId });
+            foreach ((long id, ChatFriend friend) in _people)
+                friend.Update(presences.TryGetValue(id, out UserPresence? presence) ? presence : null);
 
-            await LoadConversationHistory(conversation);
+            Rebuild();
         }
 
-        private void AddMessage(UserMessage message)
+        private void Rebuild()
         {
-            if (_selected is null || _current is null)
-                return;
+            string search = _searchText.Trim();
 
-            long sender = message.Sender ?? UserMessage.SystemSenderId;
+            bool Shown(ChatFriend friend) => search.Length == 0 || friend.Matches(search);
 
-            if (sender == UserMessage.SystemSenderId)
-                return;
-
-            if (MessagesList.Any(x => x.MessageId == message.Id))
-                return;
-
-            bool isCurrentUser = sender == _current.Id;
-
-            MessagesList.Insert(0, new ChatMessage
+            var sections = new List<(FriendSection Section, List<ChatFriend> People)>
             {
-                Text = message.Content,
-                Sender = isCurrentUser ? "You" : _selected.Username,
-                IsCurrentUser = isCurrentUser,
-                MessageId = message.Id
-            });
-        }
-
-        public async Task SendMessage()
-        {
-            if (_party is null || _selected is null || String.IsNullOrWhiteSpace(_messageText))
-                return;
-
-            var pending = new ChatMessage
-            {
-                Text = _messageText,
-                Sender = "You",
-                IsCurrentUser = true,
-                State = ChatMessageState.Pending
+                (FriendSection.InGame, _people.Values.Where(x => x.Status == FriendStatus.InGame && Shown(x)).ToList()),
+                (FriendSection.Online, _people.Values.Where(x => (x.Status is FriendStatus.Online or FriendStatus.InStudio) && Shown(x)).ToList()),
+                (FriendSection.Offline, _people.Values.Where(x => x.Status == FriendStatus.Offline && Shown(x)).ToList()),
+                (FriendSection.Groups, _groups.Where(Shown).ToList())
             };
 
-            string outgoing = _messageText;
+            var rows = new List<object>();
 
-            MessageTextBoxContent = String.Empty;
-            MessagesList.Add(pending);
+            foreach ((FriendSection section, List<ChatFriend> people) in sections)
+            {
+                if (!people.Any())
+                    continue;
+
+                FriendListHeader header = _headers[section];
+                header.Count = people.Count;
+
+                rows.Add(header);
+
+                if (header.IsExpanded)
+                    rows.AddRange(people.OrderBy(x => x.DisplayName, StringComparer.CurrentCultureIgnoreCase));
+            }
+
+            if (!rows.SequenceEqual(Rows))
+            {
+                Rows.Clear();
+
+                foreach (object row in rows)
+                    Rows.Add(row);
+            }
+
+            if (_loaded)
+            {
+                if (!rows.Any() && search.Length > 0)
+                    SetListStatus(String.Format(Strings.Menu_Overlay_Messages_NoMatches, search));
+                else if (!rows.Any())
+                    SetListStatus(Strings.Menu_Overlay_Messages_Empty);
+                else
+                    SetListStatus(null);
+            }
+        }
+
+        private void ToggleSection(FriendListHeader? header)
+        {
+            if (header is null)
+                return;
+
+            header.IsExpanded = !header.IsExpanded;
+
+            Rebuild();
+        }
+
+        private void SetListStatus(string? status)
+        {
+            _listStatus = status;
+
+            OnPropertyChanged(nameof(ListStatus));
+            OnPropertyChanged(nameof(ShowListStatus));
+        }
+
+        public async Task OpenChatAsync(ChatFriend? friend)
+        {
+            if (friend is null)
+                return;
+
+            ChatTab? tab = Tabs.FirstOrDefault(x => x.Friend == friend);
+
+            if (tab is null)
+            {
+                tab = new ChatTab { Friend = friend };
+                Tabs.Add(tab);
+            }
+
+            SelectedTab = tab;
+
+            if (!tab.Loaded)
+                await RefreshTabAsync(tab);
+        }
+
+        private void CloseTab(ChatTab? tab)
+        {
+            if (tab is null)
+                return;
+
+            int index = Tabs.IndexOf(tab);
+
+            Tabs.Remove(tab);
+
+            if (_selectedTab == tab)
+                SelectedTab = Tabs.Count == 0 ? null : Tabs[Math.Clamp(index, 0, Tabs.Count - 1)];
+        }
+
+        private async Task RefreshTabAsync(ChatTab tab)
+        {
+            const string LOG_IDENT = "FriendActivityViewModel::RefreshTabAsync";
+
+            if (_party is null || String.IsNullOrEmpty(tab.Friend.ConversationId))
+            {
+                tab.Loaded = true;
+                tab.RowsChanged();
+                return;
+            }
+
+            tab.IsLoading = !tab.Loaded;
 
             try
             {
-                await _party.SendMessage(_selected.ConversationId, outgoing);
+                UserMessagesPage? page = await _party.GetMessages(new Conversation { Id = tab.Friend.ConversationId });
 
-                pending.State = ChatMessageState.Sent;
+                if (page?.Messages is null)
+                    return;
+
+                bool added = false;
+
+                foreach (UserMessage message in Enumerable.Reverse(page.Messages))
+                {
+                    if (String.IsNullOrEmpty(message.Id) || !tab.KnownMessages.Add(message.Id))
+                        continue;
+
+                    if (message.Visibility != "visible" && !String.IsNullOrEmpty(message.Visibility))
+                        continue;
+
+                    long sender = message.Sender ?? UserMessage.SystemSenderId;
+
+                    if (sender == UserMessage.SystemSenderId)
+                        AddSystemLine(tab, message.Content, message.CreatedAt);
+                    else
+                        AddLine(tab, sender, message.Content, message.CreatedAt).MessageId = message.Id;
+
+                    added = true;
+                }
+
+                tab.Loaded = true;
+
+                if (added)
+                    MessagesAdded?.Invoke(this, EventArgs.Empty);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                pending.State = ChatMessageState.Failed;
+                App.Logger.WriteLine(LOG_IDENT, "Failed to load a conversation");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+            finally
+            {
+                tab.IsLoading = false;
+                tab.RowsChanged();
+            }
+        }
+
+        private void AddSystemLine(ChatTab tab, string text, DateTime? at)
+        {
+            AddDivider(tab, at);
+
+            tab.Rows.Add(new ChatSystemLine(text));
+        }
+
+        public ChatLine AddLine(ChatTab tab, long sender, string text, DateTime? at)
+        {
+            bool mine = _me is not null && sender == _me.Id;
+
+            AddDivider(tab, at);
+
+            ChatMessageGroup? group = tab.Rows.LastOrDefault() as ChatMessageGroup;
+
+            bool continues = group is not null && group.SenderId == sender
+                && (at is null || group.LastAt is null || at.Value - group.LastAt.Value <= GroupGap);
+
+            if (!continues)
+            {
+                ChatFriend? who = mine ? null : _people.TryGetValue(sender, out ChatFriend? friend) ? friend : null;
+
+                group = new ChatMessageGroup
+                {
+                    SenderId = sender,
+                    IsMine = mine,
+                    Sender = mine ? Strings.Menu_Overlay_Messages_You : who?.DisplayName ?? tab.Friend.DisplayName,
+                    Avatar = mine ? _myAvatar : who?.Headshot ?? (tab.Friend.IsGroup ? null : tab.Friend.Headshot),
+                    StartedAt = at
+                };
+
+                tab.Rows.Add(group);
+            }
+
+            group!.LastAt = at ?? group.LastAt;
+
+            var line = new ChatLine { Text = text };
+
+            group.Lines.Add(line);
+
+            tab.RowsChanged();
+
+            return line;
+        }
+
+        private static void AddDivider(ChatTab tab, DateTime? at)
+        {
+            if (at is not DateTime when)
+                return;
+
+            DateTime day = when.ToLocalTime().Date;
+
+            ChatDayDivider? last = tab.Rows.OfType<ChatDayDivider>().LastOrDefault();
+
+            if (last is not null && last.Day == day)
+                return;
+
+            tab.Rows.Add(new ChatDayDivider(day, DayText(day)));
+        }
+
+        public static string DayText(DateTime day)
+        {
+            if (day == DateTime.Today)
+                return Strings.Menu_Overlay_Messages_Today;
+
+            if (day == DateTime.Today.AddDays(-1))
+                return Strings.Menu_Overlay_Messages_Yesterday;
+
+            return day.ToString("D", Locale.CurrentCulture);
+        }
+
+        public async Task SendAsync()
+        {
+            const string LOG_IDENT = "FriendActivityViewModel::SendAsync";
+
+            ChatTab? tab = _selectedTab;
+
+            if (tab is null || _party is null || _me is null || !tab.CanSend)
+                return;
+
+            string text = tab.Draft.Trim();
+
+            tab.Draft = String.Empty;
+
+            ChatLine line = AddLine(tab, _me.Id, text, DateTime.UtcNow);
+            line.State = ChatLineState.Pending;
+
+            MessagesAdded?.Invoke(this, EventArgs.Empty);
+
+            try
+            {
+                if (String.IsNullOrEmpty(tab.Friend.ConversationId))
+                {
+                    Conversation? created = tab.Friend.IsGroup ? null : await _party.CreateConversation(tab.Friend.UserId);
+
+                    if (created is null)
+                    {
+                        line.Failure = String.Format(Strings.Menu_Overlay_Messages_CouldntStart, tab.Friend.DisplayName);
+                        line.State = ChatLineState.Failed;
+                        return;
+                    }
+
+                    tab.Friend.ConversationId = created.Id;
+                }
+
+                UserMessage? sent = await _party.SendMessage(tab.Friend.ConversationId!, text);
+
+                if (!String.IsNullOrEmpty(sent?.Id))
+                {
+                    line.MessageId = sent!.Id;
+                    tab.KnownMessages.Add(sent.Id);
+                }
+
+                line.State = ChatLineState.Sent;
+            }
+            catch (InvalidOperationException)
+            {
+                line.Failure = Strings.Menu_Overlay_Messages_Moderated;
+                line.State = ChatLineState.Failed;
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to send a message");
+                App.Logger.WriteException(LOG_IDENT, ex);
+
+                line.Failure = Strings.Menu_Overlay_Messages_NotSent;
+                line.State = ChatLineState.Failed;
+            }
+        }
+
+        private void OnIncomingMessage(object? sender, MessageEvent message)
+        {
+            if (message.IsTyping is not null)
+                return;
+
+            App.Current.Dispatcher.InvokeAsync(async () =>
+            {
+                ChatTab? tab = Tabs.FirstOrDefault(x => x.Friend.ConversationId == message.ConversationId);
+
+                if (tab is not null)
+                {
+                    await RefreshTabAsync(tab);
+
+                    if (tab != _selectedTab)
+                        tab.Friend.Unread++;
+
+                    return;
+                }
+
+                ChatFriend? owner = _people.Values.Concat(_groups).FirstOrDefault(x => x.ConversationId == message.ConversationId);
+
+                if (owner is not null)
+                    owner.Unread++;
+                else
+                    await LoadAsync(true);
+            });
+        }
+
+        private void Join(ChatFriend? friend)
+        {
+            const string LOG_IDENT = "FriendActivityViewModel::Join";
+
+            if (friend is null)
+                return;
+
+            try
+            {
+                if (friend.CanJoin)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Joining a friend from their chat");
+                    GameServers.Join(friend.PlaceId, friend.ServerId!);
+                }
+                else if (friend.CanViewGame)
+                {
+                    long place = friend.RootPlaceId > 0 ? friend.RootPlaceId : friend.PlaceId;
+                    _overlay?.OpenPage(new Uri($"https://www.roblox.com/games/{place}"));
+                }
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to follow a friend");
+                App.Logger.WriteException(LOG_IDENT, ex);
             }
         }
     }

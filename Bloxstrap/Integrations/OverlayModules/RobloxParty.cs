@@ -1,5 +1,6 @@
 using Bloxstrap.Models.APIs.RobloxParty;
 using Bloxstrap.Models.APIs.RobloxParty.Events;
+using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.Integrations.OverlayModules
 {
@@ -44,6 +45,55 @@ namespace Bloxstrap.Integrations.OverlayModules
             return null;
         }
 
+        public async Task<List<Conversation>> GetAllConversations(int maxPages = 5)
+        {
+            var conversations = new List<Conversation>();
+            string? cursor = null;
+
+            for (int page = 0; page < maxPages; page++)
+            {
+                ConversationsPage? result = await GetConversations(50, cursor);
+
+                if (result is null)
+                    break;
+
+                conversations.AddRange(result.Conversations);
+
+                cursor = result.NextCursor;
+
+                if (String.IsNullOrEmpty(cursor))
+                    break;
+            }
+
+            return conversations;
+        }
+
+        public async Task<Conversation?> CreateConversation(long userId)
+        {
+            const string LOG_IDENT = "RobloxParty::CreateConversation";
+
+            var payload = new
+            {
+                conversations = new[] { new { type = "one_to_one", participant_user_ids = new[] { userId } } },
+                include_user_data = false
+            };
+
+            try
+            {
+                var result = await AccountRequests.PostJsonAsync<ConversationsPage>(
+                    UrlBuilder.BuildApiUrl(ApiService, $"{ApiPath}/create-conversations"), payload);
+
+                return result?.Conversations.FirstOrDefault(x => !String.IsNullOrEmpty(x.Id));
+            }
+            catch (Exception ex) when (ex is JsonException || ex is HttpRequestException)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to start a conversation");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+
+            return null;
+        }
+
         public async Task<UserMessagesPage?> GetMessages(Conversation conversation, string? cursor = null)
         {
             const string LOG_IDENT = "RobloxParty::GetMessages";
@@ -67,7 +117,7 @@ namespace Bloxstrap.Integrations.OverlayModules
             return null;
         }
 
-        public async Task SendMessage(string conversationId, string messageContent)
+        public async Task<UserMessage?> SendMessage(string conversationId, string messageContent)
         {
             const string LOG_IDENT = "RobloxParty::SendMessage";
 
@@ -89,7 +139,7 @@ namespace Bloxstrap.Integrations.OverlayModules
             var result = JsonSerializer.Deserialize<UserMessagesPage>(await response.Content.ReadAsStringAsync());
 
             if (result is null)
-                return;
+                return null;
 
             foreach (UserMessage message in result.Messages)
             {
@@ -100,6 +150,8 @@ namespace Bloxstrap.Integrations.OverlayModules
 
                 throw new InvalidOperationException("Message was moderated by the platform.");
             }
+
+            return result.Messages.FirstOrDefault();
         }
 
         public async Task UpdateTypingStatus(Conversation conversation)
