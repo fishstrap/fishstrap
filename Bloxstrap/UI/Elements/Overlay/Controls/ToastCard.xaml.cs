@@ -38,6 +38,9 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             ToastMessage.Text = notice.Message;
             ToastMessage.Visibility = String.IsNullOrEmpty(notice.Message) ? Visibility.Collapsed : Visibility.Visible;
 
+            ToastAction.Text = notice.ActionText ?? String.Empty;
+            ToastAction.Visibility = String.IsNullOrEmpty(notice.ActionText) ? Visibility.Collapsed : Visibility.Visible;
+
             if (String.IsNullOrEmpty(notice.ImageUrl) || !Uri.TryCreate(notice.ImageUrl, UriKind.Absolute, out Uri? source))
             {
                 ToastPicture.Visibility = Visibility.Collapsed;

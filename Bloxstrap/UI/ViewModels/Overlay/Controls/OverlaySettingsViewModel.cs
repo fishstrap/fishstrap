@@ -30,11 +30,26 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         public event EventHandler? AppearanceChanged;
 
+        public event EventHandler? AnimationPicked;
+
         private static AppSettings Current => App.Settings.Prop;
 
         public ToastAppearance Appearance => ToastAppearance.Current;
 
         public IEnumerable<ToastPosition> Positions { get; } = Enum.GetValues<ToastPosition>();
+
+        public IEnumerable<ToastAnimation> Animations { get; } = Enum.GetValues<ToastAnimation>();
+
+        public ToastAnimation Animation
+        {
+            get => Appearance.Animation;
+            set
+            {
+                Current.OverlayToastAnimation = value;
+                Changed(nameof(Animation));
+                AnimationPicked?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
         public double MinCornerRadius => ToastAppearance.MinCornerRadius;
 
@@ -334,12 +349,13 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             Current.OverlayToastScale = defaults.Scale;
             Current.OverlayToastOpacity = defaults.BackgroundOpacity;
             Current.OverlayToastDuration = defaults.Duration;
+            Current.OverlayToastAnimation = defaults.Animation;
             Current.OverlayToastHeaderServer = defaults.HeaderServer;
             Current.OverlayToastHeaderFriends = defaults.HeaderFriends;
 
             Changed(nameof(IsCorner), nameof(IsFloating), nameof(Position), nameof(CornerRadius), nameof(CornerRadiusText),
                 nameof(Size), nameof(SizeText), nameof(BackgroundOpacity), nameof(BackgroundOpacityText),
-                nameof(Duration), nameof(DurationText), nameof(HeaderOff), nameof(HeaderServer), nameof(HeaderFriends), nameof(HeaderBoth));
+                nameof(Duration), nameof(DurationText), nameof(Animation), nameof(HeaderOff), nameof(HeaderServer), nameof(HeaderFriends), nameof(HeaderBoth));
         }
 
         private void Changed(params string[] names)
@@ -400,6 +416,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             to.OverlayToastScale = from.OverlayToastScale;
             to.OverlayToastOpacity = from.OverlayToastOpacity;
             to.OverlayToastDuration = from.OverlayToastDuration;
+            to.OverlayToastAnimation = from.OverlayToastAnimation;
             to.OverlayToastHeaderServer = from.OverlayToastHeaderServer;
             to.OverlayToastHeaderFriends = from.OverlayToastHeaderFriends;
             to.OverlayServerToasts = from.OverlayServerToasts;

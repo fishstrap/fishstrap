@@ -115,7 +115,8 @@
             <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Notifications}" Style="{StaticResource SectionTitle}" />
 
             <Border CornerRadius="8" BorderThickness="1" BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}">
-                <Grid x:Name="PreviewArea" Height="180" SizeChanged="PreviewSizeChanged">
+                <Grid x:Name="PreviewArea" Height="180" SizeChanged="PreviewSizeChanged" MouseLeftButtonUp="PreviewClicked"
+                      Cursor="Hand" ToolTip="{x:Static resources:Strings.Menu_Overlay_Settings_Replay}">
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#FF2E3A55" Offset="0" />
@@ -243,6 +244,26 @@
                                 Minimum="{Binding MinDuration, Mode=OneTime}" Maximum="{Binding MaxDuration, Mode=OneTime}"
                                 Value="{Binding Duration, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2" Text="{Binding DurationText}" Style="{StaticResource Value}" />
+                    </Grid>
+
+                    <Rectangle Style="{StaticResource Divider}" />
+
+                    <Grid Style="{StaticResource Row}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Animation}" Style="{StaticResource Label}" />
+
+                        <ComboBox x:Name="AnimationBox" Grid.Column="1" MinWidth="190" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  ItemsSource="{Binding Animations, Mode=OneTime}" SelectedItem="{Binding Animation, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </Grid>
 
                     <Rectangle Style="{StaticResource Divider}" />

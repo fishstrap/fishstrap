@@ -34,6 +34,8 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
         private bool _open = true;
         private bool _loading;
 
+        private string? _pending;
+
         public event EventHandler? DismissRequested;
 
         public Browser()
@@ -57,6 +59,14 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             if (Core is not null)
                 Core.IsMuted = !open;
+        }
+
+        public void Navigate(Uri address)
+        {
+            if (Core is not null)
+                Core.Navigate(address.AbsoluteUri);
+            else
+                _pending = address.AbsoluteUri;
         }
 
         public void Shutdown()
@@ -139,7 +149,9 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             core.NavigationStarting += (_, _) => SetLoading(true);
             core.NavigationCompleted += (_, _) => SetLoading(false);
 
-            core.Navigate(HomeUrl);
+            core.Navigate(_pending ?? HomeUrl);
+
+            _pending = null;
         }
 
         [SupportedOSPlatform("windows10.0.17763.0")]

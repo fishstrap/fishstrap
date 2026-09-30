@@ -72,6 +72,7 @@ namespace Bloxstrap.Models.Persistable
         public double OverlayToastScale { get; set; } = 1;
         public double OverlayToastOpacity { get; set; } = 1;
         public int OverlayToastDuration { get; set; } = 6;
+        public ToastAnimation OverlayToastAnimation { get; set; } = ToastAnimation.Slide;
         public bool FakeBorderlessFullscreen { get; set; } = false;
         public bool EnableActivityTracking { get; set; } = true;
         public bool UseDiscordRichPresence { get; set; } = true;

@@ -149,7 +149,7 @@ namespace Bloxstrap.Integrations.OverlayModules
                     && String.Equals(presence.GameId, myServer, StringComparison.OrdinalIgnoreCase)
                     && !String.Equals(before?.GameId, myServer, StringComparison.OrdinalIgnoreCase))
                 {
-                    Add(userId, FriendPresenceKind.JoinedYourServer, presence.LastLocation!, myServer);
+                    Add(userId, FriendPresenceKind.JoinedYourServer, presence, myServer);
                     continue;
                 }
 
@@ -160,19 +160,20 @@ namespace Bloxstrap.Integrations.OverlayModules
                     ? FriendPresenceKind.PlayingYourGame
                     : FriendPresenceKind.StartedPlaying;
 
-                Add(userId, kind, presence.LastLocation!, presence.UniverseId.ToString()!);
+                Add(userId, kind, presence, presence.UniverseId.ToString()!);
             }
 
             return changes;
 
-            void Add(long userId, FriendPresenceKind kind, string game, string place)
+            void Add(long userId, FriendPresenceKind kind, UserPresence presence, string place)
             {
                 if (_notified.TryGetValue((userId, place), out DateTime at) && DateTime.UtcNow - at < Cooldown)
                     return;
 
                 _notified[(userId, place)] = DateTime.UtcNow;
 
-                changes.Add(new FriendPresenceChange(userId, kind, game));
+                changes.Add(new FriendPresenceChange(userId, kind, presence.LastLocation!,
+                    presence.PlaceId ?? 0, presence.RootPlaceId ?? 0, String.IsNullOrEmpty(presence.GameId) ? null : presence.GameId));
             }
         }
 

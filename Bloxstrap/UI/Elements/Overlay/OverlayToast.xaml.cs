@@ -1,12 +1,14 @@
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
+
+using Bloxstrap.UI.Elements.Overlay.Controls;
 
 namespace Bloxstrap.UI.Elements.Overlay
 {
@@ -16,17 +18,15 @@ namespace Bloxstrap.UI.Elements.Overlay
         private const int WS_EX_TOOLWINDOW = 0x00000080;
         private const int WS_EX_NOACTIVATE = 0x08000000;
 
-        private static readonly Duration SlideIn = TimeSpan.FromMilliseconds(220);
-
-        private static readonly Duration SlideOut = TimeSpan.FromMilliseconds(250);
+        private static readonly TimeSpan LingerAfterHover = TimeSpan.FromSeconds(2);
 
         private readonly DispatcherTimer _timer;
-
-        private readonly TranslateTransform _slide = new();
 
         private HWND _hwnd;
 
         private ToastAppearance _appearance = ToastAppearance.Default;
+
+        private OverlayNotice? _notice;
 
         public IntPtr Handle => _hwnd;
 
@@ -34,14 +34,31 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         public bool IsShowing { get; private set; }
 
+        public bool IsClickable => _notice?.IsClickable == true;
+
         public OverlayToast()
         {
             InitializeComponent();
 
-            CardView.RenderTransform = _slide;
-
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(ToastAppearance.Default.Duration) };
             _timer.Tick += (_, _) => Dismiss();
+
+            CardView.MouseEnter += (_, _) =>
+            {
+                if (IsShowing && IsClickable)
+                    _timer.Stop();
+            };
+
+            CardView.MouseLeave += (_, _) =>
+            {
+                if (!IsShowing || !IsClickable)
+                    return;
+
+                _timer.Interval = LingerAfterHover;
+                _timer.Start();
+            };
+
+            CardView.MouseLeftButtonUp += (_, _) => Click();
         }
 
         public void Present(string title, string message, Rect gameBounds) => Present(new OverlayNotice(title, message), gameBounds);
@@ -49,21 +66,22 @@ namespace Bloxstrap.UI.Elements.Overlay
         public void Present(OverlayNotice notice, Rect gameBounds)
         {
             _appearance = ToastAppearance.Current;
+            _notice = notice;
 
             CardView.Apply(_appearance);
             CardView.Margin = _appearance.Margin;
             CardView.Show(notice);
             CardView.SetHeader(_appearance.ShowsHeader(notice.Kind));
+            CardView.Cursor = notice.IsClickable ? Cursors.Hand : null;
+
+            SetClickThrough(!notice.IsClickable);
 
             IsShowing = true;
 
             _timer.Stop();
             _timer.Interval = TimeSpan.FromSeconds(_appearance.Duration);
 
-            BeginAnimation(OpacityProperty, null);
-            _slide.BeginAnimation(TranslateTransform.YProperty, null);
-
-            Opacity = 0;
+            ToastMotion.Hide(CardView);
 
             if (Visibility != Visibility.Visible)
                 Show();
@@ -72,19 +90,30 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             Place(gameBounds);
 
-            _slide.Y = Hidden;
-
-            _slide.BeginAnimation(TranslateTransform.YProperty,
-                new DoubleAnimation(0, SlideIn) { EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut } });
-
-            BeginAnimation(OpacityProperty, new DoubleAnimation(1, TimeSpan.FromMilliseconds(150)));
+            ToastMotion.Enter(CardView, _appearance);
 
             _timer.Start();
         }
 
-        private double Hidden => _appearance.AtBottom
-            ? CardView.ActualHeight + CardView.Margin.Bottom
-            : -(CardView.ActualHeight + CardView.Margin.Top);
+        public void Click()
+        {
+            const string LOG_IDENT = "OverlayToast::Click";
+
+            if (!IsShowing || _notice?.OnClick is not Action click)
+                return;
+
+            try
+            {
+                click();
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "The notification's action failed");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+
+            Dismiss();
+        }
 
         public void Dismiss()
         {
@@ -95,12 +124,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             IsShowing = false;
 
-            _slide.BeginAnimation(TranslateTransform.YProperty,
-                new DoubleAnimation(Hidden, SlideOut) { EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn } });
-
-            var fade = new DoubleAnimation(0, SlideOut);
-
-            fade.Completed += (_, _) =>
+            ToastMotion.Leave(CardView, _appearance, () =>
             {
                 if (IsShowing)
                     return;
@@ -108,9 +132,7 @@ namespace Bloxstrap.UI.Elements.Overlay
                 Hide();
 
                 Finished?.Invoke(this, EventArgs.Empty);
-            };
-
-            BeginAnimation(OpacityProperty, fade);
+            });
         }
 
         private void Place(Rect gameBounds)
@@ -128,6 +150,18 @@ namespace Bloxstrap.UI.Elements.Overlay
             Top = _appearance.AtBottom ? bottomRight.Y - ActualHeight : topLeft.Y;
         }
 
+        private void SetClickThrough(bool clickThrough)
+        {
+            if (_hwnd == HWND.Null)
+                return;
+
+            int exStyle = PInvoke.GetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
+
+            exStyle = clickThrough ? exStyle | WS_EX_TRANSPARENT : exStyle & ~WS_EX_TRANSPARENT;
+
+            PInvoke.SetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, exStyle);
+        }
+
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
@@ -137,7 +171,7 @@ namespace Bloxstrap.UI.Elements.Overlay
             int exStyle = PInvoke.GetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
 
             PInvoke.SetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE,
-                exStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
+                exStyle | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE | (IsClickable ? 0 : WS_EX_TRANSPARENT));
         }
     }
 }

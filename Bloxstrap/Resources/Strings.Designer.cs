@@ -6379,6 +6379,60 @@ namespace Bloxstrap.Resources {
             }
         }
 
+        public static string Menu_Overlay_Settings_Animation {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Animation", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Replay {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Replay", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_Slide {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.Slide", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_SlideSide {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.SlideSide", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_Fade {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.Fade", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_Pop {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.Pop", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_None {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.None", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_ClickToJoin {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.ClickToJoin", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_ClickToView {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.ClickToView", resourceCulture);
+            }
+        }
+
         public static string Menu_Overlay_Tab_Browser {
             get {
                 return ResourceManager.GetString("Menu.Overlay.Tab.Browser", resourceCulture);

@@ -7,6 +7,7 @@ using Windows.Win32.UI.WindowsAndMessaging;
 
 using Bloxstrap.Enums.Overlay;
 using Bloxstrap.Integrations.OverlayModules;
+using Bloxstrap.RobloxInterfaces;
 using Bloxstrap.UI.Elements.Overlay;
 
 namespace Bloxstrap.Integrations
@@ -318,13 +319,43 @@ namespace Bloxstrap.Integrations
 
                 App.Logger.WriteLine(LOG_IDENT, $"Notifying about a friend ({change.Kind})");
 
-                Notify(new OverlayNotice(String.Format(title, name), change.GameName, friend.Thumbnail?.ImageUrl, true, NoticeKind.Friend));
+                (string? actionText, Action? action) = FriendAction(change);
+
+                Notify(new OverlayNotice(String.Format(title, name), change.GameName, friend.Thumbnail?.ImageUrl, true, NoticeKind.Friend, actionText, action));
             }
             catch (Exception ex)
             {
                 App.Logger.WriteLine(LOG_IDENT, "Failed to look up a friend");
                 App.Logger.WriteException(LOG_IDENT, ex);
             }
+        }
+
+        private (string? Text, Action? Action) FriendAction(FriendPresenceChange change)
+        {
+            const string LOG_IDENT = "Overlay::FriendAction";
+
+            if (change.Kind == FriendPresenceKind.JoinedYourServer)
+                return (null, null);
+
+            if (change.PlaceId > 0 && change.ServerId is string server && server.Length > 0)
+            {
+                return (Strings.Menu_Overlay_Notify_ClickToJoin, () =>
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Joining a friend from their notification");
+                    GameServers.Join(change.PlaceId, server);
+                });
+            }
+
+            long page = change.RootPlaceId > 0 ? change.RootPlaceId : change.PlaceId;
+
+            if (page <= 0)
+                return (null, null);
+
+            return (Strings.Menu_Overlay_Notify_ClickToView, () =>
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Opening a friend's game page from their notification");
+                _window?.OpenPage(new Uri($"https://www.roblox.com/games/{page}"));
+            });
         }
 
         public bool IsGameMinimised() => PInvoke.IsIconic(_robloxWindow);

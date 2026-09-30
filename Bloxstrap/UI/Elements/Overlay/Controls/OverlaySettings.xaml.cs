@@ -1,7 +1,9 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 using Bloxstrap.UI.ViewModels.Overlay.Controls;
 
@@ -30,6 +32,7 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             InitializeComponent();
 
             _viewModel.AppearanceChanged += (_, _) => RefreshPreview();
+            _viewModel.AnimationPicked += (_, _) => ReplayPreview();
 
             IsVisibleChanged += (_, _) =>
             {
@@ -61,6 +64,7 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             _viewModel = new OverlaySettingsViewModel(overlay, window, avatar);
             _viewModel.AppearanceChanged += (_, _) => RefreshPreview();
+            _viewModel.AnimationPicked += (_, _) => ReplayPreview();
 
             _backdrop = backdrop;
 
@@ -102,6 +106,11 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
                 ? new ImageBrush(new BitmapImage(source)) { Stretch = Stretch.UniformToFill }
                 : null;
         }
+
+        public void ReplayPreview() =>
+            Dispatcher.BeginInvoke(() => ToastMotion.Enter(PreviewCard, _viewModel.Appearance), DispatcherPriority.Loaded);
+
+        private void PreviewClicked(object sender, MouseButtonEventArgs e) => ReplayPreview();
 
         private void PreviewSizeChanged(object sender, SizeChangedEventArgs e) =>
             PreviewArea.Clip = new RectangleGeometry(new Rect(e.NewSize), 7, 7);

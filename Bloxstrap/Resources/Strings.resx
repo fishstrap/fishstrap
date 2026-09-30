@@ -2478,6 +2478,33 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Settings.SampleUptime" xml:space="preserve">
     <value>2 hours and 5 minutes</value>
   </data>
+  <data name="Menu.Overlay.Settings.Animation" xml:space="preserve">
+    <value>Animation</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Replay" xml:space="preserve">
+    <value>Click to play the animation again</value>
+  </data>
+  <data name="Enums.Overlay.ToastAnimation.Slide" xml:space="preserve">
+    <value>Slide in from the edge</value>
+  </data>
+  <data name="Enums.Overlay.ToastAnimation.SlideSide" xml:space="preserve">
+    <value>Slide in from the side</value>
+  </data>
+  <data name="Enums.Overlay.ToastAnimation.Fade" xml:space="preserve">
+    <value>Fade</value>
+  </data>
+  <data name="Enums.Overlay.ToastAnimation.Pop" xml:space="preserve">
+    <value>Pop</value>
+  </data>
+  <data name="Enums.Overlay.ToastAnimation.None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Menu.Overlay.Notify.ClickToJoin" xml:space="preserve">
+    <value>Click to join</value>
+  </data>
+  <data name="Menu.Overlay.Notify.ClickToView" xml:space="preserve">
+    <value>Click to see the game</value>
+  </data>
   <data name="Menu.Overlay.Tab.Browser" xml:space="preserve">
     <value>Browser</value>
   </data>

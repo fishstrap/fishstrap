@@ -201,6 +201,15 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             NotifyPanels();
         }
 
+        public void OpenPanel(OverlayPanelKind panel)
+        {
+            _open.Add(panel);
+
+            PanelOpened?.Invoke(this, panel);
+
+            NotifyPanels();
+        }
+
         private void ClosePanel(string? name)
         {
             if (!Enum.TryParse(name, out OverlayPanelKind panel))

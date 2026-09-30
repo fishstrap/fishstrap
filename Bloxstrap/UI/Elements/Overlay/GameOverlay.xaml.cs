@@ -284,6 +284,15 @@ namespace Bloxstrap.UI.Elements.Overlay
                 Present();
         }
 
+        public void OpenPage(Uri address)
+        {
+            Open();
+
+            _viewModel.OpenPanel(OverlayPanelKind.Browser);
+
+            BrowserView.Navigate(address);
+        }
+
         private void Dismiss(bool returnFocus)
         {
             NotesPad.Flush();
