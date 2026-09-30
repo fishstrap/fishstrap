@@ -44,6 +44,9 @@ namespace Bloxstrap.UI.Elements.ContextMenu
             if (_watcher.RichPresence is not null)
                 RichPresenceMenuItem.Visibility = Visibility.Visible;
 
+            if (_watcher.Overlay is not null)
+                OpenOverlayMenuItem.Visibility = Visibility.Visible;
+
             VersionTextBlock.Text = $"{App.ProjectName} v{App.Version}";
         }
 
@@ -107,6 +110,8 @@ namespace Bloxstrap.UI.Elements.ContextMenu
         private void InviteDeeplinkMenuItem_Click(object sender, RoutedEventArgs e) => Clipboard.SetDataObject(_activityWatcher?.Data.GetInviteDeeplink());
 
         private void ServerDetailsMenuItem_Click(object sender, RoutedEventArgs e) => ShowServerInformationWindow();
+
+        private void OpenOverlayMenuItem_Click(object sender, RoutedEventArgs e) => _watcher.Overlay?.Open();
 
         private void LogTracerMenuItem_Click(object sender, RoutedEventArgs e)
         {

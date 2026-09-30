@@ -70,6 +70,33 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             set => SetValue(CloseCommandParameterProperty, value);
         }
 
+        public static readonly DependencyProperty IsPinnedProperty = DependencyProperty.Register(
+            nameof(IsPinned), typeof(bool), typeof(OverlayPanel), new PropertyMetadata(false, (d, _) => ((OverlayPanel)d).ShowPin()));
+
+        public bool IsPinned
+        {
+            get => (bool)GetValue(IsPinnedProperty);
+            set => SetValue(IsPinnedProperty, value);
+        }
+
+        public static readonly DependencyProperty PinCommandProperty = DependencyProperty.Register(
+            nameof(PinCommand), typeof(ICommand), typeof(OverlayPanel), new PropertyMetadata(null));
+
+        public ICommand? PinCommand
+        {
+            get => (ICommand?)GetValue(PinCommandProperty);
+            set => SetValue(PinCommandProperty, value);
+        }
+
+        public static readonly DependencyProperty PinCommandParameterProperty = DependencyProperty.Register(
+            nameof(PinCommandParameter), typeof(object), typeof(OverlayPanel), new PropertyMetadata(null));
+
+        public object? PinCommandParameter
+        {
+            get => GetValue(PinCommandParameterProperty);
+            set => SetValue(PinCommandParameterProperty, value);
+        }
+
         private Point _dragStart;
         private Point _dragOrigin;
         private bool _dragging;
@@ -80,6 +107,8 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             HeaderIcon.SetBinding(Wpf.Ui.Controls.SymbolIcon.SymbolProperty, new Binding(nameof(Icon)) { Source = this });
             HeaderTitle.SetBinding(TextBlock.TextProperty, new Binding(nameof(Title)) { Source = this });
+
+            ShowPin();
         }
 
         private Canvas? Surface => Parent as Canvas;
@@ -215,6 +244,23 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private void BodySizeChanged(object sender, SizeChangedEventArgs e) =>
             Body.Clip = new RectangleGeometry(new Rect(e.NewSize), 7, 7);
+
+        private void ShowPin()
+        {
+            PinIcon.Filled = IsPinned;
+            PinButton.ToolTip = IsPinned ? Strings.Menu_Overlay_Unpin : Strings.Menu_Overlay_Pin;
+
+            if (IsPinned)
+                PinIcon.SetResourceReference(ForegroundProperty, "AccentFillColorDefaultBrush");
+            else
+                PinIcon.ClearValue(ForegroundProperty);
+        }
+
+        private void PinClicked(object sender, RoutedEventArgs e)
+        {
+            if (PinCommand?.CanExecute(PinCommandParameter) == true)
+                PinCommand.Execute(PinCommandParameter);
+        }
 
         private void CloseClicked(object sender, RoutedEventArgs e)
         {

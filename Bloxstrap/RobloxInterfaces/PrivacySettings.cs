@@ -70,51 +70,7 @@ namespace Bloxstrap.RobloxInterfaces
             return plan.Count > 1;
         }
 
-        private static async Task PostAsync(string setting, string value)
-        {
-            string json = JsonSerializer.Serialize(new Dictionary<string, string> { [setting] = value });
-
-            using var first = await App.Cookies.AuthPost(UpdateUrl, new StringContent(json, Encoding.UTF8, "application/json"));
-
-            if (first.StatusCode == HttpStatusCode.Forbidden && first.Headers.TryGetValues("x-csrf-token", out var tokens))
-            {
-                using var retry = await App.Cookies.AuthPost(UpdateUrl, new StringContent(json, Encoding.UTF8, "application/json"), tokens.First());
-
-                await EnsureAcceptedAsync(retry, setting, value);
-                return;
-            }
-
-            await EnsureAcceptedAsync(first, setting, value);
-        }
-
-        private static async Task EnsureAcceptedAsync(HttpResponseMessage response, string setting, string value)
-        {
-            if (response.IsSuccessStatusCode)
-                return;
-
-            string body = await response.Content.ReadAsStringAsync();
-            string? reason = null;
-
-            try
-            {
-                using var document = JsonDocument.Parse(body);
-
-                if (document.RootElement.ValueKind == JsonValueKind.Object
-                    && document.RootElement.TryGetProperty("errors", out JsonElement errors)
-                    && errors.ValueKind == JsonValueKind.Array && errors.GetArrayLength() > 0
-                    && errors[0].ValueKind == JsonValueKind.Object
-                    && errors[0].TryGetProperty("message", out JsonElement message)
-                    && message.ValueKind == JsonValueKind.String)
-                {
-                    reason = message.GetString();
-                }
-            }
-            catch (JsonException) { }
-
-            if (String.IsNullOrWhiteSpace(reason))
-                reason = String.IsNullOrWhiteSpace(body) ? null : body.Length > 200 ? body[..200] : body;
-
-            throw new SettingRejectedException(setting, value, (int)response.StatusCode, reason);
-        }
+        private static Task PostAsync(string setting, string value) =>
+            AccountRequests.SendAsync(HttpMethod.Post, UpdateUrl, new Dictionary<string, string> { [setting] = value }, setting, value);
     }
 }

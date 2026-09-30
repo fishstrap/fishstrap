@@ -151,6 +151,16 @@
                     <TextBlock Text="{Binding TimePlayed}" FontSize="12" Margin="6,0,0,0"
                                FontFamily="{StaticResource CascadiaCode}"
                                Foreground="Lime" />
+
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding ServerUptimeVisibility}">
+                        <TextBlock Text="&#x00B7;" FontSize="12" Margin="6,0"
+                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Server}" FontSize="12"
+                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                        <TextBlock Text="{Binding ServerUptime}" FontSize="12" Margin="6,0,0,0"
+                                   FontFamily="{StaticResource CascadiaCode}"
+                                   Foreground="Lime" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

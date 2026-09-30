@@ -1,0 +1,54 @@
+<UserControl x:Class="Bloxstrap.UI.Elements.Overlay.Controls.ToastCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignWidth="340"
+             FontFamily="{StaticResource Inter}">
+
+    <Grid>
+        <Grid.LayoutTransform>
+            <ScaleTransform x:Name="Scale" />
+        </Grid.LayoutTransform>
+
+        <Border x:Name="Card" Width="340" Padding="14,12,16,12" CornerRadius="8,0,0,0"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1,1,0,0">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="24" ShadowDepth="0" Opacity="0.45" Color="Black" />
+            </Border.Effect>
+
+            <StackPanel>
+                <StackPanel x:Name="ToastHeader" Orientation="Horizontal" Margin="0,0,0,10" Visibility="Collapsed">
+                    <Image Source="pack://application:,,,/Bloxstrap.ico" Width="16" Height="16"
+                           RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" />
+
+                    <TextBlock Text="Fishstrap" FontSize="12" Margin="8,0,0,0" VerticalAlignment="Center"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="ToastPicture" Grid.Column="0" Width="44" Height="44" Margin="0,0,12,0" CornerRadius="6"
+                            VerticalAlignment="Center" Visibility="Collapsed"
+                            Background="{DynamicResource ControlStrongStrokeColorDisabledBrush}">
+                        <Border x:Name="ToastPictureImage" CornerRadius="{Binding CornerRadius, ElementName=ToastPicture}" />
+                    </Border>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock x:Name="ToastTitle" FontSize="14" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+                        <TextBlock x:Name="ToastMessage" FontSize="13" Margin="0,3,0,0" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

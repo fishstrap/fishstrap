@@ -76,6 +76,20 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             set => Set(ref _timePlayed, value, nameof(TimePlayed));
         }
 
+        private string _serverUptime = String.Empty;
+
+        public string ServerUptime
+        {
+            get => _serverUptime;
+            set
+            {
+                Set(ref _serverUptime, value, nameof(ServerUptime));
+                OnPropertyChanged(nameof(ServerUptimeVisibility));
+            }
+        }
+
+        public Visibility ServerUptimeVisibility => String.IsNullOrEmpty(_serverUptime) ? Visibility.Collapsed : Visibility.Visible;
+
         private Visibility _gameVisibility = Visibility.Collapsed;
 
         public Visibility GameVisibility
@@ -89,6 +103,10 @@ namespace Bloxstrap.UI.ViewModels.Overlay
         #region Panels
 
         private readonly HashSet<OverlayPanelKind> _open = new();
+
+        private readonly HashSet<OverlayPanelKind> _pinned = new();
+
+        private bool _showingPinnedOnly;
 
         public event EventHandler<OverlayPanelKind>? PanelOpened;
 
@@ -104,6 +122,50 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
         public bool NotesOpen => _open.Contains(OverlayPanelKind.Notes);
 
+        public bool BrowserOpen => _open.Contains(OverlayPanelKind.Browser);
+
+        public bool SettingsOpen => _open.Contains(OverlayPanelKind.Settings);
+
+        public bool MessagesPinned => _pinned.Contains(OverlayPanelKind.Messages);
+
+        public bool BadgesPinned => _pinned.Contains(OverlayPanelKind.Badges);
+
+        public bool ServersPinned => _pinned.Contains(OverlayPanelKind.Servers);
+
+        public bool GamesPinned => _pinned.Contains(OverlayPanelKind.Games);
+
+        public bool HistoryPinned => _pinned.Contains(OverlayPanelKind.History);
+
+        public bool NotesPinned => _pinned.Contains(OverlayPanelKind.Notes);
+
+        public bool BrowserPinned => _pinned.Contains(OverlayPanelKind.Browser);
+
+        public bool SettingsPinned => _pinned.Contains(OverlayPanelKind.Settings);
+
+        public bool HasPinnedPanels => _open.Any(_pinned.Contains);
+
+        public bool ShowingPinnedOnly
+        {
+            get => _showingPinnedOnly;
+            set
+            {
+                if (_showingPinnedOnly == value)
+                    return;
+
+                _showingPinnedOnly = value;
+
+                OnPropertyChanged(nameof(ShowingPinnedOnly));
+                OnPropertyChanged(nameof(DockVisibility));
+                NotifyPanels();
+            }
+        }
+
+        public Visibility DockVisibility => _showingPinnedOnly ? Visibility.Collapsed : Visibility.Visible;
+
+        public bool IsOpen(OverlayPanelKind panel) => _open.Contains(panel);
+
+        public bool IsPinned(OverlayPanelKind panel) => _pinned.Contains(panel);
+
         public Visibility MessagesVisibility => Visible(OverlayPanelKind.Messages);
 
         public Visibility BadgesVisibility => Visible(OverlayPanelKind.Badges);
@@ -116,9 +178,15 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
         public Visibility NotesVisibility => Visible(OverlayPanelKind.Notes);
 
+        public Visibility BrowserVisibility => Visible(OverlayPanelKind.Browser);
+
+        public Visibility SettingsVisibility => Visible(OverlayPanelKind.Settings);
+
         public ICommand TogglePanelCommand => new RelayCommand<string>(TogglePanel);
 
         public ICommand ClosePanelCommand => new RelayCommand<string>(ClosePanel);
+
+        public ICommand TogglePinCommand => new RelayCommand<string>(TogglePin);
 
         private void TogglePanel(string? name)
         {
@@ -143,17 +211,31 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             NotifyPanels();
         }
 
+        private void TogglePin(string? name)
+        {
+            if (!Enum.TryParse(name, out OverlayPanelKind panel))
+                return;
+
+            if (!_pinned.Add(panel))
+                _pinned.Remove(panel);
+
+            NotifyPanels();
+        }
+
         private void NotifyPanels()
         {
             foreach (string name in Enum.GetNames<OverlayPanelKind>())
             {
                 OnPropertyChanged($"{name}Open");
+                OnPropertyChanged($"{name}Pinned");
                 OnPropertyChanged($"{name}Visibility");
             }
+
+            OnPropertyChanged(nameof(HasPinnedPanels));
         }
 
         private Visibility Visible(OverlayPanelKind panel) =>
-            _open.Contains(panel) ? Visibility.Visible : Visibility.Collapsed;
+            _open.Contains(panel) && (!_showingPinnedOnly || _pinned.Contains(panel)) ? Visibility.Visible : Visibility.Collapsed;
 
         #endregion
 
@@ -161,7 +243,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
         #region Sharing
 
-        private Wpf.Ui.Common.SymbolRegular _shareIcon = Wpf.Ui.Common.SymbolRegular.Share24;
+        private Wpf.Ui.Common.SymbolRegular _shareIcon = Wpf.Ui.Common.SymbolRegular.Link24;
 
         public Wpf.Ui.Common.SymbolRegular ShareIcon
         {
@@ -204,7 +286,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay
         {
             _shareTimer?.Stop();
 
-            ShareIcon = Wpf.Ui.Common.SymbolRegular.Share24;
+            ShareIcon = Wpf.Ui.Common.SymbolRegular.Link24;
         }
 
         #endregion
@@ -226,8 +308,14 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
             foreach ((string name, OverlayPanelLayout panel) in App.OverlayLayout.Prop.Panels)
             {
-                if (panel.Open && Enum.TryParse(name, out OverlayPanelKind kind))
+                if (!Enum.TryParse(name, out OverlayPanelKind kind))
+                    continue;
+
+                if (panel.Open)
                     _open.Add(kind);
+
+                if (panel.Pinned)
+                    _pinned.Add(kind);
             }
 
             _sessionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
@@ -321,11 +409,16 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             Game = Strings.Menu_Overlay_NotInGame;
             GameIcon = String.Empty;
             TimePlayed = String.Empty;
+            ServerUptime = String.Empty;
             GameVisibility = Visibility.Collapsed;
         }
 
         private void UpdateSession()
         {
+            DateTime? started = _activityWatcher?.Data.StartTime;
+
+            ServerUptime = started is null ? String.Empty : FormatClock(DateTime.UtcNow - started.Value);
+
             DateTime? joined = _activityWatcher?.Data.TimeJoined;
 
             if (joined is null || joined == default(DateTime))
@@ -334,12 +427,18 @@ namespace Bloxstrap.UI.ViewModels.Overlay
                 return;
             }
 
-            TimeSpan elapsed = DateTime.Now - joined.Value;
+            TimePlayed = FormatClock(DateTime.Now - joined.Value);
+        }
 
+        private static string FormatClock(TimeSpan elapsed)
+        {
             if (elapsed < TimeSpan.Zero)
                 elapsed = TimeSpan.Zero;
 
-            TimePlayed = elapsed.ToString(elapsed.TotalHours >= 1 ? @"h\:mm\:ss" : @"m\:ss");
+            if (elapsed.TotalDays >= 1)
+                return $"{(int)elapsed.TotalDays}d {elapsed.ToString(@"hh\:mm\:ss")}";
+
+            return elapsed.ToString(elapsed.TotalHours >= 1 ? @"h\:mm\:ss" : @"m\:ss");
         }
 
         private OverlayBounds? _pendingBounds;
@@ -392,7 +491,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay
         private void OnGameVisibilityChanged(object? sender, bool visible)
         {
             if (!visible)
-                _window.Dismiss();
+                _window.HideForGame();
         }
 
         private void OnWindowClosed(object? sender, EventArgs e)

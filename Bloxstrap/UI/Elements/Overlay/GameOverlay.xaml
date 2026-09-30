@@ -14,6 +14,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         ShowActivated="False"
+        Topmost="True"
         Visibility="Hidden"
         WindowStartupLocation="Manual"
         FontFamily="{StaticResource Inter}"
@@ -36,19 +37,11 @@
             <Setter Property="Height" Value="40" />
             <Setter Property="MinWidth" Value="40" />
             <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="control:DockReveal.IsEnabled" Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
                         <Border x:Name="Bd" Background="Transparent" CornerRadius="20" Padding="{TemplateBinding Padding}">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <ContentPresenter VerticalAlignment="Center" />
-
-                                <Border x:Name="Reveal" Width="0" Opacity="0" ClipToBounds="True" VerticalAlignment="Center">
-                                    <TextBlock Text="{TemplateBinding Tag}" FontSize="14" Margin="8,0,2,0"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="NoWrap" />
-                                </Border>
-                            </StackPanel>
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -65,33 +58,50 @@
         </Style>
     </Window.Resources>
 
-    <Border x:Name="Scrim" Background="#A6000000" CornerRadius="{Binding ScrimCornerRadius}"
+    <Border x:Name="Scrim" CornerRadius="{Binding ScrimCornerRadius}"
             MouseLeftButtonDown="ScrimClicked">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="#A6000000" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ShowingPinnedOnly}" Value="True">
+                        <Setter Property="Background" Value="Transparent" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+
         <Grid>
             <Canvas x:Name="PanelSurface" Margin="16,16,16,112" ClipToBounds="True">
                 <control:OverlayPanel x:Name="MessagesPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Messages}" Icon="Chat24"
                                       ContentPadding="0"
                                       Visibility="{Binding MessagesVisibility}"
-                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Messages">
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Messages"
+                                      IsPinned="{Binding MessagesPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="Messages">
                     <control:OverlayPanel.PanelContent>
                         <control:FriendActivity />
                     </control:OverlayPanel.PanelContent>
                 </control:OverlayPanel>
 
                 <control:OverlayPanel x:Name="BadgesPanel"
-                                      Title="{x:Static resources:Strings.Menu_Overlay_Tab_Badges}" Icon="Trophy24"
+                                      Title="{x:Static resources:Strings.Menu_Overlay_Tab_Badges}" Icon="RibbonStar24"
                                       Visibility="{Binding BadgesVisibility}"
-                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Badges">
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Badges"
+                                      IsPinned="{Binding BadgesPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="Badges">
                     <control:OverlayPanel.PanelContent>
                         <control:BadgeTracker />
                     </control:OverlayPanel.PanelContent>
                 </control:OverlayPanel>
 
                 <control:OverlayPanel x:Name="ServersPanel"
-                                      Title="{x:Static resources:Strings.Menu_Overlay_Tab_Servers}" Icon="Server24"
+                                      Title="{x:Static resources:Strings.Menu_Overlay_Tab_Servers}" Icon="Cloud24"
                                       Visibility="{Binding ServersVisibility}"
-                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Servers">
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Servers"
+                                      IsPinned="{Binding ServersPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="Servers">
                     <control:OverlayPanel.PanelContent>
                         <control:ServerBrowser />
                     </control:OverlayPanel.PanelContent>
@@ -100,7 +110,9 @@
                 <control:OverlayPanel x:Name="GamesPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Games}" Icon="Games24"
                                       Visibility="{Binding GamesVisibility}"
-                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Games">
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Games"
+                                      IsPinned="{Binding GamesPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="Games">
                     <control:OverlayPanel.PanelContent>
                         <control:GameBrowser />
                     </control:OverlayPanel.PanelContent>
@@ -109,7 +121,9 @@
                 <control:OverlayPanel x:Name="HistoryPanel"
                                       Title="{x:Static resources:Strings.ContextMenu_GameHistory_Title}" Icon="History24"
                                       Visibility="{Binding HistoryVisibility}"
-                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="History">
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="History"
+                                      IsPinned="{Binding HistoryPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="History">
                     <control:OverlayPanel.PanelContent>
                         <control:GameHistory />
                     </control:OverlayPanel.PanelContent>
@@ -118,14 +132,40 @@
                 <control:OverlayPanel x:Name="NotesPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Notes}" Icon="Note24"
                                       Visibility="{Binding NotesVisibility}"
-                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Notes">
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Notes"
+                                      IsPinned="{Binding NotesPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="Notes">
                     <control:OverlayPanel.PanelContent>
                         <control:Notes />
+                    </control:OverlayPanel.PanelContent>
+                </control:OverlayPanel>
+
+                <control:OverlayPanel x:Name="BrowserPanel"
+                                      Title="{x:Static resources:Strings.Menu_Overlay_Tab_Browser}" Icon="Globe24"
+                                      ContentPadding="0"
+                                      Visibility="{Binding BrowserVisibility}"
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Browser"
+                                      IsPinned="{Binding BrowserPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="Browser">
+                    <control:OverlayPanel.PanelContent>
+                        <control:Browser />
+                    </control:OverlayPanel.PanelContent>
+                </control:OverlayPanel>
+
+                <control:OverlayPanel x:Name="SettingsPanel"
+                                      Title="{x:Static resources:Strings.Menu_Overlay_Tab_Settings}" Icon="Settings24"
+                                      Visibility="{Binding SettingsVisibility}"
+                                      CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Settings"
+                                      IsPinned="{Binding SettingsPinned}"
+                                      PinCommand="{Binding TogglePinCommand}" PinCommandParameter="Settings">
+                    <control:OverlayPanel.PanelContent>
+                        <control:OverlaySettings />
                     </control:OverlayPanel.PanelContent>
                 </control:OverlayPanel>
             </Canvas>
             
             <Border Panel.ZIndex="10" Height="68" CornerRadius="34" Padding="10,0,10,0" Margin="0,0,0,28"
+                    Visibility="{Binding DockVisibility}"
                     HorizontalAlignment="Center" VerticalAlignment="Bottom"
                     Background="{ui:ThemeResource SolidBackgroundFillColorBaseBrush}"
                     BorderBrush="{ui:ThemeResource SurfaceStrokeColorDefaultBrush}"
@@ -139,40 +179,52 @@
 
                     <Rectangle Width="1" Height="32" Margin="16,0" Fill="{ui:ThemeResource DividerStrokeColorDefaultBrush}" />
 
-                    <ToggleButton Style="{StaticResource PanelToggle}" Tag="{x:Static resources:Strings.Menu_Overlay_Tab_Messages}"
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Tab_Messages}"
                                   IsChecked="{Binding MessagesOpen, Mode=OneWay}"
                                   Command="{Binding TogglePanelCommand}" CommandParameter="Messages">
                         <ui:SymbolIcon Symbol="Chat24" FontSize="16" />
                     </ToggleButton>
 
-                    <ToggleButton Style="{StaticResource PanelToggle}" Tag="{x:Static resources:Strings.Menu_Overlay_Tab_Badges}"
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Tab_Badges}"
                                   IsChecked="{Binding BadgesOpen, Mode=OneWay}"
                                   Command="{Binding TogglePanelCommand}" CommandParameter="Badges">
-                        <ui:SymbolIcon Symbol="Trophy24" FontSize="16" />
+                        <ui:SymbolIcon Symbol="RibbonStar24" FontSize="16" />
                     </ToggleButton>
 
-                    <ToggleButton Style="{StaticResource PanelToggle}" Tag="{x:Static resources:Strings.Menu_Overlay_Tab_Servers}"
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Tab_Servers}"
                                   IsChecked="{Binding ServersOpen, Mode=OneWay}"
                                   Command="{Binding TogglePanelCommand}" CommandParameter="Servers">
-                        <ui:SymbolIcon Symbol="Server24" FontSize="16" />
+                        <ui:SymbolIcon Symbol="Cloud24" FontSize="16" />
                     </ToggleButton>
 
-                    <ToggleButton Style="{StaticResource PanelToggle}" Tag="{x:Static resources:Strings.Menu_Overlay_Tab_Games}"
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Tab_Games}"
                                   IsChecked="{Binding GamesOpen, Mode=OneWay}"
                                   Command="{Binding TogglePanelCommand}" CommandParameter="Games">
                         <ui:SymbolIcon Symbol="Games24" FontSize="16" />
                     </ToggleButton>
 
-                    <ToggleButton Style="{StaticResource PanelToggle}" Tag="{x:Static resources:Strings.ContextMenu_GameHistory_Title}"
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.ContextMenu_GameHistory_Title}"
                                   IsChecked="{Binding HistoryOpen, Mode=OneWay}"
                                   Command="{Binding TogglePanelCommand}" CommandParameter="History">
                         <ui:SymbolIcon Symbol="History24" FontSize="16" />
                     </ToggleButton>
 
-                    <ToggleButton Style="{StaticResource PanelToggle}" Tag="{x:Static resources:Strings.Menu_Overlay_Tab_Notes}"
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Tab_Notes}"
                                   IsChecked="{Binding NotesOpen, Mode=OneWay}"
                                   Command="{Binding TogglePanelCommand}" CommandParameter="Notes">
                         <ui:SymbolIcon Symbol="Note24" FontSize="16" />
+                    </ToggleButton>
+
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Tab_Browser}"
+                                  IsChecked="{Binding BrowserOpen, Mode=OneWay}"
+                                  Command="{Binding TogglePanelCommand}" CommandParameter="Browser">
+                        <ui:SymbolIcon Symbol="Globe24" FontSize="16" />
+                    </ToggleButton>
+
+                    <ToggleButton Style="{StaticResource PanelToggle}" control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Tab_Settings}"
+                                  IsChecked="{Binding SettingsOpen, Mode=OneWay}"
+                                  Command="{Binding TogglePanelCommand}" CommandParameter="Settings">
+                        <ui:SymbolIcon Symbol="Settings24" FontSize="16" />
                     </ToggleButton>
 
                     <Rectangle Width="1" Height="32" Margin="16,0" Fill="{ui:ThemeResource DividerStrokeColorDefaultBrush}" />
@@ -181,18 +233,20 @@
                                Style="{StaticResource DockButton}"
                                Appearance="Secondary" Command="{Binding ShareCommand}"
                                Visibility="{Binding GameVisibility}"
-                               ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_CopyLink}">
+                               control:DockHintLayer.Text="{x:Static resources:Strings.Menu_Overlay_Servers_CopyLink}">
                         <ui:SymbolIcon Symbol="{Binding ShareIcon}" FontSize="14" />
                     </ui:Button>
 
                     <ui:Button Width="40" Height="40" Padding="0" Margin="0,0,4,0" VerticalAlignment="Center"
                                Style="{StaticResource DockButton}"
                                Appearance="Secondary" Command="{Binding CloseCommand}"
-                               ToolTip="{x:Static resources:Strings.Common_Close}">
+                               control:DockHintLayer.Text="{x:Static resources:Strings.Common_Close}">
                         <ui:SymbolIcon Symbol="Dismiss24" FontSize="14" />
                     </ui:Button>
                 </StackPanel>
             </Border>
+
+            <control:DockHintLayer Panel.ZIndex="11" />
         </Grid>
     </Border>
 </Window>

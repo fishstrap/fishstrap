@@ -71,6 +71,8 @@ namespace Bloxstrap
 
         public static readonly JsonManager<OverlayLayout> OverlayLayout = new();
 
+        public static readonly JsonManager<RecentServers> RecentServers = new();
+
         public static readonly HttpClient HttpClient = new(
             new HttpClientLoggingHandler(
                 new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All }

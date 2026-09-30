@@ -1,0 +1,501 @@
+<UserControl x:Class="Bloxstrap.UI.Elements.Overlay.Controls.PrivateServerBrowser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:resources="clr-namespace:Bloxstrap.Resources"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d"
+             d:DesignHeight="560" d:DesignWidth="760"
+             FontFamily="{StaticResource Inter}">
+
+    <UserControl.Resources>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="Padding" Value="16,14" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Background" Value="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{ui:ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="Heading" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+        </Style>
+
+        <Style x:Key="Label" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+        </Style>
+
+        <Style x:Key="Divider" TargetType="Rectangle">
+            <Setter Property="Height" Value="1" />
+            <Setter Property="Margin" Value="0,12" />
+            <Setter Property="Fill" Value="{ui:ThemeResource DividerStrokeColorDefaultBrush}" />
+        </Style>
+
+        <Style x:Key="IconButton" TargetType="Button">
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorTertiaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.35" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LinkButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent" Padding="4,2">
+                            <ContentPresenter x:Name="Content" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Visibility="{Binding ListVisibility}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+                <StackPanel>
+                    <Grid Margin="0,0,0,14" Visibility="{Binding ShowCreate, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Width="40" Height="40" CornerRadius="20"
+                                Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                            <ui:SymbolIcon Symbol="PersonAdd24" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                        </Border>
+
+                        <WrapPanel Grid.Column="1" Margin="14,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_CreateTitle}" Style="{StaticResource Heading}" Margin="0,0,10,0" />
+                            <TextBlock Text="{Binding CreateStatusText}" Style="{StaticResource Label}" />
+                        </WrapPanel>
+
+                        <Button Grid.Column="2" Style="{StaticResource IconButton}" Width="34" Height="34" Margin="0,0,6,0"
+                                ToolTip="{x:Static resources:Strings.Menu_Overlay_Refresh}"
+                                Command="{Binding RefreshCommand}">
+                            <ui:SymbolIcon Symbol="ArrowClockwise24" FontSize="16" />
+                        </Button>
+
+                        <ui:Button Grid.Column="3" Width="200" Appearance="Secondary"
+                                   Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Create}"
+                                   ToolTip="{x:Static resources:Strings.Menu_Overlay_PrivateServers_CreateHint}"
+                                   IsEnabled="{Binding CreateAllowed}"
+                                   Command="{Binding CreateCommand}" />
+                    </Grid>
+
+                    <ItemsControl ItemsSource="{Binding Servers}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="200" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border x:Name="Avatar" Grid.Column="0" Width="40" Height="40" CornerRadius="20" VerticalAlignment="Center"
+                                            BorderThickness="2" BorderBrush="Transparent"
+                                            Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                                        <Border CornerRadius="18">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding OwnerAvatar}" Stretch="UniformToFill" />
+                                            </Border.Background>
+                                        </Border>
+                                    </Border>
+
+                                    <WrapPanel Grid.Column="1" Margin="14,0,12,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource Heading}" Margin="0,0,10,0" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding CapacityText}" Style="{StaticResource Label}" />
+                                        <TextBlock x:Name="HereLabel" Text="{x:Static resources:Strings.Menu_Overlay_Servers_Current}" Margin="10,0,0,0"
+                                                   Visibility="Collapsed" Style="{StaticResource Label}"
+                                                   Foreground="{DynamicResource AccentFillColorDefaultBrush}" />
+                                    </WrapPanel>
+
+                                    <ui:Button x:Name="PlainJoin" Grid.Column="2" Appearance="Primary" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                               Content="{x:Static resources:Strings.Menu_Overlay_Servers_Join}"
+                                               IsEnabled="{Binding CanJoin}"
+                                               Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                               CommandParameter="{Binding Mode=OneTime}" />
+
+                                    <StackPanel x:Name="OwnActions" Grid.Column="2" Visibility="Collapsed" VerticalAlignment="Center">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ui:Button Grid.Column="0" Width="34" Padding="0" Appearance="Secondary" VerticalAlignment="Stretch"
+                                                       ToolTip="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Configure}"
+                                                       Command="{Binding DataContext.ConfigureCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                       CommandParameter="{Binding Mode=OneTime}">
+                                                <ui:SymbolIcon Symbol="Edit24" FontSize="14" />
+                                            </ui:Button>
+
+                                            <ui:Button Grid.Column="1" Margin="6,0,0,0" Appearance="Primary" HorizontalAlignment="Stretch"
+                                                       Content="{x:Static resources:Strings.Menu_Overlay_Servers_Join}"
+                                                       IsEnabled="{Binding CanJoin}"
+                                                       Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                       CommandParameter="{Binding Mode=OneTime}" />
+                                        </Grid>
+
+                                        <Grid Margin="0,6,0,0" IsEnabled="{Binding IsIdle}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ui:Button Grid.Column="0" Margin="0,0,3,0" Padding="6,5" Appearance="Secondary" HorizontalAlignment="Stretch" FontSize="12"
+                                                       Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_GenerateLink}"
+                                                       Command="{Binding DataContext.GenerateRowLinkCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                       CommandParameter="{Binding Mode=OneTime}" />
+
+                                            <ui:Button Grid.Column="1" Margin="3,0,0,0" Padding="6,5" Appearance="Secondary" HorizontalAlignment="Stretch" FontSize="12"
+                                                       Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_CopyLink}"
+                                                       IsEnabled="{Binding HasLink}"
+                                                       Command="{Binding DataContext.CopyRowLinkCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                       CommandParameter="{Binding Mode=OneTime}" />
+                                        </Grid>
+
+                                        <Grid Margin="2,8,0,0" IsEnabled="{Binding IsIdle}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_AllowJoining}" FontSize="12"
+                                                       VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                            <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center"
+                                                             IsChecked="{Binding IsActive, Mode=OneWay}"
+                                                             Command="{Binding DataContext.ToggleRowActiveCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                             CommandParameter="{Binding Mode=OneTime}" />
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
+
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsMine}" Value="True">
+                                        <Setter TargetName="PlainJoin" Property="Visibility" Value="Collapsed" />
+                                        <Setter TargetName="OwnActions" Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                        <Setter TargetName="HereLabel" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="Avatar" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <ui:Button HorizontalAlignment="Left" Margin="0,2,0,6" Appearance="Secondary"
+                               Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_LoadMore}"
+                               Command="{Binding LoadMoreCommand}"
+                               Visibility="{Binding HasMore, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                    <ui:ProgressRing IsIndeterminate="True" Width="22" Height="22" HorizontalAlignment="Left" Margin="8,4,0,6"
+                                     Visibility="{Binding IsLoadingMore, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <ui:ProgressRing IsIndeterminate="True" Width="32" Height="32"
+                             VerticalAlignment="Center" HorizontalAlignment="Center"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <TextBlock Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
+                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                       Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
+
+        <Grid Grid.Row="0" Visibility="{Binding ManageVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0,0,0,14">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_ConfigureTitle}"
+                           FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"
+                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+                <Button Grid.Column="1" Style="{StaticResource LinkButton}" VerticalAlignment="Center" Command="{Binding BackCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_BackToList}" FontSize="12" VerticalAlignment="Center" />
+                        <ui:SymbolIcon Symbol="ArrowRight24" FontSize="12" Margin="4,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <ui:ProgressRing Grid.Row="1" IsIndeterminate="True" Width="32" Height="32"
+                             VerticalAlignment="Center" HorizontalAlignment="Center"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+                <StackPanel IsEnabled="{Binding CanEdit}">
+                    <Grid Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Width="150" Height="150" CornerRadius="8" VerticalAlignment="Top"
+                                Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                            <Border CornerRadius="8">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding GameIcon}" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" Margin="16,2,0,0">
+                            <Grid MinHeight="30">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_ServerName}" Style="{StaticResource Label}" />
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"
+                                            Visibility="{Binding IsShowingName, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <TextBlock Text="{Binding ServerName}" Style="{StaticResource Heading}" TextTrimming="CharacterEllipsis" MaxWidth="260" />
+                                    <Button Style="{StaticResource IconButton}" Margin="6,0,0,0"
+                                            ToolTip="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Rename}"
+                                            Command="{Binding EditNameCommand}">
+                                        <ui:SymbolIcon Symbol="Edit24" FontSize="14" />
+                                    </Button>
+                                </StackPanel>
+
+                                <Grid Grid.Column="1" Visibility="{Binding IsEditingName, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ui:TextBox x:Name="NameBox" Grid.Column="0" FontSize="13" MaxLength="50"
+                                                Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}"
+                                                KeyDown="NameBoxKeyDown" />
+                                    <ui:Button Grid.Column="1" Margin="6,0,0,0" Appearance="Primary" VerticalAlignment="Stretch"
+                                               Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Save}"
+                                               Command="{Binding SaveNameCommand}" />
+                                    <ui:Button Grid.Column="2" Margin="6,0,0,0" Appearance="Secondary" VerticalAlignment="Stretch"
+                                               Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Cancel}"
+                                               Command="{Binding CancelNameCommand}" />
+                                </Grid>
+                            </Grid>
+
+                            <Rectangle Style="{StaticResource Divider}" Margin="0,8" />
+
+                            <Grid MinHeight="26">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Experience}" Style="{StaticResource Label}" />
+                                <TextBlock Grid.Column="1" Text="{Binding GameName}" FontSize="13" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                            </Grid>
+
+                            <Rectangle Style="{StaticResource Divider}" Margin="0,8" />
+
+                            <Grid MinHeight="26">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Price}" Style="{StaticResource Label}" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding PriceText}" FontSize="13" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                    <TextBlock Text="{Binding RenewalText}" FontSize="11" Margin="0,2,0,0"
+                                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
+                                               Visibility="{Binding HasRenewal, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_AllowJoining}" Style="{StaticResource Heading}" />
+                                <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding IsActive, Mode=TwoWay}" />
+                            </Grid>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_AllowJoiningHint}" FontSize="13" Margin="0,8,0,0"
+                                       TextWrapping="Wrap" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_FriendsAllowed}" Style="{StaticResource Heading}" />
+                                <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding FriendsAllowed, Mode=TwoWay}" />
+                            </Grid>
+
+                            <Rectangle Style="{StaticResource Divider}" />
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Members}" Style="{StaticResource Heading}" />
+                                <ui:Button Grid.Column="1" Appearance="Secondary"
+                                           Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_AddPeople}"
+                                           Command="{Binding AddPeopleCommand}" />
+                            </Grid>
+
+                            <Grid Margin="0,10,0,0" Visibility="{Binding IsAddingPeople, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ui:TextBox x:Name="AddUsernameBox" Grid.Column="0" FontSize="13"
+                                            PlaceholderText="{x:Static resources:Strings.Menu_Overlay_PrivateServers_AddPlaceholder}"
+                                            Text="{Binding AddUsername, UpdateSourceTrigger=PropertyChanged}"
+                                            KeyDown="AddUsernameKeyDown" />
+                                <ui:Button Grid.Column="1" Margin="6,0,0,0" Appearance="Primary" VerticalAlignment="Stretch"
+                                           Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Add}"
+                                           Command="{Binding AddUserCommand}" />
+                            </Grid>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_MembersNone}" FontSize="13" Margin="0,10,0,0"
+                                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                                       Visibility="{Binding HasNoAllowedUsers, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                            <ItemsControl ItemsSource="{Binding AllowedUsers}" Margin="0,6,0,0">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,4,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding DisplayName}" FontSize="13"
+                                                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                                <TextBlock Text="{Binding Name, StringFormat=@{0}}" FontSize="12" Margin="8,0,0,0"
+                                                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                            </StackPanel>
+
+                                            <Button Grid.Column="1" Style="{StaticResource IconButton}"
+                                                    ToolTip="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Remove}"
+                                                    Command="{Binding DataContext.RemoveUserCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                    CommandParameter="{Binding Mode=OneTime}">
+                                                <ui:SymbolIcon Symbol="Dismiss24" FontSize="12" />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <Rectangle Style="{StaticResource Divider}" />
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Link}" Style="{StaticResource Heading}" />
+                                <ui:Button Grid.Column="1" Appearance="Secondary"
+                                           Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Regenerate}"
+                                           Command="{Binding RegenerateLinkCommand}" />
+                            </Grid>
+
+                            <Border Margin="0,10,0,0" Padding="12,4,4,4" CornerRadius="6"
+                                    Background="{ui:ThemeResource ControlFillColorDefaultBrush}"
+                                    BorderBrush="{ui:ThemeResource ControlStrokeColorDefaultBrush}" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="{Binding Link}" FontSize="13" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                    <Button Grid.Column="1" Style="{StaticResource IconButton}" Margin="8,0,0,0"
+                                            ToolTip="{x:Static resources:Strings.Menu_Overlay_PrivateServers_CopyLink}"
+                                            IsEnabled="{Binding HasLink}"
+                                            Command="{Binding CopyLinkCommand}">
+                                        <ui:SymbolIcon Symbol="Copy24" FontSize="14" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <TextBlock Grid.Row="1" Text="{Binding StatusText}" FontSize="12" Margin="2,6,0,0" TextWrapping="Wrap"
+                   Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                   Visibility="{Binding HasStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </Grid>
+</UserControl>

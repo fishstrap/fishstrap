@@ -12,6 +12,30 @@
              PreviewMouseLeftButtonDown="BringToFront">
 
     <UserControl.Resources>
+        <Style x:Key="CaptionButton" TargetType="Button">
+            <Setter Property="Width" Value="44" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorTertiaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="PanelResizeGrip" TargetType="Thumb">
             <Setter Property="Template">
                 <Setter.Value>
@@ -47,18 +71,24 @@
                                        MouseMove="TitleBarMouseMove"
                                        MouseLeftButtonUp="TitleBarMouseUp">
                     <control:PanelTitleBar.Header>
-                        <Grid Margin="12,8,8,8" VerticalAlignment="Center">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <ui:SymbolIcon x:Name="HeaderIcon" Grid.Column="0" FontSize="16"
-                                           Margin="0,0,8,0" VerticalAlignment="Center"
+                                           Margin="12,0,8,0" VerticalAlignment="Center"
                                            Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
 
-                            <TextBlock x:Name="HeaderTitle" Grid.Column="1"
+                            <TextBlock x:Name="HeaderTitle" Grid.Column="1" Margin="0,8,8,8"
                                        VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+
+                            <Button x:Name="PinButton" Grid.Column="2" Style="{StaticResource CaptionButton}"
+                                    Click="PinClicked">
+                                <ui:SymbolIcon x:Name="PinIcon" Symbol="Pin24" FontSize="14" />
+                            </Button>
                         </Grid>
                     </control:PanelTitleBar.Header>
                 </control:PanelTitleBar>

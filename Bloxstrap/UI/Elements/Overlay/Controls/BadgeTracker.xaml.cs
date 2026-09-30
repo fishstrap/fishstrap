@@ -12,6 +12,8 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
     {
         private BadgeTrackerViewModel _viewModel;
 
+        public event EventHandler<Badge>? BadgeEarned;
+
         public BadgeTracker()
         {
             _viewModel = new BadgeTrackerViewModel(null);
@@ -24,6 +26,7 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
         public void Attach(ActivityWatcher? activityWatcher)
         {
             _viewModel = new BadgeTrackerViewModel(activityWatcher);
+            _viewModel.BadgeEarned += (_, badge) => BadgeEarned?.Invoke(this, badge);
 
             DataContext = _viewModel;
 

@@ -26,6 +26,9 @@ namespace Bloxstrap.Models.APIs.RoValra
         [JsonPropertyName("datacenter_id")]
         public long DatacenterId { get; set; }
 
+        [JsonPropertyName("place_version")]
+        public int? PlaceVersion { get; set; }
+
         [JsonPropertyName("first_seen")]
         public string? FirstSeen { get; set; }
 

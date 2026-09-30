@@ -1884,11 +1884,26 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Integrations.Overlay.Title" xml:space="preserve">
     <value>Overlay</value>
   </data>
+  <data name="Menu.Integrations.OverlayHotkey.Title" xml:space="preserve">
+    <value>Overlay shortcut</value>
+  </data>
+  <data name="Menu.Integrations.OverlayHotkey.Description" xml:space="preserve">
+    <value>The key combination that opens the overlay.</value>
+  </data>
+  <data name="Menu.Integrations.OverlayHotkey.Recording" xml:space="preserve">
+    <value>Press a shortcut…</value>
+  </data>
+  <data name="Menu.Integrations.OverlayHotkey.NeedsModifier" xml:space="preserve">
+    <value>Add Ctrl, Alt or Win</value>
+  </data>
+  <data name="Menu.Integrations.OverlayHotkey.Reset" xml:space="preserve">
+    <value>Reset shortcut</value>
+  </data>
   <data name="Menu.Integrations.EnableOverlay.Title" xml:space="preserve">
     <value>Enable in-game overlay</value>
   </data>
   <data name="Menu.Integrations.EnableOverlay.Description" xml:space="preserve">
-    <value>Enable an Overlay with QOL features. Press Ctrl+Alt+L in game to open it. Requires borderless or windowed mode.</value>
+    <value>Enable an Overlay with QOL features. Requires borderless or windowed mode. Its other settings are under the gear in the overlay's dock.</value>
   </data>
   <data name="Menu.Overlay.Tab.Messages" xml:space="preserve">
     <value>Messages</value>
@@ -1904,6 +1919,9 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Menu.Overlay.NotInGame" xml:space="preserve">
     <value>Not in an experience</value>
+  </data>
+  <data name="Menu.Overlay.Server" xml:space="preserve">
+    <value>Server</value>
   </data>
   <data name="Menu.Overlay.Session" xml:space="preserve">
     <value>Session</value>
@@ -1953,11 +1971,8 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Games.Joining" xml:space="preserve">
     <value>Joining {0}…</value>
   </data>
-  <data name="Menu.Overlay.Servers.UptimeExact" xml:space="preserve">
-    <value>Up {0}</value>
-  </data>
   <data name="Menu.Overlay.Servers.UptimeEstimate" xml:space="preserve">
-    <value>Up ~{0}</value>
+    <value>~{0}</value>
   </data>
   <data name="Menu.Overlay.Servers.Hop" xml:space="preserve">
     <value>Server hop</value>
@@ -2093,6 +2108,399 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Enums.Overlay.Order.Descending" xml:space="preserve">
     <value>Most players</value>
+  </data>
+  <data name="Menu.Overlay.Pin" xml:space="preserve">
+    <value>Pin over the game</value>
+  </data>
+  <data name="Menu.Overlay.Unpin" xml:space="preserve">
+    <value>Unpin</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.NeedsCookies" xml:space="preserve">
+    <value>Allow cookie access in Fishstrap's settings to see private servers here.</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.None" xml:space="preserve">
+    <value>You don't have any private servers for this experience.</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.LoadFailed" xml:space="preserve">
+    <value>Couldn't load private servers. Try again in a moment.</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Untitled" xml:space="preserve">
+    <value>Untitled server</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Capacity" xml:space="preserve">
+    <value>{0} of {1} people max</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Configure" xml:space="preserve">
+    <value>Configure</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.GenerateLink" xml:space="preserve">
+    <value>Generate Link</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.CopyLink" xml:space="preserve">
+    <value>Copy Link</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.AllowJoining" xml:space="preserve">
+    <value>Allow Joining</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.LoadMore" xml:space="preserve">
+    <value>Load More</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.CreateTitle" xml:space="preserve">
+    <value>Create a private server</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.CreateHint" xml:space="preserve">
+    <value>Opens on roblox.com</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.CreateUnavailable" xml:space="preserve">
+    <value>Not available in this experience</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.CreateOpened" xml:space="preserve">
+    <value>Opened this experience's servers on roblox.com</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.ConfigureTitle" xml:space="preserve">
+    <value>Configure Private Server</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.BackToList" xml:space="preserve">
+    <value>Back to Private Servers</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.ServerName" xml:space="preserve">
+    <value>Server Name</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Experience" xml:space="preserve">
+    <value>Experience</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Price" xml:space="preserve">
+    <value>Subscription Price</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.PriceRobux" xml:space="preserve">
+    <value>{0} Robux</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.AllowJoiningHint" xml:space="preserve">
+    <value>Turning this off stops you and anyone you've invited from joining, and the current link stops working. You can turn it back on at any time.</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.FriendsAllowed" xml:space="preserve">
+    <value>Friends Allowed</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Members" xml:space="preserve">
+    <value>Server Members</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.AddPeople" xml:space="preserve">
+    <value>Add People</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.AddPlaceholder" xml:space="preserve">
+    <value>Add someone by username</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.MembersNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Link" xml:space="preserve">
+    <value>Private Server Link</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Regenerate" xml:space="preserve">
+    <value>Regenerate</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.TurnedOn" xml:space="preserve">
+    <value>Joining turned on</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.TurnedOff" xml:space="preserve">
+    <value>Joining turned off</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.LinkCopied" xml:space="preserve">
+    <value>Link copied</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.NewLinkMade" xml:space="preserve">
+    <value>New link made. The old one no longer works.</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Added" xml:space="preserve">
+    <value>Added {0}</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Removed" xml:space="preserve">
+    <value>Removed {0}</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.NoSuchUser" xml:space="preserve">
+    <value>No one's called {0}</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.AlreadyAdded" xml:space="preserve">
+    <value>{0} can already join</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.SaveFailed" xml:space="preserve">
+    <value>Couldn't save that. Try again in a moment.</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Rejected" xml:space="preserve">
+    <value>Roblox didn't accept that: {0}</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Renews" xml:space="preserve">
+    <value>Renews {0}</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Ends" xml:space="preserve">
+    <value>Ends {0}</value>
+  </data>
+  <data name="Menu.Overlay.PrivateServers.Expired" xml:space="preserve">
+    <value>Subscription expired</value>
+  </data>
+  <data name="Menu.Overlay.Servers.PublicTab" xml:space="preserve">
+    <value>Public</value>
+  </data>
+  <data name="Menu.Overlay.Servers.PrivateTab" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Capacity" xml:space="preserve">
+    <value>{0} of {1} people max</value>
+  </data>
+  <data name="Menu.Overlay.Servers.CapacityUnknown" xml:space="preserve">
+    <value>Player count unknown</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Performance" xml:space="preserve">
+    <value>Server Performance {0}%</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Version" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Id" xml:space="preserve">
+    <value>ID: {0}</value>
+  </data>
+  <data name="Menu.Overlay.Notify.HintTitle" xml:space="preserve">
+    <value>Fishstrap overlay is ready</value>
+  </data>
+  <data name="Menu.Overlay.Notify.Hint" xml:space="preserve">
+    <value>Press {0} to open it.</value>
+  </data>
+  <data name="Menu.Overlay.Notify.HintTaken" xml:space="preserve">
+    <value>{0} is taken by another app. Open the overlay from Fishstrap's tray icon to pick a different shortcut.</value>
+  </data>
+  <data name="Menu.Overlay.Notify.FriendJoinedServer" xml:space="preserve">
+    <value>{0} joined your server</value>
+  </data>
+  <data name="Menu.Overlay.Notify.FriendSameGame" xml:space="preserve">
+    <value>{0} is playing this game too</value>
+  </data>
+  <data name="Menu.Overlay.Notify.FriendPlaying" xml:space="preserve">
+    <value>{0} is now playing</value>
+  </data>
+  <data name="Menu.Overlay.Notify.BadgeEarned" xml:space="preserve">
+    <value>Badge earned</value>
+  </data>
+  <data name="Menu.Overlay.Notify.BadgeRarity" xml:space="preserve">
+    <value>Won by {0} of players</value>
+  </data>
+  <data name="Menu.Overlay.Servers.RecentTab" xml:space="preserve">
+    <value>Recent</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Recent.Empty" xml:space="preserve">
+    <value>Public servers you play in for this experience will show up here.</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Recent.Today" xml:space="preserve">
+    <value>Today, {0}</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Recent.Yesterday" xml:space="preserve">
+    <value>Yesterday, {0}</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Recent.Played" xml:space="preserve">
+    <value>Played for {0}</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Recent.Running" xml:space="preserve">
+    <value>Still running</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Recent.Missing" xml:space="preserve">
+    <value>Might have shut down</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Recent.Checking" xml:space="preserve">
+    <value>Checking…</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Full" xml:space="preserve">
+    <value>Full</value>
+  </data>
+  <data name="Menu.Overlay.Servers.Closest" xml:space="preserve">
+    <value>Closest server</value>
+  </data>
+  <data name="Menu.Overlay.Servers.ClosestTooltip" xml:space="preserve">
+    <value>Join the server with the lowest ping for you</value>
+  </data>
+  <data name="Menu.Overlay.Servers.ClosestJoining" xml:space="preserve">
+    <value>Joining the closest server</value>
+  </data>
+  <data name="Menu.Overlay.Servers.ClosestAlready" xml:space="preserve">
+    <value>You're already in the closest server</value>
+  </data>
+  <data name="Menu.Overlay.Servers.ClosestNone" xml:space="preserve">
+    <value>Couldn't find a server with room</value>
+  </data>
+  <data name="Menu.Overlay.Servers.ClosestNeedsCookies" xml:space="preserve">
+    <value>Allow cookie access in Fishstrap's settings to find the closest server</value>
+  </data>
+  <data name="Menu.Overlay.Servers.ClosestFailed" xml:space="preserve">
+    <value>Couldn't reach Roblox. Try again in a moment.</value>
+  </data>
+  <data name="Menu.Overlay.Tab.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Style" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Menu.Overlay.Settings.CornerRadius" xml:space="preserve">
+    <value>Corner radius</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Background" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Duration" xml:space="preserve">
+    <value>Show for</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Header" xml:space="preserve">
+    <value>Fishstrap header</value>
+  </data>
+  <data name="Menu.Overlay.Settings.NotifyAbout" xml:space="preserve">
+    <value>Notify me about</value>
+  </data>
+  <data name="Menu.Overlay.Settings.ServerDetails" xml:space="preserve">
+    <value>Server details</value>
+  </data>
+  <data name="Menu.Overlay.Settings.ServerDetailsHint" xml:space="preserve">
+    <value>When off, these show as Windows notifications instead</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Friends" xml:space="preserve">
+    <value>Friends</value>
+  </data>
+  <data name="Menu.Overlay.Settings.FriendsHint" xml:space="preserve">
+    <value>Starting a game, joining your game or joining your server. Needs cookie access.</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Badges" xml:space="preserve">
+    <value>Badges</value>
+  </data>
+  <data name="Menu.Overlay.Settings.BadgesHint" xml:space="preserve">
+    <value>When you earn one. Needs cookie access.</value>
+  </data>
+  <data name="Menu.Overlay.Settings.StartHint" xml:space="preserve">
+    <value>The overlay shortcut when a game starts</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Test" xml:space="preserve">
+    <value>Send a test notification</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Reset" xml:space="preserve">
+    <value>Reset to defaults</value>
+  </data>
+  <data name="Menu.Overlay.Settings.SampleTitle" xml:space="preserve">
+    <value>Test notification</value>
+  </data>
+  <data name="Menu.Overlay.Settings.SampleMessage" xml:space="preserve">
+    <value>This is how Fishstrap notifications look.</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Pixels" xml:space="preserve">
+    <value>{0} px</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Percent" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Seconds" xml:space="preserve">
+    <value>{0} s</value>
+  </data>
+  <data name="Enums.Overlay.ToastStyle.Corner" xml:space="preserve">
+    <value>Corner</value>
+  </data>
+  <data name="Enums.Overlay.ToastStyle.Floating" xml:space="preserve">
+    <value>Floating</value>
+  </data>
+  <data name="Enums.Overlay.ToastPosition.BottomRight" xml:space="preserve">
+    <value>Bottom right</value>
+  </data>
+  <data name="Enums.Overlay.ToastPosition.BottomLeft" xml:space="preserve">
+    <value>Bottom left</value>
+  </data>
+  <data name="Enums.Overlay.ToastPosition.TopRight" xml:space="preserve">
+    <value>Top right</value>
+  </data>
+  <data name="Enums.Overlay.ToastPosition.TopLeft" xml:space="preserve">
+    <value>Top left</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Overlay" xml:space="preserve">
+    <value>Overlay</value>
+  </data>
+  <data name="Menu.Overlay.Settings.ShortcutTaken" xml:space="preserve">
+    <value>{0} is taken by another app, so it won't open the overlay. Pick a different one.</value>
+  </data>
+  <data name="ContextMenu.OpenOverlay" xml:space="preserve">
+    <value>Open overlay</value>
+  </data>
+  <data name="Menu.Overlay.Settings.HeaderOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Menu.Overlay.Settings.HeaderServer" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="Menu.Overlay.Settings.HeaderFriends" xml:space="preserve">
+    <value>Friends</value>
+  </data>
+  <data name="Menu.Overlay.Settings.HeaderBoth" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="Menu.Overlay.Settings.HeaderHint" xml:space="preserve">
+    <value>Badges and the shortcut reminder follow Server</value>
+  </data>
+  <data name="Menu.Overlay.Settings.SampleLocation" xml:space="preserve">
+    <value>London, England, United Kingdom</value>
+  </data>
+  <data name="Menu.Overlay.Settings.SampleUptime" xml:space="preserve">
+    <value>2 hours and 5 minutes</value>
+  </data>
+  <data name="Menu.Overlay.Tab.Browser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="Menu.Overlay.Browser.Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Menu.Overlay.Browser.Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Menu.Overlay.Browser.Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Menu.Overlay.Browser.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Menu.Overlay.Browser.AddressPlaceholder" xml:space="preserve">
+    <value>Search or enter an address</value>
+  </data>
+  <data name="Menu.Overlay.Browser.OpenExternally" xml:space="preserve">
+    <value>Open in your browser</value>
+  </data>
+  <data name="Menu.Overlay.Browser.Failed" xml:space="preserve">
+    <value>The browser couldn't start.</value>
   </data>
   <data name="Menu.Overlay.Tab.Notes" xml:space="preserve">
     <value>Notes</value>

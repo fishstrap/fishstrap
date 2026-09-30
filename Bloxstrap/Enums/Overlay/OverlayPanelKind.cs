@@ -7,6 +7,8 @@
         Servers,
         Notes,
         Games,
-        History
+        History,
+        Browser,
+        Settings
     }
 }

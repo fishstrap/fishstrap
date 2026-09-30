@@ -1,7 +1,13 @@
+using System.ComponentModel;
+
 namespace Bloxstrap.Models.Overlay
 {
-    public class GameServer
+    public class GameServer : INotifyPropertyChanged
     {
+        private const int AvatarSlots = 6;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public string JobId { get; set; } = String.Empty;
 
         public int? Playing { get; set; }
@@ -15,6 +21,8 @@ namespace Bloxstrap.Models.Overlay
         public string? City { get; set; }
 
         public string? Region { get; set; }
+
+        public int? PlaceVersion { get; set; }
 
         public bool IsCurrent { get; set; }
 
@@ -38,47 +46,67 @@ namespace Bloxstrap.Models.Overlay
                 if (up < TimeSpan.Zero)
                     up = TimeSpan.Zero;
 
-                string span = up.TotalDays >= 1 ? $"{(int)up.TotalDays}d {up.Hours}h"
-                    : up.TotalHours >= 1 ? $"{(int)up.TotalHours}h {up.Minutes}m"
-                    : $"{Math.Max(up.Minutes, 1)}m";
+                string span = up.TotalDays >= 1 ? $"{(int)up.TotalDays}d {up.Hours}h {up.Minutes}m {up.Seconds}s"
+                    : up.TotalHours >= 1 ? $"{up.Hours}h {up.Minutes}m {up.Seconds}s"
+                    : up.TotalMinutes >= 1 ? $"{up.Minutes}m {up.Seconds}s"
+                    : $"{up.Seconds}s";
 
-                return String.Format(UptimeIsEstimate ? Strings.Menu_Overlay_Servers_UptimeEstimate : Strings.Menu_Overlay_Servers_UptimeExact, span);
+                return UptimeIsEstimate ? String.Format(Strings.Menu_Overlay_Servers_UptimeEstimate, span) : span;
             }
         }
+
+        public int? Performance => Fps is null ? null : (int)Math.Min(100, Math.Round(Fps.Value / 60 * 100));
+
+        public bool HasPerformance => Performance is not null;
+
+        public bool IsLowPerformance => Performance < 50;
+
+        public string PerformanceText => String.Format(Strings.Menu_Overlay_Servers_Performance, Performance);
+
+        public bool HasVersion => PlaceVersion is not null;
+
+        public string VersionText => String.Format(Strings.Menu_Overlay_Servers_Version, PlaceVersion);
 
         public List<string> PlayerIcons { get; } = new();
 
         public int OverflowCount => HasStats ? Math.Max(Playing!.Value - PlayerIcons.Count, 0) : 0;
 
-        public bool HasOverflow => OverflowCount > 0;
+        public IReadOnlyList<ServerAvatar> Avatars
+        {
+            get
+            {
+                int overflow = OverflowCount;
+                int faces = overflow > 0 ? AvatarSlots - 1 : AvatarSlots;
 
-        public string OverflowText => $"+{OverflowCount}";
+                var avatars = PlayerIcons.Take(faces).Select(url => new ServerAvatar(url, null)).ToList();
+
+                int hidden = HasStats ? Playing!.Value - avatars.Count : 0;
+
+                if (hidden > 0)
+                    avatars.Add(new ServerAvatar(null, $"+{hidden}"));
+
+                return avatars;
+            }
+        }
 
         public bool HasStats => Playing is not null && MaxPlayers is not null;
 
         public bool IsFull => HasStats && Playing >= MaxPlayers;
 
-        public string PlayersText => HasStats ? $"{Playing}/{MaxPlayers}" : "—";
+        public string CapacityText => HasStats
+            ? String.Format(Strings.Menu_Overlay_Servers_Capacity, Playing, MaxPlayers)
+            : Strings.Menu_Overlay_Servers_CapacityUnknown;
 
         public double FillPercentage => HasStats && MaxPlayers > 0
             ? (double)Playing!.Value / MaxPlayers!.Value * 100
             : 0;
 
-        public string FpsText => Fps is null ? String.Empty : $"{Math.Round(Fps.Value)} FPS";
+        public string IdText => String.Format(Strings.Menu_Overlay_Servers_Id, JobId);
 
-        public string PingText => Ping is null ? String.Empty : $"{Ping} ms";
-
-        public string LocationText
+        public void Tick()
         {
-            get
-            {
-                if (String.IsNullOrEmpty(City))
-                    return String.Empty;
-
-                return String.IsNullOrEmpty(Region) || Region == City ? City : $"{City}, {Region}";
-            }
+            if (HasUptime)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UptimeText)));
         }
-
-        public string ShortId => JobId.Length > 8 ? JobId[..8] : JobId;
     }
 }

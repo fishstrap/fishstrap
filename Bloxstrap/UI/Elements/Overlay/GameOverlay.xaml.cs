@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,9 +30,11 @@ namespace Bloxstrap.UI.Elements.Overlay
         private HWND _hwnd;
         private HwndSource? _source;
         private bool _hotkeyRegistered;
+        private string _shortcut = String.Empty;
 
         private int _placed;
         private bool _presenting;
+        private bool _presented;
 
         private string? _savedLayout;
 
@@ -46,6 +49,14 @@ namespace Bloxstrap.UI.Elements.Overlay
         private GameBrowser GameBrowser => (GameBrowser)GamesPanel.PanelContent!;
 
         private GameHistory GameHistory => (GameHistory)HistoryPanel.PanelContent!;
+
+        private Browser BrowserView => (Browser)BrowserPanel.PanelContent!;
+
+        private OverlaySettings SettingsView => (OverlaySettings)SettingsPanel.PanelContent!;
+
+        public string? HotkeyHint => String.IsNullOrEmpty(_shortcut)
+            ? null
+            : String.Format(_hotkeyRegistered ? Strings.Menu_Overlay_Notify_Hint : Strings.Menu_Overlay_Notify_HintTaken, _shortcut);
 
         public GameOverlay(Integrations.Overlay? overlay)
         {
@@ -72,14 +83,29 @@ namespace Bloxstrap.UI.Elements.Overlay
             InitializeComponent();
 
             _viewModel.PanelOpened += (_, panel) => Place(panel);
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+
+            BrowserView.DismissRequested += (_, _) => Dismiss();
 
             Deactivated += OnDeactivated;
 
             ChatWindow.Attach(overlay?.Messaging.Party);
             BadgeTracker.Attach(overlay?.ActivityWatcher);
+            BadgeTracker.BadgeEarned += OnBadgeEarned;
             ServerBrowser.Attach(overlay?.ActivityWatcher);
             GameBrowser.Attach(overlay?.ActivityWatcher);
             GameHistory.Attach(overlay?.ActivityWatcher);
+            SettingsView.Attach(overlay, this, () => _viewModel.ProfileIcon, () => _viewModel.GameIcon);
+        }
+
+        private void OnBadgeEarned(object? sender, Badge badge)
+        {
+            if (!App.Settings.Prop.OverlayBadgeNotifications)
+                return;
+
+            string message = badge.Name + Environment.NewLine + String.Format(Strings.Menu_Overlay_Notify_BadgeRarity, badge.RarityText);
+
+            _overlay?.Notify(new OverlayNotice(Strings.Menu_Overlay_Notify_BadgeEarned, message, badge.IconUrl, Kind: NoticeKind.Badge));
         }
 
         private OverlayPanel PanelFor(OverlayPanelKind kind) => kind switch
@@ -89,6 +115,8 @@ namespace Bloxstrap.UI.Elements.Overlay
             OverlayPanelKind.Notes => NotesPanel,
             OverlayPanelKind.Games => GamesPanel,
             OverlayPanelKind.History => HistoryPanel,
+            OverlayPanelKind.Browser => BrowserPanel,
+            OverlayPanelKind.Settings => SettingsPanel,
             _ => MessagesPanel
         };
 
@@ -113,12 +141,22 @@ namespace Bloxstrap.UI.Elements.Overlay
                 OverlayPanelKind.Servers => (880d, 520d),
                 OverlayPanelKind.Games => (800d, 540d),
                 OverlayPanelKind.History => (580d, 440d),
+                OverlayPanelKind.Browser => (960d, 600d),
+                OverlayPanelKind.Settings => (520d, 640d),
                 _ => (720d, 500d)
             };
 
             double offset = CascadeStep * _placed++;
 
             panel.PlaceAt(24 + offset, 16 + offset, width, height);
+        }
+
+        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GameOverlayViewModel.BrowserOpen))
+                BrowserView.SetOpen(_viewModel.BrowserOpen);
+            else if (e.PropertyName == nameof(GameOverlayViewModel.HasPinnedPanels) && _viewModel.ShowingPinnedOnly)
+                RefreshPinned();
         }
 
         private bool Restore(OverlayPanelKind kind, OverlayPanel panel)
@@ -142,7 +180,7 @@ namespace Bloxstrap.UI.Elements.Overlay
         private void RestoreDepth()
         {
             var order = Enum.GetValues<OverlayPanelKind>()
-                .Where(kind => PanelFor(kind).Visibility == Visibility.Visible)
+                .Where(_viewModel.IsOpen)
                 .Select(kind => (Kind: kind, Saved: Saved(kind)))
                 .Where(x => x.Saved is not null)
                 .OrderBy(x => x.Saved!.Depth);
@@ -171,7 +209,8 @@ namespace Bloxstrap.UI.Elements.Overlay
                     {
                         if (Saved(kind) is OverlayPanelLayout previous)
                         {
-                            previous.Open = false;
+                            previous.Open = _viewModel.IsOpen(kind);
+                            previous.Pinned = _viewModel.IsPinned(kind);
                             panels[name] = previous;
                         }
 
@@ -180,7 +219,8 @@ namespace Bloxstrap.UI.Elements.Overlay
 
                     panels[name] = new OverlayPanelLayout
                     {
-                        Open = panel.Visibility == Visibility.Visible,
+                        Open = _viewModel.IsOpen(kind),
+                        Pinned = _viewModel.IsPinned(kind),
                         Left = panel.Position.X,
                         Top = panel.Position.Y,
                         Width = panel.PanelSize.Width,
@@ -214,13 +254,13 @@ namespace Bloxstrap.UI.Elements.Overlay
         {
             const string LOG_IDENT = "GameOverlay::Toggle";
 
-            bool visible = Visibility == Visibility.Visible;
+            bool presented = _presented;
             bool inFront = IsInFront();
             bool minimised = _overlay?.IsGameMinimised() == true;
 
-            var action = OverlayToggle.Decide(visible, inFront, minimised);
+            var action = OverlayToggle.Decide(presented, inFront, minimised);
 
-            App.Logger.WriteLine(LOG_IDENT, $"visible={visible} inFront={inFront} minimised={minimised} -> {action}");
+            App.Logger.WriteLine(LOG_IDENT, $"presented={presented} inFront={inFront} minimised={minimised} -> {action}");
 
             switch (action)
             {
@@ -234,13 +274,73 @@ namespace Bloxstrap.UI.Elements.Overlay
             }
         }
 
-        public void Dismiss()
+        public void Dismiss() => Dismiss(true);
+
+        public void Open()
+        {
+            if (_presented)
+                Activate();
+            else
+                Present();
+        }
+
+        private void Dismiss(bool returnFocus)
         {
             NotesPad.Flush();
+            SettingsView.Flush();
 
             SaveLayout();
 
+            _presented = false;
+
+            if (!_viewModel.HasPinnedPanels || _overlay?.IsGameMinimised() == true)
+            {
+                Hide();
+                return;
+            }
+
+            if (returnFocus)
+            {
+                ShowPinnedView();
+                _overlay?.FocusGame();
+            }
+            else
+            {
+                RefreshPinned();
+            }
+        }
+
+        public void HideForGame()
+        {
+            NotesPad.Flush();
+            SettingsView.Flush();
+
+            SaveLayout();
+
+            _presented = false;
+
             Hide();
+        }
+
+        public void RefreshPinned()
+        {
+            if (_presented)
+                return;
+
+            bool gameOrOverlayInFront = _overlay?.IsGameForeground() == true || IsOwnProcessForeground();
+
+            if (_viewModel.HasPinnedPanels && gameOrOverlayInFront && _overlay?.IsGameMinimised() != true)
+                ShowPinnedView();
+            else if (IsVisible)
+                Hide();
+        }
+
+        private void ShowPinnedView()
+        {
+            _viewModel.ShowingPinnedOnly = true;
+
+            if (!IsVisible)
+                Show();
         }
 
         private void ScrimClicked(object sender, MouseButtonEventArgs e)
@@ -263,14 +363,18 @@ namespace Bloxstrap.UI.Elements.Overlay
             e.Handled = true;
         }
 
-        private bool IsInFront() =>
-            PInvoke.GetForegroundWindow() == _hwnd || _overlay?.IsGameForeground() == true;
+        private bool IsInFront()
+        {
+            HWND foreground = PInvoke.GetForegroundWindow();
+
+            return foreground == _hwnd || BrowserView.IsHostWindow(foreground) || _overlay?.IsGameForeground() == true;
+        }
 
         private void OnDeactivated(object? sender, EventArgs e)
         {
             const string LOG_IDENT = "GameOverlay::OnDeactivated";
 
-            if (_presenting)
+            if (_presenting || !_presented)
                 return;
 
             if (IsOwnProcessForeground())
@@ -281,7 +385,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             App.Logger.WriteLine(LOG_IDENT, "Focus left the game, hiding");
 
-            Dismiss();
+            Dismiss(false);
         }
 
         private static unsafe bool IsOwnProcessForeground()
@@ -296,6 +400,9 @@ namespace Bloxstrap.UI.Elements.Overlay
         private void Present()
         {
             _presenting = true;
+            _presented = true;
+
+            _viewModel.ShowingPinnedOnly = false;
 
             _overlay?.DismissToast();
 
@@ -316,7 +423,12 @@ namespace Bloxstrap.UI.Elements.Overlay
             Dispatcher.BeginInvoke(new Action(() => _presenting = false), DispatcherPriority.ApplicationIdle);
         }
 
-        public void Reanchor() => _overlay?.AnchorAboveGame(_hwnd);
+        public void Reanchor()
+        {
+            RefreshPinned();
+
+            _overlay?.AnchorAboveGame(_hwnd);
+        }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -329,7 +441,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             foreach (OverlayPanelKind kind in Enum.GetValues<OverlayPanelKind>())
             {
-                if (PanelFor(kind).Visibility == Visibility.Visible)
+                if (_viewModel.IsOpen(kind))
                     Place(kind);
             }
 
@@ -340,8 +452,6 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         protected override void OnSourceInitialized(EventArgs e)
         {
-            const string LOG_IDENT = "GameOverlay::OnSourceInitialized";
-
             base.OnSourceInitialized(e);
 
             var helper = new WindowInteropHelper(this);
@@ -353,15 +463,59 @@ namespace Bloxstrap.UI.Elements.Overlay
             int exStyle = PInvoke.GetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
             PInvoke.SetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, exStyle | WS_EX_TOOLWINDOW);
 
-            var modifiers = HOT_KEY_MODIFIERS.MOD_CONTROL |
-                            HOT_KEY_MODIFIERS.MOD_ALT |
-                            HOT_KEY_MODIFIERS.MOD_NOREPEAT;
+            RegisterHotkey();
+        }
+
+        public bool HotkeyRegistered => _hotkeyRegistered;
+
+        public string Shortcut => _shortcut;
+
+        public bool RebindHotkey()
+        {
+            UnregisterHotkey();
+            RegisterHotkey();
+
+            return _hotkeyRegistered;
+        }
+
+        public void SuspendHotkey() => UnregisterHotkey();
+
+        private void UnregisterHotkey()
+        {
+            if (_hotkeyRegistered)
+                PInvoke.UnregisterHotKey(_hwnd, ToggleHotkeyId);
+
+            _hotkeyRegistered = false;
+        }
+
+        private void RegisterHotkey()
+        {
+            const string LOG_IDENT = "GameOverlay::RegisterHotkey";
+
+            if (_hwnd == HWND.Null)
+                return;
+
+            ModifierKeys modifiers = App.Settings.Prop.OverlayHotkeyModifiers;
+            Key key = App.Settings.Prop.OverlayHotkeyKey;
+
+            if (!OverlayHotkey.IsAllowed(modifiers, key))
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"The saved overlay hotkey ({OverlayHotkey.Describe(modifiers, key)}) isn't usable, falling back to the default");
+
+                modifiers = OverlayHotkey.DefaultModifiers;
+                key = OverlayHotkey.DefaultKey;
+            }
+
+            string shortcut = OverlayHotkey.Describe(modifiers, key);
+
+            _shortcut = shortcut;
 
             _hotkeyRegistered = PInvoke.RegisterHotKey(
-                _hwnd, ToggleHotkeyId, modifiers, (uint)KeyInterop.VirtualKeyFromKey(Key.L));
+                _hwnd, ToggleHotkeyId, OverlayHotkey.ToNative(modifiers), (uint)KeyInterop.VirtualKeyFromKey(key));
 
-            if (!_hotkeyRegistered)
-                App.Logger.WriteLine(LOG_IDENT, "Could not register the overlay hotkey, something else owns Ctrl+Alt+L");
+            App.Logger.WriteLine(LOG_IDENT, _hotkeyRegistered
+                ? $"Overlay hotkey is {shortcut}"
+                : $"Could not register the overlay hotkey, something else owns {shortcut}");
         }
 
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -379,13 +533,15 @@ namespace Bloxstrap.UI.Elements.Overlay
         protected override void OnClosed(EventArgs e)
         {
             NotesPad.Flush();
+            SettingsView.Flush();
 
             SaveLayout();
 
             _source?.RemoveHook(HwndHook);
 
-            if (_hotkeyRegistered)
-                PInvoke.UnregisterHotKey(_hwnd, ToggleHotkeyId);
+            BrowserView.Shutdown();
+
+            UnregisterHotkey();
 
             base.OnClosed(e);
         }

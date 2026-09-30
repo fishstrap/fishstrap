@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:control="clr-namespace:Bloxstrap.UI.Elements.Overlay.Controls"
         mc:Ignorable="d"
         Title="Fishstrap Overlay Notification"
         AllowsTransparency="True"
@@ -13,33 +14,11 @@
         ShowActivated="False"
         Topmost="True"
         WindowStartupLocation="Manual"
+        SizeToContent="WidthAndHeight"
         FontFamily="{StaticResource Inter}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="ClearType"
         d:DesignWidth="400">
 
-    <Border x:Name="Card" Width="364" Margin="16" Padding="16" CornerRadius="8"
-            Background="{DynamicResource SolidBackgroundFillColorTertiaryBrush}"
-            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="28" ShadowDepth="6" Direction="270" Opacity="0.55" Color="Black" />
-        </Border.Effect>
-
-        <StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <Image Source="pack://application:,,,/Bloxstrap.ico" Width="16" Height="16"
-                       RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" />
-
-                <TextBlock Text="Fishstrap" FontSize="12" Margin="8,0,0,0" VerticalAlignment="Center"
-                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-            </StackPanel>
-
-            <TextBlock x:Name="ToastTitle" FontSize="14" TextWrapping="Wrap"
-                       Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
-
-            <TextBlock x:Name="ToastMessage" FontSize="13" Margin="0,4,0,0" TextWrapping="Wrap"
-                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-        </StackPanel>
-    </Border>
+    <control:ToastCard x:Name="CardView" Margin="24,24,0,0" />
 </Window>

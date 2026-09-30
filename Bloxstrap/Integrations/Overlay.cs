@@ -5,6 +5,7 @@ using Windows.Win32.Foundation;
 using Windows.Win32.UI.Accessibility;
 using Windows.Win32.UI.WindowsAndMessaging;
 
+using Bloxstrap.Enums.Overlay;
 using Bloxstrap.Integrations.OverlayModules;
 using Bloxstrap.UI.Elements.Overlay;
 
@@ -19,6 +20,10 @@ namespace Bloxstrap.Integrations
         private const uint EVENT_OBJECT_LOCATIONCHANGE = 0x800B;
         private const uint WINEVENT_OUTOFCONTEXT = 0x0000;
 
+        private const int MaxQueuedNotices = 4;
+
+        private static readonly TimeSpan HintDelay = TimeSpan.FromSeconds(4);
+
         public event EventHandler<OverlayBounds>? BoundsChanged;
         public event EventHandler<bool>? GameVisibilityChanged;
         public event EventHandler? WindowClosed;
@@ -27,19 +32,26 @@ namespace Bloxstrap.Integrations
 
         public readonly ActivityWatcher? ActivityWatcher;
 
+        public readonly FriendPresence Friends;
+
         private readonly HWND _robloxWindow;
         private readonly uint _robloxProcessId;
 
         private WINEVENTPROC? _systemCallback;
         private WINEVENTPROC? _objectCallback;
+        private WINEVENTPROC? _foregroundCallback;
 
         private UnhookWinEventSafeHandle? _systemHook;
         private UnhookWinEventSafeHandle? _objectHook;
+        private UnhookWinEventSafeHandle? _foregroundHook;
 
         private GameOverlay? _window;
         private OverlayToast? _toast;
         private OverlayBounds? _lastBounds;
         private bool _disposed;
+        private bool _hinted;
+
+        private readonly Queue<OverlayNotice> _notices = new();
 
         public Overlay(long windowHandle, long robloxProcessId, ActivityWatcher? activityWatcher)
         {
@@ -47,6 +59,9 @@ namespace Bloxstrap.Integrations
             _robloxProcessId = (uint)robloxProcessId;
 
             ActivityWatcher = activityWatcher;
+
+            Friends = new FriendPresence(activityWatcher);
+            Friends.Changed += OnFriendChanged;
         }
 
         public void Start()
@@ -76,11 +91,25 @@ namespace Bloxstrap.Integrations
                 _objectHook = PInvoke.SetWinEventHook(
                     EVENT_OBJECT_DESTROY, EVENT_OBJECT_LOCATIONCHANGE,
                     null, _objectCallback, _robloxProcessId, 0, WINEVENT_OUTOFCONTEXT);
+
+                _foregroundCallback = new WINEVENTPROC(OnForegroundEvent);
+
+                _foregroundHook = PInvoke.SetWinEventHook(
+                    EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND,
+                    null, _foregroundCallback, 0, 0, WINEVENT_OUTOFCONTEXT);
             });
 
             SyncBounds();
 
+            Application.Current.Dispatcher.InvokeAsync(() => _window?.Reanchor(), System.Windows.Threading.DispatcherPriority.Background);
+
             Messaging.ConnectToUserhub();
+
+            if (ActivityWatcher is not null)
+                ActivityWatcher.OnGameJoin += OnGameJoin;
+
+            if (App.Settings.Prop.OverlayFriendNotifications)
+                Friends.Start();
         }
 
         public void SyncBounds()
@@ -116,42 +145,187 @@ namespace Bloxstrap.Integrations
                 return false;
             }
 
+            if (!App.Settings.Prop.OverlayServerToasts)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Server details are set to use desktop notifications");
+                return false;
+            }
+
             if (IsGameMinimised() || !IsGameForeground())
             {
                 App.Logger.WriteLine(LOG_IDENT, "Game isn't in front, leaving it to the desktop notification");
                 return false;
             }
 
-            return Application.Current.Dispatcher.Invoke(() =>
+            App.Logger.WriteLine(LOG_IDENT, $"{title}: {message.Replace("\n", "\\n")}");
+
+            Notify(new OverlayNotice(title, message, Kind: NoticeKind.Server));
+
+            return true;
+        }
+
+        public void Notify(OverlayNotice notice)
+        {
+            if (_disposed)
+                return;
+
+            Application.Current.Dispatcher.InvokeAsync(() =>
             {
+                while (_notices.Count >= MaxQueuedNotices)
+                    _notices.Dequeue();
+
+                _notices.Enqueue(notice);
+
+                if (_toast?.IsShowing != true)
+                    ShowNextNotice();
+            });
+        }
+
+        private void ShowNextNotice()
+        {
+            const string LOG_IDENT = "Overlay::ShowNextNotice";
+
+            while (_notices.Count > 0)
+            {
+                OverlayNotice notice = _notices.Dequeue();
+
+                if (_disposed || _window is null || _robloxWindow == IntPtr.Zero)
+                {
+                    _notices.Clear();
+                    return;
+                }
+
+                if (IsGameMinimised() || !IsGameForeground())
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Game isn't in front, dropping a notification");
+                    continue;
+                }
+
+                OverlayBounds bounds = GetBounds();
+
+                if (bounds.Rect.Width <= 0 || bounds.Rect.Height <= 0)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Could not measure the game window");
+                    continue;
+                }
+
                 try
                 {
-                    OverlayBounds bounds = GetBounds();
+                    Toast().Present(notice, bounds.Rect);
 
-                    if (bounds.Rect.Width <= 0 || bounds.Rect.Height <= 0)
-                    {
-                        App.Logger.WriteLine(LOG_IDENT, "Could not measure the game window");
-                        return false;
-                    }
-
-                    App.Logger.WriteLine(LOG_IDENT, $"{title}: {message.Replace("\n", "\\n")}");
-
-                    _toast ??= new OverlayToast();
-                    _toast.Present(title, message, bounds.Rect);
-
-                    return true;
+                    return;
                 }
                 catch (Exception ex)
                 {
-                    App.Logger.WriteLine(LOG_IDENT, "Failed to show a toast");
+                    App.Logger.WriteLine(LOG_IDENT, "Failed to show a notification");
                     App.Logger.WriteException(LOG_IDENT, ex);
+                }
+            }
+        }
 
-                    return false;
+        public void Preview(OverlayNotice notice)
+        {
+            const string LOG_IDENT = "Overlay::Preview";
+
+            if (_disposed || _window is null || _robloxWindow == IntPtr.Zero)
+                return;
+
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                OverlayBounds bounds = GetBounds();
+
+                if (bounds.Rect.Width <= 0 || bounds.Rect.Height <= 0)
+                    return;
+
+                try
+                {
+                    _notices.Clear();
+
+                    Toast().Present(notice, bounds.Rect);
+                }
+                catch (Exception ex)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Failed to show a test notification");
+                    App.Logger.WriteException(LOG_IDENT, ex);
                 }
             });
         }
 
-        public void DismissToast() => _toast?.Dismiss();
+        public void SetFriendNotifications(bool enabled)
+        {
+            if (enabled)
+                Friends.Start();
+            else
+                Friends.Stop();
+        }
+
+        private OverlayToast Toast()
+        {
+            if (_toast is null)
+            {
+                _toast = new OverlayToast();
+                _toast.Finished += (_, _) => ShowNextNotice();
+            }
+
+            return _toast;
+        }
+
+        public void Open() => Application.Current.Dispatcher.Invoke(() => _window?.Open());
+
+        public void DismissToast()
+        {
+            _notices.Clear();
+            _toast?.Dismiss();
+        }
+
+        private async void OnGameJoin(object? sender, EventArgs e)
+        {
+            if (_hinted || !App.Settings.Prop.OverlayStartHint)
+                return;
+
+            _hinted = true;
+
+            await Task.Delay(HintDelay);
+
+            string? hint = Application.Current.Dispatcher.Invoke(() => _window?.HotkeyHint);
+
+            if (!String.IsNullOrEmpty(hint))
+                Notify(new OverlayNotice(Strings.Menu_Overlay_Notify_HintTitle, hint, Kind: NoticeKind.Hint));
+        }
+
+        private async void OnFriendChanged(object? sender, FriendPresenceChange change)
+        {
+            const string LOG_IDENT = "Overlay::OnFriendChanged";
+
+            if (!App.Settings.Prop.OverlayFriendNotifications)
+                return;
+
+            try
+            {
+                var users = await UserDetails.FetchBatch(new List<long> { change.UserId });
+
+                if (!users.TryGetValue(change.UserId, out UserDetails? friend))
+                    return;
+
+                string name = String.IsNullOrEmpty(friend.Data.DisplayName) ? friend.Data.Name : friend.Data.DisplayName;
+
+                string title = change.Kind switch
+                {
+                    FriendPresenceKind.JoinedYourServer => Strings.Menu_Overlay_Notify_FriendJoinedServer,
+                    FriendPresenceKind.PlayingYourGame => Strings.Menu_Overlay_Notify_FriendSameGame,
+                    _ => Strings.Menu_Overlay_Notify_FriendPlaying
+                };
+
+                App.Logger.WriteLine(LOG_IDENT, $"Notifying about a friend ({change.Kind})");
+
+                Notify(new OverlayNotice(String.Format(title, name), change.GameName, friend.Thumbnail?.ImageUrl, true, NoticeKind.Friend));
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to look up a friend");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+        }
 
         public bool IsGameMinimised() => PInvoke.IsIconic(_robloxWindow);
 
@@ -200,6 +374,9 @@ namespace Bloxstrap.Integrations
             }
         }
 
+        private void OnForegroundEvent(HWINEVENTHOOK hook, uint iEvent, HWND hWnd, int idObject, int idChild, uint thread, uint time) =>
+            Application.Current.Dispatcher.Invoke(() => _window?.RefreshPinned());
+
         private void OnObjectEvent(HWINEVENTHOOK hook, uint iEvent, HWND hWnd, int idObject, int idChild, uint thread, uint time)
         {
             const string LOG_IDENT = "Overlay::OnObjectEvent";
@@ -245,17 +422,27 @@ namespace Bloxstrap.Integrations
 
             _disposed = true;
 
+            if (ActivityWatcher is not null)
+                ActivityWatcher.OnGameJoin -= OnGameJoin;
+
+            Friends.Changed -= OnFriendChanged;
+            Friends.Dispose();
+
             _systemHook?.Dispose();
             _objectHook?.Dispose();
+            _foregroundHook?.Dispose();
 
             _systemHook = null;
             _objectHook = null;
+            _foregroundHook = null;
 
             _systemCallback = null;
             _objectCallback = null;
+            _foregroundCallback = null;
 
             Application.Current?.Dispatcher.Invoke(() =>
             {
+                _notices.Clear();
                 _toast?.Close();
                 _window?.Close();
             });

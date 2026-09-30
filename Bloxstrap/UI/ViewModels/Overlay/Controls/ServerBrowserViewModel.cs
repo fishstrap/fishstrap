@@ -109,6 +109,8 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
+        private readonly DispatcherTimer _uptimeTimer = new() { Interval = TimeSpan.FromSeconds(1) };
+
         private string? _status;
 
         private DispatcherTimer? _statusTimer;
@@ -162,9 +164,15 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         public ICommand HopCommand => new RelayCommand(async () => await HopAsync());
 
+        private bool _findingClosest;
+
+        public bool CanJoinClosest => InGame && !_findingClosest;
+
+        public ICommand ClosestCommand => new RelayCommand(async () => await JoinClosestAsync());
+
         private async void RefreshCurrentServer()
         {
-            foreach (string name in new[] { nameof(HasCurrentServer), nameof(CurrentServerType), nameof(CurrentJobId), nameof(CurrentUptime), nameof(CanHop) })
+            foreach (string name in new[] { nameof(HasCurrentServer), nameof(CurrentServerType), nameof(CurrentJobId), nameof(CurrentUptime), nameof(CanHop), nameof(CanJoinClosest) })
                 OnPropertyChanged(name);
 
             if (!InGame || !ShowCurrentLocation || _currentLocation is not null)
@@ -242,11 +250,82 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
+        private async Task JoinClosestAsync()
+        {
+            const string LOG_IDENT = "ServerBrowserViewModel::JoinClosestAsync";
+
+            if (!CanJoinClosest)
+                return;
+
+            if (!App.Settings.Prop.AllowCookieAccess)
+            {
+                Flash(Strings.Menu_Overlay_Servers_ClosestNeedsCookies);
+                return;
+            }
+
+            _findingClosest = true;
+
+            OnPropertyChanged(nameof(CanJoinClosest));
+
+            try
+            {
+                if (!App.Cookies.Loaded)
+                    await Task.Run(App.Cookies.LoadCookies);
+
+                if (!App.Cookies.Loaded)
+                {
+                    Flash(Strings.Menu_Overlay_Servers_ClosestNeedsCookies);
+                    return;
+                }
+
+                long placeId = _activityWatcher!.Data.PlaceId;
+
+                var (server, alreadyClosest) = await GameServers.FindClosestAsync(placeId, _activityWatcher.Data.JobId);
+
+                if (alreadyClosest)
+                {
+                    Flash(Strings.Menu_Overlay_Servers_ClosestAlready);
+                    return;
+                }
+
+                if (server is null)
+                {
+                    Flash(Strings.Menu_Overlay_Servers_ClosestNone);
+                    return;
+                }
+
+                App.Logger.WriteLine(LOG_IDENT, $"Joining the closest server, {server.JobId}");
+
+                GameServers.Join(placeId, server.JobId);
+
+                Flash(Strings.Menu_Overlay_Servers_ClosestJoining);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to find the closest server");
+                App.Logger.WriteException(LOG_IDENT, ex);
+
+                Flash(Strings.Menu_Overlay_Servers_ClosestFailed);
+            }
+            finally
+            {
+                _findingClosest = false;
+
+                OnPropertyChanged(nameof(CanJoinClosest));
+            }
+        }
+
         #endregion
 
         public ServerBrowserViewModel(ActivityWatcher? activityWatcher)
         {
             _activityWatcher = activityWatcher;
+
+            _uptimeTimer.Tick += (_, _) =>
+            {
+                foreach (GameServer server in Servers)
+                    server.Tick();
+            };
 
             if (_activityWatcher is null)
                 return;
@@ -263,6 +342,14 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             });
 
             _activityWatcher.OnGameLeave += (_, _) => App.Current.Dispatcher.Invoke(Clear);
+        }
+
+        public void SetVisible(bool visible)
+        {
+            if (visible)
+                _uptimeTimer.Start();
+            else
+                _uptimeTimer.Stop();
         }
 
         public async Task InitialiseAsync()
