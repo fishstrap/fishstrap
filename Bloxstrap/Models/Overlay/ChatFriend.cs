@@ -44,6 +44,11 @@ namespace Bloxstrap.Models.Overlay
             }
         }
 
+        private static readonly string[] PresenceProperties =
+        {
+            nameof(Status), nameof(GameName), nameof(PlaceId), nameof(RootPlaceId), nameof(ServerId), nameof(CanJoin), nameof(CanViewGame), nameof(StatusText)
+        };
+
         public FriendStatus Status { get; private set; } = FriendStatus.Offline;
 
         public string? GameName { get; private set; }
@@ -109,14 +114,20 @@ namespace Bloxstrap.Models.Overlay
             };
 
             string? game = status == FriendStatus.InGame && !String.IsNullOrWhiteSpace(presence?.LastLocation) ? presence!.LastLocation : null;
+            long place = presence?.PlaceId ?? 0;
+            long root = presence?.RootPlaceId ?? 0;
+            string? server = String.IsNullOrEmpty(presence?.GameId) ? null : presence!.GameId;
+
+            if (status == Status && game == GameName && place == PlaceId && root == RootPlaceId && server == ServerId)
+                return;
 
             Status = status;
             GameName = game;
-            PlaceId = presence?.PlaceId ?? 0;
-            RootPlaceId = presence?.RootPlaceId ?? 0;
-            ServerId = String.IsNullOrEmpty(presence?.GameId) ? null : presence!.GameId;
+            PlaceId = place;
+            RootPlaceId = root;
+            ServerId = server;
 
-            foreach (string name in new[] { nameof(Status), nameof(GameName), nameof(PlaceId), nameof(RootPlaceId), nameof(ServerId), nameof(CanJoin), nameof(CanViewGame), nameof(StatusText) })
+            foreach (string name in PresenceProperties)
                 Changed(name);
         }
 

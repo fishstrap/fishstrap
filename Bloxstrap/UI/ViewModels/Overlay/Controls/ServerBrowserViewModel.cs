@@ -7,7 +7,6 @@ using CommunityToolkit.Mvvm.Input;
 
 using Bloxstrap.Enums.Overlay;
 using Bloxstrap.Integrations;
-using Bloxstrap.Models.Overlay;
 using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.UI.ViewModels.Overlay.Controls
@@ -111,16 +110,14 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         private readonly DispatcherTimer _uptimeTimer = new() { Interval = TimeSpan.FromSeconds(1) };
 
-        private string? _status;
-
-        private DispatcherTimer? _statusTimer;
+        private readonly FlashMessage _flash;
 
         public string SummaryText
         {
             get
             {
-                if (_status is not null)
-                    return _status;
+                if (_flash.Text is not null)
+                    return _flash.Text;
 
                 return Servers.Any()
                     ? String.Format(Strings.Menu_Overlay_Servers_Summary, Servers.Count)
@@ -269,10 +266,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
             try
             {
-                if (!App.Cookies.Loaded)
-                    await Task.Run(App.Cookies.LoadCookies);
-
-                if (!App.Cookies.Loaded)
+                if (!await App.Cookies.EnsureLoadedAsync())
                 {
                     Flash(Strings.Menu_Overlay_Servers_ClosestNeedsCookies);
                     return;
@@ -280,7 +274,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
                 long placeId = _activityWatcher!.Data.PlaceId;
 
-                var (server, alreadyClosest) = await GameServers.FindClosestAsync(placeId, _activityWatcher.Data.JobId);
+                var (jobId, alreadyClosest) = await GameServers.FindClosestAsync(placeId, _activityWatcher.Data.JobId);
 
                 if (alreadyClosest)
                 {
@@ -288,15 +282,15 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                     return;
                 }
 
-                if (server is null)
+                if (jobId is null)
                 {
                     Flash(Strings.Menu_Overlay_Servers_ClosestNone);
                     return;
                 }
 
-                App.Logger.WriteLine(LOG_IDENT, $"Joining the closest server, {server.JobId}");
+                App.Logger.WriteLine(LOG_IDENT, $"Joining the closest server, {jobId}");
 
-                GameServers.Join(placeId, server.JobId);
+                GameServers.Join(placeId, jobId);
 
                 Flash(Strings.Menu_Overlay_Servers_ClosestJoining);
             }
@@ -320,6 +314,8 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
         public ServerBrowserViewModel(ActivityWatcher? activityWatcher)
         {
             _activityWatcher = activityWatcher;
+
+            _flash = new FlashMessage(TimeSpan.FromSeconds(2), () => OnPropertyChanged(nameof(SummaryText)));
 
             _uptimeTimer.Tick += (_, _) =>
             {
@@ -463,28 +459,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        private void Flash(string message)
-        {
-            _status = message;
-
-            OnPropertyChanged(nameof(SummaryText));
-
-            _statusTimer ??= new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
-            _statusTimer.Tick -= ClearStatus;
-            _statusTimer.Tick += ClearStatus;
-
-            _statusTimer.Stop();
-            _statusTimer.Start();
-        }
-
-        private void ClearStatus(object? sender, EventArgs e)
-        {
-            _statusTimer?.Stop();
-
-            _status = null;
-
-            OnPropertyChanged(nameof(SummaryText));
-        }
+        private void Flash(string message) => _flash.Show(message);
 
         private void Clear()
         {

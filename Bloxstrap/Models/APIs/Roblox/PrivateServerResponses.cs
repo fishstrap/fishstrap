@@ -1,14 +1,5 @@
 namespace Bloxstrap.Models.APIs.Roblox
 {
-    public class PrivateServersPage
-    {
-        [JsonPropertyName("data")]
-        public List<PrivateServerEntry> Data { get; set; } = new();
-
-        [JsonPropertyName("nextPageCursor")]
-        public string? NextPageCursor { get; set; }
-    }
-
     public class PrivateServerEntry
     {
         [JsonPropertyName("vipServerId")]
@@ -103,11 +94,5 @@ namespace Bloxstrap.Models.APIs.Roblox
 
         [JsonPropertyName("users")]
         public List<PrivateServerUser>? Users { get; set; }
-    }
-
-    public class UsernameLookupResponse
-    {
-        [JsonPropertyName("data")]
-        public List<PrivateServerUser> Data { get; set; } = new();
     }
 }

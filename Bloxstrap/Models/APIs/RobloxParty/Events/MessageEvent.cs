@@ -5,9 +5,6 @@
         [JsonPropertyName("Type")]
         public string Type { get; set; } = "MessageCreated";
 
-        [JsonPropertyName("Actor")]
-        public EventActor? Actor { get; set; }
-
         [JsonPropertyName("ChannelId")]
         public string ConversationId { get; set; } = String.Empty;
 

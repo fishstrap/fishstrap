@@ -1,14 +1,10 @@
 using System.ComponentModel;
 
-using Bloxstrap.Enums.Overlay;
-
 namespace Bloxstrap.Models.Overlay
 {
     public class FriendListHeader : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public FriendSection Section { get; init; }
 
         public string Title { get; init; } = String.Empty;
 

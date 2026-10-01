@@ -1,5 +1,3 @@
-using Bloxstrap.AppData;
-
 namespace Bloxstrap.RobloxInterfaces
 {
     public static class Experiences
@@ -118,7 +116,7 @@ namespace Bloxstrap.RobloxInterfaces
 
             App.Logger.WriteLine(LOG_IDENT, $"Joining {tile.Name} ({tile.PlaceId})");
 
-            Process.Start(new RobloxPlayerData().ExecutablePath, $"roblox://experiences/start?placeId={tile.PlaceId}");
+            GameServers.Launch($"placeId={tile.PlaceId}");
         }
     }
 }

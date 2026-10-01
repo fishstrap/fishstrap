@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -15,7 +14,6 @@ namespace Bloxstrap.UI.ViewModels.Overlay
     public class GameOverlayViewModel : NotifyPropertyChangedViewModel
     {
         private readonly GameOverlay _window;
-        private readonly Integrations.Overlay? _overlay;
         private readonly ActivityWatcher? _activityWatcher;
 
         private readonly DispatcherTimer _sessionTimer;
@@ -35,7 +33,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay
         public string DisplayName
         {
             get => _displayName;
-            set => Set(ref _displayName, value, nameof(DisplayName));
+            set
+            {
+                Set(ref _displayName, value, nameof(DisplayName));
+                OnPropertyChanged(nameof(HasProfileName));
+            }
         }
 
         public Controls.OnlineStatusViewModel OnlineStatus { get; } = new();
@@ -45,7 +47,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay
         public string Username
         {
             get => _username;
-            set => Set(ref _username, value, nameof(Username));
+            set
+            {
+                Set(ref _username, value, nameof(Username));
+                OnPropertyChanged(nameof(HasProfileName));
+            }
         }
 
         #endregion
@@ -300,7 +306,6 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
         #endregion
 
-
         private CornerRadius _scrimCornerRadius = new(0, 0, 8, 8);
 
         public CornerRadius ScrimCornerRadius
@@ -312,7 +317,6 @@ namespace Bloxstrap.UI.ViewModels.Overlay
         public GameOverlayViewModel(GameOverlay window, Integrations.Overlay? overlay)
         {
             _window = window;
-            _overlay = overlay;
             _activityWatcher = overlay?.ActivityWatcher;
 
             foreach ((string name, OverlayPanelLayout panel) in App.OverlayLayout.Prop.Panels)
@@ -330,11 +334,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             _sessionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _sessionTimer.Tick += (_, _) => UpdateSession();
 
-            if (_overlay is not null)
+            if (overlay is not null)
             {
-                _overlay.BoundsChanged += OnBoundsChanged;
-                _overlay.GameVisibilityChanged += OnGameVisibilityChanged;
-                _overlay.WindowClosed += OnWindowClosed;
+                overlay.BoundsChanged += OnBoundsChanged;
+                overlay.GameVisibilityChanged += OnGameVisibilityChanged;
+                overlay.WindowClosed += OnWindowClosed;
             }
 
             if (_activityWatcher is null)
@@ -346,34 +350,74 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
         public async Task OnLoaded()
         {
-            const string LOG_IDENT = "GameOverlayViewModel::OnLoaded";
-
             if (_activityWatcher?.InGame == true)
                 OnGameJoin();
 
-            if (!App.Settings.Prop.AllowCookieAccess)
+            await LoadProfileAsync();
+        }
+
+        private long _profileId;
+        private bool _profileLoaded;
+        private bool _profileLoading;
+
+        public bool HasProfileName => !String.IsNullOrEmpty(_displayName) || !String.IsNullOrEmpty(_username);
+
+        public async Task LoadProfileAsync()
+        {
+            const string LOG_IDENT = "GameOverlayViewModel::LoadProfileAsync";
+
+            long playing = _activityWatcher?.InGame == true ? _activityWatcher.Data.UserId : 0;
+
+            if (_profileLoading || (_profileLoaded && (playing == 0 || playing == _profileId)))
                 return;
+
+            _profileLoading = true;
 
             try
             {
-                if (!App.Cookies.Loaded)
-                    await Task.Run(App.Cookies.LoadCookies);
+                var local = AppStorageManager.ReadAccount();
+                long id = playing;
 
-                AuthenticatedUser? current = App.Cookies.CurrentUser;
+                if (id == 0 && await App.Cookies.EnsureLoadedAsync())
+                    id = App.Cookies.CurrentUser?.Id ?? 0;
 
-                if (current is null)
+                if (id == 0)
+                    id = local?.Id ?? 0;
+
+                if (id == 0)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "Couldn't tell which account is signed in");
                     return;
+                }
 
-                UserDetails details = await UserDetails.Fetch(current.Id);
+                if (id != _profileId)
+                {
+                    _profileId = id;
+                    _profileLoaded = false;
+
+                    var known = local?.Id == id ? local : null;
+
+                    DisplayName = known?.DisplayName ?? known?.Name ?? String.Empty;
+                    Username = known?.Name is string name ? $"@{name}" : String.Empty;
+                    ProfileIcon = String.Empty;
+                }
+
+                UserDetails details = await UserDetails.Fetch(id);
 
                 DisplayName = details.Data.DisplayName;
                 Username = $"@{details.Data.Name}";
                 ProfileIcon = details.Thumbnail.ImageUrl ?? String.Empty;
+
+                _profileLoaded = true;
             }
             catch (Exception ex)
             {
                 App.Logger.WriteLine(LOG_IDENT, "Failed to load the signed-in user");
                 App.Logger.WriteException(LOG_IDENT, ex);
+            }
+            finally
+            {
+                _profileLoading = false;
             }
         }
 
@@ -382,6 +426,8 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             const string LOG_IDENT = "GameOverlayViewModel::OnGameJoin";
 
             GameVisibility = Visibility.Visible;
+
+            _ = LoadProfileAsync();
 
             UpdateSession();
 
@@ -394,15 +440,10 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
             try
             {
-                if (activity.UniverseDetails is null)
-                {
-                    await UniverseDetails.FetchSingle(activity.UniverseId);
+                UniverseDetails? universe = await activity.EnsureUniverseDetailsAsync();
 
-                    activity.UniverseDetails = UniverseDetails.LoadFromCache(activity.UniverseId);
-                }
-
-                Game = activity.UniverseDetails?.Data.Name ?? String.Empty;
-                GameIcon = activity.UniverseDetails?.Thumbnail.ImageUrl ?? String.Empty;
+                Game = universe?.Data.Name ?? String.Empty;
+                GameIcon = universe?.Thumbnail.ImageUrl ?? String.Empty;
             }
             catch (Exception ex)
             {

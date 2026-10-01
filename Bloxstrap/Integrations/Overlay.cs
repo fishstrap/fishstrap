@@ -20,6 +20,8 @@ namespace Bloxstrap.Integrations
         private const uint EVENT_OBJECT_DESTROY = 0x8001;
         private const uint EVENT_OBJECT_LOCATIONCHANGE = 0x800B;
         private const uint WINEVENT_OUTOFCONTEXT = 0x0000;
+        private const int OBJID_WINDOW = 0;
+        private const int CHILDID_SELF = 0;
 
         private const int MaxQueuedNotices = 4;
 
@@ -87,7 +89,7 @@ namespace Bloxstrap.Integrations
                 _objectCallback = new WINEVENTPROC(OnObjectEvent);
 
                 _systemHook = PInvoke.SetWinEventHook(
-                    EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_MINIMIZEEND,
+                    EVENT_SYSTEM_MINIMIZESTART, EVENT_SYSTEM_MINIMIZEEND,
                     null, _systemCallback, _robloxProcessId, 0, WINEVENT_OUTOFCONTEXT);
 
                 _objectHook = PInvoke.SetWinEventHook(
@@ -252,8 +254,6 @@ namespace Bloxstrap.Integrations
             });
         }
 
-        public void SetFriendNotifications(bool enabled) => UpdateFriendWatch();
-
         public void WatchFriendsForPanel()
         {
             _friendsForPanel = true;
@@ -261,7 +261,7 @@ namespace Bloxstrap.Integrations
             UpdateFriendWatch();
         }
 
-        private void UpdateFriendWatch()
+        public void UpdateFriendWatch()
         {
             if (App.Settings.Prop.OverlayFriendNotifications || _friendsForPanel)
                 Friends.Start();
@@ -365,7 +365,7 @@ namespace Bloxstrap.Integrations
             return (Strings.Menu_Overlay_Notify_ClickToView, () =>
             {
                 App.Logger.WriteLine(LOG_IDENT, "Opening a friend's game page from their notification");
-                _window?.OpenPage(new Uri($"https://www.roblox.com/games/{page}"));
+                _window?.OpenPage(GameServers.GamePage(page));
             });
         }
 
@@ -409,21 +409,23 @@ namespace Bloxstrap.Integrations
                     Application.Current.Dispatcher.Invoke(() => GameVisibilityChanged?.Invoke(this, true));
                     SyncBounds();
                     break;
-
-                case EVENT_SYSTEM_FOREGROUND:
-                    Application.Current.Dispatcher.Invoke(() => _window?.Reanchor());
-                    break;
             }
         }
 
         private void OnForegroundEvent(HWINEVENTHOOK hook, uint iEvent, HWND hWnd, int idObject, int idChild, uint thread, uint time) =>
-            Application.Current.Dispatcher.Invoke(() => _window?.RefreshPinned());
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (hWnd == _robloxWindow)
+                    _window?.Reanchor();
+                else
+                    _window?.RefreshPinned();
+            });
 
         private void OnObjectEvent(HWINEVENTHOOK hook, uint iEvent, HWND hWnd, int idObject, int idChild, uint thread, uint time)
         {
             const string LOG_IDENT = "Overlay::OnObjectEvent";
 
-            if (hWnd != _robloxWindow)
+            if (hWnd != _robloxWindow || idObject != OBJID_WINDOW || idChild != CHILDID_SELF)
                 return;
 
             if (iEvent == EVENT_OBJECT_DESTROY)

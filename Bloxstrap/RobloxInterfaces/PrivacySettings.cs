@@ -6,9 +6,9 @@ namespace Bloxstrap.RobloxInterfaces
 
         private const string JoinSetting = "whoCanJoinMeInExperiences";
 
-        private static readonly Uri SettingsUrl = new("https://apis.roblox.com/user-settings-api/v1/user-settings/settings-and-options");
+        private static Uri SettingsUrl => UrlBuilder.BuildApiUrl("apis", "user-settings-api/v1/user-settings/settings-and-options");
 
-        private static readonly Uri UpdateUrl = new("https://apis.roblox.com/user-settings-api/v1/user-settings");
+        private static Uri UpdateUrl => UrlBuilder.BuildApiUrl("apis", "user-settings-api/v1/user-settings");
 
         public static readonly IReadOnlyList<string> OnlineLevels = new[] { "AllUsers", "FriendsFollowingAndFollowers", "FriendsAndFollowing", "Friends", "TrustedFriends", "NoOne" };
 

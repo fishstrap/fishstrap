@@ -65,7 +65,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             if (_busy)
                 return;
 
-            if (!await SignedInAsync())
+            if (!await App.Cookies.EnsureLoadedAsync())
             {
                 _online = null;
                 Show(Strings.Menu_Overlay_Privacy_NeedsCookies);
@@ -148,17 +148,6 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             _busy = false;
             Show(message);
             Refreshed();
-        }
-
-        private static async Task<bool> SignedInAsync()
-        {
-            if (!App.Settings.Prop.AllowCookieAccess)
-                return false;
-
-            if (!App.Cookies.Loaded)
-                await Task.Run(App.Cookies.LoadCookies);
-
-            return App.Cookies.Loaded;
         }
 
         private static string LabelFor(string value) => value switch

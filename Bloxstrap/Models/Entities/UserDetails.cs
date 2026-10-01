@@ -32,7 +32,7 @@ namespace Bloxstrap.Models.Entities
 
             var usersResponse = await Http.SendJson<ApiArrayResponse<GetUserResponse>>(new HttpRequestMessage
             {
-                RequestUri = new Uri("https://users.roblox.com/v1/users"),
+                RequestUri = UrlBuilder.BuildApiUrl("users", "v1/users"),
                 Method = HttpMethod.Post,
                 Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
             });
@@ -41,7 +41,7 @@ namespace Bloxstrap.Models.Entities
                 throw new InvalidHTTPResponseException("Roblox API for User Details returned invalid data");
 
             var thumbnailResponse = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>(
-                new Uri($"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={String.Join(',', missing)}&size=180x180&format=Png&isCircular=false"));
+                UrlBuilder.BuildApiUrl("thumbnails", $"v1/users/avatar-headshot?userIds={String.Join(',', missing)}&size=180x180&format=Png&isCircular=false"));
 
             if (thumbnailResponse is null)
                 throw new InvalidHTTPResponseException("Roblox API for Thumbnails returned invalid data");

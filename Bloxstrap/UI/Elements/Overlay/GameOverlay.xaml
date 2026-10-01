@@ -58,20 +58,21 @@
         </Style>
     </Window.Resources>
 
-    <Border x:Name="Scrim" CornerRadius="{Binding ScrimCornerRadius}"
+    <Border x:Name="Scrim" CornerRadius="{Binding ScrimCornerRadius}" Background="Transparent"
             MouseLeftButtonDown="ScrimClicked">
-        <Border.Style>
-            <Style TargetType="Border">
-                <Setter Property="Background" Value="#A6000000" />
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding ShowingPinnedOnly}" Value="True">
-                        <Setter Property="Background" Value="Transparent" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Border.Style>
-
         <Grid>
+            <Border x:Name="Dim" CornerRadius="{Binding ScrimCornerRadius}" Background="#A6000000" IsHitTestVisible="False">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShowingPinnedOnly}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
             <Canvas x:Name="PanelSurface" Margin="16,16,16,112" ClipToBounds="True">
                 <control:OverlayPanel x:Name="MessagesPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Messages}" Icon="Chat24"
@@ -109,6 +110,7 @@
 
                 <control:OverlayPanel x:Name="GamesPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Games}" Icon="Games24"
+                                      HeaderOverContent="True"
                                       Visibility="{Binding GamesVisibility}"
                                       CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Games"
                                       IsPinned="{Binding GamesPinned}"
@@ -164,7 +166,7 @@
                 </control:OverlayPanel>
             </Canvas>
             
-            <Border Panel.ZIndex="10" Height="68" CornerRadius="34" Padding="10,0,10,0" Margin="0,0,0,28"
+            <Border x:Name="Dock" Panel.ZIndex="10" Height="68" CornerRadius="34" Padding="10,0,10,0" Margin="0,0,0,28"
                     Visibility="{Binding DockVisibility}"
                     HorizontalAlignment="Center" VerticalAlignment="Bottom"
                     Background="{ui:ThemeResource SolidBackgroundFillColorBaseBrush}"

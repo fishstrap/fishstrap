@@ -18,6 +18,5 @@ IsIconic
 IsZoomed
 GetForegroundWindow
 GetWindowThreadProcessId
-DwmGetWindowAttribute
 GetClientRect
 ClientToScreen

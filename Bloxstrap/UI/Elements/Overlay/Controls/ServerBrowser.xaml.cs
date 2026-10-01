@@ -6,9 +6,6 @@ using Bloxstrap.UI.ViewModels.Overlay.Controls;
 
 namespace Bloxstrap.UI.Elements.Overlay.Controls
 {
-    /// <summary>
-    /// Interaction logic for ServerBrowser.xaml
-    /// </summary>
     public partial class ServerBrowser : UserControl
     {
         private ServerBrowserViewModel _viewModel;

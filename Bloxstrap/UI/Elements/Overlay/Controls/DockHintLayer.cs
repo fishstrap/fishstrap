@@ -38,10 +38,6 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private bool _shown;
 
-        public bool IsShowing => _shown;
-
-        public string? ShowingText => _shown ? _label.Text : null;
-
         public DockHintLayer()
         {
             IsHitTestVisible = false;

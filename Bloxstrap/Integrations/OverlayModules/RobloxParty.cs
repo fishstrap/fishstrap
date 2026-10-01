@@ -9,23 +9,17 @@ namespace Bloxstrap.Integrations.OverlayModules
         private const string ApiService = "apis";
         private const string ApiPath = "platform-chat-api/v1";
 
-        private readonly RealtimeMessaging? _messaging;
-
         public event EventHandler<MessageEvent>? IncomingMessage;
 
-        public RobloxParty(RealtimeMessaging? messaging)
+        public RobloxParty(RealtimeMessaging messaging)
         {
-            if (messaging is null)
-                return;
-
-            _messaging = messaging;
-            _messaging.PartyChat += OnIncomingMessage;
+            messaging.PartyChat += OnIncomingMessage;
         }
 
         private void OnIncomingMessage(object? sender, MessageEvent message) =>
             IncomingMessage?.Invoke(this, message);
 
-        public async Task<ConversationsPage?> GetConversations(int pageSize = 20, string? cursor = null)
+        public async Task<ConversationsPage?> GetConversations(int pageSize, string? cursor)
         {
             const string LOG_IDENT = "RobloxParty::GetConversations";
 
@@ -148,31 +142,10 @@ namespace Bloxstrap.Integrations.OverlayModules
 
                 App.Logger.WriteLine(LOG_IDENT, "Message was moderated");
 
-                throw new InvalidOperationException("Message was moderated by the platform.");
+                throw new MessageModeratedException();
             }
 
             return result.Messages.FirstOrDefault();
-        }
-
-        public async Task UpdateTypingStatus(Conversation conversation)
-        {
-            const string LOG_IDENT = "RobloxParty::UpdateTypingStatus";
-
-            var payload = new ConversationPayload { Id = conversation.Id };
-            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-
-            try
-            {
-                string csrf = await App.Cookies.GetXCSRF();
-
-                using var response = await App.Cookies.AuthPost(
-                    UrlBuilder.BuildApiUrl(ApiService, $"{ApiPath}/update-typing-status"), content, csrf);
-            }
-            catch (HttpRequestException ex)
-            {
-                App.Logger.WriteLine(LOG_IDENT, "Failed to update typing status");
-                App.Logger.WriteException(LOG_IDENT, ex);
-            }
         }
     }
 }

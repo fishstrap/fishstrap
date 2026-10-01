@@ -40,6 +40,11 @@ namespace Bloxstrap.Models.Overlay
 
         public string IdText => String.Format(Strings.Menu_Overlay_Servers_Id, JobId);
 
+        private static readonly string[] StatusProperties =
+        {
+            nameof(Status), nameof(Playing), nameof(MaxPlayers), nameof(IsRunning), nameof(IsMissing), nameof(IsFull), nameof(CanJoin), nameof(JoinText), nameof(DetailText)
+        };
+
         private ServerStatus _status = ServerStatus.Checking;
 
         public ServerStatus Status => _status;
@@ -80,11 +85,14 @@ namespace Bloxstrap.Models.Overlay
 
         public void SetStatus(ServerStatus status, int? playing = null, int? maxPlayers = null)
         {
+            if (_status == status && Playing == playing && MaxPlayers == maxPlayers)
+                return;
+
             _status = status;
             Playing = playing;
             MaxPlayers = maxPlayers;
 
-            foreach (string name in new[] { nameof(Status), nameof(Playing), nameof(MaxPlayers), nameof(IsRunning), nameof(IsMissing), nameof(IsFull), nameof(CanJoin), nameof(JoinText), nameof(DetailText) })
+            foreach (string name in StatusProperties)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }

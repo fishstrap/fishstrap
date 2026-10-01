@@ -201,7 +201,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             set
             {
                 Current.OverlayFriendNotifications = value;
-                _overlay?.SetFriendNotifications(value);
+                _overlay?.UpdateFriendWatch();
                 Changed(nameof(FriendNotifications));
             }
         }

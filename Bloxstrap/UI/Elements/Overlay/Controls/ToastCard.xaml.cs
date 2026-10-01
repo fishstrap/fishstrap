@@ -16,8 +16,6 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             Apply(ToastAppearance.Default);
         }
 
-        public double CardHeight => Card.ActualHeight * Scale.ScaleY;
-
         public void Apply(ToastAppearance appearance)
         {
             Card.CornerRadius = appearance.Corners;

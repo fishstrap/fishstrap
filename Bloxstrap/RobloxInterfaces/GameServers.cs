@@ -92,7 +92,6 @@ namespace Bloxstrap.RobloxInterfaces
                     Playing = x.Playing,
                     MaxPlayers = x.MaxPlayers,
                     Fps = x.Fps,
-                    Ping = x.Ping,
                     PlayerTokens = x.PlayerTokens,
                     IsCurrent = x.Id.Equals(currentJobId, StringComparison.OrdinalIgnoreCase)
                 }));
@@ -109,10 +108,7 @@ namespace Bloxstrap.RobloxInterfaces
                         Playing = stat?.Playing,
                         MaxPlayers = stat?.MaxPlayers,
                         Fps = stat?.Fps,
-                        Ping = stat?.Ping,
                         PlayerTokens = stat?.PlayerTokens ?? new List<string>(),
-                        City = server.City,
-                        Region = server.Region,
                         StartedAt = server.FirstSeenUtc,
                         PlaceVersion = server.PlaceVersion,
                         IsCurrent = server.ServerId.Equals(currentJobId, StringComparison.OrdinalIgnoreCase)
@@ -148,16 +144,15 @@ namespace Bloxstrap.RobloxInterfaces
                     ? await PlayerThumbnails.FetchByTokenAsync(tokens)
                     : new Dictionary<string, string>();
 
-                IReadOnlyList<string> pool = servers.Any(x => Faces(x, real).Count == 0)
+                var resolved = servers.Select(x => (Server: x, Faces: Faces(x, real))).ToList();
+
+                IReadOnlyList<string> pool = resolved.Any(x => x.Faces.Count == 0)
                     ? await PlayerThumbnails.FetchPoolAsync()
                     : Array.Empty<string>();
 
-                foreach (GameServer server in servers)
+                foreach ((GameServer server, List<string> faces) in resolved)
                 {
                     server.PlayerIcons.Clear();
-
-                    List<string> faces = Faces(server, real);
-
                     server.PlayerIcons.AddRange(faces.Count > 0 ? faces : Filler(server, pool));
                 }
             }
@@ -208,8 +203,7 @@ namespace Bloxstrap.RobloxInterfaces
             {
                 try
                 {
-                    var response = await Http.GetJson<RoValraServers>(new Uri(
-                        $"https://apis.rovalra.com/v1/servers/details?place_id={placeId}&server_ids={String.Join(',', batch.Select(x => x.JobId))}"));
+                    var response = await Http.GetJson<RoValraServers>(DetailsUrl(placeId, batch.Select(x => x.JobId)));
 
                     foreach (RoValraServer detail in response?.Servers ?? new List<RoValraServer>())
                     {
@@ -218,12 +212,6 @@ namespace Bloxstrap.RobloxInterfaces
 
                         server.StartedAt ??= detail.FirstSeenUtc;
                         server.PlaceVersion ??= detail.PlaceVersion;
-
-                        if (String.IsNullOrEmpty(server.City))
-                        {
-                            server.City = detail.City;
-                            server.Region = detail.Region;
-                        }
                     }
                 }
                 catch (Exception ex)
@@ -236,6 +224,9 @@ namespace Bloxstrap.RobloxInterfaces
             await Task.WhenAll(wanted.Chunk(DetailsBatchSize).Select(FetchBatch));
         }
 
+        private static Uri DetailsUrl(long placeId, IEnumerable<string> jobIds) =>
+            new($"https://apis.rovalra.com/v1/servers/details?place_id={placeId}&server_ids={String.Join(',', jobIds)}");
+
         public static async Task<HashSet<string>> StillRunningAsync(long placeId, IEnumerable<string> jobIds)
         {
             var running = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -246,8 +237,7 @@ namespace Bloxstrap.RobloxInterfaces
 
             foreach (string[] batch in ids.Chunk(DetailsBatchSize))
             {
-                var response = await Http.GetJson<RoValraServers>(new Uri(
-                    $"https://apis.rovalra.com/v1/servers/details?place_id={placeId}&server_ids={String.Join(',', batch)}"));
+                var response = await Http.GetJson<RoValraServers>(DetailsUrl(placeId, batch));
 
                 foreach (RoValraServer server in response?.Servers ?? new List<RoValraServer>())
                     running.Add(server.ServerId);
@@ -256,7 +246,7 @@ namespace Bloxstrap.RobloxInterfaces
             return running;
         }
 
-        public static async Task<(GameServer? Server, bool AlreadyClosest)> FindClosestAsync(long placeId, string currentJobId)
+        public static async Task<(string? JobId, bool AlreadyClosest)> FindClosestAsync(long placeId, string currentJobId)
         {
             var response = await Http.AuthGetJson<ApiPageResponse<GameServerResponse>>(
                 UrlBuilder.BuildApiUrl("games", $"v2/games/{placeId}/servers/Public?cursor=&sortOrder=Desc&excludeFullGames=true&orderBy=BestLatency"));
@@ -269,7 +259,7 @@ namespace Bloxstrap.RobloxInterfaces
             if (best.Id.Equals(currentJobId, StringComparison.OrdinalIgnoreCase))
                 return (null, true);
 
-            return (new GameServer { JobId = best.Id, Playing = best.Playing, MaxPlayers = best.MaxPlayers, Fps = best.Fps, Ping = best.Ping }, false);
+            return (best.Id, false);
         }
 
         public static GameServer? PickHopTarget(IEnumerable<GameServer> servers)
@@ -368,8 +358,12 @@ namespace Bloxstrap.RobloxInterfaces
 
             App.Logger.WriteLine(LOG_IDENT, $"Joining {placeId}/{jobId}");
 
-            Process.Start(new RobloxPlayerData().ExecutablePath,
-                $"roblox://experiences/start?placeId={placeId}&gameInstanceId={jobId}");
+            Launch($"placeId={placeId}&gameInstanceId={jobId}");
         }
+
+        public static void Launch(string query) =>
+            Process.Start(new RobloxPlayerData().ExecutablePath, $"roblox://experiences/start?{query}");
+
+        public static Uri GamePage(long placeId) => UrlBuilder.BuildApiUrl("www", $"games/{placeId}");
     }
 }

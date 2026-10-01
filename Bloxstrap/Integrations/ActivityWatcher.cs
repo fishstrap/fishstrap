@@ -94,7 +94,9 @@
                 {
                     logFileInfo = new DirectoryInfo(logDirectory)
                         .GetFiles()
-                        .Where(x => x.Name.Contains("Player", StringComparison.OrdinalIgnoreCase) && x.CreationTime <= DateTime.Now)
+                        .Where(x => x.Name.Contains("Player", StringComparison.OrdinalIgnoreCase)
+                            && !x.Name.Contains("CrashHandler", StringComparison.OrdinalIgnoreCase)
+                            && x.CreationTime <= DateTime.Now)
                         .OrderByDescending(x => x.CreationTime)
                         .First();
 

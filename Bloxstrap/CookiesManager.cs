@@ -159,6 +159,17 @@ namespace Bloxstrap
             return null;
         }
 
+        public async Task<bool> EnsureLoadedAsync()
+        {
+            if (!Enabled)
+                return false;
+
+            if (!Loaded)
+                await Task.Run(LoadCookies);
+
+            return Loaded;
+        }
+
         public async Task LoadCookies()
         {
             const string LOG_IDENT = "CookiesManager::LoadCookies";

@@ -5,7 +5,6 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Input;
 
 using Bloxstrap.Integrations;
-using Bloxstrap.Models.Overlay;
 using BadgesApi = Bloxstrap.RobloxInterfaces.Badges;
 
 namespace Bloxstrap.UI.ViewModels.Overlay.Controls
@@ -60,8 +59,6 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                     : String.Format(Strings.Menu_Overlay_Badges_ProgressUnknown, Badges.Count);
             }
         }
-
-        public bool HasBadges => Badges.Any();
 
         public bool ShowEmptyState => !IsBusy && !Badges.Any();
 
@@ -215,7 +212,6 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             OnPropertyChanged(nameof(EarnedCount));
             OnPropertyChanged(nameof(CompletionPercentage));
             OnPropertyChanged(nameof(CompletionText));
-            OnPropertyChanged(nameof(HasBadges));
             OnPropertyChanged(nameof(ShowEmptyState));
             OnPropertyChanged(nameof(EmptyText));
         }

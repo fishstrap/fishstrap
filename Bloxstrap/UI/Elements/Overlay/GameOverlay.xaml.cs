@@ -1,13 +1,11 @@
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
-using Windows.Win32.UI.Input.KeyboardAndMouse;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 using Bloxstrap.Enums.Overlay;
@@ -35,6 +33,8 @@ namespace Bloxstrap.UI.Elements.Overlay
         private int _placed;
         private bool _presenting;
         private bool _presented;
+        private bool _leaving;
+        private int _motion;
 
         private string? _savedLayout;
 
@@ -193,6 +193,14 @@ namespace Bloxstrap.UI.Elements.Overlay
         private static OverlayPanelLayout? Saved(OverlayPanelKind kind) =>
             App.OverlayLayout.Prop.Panels.TryGetValue(kind.ToString(), out OverlayPanelLayout? saved) ? saved : null;
 
+        private void Persist()
+        {
+            NotesPad.Flush();
+            SettingsView.Flush();
+
+            SaveLayout();
+        }
+
         private void SaveLayout()
         {
             const string LOG_IDENT = "GameOverlay::SaveLayout";
@@ -296,20 +304,61 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         private void Dismiss(bool returnFocus)
         {
-            NotesPad.Flush();
-            SettingsView.Flush();
+            if (_leaving)
+                return;
 
-            SaveLayout();
+            Persist();
 
             _presented = false;
 
-            if (!_viewModel.HasPinnedPanels || _overlay?.IsGameMinimised() == true)
+            bool minimised = _overlay?.IsGameMinimised() == true;
+            bool hide = !_viewModel.HasPinnedPanels || minimised;
+
+            if (!OverlayMotion.Enabled || !IsVisible || _viewModel.ShowingPinnedOnly)
             {
-                Hide();
+                Settle(hide, returnFocus);
                 return;
             }
 
-            if (returnFocus)
+            _leaving = true;
+
+            int motion = ++_motion;
+
+            Dock.IsHitTestVisible = false;
+
+            if (returnFocus && !minimised)
+                _overlay?.FocusGame();
+
+            OverlayMotion.FadeOut(Dim);
+
+            if (hide)
+            {
+                OverlayMotion.FadeOut(PanelSurface);
+            }
+            else
+            {
+                foreach (OverlayPanel panel in LoosePanels())
+                    OverlayMotion.FadeOut(panel);
+            }
+
+            OverlayMotion.Drop(Dock, () =>
+            {
+                if (motion != _motion)
+                    return;
+
+                _leaving = false;
+
+                Settle(hide, returnFocus);
+            });
+        }
+
+        private void Settle(bool hide, bool returnFocus)
+        {
+            if (hide)
+            {
+                Hide();
+            }
+            else if (returnFocus)
             {
                 ShowPinnedView();
                 _overlay?.FocusGame();
@@ -318,23 +367,76 @@ namespace Bloxstrap.UI.Elements.Overlay
             {
                 RefreshPinned();
             }
+
+            ResetMotion();
         }
+
+        private void Enter(bool fromHidden, bool fromPinned, bool reversing)
+        {
+            if (!OverlayMotion.Enabled)
+            {
+                ResetMotion();
+                return;
+            }
+
+            Dock.IsHitTestVisible = true;
+
+            if (!reversing)
+            {
+                OverlayMotion.Lower(Dock);
+                OverlayMotion.Conceal(Dim);
+
+                if (fromHidden)
+                {
+                    OverlayMotion.Conceal(PanelSurface);
+                }
+                else if (fromPinned)
+                {
+                    foreach (OverlayPanel panel in LoosePanels())
+                        OverlayMotion.Conceal(panel);
+                }
+            }
+
+            OverlayMotion.Rise(Dock);
+            OverlayMotion.FadeIn(Dim);
+            OverlayMotion.FadeIn(PanelSurface);
+
+            foreach (OverlayPanel panel in LoosePanels())
+                OverlayMotion.FadeIn(panel);
+        }
+
+        private void ResetMotion()
+        {
+            Dock.IsHitTestVisible = true;
+
+            OverlayMotion.Rest(Dock);
+            OverlayMotion.Rest(Dim);
+            OverlayMotion.Rest(PanelSurface);
+
+            foreach (OverlayPanel panel in PanelSurface.Children.OfType<OverlayPanel>())
+                OverlayMotion.Rest(panel);
+        }
+
+        private IEnumerable<OverlayPanel> LoosePanels() => Enum.GetValues<OverlayPanelKind>()
+            .Where(kind => _viewModel.IsOpen(kind) && !_viewModel.IsPinned(kind))
+            .Select(PanelFor);
 
         public void HideForGame()
         {
-            NotesPad.Flush();
-            SettingsView.Flush();
-
-            SaveLayout();
+            Persist();
 
             _presented = false;
+            _leaving = false;
+            _motion++;
 
             Hide();
+
+            ResetMotion();
         }
 
         public void RefreshPinned()
         {
-            if (_presented)
+            if (_presented || _leaving)
                 return;
 
             bool gameOrOverlayInFront = _overlay?.IsGameForeground() == true || IsOwnProcessForeground();
@@ -409,10 +511,21 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         private void Present()
         {
+            bool fromHidden = !IsVisible;
+            bool fromPinned = !fromHidden && _viewModel.ShowingPinnedOnly;
+            bool reversing = _leaving;
+
+            _motion++;
+            _leaving = false;
+
             _presenting = true;
             _presented = true;
 
             _viewModel.ShowingPinnedOnly = false;
+
+            Enter(fromHidden, fromPinned, reversing);
+
+            _ = _viewModel.LoadProfileAsync();
 
             _overlay?.DismissToast();
 
@@ -480,12 +593,10 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         public string Shortcut => _shortcut;
 
-        public bool RebindHotkey()
+        public void RebindHotkey()
         {
             UnregisterHotkey();
             RegisterHotkey();
-
-            return _hotkeyRegistered;
         }
 
         public void SuspendHotkey() => UnregisterHotkey();
@@ -542,10 +653,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         protected override void OnClosed(EventArgs e)
         {
-            NotesPad.Flush();
-            SettingsView.Flush();
-
-            SaveLayout();
+            Persist();
 
             _source?.RemoveHook(HwndHook);
 

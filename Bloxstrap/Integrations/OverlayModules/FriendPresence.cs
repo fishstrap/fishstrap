@@ -95,13 +95,7 @@ namespace Bloxstrap.Integrations.OverlayModules
         {
             const string LOG_IDENT = "FriendPresence::PollAsync";
 
-            if (!App.Settings.Prop.AllowCookieAccess)
-                return;
-
-            if (!App.Cookies.Loaded)
-                await Task.Run(App.Cookies.LoadCookies);
-
-            if (!App.Cookies.Loaded || App.Cookies.CurrentUser is not AuthenticatedUser me)
+            if (!await App.Cookies.EnsureLoadedAsync() || App.Cookies.CurrentUser is not AuthenticatedUser me)
                 return;
 
             if (DateTime.UtcNow - _friendsFetched > FriendsRefresh)

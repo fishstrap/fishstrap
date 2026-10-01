@@ -255,7 +255,7 @@
                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
             <Grid Grid.Row="2">
-                <ListBox x:Name="FriendList" ItemsSource="{Binding Rows}" Background="Transparent" BorderThickness="0" Padding="0,0,0,8"
+                <ListBox ItemsSource="{Binding Rows}" Background="Transparent" BorderThickness="0" Padding="0,0,0,8"
                          ItemContainerStyle="{StaticResource RowContainer}"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                          VirtualizingPanel.IsVirtualizing="True"
@@ -322,7 +322,7 @@
                                                      Fill="{DynamicResource AccentFillColorDefaultBrush}"
                                                      Visibility="{Binding Friend.HasUnread, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                             <Button Style="{StaticResource FlatButton}" Width="24" Height="24" Padding="0" Margin="6,0,0,0"
-                                                    ToolTip="{x:Static resources:Strings.Menu_Overlay_Messages_CloseTab}"
+                                                    ToolTip="{x:Static resources:Strings.Common_Close}"
                                                     Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}">
                                                 <ui:SymbolIcon Symbol="Dismiss12" FontSize="10" HorizontalAlignment="Center"
@@ -343,7 +343,7 @@
                     </ScrollViewer>
                 </Border>
 
-                <ContentControl x:Name="ChatHeader" Grid.Row="1" Margin="16,12,16,8" Focusable="False" Content="{Binding SelectedTab.Friend}">
+                <ContentControl Grid.Row="1" Margin="16,12,16,8" Focusable="False" Content="{Binding SelectedTab.Friend}">
                     <ContentControl.ContentTemplate>
                         <DataTemplate>
                             <Grid>
@@ -380,7 +380,7 @@
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <ui:Button x:Name="JoinFriendButton" Appearance="Primary" Margin="12,0,0,0"
+                                    <ui:Button Appearance="Primary" Margin="12,0,0,0"
                                                Visibility="{Binding CanJoin, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                CommandParameter="{Binding}">
@@ -389,7 +389,7 @@
                                             <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Messages_Join}" FontSize="13" />
                                         </StackPanel>
                                     </ui:Button>
-                                    <ui:Button x:Name="ViewGameButton" Appearance="Secondary" Margin="12,0,0,0"
+                                    <ui:Button Appearance="Secondary" Margin="12,0,0,0"
                                                Visibility="{Binding CanViewGame, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                CommandParameter="{Binding}">
@@ -450,7 +450,7 @@
                                 Text="{Binding SelectedTab.Draft, UpdateSourceTrigger=PropertyChanged}"
                                 PreviewKeyDown="DraftKeyDown" />
 
-                    <ui:Button x:Name="SendButton" Grid.Column="1" Width="40" Height="34" Padding="0" Margin="8,0,0,0" VerticalAlignment="Bottom"
+                    <ui:Button Grid.Column="1" Width="40" Height="34" Padding="0" Margin="8,0,0,0" VerticalAlignment="Bottom"
                                Appearance="Primary" Icon="Send24"
                                ToolTip="{x:Static resources:Strings.Menu_Overlay_Messages_Send}"
                                IsEnabled="{Binding SelectedTab.CanSend}"

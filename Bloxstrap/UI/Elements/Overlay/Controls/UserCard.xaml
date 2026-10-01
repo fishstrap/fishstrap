@@ -64,14 +64,31 @@
             <StackPanel Orientation="Horizontal">
                 <Border Width="40" Height="40" CornerRadius="20"
                         Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
-                    <Border CornerRadius="20">
-                        <Border.Background>
-                            <ImageBrush ImageSource="{Binding ProfileIcon}" Stretch="UniformToFill" />
-                        </Border.Background>
-                    </Border>
+                    <Grid>
+                        <ui:SymbolIcon Symbol="Person24" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
+                            <ui:SymbolIcon.Style>
+                                <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ProfileIcon}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:SymbolIcon.Style>
+                        </ui:SymbolIcon>
+
+                        <Border CornerRadius="20">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding ProfileIcon}" Stretch="UniformToFill" />
+                            </Border.Background>
+                        </Border>
+                    </Grid>
                 </Border>
 
-                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center"
+                            Visibility="{Binding HasProfileName, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock Text="{Binding DisplayName}" FontSize="14" FontWeight="SemiBold"
                                Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" TextTrimming="CharacterEllipsis" />
                     <TextBlock Text="{Binding Username}" FontSize="12" Margin="0,1,0,0"

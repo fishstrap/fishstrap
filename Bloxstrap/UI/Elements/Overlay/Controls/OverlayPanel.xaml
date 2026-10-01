@@ -48,21 +48,24 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border CornerRadius="8"
-                Background="{ui:ThemeResource ApplicationBackgroundBrush}"
-                BorderBrush="{ui:ThemeResource SurfaceStrokeColorDefaultBrush}"
-                BorderThickness="1">
+        <Border CornerRadius="8" IsHitTestVisible="False"
+                Background="{ui:ThemeResource ApplicationBackgroundBrush}">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="24" ShadowDepth="4" Direction="270" Opacity="0.45" Color="Black" />
             </Border.Effect>
+        </Border>
 
+        <Border x:Name="Frame" CornerRadius="8"
+                Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+                BorderBrush="{ui:ThemeResource SurfaceStrokeColorDefaultBrush}"
+                BorderThickness="1">
             <Grid x:Name="Body" SizeChanged="BodySizeChanged">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <control:PanelTitleBar x:Name="TitleBar" Grid.Row="0"
+                <control:PanelTitleBar x:Name="TitleBar" Grid.Row="0" Panel.ZIndex="1"
                                        Style="{StaticResource {x:Type ui:TitleBar}}"
                                        ShowMinimize="False" ShowMaximize="False" CanMaximize="False"
                                        KeyboardNavigation.TabNavigation="None"
@@ -93,7 +96,7 @@
                     </control:PanelTitleBar.Header>
                 </control:PanelTitleBar>
 
-                <ContentPresenter Grid.Row="1" Margin="{Binding ContentPadding, ElementName=Root}"
+                <ContentPresenter x:Name="ContentHost" Grid.Row="1"
                                   Content="{Binding PanelContent, ElementName=Root}" />
             </Grid>
         </Border>

@@ -44,13 +44,29 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
         }
 
         public static readonly DependencyProperty ContentPaddingProperty = DependencyProperty.Register(
-            nameof(ContentPadding), typeof(Thickness), typeof(OverlayPanel), new PropertyMetadata(new Thickness(12)));
+            nameof(ContentPadding), typeof(Thickness), typeof(OverlayPanel), new PropertyMetadata(new Thickness(12), (d, _) => ((OverlayPanel)d).LayOutContent()));
 
         public Thickness ContentPadding
         {
             get => (Thickness)GetValue(ContentPaddingProperty);
             set => SetValue(ContentPaddingProperty, value);
         }
+
+        public static readonly DependencyProperty HeaderOverContentProperty = DependencyProperty.Register(
+            nameof(HeaderOverContent), typeof(bool), typeof(OverlayPanel), new PropertyMetadata(false, (d, _) => ((OverlayPanel)d).LayOutContent()));
+
+        public bool HeaderOverContent
+        {
+            get => (bool)GetValue(HeaderOverContentProperty);
+            set => SetValue(HeaderOverContentProperty, value);
+        }
+
+        public static readonly DependencyProperty HeaderInsetProperty = DependencyProperty.RegisterAttached(
+            "HeaderInset", typeof(double), typeof(OverlayPanel), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.Inherits));
+
+        public static double GetHeaderInset(DependencyObject target) => (double)target.GetValue(HeaderInsetProperty);
+
+        public static void SetHeaderInset(DependencyObject target, double value) => target.SetValue(HeaderInsetProperty, value);
 
         public static readonly DependencyProperty CloseCommandProperty = DependencyProperty.Register(
             nameof(CloseCommand), typeof(ICommand), typeof(OverlayPanel), new PropertyMetadata(null));
@@ -108,7 +124,32 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             HeaderIcon.SetBinding(Wpf.Ui.Controls.SymbolIcon.SymbolProperty, new Binding(nameof(Icon)) { Source = this });
             HeaderTitle.SetBinding(TextBlock.TextProperty, new Binding(nameof(Title)) { Source = this });
 
+            TitleBar.SizeChanged += (_, _) => LayOutContent();
+
             ShowPin();
+            LayOutContent();
+        }
+
+        private void LayOutContent()
+        {
+            if (ContentHost is null || TitleBar is null)
+                return;
+
+            Thickness padding = ContentPadding;
+
+            if (!HeaderOverContent)
+            {
+                Grid.SetRow(ContentHost, 1);
+                Grid.SetRowSpan(ContentHost, 1);
+                ContentHost.Margin = padding;
+                ClearValue(HeaderInsetProperty);
+                return;
+            }
+
+            Grid.SetRow(ContentHost, 0);
+            Grid.SetRowSpan(ContentHost, 2);
+            ContentHost.Margin = new Thickness(padding.Left, 0, padding.Right, padding.Bottom);
+            SetHeaderInset(this, TitleBar.ActualHeight + padding.Top);
         }
 
         private Canvas? Surface => Parent as Canvas;

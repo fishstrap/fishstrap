@@ -87,6 +87,18 @@ namespace Bloxstrap.Models.Entities
 
         private SemaphoreSlim serverQuerySemaphore = new(1, 1);
 
+        public async Task<UniverseDetails?> EnsureUniverseDetailsAsync()
+        {
+            if (UniverseDetails is null)
+            {
+                await UniverseDetails.FetchSingle(UniverseId);
+
+                UniverseDetails = UniverseDetails.LoadFromCache(UniverseId);
+            }
+
+            return UniverseDetails;
+        }
+
         public string GetInviteDeeplink(bool launchData = true, bool useRobloxUri = false)
         {
             // if our data isnt loaded it uses dummy data

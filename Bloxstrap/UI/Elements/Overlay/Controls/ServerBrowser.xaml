@@ -125,12 +125,12 @@
                 </StackPanel>
             </Border>
 
-            <Button x:Name="RoValraCredit" Grid.Column="1" Style="{StaticResource CreditLink}" HorizontalAlignment="Right" VerticalAlignment="Center"
+            <Button Grid.Column="1" Style="{StaticResource CreditLink}" HorizontalAlignment="Right" VerticalAlignment="Center"
                     Margin="12,0,0,0" ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_CreditTooltip}" Click="RoValraCreditClicked">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Credit}" FontSize="12" VerticalAlignment="Center"
                                Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                    <TextBlock x:Name="RoValraName" Text="RoValra" FontSize="12" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"
+                    <TextBlock Text="RoValra" FontSize="12" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"
                                Foreground="{DynamicResource AccentFillColorDefaultBrush}" />
                     <ui:SymbolIcon Symbol="Open16" FontSize="11" Margin="4,1,0,0" VerticalAlignment="Center"
                                    Foreground="{DynamicResource AccentFillColorDefaultBrush}" />

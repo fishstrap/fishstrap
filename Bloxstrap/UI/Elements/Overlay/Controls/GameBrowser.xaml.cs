@@ -7,22 +7,13 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 {
     public partial class GameBrowser : UserControl
     {
-        private GameBrowserViewModel _viewModel;
-
         public GameBrowser()
         {
-            _viewModel = new GameBrowserViewModel(null);
-
-            DataContext = _viewModel;
+            DataContext = new GameBrowserViewModel(null);
 
             InitializeComponent();
         }
 
-        public void Attach(ActivityWatcher? activityWatcher)
-        {
-            _viewModel = new GameBrowserViewModel(activityWatcher);
-
-            DataContext = _viewModel;
-        }
+        public void Attach(ActivityWatcher? activityWatcher) => DataContext = new GameBrowserViewModel(activityWatcher);
     }
 }

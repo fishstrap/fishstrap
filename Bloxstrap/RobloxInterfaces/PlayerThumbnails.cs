@@ -10,7 +10,7 @@ namespace Bloxstrap.RobloxInterfaces
 
         private const int HighestUserId = 200_000_000;
 
-        private static readonly Uri BatchUrl = new("https://thumbnails.roblox.com/v1/batch");
+        private static Uri BatchUrl => UrlBuilder.BuildApiUrl("thumbnails", "v1/batch");
 
         private static readonly SemaphoreSlim _poolLock = new(1, 1);
 
@@ -90,7 +90,7 @@ namespace Bloxstrap.RobloxInterfaces
                 foreach (long[] chunk in ids.Chunk(BatchSize))
                 {
                     var response = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>(
-                        new Uri($"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={String.Join(',', chunk)}&size={Size}&format=Png&isCircular=false"));
+                        UrlBuilder.BuildApiUrl("thumbnails", $"v1/users/avatar-headshot?userIds={String.Join(',', chunk)}&size={Size}&format=Png&isCircular=false"));
 
                     icons.AddRange(response.Data
                         .Where(x => x.State == "Completed" && !String.IsNullOrEmpty(x.ImageUrl))

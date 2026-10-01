@@ -2169,9 +2169,6 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.PrivateServers.ServerName" xml:space="preserve">
     <value>Server Name</value>
   </data>
-  <data name="Menu.Overlay.PrivateServers.Rename" xml:space="preserve">
-    <value>Rename</value>
-  </data>
   <data name="Menu.Overlay.PrivateServers.Experience" xml:space="preserve">
     <value>Experience</value>
   </data>
@@ -2213,12 +2210,6 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Menu.Overlay.PrivateServers.Regenerate" xml:space="preserve">
     <value>Regenerate</value>
-  </data>
-  <data name="Menu.Overlay.PrivateServers.Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Menu.Overlay.PrivateServers.Cancel" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="Menu.Overlay.PrivateServers.TurnedOn" xml:space="preserve">
     <value>Joining turned on</value>
@@ -2577,9 +2568,6 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Messages.ViewGame" xml:space="preserve">
     <value>View game</value>
   </data>
-  <data name="Menu.Overlay.Messages.CloseTab" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="Menu.Overlay.Servers.Credit" xml:space="preserve">
     <value>Server details from</value>
   </data>
@@ -2588,9 +2576,6 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Menu.Overlay.Tab.Browser" xml:space="preserve">
     <value>Browser</value>
-  </data>
-  <data name="Menu.Overlay.Browser.Back" xml:space="preserve">
-    <value>Back</value>
   </data>
   <data name="Menu.Overlay.Browser.Forward" xml:space="preserve">
     <value>Forward</value>

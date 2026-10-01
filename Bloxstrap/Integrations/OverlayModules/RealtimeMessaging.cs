@@ -21,8 +21,6 @@ namespace Bloxstrap.Integrations.OverlayModules
         private Task? _pingTask;
 
         public event EventHandler<MessageEvent>? PartyChat;
-        public event EventHandler<SignalrMessage>? MessageReceived;
-        public event EventHandler? Connected;
 
         public readonly RobloxParty Party;
 
@@ -31,8 +29,6 @@ namespace Bloxstrap.Integrations.OverlayModules
         public RealtimeMessaging()
         {
             Party = new RobloxParty(this);
-
-            MessageReceived += ProcessEvent;
         }
 
         #region Connection
@@ -72,8 +68,6 @@ namespace Bloxstrap.Integrations.OverlayModules
                 await DisconnectFromUserhub();
                 return;
             }
-
-            Connected?.Invoke(this, EventArgs.Empty);
 
             await SendHandshake();
 
@@ -186,7 +180,7 @@ namespace Bloxstrap.Integrations.OverlayModules
                 if (message.Target is null || message.Arguments is null || message.Arguments.Length < 2)
                     return;
 
-                MessageReceived?.Invoke(this, message);
+                ProcessEvent(message);
             }
             catch (JsonException ex)
             {
@@ -240,7 +234,7 @@ namespace Bloxstrap.Integrations.OverlayModules
             }
         }
 
-        private void ProcessEvent(object? sender, SignalrMessage e)
+        private void ProcessEvent(SignalrMessage e)
         {
             const string LOG_IDENT = "RealtimeMessaging::ProcessEvent";
 

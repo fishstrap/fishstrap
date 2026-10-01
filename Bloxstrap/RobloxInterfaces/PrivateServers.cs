@@ -1,26 +1,24 @@
-using Bloxstrap.AppData;
-
 namespace Bloxstrap.RobloxInterfaces
 {
     public static class PrivateServers
     {
         private const int PageSize = 25;
 
-        private static Uri ServerUrl(long id) => new($"https://games.roblox.com/v1/vip-servers/{id}");
+        private static Uri ServerUrl(long id) => UrlBuilder.BuildApiUrl("games", $"v1/vip-servers/{id}");
 
-        private static Uri PermissionsUrl(long id) => new($"https://games.roblox.com/v1/vip-servers/{id}/permissions");
+        private static Uri PermissionsUrl(long id) => UrlBuilder.BuildApiUrl("games", $"v1/vip-servers/{id}/permissions");
 
-        public static Task<PrivateServersPage> ListPageAsync(long placeId, string? cursor)
+        public static Task<ApiPageResponse<PrivateServerEntry>> ListPageAsync(long placeId, string? cursor)
         {
-            string url = $"https://games.roblox.com/v1/games/{placeId}/private-servers?limit={PageSize}&sortOrder=Desc";
+            string path = $"v1/games/{placeId}/private-servers?limit={PageSize}&sortOrder=Desc";
 
             if (!String.IsNullOrEmpty(cursor))
-                url += $"&cursor={Uri.EscapeDataString(cursor)}";
+                path += $"&cursor={Uri.EscapeDataString(cursor)}";
 
-            return Http.AuthGetJson<PrivateServersPage>(new Uri(url));
+            return Http.AuthGetJson<ApiPageResponse<PrivateServerEntry>>(UrlBuilder.BuildApiUrl("games", path));
         }
 
-        public static string ServersPageUrl(long placeId) => $"https://www.roblox.com/games/{placeId}#!/game-instances";
+        public static string ServersPageUrl(long placeId) => $"{GameServers.GamePage(placeId)}#!/game-instances";
 
         public static Task<PrivateServerDetails> DetailsAsync(long id) => Http.AuthGetJson<PrivateServerDetails>(ServerUrl(id));
 
@@ -46,14 +44,14 @@ namespace Bloxstrap.RobloxInterfaces
         {
             var body = new Dictionary<string, object> { ["usernames"] = new[] { username }, ["excludeBannedUsers"] = true };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://users.roblox.com/v1/usernames/users")
+            var request = new HttpRequestMessage(HttpMethod.Post, UrlBuilder.BuildApiUrl("users", "v1/usernames/users"))
             {
                 Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json")
             };
 
-            var response = await Http.SendJson<UsernameLookupResponse>(request);
+            var response = await Http.SendJson<ApiArrayResponse<PrivateServerUser>>(request);
 
-            return response.Data.FirstOrDefault();
+            return response.Data?.FirstOrDefault();
         }
 
         public static void Join(long placeId, string accessCode)
@@ -62,8 +60,7 @@ namespace Bloxstrap.RobloxInterfaces
 
             App.Logger.WriteLine(LOG_IDENT, $"Joining a private server of {placeId}");
 
-            Process.Start(new RobloxPlayerData().ExecutablePath,
-                $"roblox://experiences/start?placeId={placeId}&accessCode={Uri.EscapeDataString(accessCode)}");
+            GameServers.Launch($"placeId={placeId}&accessCode={Uri.EscapeDataString(accessCode)}");
         }
 
         private static Task UpdateAsync(PrivateServerDetails current, string setting, string value, string? name, bool active, bool newJoinCode) =>

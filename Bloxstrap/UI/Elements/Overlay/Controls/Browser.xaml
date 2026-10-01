@@ -58,7 +58,7 @@
             </Grid.ColumnDefinitions>
 
             <Button x:Name="BackButton" Grid.Column="0" Style="{StaticResource NavButton}" IsEnabled="False"
-                       Click="BackClicked" ToolTip="{x:Static resources:Strings.Menu_Overlay_Browser_Back}">
+                       Click="BackClicked" ToolTip="{x:Static resources:Strings.Common_Navigation_Back}">
                 <ui:SymbolIcon Symbol="ArrowLeft24" FontSize="16" />
             </Button>
 

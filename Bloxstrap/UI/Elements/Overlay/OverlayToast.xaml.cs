@@ -28,8 +28,6 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         private OverlayNotice? _notice;
 
-        public IntPtr Handle => _hwnd;
-
         public event EventHandler? Finished;
 
         public bool IsShowing { get; private set; }
@@ -60,8 +58,6 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             CardView.MouseLeftButtonUp += (_, _) => Click();
         }
-
-        public void Present(string title, string message, Rect gameBounds) => Present(new OverlayNotice(title, message), gameBounds);
 
         public void Present(OverlayNotice notice, Rect gameBounds)
         {

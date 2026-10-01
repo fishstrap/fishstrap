@@ -5,9 +5,6 @@ using Bloxstrap.UI.ViewModels.Overlay.Controls;
 
 namespace Bloxstrap.UI.Elements.Overlay.Controls
 {
-    /// <summary>
-    /// Interaction logic for BadgeTracker.xaml
-    /// </summary>
     public partial class BadgeTracker : UserControl
     {
         private BadgeTrackerViewModel _viewModel;

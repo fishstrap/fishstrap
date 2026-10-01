@@ -1,13 +1,10 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 using CommunityToolkit.Mvvm.Input;
 
 using Bloxstrap.Integrations;
-using Bloxstrap.Models.APIs.Roblox;
-using Bloxstrap.Models.Overlay;
 using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.UI.ViewModels.Overlay.Controls
@@ -18,9 +15,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         private readonly Dictionary<long, PrivateServerDetails> _ownDetails = new();
 
-        private DispatcherTimer? _statusTimer;
-
-        private string? _status;
+        private readonly FlashMessage _flash;
 
         private bool _visible;
 
@@ -126,9 +121,9 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         public string CreateStatusText => _createAllowed ? Strings.Menu_Overlay_PrivateServers_CreateHint : Strings.Menu_Overlay_PrivateServers_CreateUnavailable;
 
-        public string StatusText => _status ?? String.Empty;
+        public string StatusText => _flash.Text ?? String.Empty;
 
-        public bool HasStatus => _status is not null;
+        public bool HasStatus => _flash.Text is not null;
 
         private string _serverName = String.Empty;
 
@@ -325,11 +320,17 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         private long PlaceId => _activityWatcher?.Data.PlaceId ?? 0;
 
-        private static bool SignedIn => App.Settings.Prop.AllowCookieAccess && App.Cookies.Loaded;
+        private static bool SignedIn => App.Cookies.Loaded;
 
         public PrivateServersViewModel(ActivityWatcher? activityWatcher)
         {
             _activityWatcher = activityWatcher;
+
+            _flash = new FlashMessage(TimeSpan.FromSeconds(4), () =>
+            {
+                OnPropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(HasStatus));
+            });
 
             if (_activityWatcher is null)
                 return;
@@ -452,7 +453,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         private async Task LoadPageAsync(int generation, long placeId, string? cursor, bool first)
         {
-            PrivateServersPage page = await PrivateServers.ListPageAsync(placeId, cursor);
+            ApiPageResponse<PrivateServerEntry> page = await PrivateServers.ListPageAsync(placeId, cursor);
 
             if (generation != _generation)
                 return;
@@ -524,14 +525,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             if (activity is null || activity.UniverseId == 0)
                 return null;
 
-            if (activity.UniverseDetails is null)
-            {
-                await UniverseDetails.FetchSingle(activity.UniverseId);
-
-                activity.UniverseDetails = UniverseDetails.LoadFromCache(activity.UniverseId);
-            }
-
-            return activity.UniverseDetails;
+            return await activity.EnsureUniverseDetailsAsync();
         }
 
         private static async Task LoadAvatarsAsync(IReadOnlyList<PrivateServerItem> items)
@@ -919,30 +913,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             Refreshed();
         }
 
-        private void Flash(string message)
-        {
-            _status = message;
-
-            OnPropertyChanged(nameof(StatusText));
-            OnPropertyChanged(nameof(HasStatus));
-
-            _statusTimer ??= new DispatcherTimer { Interval = TimeSpan.FromSeconds(4) };
-            _statusTimer.Tick -= ClearStatus;
-            _statusTimer.Tick += ClearStatus;
-
-            _statusTimer.Stop();
-            _statusTimer.Start();
-        }
-
-        private void ClearStatus(object? sender, EventArgs e)
-        {
-            _statusTimer?.Stop();
-
-            _status = null;
-
-            OnPropertyChanged(nameof(StatusText));
-            OnPropertyChanged(nameof(HasStatus));
-        }
+        private void Flash(string message) => _flash.Show(message);
 
         private void Refreshed()
         {

@@ -5,7 +5,6 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Input;
 
 using Bloxstrap.Integrations;
-using Bloxstrap.Models.Overlay;
 using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.UI.ViewModels.Overlay.Controls
@@ -18,7 +17,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         private readonly DispatcherTimer _searchTimer;
 
-        private DispatcherTimer? _statusTimer;
+        private readonly FlashMessage _flash;
 
         private int _searchGeneration;
 
@@ -109,11 +108,9 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        private string? _status;
+        public string StatusText => _flash.Text ?? String.Empty;
 
-        public string StatusText => _status ?? String.Empty;
-
-        public bool HasStatus => _status is not null;
+        public bool HasStatus => _flash.Text is not null;
 
         public bool ShowEmptyState => !IsBusy && !ActiveTiles.Any();
 
@@ -154,6 +151,12 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
         public GameBrowserViewModel(ActivityWatcher? activityWatcher)
         {
             _activityWatcher = activityWatcher;
+
+            _flash = new FlashMessage(TimeSpan.FromSeconds(4), () =>
+            {
+                OnPropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(HasStatus));
+            });
 
             _searchTimer = new DispatcherTimer { Interval = SearchDelay };
             _searchTimer.Tick += async (_, _) =>
@@ -272,30 +275,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        private void Flash(string message)
-        {
-            _status = message;
-
-            OnPropertyChanged(nameof(StatusText));
-            OnPropertyChanged(nameof(HasStatus));
-
-            _statusTimer ??= new DispatcherTimer { Interval = TimeSpan.FromSeconds(4) };
-            _statusTimer.Tick -= ClearStatus;
-            _statusTimer.Tick += ClearStatus;
-
-            _statusTimer.Stop();
-            _statusTimer.Start();
-        }
-
-        private void ClearStatus(object? sender, EventArgs e)
-        {
-            _statusTimer?.Stop();
-
-            _status = null;
-
-            OnPropertyChanged(nameof(StatusText));
-            OnPropertyChanged(nameof(HasStatus));
-        }
+        private void Flash(string message) => _flash.Show(message);
 
         private void Refreshed()
         {

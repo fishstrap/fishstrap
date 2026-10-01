@@ -73,7 +73,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="Transparent" Padding="4,2">
-                            <ContentPresenter x:Name="Content" />
+                            <ContentPresenter />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -309,7 +309,7 @@
                                             Visibility="{Binding IsShowingName, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock Text="{Binding ServerName}" Style="{StaticResource Heading}" TextTrimming="CharacterEllipsis" MaxWidth="260" />
                                     <Button Style="{StaticResource IconButton}" Margin="6,0,0,0"
-                                            ToolTip="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Rename}"
+                                            ToolTip="{x:Static resources:Strings.Common_Rename}"
                                             Command="{Binding EditNameCommand}">
                                         <ui:SymbolIcon Symbol="Edit24" FontSize="14" />
                                     </Button>
@@ -322,14 +322,14 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <ui:TextBox x:Name="NameBox" Grid.Column="0" FontSize="13" MaxLength="50"
+                                    <ui:TextBox Grid.Column="0" FontSize="13" MaxLength="50"
                                                 Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}"
                                                 KeyDown="NameBoxKeyDown" />
                                     <ui:Button Grid.Column="1" Margin="6,0,0,0" Appearance="Primary" VerticalAlignment="Stretch"
-                                               Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Save}"
+                                               Content="{x:Static resources:Strings.Menu_Save}"
                                                Command="{Binding SaveNameCommand}" />
                                     <ui:Button Grid.Column="2" Margin="6,0,0,0" Appearance="Secondary" VerticalAlignment="Stretch"
-                                               Content="{x:Static resources:Strings.Menu_Overlay_PrivateServers_Cancel}"
+                                               Content="{x:Static resources:Strings.Common_Cancel}"
                                                Command="{Binding CancelNameCommand}" />
                                 </Grid>
                             </Grid>
@@ -415,7 +415,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <ui:TextBox x:Name="AddUsernameBox" Grid.Column="0" FontSize="13"
+                                <ui:TextBox Grid.Column="0" FontSize="13"
                                             PlaceholderText="{x:Static resources:Strings.Menu_Overlay_PrivateServers_AddPlaceholder}"
                                             Text="{Binding AddUsername, UpdateSourceTrigger=PropertyChanged}"
                                             KeyDown="AddUsernameKeyDown" />

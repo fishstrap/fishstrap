@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -39,7 +40,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             _activityWatcher = activityWatcher;
             _publicServers = publicServers;
 
-            _publicServers.Servers.CollectionChanged += (_, _) => UpdateStatuses();
+            _publicServers.Servers.CollectionChanged += (_, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Reset)
+                    UpdateStatuses();
+            };
             _publicServers.PropertyChanged += OnPublicServersChanged;
 
             if (_activityWatcher is null)

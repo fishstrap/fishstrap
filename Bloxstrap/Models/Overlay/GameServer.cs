@@ -16,12 +16,6 @@ namespace Bloxstrap.Models.Overlay
 
         public double? Fps { get; set; }
 
-        public int? Ping { get; set; }
-
-        public string? City { get; set; }
-
-        public string? Region { get; set; }
-
         public int? PlaceVersion { get; set; }
 
         public bool IsCurrent { get; set; }

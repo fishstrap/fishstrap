@@ -121,10 +121,10 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
             _headers = new Dictionary<FriendSection, FriendListHeader>
             {
-                [FriendSection.InGame] = new FriendListHeader { Section = FriendSection.InGame, Title = Strings.Menu_Overlay_Messages_SectionInGame },
-                [FriendSection.Online] = new FriendListHeader { Section = FriendSection.Online, Title = Strings.Menu_Overlay_Messages_SectionOnline },
-                [FriendSection.Offline] = new FriendListHeader { Section = FriendSection.Offline, Title = Strings.Menu_Overlay_Messages_SectionOffline },
-                [FriendSection.Groups] = new FriendListHeader { Section = FriendSection.Groups, Title = Strings.Menu_Overlay_Messages_SectionGroups }
+                [FriendSection.InGame] = new FriendListHeader { Title = Strings.Menu_Overlay_Messages_SectionInGame },
+                [FriendSection.Online] = new FriendListHeader { Title = Strings.Menu_Overlay_Messages_SectionOnline },
+                [FriendSection.Offline] = new FriendListHeader { Title = Strings.Menu_Overlay_Messages_SectionOffline },
+                [FriendSection.Groups] = new FriendListHeader { Title = Strings.Menu_Overlay_Messages_SectionGroups }
             };
 
             if (_party is not null)
@@ -154,8 +154,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
             try
             {
-                if (!App.Cookies.Loaded)
-                    await Task.Run(App.Cookies.LoadCookies);
+                await App.Cookies.EnsureLoadedAsync();
 
                 _me = App.Cookies.CurrentUser;
 
@@ -420,7 +419,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                     if (sender == UserMessage.SystemSenderId)
                         AddSystemLine(tab, message.Content, message.CreatedAt);
                     else
-                        AddLine(tab, sender, message.Content, message.CreatedAt).MessageId = message.Id;
+                        AddLine(tab, sender, message.Content, message.CreatedAt);
 
                     added = true;
                 }
@@ -550,14 +549,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                 UserMessage? sent = await _party.SendMessage(tab.Friend.ConversationId!, text);
 
                 if (!String.IsNullOrEmpty(sent?.Id))
-                {
-                    line.MessageId = sent!.Id;
                     tab.KnownMessages.Add(sent.Id);
-                }
 
                 line.State = ChatLineState.Sent;
             }
-            catch (InvalidOperationException)
+            catch (MessageModeratedException)
             {
                 line.Failure = Strings.Menu_Overlay_Messages_Moderated;
                 line.State = ChatLineState.Failed;
@@ -617,7 +613,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                 else if (friend.CanViewGame)
                 {
                     long place = friend.RootPlaceId > 0 ? friend.RootPlaceId : friend.PlaceId;
-                    _overlay?.OpenPage(new Uri($"https://www.roblox.com/games/{place}"));
+                    _overlay?.OpenPage(GameServers.GamePage(place));
                 }
             }
             catch (Exception ex)

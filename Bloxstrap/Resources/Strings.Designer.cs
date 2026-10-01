@@ -5048,15 +5048,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
-        /// </summary>
-        public static string Menu_Overlay_Browser_Back {
-            get {
-                return ResourceManager.GetString("Menu.Overlay.Browser.Back", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The browser couldn&apos;t start..
         /// </summary>
         public static string Menu_Overlay_Browser_Failed {
@@ -5761,12 +5752,6 @@ namespace Bloxstrap.Resources {
             }
         }
 
-        public static string Menu_Overlay_PrivateServers_Rename {
-            get {
-                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Rename", resourceCulture);
-            }
-        }
-
         public static string Menu_Overlay_PrivateServers_Experience {
             get {
                 return ResourceManager.GetString("Menu.Overlay.PrivateServers.Experience", resourceCulture);
@@ -5848,18 +5833,6 @@ namespace Bloxstrap.Resources {
         public static string Menu_Overlay_PrivateServers_Regenerate {
             get {
                 return ResourceManager.GetString("Menu.Overlay.PrivateServers.Regenerate", resourceCulture);
-            }
-        }
-
-        public static string Menu_Overlay_PrivateServers_Save {
-            get {
-                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Save", resourceCulture);
-            }
-        }
-
-        public static string Menu_Overlay_PrivateServers_Cancel {
-            get {
-                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Cancel", resourceCulture);
             }
         }
 
@@ -6574,12 +6547,6 @@ namespace Bloxstrap.Resources {
         public static string Menu_Overlay_Messages_ViewGame {
             get {
                 return ResourceManager.GetString("Menu.Overlay.Messages.ViewGame", resourceCulture);
-            }
-        }
-
-        public static string Menu_Overlay_Messages_CloseTab {
-            get {
-                return ResourceManager.GetString("Menu.Overlay.Messages.CloseTab", resourceCulture);
             }
         }
 
