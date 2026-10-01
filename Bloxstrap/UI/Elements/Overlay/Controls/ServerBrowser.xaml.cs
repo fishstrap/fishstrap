@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 
 using Bloxstrap.Integrations;
@@ -47,6 +48,16 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             RecentView.DataContext = _recentViewModel;
 
             PrivateView.Attach(activityWatcher);
+        }
+
+        private void RoValraCreditClicked(object sender, RoutedEventArgs e)
+        {
+            var site = new Uri("https://www.rovalra.com/");
+
+            if (Window.GetWindow(this) is GameOverlay overlay)
+                overlay.OpenPage(site);
+            else
+                Utilities.ShellExecute(site.AbsoluteUri);
         }
     }
 }

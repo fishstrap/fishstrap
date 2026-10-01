@@ -6583,6 +6583,18 @@ namespace Bloxstrap.Resources {
             }
         }
 
+        public static string Menu_Overlay_Servers_Credit {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Credit", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_CreditTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.CreditTooltip", resourceCulture);
+            }
+        }
+
         public static string Menu_Overlay_Tab_Browser {
             get {
                 return ResourceManager.GetString("Menu.Overlay.Tab.Browser", resourceCulture);

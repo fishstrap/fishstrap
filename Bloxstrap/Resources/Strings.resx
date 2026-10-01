@@ -2580,6 +2580,12 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Messages.CloseTab" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Menu.Overlay.Servers.Credit" xml:space="preserve">
+    <value>Server details from</value>
+  </data>
+  <data name="Menu.Overlay.Servers.CreditTooltip" xml:space="preserve">
+    <value>Visit rovalra.com</value>
+  </data>
   <data name="Menu.Overlay.Tab.Browser" xml:space="preserve">
     <value>Browser</value>
   </data>
