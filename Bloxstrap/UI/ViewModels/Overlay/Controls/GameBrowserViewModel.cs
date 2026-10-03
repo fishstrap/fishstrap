@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Input;
 
 using Bloxstrap.Integrations;
+using Bloxstrap.Integrations.OverlayModules;
 using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.UI.ViewModels.Overlay.Controls
@@ -12,6 +13,10 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
     public class GameBrowserViewModel : NotifyPropertyChangedViewModel
     {
         private static readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(400);
+
+        private static readonly TimeSpan ContinueRefresh = TimeSpan.FromMinutes(1);
+
+        private const int RecentLimit = 24;
 
         private readonly ActivityWatcher? _activityWatcher;
 
@@ -27,11 +32,21 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         private bool _searchFailed;
 
+        private bool _loadingContinue;
+
+        private DateTime _continueLoaded = DateTime.MinValue;
+
         public ObservableCollection<GameTile> SearchResults { get; } = new();
 
         public ObservableCollection<GameTile> Favorites { get; } = new();
 
-        public ObservableCollection<GameTile> ActiveTiles => ShowingFavorites ? Favorites : SearchResults;
+        public ObservableCollection<GameTile> ContinueTiles { get; } = new();
+
+        public ObservableCollection<GameTile> ActiveTiles => ShowingFavorites ? Favorites : ShowingContinue ? ContinueTiles : SearchResults;
+
+        public bool ShowingContinue => !ShowingFavorites && String.IsNullOrWhiteSpace(Query);
+
+        public bool ShowContinueLabel => ShowingContinue && ContinueTiles.Any();
 
         private bool _showingFavorites;
 
@@ -48,6 +63,8 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                 OnPropertyChanged(nameof(ShowingFavorites));
                 OnPropertyChanged(nameof(ShowingSearch));
                 OnPropertyChanged(nameof(ActiveTiles));
+                OnPropertyChanged(nameof(ShowingContinue));
+                OnPropertyChanged(nameof(ShowContinueLabel));
 
                 Refreshed();
 
@@ -75,6 +92,9 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                 _query = value;
 
                 OnPropertyChanged(nameof(Query));
+                OnPropertyChanged(nameof(ActiveTiles));
+                OnPropertyChanged(nameof(ShowingContinue));
+                OnPropertyChanged(nameof(ShowContinueLabel));
 
                 _searchTimer.Stop();
 
@@ -210,6 +230,68 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
                     Refreshed();
                 }
             }
+        }
+
+        public async Task LoadContinueAsync(bool force = false)
+        {
+            const string LOG_IDENT = "GameBrowserViewModel::LoadContinueAsync";
+
+            if (_loadingContinue || (!force && DateTime.UtcNow - _continueLoaded < ContinueRefresh))
+                return;
+
+            _loadingContinue = true;
+
+            bool showBusy = ShowingContinue && !ContinueTiles.Any();
+
+            if (showBusy)
+            {
+                IsBusy = true;
+                Refreshed();
+            }
+
+            try
+            {
+                List<GameTile> tiles = await Experiences.ContinueAsync(RecentUniverses());
+
+                ContinueTiles.Clear();
+
+                foreach (GameTile tile in tiles)
+                    ContinueTiles.Add(tile);
+
+                _continueLoaded = DateTime.UtcNow;
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Failed to load the Continue list");
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
+            finally
+            {
+                _loadingContinue = false;
+
+                if (showBusy)
+                    IsBusy = false;
+
+                OnPropertyChanged(nameof(ShowContinueLabel));
+                Refreshed();
+            }
+        }
+
+        private IEnumerable<long> RecentUniverses()
+        {
+            var universes = new List<long>();
+
+            if (_activityWatcher is not null)
+            {
+                if (_activityWatcher.InGame)
+                    universes.Add(_activityWatcher.Data.UniverseId);
+
+                universes.AddRange(_activityWatcher.History.Select(x => x.UniverseId));
+            }
+
+            universes.AddRange(RecentServerLog.RecentUniverses(RecentLimit));
+
+            return universes;
         }
 
         public async Task LoadFavoritesAsync()

@@ -93,8 +93,15 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Visibility="{Binding ListVisibility}">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding TopInset, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ScrollViewer Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
                 <StackPanel>
+                    <Border Height="{Binding TopInset, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
                     <Grid Margin="0,0,0,14" Visibility="{Binding ShowCreate, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -241,11 +248,11 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <ui:ProgressRing IsIndeterminate="True" Width="32" Height="32"
+            <ui:ProgressRing Grid.Row="1" IsIndeterminate="True" Width="32" Height="32"
                              VerticalAlignment="Center" HorizontalAlignment="Center"
                              Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <TextBlock Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
+            <TextBlock Grid.Row="1" Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
                        VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
                        Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
                        Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -253,11 +260,12 @@
 
         <Grid Grid.Row="0" Visibility="{Binding ManageVisibility}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding TopInset, RelativeSource={RelativeSource AncestorType=UserControl}}" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="0,0,0,14">
+            <Grid Grid.Row="1" Margin="0,0,0,14">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -275,11 +283,11 @@
                 </Button>
             </Grid>
 
-            <ui:ProgressRing Grid.Row="1" IsIndeterminate="True" Width="32" Height="32"
+            <ui:ProgressRing Grid.Row="2" IsIndeterminate="True" Width="32" Height="32"
                              VerticalAlignment="Center" HorizontalAlignment="Center"
                              Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
                 <StackPanel IsEnabled="{Binding CanEdit}">
                     <Grid Margin="0,0,0,14">
                         <Grid.ColumnDefinitions>

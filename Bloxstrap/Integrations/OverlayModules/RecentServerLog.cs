@@ -55,6 +55,22 @@ namespace Bloxstrap.Integrations.OverlayModules
             }
         }
 
+        public static List<long> RecentUniverses(int limit)
+        {
+            lock (_lock)
+            {
+                Refresh();
+
+                return App.RecentServers.Prop.Servers
+                    .Where(x => x.UniverseId > 0)
+                    .OrderByDescending(x => x.JoinedAt)
+                    .Select(x => x.UniverseId)
+                    .Distinct()
+                    .Take(limit)
+                    .ToList();
+            }
+        }
+
         private static void Change(Action<List<RecentServer>> change)
         {
             const string LOG_IDENT = "RecentServerLog::Change";

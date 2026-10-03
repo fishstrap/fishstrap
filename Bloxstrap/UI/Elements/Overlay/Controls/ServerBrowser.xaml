@@ -87,72 +87,30 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Margin="0,0,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Border Grid.Column="0" Padding="3" CornerRadius="8" HorizontalAlignment="Left"
-                    Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
-                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton x:Name="PublicTab" Style="{StaticResource TabToggle}" GroupName="ServerTab" IsChecked="True">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Cloud24" FontSize="14" Margin="0,0,6,0" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_PublicTab}" FontSize="13" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </RadioButton>
-
-                    <RadioButton x:Name="PrivateTab" Style="{StaticResource TabToggle}" GroupName="ServerTab" Margin="2,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="PeopleLock24" FontSize="14" Margin="0,0,6,0" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_PrivateTab}" FontSize="13" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </RadioButton>
-
-                    <RadioButton x:Name="RecentTab" Style="{StaticResource TabToggle}" GroupName="ServerTab" Margin="2,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Clock24" FontSize="14" Margin="0,0,6,0" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_RecentTab}" FontSize="13" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </RadioButton>
-                </StackPanel>
-            </Border>
-
-            <Button Grid.Column="1" Style="{StaticResource CreditLink}" HorizontalAlignment="Right" VerticalAlignment="Center"
-                    Margin="12,0,0,0" ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_CreditTooltip}" Click="RoValraCreditClicked">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Credit}" FontSize="12" VerticalAlignment="Center"
-                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                    <TextBlock Text="RoValra" FontSize="12" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"
-                               Foreground="{DynamicResource AccentFillColorDefaultBrush}" />
-                    <ui:SymbolIcon Symbol="Open16" FontSize="11" Margin="4,1,0,0" VerticalAlignment="Center"
-                                   Foreground="{DynamicResource AccentFillColorDefaultBrush}" />
-                </StackPanel>
-            </Button>
-        </Grid>
-
-        <control:PrivateServerBrowser x:Name="PrivateView" Grid.Row="1"
+        <control:PrivateServerBrowser x:Name="PrivateView" TopInset="{Binding ActualHeight, ElementName=Header}"
                                       Visibility="{Binding IsChecked, ElementName=PrivateTab, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-        <Grid x:Name="RecentView" Grid.Row="1"
+        <Grid x:Name="RecentView"
               Visibility="{Binding IsChecked, ElementName=RecentTab, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding ActualHeight, ElementName=Header}" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
                        VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
                        Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
                        Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <ItemsControl ItemsSource="{Binding Items}">
+            <ItemsControl x:Name="RecentList" Grid.RowSpan="2" ItemsSource="{Binding Items}"
+                          Tag="{Binding ActualHeight, ElementName=Header}">
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
                         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
-                            <ItemsPresenter />
+                            <StackPanel>
+                                <Border Height="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ItemsPresenter />
+                            </StackPanel>
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
@@ -201,285 +159,342 @@
             </ItemsControl>
         </Grid>
 
-    <Grid x:Name="PublicView" Grid.Row="1" Visibility="{Binding IsChecked, ElementName=PublicTab, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Border Grid.Row="0" Margin="0,0,0,8" Padding="12,10" CornerRadius="6"
-                Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
-                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
-                Visibility="{Binding HasCurrentServer, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid x:Name="PublicView" Visibility="{Binding IsChecked, ElementName=PublicTab, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="{Binding ActualHeight, ElementName=Header}" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_Type}"
-                           FontSize="12" Margin="0,0,12,0" VerticalAlignment="Center"
-                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentServerType}" FontSize="13"
-                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
-                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                <ui:ProgressRing Grid.Row="1" IsIndeterminate="True" Width="32" Height="32"
+                                 VerticalAlignment="Center" HorizontalAlignment="Center"
+                                 Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_InstanceId}"
-                           FontSize="12" Margin="0,6,12,0" VerticalAlignment="Center"
-                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                <Grid Grid.Row="1" Grid.Column="1" Margin="0,6,0,0" HorizontalAlignment="Left">
+                <TextBlock Grid.Row="1" Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
+                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                           Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <ItemsControl x:Name="PublicList" Grid.RowSpan="2" ItemsSource="{Binding Servers}" Margin="-4,-4,-4,0"
+                              Tag="{Binding ActualHeight, ElementName=Header}"
+                              ScrollViewer.CanContentScroll="True"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              VirtualizingPanel.ScrollUnit="Pixel">
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <control:CardWrapPanel ItemSize="220,372" StretchItems="True" SpacingMode="None"
+                                                   TopInset="{Binding Tag, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border x:Name="Card" Margin="4" Padding="12" CornerRadius="8"
+                                    Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <ItemsControl Grid.Row="0" Height="124" ItemsSource="{Binding Avatars}" Focusable="False">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <UniformGrid Columns="3" Rows="2" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Width="56" Height="56">
+                                                    <Border x:Name="Backing" CornerRadius="28"
+                                                            Background="{ui:ThemeResource ControlStrongStrokeColorDisabledBrush}" />
+                                                    <Border x:Name="Face" CornerRadius="28">
+                                                        <Border.Background>
+                                                            <ImageBrush ImageSource="{Binding ImageUrl}" Stretch="UniformToFill" />
+                                                        </Border.Background>
+                                                    </Border>
+                                                    <TextBlock x:Name="More" Text="{Binding OverflowText}" FontSize="17" FontWeight="SemiBold"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
+                                                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                                                </Grid>
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding IsOverflow}" Value="True">
+                                                        <Setter TargetName="Backing" Property="Background"
+                                                                Value="{ui:ThemeResource ControlStrongFillColorDisabledBrush}" />
+                                                        <Setter TargetName="Face" Property="Visibility" Value="Collapsed" />
+                                                        <Setter TargetName="More" Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <TextBlock Grid.Row="1" Text="{Binding CapacityText}" FontSize="15" Margin="0,10,0,8"
+                                               TextTrimming="CharacterEllipsis"
+                                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+                                    <StackPanel Grid.Row="2">
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6"
+                                                    Visibility="{Binding HasPerformance, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <ui:SymbolIcon x:Name="PerformanceIcon" Symbol="ArrowTrending24" Style="{StaticResource StatIcon}" />
+                                            <TextBlock Text="{Binding PerformanceText}" Style="{StaticResource StatText}" />
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6"
+                                                    Visibility="{Binding HasUptime, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <ui:SymbolIcon Symbol="ClockAlarm24" Style="{StaticResource StatIcon}" />
+                                            <TextBlock Text="{Binding UptimeText}" Style="{StaticResource StatText}" />
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6"
+                                                    Visibility="{Binding HasVersion, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <ui:SymbolIcon Symbol="History24" Style="{StaticResource StatIcon}" />
+                                            <TextBlock Text="{Binding VersionText}" Style="{StaticResource StatText}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="3">
+                                        <ProgressBar Style="{StaticResource CapacityBar}" Margin="0,4,0,12"
+                                                     Value="{Binding FillPercentage, Mode=OneWay}" />
+
+                                        <ui:Button x:Name="JoinButton" Appearance="Secondary" HorizontalAlignment="Stretch"
+                                                   Content="{x:Static resources:Strings.Menu_Overlay_Servers_Join}"
+                                                   Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=ItemsControl, AncestorLevel=1}}"
+                                                   CommandParameter="{Binding Mode=OneTime}" />
+
+                                        <ui:Button Margin="0,6,0,0" Appearance="Secondary" HorizontalAlignment="Stretch"
+                                                   Content="{x:Static resources:Strings.Menu_Overlay_Servers_Share}"
+                                                   ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_CopyLink}"
+                                                   Command="{Binding DataContext.CopyLinkCommand, RelativeSource={RelativeSource AncestorType=ItemsControl, AncestorLevel=1}}"
+                                                   CommandParameter="{Binding Mode=OneTime}" />
+
+                                        <TextBlock Text="{Binding IdText}" FontSize="10" Margin="0,8,0,0"
+                                                   HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsLowPerformance}" Value="True">
+                                    <Setter TargetName="PerformanceIcon" Property="Symbol" Value="ArrowTrendingDown24" />
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                    <Setter TargetName="Card" Property="BorderBrush"
+                                            Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                                    <Setter TargetName="JoinButton" Property="Content"
+                                            Value="{x:Static resources:Strings.Menu_Overlay_Servers_Current}" />
+                                    <Setter TargetName="JoinButton" Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="Header" VerticalAlignment="Top">
+            <control:AcrylicBackdrop x:Name="Frost" Source="{Binding ElementName=PublicList}" />
+
+            <StackPanel>
+                <Border Height="{Binding (control:OverlayPanel.HeaderInset), RelativeSource={RelativeSource Self}}" />
+
+                <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{Binding CurrentJobId}" FontSize="11" VerticalAlignment="Center"
-                               FontFamily="{StaticResource CascadiaCode}" TextTrimming="CharacterEllipsis"
-                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                    <Border Grid.Column="0" Padding="3" CornerRadius="8" HorizontalAlignment="Left"
+                            Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton x:Name="PublicTab" Style="{StaticResource TabToggle}" GroupName="ServerTab" IsChecked="True">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="Cloud24" FontSize="14" Margin="0,0,6,0" />
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_PublicTab}" FontSize="13" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
 
-                    <ui:Button Grid.Column="1" Width="24" Height="24" Padding="0" Margin="6,0,0,0"
-                               VerticalAlignment="Center" Appearance="Transparent"
-                               ToolTip="{x:Static resources:Strings.ContextMenu_ServerInformation_CopyInstanceId}"
-                               Command="{Binding CopyInstanceIdCommand}">
-                        <ui:SymbolIcon Symbol="Copy24" FontSize="12" />
-                    </ui:Button>
+                            <RadioButton x:Name="PrivateTab" Style="{StaticResource TabToggle}" GroupName="ServerTab" Margin="2,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="PeopleLock24" FontSize="14" Margin="0,0,6,0" />
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_PrivateTab}" FontSize="13" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton x:Name="RecentTab" Style="{StaticResource TabToggle}" GroupName="ServerTab" Margin="2,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="Clock24" FontSize="14" Margin="0,0,6,0" />
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_RecentTab}" FontSize="13" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Grid.Column="1" Style="{StaticResource CreditLink}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                            Margin="12,0,0,0" ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_CreditTooltip}" Click="RoValraCreditClicked">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Credit}" FontSize="12" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                            <TextBlock Text="RoValra" FontSize="12" FontWeight="SemiBold" Margin="4,0,0,0" VerticalAlignment="Center"
+                                       Foreground="{DynamicResource AccentFillColorDefaultBrush}" />
+                            <ui:SymbolIcon Symbol="Open16" FontSize="11" Margin="4,1,0,0" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource AccentFillColorDefaultBrush}" />
+                        </StackPanel>
+                    </Button>
                 </Grid>
 
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_Location}"
-                           FontSize="12" Margin="20,0,12,0" VerticalAlignment="Center"
-                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
-                           Visibility="{Binding ShowCurrentLocation, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding CurrentLocation}" FontSize="13"
-                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
-                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
-                           Visibility="{Binding ShowCurrentLocation, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <StackPanel Visibility="{Binding IsChecked, ElementName=PublicTab, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Border Margin="0,0,0,8" Padding="12,10" CornerRadius="6"
+                            Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                            Visibility="{Binding HasCurrentServer, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_Uptime}"
-                           FontSize="12" Margin="20,6,12,0" VerticalAlignment="Center"
-                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding CurrentUptime}" FontSize="13" Margin="0,6,0,0"
-                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
-                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_Type}"
+                                       FontSize="12" Margin="0,0,12,0" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentServerType}" FontSize="13"
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                       Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
 
-                <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Margin="16,0,0,0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <ui:Button Appearance="Secondary" Margin="0,0,8,0" Command="{Binding ClosestCommand}" IsEnabled="{Binding CanJoinClosest}"
-                               ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_ClosestTooltip}">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Location24" FontSize="14" Margin="0,0,8,0" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Closest}" FontSize="13" />
-                        </StackPanel>
-                    </ui:Button>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_InstanceId}"
+                                       FontSize="12" Margin="0,6,12,0" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                            <Grid Grid.Row="1" Grid.Column="1" Margin="0,6,0,0" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                    <ui:Button Appearance="Primary" Command="{Binding HopCommand}" IsEnabled="{Binding CanHop}"
-                               ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_HopTooltip}">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="ArrowShuffle24" FontSize="14" Margin="0,0,8,0" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Hop}" FontSize="13" />
-                        </StackPanel>
-                    </ui:Button>
-                </StackPanel>
-            </Grid>
-        </Border>
+                                <TextBlock Grid.Column="0" Text="{Binding CurrentJobId}" FontSize="11" VerticalAlignment="Center"
+                                           FontFamily="{StaticResource CascadiaCode}" TextTrimming="CharacterEllipsis"
+                                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
 
-        <Border Grid.Row="1" Margin="0,0,0,8" Padding="10,6" CornerRadius="6"
-                Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
-                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <WrapPanel Grid.Column="0" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" Margin="0,3,20,3" VerticalAlignment="Center">
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_SortByPlayers}" FontSize="13"
-                                   VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-
-                        <ComboBox Margin="10,0,0,0" MinWidth="140" ItemsSource="{Binding Orders, Mode=OneTime}"
-                                  SelectedItem="{Binding SelectedOrder, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,3,20,3" VerticalAlignment="Center">
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Region}" FontSize="13"
-                                   VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-
-                        <ComboBox Margin="10,0,0,0" MinWidth="150" MaxDropDownHeight="280"
-                                  ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion, Mode=TwoWay}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,3,0,3" VerticalAlignment="Center">
-                        <ui:ToggleSwitch VerticalAlignment="Center" IsChecked="{Binding ExcludeFull, Mode=TwoWay}" />
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_HideFull}" FontSize="13" Margin="10,0,0,0"
-                                   VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-                    </StackPanel>
-                </WrapPanel>
-
-                <TextBlock Grid.Column="1" Text="{Binding SummaryText}" FontSize="13" Margin="16,0,12,0"
-                           VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-
-                <ui:Button Grid.Column="2" Appearance="Secondary" VerticalAlignment="Center"
-                           Command="{Binding RefreshCommand}" IsEnabled="{Binding CanRefresh}">
-                    <StackPanel Orientation="Horizontal">
-                        <ui:SymbolIcon Symbol="ArrowSync24" FontSize="14" Margin="0,0,8,0" />
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Refresh}" FontSize="13" />
-                    </StackPanel>
-                </ui:Button>
-            </Grid>
-        </Border>
-
-        <Grid Grid.Row="2">
-            <ui:ProgressRing IsIndeterminate="True" Width="32" Height="32"
-                             VerticalAlignment="Center" HorizontalAlignment="Center"
-                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-            <TextBlock Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
-                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
-                       Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-            <ItemsControl ItemsSource="{Binding Servers}" Margin="-4,-4,-4,0"
-                          ScrollViewer.CanContentScroll="True"
-                          VirtualizingPanel.IsVirtualizing="True"
-                          VirtualizingPanel.VirtualizationMode="Recycling"
-                          VirtualizingPanel.ScrollUnit="Pixel">
-                <ItemsControl.Template>
-                    <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <control:CardWrapPanel ItemSize="220,372" StretchItems="True" SpacingMode="None" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border x:Name="Card" Margin="4" Padding="12" CornerRadius="8"
-                                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <ItemsControl Grid.Row="0" Height="124" ItemsSource="{Binding Avatars}" Focusable="False">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <UniformGrid Columns="3" Rows="2" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Width="56" Height="56">
-                                                <Border x:Name="Backing" CornerRadius="28"
-                                                        Background="{ui:ThemeResource ControlStrongStrokeColorDisabledBrush}" />
-                                                <Border x:Name="Face" CornerRadius="28">
-                                                    <Border.Background>
-                                                        <ImageBrush ImageSource="{Binding ImageUrl}" Stretch="UniformToFill" />
-                                                    </Border.Background>
-                                                </Border>
-                                                <TextBlock x:Name="More" Text="{Binding OverflowText}" FontSize="17" FontWeight="SemiBold"
-                                                           HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
-                                                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
-                                            </Grid>
-                                            <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding IsOverflow}" Value="True">
-                                                    <Setter TargetName="Backing" Property="Background"
-                                                            Value="{ui:ThemeResource ControlStrongFillColorDisabledBrush}" />
-                                                    <Setter TargetName="Face" Property="Visibility" Value="Collapsed" />
-                                                    <Setter TargetName="More" Property="Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                            </DataTemplate.Triggers>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-
-                                <TextBlock Grid.Row="1" Text="{Binding CapacityText}" FontSize="15" Margin="0,10,0,8"
-                                           TextTrimming="CharacterEllipsis"
-                                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
-
-                                <StackPanel Grid.Row="2">
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6"
-                                                Visibility="{Binding HasPerformance, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <ui:SymbolIcon x:Name="PerformanceIcon" Symbol="ArrowTrending24" Style="{StaticResource StatIcon}" />
-                                        <TextBlock Text="{Binding PerformanceText}" Style="{StaticResource StatText}" />
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6"
-                                                Visibility="{Binding HasUptime, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <ui:SymbolIcon Symbol="ClockAlarm24" Style="{StaticResource StatIcon}" />
-                                        <TextBlock Text="{Binding UptimeText}" Style="{StaticResource StatText}" />
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6"
-                                                Visibility="{Binding HasVersion, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <ui:SymbolIcon Symbol="History24" Style="{StaticResource StatIcon}" />
-                                        <TextBlock Text="{Binding VersionText}" Style="{StaticResource StatText}" />
-                                    </StackPanel>
-                                </StackPanel>
-
-                                <StackPanel Grid.Row="3">
-                                    <ProgressBar Style="{StaticResource CapacityBar}" Margin="0,4,0,12"
-                                                 Value="{Binding FillPercentage, Mode=OneWay}" />
-
-                                    <ui:Button x:Name="JoinButton" Appearance="Secondary" HorizontalAlignment="Stretch"
-                                               Content="{x:Static resources:Strings.Menu_Overlay_Servers_Join}"
-                                               Command="{Binding DataContext.JoinCommand, RelativeSource={RelativeSource AncestorType=ItemsControl, AncestorLevel=1}}"
-                                               CommandParameter="{Binding Mode=OneTime}" />
-
-                                    <ui:Button Margin="0,6,0,0" Appearance="Secondary" HorizontalAlignment="Stretch"
-                                               Content="{x:Static resources:Strings.Menu_Overlay_Servers_Share}"
-                                               ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_CopyLink}"
-                                               Command="{Binding DataContext.CopyLinkCommand, RelativeSource={RelativeSource AncestorType=ItemsControl, AncestorLevel=1}}"
-                                               CommandParameter="{Binding Mode=OneTime}" />
-
-                                    <TextBlock Text="{Binding IdText}" FontSize="10" Margin="0,8,0,0"
-                                               HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"
-                                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                                </StackPanel>
+                                <ui:Button Grid.Column="1" Width="24" Height="24" Padding="0" Margin="6,0,0,0"
+                                           VerticalAlignment="Center" Appearance="Transparent"
+                                           ToolTip="{x:Static resources:Strings.ContextMenu_ServerInformation_CopyInstanceId}"
+                                           Command="{Binding CopyInstanceIdCommand}">
+                                    <ui:SymbolIcon Symbol="Copy24" FontSize="12" />
+                                </ui:Button>
                             </Grid>
-                        </Border>
 
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsLowPerformance}" Value="True">
-                                <Setter TargetName="PerformanceIcon" Property="Symbol" Value="ArrowTrendingDown24" />
-                            </DataTrigger>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_Location}"
+                                       FontSize="12" Margin="20,0,12,0" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}"
+                                       Visibility="{Binding ShowCurrentLocation, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding CurrentLocation}" FontSize="13"
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                       Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
+                                       Visibility="{Binding ShowCurrentLocation, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                            <DataTrigger Binding="{Binding IsCurrent}" Value="True">
-                                <Setter TargetName="Card" Property="BorderBrush"
-                                        Value="{DynamicResource AccentFillColorDefaultBrush}" />
-                                <Setter TargetName="JoinButton" Property="Content"
-                                        Value="{x:Static resources:Strings.Menu_Overlay_Servers_Current}" />
-                                <Setter TargetName="JoinButton" Property="IsEnabled" Value="False" />
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Static resources:Strings.ContextMenu_ServerInformation_Uptime}"
+                                       FontSize="12" Margin="20,6,12,0" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding CurrentUptime}" FontSize="13" Margin="0,6,0,0"
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                                       Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+                            <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Margin="16,0,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                                <ui:Button Appearance="Secondary" Margin="0,0,8,0" Command="{Binding ClosestCommand}" IsEnabled="{Binding CanJoinClosest}"
+                                           ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_ClosestTooltip}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ui:SymbolIcon Symbol="Location24" FontSize="14" Margin="0,0,8,0" />
+                                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Closest}" FontSize="13" />
+                                    </StackPanel>
+                                </ui:Button>
+
+                                <ui:Button Appearance="Primary" Command="{Binding HopCommand}" IsEnabled="{Binding CanHop}"
+                                           ToolTip="{x:Static resources:Strings.Menu_Overlay_Servers_HopTooltip}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ui:SymbolIcon Symbol="ArrowShuffle24" FontSize="14" Margin="0,0,8,0" />
+                                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Hop}" FontSize="13" />
+                                    </StackPanel>
+                                </ui:Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Border Margin="0,0,0,8" Padding="10,6" CornerRadius="6"
+                            Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <WrapPanel Grid.Column="0" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Margin="0,3,20,3" VerticalAlignment="Center">
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_SortByPlayers}" FontSize="13"
+                                               VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+
+                                    <ComboBox Margin="10,0,0,0" MinWidth="140" ItemsSource="{Binding Orders, Mode=OneTime}"
+                                              SelectedItem="{Binding SelectedOrder, Mode=TwoWay}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,3,20,3" VerticalAlignment="Center">
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_Region}" FontSize="13"
+                                               VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+
+                                    <ComboBox Margin="10,0,0,0" MinWidth="150" MaxDropDownHeight="280"
+                                              ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion, Mode=TwoWay}" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,3,0,3" VerticalAlignment="Center">
+                                    <ui:ToggleSwitch VerticalAlignment="Center" IsChecked="{Binding ExcludeFull, Mode=TwoWay}" />
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Servers_HideFull}" FontSize="13" Margin="10,0,0,0"
+                                               VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                                </StackPanel>
+                            </WrapPanel>
+
+                            <TextBlock Grid.Column="1" Text="{Binding SummaryText}" FontSize="13" Margin="16,0,12,0"
+                                       VerticalAlignment="Center" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+
+                            <ui:Button Grid.Column="2" Appearance="Secondary" VerticalAlignment="Center"
+                                       Command="{Binding RefreshCommand}" IsEnabled="{Binding CanRefresh}">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="ArrowSync24" FontSize="14" Margin="0,0,8,0" />
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Refresh}" FontSize="13" />
+                                </StackPanel>
+                            </ui:Button>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
         </Grid>
-    </Grid>
     </Grid>
 </UserControl>

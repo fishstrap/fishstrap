@@ -84,290 +84,300 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
-        <StackPanel>
-            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Overlay}" Style="{StaticResource SectionTitle}" />
+    <Grid>
+        <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+            <StackPanel>
+                <Border Height="{Binding ActualHeight, ElementName=Header}" />
 
-            <Border Style="{StaticResource Card}" Margin="0,0,0,20">
-                <Grid Style="{StaticResource Row}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Overlay}" Style="{StaticResource SectionTitle}" />
 
-                    <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_OverlayHotkey_Title}" Style="{StaticResource Label}" />
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_OverlayHotkey_Description}" Style="{StaticResource Hint}" />
-                        <TextBlock Text="{Binding HotkeyTakenText}" Style="{StaticResource Hint}"
-                                   Foreground="{ui:ThemeResource SystemFillColorCautionBrush}"
-                                   Visibility="{Binding HotkeyTaken, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Border Style="{StaticResource Card}" Margin="0,0,0,20">
+                    <Grid Style="{StaticResource Row}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_OverlayHotkey_Title}" Style="{StaticResource Label}" />
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Integrations_OverlayHotkey_Description}" Style="{StaticResource Hint}" />
+                            <TextBlock Text="{Binding HotkeyTakenText}" Style="{StaticResource Hint}"
+                                       Foreground="{ui:ThemeResource SystemFillColorCautionBrush}"
+                                       Visibility="{Binding HotkeyTaken, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <controls:HotkeyBox x:Name="ShortcutBox" Modifiers="{Binding HotkeyModifiers, Mode=TwoWay}" Key="{Binding HotkeyKey, Mode=TwoWay}" />
+                            <ui:Button Width="38" Height="30" Margin="4,0,0,0" Icon="Backspace24"
+                                       ToolTip="{x:Static resources:Strings.Menu_Integrations_OverlayHotkey_Reset}"
+                                       Command="{Binding ResetHotkeyCommand}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Notifications}" Style="{StaticResource SectionTitle}" />
+
+                <Border CornerRadius="8" BorderThickness="1" BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}">
+                    <Grid x:Name="PreviewArea" Height="180" SizeChanged="PreviewSizeChanged" MouseLeftButtonUp="PreviewClicked"
+                          Cursor="Hand" ToolTip="{x:Static resources:Strings.Menu_Overlay_Settings_Replay}">
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FF2E3A55" Offset="0" />
+                                <GradientStop Color="#FF1A2031" Offset="1" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <Border x:Name="Backdrop" Opacity="0.55" />
+
+                        <control:ToastCard x:Name="PreviewCard" />
+                    </Grid>
+                </Border>
+
+                <ui:Button Margin="0,8,0,12" HorizontalAlignment="Right" Appearance="Secondary"
+                           Command="{Binding TestCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Symbol="Alert24" FontSize="14" Margin="0,0,8,0" />
+                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Test}" FontSize="13" />
                     </StackPanel>
+                </ui:Button>
 
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <controls:HotkeyBox x:Name="ShortcutBox" Modifiers="{Binding HotkeyModifiers, Mode=TwoWay}" Key="{Binding HotkeyKey, Mode=TwoWay}" />
-                        <ui:Button Width="38" Height="30" Margin="4,0,0,0" Icon="Backspace24"
-                                   ToolTip="{x:Static resources:Strings.Menu_Integrations_OverlayHotkey_Reset}"
-                                   Command="{Binding ResetHotkeyCommand}" />
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Style}" Style="{StaticResource Label}" />
+
+                            <Border Grid.Column="1" Padding="3" CornerRadius="8" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                    Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton Style="{StaticResource Segment}" GroupName="ToastStyle"
+                                                 IsChecked="{Binding IsCorner, Mode=TwoWay}"
+                                                 Content="{x:Static resources:Strings.Enums_Overlay_ToastStyle_Corner}" />
+                                    <RadioButton Style="{StaticResource Segment}" GroupName="ToastStyle" Margin="2,0,0,0"
+                                                 IsChecked="{Binding IsFloating, Mode=TwoWay}"
+                                                 Content="{x:Static resources:Strings.Enums_Overlay_ToastStyle_Floating}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Position}" Style="{StaticResource Label}" />
+
+                            <ComboBox Grid.Column="1" MinWidth="160" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                      ItemsSource="{Binding Positions, Mode=OneTime}" SelectedItem="{Binding Position, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_CornerRadius}" Style="{StaticResource Label}" />
+                            <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"
+                                    Minimum="{Binding MinCornerRadius, Mode=OneTime}" Maximum="{Binding MaxCornerRadius, Mode=OneTime}"
+                                    Value="{Binding CornerRadius, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" Text="{Binding CornerRadiusText}" Style="{StaticResource Value}" />
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Size}" Style="{StaticResource Label}" />
+                            <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="5"
+                                    Minimum="{Binding MinSize, Mode=OneTime}" Maximum="{Binding MaxSize, Mode=OneTime}"
+                                    Value="{Binding Size, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" Text="{Binding SizeText}" Style="{StaticResource Value}" />
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Background}" Style="{StaticResource Label}" />
+                            <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="5"
+                                    Minimum="{Binding MinBackgroundOpacity, Mode=OneTime}" Maximum="{Binding MaxBackgroundOpacity, Mode=OneTime}"
+                                    Value="{Binding BackgroundOpacity, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" Text="{Binding BackgroundOpacityText}" Style="{StaticResource Value}" />
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Duration}" Style="{StaticResource Label}" />
+                            <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"
+                                    Minimum="{Binding MinDuration, Mode=OneTime}" Maximum="{Binding MaxDuration, Mode=OneTime}"
+                                    Value="{Binding Duration, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" Text="{Binding DurationText}" Style="{StaticResource Value}" />
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Animation}" Style="{StaticResource Label}" />
+
+                            <ComboBox Grid.Column="1" MinWidth="190" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                      ItemsSource="{Binding Animations, Mode=OneTime}" SelectedItem="{Binding Animation, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Header}" Style="{StaticResource Label}" />
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderHint}" Style="{StaticResource Hint}" />
+                            </StackPanel>
+
+                            <Border Grid.Column="1" Padding="3" CornerRadius="8" VerticalAlignment="Center"
+                                    Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                    BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5"
+                                                 IsChecked="{Binding HeaderOff, Mode=TwoWay}"
+                                                 Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderOff}" />
+                                    <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5" Margin="2,0,0,0"
+                                                 IsChecked="{Binding HeaderServer, Mode=TwoWay}"
+                                                 Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderServer}" />
+                                    <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5" Margin="2,0,0,0"
+                                                 IsChecked="{Binding HeaderFriends, Mode=TwoWay}"
+                                                 Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderFriends}" />
+                                    <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5" Margin="2,0,0,0"
+                                                 IsChecked="{Binding HeaderBoth, Mode=TwoWay}"
+                                                 Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderBoth}" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </StackPanel>
-                </Grid>
-            </Border>
+                </Border>
 
-            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Notifications}" Style="{StaticResource SectionTitle}" />
+                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_NotifyAbout}" Style="{StaticResource SectionTitle}" Margin="2,20,0,8" />
 
-            <Border CornerRadius="8" BorderThickness="1" BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}">
-                <Grid x:Name="PreviewArea" Height="180" SizeChanged="PreviewSizeChanged" MouseLeftButtonUp="PreviewClicked"
-                      Cursor="Hand" ToolTip="{x:Static resources:Strings.Menu_Overlay_Settings_Replay}">
-                    <Grid.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#FF2E3A55" Offset="0" />
-                            <GradientStop Color="#FF1A2031" Offset="1" />
-                        </LinearGradientBrush>
-                    </Grid.Background>
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                    <Border x:Name="Backdrop" Opacity="0.55" />
-
-                    <control:ToastCard x:Name="PreviewCard" />
-                </Grid>
-            </Border>
-
-            <ui:Button Margin="0,8,0,12" HorizontalAlignment="Right" Appearance="Secondary"
-                       Command="{Binding TestCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <ui:SymbolIcon Symbol="Alert24" FontSize="14" Margin="0,0,8,0" />
-                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Test}" FontSize="13" />
-                </StackPanel>
-            </ui:Button>
-
-            <Border Style="{StaticResource Card}">
-                <StackPanel>
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Style}" Style="{StaticResource Label}" />
-
-                        <Border Grid.Column="1" Padding="3" CornerRadius="8" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
-                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                            <StackPanel Orientation="Horizontal">
-                                <RadioButton Style="{StaticResource Segment}" GroupName="ToastStyle"
-                                             IsChecked="{Binding IsCorner, Mode=TwoWay}"
-                                             Content="{x:Static resources:Strings.Enums_Overlay_ToastStyle_Corner}" />
-                                <RadioButton Style="{StaticResource Segment}" GroupName="ToastStyle" Margin="2,0,0,0"
-                                             IsChecked="{Binding IsFloating, Mode=TwoWay}"
-                                             Content="{x:Static resources:Strings.Enums_Overlay_ToastStyle_Floating}" />
+                            <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_ServerDetails}" Style="{StaticResource Label}" />
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_ServerDetailsHint}" Style="{StaticResource Hint}" />
                             </StackPanel>
-                        </Border>
-                    </Grid>
+                            <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding ServerToasts, Mode=TwoWay}" />
+                        </Grid>
 
-                    <Rectangle Style="{StaticResource Divider}" />
+                        <Rectangle Style="{StaticResource Divider}" />
 
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Position}" Style="{StaticResource Label}" />
-
-                        <ComboBox Grid.Column="1" MinWidth="160" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                  ItemsSource="{Binding Positions, Mode=OneTime}" SelectedItem="{Binding Position, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-
-                    <Rectangle Style="{StaticResource Divider}" />
-
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_CornerRadius}" Style="{StaticResource Label}" />
-                        <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"
-                                Minimum="{Binding MinCornerRadius, Mode=OneTime}" Maximum="{Binding MaxCornerRadius, Mode=OneTime}"
-                                Value="{Binding CornerRadius, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2" Text="{Binding CornerRadiusText}" Style="{StaticResource Value}" />
-                    </Grid>
-
-                    <Rectangle Style="{StaticResource Divider}" />
-
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Size}" Style="{StaticResource Label}" />
-                        <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="5"
-                                Minimum="{Binding MinSize, Mode=OneTime}" Maximum="{Binding MaxSize, Mode=OneTime}"
-                                Value="{Binding Size, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2" Text="{Binding SizeText}" Style="{StaticResource Value}" />
-                    </Grid>
-
-                    <Rectangle Style="{StaticResource Divider}" />
-
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Background}" Style="{StaticResource Label}" />
-                        <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="5"
-                                Minimum="{Binding MinBackgroundOpacity, Mode=OneTime}" Maximum="{Binding MaxBackgroundOpacity, Mode=OneTime}"
-                                Value="{Binding BackgroundOpacity, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2" Text="{Binding BackgroundOpacityText}" Style="{StaticResource Value}" />
-                    </Grid>
-
-                    <Rectangle Style="{StaticResource Divider}" />
-
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Duration}" Style="{StaticResource Label}" />
-                        <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"
-                                Minimum="{Binding MinDuration, Mode=OneTime}" Maximum="{Binding MaxDuration, Mode=OneTime}"
-                                Value="{Binding Duration, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2" Text="{Binding DurationText}" Style="{StaticResource Value}" />
-                    </Grid>
-
-                    <Rectangle Style="{StaticResource Divider}" />
-
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Animation}" Style="{StaticResource Label}" />
-
-                        <ComboBox Grid.Column="1" MinWidth="190" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                  ItemsSource="{Binding Animations, Mode=OneTime}" SelectedItem="{Binding Animation, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-
-                    <Rectangle Style="{StaticResource Divider}" />
-
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Header}" Style="{StaticResource Label}" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderHint}" Style="{StaticResource Hint}" />
-                        </StackPanel>
-
-                        <Border Grid.Column="1" Padding="3" CornerRadius="8" VerticalAlignment="Center"
-                                Background="{ui:ThemeResource CardBackgroundFillColorSecondaryBrush}"
-                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
-                            <StackPanel Orientation="Horizontal">
-                                <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5"
-                                             IsChecked="{Binding HeaderOff, Mode=TwoWay}"
-                                             Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderOff}" />
-                                <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5" Margin="2,0,0,0"
-                                             IsChecked="{Binding HeaderServer, Mode=TwoWay}"
-                                             Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderServer}" />
-                                <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5" Margin="2,0,0,0"
-                                             IsChecked="{Binding HeaderFriends, Mode=TwoWay}"
-                                             Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderFriends}" />
-                                <RadioButton Style="{StaticResource Segment}" GroupName="ToastHeader" Padding="12,5" Margin="2,0,0,0"
-                                             IsChecked="{Binding HeaderBoth, Mode=TwoWay}"
-                                             Content="{x:Static resources:Strings.Menu_Overlay_Settings_HeaderBoth}" />
+                            <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Friends}" Style="{StaticResource Label}" />
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_FriendsHint}" Style="{StaticResource Hint}" />
                             </StackPanel>
-                        </Border>
-                    </Grid>
-                </StackPanel>
-            </Border>
+                            <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding FriendNotifications, Mode=TwoWay}" />
+                        </Grid>
 
-            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_NotifyAbout}" Style="{StaticResource SectionTitle}" Margin="2,20,0,8" />
+                        <Rectangle Style="{StaticResource Divider}" />
 
-            <Border Style="{StaticResource Card}">
-                <StackPanel>
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_ServerDetails}" Style="{StaticResource Label}" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_ServerDetailsHint}" Style="{StaticResource Hint}" />
-                        </StackPanel>
-                        <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding ServerToasts, Mode=TwoWay}" />
-                    </Grid>
+                            <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Badges}" Style="{StaticResource Label}" />
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_BadgesHint}" Style="{StaticResource Hint}" />
+                            </StackPanel>
+                            <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding BadgeNotifications, Mode=TwoWay}" />
+                        </Grid>
 
-                    <Rectangle Style="{StaticResource Divider}" />
+                        <Rectangle Style="{StaticResource Divider}" />
 
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Friends}" Style="{StaticResource Label}" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_FriendsHint}" Style="{StaticResource Hint}" />
-                        </StackPanel>
-                        <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding FriendNotifications, Mode=TwoWay}" />
-                    </Grid>
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_StartHint}" Style="{StaticResource Label}" Margin="0,0,12,0" />
+                            <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding StartHint, Mode=TwoWay}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
 
-                    <Rectangle Style="{StaticResource Divider}" />
+                <ui:Button Margin="0,16,0,4" HorizontalAlignment="Left" Appearance="Secondary" Command="{Binding ResetCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Symbol="ArrowReset24" FontSize="14" Margin="0,0,8,0" />
+                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Reset}" FontSize="13" />
+                    </StackPanel>
+                </ui:Button>
+            </StackPanel>
+        </ScrollViewer>
 
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+        <Grid x:Name="Header" VerticalAlignment="Top">
+            <control:AcrylicBackdrop Source="{Binding ElementName=Scroller}" />
 
-                        <StackPanel VerticalAlignment="Center" Margin="0,6,12,6">
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Badges}" Style="{StaticResource Label}" />
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_BadgesHint}" Style="{StaticResource Hint}" />
-                        </StackPanel>
-                        <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding BadgeNotifications, Mode=TwoWay}" />
-                    </Grid>
-
-                    <Rectangle Style="{StaticResource Divider}" />
-
-                    <Grid Style="{StaticResource Row}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_StartHint}" Style="{StaticResource Label}" Margin="0,0,12,0" />
-                        <ui:ToggleSwitch Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding StartHint, Mode=TwoWay}" />
-                    </Grid>
-                </StackPanel>
-            </Border>
-
-            <ui:Button Margin="0,16,0,4" HorizontalAlignment="Left" Appearance="Secondary" Command="{Binding ResetCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <ui:SymbolIcon Symbol="ArrowReset24" FontSize="14" Margin="0,0,8,0" />
-                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Reset}" FontSize="13" />
-                </StackPanel>
-            </ui:Button>
-        </StackPanel>
-    </ScrollViewer>
+            <Border Height="{Binding (control:OverlayPanel.HeaderInset), RelativeSource={RelativeSource Self}}" />
+        </Grid>
+    </Grid>
 </UserControl>

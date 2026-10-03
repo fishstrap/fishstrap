@@ -21,6 +21,13 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
         public static readonly DependencyProperty BlurRadiusProperty = DependencyProperty.Register(
             nameof(BlurRadius), typeof(double), typeof(AcrylicBackdrop), new PropertyMetadata(40d, OnLookChanged));
 
+        private static readonly DependencyPropertyKey ContentInsetKey = DependencyProperty.RegisterReadOnly(
+            nameof(ContentInset), typeof(Thickness), typeof(AcrylicBackdrop), new PropertyMetadata(new Thickness()));
+
+        public static readonly DependencyProperty ContentInsetProperty = ContentInsetKey.DependencyProperty;
+
+        public Thickness ContentInset => (Thickness)GetValue(ContentInsetProperty);
+
         public static readonly DependencyProperty TintOpacityProperty = DependencyProperty.Register(
             nameof(TintOpacity), typeof(double), typeof(AcrylicBackdrop), new PropertyMetadata(0.6, OnLookChanged));
 
@@ -57,6 +64,8 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
         private readonly Border _edge;
 
         private UIElement? _wheelHost;
+
+        private ScrollViewer? _scroller;
 
         private Rect _viewbox = Rect.Empty;
 
@@ -102,19 +111,17 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             ApplyLook();
 
             LayoutUpdated += (_, _) => Sync();
+            SizeChanged += (_, e) =>
+            {
+                if (e.HeightChanged)
+                    SetValue(ContentInsetKey, new Thickness(0, e.NewSize.Height, 0, 0));
+            };
             Unloaded += (_, _) => _sample.Visual = null;
             Loaded += (_, _) => Attach(Source);
         }
 
-        private static void OnSourceChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
-        {
-            var backdrop = (AcrylicBackdrop)target;
-
-            if (e.OldValue is ScrollViewer old)
-                old.ScrollChanged -= backdrop.OnScrollChanged;
-
-            backdrop.Attach(e.NewValue as FrameworkElement);
-        }
+        private static void OnSourceChanged(DependencyObject target, DependencyPropertyChangedEventArgs e) =>
+            ((AcrylicBackdrop)target).Attach(e.NewValue as FrameworkElement);
 
         private static void OnLookChanged(DependencyObject target, DependencyPropertyChangedEventArgs e) => ((AcrylicBackdrop)target).ApplyLook();
 
@@ -186,17 +193,44 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private void Attach(FrameworkElement? source)
         {
+            if (_scroller is not null)
+                _scroller.ScrollChanged -= OnScrollChanged;
+
+            _scroller = null;
             _viewbox = Rect.Empty;
             _barTop = -1;
             _sample.Visual = source;
+            _edge.Opacity = 0;
 
-            if (source is not ScrollViewer scroller)
+            FindScroller();
+        }
+
+        private void FindScroller()
+        {
+            if (_scroller is not null || Source is null)
                 return;
 
-            scroller.ScrollChanged -= OnScrollChanged;
-            scroller.ScrollChanged += OnScrollChanged;
+            _scroller = Descendant<ScrollViewer>(Source);
 
-            _edge.Opacity = scroller.VerticalOffset > 0.5 ? 1 : 0;
+            if (_scroller is null)
+                return;
+
+            _scroller.ScrollChanged += OnScrollChanged;
+            _edge.Opacity = _scroller.VerticalOffset > 0.5 ? 1 : 0;
+        }
+
+        private static T? Descendant<T>(DependencyObject root) where T : DependencyObject
+        {
+            if (root is T match)
+                return match;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(root); i++)
+            {
+                if (Descendant<T>(VisualTreeHelper.GetChild(root, i)) is T found)
+                    return found;
+            }
+
+            return null;
         }
 
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e) =>
@@ -217,7 +251,7 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private void ForwardWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Handled || Source is not ScrollViewer scroller)
+            if (e.Handled || _scroller is not ScrollViewer scroller)
                 return;
 
             scroller.ScrollToVerticalOffset(scroller.VerticalOffset - e.Delta);
@@ -262,12 +296,23 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
                 _sample.Viewbox = viewbox;
             }
 
-            double barTop = Math.Max(Math.Round(origin.Y + ActualHeight), 0);
+            FindScroller();
 
-            if (barTop == _barTop || source is not ScrollViewer scroller)
+            if (_scroller is not ScrollViewer scroller)
                 return;
 
-            if (scroller.Template?.FindName("PART_VerticalScrollBar", scroller) is not ScrollBar bar)
+            double barTop;
+
+            try
+            {
+                barTop = Math.Max(Math.Round(TranslatePoint(new Point(0, ActualHeight), scroller).Y), 0);
+            }
+            catch (InvalidOperationException)
+            {
+                return;
+            }
+
+            if (barTop == _barTop || scroller.Template?.FindName("PART_VerticalScrollBar", scroller) is not ScrollBar bar)
                 return;
 
             _barTop = barTop;

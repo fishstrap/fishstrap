@@ -6889,5 +6889,11 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Menu.Overlay.Badges.RemoveFailed", resourceCulture);
             }
         }
+
+        public static string Menu_Overlay_Games_Continue {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.Continue", resourceCulture);
+            }
+        }
     }
 }

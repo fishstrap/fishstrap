@@ -171,6 +171,10 @@
                                 Visibility="{Binding ShowingSearch, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </Grid>
 
+                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Games_Continue}" FontSize="15" FontWeight="SemiBold" Margin="2,0,0,8"
+                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
+                           Visibility="{Binding ShowContinueLabel, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
                 <TextBlock Text="{Binding StatusText}" FontSize="12" Margin="2,0,0,8"
                            Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
                            Visibility="{Binding HasStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />

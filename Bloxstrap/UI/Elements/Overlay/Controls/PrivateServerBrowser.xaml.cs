@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -8,6 +9,15 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 {
     public partial class PrivateServerBrowser : UserControl
     {
+        public static readonly DependencyProperty TopInsetProperty = DependencyProperty.Register(
+            nameof(TopInset), typeof(double), typeof(PrivateServerBrowser), new PropertyMetadata(0d));
+
+        public double TopInset
+        {
+            get => (double)GetValue(TopInsetProperty);
+            set => SetValue(TopInsetProperty, value);
+        }
+
         private PrivateServersViewModel _viewModel;
 
         public PrivateServerBrowser()

@@ -88,6 +88,7 @@
 
                 <control:OverlayPanel x:Name="BadgesPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Badges}" Icon="RibbonStar24"
+                                      HeaderOverContent="True"
                                       Visibility="{Binding BadgesVisibility}"
                                       CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Badges"
                                       IsPinned="{Binding BadgesPinned}"
@@ -99,6 +100,7 @@
 
                 <control:OverlayPanel x:Name="ServersPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Servers}" Icon="Cloud24"
+                                      HeaderOverContent="True"
                                       Visibility="{Binding ServersVisibility}"
                                       CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Servers"
                                       IsPinned="{Binding ServersPinned}"
@@ -122,6 +124,7 @@
 
                 <control:OverlayPanel x:Name="HistoryPanel"
                                       Title="{x:Static resources:Strings.ContextMenu_GameHistory_Title}" Icon="History24"
+                                      HeaderOverContent="True"
                                       Visibility="{Binding HistoryVisibility}"
                                       CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="History"
                                       IsPinned="{Binding HistoryPinned}"
@@ -156,6 +159,7 @@
 
                 <control:OverlayPanel x:Name="SettingsPanel"
                                       Title="{x:Static resources:Strings.Menu_Overlay_Tab_Settings}" Icon="Settings24"
+                                      HeaderOverContent="True"
                                       Visibility="{Binding SettingsVisibility}"
                                       CloseCommand="{Binding ClosePanelCommand}" CloseCommandParameter="Settings"
                                       IsPinned="{Binding SettingsPinned}"

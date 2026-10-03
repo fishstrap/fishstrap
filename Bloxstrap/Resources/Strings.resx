@@ -2658,4 +2658,7 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Badges.RemoveFailed" xml:space="preserve">
     <value>{0} of {1} couldn't be removed. Try again in a moment.</value>
   </data>
+  <data name="Menu.Overlay.Games.Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
 </root>

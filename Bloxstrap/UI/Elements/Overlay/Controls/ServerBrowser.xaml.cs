@@ -20,6 +20,10 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             InitializeComponent();
 
+            PublicTab.Checked += (_, _) => Frost.Source = PublicList;
+            PrivateTab.Checked += (_, _) => Frost.Source = PrivateView;
+            RecentTab.Checked += (_, _) => Frost.Source = RecentList;
+
             PublicView.IsVisibleChanged += (_, _) => _viewModel.SetVisible(PublicView.IsVisible);
 
             RecentView.IsVisibleChanged += async (_, _) =>

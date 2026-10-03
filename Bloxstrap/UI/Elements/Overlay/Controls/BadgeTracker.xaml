@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resources="clr-namespace:Bloxstrap.Resources"
+             xmlns:control="clr-namespace:Bloxstrap.UI.Elements.Overlay.Controls"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d"
              d:DesignHeight="560" d:DesignWidth="820"
@@ -38,225 +39,243 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="{Binding ActualHeight, ElementName=Header}" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="0,0,0,8" MinHeight="32">
-            <Grid Visibility="{Binding ShowSummary, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+        <ui:ProgressRing Grid.Row="1" IsIndeterminate="True" Width="32" Height="32"
+                         VerticalAlignment="Center" HorizontalAlignment="Center"
+                         Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <TextBlock Grid.Column="0" Text="{Binding HeaderText}" FontSize="13" VerticalAlignment="Center"
-                           TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+        <TextBlock Grid.Row="1" Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
+                   Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                   Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center"
-                           Command="{Binding RefreshCommand}" IsEnabled="{Binding CanRefresh}">
-                    <StackPanel Orientation="Horizontal">
-                        <ui:SymbolIcon Symbol="ArrowSync24" FontSize="14" Margin="0,0,8,0" />
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Refresh}" FontSize="13" />
-                    </StackPanel>
-                </ui:Button>
-            </Grid>
+        <ItemsControl x:Name="BadgeList" Grid.RowSpan="2" ItemsSource="{Binding Badges}" AlternationCount="2147483647"
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                      VirtualizingPanel.ScrollUnit="Pixel">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
 
-            <Grid Visibility="{Binding ShowSelectionBar, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter Property="Margin" Value="{Binding ContentInset, ElementName=Frost}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
 
-                <TextBlock Grid.Column="0" Text="{Binding SelectionText}" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"
-                           TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-                <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center" Margin="8,0,0,0"
-                           Command="{Binding SelectAllCommand}"
-                           Visibility="{Binding CanSelectAll, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_SelectAll}" FontSize="13" />
-                </ui:Button>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="Card" Margin="0,0,0,6" Padding="10" CornerRadius="8"
+                            Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                <ui:Button Grid.Column="2" Appearance="Secondary" VerticalAlignment="Center" Margin="8,0,0,0"
-                           Command="{Binding ClearSelectionCommand}">
-                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_ClearSelection}" FontSize="13" />
-                </ui:Button>
+                            <CheckBox x:Name="SelectBox" Grid.Column="0" MinWidth="0" MinHeight="0" Padding="0" Margin="0,0,10,0"
+                                      VerticalAlignment="Center" Visibility="Collapsed"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                      IsEnabled="{Binding DataContext.CanEdit, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                      ToolTip="{x:Static resources:Strings.Menu_Overlay_Badges_SelectTooltip}" />
 
-                <ui:Button Grid.Column="3" Appearance="Danger" VerticalAlignment="Center" Margin="8,0,0,0"
-                           Command="{Binding RemoveSelectedCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <ui:SymbolIcon Symbol="Delete24" FontSize="14" Margin="0,0,8,0" />
-                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_RemoveSelected}" FontSize="13" />
-                    </StackPanel>
-                </ui:Button>
-            </Grid>
-
-            <Grid Visibility="{Binding IsConfirming, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Text="{Binding ConfirmText}" FontSize="13" VerticalAlignment="Center" TextWrapping="Wrap"
-                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
-
-                <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center" Margin="12,0,0,0"
-                           Command="{Binding CancelRemoveCommand}">
-                    <TextBlock Text="{x:Static resources:Strings.Common_Cancel}" FontSize="13" />
-                </ui:Button>
-
-                <ui:Button Grid.Column="2" Appearance="Danger" VerticalAlignment="Center" Margin="8,0,0,0"
-                           Command="{Binding ConfirmRemoveCommand}">
-                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_Remove}" FontSize="13" />
-                </ui:Button>
-            </Grid>
-
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
-                        Visibility="{Binding IsRemoving, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <ui:ProgressRing IsIndeterminate="True" Width="16" Height="16" Margin="0,0,10,0" />
-                <TextBlock Text="{Binding RemovingText}" FontSize="13" VerticalAlignment="Center"
-                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-            </StackPanel>
-        </Grid>
-
-        <ProgressBar Grid.Row="0" VerticalAlignment="Bottom" Height="3" Margin="0,0,0,2"
-                     Value="{Binding CompletionPercentage, Mode=OneWay}" Maximum="100" />
-
-        <Grid Grid.Row="1">
-            <ui:ProgressRing IsIndeterminate="True" Width="32" Height="32"
-                             VerticalAlignment="Center" HorizontalAlignment="Center"
-                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-            <TextBlock Text="{Binding EmptyText}" FontSize="13" TextAlignment="Center" TextWrapping="Wrap"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
-                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
-                       Visibility="{Binding ShowEmptyState, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-            <ItemsControl ItemsSource="{Binding Badges}"
-                          ScrollViewer.CanContentScroll="True"
-                          VirtualizingPanel.IsVirtualizing="True"
-                          VirtualizingPanel.VirtualizationMode="Recycling"
-                          VirtualizingPanel.ScrollUnit="Pixel">
-                <ItemsControl.Template>
-                    <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border x:Name="Card" Margin="0,0,0,6" Padding="10" CornerRadius="8"
-                                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <CheckBox x:Name="SelectBox" Grid.Column="0" MinWidth="0" MinHeight="0" Padding="0" Margin="0,0,10,0"
-                                          VerticalAlignment="Center" Visibility="Collapsed"
-                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                          IsEnabled="{Binding DataContext.CanEdit, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                          ToolTip="{x:Static resources:Strings.Menu_Overlay_Badges_SelectTooltip}" />
-
-                                <Border Grid.Column="1" Width="56" Height="56" CornerRadius="6"
-                                        VerticalAlignment="Top"
-                                        Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
-                                    <Border CornerRadius="6">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding IconUrl}" Stretch="UniformToFill" />
-                                        </Border.Background>
-                                    </Border>
+                            <Border Grid.Column="1" Width="56" Height="56" CornerRadius="6"
+                                    VerticalAlignment="Top"
+                                    Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                                <Border CornerRadius="6">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding IconUrl}" Stretch="UniformToFill" />
+                                    </Border.Background>
                                 </Border>
+                            </Border>
 
-                                <StackPanel Grid.Column="2" Margin="12,0,12,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold"
-                                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
-                                               TextTrimming="CharacterEllipsis" />
+                            <StackPanel Grid.Column="2" Margin="12,0,12,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold"
+                                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
+                                           TextTrimming="CharacterEllipsis" />
 
-                                    <TextBlock Text="{Binding Description}" FontSize="12" Margin="0,4,0,0"
-                                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
-                                               TextWrapping="Wrap" MaxHeight="34" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Text="{Binding Description}" FontSize="12" Margin="0,4,0,0"
+                                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}"
+                                           TextWrapping="Wrap" MaxHeight="34" TextTrimming="CharacterEllipsis" />
 
-                                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                                        <TextBlock FontSize="11" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
-                                            <Run Text="{x:Static resources:Strings.Menu_Overlay_Badges_Rarity}" />
-                                            <Run Text="{Binding RarityText, Mode=OneWay}" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-                                        </TextBlock>
-                                        <TextBlock FontSize="11" Margin="16,0,0,0" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
-                                            <Run Text="{x:Static resources:Strings.Menu_Overlay_Badges_Today}" />
-                                            <Run Text="{Binding PastDayAwardedText, Mode=OneWay}" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-                                        </TextBlock>
-                                        <TextBlock FontSize="11" Margin="16,0,0,0" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
-                                            <Run Text="{x:Static resources:Strings.Menu_Overlay_Badges_Total}" />
-                                            <Run Text="{Binding AwardedCountText, Mode=OneWay}" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-                                        </TextBlock>
-                                    </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                    <TextBlock FontSize="11" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
+                                        <Run Text="{x:Static resources:Strings.Menu_Overlay_Badges_Rarity}" />
+                                        <Run Text="{Binding RarityText, Mode=OneWay}" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                                    </TextBlock>
+                                    <TextBlock FontSize="11" Margin="16,0,0,0" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
+                                        <Run Text="{x:Static resources:Strings.Menu_Overlay_Badges_Today}" />
+                                        <Run Text="{Binding PastDayAwardedText, Mode=OneWay}" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                                    </TextBlock>
+                                    <TextBlock FontSize="11" Margin="16,0,0,0" Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
+                                        <Run Text="{x:Static resources:Strings.Menu_Overlay_Badges_Total}" />
+                                        <Run Text="{Binding AwardedCountText, Mode=OneWay}" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                                    </TextBlock>
                                 </StackPanel>
+                            </StackPanel>
 
-                                <Border x:Name="StatusChip" Grid.Column="3" VerticalAlignment="Center" Padding="8,4" CornerRadius="4"
-                                        Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <ui:SymbolIcon x:Name="AwardedIcon" Symbol="Trophy24" FontSize="12" Margin="0,0,6,0"
-                                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
-                                        <TextBlock Text="{Binding StatusText}" FontSize="11" VerticalAlignment="Center"
-                                                   Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-                                    </StackPanel>
-                                </Border>
+                            <Border x:Name="StatusChip" Grid.Column="3" VerticalAlignment="Center" Padding="8,4" CornerRadius="4"
+                                    Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon x:Name="AwardedIcon" Symbol="Trophy24" FontSize="12" Margin="0,0,6,0"
+                                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                    <TextBlock Text="{Binding StatusText}" FontSize="11" VerticalAlignment="Center"
+                                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                                </StackPanel>
+                            </Border>
 
-                                <Button x:Name="RemoveBadge" Grid.Column="4" Style="{StaticResource RemoveButton}" Margin="8,0,0,0"
-                                        VerticalAlignment="Center" Visibility="Collapsed"
-                                        Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                        CommandParameter="{Binding}"
-                                        IsEnabled="{Binding DataContext.CanEdit, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                        ToolTip="{x:Static resources:Strings.Menu_Overlay_Badges_RemoveTooltip}">
-                                    <ui:SymbolIcon Symbol="Delete24" FontSize="16" />
-                                </Button>
-                            </Grid>
-                        </Border>
+                            <Button x:Name="RemoveBadge" Grid.Column="4" Style="{StaticResource RemoveButton}" Margin="8,0,0,0"
+                                    VerticalAlignment="Center" Visibility="Collapsed"
+                                    Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}"
+                                    IsEnabled="{Binding DataContext.CanEdit, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    ToolTip="{x:Static resources:Strings.Menu_Overlay_Badges_RemoveTooltip}">
+                                <ui:SymbolIcon Symbol="Delete24" FontSize="16" />
+                            </Button>
+                        </Grid>
+                    </Border>
 
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding DataContext.AnyRemovable, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Value="True">
-                                <Setter TargetName="SelectBox" Property="Visibility" Value="Hidden" />
-                            </DataTrigger>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.AnyRemovable, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Value="True">
+                            <Setter TargetName="SelectBox" Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
 
-                            <DataTrigger Binding="{Binding CanRemove}" Value="True">
-                                <Setter TargetName="SelectBox" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="RemoveBadge" Property="Visibility" Value="Visible" />
-                            </DataTrigger>
+                        <DataTrigger Binding="{Binding CanRemove}" Value="True">
+                            <Setter TargetName="SelectBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="RemoveBadge" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
 
-                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-                            </DataTrigger>
+                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                            <Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                        </DataTrigger>
 
-                            <DataTrigger Binding="{Binding AwardedKnown}" Value="False">
-                                <Setter TargetName="StatusChip" Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
+                        <DataTrigger Binding="{Binding AwardedKnown}" Value="False">
+                            <Setter TargetName="StatusChip" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
 
-                            <DataTrigger Binding="{Binding Awarded}" Value="True">
-                                <Setter TargetName="AwardedIcon" Property="Filled" Value="True" />
-                                <Setter TargetName="AwardedIcon" Property="Foreground"
-                                        Value="{DynamicResource AccentFillColorDefaultBrush}" />
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                        <DataTrigger Binding="{Binding Awarded}" Value="True">
+                            <Setter TargetName="AwardedIcon" Property="Filled" Value="True" />
+                            <Setter TargetName="AwardedIcon" Property="Foreground"
+                                    Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Grid x:Name="Header" Grid.RowSpan="2" VerticalAlignment="Top">
+            <control:AcrylicBackdrop x:Name="Frost" Source="{Binding ElementName=BadgeList}" />
+
+            <StackPanel>
+                <Border Height="{Binding (control:OverlayPanel.HeaderInset), RelativeSource={RelativeSource Self}}" />
+
+                <Grid>
+                    <Grid Margin="0,0,0,8" MinHeight="32">
+                        <Grid Visibility="{Binding ShowSummary, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding HeaderText}" FontSize="13" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+
+                            <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center"
+                                       Command="{Binding RefreshCommand}" IsEnabled="{Binding CanRefresh}">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="ArrowSync24" FontSize="14" Margin="0,0,8,0" />
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Refresh}" FontSize="13" />
+                                </StackPanel>
+                            </ui:Button>
+                        </Grid>
+
+                        <Grid Visibility="{Binding ShowSelectionBar, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding SelectionText}" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+                            <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center" Margin="8,0,0,0"
+                                       Command="{Binding SelectAllCommand}"
+                                       Visibility="{Binding CanSelectAll, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_SelectAll}" FontSize="13" />
+                            </ui:Button>
+
+                            <ui:Button Grid.Column="2" Appearance="Secondary" VerticalAlignment="Center" Margin="8,0,0,0"
+                                       Command="{Binding ClearSelectionCommand}">
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_ClearSelection}" FontSize="13" />
+                            </ui:Button>
+
+                            <ui:Button Grid.Column="3" Appearance="Danger" VerticalAlignment="Center" Margin="8,0,0,0"
+                                       Command="{Binding RemoveSelectedCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="Delete24" FontSize="14" Margin="0,0,8,0" />
+                                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_RemoveSelected}" FontSize="13" />
+                                </StackPanel>
+                            </ui:Button>
+                        </Grid>
+
+                        <Grid Visibility="{Binding IsConfirming, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding ConfirmText}" FontSize="13" VerticalAlignment="Center" TextWrapping="Wrap"
+                                       Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+                            <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center" Margin="12,0,0,0"
+                                       Command="{Binding CancelRemoveCommand}">
+                                <TextBlock Text="{x:Static resources:Strings.Common_Cancel}" FontSize="13" />
+                            </ui:Button>
+
+                            <ui:Button Grid.Column="2" Appearance="Danger" VerticalAlignment="Center" Margin="8,0,0,0"
+                                       Command="{Binding ConfirmRemoveCommand}">
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_Remove}" FontSize="13" />
+                            </ui:Button>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                    Visibility="{Binding IsRemoving, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <ui:ProgressRing IsIndeterminate="True" Width="16" Height="16" Margin="0,0,10,0" />
+                            <TextBlock Text="{Binding RemovingText}" FontSize="13" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <ProgressBar VerticalAlignment="Bottom" Height="3" Margin="0,0,0,2"
+                                 Value="{Binding CompletionPercentage, Mode=OneWay}" Maximum="100" />
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:enums="clr-namespace:Bloxstrap.Enums"
              xmlns:resources="clr-namespace:Bloxstrap.Resources"
+             xmlns:control="clr-namespace:Bloxstrap.UI.Elements.Overlay.Controls"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d"
              d:DesignHeight="440" d:DesignWidth="580"
@@ -12,105 +13,121 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="{Binding ActualHeight, ElementName=Header}" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="{x:Static resources:Strings.ContextMenu_GameHistory_Description}"
-                   FontSize="12" TextWrapping="Wrap" Margin="2,0,2,8"
-                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+        <Border Grid.Row="1">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding LoadState, Mode=OneWay}" Value="{x:Static enums:GenericTriState.Unknown}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
 
-        <Grid Grid.Row="1">
-            <Border>
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding LoadState, Mode=OneWay}" Value="{x:Static enums:GenericTriState.Unknown}">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
+            <ui:ProgressRing IsIndeterminate="True" Width="32" Height="32"
+                             VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </Border>
 
-                <ui:ProgressRing IsIndeterminate="True" Width="32" Height="32"
-                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
-            </Border>
+        <TextBlock Grid.Row="1" Text="{Binding Error, Mode=OneWay}" FontSize="13" TextWrapping="Wrap" TextAlignment="Center"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
+                   Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding LoadState, Mode=OneWay}" Value="{x:Static enums:GenericTriState.Failed}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
-            <TextBlock Text="{Binding Error, Mode=OneWay}" FontSize="13" TextWrapping="Wrap" TextAlignment="Center"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="320"
-                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding LoadState, Mode=OneWay}" Value="{x:Static enums:GenericTriState.Failed}">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+        <ItemsControl x:Name="HistoryList" Grid.RowSpan="2" ItemsSource="{Binding GameHistory, Mode=OneWay}" AlternationCount="2147483647"
+                      ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                      VirtualizingPanel.ScrollUnit="Pixel">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
 
-            <ItemsControl ItemsSource="{Binding GameHistory, Mode=OneWay}"
-                          ScrollViewer.CanContentScroll="True"
-                          VirtualizingPanel.IsVirtualizing="True"
-                          VirtualizingPanel.VirtualizationMode="Recycling"
-                          VirtualizingPanel.ScrollUnit="Pixel">
-                <ItemsControl.Template>
-                    <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,-8,0" Padding="0,0,8,0">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter Property="Margin" Value="{Binding ContentInset, ElementName=Frost}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Margin="0,0,0,6" Padding="10" CornerRadius="8"
-                                Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,0,0,6" Padding="10" CornerRadius="8"
+                            Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="0" Width="56" Height="56" CornerRadius="6"
-                                        Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
-                                    <Border CornerRadius="6">
-                                        <Border.Background>
-                                            <ImageBrush ImageSource="{Binding UniverseDetails.Thumbnail.ImageUrl, IsAsync=True}" Stretch="UniformToFill" />
-                                        </Border.Background>
-                                    </Border>
+                            <Border Grid.Column="0" Width="56" Height="56" CornerRadius="6"
+                                    Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                                <Border CornerRadius="6">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding UniverseDetails.Thumbnail.ImageUrl, IsAsync=True}" Stretch="UniformToFill" />
+                                    </Border.Background>
                                 </Border>
+                            </Border>
 
-                                <StackPanel Grid.Column="1" Margin="12,0,12,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding UniverseDetails.Data.Name}" FontSize="14" FontWeight="SemiBold"
-                                               TextTrimming="CharacterEllipsis"
-                                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+                            <StackPanel Grid.Column="1" Margin="12,0,12,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding UniverseDetails.Data.Name}" FontSize="14" FontWeight="SemiBold"
+                                           TextTrimming="CharacterEllipsis"
+                                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
 
-                                    <TextBlock Text="{Binding GameHistoryDescription}" FontSize="12" Margin="0,3,0,0"
-                                               TextTrimming="CharacterEllipsis"
-                                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
-                                </StackPanel>
+                                <TextBlock Text="{Binding GameHistoryDescription}" FontSize="12" Margin="0,3,0,0"
+                                           TextTrimming="CharacterEllipsis"
+                                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
 
-                                <ui:Button Grid.Column="2" MinWidth="76" VerticalAlignment="Center" Appearance="Primary"
-                                           Content="{x:Static resources:Strings.ContextMenu_GameHistory_Rejoin}"
-                                           Command="{Binding RejoinServerCommand}" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                            <ui:Button Grid.Column="2" MinWidth="76" VerticalAlignment="Center" Appearance="Primary"
+                                       Content="{x:Static resources:Strings.ContextMenu_GameHistory_Rejoin}"
+                                       Command="{Binding RejoinServerCommand}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Grid x:Name="Header" Grid.RowSpan="2" VerticalAlignment="Top">
+            <control:AcrylicBackdrop x:Name="Frost" Source="{Binding ElementName=HistoryList}" />
+
+            <StackPanel>
+                <Border Height="{Binding (control:OverlayPanel.HeaderInset), RelativeSource={RelativeSource Self}}" />
+
+                <TextBlock Text="{x:Static resources:Strings.ContextMenu_GameHistory_Description}"
+                           FontSize="12" TextWrapping="Wrap" Margin="2,0,2,8"
+                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
