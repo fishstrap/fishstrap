@@ -6,6 +6,10 @@ namespace Bloxstrap.RobloxInterfaces
 
         private const int MaxPages = 5;
 
+        private const int RemoveAttempts = 3;
+
+        private static readonly TimeSpan RateLimitBackoff = TimeSpan.FromSeconds(2);
+
         public static async Task<List<Badge>> FetchAsync(long universeId, long userId)
         {
             var badges = new List<Badge>();
@@ -83,6 +87,24 @@ namespace Bloxstrap.RobloxInterfaces
             {
                 App.Logger.WriteLine(LOG_IDENT, "Failed to fetch awarded dates");
                 App.Logger.WriteException(LOG_IDENT, ex);
+            }
+        }
+
+        public static async Task RemoveAsync(long badgeId)
+        {
+            Uri url = UrlBuilder.BuildApiUrl("badges", $"v1/user/badges/{badgeId}");
+
+            for (int attempt = 1; ; attempt++)
+            {
+                try
+                {
+                    await AccountRequests.DeleteAsync(url);
+                    return;
+                }
+                catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.TooManyRequests && attempt < RemoveAttempts)
+                {
+                    await Task.Delay(RateLimitBackoff * attempt);
+                }
             }
         }
 

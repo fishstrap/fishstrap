@@ -1,7 +1,11 @@
+using System.ComponentModel;
+
 namespace Bloxstrap.Models.Overlay
 {
-    public class Badge
+    public class Badge : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public long Id { get; set; }
 
         public string Name { get; set; } = String.Empty;
@@ -21,6 +25,24 @@ namespace Bloxstrap.Models.Overlay
         public long PastDayAwardedCount { get; set; }
 
         public long AwardedCount { get; set; }
+
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected == value)
+                    return;
+
+                _isSelected = value;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
+            }
+        }
+
+        public bool CanRemove => Awarded && AwardedKnown;
 
         public string RarityText
         {

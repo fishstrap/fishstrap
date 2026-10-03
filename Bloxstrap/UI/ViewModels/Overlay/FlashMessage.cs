@@ -27,6 +27,12 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             _timer.Start();
         }
 
+        public void Clear()
+        {
+            if (Text is not null)
+                Set(null);
+        }
+
         private void Set(string? text)
         {
             if (text is null)

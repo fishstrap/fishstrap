@@ -9,28 +9,116 @@
              d:DesignHeight="560" d:DesignWidth="820"
              FontFamily="{StaticResource Inter}">
 
+    <UserControl.Resources>
+        <Style x:Key="RemoveButton" TargetType="Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                                <Setter Property="Foreground" Value="{ui:ThemeResource SystemFillColorCriticalBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.4" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="0,0,0,8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,8" MinHeight="32">
+            <Grid Visibility="{Binding ShowSummary, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="{Binding CompletionText}" FontSize="13" VerticalAlignment="Center"
-                       Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+                <TextBlock Grid.Column="0" Text="{Binding HeaderText}" FontSize="13" VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
 
-            <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center"
-                       Command="{Binding RefreshCommand}" IsEnabled="{Binding CanRefresh}">
-                <StackPanel Orientation="Horizontal">
-                    <ui:SymbolIcon Symbol="ArrowSync24" FontSize="14" Margin="0,0,8,0" />
-                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Refresh}" FontSize="13" />
-                </StackPanel>
-            </ui:Button>
+                <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center"
+                           Command="{Binding RefreshCommand}" IsEnabled="{Binding CanRefresh}">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Symbol="ArrowSync24" FontSize="14" Margin="0,0,8,0" />
+                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Refresh}" FontSize="13" />
+                    </StackPanel>
+                </ui:Button>
+            </Grid>
+
+            <Grid Visibility="{Binding ShowSelectionBar, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding SelectionText}" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+                <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center" Margin="8,0,0,0"
+                           Command="{Binding SelectAllCommand}"
+                           Visibility="{Binding CanSelectAll, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_SelectAll}" FontSize="13" />
+                </ui:Button>
+
+                <ui:Button Grid.Column="2" Appearance="Secondary" VerticalAlignment="Center" Margin="8,0,0,0"
+                           Command="{Binding ClearSelectionCommand}">
+                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_ClearSelection}" FontSize="13" />
+                </ui:Button>
+
+                <ui:Button Grid.Column="3" Appearance="Danger" VerticalAlignment="Center" Margin="8,0,0,0"
+                           Command="{Binding RemoveSelectedCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Symbol="Delete24" FontSize="14" Margin="0,0,8,0" />
+                        <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_RemoveSelected}" FontSize="13" />
+                    </StackPanel>
+                </ui:Button>
+            </Grid>
+
+            <Grid Visibility="{Binding IsConfirming, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding ConfirmText}" FontSize="13" VerticalAlignment="Center" TextWrapping="Wrap"
+                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+                <ui:Button Grid.Column="1" Appearance="Secondary" VerticalAlignment="Center" Margin="12,0,0,0"
+                           Command="{Binding CancelRemoveCommand}">
+                    <TextBlock Text="{x:Static resources:Strings.Common_Cancel}" FontSize="13" />
+                </ui:Button>
+
+                <ui:Button Grid.Column="2" Appearance="Danger" VerticalAlignment="Center" Margin="8,0,0,0"
+                           Command="{Binding ConfirmRemoveCommand}">
+                    <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Badges_Remove}" FontSize="13" />
+                </ui:Button>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                        Visibility="{Binding IsRemoving, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ui:ProgressRing IsIndeterminate="True" Width="16" Height="16" Margin="0,0,10,0" />
+                <TextBlock Text="{Binding RemovingText}" FontSize="13" VerticalAlignment="Center"
+                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
         </Grid>
 
         <ProgressBar Grid.Row="0" VerticalAlignment="Bottom" Height="3" Margin="0,0,0,2"
@@ -67,18 +155,26 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="0,0,0,6" Padding="10" CornerRadius="8"
+                        <Border x:Name="Card" Margin="0,0,0,6" Padding="10" CornerRadius="8"
                                 Background="{ui:ThemeResource CardBackgroundFillColorDefaultBrush}"
                                 BorderBrush="{ui:ThemeResource CardStrokeColorDefaultBrush}"
                                 BorderThickness="1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="0" Width="56" Height="56" CornerRadius="6"
+                                <CheckBox x:Name="SelectBox" Grid.Column="0" MinWidth="0" MinHeight="0" Padding="0" Margin="0,0,10,0"
+                                          VerticalAlignment="Center" Visibility="Collapsed"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          IsEnabled="{Binding DataContext.CanEdit, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                          ToolTip="{x:Static resources:Strings.Menu_Overlay_Badges_SelectTooltip}" />
+
+                                <Border Grid.Column="1" Width="56" Height="56" CornerRadius="6"
                                         VerticalAlignment="Top"
                                         Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
                                     <Border CornerRadius="6">
@@ -88,7 +184,7 @@
                                     </Border>
                                 </Border>
 
-                                <StackPanel Grid.Column="1" Margin="12,0,12,0" VerticalAlignment="Center">
+                                <StackPanel Grid.Column="2" Margin="12,0,12,0" VerticalAlignment="Center">
                                     <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold"
                                                Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
                                                TextTrimming="CharacterEllipsis" />
@@ -113,7 +209,7 @@
                                     </StackPanel>
                                 </StackPanel>
 
-                                <Border x:Name="StatusChip" Grid.Column="2" VerticalAlignment="Center" Padding="8,4" CornerRadius="4"
+                                <Border x:Name="StatusChip" Grid.Column="3" VerticalAlignment="Center" Padding="8,4" CornerRadius="4"
                                         Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
                                     <StackPanel Orientation="Horizontal">
                                         <ui:SymbolIcon x:Name="AwardedIcon" Symbol="Trophy24" FontSize="12" Margin="0,0,6,0"
@@ -122,10 +218,32 @@
                                                    Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
                                     </StackPanel>
                                 </Border>
+
+                                <Button x:Name="RemoveBadge" Grid.Column="4" Style="{StaticResource RemoveButton}" Margin="8,0,0,0"
+                                        VerticalAlignment="Center" Visibility="Collapsed"
+                                        Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="{Binding DataContext.CanEdit, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        ToolTip="{x:Static resources:Strings.Menu_Overlay_Badges_RemoveTooltip}">
+                                    <ui:SymbolIcon Symbol="Delete24" FontSize="16" />
+                                </Button>
                             </Grid>
                         </Border>
 
                         <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.AnyRemovable, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Value="True">
+                                <Setter TargetName="SelectBox" Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding CanRemove}" Value="True">
+                                <Setter TargetName="SelectBox" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="RemoveBadge" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+                            </DataTrigger>
+
                             <DataTrigger Binding="{Binding AwardedKnown}" Value="False">
                                 <Setter TargetName="StatusChip" Property="Visibility" Value="Collapsed" />
                             </DataTrigger>

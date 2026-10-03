@@ -2619,4 +2619,43 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Servers.EmptyRegion" xml:space="preserve">
     <value>No servers running in {0} right now.</value>
   </data>
+  <data name="Menu.Overlay.Badges.RemoveTooltip" xml:space="preserve">
+    <value>Remove from your inventory</value>
+  </data>
+  <data name="Menu.Overlay.Badges.SelectTooltip" xml:space="preserve">
+    <value>Select to remove several at once</value>
+  </data>
+  <data name="Menu.Overlay.Badges.Selected" xml:space="preserve">
+    <value>{0} selected</value>
+  </data>
+  <data name="Menu.Overlay.Badges.SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Menu.Overlay.Badges.ClearSelection" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Menu.Overlay.Badges.RemoveSelected" xml:space="preserve">
+    <value>Remove selected</value>
+  </data>
+  <data name="Menu.Overlay.Badges.Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Menu.Overlay.Badges.ConfirmOne" xml:space="preserve">
+    <value>Remove "{0}" from your inventory? You'll have to earn it again to get it back.</value>
+  </data>
+  <data name="Menu.Overlay.Badges.ConfirmMany" xml:space="preserve">
+    <value>Remove {0} badges from your inventory? You'll have to earn them again to get them back.</value>
+  </data>
+  <data name="Menu.Overlay.Badges.Removing" xml:space="preserve">
+    <value>Removing {0} of {1}...</value>
+  </data>
+  <data name="Menu.Overlay.Badges.RemovedOne" xml:space="preserve">
+    <value>Removed "{0}" from your inventory.</value>
+  </data>
+  <data name="Menu.Overlay.Badges.RemovedMany" xml:space="preserve">
+    <value>Removed {0} badges from your inventory.</value>
+  </data>
+  <data name="Menu.Overlay.Badges.RemoveFailed" xml:space="preserve">
+    <value>{0} of {1} couldn't be removed. Try again in a moment.</value>
+  </data>
 </root>

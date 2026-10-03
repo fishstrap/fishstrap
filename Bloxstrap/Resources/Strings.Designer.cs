@@ -6811,5 +6811,83 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Uninstaller.Uninstall", resourceCulture);
             }
         }
+
+        public static string Menu_Overlay_Badges_RemoveTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemoveTooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_SelectTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.SelectTooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_Selected {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Selected", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_SelectAll {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.SelectAll", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_ClearSelection {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.ClearSelection", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemoveSelected {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemoveSelected", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_Remove {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Remove", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_ConfirmOne {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.ConfirmOne", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_ConfirmMany {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.ConfirmMany", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_Removing {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Removing", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemovedOne {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemovedOne", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemovedMany {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemovedMany", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemoveFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemoveFailed", resourceCulture);
+            }
+        }
     }
 }
