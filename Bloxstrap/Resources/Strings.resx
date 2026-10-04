@@ -2026,7 +2026,7 @@ Please don't change this setting unless you know what you're doing.</value>
     <value>Saved.</value>
   </data>
   <data name="Menu.Overlay.Privacy.JoinNarrowed" xml:space="preserve">
-    <value>Saved. Who can join you was narrowed to match.</value>
+    <value>Saved. Who can see and join your game was narrowed to match.</value>
   </data>
   <data name="Menu.Overlay.Privacy.Rejected" xml:space="preserve">
     <value>Roblox didn't accept that: {0}</value>
@@ -2358,9 +2358,6 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Settings.Style" xml:space="preserve">
     <value>Style</value>
   </data>
-  <data name="Menu.Overlay.Settings.Position" xml:space="preserve">
-    <value>Position</value>
-  </data>
   <data name="Menu.Overlay.Settings.CornerRadius" xml:space="preserve">
     <value>Corner radius</value>
   </data>
@@ -2426,18 +2423,6 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Enums.Overlay.ToastStyle.Floating" xml:space="preserve">
     <value>Floating</value>
-  </data>
-  <data name="Enums.Overlay.ToastPosition.BottomRight" xml:space="preserve">
-    <value>Bottom right</value>
-  </data>
-  <data name="Enums.Overlay.ToastPosition.BottomLeft" xml:space="preserve">
-    <value>Bottom left</value>
-  </data>
-  <data name="Enums.Overlay.ToastPosition.TopRight" xml:space="preserve">
-    <value>Top right</value>
-  </data>
-  <data name="Enums.Overlay.ToastPosition.TopLeft" xml:space="preserve">
-    <value>Top left</value>
   </data>
   <data name="Menu.Overlay.Settings.Overlay" xml:space="preserve">
     <value>Overlay</value>
@@ -2660,5 +2645,23 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Menu.Overlay.Games.Continue" xml:space="preserve">
     <value>Continue</value>
+  </data>
+  <data name="Menu.Overlay.GamePrivacy.Title" xml:space="preserve">
+    <value>Who can see and join your game</value>
+  </data>
+  <data name="Menu.Overlay.GamePrivacy.Hint" xml:space="preserve">
+    <value>Changes your Roblox account setting. It can't be wider than who can see you're online.</value>
+  </data>
+  <data name="Menu.Overlay.GamePrivacy.Tooltip" xml:space="preserve">
+    <value>Choose who can see and join your game</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Horizontal" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="Menu.Overlay.Settings.Vertical" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="Menu.Overlay.Settings.TextSize" xml:space="preserve">
+    <value>Text size</value>
   </data>
 </root>

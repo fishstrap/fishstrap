@@ -67,9 +67,11 @@ namespace Bloxstrap.Models.Persistable
         public bool OverlayToastHeaderServer { get; set; } = false;
         public bool OverlayToastHeaderFriends { get; set; } = false;
         public ToastStyle OverlayToastStyle { get; set; } = ToastStyle.Corner;
-        public ToastPosition OverlayToastPosition { get; set; } = ToastPosition.BottomRight;
+        public double OverlayToastX { get; set; } = 1;
+        public double OverlayToastY { get; set; } = 1;
         public double OverlayToastCornerRadius { get; set; } = 8;
         public double OverlayToastScale { get; set; } = 1;
+        public double OverlayToastTextScale { get; set; } = 1;
         public double OverlayToastOpacity { get; set; } = 1;
         public int OverlayToastDuration { get; set; } = 6;
         public ToastAnimation OverlayToastAnimation { get; set; } = ToastAnimation.Slide;

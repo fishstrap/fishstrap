@@ -24,7 +24,7 @@
                     <Image Source="pack://application:,,,/Bloxstrap.ico" Width="16" Height="16"
                            RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" />
 
-                    <TextBlock Text="Fishstrap" FontSize="12" Margin="8,0,0,0" VerticalAlignment="Center"
+                    <TextBlock x:Name="HeaderText" Text="Fishstrap" FontSize="12" Margin="8,0,0,0" VerticalAlignment="Center"
                                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                 </StackPanel>
 

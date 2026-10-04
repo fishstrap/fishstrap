@@ -129,7 +129,9 @@
 
                         <Border x:Name="Backdrop" Opacity="0.55" />
 
-                        <control:ToastCard x:Name="PreviewCard" />
+                        <Canvas>
+                            <control:ToastCard x:Name="PreviewCard" />
+                        </Canvas>
                     </Grid>
                 </Border>
 
@@ -171,18 +173,30 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="130" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Position}" Style="{StaticResource Label}" />
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Horizontal}" Style="{StaticResource Label}" />
+                            <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"
+                                    Minimum="0" Maximum="100"
+                                    Value="{Binding Horizontal, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" Text="{Binding HorizontalText}" Style="{StaticResource Value}" />
+                        </Grid>
 
-                            <ComboBox Grid.Column="1" MinWidth="160" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                      ItemsSource="{Binding Positions, Mode=OneTime}" SelectedItem="{Binding Position, Mode=TwoWay}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_Vertical}" Style="{StaticResource Label}" />
+                            <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"
+                                    Minimum="0" Maximum="100"
+                                    Value="{Binding Vertical, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" Text="{Binding VerticalText}" Style="{StaticResource Value}" />
                         </Grid>
 
                         <Rectangle Style="{StaticResource Divider}" />
@@ -215,6 +229,22 @@
                                     Minimum="{Binding MinSize, Mode=OneTime}" Maximum="{Binding MaxSize, Mode=OneTime}"
                                     Value="{Binding Size, Mode=TwoWay}" />
                             <TextBlock Grid.Column="2" Text="{Binding SizeText}" Style="{StaticResource Value}" />
+                        </Grid>
+
+                        <Rectangle Style="{StaticResource Divider}" />
+
+                        <Grid Style="{StaticResource Row}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Settings_TextSize}" Style="{StaticResource Label}" />
+                            <Slider Grid.Column="1" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="5"
+                                    Minimum="{Binding MinTextScale, Mode=OneTime}" Maximum="{Binding MaxTextScale, Mode=OneTime}"
+                                    Value="{Binding TextScale, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" Text="{Binding TextScaleText}" Style="{StaticResource Value}" />
                         </Grid>
 
                         <Rectangle Style="{StaticResource Divider}" />

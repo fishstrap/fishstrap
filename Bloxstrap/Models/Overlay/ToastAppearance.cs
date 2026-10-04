@@ -4,12 +4,14 @@ using Bloxstrap.Enums.Overlay;
 
 namespace Bloxstrap.Models.Overlay
 {
-    public record ToastAppearance(ToastStyle Style, ToastPosition Position, double CornerRadius, double Scale, double BackgroundOpacity, int Duration, bool HeaderServer, bool HeaderFriends, ToastAnimation Animation)
+    public record ToastAppearance(ToastStyle Style, double X, double Y, double CornerRadius, double Scale, double TextScale, double BackgroundOpacity, int Duration, bool HeaderServer, bool HeaderFriends, ToastAnimation Animation)
     {
         public const double MinCornerRadius = 0;
         public const double MaxCornerRadius = 20;
         public const double MinScale = 0.8;
         public const double MaxScale = 1.3;
+        public const double MinTextScale = 0.8;
+        public const double MaxTextScale = 1.5;
         public const double MinBackgroundOpacity = 0.5;
         public const double MaxBackgroundOpacity = 1;
         public const int MinDuration = 3;
@@ -18,7 +20,7 @@ namespace Bloxstrap.Models.Overlay
         private const double Inset = 16;
         private const double ShadowRoom = 24;
 
-        public static readonly ToastAppearance Default = new(ToastStyle.Corner, ToastPosition.BottomRight, 8, 1, 1, 6, false, false, ToastAnimation.Slide);
+        public static readonly ToastAppearance Default = new(ToastStyle.Corner, 1, 1, 8, 1, 1, 1, 6, false, false, ToastAnimation.Slide);
 
         public static ToastAppearance Current
         {
@@ -28,9 +30,11 @@ namespace Bloxstrap.Models.Overlay
 
                 return new ToastAppearance(
                     Enum.IsDefined(settings.OverlayToastStyle) ? settings.OverlayToastStyle : Default.Style,
-                    Enum.IsDefined(settings.OverlayToastPosition) ? settings.OverlayToastPosition : Default.Position,
+                    Math.Clamp(settings.OverlayToastX, 0, 1),
+                    Math.Clamp(settings.OverlayToastY, 0, 1),
                     Math.Clamp(settings.OverlayToastCornerRadius, MinCornerRadius, MaxCornerRadius),
                     Math.Clamp(settings.OverlayToastScale, MinScale, MaxScale),
+                    Math.Clamp(settings.OverlayToastTextScale, MinTextScale, MaxTextScale),
                     Math.Clamp(settings.OverlayToastOpacity, MinBackgroundOpacity, MaxBackgroundOpacity),
                     Math.Clamp(settings.OverlayToastDuration, MinDuration, MaxDuration),
                     settings.OverlayToastHeaderServer,
@@ -41,48 +45,32 @@ namespace Bloxstrap.Models.Overlay
 
         public bool ShowsHeader(NoticeKind kind) => kind == NoticeKind.Friend ? HeaderFriends : HeaderServer;
 
-        public bool AtBottom => Position is ToastPosition.BottomRight or ToastPosition.BottomLeft;
+        public bool AtBottom => Y >= 0.5;
 
-        public bool AtRight => Position is ToastPosition.BottomRight or ToastPosition.TopRight;
+        public bool AtRight => X >= 0.5;
 
         public bool Docked => Style == ToastStyle.Corner;
 
-        public CornerRadius Corners
-        {
-            get
-            {
-                if (!Docked)
-                    return new CornerRadius(CornerRadius);
+        private bool FlushLeft => Docked && X <= 0;
 
-                return Position switch
-                {
-                    ToastPosition.BottomLeft => new CornerRadius(0, CornerRadius, 0, 0),
-                    ToastPosition.TopRight => new CornerRadius(0, 0, 0, CornerRadius),
-                    ToastPosition.TopLeft => new CornerRadius(0, 0, CornerRadius, 0),
-                    _ => new CornerRadius(CornerRadius, 0, 0, 0)
-                };
-            }
-        }
+        private bool FlushRight => Docked && X >= 1;
 
-        public Thickness Edges
-        {
-            get
-            {
-                if (!Docked)
-                    return new Thickness(1);
+        private bool FlushTop => Docked && Y <= 0;
 
-                return new Thickness(AtRight ? 1 : 0, AtBottom ? 1 : 0, AtRight ? 0 : 1, AtBottom ? 0 : 1);
-            }
-        }
+        private bool FlushBottom => Docked && Y >= 1;
 
-        public Thickness Margin
-        {
-            get
-            {
-                double edge = Docked ? 0 : Inset;
+        public CornerRadius Corners => new(
+            FlushLeft || FlushTop ? 0 : CornerRadius,
+            FlushTop || FlushRight ? 0 : CornerRadius,
+            FlushRight || FlushBottom ? 0 : CornerRadius,
+            FlushBottom || FlushLeft ? 0 : CornerRadius);
 
-                return new Thickness(AtRight ? ShadowRoom : edge, AtBottom ? ShadowRoom : edge, AtRight ? edge : ShadowRoom, AtBottom ? edge : ShadowRoom);
-            }
-        }
+        public Thickness Edges => new(FlushLeft ? 0 : 1, FlushTop ? 0 : 1, FlushRight ? 0 : 1, FlushBottom ? 0 : 1);
+
+        public Thickness Margin => new(
+            FlushLeft ? 0 : AtRight ? ShadowRoom : Inset,
+            FlushTop ? 0 : AtBottom ? ShadowRoom : Inset,
+            FlushRight ? 0 : AtRight ? Inset : ShadowRoom,
+            FlushBottom ? 0 : AtBottom ? Inset : ShadowRoom);
     }
 }

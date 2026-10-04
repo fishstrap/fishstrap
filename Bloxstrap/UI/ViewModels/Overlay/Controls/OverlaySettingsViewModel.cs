@@ -36,8 +36,6 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         public ToastAppearance Appearance => ToastAppearance.Current;
 
-        public IEnumerable<ToastPosition> Positions { get; } = Enum.GetValues<ToastPosition>();
-
         public IEnumerable<ToastAnimation> Animations { get; } = Enum.GetValues<ToastAnimation>();
 
         public ToastAnimation Animation
@@ -87,15 +85,29 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        public ToastPosition Position
+        public double Horizontal
         {
-            get => Appearance.Position;
+            get => Appearance.X * 100;
             set
             {
-                Current.OverlayToastPosition = value;
-                Changed(nameof(Position));
+                Current.OverlayToastX = Math.Round(value) / 100;
+                Changed(nameof(Horizontal), nameof(HorizontalText));
             }
         }
+
+        public string HorizontalText => Percent(Appearance.X);
+
+        public double Vertical
+        {
+            get => Appearance.Y * 100;
+            set
+            {
+                Current.OverlayToastY = Math.Round(value) / 100;
+                Changed(nameof(Vertical), nameof(VerticalText));
+            }
+        }
+
+        public string VerticalText => Percent(Appearance.Y);
 
         public double CornerRadius
         {
@@ -119,7 +131,23 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        public string SizeText => String.Format(Strings.Menu_Overlay_Settings_Percent, Math.Round(Appearance.Scale * 100));
+        public string SizeText => Percent(Appearance.Scale);
+
+        public double MinTextScale => ToastAppearance.MinTextScale * 100;
+
+        public double MaxTextScale => ToastAppearance.MaxTextScale * 100;
+
+        public double TextScale
+        {
+            get => Appearance.TextScale * 100;
+            set
+            {
+                Current.OverlayToastTextScale = Math.Round(value) / 100;
+                Changed(nameof(TextScale), nameof(TextScaleText));
+            }
+        }
+
+        public string TextScaleText => Percent(Appearance.TextScale);
 
         public double BackgroundOpacity
         {
@@ -131,7 +159,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        public string BackgroundOpacityText => String.Format(Strings.Menu_Overlay_Settings_Percent, Math.Round(Appearance.BackgroundOpacity * 100));
+        public string BackgroundOpacityText => Percent(Appearance.BackgroundOpacity);
 
         public double Duration
         {
@@ -285,6 +313,8 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             _saveTimer.Tick += (_, _) => Save();
         }
 
+        private static string Percent(double fraction) => String.Format(Strings.Menu_Overlay_Settings_Percent, Math.Round(fraction * 100));
+
         private void ResetHotkey()
         {
             Current.OverlayHotkeyModifiers = OverlayHotkey.DefaultModifiers;
@@ -344,17 +374,20 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             ToastAppearance defaults = ToastAppearance.Default;
 
             Current.OverlayToastStyle = defaults.Style;
-            Current.OverlayToastPosition = defaults.Position;
+            Current.OverlayToastX = defaults.X;
+            Current.OverlayToastY = defaults.Y;
             Current.OverlayToastCornerRadius = defaults.CornerRadius;
             Current.OverlayToastScale = defaults.Scale;
+            Current.OverlayToastTextScale = defaults.TextScale;
             Current.OverlayToastOpacity = defaults.BackgroundOpacity;
             Current.OverlayToastDuration = defaults.Duration;
             Current.OverlayToastAnimation = defaults.Animation;
             Current.OverlayToastHeaderServer = defaults.HeaderServer;
             Current.OverlayToastHeaderFriends = defaults.HeaderFriends;
 
-            Changed(nameof(IsCorner), nameof(IsFloating), nameof(Position), nameof(CornerRadius), nameof(CornerRadiusText),
-                nameof(Size), nameof(SizeText), nameof(BackgroundOpacity), nameof(BackgroundOpacityText),
+            Changed(nameof(IsCorner), nameof(IsFloating), nameof(Horizontal), nameof(HorizontalText), nameof(Vertical), nameof(VerticalText),
+                nameof(CornerRadius), nameof(CornerRadiusText), nameof(Size), nameof(SizeText), nameof(TextScale), nameof(TextScaleText),
+                nameof(BackgroundOpacity), nameof(BackgroundOpacityText),
                 nameof(Duration), nameof(DurationText), nameof(Animation), nameof(HeaderOff), nameof(HeaderServer), nameof(HeaderFriends), nameof(HeaderBoth));
         }
 
@@ -411,9 +444,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             to.OverlayHotkeyModifiers = from.OverlayHotkeyModifiers;
             to.OverlayHotkeyKey = from.OverlayHotkeyKey;
             to.OverlayToastStyle = from.OverlayToastStyle;
-            to.OverlayToastPosition = from.OverlayToastPosition;
+            to.OverlayToastX = from.OverlayToastX;
+            to.OverlayToastY = from.OverlayToastY;
             to.OverlayToastCornerRadius = from.OverlayToastCornerRadius;
             to.OverlayToastScale = from.OverlayToastScale;
+            to.OverlayToastTextScale = from.OverlayToastTextScale;
             to.OverlayToastOpacity = from.OverlayToastOpacity;
             to.OverlayToastDuration = from.OverlayToastDuration;
             to.OverlayToastAnimation = from.OverlayToastAnimation;

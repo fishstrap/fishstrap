@@ -11,8 +11,6 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 {
     public partial class OverlaySettings : UserControl
     {
-        private const double PreviewInset = 12;
-
         private OverlaySettingsViewModel _viewModel;
 
         private Func<string?> _backdrop = () => null;
@@ -55,6 +53,8 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
                     _viewModel.RebindHotkey();
             };
 
+            PreviewCard.SizeChanged += (_, _) => PlacePreview();
+
             RefreshPreview();
         }
 
@@ -91,9 +91,7 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             PreviewCard.SetHeader(appearance.ShowsHeader(sample.Kind));
 
-            PreviewCard.HorizontalAlignment = appearance.AtRight ? HorizontalAlignment.Right : HorizontalAlignment.Left;
-            PreviewCard.VerticalAlignment = appearance.AtBottom ? VerticalAlignment.Bottom : VerticalAlignment.Top;
-            PreviewCard.Margin = new Thickness(appearance.Docked ? 0 : PreviewInset);
+            PlacePreview();
 
             string? backdrop = _backdrop();
 
@@ -112,7 +110,25 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private void PreviewClicked(object sender, MouseButtonEventArgs e) => ReplayPreview();
 
-        private void PreviewSizeChanged(object sender, SizeChangedEventArgs e) =>
+        private void PreviewSizeChanged(object sender, SizeChangedEventArgs e)
+        {
             PreviewArea.Clip = new RectangleGeometry(new Rect(e.NewSize), 7, 7);
+
+            PlacePreview();
+        }
+
+        private void PlacePreview()
+        {
+            ToastAppearance appearance = _viewModel.Appearance;
+            Thickness margin = appearance.Margin;
+
+            var card = new Size(PreviewCard.ActualWidth + margin.Left + margin.Right, PreviewCard.ActualHeight + margin.Top + margin.Bottom);
+            var area = new Rect(0, 0, PreviewArea.ActualWidth, PreviewArea.ActualHeight);
+
+            Point origin = OverlayPlacement.Place(area, card, appearance.X, appearance.Y);
+
+            Canvas.SetLeft(PreviewCard, origin.X + margin.Left);
+            Canvas.SetTop(PreviewCard, origin.Y + margin.Top);
+        }
     }
 }

@@ -9,6 +9,11 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
     {
         private const string BackgroundKey = "SolidBackgroundFillColorTertiaryBrush";
 
+        private const double HeaderFontSize = 12;
+        private const double TitleFontSize = 14;
+        private const double MessageFontSize = 13;
+        private const double ActionFontSize = 12;
+
         public ToastCard()
         {
             InitializeComponent();
@@ -23,6 +28,11 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             Scale.ScaleX = appearance.Scale;
             Scale.ScaleY = appearance.Scale;
+
+            HeaderText.FontSize = HeaderFontSize * appearance.TextScale;
+            ToastTitle.FontSize = TitleFontSize * appearance.TextScale;
+            ToastMessage.FontSize = MessageFontSize * appearance.TextScale;
+            ToastAction.FontSize = ActionFontSize * appearance.TextScale;
 
             if (TryFindResource(BackgroundKey) is SolidColorBrush background)
                 Card.Background = new SolidColorBrush(background.Color) { Opacity = appearance.BackgroundOpacity };

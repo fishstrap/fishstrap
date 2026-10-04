@@ -6130,12 +6130,6 @@ namespace Bloxstrap.Resources {
             }
         }
 
-        public static string Menu_Overlay_Settings_Position {
-            get {
-                return ResourceManager.GetString("Menu.Overlay.Settings.Position", resourceCulture);
-            }
-        }
-
         public static string Menu_Overlay_Settings_CornerRadius {
             get {
                 return ResourceManager.GetString("Menu.Overlay.Settings.CornerRadius", resourceCulture);
@@ -6265,30 +6259,6 @@ namespace Bloxstrap.Resources {
         public static string Enums_Overlay_ToastStyle_Floating {
             get {
                 return ResourceManager.GetString("Enums.Overlay.ToastStyle.Floating", resourceCulture);
-            }
-        }
-
-        public static string Enums_Overlay_ToastPosition_BottomRight {
-            get {
-                return ResourceManager.GetString("Enums.Overlay.ToastPosition.BottomRight", resourceCulture);
-            }
-        }
-
-        public static string Enums_Overlay_ToastPosition_BottomLeft {
-            get {
-                return ResourceManager.GetString("Enums.Overlay.ToastPosition.BottomLeft", resourceCulture);
-            }
-        }
-
-        public static string Enums_Overlay_ToastPosition_TopRight {
-            get {
-                return ResourceManager.GetString("Enums.Overlay.ToastPosition.TopRight", resourceCulture);
-            }
-        }
-
-        public static string Enums_Overlay_ToastPosition_TopLeft {
-            get {
-                return ResourceManager.GetString("Enums.Overlay.ToastPosition.TopLeft", resourceCulture);
             }
         }
 
@@ -6893,6 +6863,42 @@ namespace Bloxstrap.Resources {
         public static string Menu_Overlay_Games_Continue {
             get {
                 return ResourceManager.GetString("Menu.Overlay.Games.Continue", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_GamePrivacy_Title {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.GamePrivacy.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_GamePrivacy_Hint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.GamePrivacy.Hint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_GamePrivacy_Tooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.GamePrivacy.Tooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Horizontal {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Horizontal", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Vertical {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Vertical", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_TextSize {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.TextSize", resourceCulture);
             }
         }
     }

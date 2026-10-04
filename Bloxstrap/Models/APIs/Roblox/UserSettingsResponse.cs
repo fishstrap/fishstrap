@@ -13,5 +13,25 @@ namespace Bloxstrap.Models.APIs.Roblox
     {
         [JsonPropertyName("currentValue")]
         public string? CurrentValue { get; set; }
+
+        [JsonPropertyName("options")]
+        public List<UserSettingOption>? Options { get; set; }
+
+        public IReadOnlyList<string> Available => Options?
+            .Select(x => x.Option?.OptionValue)
+            .OfType<string>()
+            .ToList() ?? new List<string>();
+    }
+
+    public class UserSettingOption
+    {
+        [JsonPropertyName("option")]
+        public UserSettingOptionValue? Option { get; set; }
+    }
+
+    public class UserSettingOptionValue
+    {
+        [JsonPropertyName("optionValue")]
+        public string? OptionValue { get; set; }
     }
 }

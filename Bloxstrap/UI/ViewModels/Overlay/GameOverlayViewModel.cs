@@ -42,6 +42,8 @@ namespace Bloxstrap.UI.ViewModels.Overlay
 
         public Controls.OnlineStatusViewModel OnlineStatus { get; } = new();
 
+        public Controls.GameStatusViewModel GameStatus { get; } = new();
+
         private string _username = String.Empty;
 
         public string Username
@@ -460,6 +462,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay
             GameIcon = String.Empty;
             TimePlayed = String.Empty;
             ServerUptime = String.Empty;
+            GameStatus.IsOpen = false;
             GameVisibility = Visibility.Collapsed;
         }
 

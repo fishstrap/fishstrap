@@ -142,8 +142,10 @@ namespace Bloxstrap.UI.Elements.Overlay
                 bottomRight = target.TransformFromDevice.Transform(bottomRight);
             }
 
-            Left = _appearance.AtRight ? bottomRight.X - ActualWidth : topLeft.X;
-            Top = _appearance.AtBottom ? bottomRight.Y - ActualHeight : topLeft.Y;
+            Point origin = OverlayPlacement.Place(new Rect(topLeft, bottomRight), new Size(ActualWidth, ActualHeight), _appearance.X, _appearance.Y);
+
+            Left = origin.X;
+            Top = origin.Y;
         }
 
         private void SetClickThrough(bool clickThrough)
