@@ -6901,5 +6901,11 @@ namespace Bloxstrap.Resources {
                 return ResourceManager.GetString("Menu.Overlay.Settings.TextSize", resourceCulture);
             }
         }
+
+        public static string Menu_Overlay_Notify_Dismiss {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.Dismiss", resourceCulture);
+            }
+        }
     }
 }

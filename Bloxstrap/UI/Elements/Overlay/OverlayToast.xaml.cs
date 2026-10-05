@@ -14,7 +14,6 @@ namespace Bloxstrap.UI.Elements.Overlay
 {
     public partial class OverlayToast : Window
     {
-        private const int WS_EX_TRANSPARENT = 0x00000020;
         private const int WS_EX_TOOLWINDOW = 0x00000080;
         private const int WS_EX_NOACTIVATE = 0x08000000;
 
@@ -32,8 +31,6 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         public bool IsShowing { get; private set; }
 
-        public bool IsClickable => _notice?.IsClickable == true;
-
         public OverlayToast()
         {
             InitializeComponent();
@@ -43,13 +40,18 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             CardView.MouseEnter += (_, _) =>
             {
-                if (IsShowing && IsClickable)
-                    _timer.Stop();
+                if (!IsShowing)
+                    return;
+
+                _timer.Stop();
+                CardView.SetCloseVisible(true);
             };
 
             CardView.MouseLeave += (_, _) =>
             {
-                if (!IsShowing || !IsClickable)
+                CardView.SetCloseVisible(false);
+
+                if (!IsShowing)
                     return;
 
                 _timer.Interval = LingerAfterHover;
@@ -57,6 +59,7 @@ namespace Bloxstrap.UI.Elements.Overlay
             };
 
             CardView.MouseLeftButtonUp += (_, _) => Click();
+            CardView.CloseRequested += (_, _) => Dismiss();
         }
 
         public void Present(OverlayNotice notice, Rect gameBounds)
@@ -69,8 +72,7 @@ namespace Bloxstrap.UI.Elements.Overlay
             CardView.Show(notice);
             CardView.SetHeader(_appearance.ShowsHeader(notice.Kind));
             CardView.Cursor = notice.IsClickable ? Cursors.Hand : null;
-
-            SetClickThrough(!notice.IsClickable);
+            CardView.SetCloseVisible(CardView.IsMouseOver);
 
             IsShowing = true;
 
@@ -95,17 +97,20 @@ namespace Bloxstrap.UI.Elements.Overlay
         {
             const string LOG_IDENT = "OverlayToast::Click";
 
-            if (!IsShowing || _notice?.OnClick is not Action click)
+            if (!IsShowing)
                 return;
 
-            try
+            if (_notice?.OnClick is Action click)
             {
-                click();
-            }
-            catch (Exception ex)
-            {
-                App.Logger.WriteLine(LOG_IDENT, "The notification's action failed");
-                App.Logger.WriteException(LOG_IDENT, ex);
+                try
+                {
+                    click();
+                }
+                catch (Exception ex)
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "The notification's action failed");
+                    App.Logger.WriteException(LOG_IDENT, ex);
+                }
             }
 
             Dismiss();
@@ -148,18 +153,6 @@ namespace Bloxstrap.UI.Elements.Overlay
             Top = origin.Y;
         }
 
-        private void SetClickThrough(bool clickThrough)
-        {
-            if (_hwnd == HWND.Null)
-                return;
-
-            int exStyle = PInvoke.GetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
-
-            exStyle = clickThrough ? exStyle | WS_EX_TRANSPARENT : exStyle & ~WS_EX_TRANSPARENT;
-
-            PInvoke.SetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, exStyle);
-        }
-
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
@@ -168,8 +161,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             int exStyle = PInvoke.GetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
 
-            PInvoke.SetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE,
-                exStyle | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE | (IsClickable ? 0 : WS_EX_TRANSPARENT));
+            PInvoke.SetWindowLong(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, exStyle | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
         }
     }
 }

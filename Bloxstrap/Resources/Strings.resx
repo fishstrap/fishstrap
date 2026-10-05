@@ -2664,4 +2664,7 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Settings.TextSize" xml:space="preserve">
     <value>Text size</value>
   </data>
+  <data name="Menu.Overlay.Notify.Dismiss" xml:space="preserve">
+    <value>Dismiss</value>
+  </data>
 </root>

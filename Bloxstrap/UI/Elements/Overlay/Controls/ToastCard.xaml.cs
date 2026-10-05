@@ -14,12 +14,18 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
         private const double MessageFontSize = 13;
         private const double ActionFontSize = 12;
 
+        public event EventHandler? CloseRequested;
+
         public ToastCard()
         {
             InitializeComponent();
 
             Apply(ToastAppearance.Default);
+
+            CloseButton.Click += (_, _) => CloseRequested?.Invoke(this, EventArgs.Empty);
         }
+
+        public void SetCloseVisible(bool visible) => CloseButton.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
 
         public void Apply(ToastAppearance appearance)
         {

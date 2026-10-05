@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:resources="clr-namespace:Bloxstrap.Resources"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d"
              d:DesignWidth="340"
              FontFamily="{StaticResource Inter}">
@@ -41,7 +43,7 @@
                     </Border>
 
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock x:Name="ToastTitle" FontSize="14" TextWrapping="Wrap"
+                        <TextBlock x:Name="ToastTitle" FontSize="14" TextWrapping="Wrap" Margin="0,0,18,0"
                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
                         <TextBlock x:Name="ToastMessage" FontSize="13" Margin="0,3,0,0" TextWrapping="Wrap"
@@ -53,5 +55,26 @@
                 </Grid>
             </StackPanel>
         </Border>
+
+        <Button x:Name="CloseButton" Width="22" Height="22" Margin="0,6,6,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                Visibility="Collapsed" Cursor="Hand" Focusable="False"
+                ToolTip="{x:Static resources:Strings.Menu_Overlay_Notify_Dismiss}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" CornerRadius="11" Background="Transparent">
+                        <ui:SymbolIcon Symbol="Dismiss12" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </UserControl>
