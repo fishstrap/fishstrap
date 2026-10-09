@@ -41,14 +41,50 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd" Background="Transparent" CornerRadius="8" Padding="6">
-                            <ContentPresenter />
+                            <Grid>
+                                <Border x:Name="HoverBd" CornerRadius="8" Margin="-6" Opacity="0" IsHitTestVisible="False"
+                                        Background="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                                <Border x:Name="PressedBd" CornerRadius="8" Margin="-6" Opacity="0" IsHitTestVisible="False"
+                                        Background="{ui:ThemeResource SubtleFillColorTertiaryBrush}" />
+                                <ContentPresenter />
+                            </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="HoverBd" Storyboard.TargetProperty="Opacity"
+                                                             To="1" Duration="0:0:0.12" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="HoverBd" Storyboard.TargetProperty="Opacity"
+                                                             To="0" Duration="0:0:0.12" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorTertiaryBrush}" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PressedBd" Storyboard.TargetProperty="Opacity"
+                                                             To="1" Duration="0:0:0.08" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PressedBd" Storyboard.TargetProperty="Opacity"
+                                                             To="0" Duration="0:0:0.12" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -82,7 +118,7 @@
                                     ToolTip="{Binding Name}">
                                 <StackPanel>
                                     <Grid Width="136" Height="136">
-                                        <Border CornerRadius="8" Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                                        <Border x:Name="IconArt" CornerRadius="8" Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
                                             <Border CornerRadius="8">
                                                 <Border.Background>
                                                     <ImageBrush ImageSource="{Binding IconUrl}" Stretch="UniformToFill" />
@@ -90,16 +126,40 @@
                                             </Border>
                                         </Border>
 
-                                        <Border x:Name="PlayBadge" Width="44" Height="44" CornerRadius="22"
-                                                HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"
-                                                Background="{DynamicResource AccentFillColorDefaultBrush}">
-                                            <Border.Effect>
-                                                <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Opacity="0.5" Color="Black" />
-                                            </Border.Effect>
-                                            <ui:SymbolIcon Symbol="Play24" Filled="True" FontSize="20" Margin="2,0,0,0"
+                                        <Grid x:Name="PlayBadge" Width="44" Height="44" Opacity="0" IsHitTestVisible="False"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                            <Grid.RenderTransform>
+                                                <ScaleTransform x:Name="PlayScale" ScaleX="0.7" ScaleY="0.7" />
+                                            </Grid.RenderTransform>
+                                            <Border CornerRadius="22">
+                                                <Border.Background>
+                                                    <VisualBrush Visual="{Binding ElementName=IconArt}" Stretch="Fill"
+                                                                 ViewboxUnits="Absolute" Viewbox="46,46,44,44"
+                                                                 ViewportUnits="RelativeToBoundingBox" Viewport="0,0,1,1"
+                                                                 TileMode="None" />
+                                                </Border.Background>
+                                                <Border.Effect>
+                                                    <BlurEffect Radius="24" KernelType="Gaussian" RenderingBias="Performance" />
+                                                </Border.Effect>
+                                                <Border.CacheMode>
+                                                    <BitmapCache EnableClearType="False" />
+                                                </Border.CacheMode>
+                                            </Border>
+                                            <Border CornerRadius="22" Opacity="0.55" IsHitTestVisible="False"
+                                                    Background="{ui:ThemeResource ControlFillColorDefaultBrush}" />
+                                            <Border CornerRadius="22" IsHitTestVisible="False">
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                        <GradientStop Offset="0" Color="#59FFFFFF" />
+                                                        <GradientStop Offset="0.5" Color="#00FFFFFF" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                            </Border>
+                                            <Border CornerRadius="22" BorderBrush="White" BorderThickness="1" Opacity="0.35" IsHitTestVisible="False" />
+                                            <ui:SymbolIcon Symbol="Play24" Filled="True" FontSize="20"
                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                           Foreground="{ui:ThemeResource TextOnAccentFillColorPrimaryBrush}" />
-                                        </Border>
+                                                           Foreground="White" />
+                                        </Grid>
                                     </Grid>
 
                                     <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" Margin="0,6,0,0"
@@ -113,7 +173,38 @@
 
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding IsMouseOver, ElementName=Tile}" Value="True">
-                                    <Setter TargetName="PlayBadge" Property="Visibility" Value="Visible" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="PlayBadge" Storyboard.TargetProperty="Opacity"
+                                                                 To="1" Duration="0:0:0.15" />
+                                                <DoubleAnimation Storyboard.TargetName="PlayScale" Storyboard.TargetProperty="ScaleX"
+                                                                 To="1" Duration="0:0:0.18">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <BackEase EasingMode="EaseOut" Amplitude="0.4" />
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation Storyboard.TargetName="PlayScale" Storyboard.TargetProperty="ScaleY"
+                                                                 To="1" Duration="0:0:0.18">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <BackEase EasingMode="EaseOut" Amplitude="0.4" />
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="PlayBadge" Storyboard.TargetProperty="Opacity"
+                                                                 To="0" Duration="0:0:0.12" />
+                                                <DoubleAnimation Storyboard.TargetName="PlayScale" Storyboard.TargetProperty="ScaleX"
+                                                                 To="0.7" Duration="0:0:0.12" />
+                                                <DoubleAnimation Storyboard.TargetName="PlayScale" Storyboard.TargetProperty="ScaleY"
+                                                                 To="0.7" Duration="0:0:0.12" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
