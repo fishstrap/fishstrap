@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resources="clr-namespace:Bloxstrap.Resources"
              xmlns:models="clr-namespace:Bloxstrap.Models.Overlay"
-             xmlns:enums="clr-namespace:Bloxstrap.Enums.Overlay"
+             xmlns:enums="clr-namespace:Bloxstrap.Enums"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d"
              d:DesignHeight="580" d:DesignWidth="860"
@@ -114,16 +114,16 @@
                 </Grid>
             </Button>
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InGame}">
+                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:UserPresenceType.InGame}">
                     <Setter TargetName="Ring" Property="BorderBrush" Value="{StaticResource InGameRing}" />
                     <Setter TargetName="Name" Property="Foreground" Value="{StaticResource InGameText}" />
                     <Setter TargetName="State" Property="Foreground" Value="{StaticResource InGameText}" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.Online}">
+                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:UserPresenceType.Online}">
                     <Setter TargetName="Ring" Property="BorderBrush" Value="{StaticResource OnlineRing}" />
                     <Setter TargetName="Name" Property="Foreground" Value="{StaticResource OnlineText}" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InStudio}">
+                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:UserPresenceType.InStudio}">
                     <Setter TargetName="Ring" Property="BorderBrush" Value="{StaticResource StudioRing}" />
                     <Setter TargetName="Name" Property="Foreground" Value="{StaticResource StudioText}" />
                 </DataTrigger>
@@ -401,16 +401,16 @@
                                 </StackPanel>
                             </Grid>
                             <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InGame}">
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:UserPresenceType.InGame}">
                                     <Setter TargetName="HeaderRing" Property="BorderBrush" Value="{StaticResource InGameRing}" />
                                     <Setter TargetName="HeaderName" Property="Foreground" Value="{StaticResource InGameText}" />
                                     <Setter TargetName="HeaderState" Property="Foreground" Value="{StaticResource InGameText}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.Online}">
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:UserPresenceType.Online}">
                                     <Setter TargetName="HeaderRing" Property="BorderBrush" Value="{StaticResource OnlineRing}" />
                                     <Setter TargetName="HeaderName" Property="Foreground" Value="{StaticResource OnlineText}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:FriendStatus.InStudio}">
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static enums:UserPresenceType.InStudio}">
                                     <Setter TargetName="HeaderRing" Property="BorderBrush" Value="{StaticResource StudioRing}" />
                                     <Setter TargetName="HeaderName" Property="Foreground" Value="{StaticResource StudioText}" />
                                 </DataTrigger>

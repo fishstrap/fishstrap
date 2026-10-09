@@ -2103,12 +2103,6 @@ Please don't change this setting unless you know what you're doing.</value>
   <data name="Menu.Overlay.Messages.Write" xml:space="preserve">
     <value>Write a message</value>
   </data>
-  <data name="Enums.Overlay.Order.Ascending" xml:space="preserve">
-    <value>Fewest players</value>
-  </data>
-  <data name="Enums.Overlay.Order.Descending" xml:space="preserve">
-    <value>Most players</value>
-  </data>
   <data name="Menu.Overlay.Pin" xml:space="preserve">
     <value>Pin over the game</value>
   </data>
@@ -2666,5 +2660,11 @@ Please don't change this setting unless you know what you're doing.</value>
   </data>
   <data name="Menu.Overlay.Notify.Dismiss" xml:space="preserve">
     <value>Dismiss</value>
+  </data>
+  <data name="Enums.Order.Ascending" xml:space="preserve">
+    <value>Fewest players</value>
+  </data>
+  <data name="Enums.Order.Descending" xml:space="preserve">
+    <value>Most players</value>
   </data>
 </root>

@@ -22,6 +22,8 @@ namespace Bloxstrap.Integrations.OverlayModules
 
         public event EventHandler<MessageEvent>? PartyChat;
 
+        public event EventHandler<IReadOnlyList<PresenceNotification>>? PresenceChanged;
+
         public readonly RobloxParty Party;
 
         public bool IsConnected => _webSocket is not null && _webSocket.State == WebSocketState.Open;
@@ -252,6 +254,15 @@ namespace Bloxstrap.Integrations.OverlayModules
                             throw new JsonException("Deserialised MessageEvent is null");
 
                         PartyChat?.Invoke(this, message);
+                        break;
+
+                    case "PresenceBulkNotifications":
+                        var notifications = JsonSerializer.Deserialize<List<PresenceNotification>>(payload);
+
+                        if (notifications is null)
+                            throw new JsonException("Deserialised PresenceBulkNotifications is null");
+
+                        PresenceChanged?.Invoke(this, notifications);
                         break;
 
                     default:

@@ -14,7 +14,7 @@ namespace Bloxstrap.RobloxInterfaces
 
         public static async Task<List<GameTile>> SearchAsync(string query)
         {
-            var response = await Http.GetJson<OmniSearchResponse>(UrlBuilder.BuildApiUrl("apis",
+            var response = await Http.GetJson<OmniSearchResponse>(UrlBuilder.BuildApisUrl(
                 $"search-api/omni-search?searchQuery={Uri.EscapeDataString(query)}&pageType=all&sessionId={SearchSession}"));
 
             var tiles = response.SearchResults
@@ -96,7 +96,7 @@ namespace Bloxstrap.RobloxInterfaces
             const string LOG_IDENT = "Experiences::ContinueFromRobloxAsync";
 
             JsonElement response = await AccountRequests.PostJsonAsync<JsonElement>(
-                UrlBuilder.BuildApiUrl("apis", "discovery-api/omni-recommendation"),
+                UrlBuilder.BuildApisUrl("discovery-api/omni-recommendation"),
                 new { pageType = "Home", sessionId = SearchSession });
 
             if (response.ValueKind != JsonValueKind.Object

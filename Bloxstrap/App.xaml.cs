@@ -69,8 +69,6 @@ namespace Bloxstrap
 
         public static readonly JsonManager<OverlayNotes> OverlayNotes = new();
 
-        public static readonly JsonManager<OverlayLayout> OverlayLayout = new();
-
         public static readonly JsonManager<RecentServers> RecentServers = new();
 
         public static readonly HttpClient HttpClient = new(

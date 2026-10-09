@@ -2332,24 +2332,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fewest players.
-        /// </summary>
-        public static string Enums_Overlay_Order_Ascending {
-            get {
-                return ResourceManager.GetString("Enums.Overlay.Order.Ascending", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Most players.
-        /// </summary>
-        public static string Enums_Overlay_Order_Descending {
-            get {
-                return ResourceManager.GetString("Enums.Overlay.Order.Descending", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dark.
         /// </summary>
         public static string Enums_RobloxTheme_Dark {
@@ -6905,6 +6887,18 @@ namespace Bloxstrap.Resources {
         public static string Menu_Overlay_Notify_Dismiss {
             get {
                 return ResourceManager.GetString("Menu.Overlay.Notify.Dismiss", resourceCulture);
+            }
+        }
+
+        public static string Enums_Order_Ascending {
+            get {
+                return ResourceManager.GetString("Enums.Order.Ascending", resourceCulture);
+            }
+        }
+
+        public static string Enums_Order_Descending {
+            get {
+                return ResourceManager.GetString("Enums.Order.Descending", resourceCulture);
             }
         }
     }

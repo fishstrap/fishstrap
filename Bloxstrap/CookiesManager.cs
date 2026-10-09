@@ -33,27 +33,18 @@ namespace Bloxstrap
         private const string SupportedVersion = "1";
         private const string AuthPattern = $@"\t{AuthCookieName}\t(.+?)(;|$)";
 
+        private const string CsrfHeader = "x-csrf-token";
+
+        // tracker is needed for privacy related features like game presence privacy and user presence privacy
         private const string TrackerCookieName = "RBXEventTrackerV2";
         private const string TrackerPattern = $@"\t{TrackerCookieName}\t(.+?)(;|$)";
 
         private string BrowserTracker = string.Empty;
+
+        private string _csrfToken = string.Empty;
         private string CookiesPath => Path.Combine(Paths.Roblox, "LocalStorage", Deployment.IsDefaultRobloxDomain ? "RobloxCookies.dat" : $"{Deployment.RobloxDomain}_RobloxCookies.dat");
 
-        public async Task<string> GetXCSRF()
-        {
-            Uri logoutUrl = UrlBuilder.BuildApiUrl("auth", "v2/logout");
-
-            HttpResponseMessage response = await AuthPost(logoutUrl, null);
-
-            response.Headers.TryGetValues("x-csrf-token", out IEnumerable<string>? values);
-
-            if (values is null)
-                throw new HttpRequestException("Failed to get x-csrf-token from response");
-
-            return values.First();
-        }
-
-        public async Task<HttpResponseMessage> AuthRequest(HttpRequestMessage request, string csrf = "")
+        public async Task<HttpResponseMessage> AuthRequest(HttpRequestMessage request)
         {
             string? host = request.RequestUri?.Host;
 
@@ -70,19 +61,53 @@ namespace Bloxstrap
             if (!Enabled)
                 throw new NullReferenceException("Cookie access is not enabled");
 
-            if (!String.IsNullOrEmpty(csrf))
-                request.Headers.Add("x-csrf-token", csrf);
+            HttpResponseMessage response = await SendAuthenticated(request);
 
+            if (response.StatusCode != HttpStatusCode.Forbidden
+                || !response.Headers.TryGetValues(CsrfHeader, out IEnumerable<string>? tokens)
+                || tokens.FirstOrDefault() is not string token
+                || String.IsNullOrEmpty(token)
+                || token == _csrfToken)
+                return response;
+
+            _csrfToken = token;
+
+            response.Dispose();
+
+            return await SendAuthenticated(Repeat(request));
+        }
+
+        private async Task<HttpResponseMessage> SendAuthenticated(HttpRequestMessage request)
+        {
+            request.Headers.Remove(CsrfHeader);
+
+            if (!String.IsNullOrEmpty(_csrfToken))
+                request.Headers.Add(CsrfHeader, _csrfToken);
+
+            request.Headers.Remove("Cookie");
             request.Headers.Add("Cookie", String.IsNullOrEmpty(BrowserTracker)
                 ? $".ROBLOSECURITY={AuthCookie}"
                 : $".ROBLOSECURITY={AuthCookie}; {TrackerCookieName}={BrowserTracker}");
-            var response = await App.HttpClient.SendAsync(request);
 
-            return response;
+            return await App.HttpClient.SendAsync(request);
         }
 
-        public async Task<HttpResponseMessage> AuthGet(Uri? uri, string csrf = "") => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Method = HttpMethod.Get }, csrf);
-        public async Task<HttpResponseMessage> AuthPost(Uri? uri, HttpContent? content, string csrf = "") => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Content = content, Method = HttpMethod.Post }, csrf);
+        private static HttpRequestMessage Repeat(HttpRequestMessage request)
+        {
+            var repeat = new HttpRequestMessage(request.Method, request.RequestUri)
+            {
+                Content = request.Content,
+                Version = request.Version
+            };
+
+            foreach (KeyValuePair<string, IEnumerable<string>> header in request.Headers)
+                repeat.Headers.TryAddWithoutValidation(header.Key, header.Value);
+
+            return repeat;
+        }
+
+        public async Task<HttpResponseMessage> AuthGet(Uri? uri) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Method = HttpMethod.Get });
+        public async Task<HttpResponseMessage> AuthPost(Uri? uri, HttpContent? content) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Content = content, Method = HttpMethod.Post });
 
         public void AuthWebsocket(ClientWebSocket webSocket)
         {
@@ -90,49 +115,6 @@ namespace Bloxstrap
                 throw new NullReferenceException("Cookie access is not enabled");
 
             webSocket.Options.SetRequestHeader("Cookie", $".ROBLOSECURITY={AuthCookie}");
-        }
-
-        public async Task EnsureBrowserTrackerAsync()
-        {
-            const string LOG_IDENT = "CookiesManager::EnsureBrowserTrackerAsync";
-
-            if (!String.IsNullOrEmpty(BrowserTracker))
-                return;
-
-            try
-            {
-                using var handler = new HttpClientHandler { UseCookies = false };
-                using var client = new HttpClient(handler);
-
-                client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
-
-                using var response = await client.GetAsync($"https://www.{Deployment.RobloxDomain}/");
-
-                string? tracker = null;
-
-                if (response.Headers.TryGetValues("Set-Cookie", out IEnumerable<string>? cookies))
-                {
-                    tracker = cookies
-                        .Select(x => Regex.Match(x, $@"^{TrackerCookieName}=([^;]+)"))
-                        .FirstOrDefault(x => x.Success)?
-                        .Groups[1].Value;
-                }
-
-                if (String.IsNullOrEmpty(tracker))
-                {
-                    App.Logger.WriteLine(LOG_IDENT, "Roblox didn't issue a browser tracker");
-                    return;
-                }
-
-                BrowserTracker = tracker;
-
-                App.Logger.WriteLine(LOG_IDENT, "Roblox issued a browser tracker");
-            }
-            catch (Exception ex)
-            {
-                App.Logger.WriteLine(LOG_IDENT, "Failed to get a browser tracker");
-                App.Logger.WriteException(LOG_IDENT, ex);
-            }
         }
 
         public async Task<AuthenticatedUser?> GetAuthenticated()

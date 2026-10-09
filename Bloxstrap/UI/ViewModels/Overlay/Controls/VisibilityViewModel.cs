@@ -8,7 +8,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 {
     public class VisibilityOption
     {
-        public string Value { get; init; } = String.Empty;
+        public PrivacyLevel Value { get; init; }
 
         public string Label { get; init; } = String.Empty;
 
@@ -33,15 +33,13 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         protected abstract string SettingName { get; }
 
-        protected abstract IReadOnlyList<string> Levels { get; }
+        protected abstract IReadOnlyList<PrivacyLevel> Available { get; }
 
-        protected abstract IReadOnlyList<string> Available { get; }
+        protected abstract PrivacyLevel? Current { get; }
 
-        protected abstract string? Current { get; }
+        protected virtual bool IsAllowed(PrivacyLevel value) => true;
 
-        protected virtual bool IsAllowed(string value) => true;
-
-        protected abstract Task<string> ApplyAsync(string value);
+        protected abstract Task<string> ApplyAsync(PrivacyLevel value);
 
         public bool IsOpen
         {
@@ -60,15 +58,15 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        public IReadOnlyList<VisibilityOption> Options => Levels
-            .Select((value, rank) => new VisibilityOption
+        public IReadOnlyList<VisibilityOption> Options => Enum.GetValues<PrivacyLevel>()
+            .Where(x => x == Current || Available.Count == 0 || Available.Contains(x))
+            .Select(x => new VisibilityOption
             {
-                Value = value,
-                Label = LabelFor(rank),
-                IsCurrent = value == Current,
-                IsAllowed = IsAllowed(value)
+                Value = x,
+                Label = LabelFor(x),
+                IsCurrent = x == Current,
+                IsAllowed = IsAllowed(x)
             })
-            .Where(x => x.IsCurrent || Available.Count == 0 || Available.Contains(x.Value))
             .ToList();
 
         public bool CanChange => !_busy && Current is not null;
@@ -79,7 +77,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         public ICommand OpenCommand => new RelayCommand(() => IsOpen = !IsOpen);
 
-        public ICommand SetCommand => new RelayCommand<string>(async value => await SetAsync(value));
+        public ICommand SetCommand => new RelayCommand<PrivacyLevel>(async value => await SetAsync(value));
 
         private async Task LoadAsync()
         {
@@ -104,7 +102,7 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             {
                 State = await PrivacySettings.FetchAsync();
 
-                App.Logger.WriteLine(LOG_IDENT, $"Online visibility is {State.Online ?? "unreported"}, joining is {State.Join ?? "unreported"}");
+                App.Logger.WriteLine(LOG_IDENT, $"Online visibility is {State.Online?.ToString() ?? "unreported"}, joining is {State.Join?.ToString() ?? "unreported"}");
 
                 Show(null);
             }
@@ -124,11 +122,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             }
         }
 
-        private async Task SetAsync(string? value)
+        private async Task SetAsync(PrivacyLevel value)
         {
             string LOG_IDENT = $"{GetType().Name}::SetAsync";
 
-            if (value is null || !CanChange || value == Current || !IsAllowed(value))
+            if (!CanChange || value == Current || !IsAllowed(value))
                 return;
 
             _busy = true;
@@ -170,13 +168,13 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
             Refreshed();
         }
 
-        private static string LabelFor(int rank) => rank switch
+        private static string LabelFor(PrivacyLevel level) => level switch
         {
-            0 => Strings.Menu_Overlay_Privacy_Everyone,
-            1 => Strings.Menu_Overlay_Privacy_FriendsFollowingAndFollowers,
-            2 => Strings.Menu_Overlay_Privacy_FriendsAndFollowing,
-            3 => Strings.Menu_Overlay_Privacy_Friends,
-            4 => Strings.Menu_Overlay_Privacy_TrustedFriends,
+            PrivacyLevel.Everyone => Strings.Menu_Overlay_Privacy_Everyone,
+            PrivacyLevel.FriendsFollowingAndFollowers => Strings.Menu_Overlay_Privacy_FriendsFollowingAndFollowers,
+            PrivacyLevel.FriendsAndFollowing => Strings.Menu_Overlay_Privacy_FriendsAndFollowing,
+            PrivacyLevel.Friends => Strings.Menu_Overlay_Privacy_Friends,
+            PrivacyLevel.TrustedFriends => Strings.Menu_Overlay_Privacy_TrustedFriends,
             _ => Strings.Menu_Overlay_Privacy_NoOne
         };
 

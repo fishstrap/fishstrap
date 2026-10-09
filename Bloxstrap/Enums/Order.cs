@@ -1,4 +1,4 @@
-﻿namespace Bloxstrap.Enums.Overlay
+﻿namespace Bloxstrap.Enums
 {
     public enum Order
     {

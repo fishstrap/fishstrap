@@ -60,20 +60,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         public GameOverlay(Integrations.Overlay? overlay)
         {
-            const string LOG_IDENT = "GameOverlay::GameOverlay";
-
             Wpf.Ui.Appearance.Accent.ApplySystemAccent();
-
-            try
-            {
-                if (!App.OverlayLayout.Loaded)
-                    App.OverlayLayout.Load(false);
-            }
-            catch (Exception ex)
-            {
-                App.Logger.WriteLine(LOG_IDENT, "Failed to read the saved layout");
-                App.Logger.WriteException(LOG_IDENT, ex);
-            }
 
             _overlay = overlay;
             _viewModel = new GameOverlayViewModel(this, overlay);
@@ -162,7 +149,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         private bool Restore(OverlayPanelKind kind, OverlayPanel panel)
         {
-            if (!App.OverlayLayout.Prop.Panels.TryGetValue(kind.ToString(), out OverlayPanelLayout? saved))
+            if (!App.State.Prop.OverlayPanels.TryGetValue(kind.ToString(), out OverlayPanelLayout? saved))
                 return false;
 
             if (saved.Width < OverlayPanel.MinPanelWidth || saved.Height < OverlayPanel.MinPanelHeight)
@@ -191,7 +178,7 @@ namespace Bloxstrap.UI.Elements.Overlay
         }
 
         private static OverlayPanelLayout? Saved(OverlayPanelKind kind) =>
-            App.OverlayLayout.Prop.Panels.TryGetValue(kind.ToString(), out OverlayPanelLayout? saved) ? saved : null;
+            App.State.Prop.OverlayPanels.TryGetValue(kind.ToString(), out OverlayPanelLayout? saved) ? saved : null;
 
         private void Persist()
         {
@@ -247,8 +234,11 @@ namespace Bloxstrap.UI.Elements.Overlay
 
                 _savedLayout = serialised;
 
-                App.OverlayLayout.Prop.Panels = panels;
-                App.OverlayLayout.Save();
+                if (File.Exists(App.State.FileLocation) && App.State.HasFileOnDiskChanged())
+                    App.State.Load(false);
+
+                App.State.Prop.OverlayPanels = panels;
+                App.State.Save();
             }
             catch (Exception ex)
             {

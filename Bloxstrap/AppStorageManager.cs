@@ -28,43 +28,6 @@ namespace Bloxstrap
                 WindowsRegistry.RemoveRobloxStartupEntry();
         }
 
-        public static (long Id, string? Name, string? DisplayName)? ReadAccount()
-        {
-            const string LOG_IDENT = "AppStorageManager::ReadAccount";
-
-            try
-            {
-                string path = FileLocation;
-
-                if (!File.Exists(path))
-                    return null;
-
-                using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
-
-                if (JsonNode.Parse(stream) is not JsonObject storage || storage["UserId"] is not JsonValue idNode)
-                    return null;
-
-                long id = idNode.TryGetValue(out long number) ? number
-                    : idNode.TryGetValue(out string? text) && Int64.TryParse(text, out long parsed) ? parsed
-                    : 0;
-
-                if (id <= 0)
-                    return null;
-
-                return (id, Text(storage, "Username"), Text(storage, "DisplayName"));
-            }
-            catch (Exception ex)
-            {
-                App.Logger.WriteLine(LOG_IDENT, "Failed to read the signed-in account");
-                App.Logger.WriteException(LOG_IDENT, ex);
-
-                return null;
-            }
-        }
-
-        private static string? Text(JsonObject storage, string key) =>
-            storage[key] is JsonValue value && value.TryGetValue(out string? text) && !String.IsNullOrWhiteSpace(text) ? text : null;
-
         private static void ApplyBackgroundApp(JsonObject storage, bool enabled)
         {
             string state = enabled ? "true" : "false";

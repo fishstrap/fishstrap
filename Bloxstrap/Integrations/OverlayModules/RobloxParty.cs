@@ -6,8 +6,7 @@ namespace Bloxstrap.Integrations.OverlayModules
 {
     public class RobloxParty
     {
-        private const string ApiService = "apis";
-        private const string ApiPath = "platform-chat-api/v1";
+        private const string PlatformChatService = "platform-chat-api";
 
         public event EventHandler<MessageEvent>? IncomingMessage;
 
@@ -23,8 +22,8 @@ namespace Bloxstrap.Integrations.OverlayModules
         {
             const string LOG_IDENT = "RobloxParty::GetConversations";
 
-            Uri url = UrlBuilder.BuildApiUrl(ApiService,
-                $"{ApiPath}/get-user-conversations?pageSize={pageSize}&include_user_data=true&cursor={cursor}");
+            Uri url = UrlBuilder.BuildApisUrl(
+                $"{PlatformChatService}/v1/get-user-conversations?pageSize={pageSize}&include_user_data=true&cursor={cursor}");
 
             try
             {
@@ -75,7 +74,7 @@ namespace Bloxstrap.Integrations.OverlayModules
             try
             {
                 var result = await AccountRequests.PostJsonAsync<ConversationsPage>(
-                    UrlBuilder.BuildApiUrl(ApiService, $"{ApiPath}/create-conversations"), payload);
+                    UrlBuilder.BuildApisUrl($"{PlatformChatService}/v1/create-conversations"), payload);
 
                 return result?.Conversations.FirstOrDefault(x => !String.IsNullOrEmpty(x.Id));
             }
@@ -95,8 +94,8 @@ namespace Bloxstrap.Integrations.OverlayModules
             if (String.IsNullOrEmpty(conversation.Id))
                 return null;
 
-            Uri url = UrlBuilder.BuildApiUrl(ApiService,
-                $"{ApiPath}/get-conversation-messages?conversation_id={conversation.Id}&cursor={cursor}");
+            Uri url = UrlBuilder.BuildApisUrl(
+                $"{PlatformChatService}/v1/get-conversation-messages?conversation_id={conversation.Id}&cursor={cursor}");
 
             try
             {
@@ -123,10 +122,8 @@ namespace Bloxstrap.Integrations.OverlayModules
 
             var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
-            string csrf = await App.Cookies.GetXCSRF();
-
             using var response = await App.Cookies.AuthPost(
-                UrlBuilder.BuildApiUrl(ApiService, $"{ApiPath}/send-messages"), content, csrf);
+                UrlBuilder.BuildApisUrl($"{PlatformChatService}/v1/send-messages"), content);
 
             response.EnsureSuccessStatusCode();
 

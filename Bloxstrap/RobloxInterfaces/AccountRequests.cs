@@ -4,45 +4,32 @@ namespace Bloxstrap.RobloxInterfaces
     {
         public static async Task SendAsync(HttpMethod method, Uri url, object body, string setting, string value)
         {
-            using var response = await SendWithTokenAsync(method, url, body);
+            using var response = await SendJsonAsync(method, url, body);
 
             await EnsureAcceptedAsync(response, setting, value);
         }
 
         public static async Task DeleteAsync(Uri url)
         {
-            using var response = await SendWithTokenAsync(HttpMethod.Delete, url, null);
+            using var response = await SendJsonAsync(HttpMethod.Delete, url, null);
 
             response.EnsureSuccessStatusCode();
         }
 
         public static async Task<T> PostJsonAsync<T>(Uri url, object body)
         {
-            using var response = await SendWithTokenAsync(HttpMethod.Post, url, body);
+            using var response = await SendJsonAsync(HttpMethod.Post, url, body);
 
             response.EnsureSuccessStatusCode();
 
             return JsonSerializer.Deserialize<T>(await response.Content.ReadAsStringAsync())!;
         }
 
-        private static async Task<HttpResponseMessage> SendWithTokenAsync(HttpMethod method, Uri url, object? body)
-        {
-            string? json = body is null ? null : JsonSerializer.Serialize(body);
-
-            HttpRequestMessage Request() => new(method, url)
+        private static Task<HttpResponseMessage> SendJsonAsync(HttpMethod method, Uri url, object? body) =>
+            App.Cookies.AuthRequest(new HttpRequestMessage(method, url)
             {
-                Content = json is null ? null : new StringContent(json, Encoding.UTF8, "application/json")
-            };
-
-            var first = await App.Cookies.AuthRequest(Request());
-
-            if (first.StatusCode != HttpStatusCode.Forbidden || !first.Headers.TryGetValues("x-csrf-token", out var tokens))
-                return first;
-
-            first.Dispose();
-
-            return await App.Cookies.AuthRequest(Request(), tokens.First());
-        }
+                Content = body is null ? null : new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json")
+            });
 
         private static async Task EnsureAcceptedAsync(HttpResponseMessage response, string setting, string value)
         {

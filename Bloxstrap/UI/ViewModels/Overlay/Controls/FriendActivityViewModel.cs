@@ -293,9 +293,9 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
             var sections = new List<(FriendSection Section, List<ChatFriend> People)>
             {
-                (FriendSection.InGame, _people.Values.Where(x => x.Status == FriendStatus.InGame && Shown(x)).ToList()),
-                (FriendSection.Online, _people.Values.Where(x => (x.Status is FriendStatus.Online or FriendStatus.InStudio) && Shown(x)).ToList()),
-                (FriendSection.Offline, _people.Values.Where(x => x.Status == FriendStatus.Offline && Shown(x)).ToList()),
+                (FriendSection.InGame, _people.Values.Where(x => x.Status == UserPresenceType.InGame && Shown(x)).ToList()),
+                (FriendSection.Online, _people.Values.Where(x => (x.Status is UserPresenceType.Online or UserPresenceType.InStudio) && Shown(x)).ToList()),
+                (FriendSection.Offline, _people.Values.Where(x => x.Status == UserPresenceType.Offline && Shown(x)).ToList()),
                 (FriendSection.Groups, _groups.Where(Shown).ToList())
             };
 

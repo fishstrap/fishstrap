@@ -1,10 +1,5 @@
 namespace Bloxstrap.Models.Persistable
 {
-    public class OverlayLayout
-    {
-        public Dictionary<string, OverlayPanelLayout> Panels { get; set; } = new();
-    }
-
     public class OverlayPanelLayout
     {
         public bool Open { get; set; }

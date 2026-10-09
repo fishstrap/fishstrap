@@ -6,13 +6,29 @@ namespace Bloxstrap.RobloxInterfaces
 
         private const string JoinSetting = "whoCanJoinMeInExperiences";
 
-        private static Uri SettingsUrl => UrlBuilder.BuildApiUrl("apis", "user-settings-api/v1/user-settings/settings-and-options");
+        private static Uri SettingsUrl => UrlBuilder.BuildApisUrl("user-settings-api/v1/user-settings/settings-and-options");
 
-        private static Uri UpdateUrl => UrlBuilder.BuildApiUrl("apis", "user-settings-api/v1/user-settings");
+        private static Uri UpdateUrl => UrlBuilder.BuildApisUrl("user-settings-api/v1/user-settings");
 
-        public static readonly IReadOnlyList<string> OnlineLevels = new[] { "AllUsers", "FriendsFollowingAndFollowers", "FriendsAndFollowing", "Friends", "TrustedFriends", "NoOne" };
+        private static readonly IReadOnlyDictionary<PrivacyLevel, string> OnlineValues = new Dictionary<PrivacyLevel, string>
+        {
+            [PrivacyLevel.Everyone] = "AllUsers",
+            [PrivacyLevel.FriendsFollowingAndFollowers] = "FriendsFollowingAndFollowers",
+            [PrivacyLevel.FriendsAndFollowing] = "FriendsAndFollowing",
+            [PrivacyLevel.Friends] = "Friends",
+            [PrivacyLevel.TrustedFriends] = "TrustedFriends",
+            [PrivacyLevel.NoOne] = "NoOne"
+        };
 
-        public static readonly IReadOnlyList<string> JoinLevels = new[] { "All", "Followers", "Following", "Friends", "TrustedFriends", "NoOne" };
+        private static readonly IReadOnlyDictionary<PrivacyLevel, string> JoinValues = new Dictionary<PrivacyLevel, string>
+        {
+            [PrivacyLevel.Everyone] = "All",
+            [PrivacyLevel.FriendsFollowingAndFollowers] = "Followers",
+            [PrivacyLevel.FriendsAndFollowing] = "Following",
+            [PrivacyLevel.Friends] = "Friends",
+            [PrivacyLevel.TrustedFriends] = "TrustedFriends",
+            [PrivacyLevel.NoOne] = "NoOne"
+        };
 
         public static async Task<PrivacyState> FetchAsync()
         {
@@ -20,62 +36,58 @@ namespace Bloxstrap.RobloxInterfaces
 
             return new PrivacyState
             {
-                Online = response.OnlineStatus?.CurrentValue,
-                Join = response.JoinStatus?.CurrentValue,
-                OnlineOptions = response.OnlineStatus?.Available ?? Array.Empty<string>(),
-                JoinOptions = response.JoinStatus?.Available ?? Array.Empty<string>()
+                Online = Parse(OnlineSetting, response.OnlineStatus?.CurrentValue),
+                Join = Parse(JoinSetting, response.JoinStatus?.CurrentValue),
+                OnlineOptions = Levels(OnlineSetting, response.OnlineStatus?.Available),
+                JoinOptions = Levels(JoinSetting, response.JoinStatus?.Available)
             };
         }
 
-        public static int Rank(string? value)
+        private static PrivacyLevel? Parse(string setting, string? value)
         {
+            const string LOG_IDENT = "PrivacySettings::Parse";
+
             if (value is null)
-                return -1;
+                return null;
 
-            int rank = OnlineLevels.ToList().IndexOf(value);
-
-            return rank >= 0 ? rank : JoinLevels.ToList().IndexOf(value);
-        }
-
-        public static IReadOnlyList<(string Setting, string Value)> PlanOnlineVisibility(string online, string? join)
-        {
-            int onlineRank = OnlineLevels.ToList().IndexOf(online);
-
-            if (onlineRank < 0)
-                throw new ArgumentException($"Unknown online visibility '{online}'", nameof(online));
-
-            var plan = new List<(string, string)>();
-
-            int joinRank = Rank(join);
-
-            if (joinRank >= 0 && joinRank < onlineRank)
+            foreach (var values in new[] { OnlineValues, JoinValues })
             {
-                bool joinNames = JoinLevels.Contains(join!);
-
-                plan.Add((JoinSetting, joinNames ? JoinLevels[onlineRank] : OnlineLevels[onlineRank]));
+                foreach ((PrivacyLevel level, string name) in values)
+                {
+                    if (name == value)
+                        return level;
+                }
             }
 
-            plan.Add((OnlineSetting, online));
+            App.Logger.WriteLine(LOG_IDENT, $"Unknown value '{value}' for {setting}");
+
+            return null;
+        }
+
+        private static IReadOnlyList<PrivacyLevel> Levels(string setting, IReadOnlyList<string>? values) =>
+            values?.Select(x => Parse(setting, x)).OfType<PrivacyLevel>().Distinct().ToList() ?? new List<PrivacyLevel>();
+
+        public static IReadOnlyList<(string Setting, string Value)> PlanOnlineVisibility(PrivacyLevel online, PrivacyLevel? join)
+        {
+            var plan = new List<(string, string)>();
+
+            if (join is PrivacyLevel current && current < online)
+                plan.Add((JoinSetting, JoinValues[online]));
+
+            plan.Add((OnlineSetting, OnlineValues[online]));
 
             return plan;
         }
 
-        public static bool GameVisibilityAllowed(string join, string? online)
-        {
-            int onlineRank = Rank(online);
+        public static bool GameVisibilityAllowed(PrivacyLevel join, PrivacyLevel? online) => online is null || join >= online;
 
-            return onlineRank < 0 || Rank(join) >= onlineRank;
-        }
-
-        public static async Task<bool> SetOnlineVisibilityAsync(string online, string? join)
+        public static async Task<bool> SetOnlineVisibilityAsync(PrivacyLevel online, PrivacyLevel? join)
         {
             const string LOG_IDENT = "PrivacySettings::SetOnlineVisibilityAsync";
 
             var plan = PlanOnlineVisibility(online, join);
 
-            await App.Cookies.EnsureBrowserTrackerAsync();
-
-            App.Logger.WriteLine(LOG_IDENT, $"Setting online visibility to {online} with joining at {join ?? "unreported"}: {String.Join(", then ", plan.Select(x => $"{x.Setting}={x.Value}"))}");
+            App.Logger.WriteLine(LOG_IDENT, $"Setting online visibility to {online} with joining at {join?.ToString() ?? "unreported"}: {String.Join(", then ", plan.Select(x => $"{x.Setting}={x.Value}"))}");
 
             foreach ((string setting, string value) in plan)
                 await PostAsync(setting, value);
@@ -83,21 +95,16 @@ namespace Bloxstrap.RobloxInterfaces
             return plan.Count > 1;
         }
 
-        public static async Task SetGameVisibilityAsync(string join, string? online)
+        public static async Task SetGameVisibilityAsync(PrivacyLevel join, PrivacyLevel? online)
         {
             const string LOG_IDENT = "PrivacySettings::SetGameVisibilityAsync";
 
-            if (!JoinLevels.Contains(join))
-                throw new ArgumentException($"Unknown game visibility '{join}'", nameof(join));
-
             if (!GameVisibilityAllowed(join, online))
-                throw new ArgumentException($"Game visibility '{join}' is wider than online visibility '{online}'", nameof(join));
+                throw new ArgumentException($"Game visibility {join} is wider than online visibility {online}", nameof(join));
 
-            await App.Cookies.EnsureBrowserTrackerAsync();
+            App.Logger.WriteLine(LOG_IDENT, $"Setting game visibility to {join} with online at {online?.ToString() ?? "unreported"}");
 
-            App.Logger.WriteLine(LOG_IDENT, $"Setting game visibility to {join} with online at {online ?? "unreported"}");
-
-            await PostAsync(JoinSetting, join);
+            await PostAsync(JoinSetting, JoinValues[join]);
         }
 
         private static Task PostAsync(string setting, string value) =>

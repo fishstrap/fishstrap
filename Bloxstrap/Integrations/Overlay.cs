@@ -64,7 +64,7 @@ namespace Bloxstrap.Integrations
 
             ActivityWatcher = activityWatcher;
 
-            Friends = new FriendPresence(activityWatcher);
+            Friends = new FriendPresence(activityWatcher, Messaging);
             Friends.Changed += OnFriendChanged;
         }
 

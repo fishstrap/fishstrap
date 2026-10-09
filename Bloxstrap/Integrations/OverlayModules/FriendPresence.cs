@@ -1,11 +1,14 @@
 using Bloxstrap.Enums.Overlay;
+using Bloxstrap.Models.APIs.RealtimeMessaging;
 using Bloxstrap.RobloxInterfaces;
 
 namespace Bloxstrap.Integrations.OverlayModules
 {
     public class FriendPresence : IDisposable
     {
-        private static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(45);
+        private static readonly TimeSpan ResyncInterval = TimeSpan.FromMinutes(10);
+
+        private static readonly TimeSpan OfflineInterval = TimeSpan.FromSeconds(45);
 
         private static readonly TimeSpan FriendsRefresh = TimeSpan.FromMinutes(10);
 
@@ -13,7 +16,7 @@ namespace Bloxstrap.Integrations.OverlayModules
 
         private const int BatchSize = 50;
 
-        private const int MaxPerPoll = 3;
+        private const int MaxPerUpdate = 3;
 
         public event EventHandler<FriendPresenceChange>? Changed;
 
@@ -21,11 +24,17 @@ namespace Bloxstrap.Integrations.OverlayModules
 
         private readonly ActivityWatcher? _activityWatcher;
 
+        private readonly RealtimeMessaging _messaging;
+
+        private readonly object _lock = new();
+
         private readonly Dictionary<(long UserId, string Place), DateTime> _notified = new();
 
         private Dictionary<long, UserPresence> _last = new();
 
         private List<long> _friends = new();
+
+        private HashSet<long> _friendIds = new();
 
         private DateTime _friendsFetched = DateTime.MinValue;
 
@@ -35,19 +44,29 @@ namespace Bloxstrap.Integrations.OverlayModules
 
         public IReadOnlyList<long> FriendIds => _friends.ToList();
 
-        public IReadOnlyDictionary<long, UserPresence> Presences => new Dictionary<long, UserPresence>(_last);
+        public IReadOnlyDictionary<long, UserPresence> Presences
+        {
+            get
+            {
+                lock (_lock)
+                    return new Dictionary<long, UserPresence>(_last);
+            }
+        }
 
         public bool HasLooked => _seeded;
 
-        public FriendPresence(ActivityWatcher? activityWatcher)
+        public FriendPresence(ActivityWatcher? activityWatcher, RealtimeMessaging messaging)
         {
             _activityWatcher = activityWatcher;
+            _messaging = messaging;
         }
 
         public void Start()
         {
             if (_cancellation is not null)
                 return;
+
+            _messaging.PresenceChanged += OnPresenceChanged;
 
             _cancellation = new CancellationTokenSource();
 
@@ -58,6 +77,8 @@ namespace Bloxstrap.Integrations.OverlayModules
 
         public void Stop()
         {
+            _messaging.PresenceChanged -= OnPresenceChanged;
+
             _cancellation?.Cancel();
             _cancellation?.Dispose();
             _cancellation = null;
@@ -83,7 +104,7 @@ namespace Bloxstrap.Integrations.OverlayModules
                         App.Logger.WriteException(LOG_IDENT, ex);
                     }
 
-                    await Task.Delay(PollInterval, token);
+                    await Task.Delay(_messaging.IsConnected ? ResyncInterval : OfflineInterval, token);
                 }
             }
             catch (OperationCanceledException)
@@ -104,6 +125,7 @@ namespace Bloxstrap.Integrations.OverlayModules
                     UrlBuilder.BuildApiUrl("friends", $"v1/users/{me.Id}/friends"));
 
                 _friends = friends?.Data?.Select(x => x.Id).Where(x => x > 0).Distinct().ToList() ?? new List<long>();
+                _friendIds = _friends.ToHashSet();
                 _friendsFetched = DateTime.UtcNow;
 
                 App.Logger.WriteLine(LOG_IDENT, $"Keeping an eye on {_friends.Count} friends");
@@ -127,14 +149,61 @@ namespace Bloxstrap.Integrations.OverlayModules
                     now[presence.UserId] = presence;
             }
 
-            List<FriendPresenceChange> changes = _seeded ? Compare(now) : new List<FriendPresenceChange>();
+            List<FriendPresenceChange> changes;
 
-            _last = now;
-            _seeded = true;
+            lock (_lock)
+            {
+                changes = _seeded ? Compare(now) : new List<FriendPresenceChange>();
 
+                _last = now;
+                _seeded = true;
+            }
+
+            Publish(changes);
+        }
+
+        private void OnPresenceChanged(object? sender, IReadOnlyList<PresenceNotification> notifications)
+        {
+            List<FriendPresenceChange> changes;
+
+            lock (_lock)
+            {
+                if (!_seeded)
+                    return;
+
+                var now = new Dictionary<long, UserPresence>(_last);
+                bool changed = false;
+
+                foreach (PresenceNotification notification in notifications)
+                {
+                    if (notification.Type != PresenceNotification.PresenceChangedType || notification.PresenceReport is not UserPresence presence)
+                        continue;
+
+                    long userId = presence.UserId > 0 ? presence.UserId : notification.UserId;
+
+                    if (!_friendIds.Contains(userId))
+                        continue;
+
+                    presence.UserId = userId;
+                    now[userId] = presence;
+                    changed = true;
+                }
+
+                if (!changed)
+                    return;
+
+                changes = Compare(now);
+                _last = now;
+            }
+
+            Publish(changes);
+        }
+
+        private void Publish(List<FriendPresenceChange> changes)
+        {
             Updated?.Invoke(this, EventArgs.Empty);
 
-            foreach (FriendPresenceChange change in changes.OrderBy(x => x.Kind).Take(MaxPerPoll))
+            foreach (FriendPresenceChange change in changes.OrderBy(x => x.Kind).Take(MaxPerUpdate))
                 Changed?.Invoke(this, change);
         }
 

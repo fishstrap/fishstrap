@@ -14,10 +14,8 @@ namespace Bloxstrap.Models.APIs.Roblox
 
     public class UserPresence
     {
-        public const int InGameType = 2;
-
         [JsonPropertyName("userPresenceType")]
-        public int UserPresenceType { get; set; }
+        public UserPresenceType UserPresenceType { get; set; }
 
         [JsonPropertyName("lastLocation")]
         public string? LastLocation { get; set; }
@@ -37,6 +35,6 @@ namespace Bloxstrap.Models.APIs.Roblox
         [JsonPropertyName("userId")]
         public long UserId { get; set; }
 
-        public bool IsInGame => UserPresenceType == InGameType && UniverseId is > 0;
+        public bool IsInGame => UserPresenceType == UserPresenceType.InGame && UniverseId is > 0;
     }
 }

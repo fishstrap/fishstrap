@@ -10,13 +10,11 @@ namespace Bloxstrap.UI.ViewModels.Overlay.Controls
 
         protected override string SettingName => "online visibility";
 
-        protected override IReadOnlyList<string> Levels => PrivacySettings.OnlineLevels;
+        protected override IReadOnlyList<PrivacyLevel> Available => State?.OnlineOptions ?? Array.Empty<PrivacyLevel>();
 
-        protected override IReadOnlyList<string> Available => State?.OnlineOptions ?? Array.Empty<string>();
+        protected override PrivacyLevel? Current => State?.Online;
 
-        protected override string? Current => State?.Online;
-
-        protected override async Task<string> ApplyAsync(string value)
+        protected override async Task<string> ApplyAsync(PrivacyLevel value)
         {
             const string LOG_IDENT = "OnlineStatusViewModel::ApplyAsync";
 

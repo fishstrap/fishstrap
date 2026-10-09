@@ -1,6 +1,5 @@
 using System.ComponentModel;
 
-using Bloxstrap.Enums.Overlay;
 
 namespace Bloxstrap.Models.Overlay
 {
@@ -49,7 +48,7 @@ namespace Bloxstrap.Models.Overlay
             nameof(Status), nameof(GameName), nameof(PlaceId), nameof(RootPlaceId), nameof(ServerId), nameof(CanJoin), nameof(CanViewGame), nameof(StatusText)
         };
 
-        public FriendStatus Status { get; private set; } = FriendStatus.Offline;
+        public UserPresenceType Status { get; private set; } = UserPresenceType.Offline;
 
         public string? GameName { get; private set; }
 
@@ -59,9 +58,9 @@ namespace Bloxstrap.Models.Overlay
 
         public string? ServerId { get; private set; }
 
-        public bool CanJoin => Status == FriendStatus.InGame && PlaceId > 0 && !String.IsNullOrEmpty(ServerId);
+        public bool CanJoin => Status == UserPresenceType.InGame && PlaceId > 0 && !String.IsNullOrEmpty(ServerId);
 
-        public bool CanViewGame => Status == FriendStatus.InGame && !CanJoin && (RootPlaceId > 0 || PlaceId > 0);
+        public bool CanViewGame => Status == UserPresenceType.InGame && !CanJoin && (RootPlaceId > 0 || PlaceId > 0);
 
         public string StatusText
         {
@@ -72,11 +71,11 @@ namespace Bloxstrap.Models.Overlay
 
                 return Status switch
                 {
-                    FriendStatus.InGame => String.IsNullOrEmpty(GameName)
+                    UserPresenceType.InGame => String.IsNullOrEmpty(GameName)
                         ? Strings.Menu_Overlay_Messages_InAGame
                         : String.Format(Strings.Menu_Overlay_Messages_Playing, GameName),
-                    FriendStatus.InStudio => Strings.Menu_Overlay_Messages_InStudio,
-                    FriendStatus.Online => Strings.Menu_Overlay_Messages_Online,
+                    UserPresenceType.InStudio => Strings.Menu_Overlay_Messages_InStudio,
+                    UserPresenceType.Online => Strings.Menu_Overlay_Messages_Online,
                     _ => Strings.Menu_Overlay_Messages_Offline
                 };
             }
@@ -105,15 +104,11 @@ namespace Bloxstrap.Models.Overlay
 
         public void Update(UserPresence? presence)
         {
-            FriendStatus status = presence?.UserPresenceType switch
-            {
-                UserPresence.InGameType => FriendStatus.InGame,
-                3 => FriendStatus.InStudio,
-                1 => FriendStatus.Online,
-                _ => FriendStatus.Offline
-            };
+            UserPresenceType status = presence?.UserPresenceType is UserPresenceType.InGame or UserPresenceType.InStudio or UserPresenceType.Online
+                ? presence.UserPresenceType
+                : UserPresenceType.Offline;
 
-            string? game = status == FriendStatus.InGame && !String.IsNullOrWhiteSpace(presence?.LastLocation) ? presence!.LastLocation : null;
+            string? game = status == UserPresenceType.InGame && !String.IsNullOrWhiteSpace(presence?.LastLocation) ? presence!.LastLocation : null;
             long place = presence?.PlaceId ?? 0;
             long root = presence?.RootPlaceId ?? 0;
             string? server = String.IsNullOrEmpty(presence?.GameId) ? null : presence!.GameId;
