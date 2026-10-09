@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
@@ -12,6 +13,7 @@ using Microsoft.Win32;
 
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using Windows.Win32.Graphics.Gdi;
 using Windows.Win32.UI.WindowsAndMessaging;
 
 using Wpf.Ui.Common;
@@ -25,14 +27,22 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private const string RuntimeClientKey = @"Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}";
 
+        private const int WS_EX_TOOLWINDOW = 0x00000080;
+        private const int WS_EX_NOACTIVATE = 0x08000000;
+
         private WebView2? _view;
         private Window? _host;
+        private Window? _owner;
         private HWND _hostHandle;
         private Int32Rect _hostBounds;
 
         private bool _started;
         private bool _open = true;
         private bool _loading;
+
+        private bool _hostVisible = true;
+        private readonly List<Rect> _occluders = new();
+        private bool _placeQueued;
 
         private string? _pending;
 
@@ -43,7 +53,8 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             InitializeComponent();
 
             ViewHost.IsVisibleChanged += (_, _) => SyncHost();
-            ViewHost.LayoutUpdated += (_, _) => PlaceHost(false);
+            ViewHost.LayoutUpdated += (_, _) => QueuePlaceHost();
+            IsVisibleChanged += (_, _) => SyncHost();
         }
 
         [SupportedOSPlatformGuard("windows10.0.17763.0")]
@@ -59,6 +70,21 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             if (Core is not null)
                 Core.IsMuted = !open;
+
+            SyncHost();
+        }
+
+        public void SetHostVisible(bool visible)
+        {
+            _hostVisible = visible;
+            SyncHost();
+        }
+
+        public void SetOccluders(IReadOnlyList<Rect> occluders)
+        {
+            _occluders.Clear();
+            _occluders.AddRange(occluders);
+            ApplyClip();
         }
 
         public void Navigate(Uri address)
@@ -71,8 +97,20 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         public void Shutdown()
         {
+            if (_owner is not null)
+            {
+                _owner.LocationChanged -= OnOwnerMoved;
+                _owner.IsVisibleChanged -= OnOwnerIsVisibleChanged;
+                _owner.StateChanged -= OnOwnerStateChanged;
+                _owner = null;
+            }
+
             _view?.Dispose();
+            _view = null;
+            _occluders.Clear();
             _host?.Close();
+            _host = null;
+            _hostHandle = HWND.Null;
         }
 
         private async void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -96,7 +134,12 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             try
             {
-                Window owner = Window.GetWindow(this);
+                Window? owner = Window.GetWindow(this);
+
+                if (owner is null)
+                    throw new InvalidOperationException("Browser has no owner window");
+
+                _owner = owner;
 
                 _view = new WebView2();
 
@@ -119,7 +162,12 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
                 _host.PreviewKeyDown += OnHostKeyDown;
                 _hostHandle = new HWND(new WindowInteropHelper(_host).EnsureHandle());
 
-                owner.LocationChanged += (_, _) => PlaceHost(false);
+                int exStyle = PInvoke.GetWindowLong(_hostHandle, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
+                PInvoke.SetWindowLong(_hostHandle, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, exStyle | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
+
+                owner.LocationChanged += OnOwnerMoved;
+                owner.IsVisibleChanged += OnOwnerIsVisibleChanged;
+                owner.StateChanged += OnOwnerStateChanged;
 
                 SyncHost();
 
@@ -138,6 +186,9 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
                 ShowFailed();
                 return;
             }
+
+            if (_view is null)
+                return;
 
             CoreWebView2 core = _view.CoreWebView2;
 
@@ -203,29 +254,73 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             FailedText.Visibility = Visibility.Visible;
         }
 
+        private void OnOwnerMoved(object? sender, EventArgs e) => QueuePlaceHost();
+
+        private void OnOwnerIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e) => SyncHost();
+
+        private void OnOwnerStateChanged(object? sender, EventArgs e) => SyncHost();
+
         private void SyncHost()
         {
             if (_host is null)
                 return;
 
-            if (!ViewHost.IsVisible)
+            bool ownerVisible = _owner?.IsVisible == true && _owner?.WindowState != System.Windows.WindowState.Minimized;
+
+            if (!ViewHost.IsVisible || !IsVisible || !_hostVisible || !ownerVisible)
             {
-                _host.Hide();
+                if (_host.IsVisible)
+                    _host.Hide();
+
                 return;
             }
 
-            _host.Show();
+            if (!_host.IsVisible)
+                _host.Show();
 
             PlaceHost(true);
         }
 
-        private void PlaceHost(bool force)
+        private void QueuePlaceHost()
         {
-            if (_host is null || !_host.IsVisible || !ViewHost.IsVisible || PresentationSource.FromVisual(ViewHost) is null)
+            if (_placeQueued || _host is null)
                 return;
 
-            Point topLeft = ViewHost.PointToScreen(new Point(0, 0));
-            Point bottomRight = ViewHost.PointToScreen(new Point(ViewHost.ActualWidth, ViewHost.ActualHeight));
+            _placeQueued = true;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                _placeQueued = false;
+                PlaceHost(false);
+            }, DispatcherPriority.Render);
+        }
+
+        private void PlaceHost(bool force)
+        {
+            if (_host is null || !_host.IsVisible || !ViewHost.IsVisible || !IsVisible)
+                return;
+
+            if (!_hostVisible)
+                return;
+
+            if (_owner?.IsVisible != true || _owner?.WindowState == System.Windows.WindowState.Minimized)
+                return;
+
+            if (PresentationSource.FromVisual(ViewHost) is null)
+                return;
+
+            Point topLeft;
+            Point bottomRight;
+
+            try
+            {
+                topLeft = ViewHost.PointToScreen(new Point(0, 0));
+                bottomRight = ViewHost.PointToScreen(new Point(ViewHost.ActualWidth, ViewHost.ActualHeight));
+            }
+            catch (InvalidOperationException)
+            {
+                return;
+            }
 
             var bounds = new Int32Rect(
                 (int)Math.Round(topLeft.X),
@@ -233,8 +328,14 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
                 (int)Math.Round(bottomRight.X - topLeft.X),
                 (int)Math.Round(bottomRight.Y - topLeft.Y));
 
-            if (!force && bounds == _hostBounds)
+            if (bounds.Width <= 0 || bounds.Height <= 0)
                 return;
+
+            if (!force && bounds == _hostBounds)
+            {
+                ApplyClip();
+                return;
+            }
 
             _hostBounds = bounds;
 
@@ -247,6 +348,88 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
                 bounds.Height,
                 SET_WINDOW_POS_FLAGS.SWP_NOZORDER |
                 SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE);
+
+            ApplyClip();
+        }
+
+        private bool TryGetViewScreenRect(out Rect screen)
+        {
+            screen = Rect.Empty;
+
+            if (ViewHost.ActualWidth <= 0 || ViewHost.ActualHeight <= 0)
+                return false;
+
+            if (PresentationSource.FromVisual(ViewHost) is null)
+                return false;
+
+            Point topLeft;
+            Point bottomRight;
+
+            try
+            {
+                topLeft = ViewHost.PointToScreen(new Point(0, 0));
+                bottomRight = ViewHost.PointToScreen(new Point(ViewHost.ActualWidth, ViewHost.ActualHeight));
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
+
+            screen = new Rect(topLeft, bottomRight);
+
+            return !screen.IsEmpty && screen.Width > 0 && screen.Height > 0;
+        }
+
+        private unsafe void ApplyClip()
+        {
+            if (_host is null || !_host.IsVisible || _hostHandle == HWND.Null)
+                return;
+
+            if (!TryGetViewScreenRect(out Rect view))
+                return;
+
+            var cuts = new List<RECT>();
+
+            foreach (Rect occluder in _occluders)
+            {
+                Rect hit = Rect.Intersect(view, occluder);
+
+                if (hit.IsEmpty || hit.Width <= 0 || hit.Height <= 0)
+                    continue;
+
+                cuts.Add(new RECT
+                {
+                    left = (int)Math.Round(hit.X - view.X),
+                    top = (int)Math.Round(hit.Y - view.Y),
+                    right = (int)Math.Round(hit.X - view.X + hit.Width),
+                    bottom = (int)Math.Round(hit.Y - view.Y + hit.Height)
+                });
+            }
+
+            if (cuts.Count == 0)
+            {
+                HRGN empty = default;
+                PInvoke.SetWindowRgn(_hostHandle, empty, true);
+                return;
+            }
+
+            HRGN full = PInvoke.CreateRectRgn(0, 0, (int)Math.Round(view.Width), (int)Math.Round(view.Height));
+
+            if (full == HRGN.Null)
+                return;
+
+            foreach (RECT cut in cuts)
+            {
+                HRGN hole = PInvoke.CreateRectRgn(cut.left, cut.top, cut.right, cut.bottom);
+
+                if (hole == HRGN.Null)
+                    continue;
+
+                PInvoke.CombineRgn(full, full, hole, RGN_COMBINE_MODE.RGN_DIFF);
+                PInvoke.DeleteObject(new HGDIOBJ((IntPtr)hole.Value));
+            }
+
+            PInvoke.SetWindowRgn(_hostHandle, full, true);
         }
 
         private void OnHostKeyDown(object sender, KeyEventArgs e)
@@ -261,10 +444,9 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private void FocusPage()
         {
-            if (_host is null || _view is null)
+            if (_host is null || _view is null || !_host.IsVisible)
                 return;
 
-            _host.Activate();
             _view.Focus();
         }
 

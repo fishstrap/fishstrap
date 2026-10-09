@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Bloxstrap.UI.Elements.Overlay.Controls
 {
@@ -19,7 +20,7 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             nameof(Source), typeof(FrameworkElement), typeof(AcrylicBackdrop), new PropertyMetadata(null, OnSourceChanged));
 
         public static readonly DependencyProperty BlurRadiusProperty = DependencyProperty.Register(
-            nameof(BlurRadius), typeof(double), typeof(AcrylicBackdrop), new PropertyMetadata(40d, OnLookChanged));
+            nameof(BlurRadius), typeof(double), typeof(AcrylicBackdrop), new PropertyMetadata(20d, OnLookChanged));
 
         private static readonly DependencyPropertyKey ContentInsetKey = DependencyProperty.RegisterReadOnly(
             nameof(ContentInset), typeof(Thickness), typeof(AcrylicBackdrop), new PropertyMetadata(new Thickness()));
@@ -77,6 +78,8 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
         private double _barTop = -1;
 
+        private bool _syncQueued;
+
         public AcrylicBackdrop()
         {
             _sample = new VisualBrush
@@ -92,7 +95,13 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             _blurred = new Rectangle { Fill = _sample };
 
-            _frost = new Grid { Effect = _blur, IsHitTestVisible = false, Children = { _blurred } };
+            _frost = new Grid
+            {
+                Effect = _blur,
+                IsHitTestVisible = false,
+                Children = { _blurred },
+                CacheMode = new BitmapCache { EnableClearType = false }
+            };
             _frost.SetResourceReference(Panel.BackgroundProperty, "ApplicationBackgroundBrush");
 
             _tint = new Border();
@@ -110,7 +119,7 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
 
             ApplyLook();
 
-            LayoutUpdated += (_, _) => Sync();
+            LayoutUpdated += (_, _) => QueueSync();
             SizeChanged += (_, e) =>
             {
                 if (e.HeightChanged)
@@ -259,9 +268,26 @@ namespace Bloxstrap.UI.Elements.Overlay.Controls
             e.Handled = true;
         }
 
+        private void QueueSync()
+        {
+            if (_syncQueued)
+                return;
+
+            _syncQueued = true;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                _syncQueued = false;
+                Sync();
+            }, DispatcherPriority.Render);
+        }
+
         private void Sync()
         {
             if (Source is not FrameworkElement source || !IsVisible || ActualWidth <= 0 || ActualHeight <= 0)
+                return;
+
+            if (PresentationSource.FromVisual(this) is null)
                 return;
 
             if (_sample.Visual is null)

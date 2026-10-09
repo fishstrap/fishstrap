@@ -35,6 +35,7 @@ namespace Bloxstrap.UI.Elements.Overlay
         private bool _presented;
         private bool _leaving;
         private int _motion;
+        private bool _browserClipQueued;
 
         private string? _savedLayout;
 
@@ -76,6 +77,8 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             Deactivated += OnDeactivated;
 
+            PanelSurface.LayoutUpdated += (_, _) => QueueBrowserClipUpdate();
+
             ChatWindow.Attach(overlay);
             BadgeTracker.Attach(overlay?.ActivityWatcher);
             BadgeTracker.BadgeEarned += OnBadgeEarned;
@@ -114,13 +117,17 @@ namespace Bloxstrap.UI.Elements.Overlay
             if (panel.Tag is bool placed && placed)
             {
                 panel.Raise();
+                UpdateBrowserClip();
                 return;
             }
 
             panel.Tag = true;
 
             if (Restore(kind, panel))
+            {
+                UpdateBrowserClip();
                 return;
+            }
 
             (double width, double height) = kind switch
             {
@@ -137,14 +144,104 @@ namespace Bloxstrap.UI.Elements.Overlay
             double offset = CascadeStep * _placed++;
 
             panel.PlaceAt(24 + offset, 16 + offset, width, height);
+
+            UpdateBrowserClip();
+        }
+
+        private void SyncBrowserHost()
+        {
+            BrowserView.SetHostVisible(_presented && !_leaving && IsVisible);
+        }
+
+        private void QueueBrowserClipUpdate()
+        {
+            if (_browserClipQueued)
+                return;
+
+            _browserClipQueued = true;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                _browserClipQueued = false;
+                UpdateBrowserClip();
+            }, DispatcherPriority.Render);
+        }
+
+        private static bool TryGetScreenRect(FrameworkElement element, out Rect screen)
+        {
+            screen = Rect.Empty;
+
+            if (element.Visibility != Visibility.Visible || element.ActualWidth <= 0 || element.ActualHeight <= 0)
+                return false;
+
+            if (PresentationSource.FromVisual(element) is null)
+                return false;
+
+            Point topLeft;
+            Point bottomRight;
+
+            try
+            {
+                topLeft = element.PointToScreen(new Point(0, 0));
+                bottomRight = element.PointToScreen(new Point(element.ActualWidth, element.ActualHeight));
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
+
+            screen = new Rect(topLeft, bottomRight);
+
+            return !screen.IsEmpty && screen.Width > 0 && screen.Height > 0;
+        }
+
+        private void UpdateBrowserClip()
+        {
+            if (!_viewModel.BrowserOpen || BrowserPanel.Visibility != Visibility.Visible)
+            {
+                BrowserView.SetOccluders(Array.Empty<Rect>());
+                return;
+            }
+
+            var occluders = new List<Rect>();
+
+            if (Dock.Visibility == Visibility.Visible && TryGetScreenRect(Dock, out Rect dockRect))
+                occluders.Add(dockRect);
+
+            int browserDepth = BrowserPanel.Depth;
+
+            foreach (OverlayPanelKind kind in Enum.GetValues<OverlayPanelKind>())
+            {
+                if (kind == OverlayPanelKind.Browser || !_viewModel.IsOpen(kind))
+                    continue;
+
+                OverlayPanel other = PanelFor(kind);
+
+                if (other.Visibility != Visibility.Visible || other.Depth <= browserDepth)
+                    continue;
+
+                if (TryGetScreenRect(other, out Rect otherRect))
+                    occluders.Add(otherRect);
+            }
+
+            BrowserView.SetOccluders(occluders);
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(GameOverlayViewModel.BrowserOpen))
+            {
                 BrowserView.SetOpen(_viewModel.BrowserOpen);
+                UpdateBrowserClip();
+            }
             else if (e.PropertyName == nameof(GameOverlayViewModel.HasPinnedPanels) && _viewModel.ShowingPinnedOnly)
+            {
                 RefreshPinned();
+            }
+            else if (e.PropertyName?.EndsWith("Visibility") == true)
+            {
+                QueueBrowserClipUpdate();
+            }
         }
 
         private bool Restore(OverlayPanelKind kind, OverlayPanel panel)
@@ -175,6 +272,8 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             foreach (var (kind, _) in order)
                 PanelFor(kind).Raise();
+
+            UpdateBrowserClip();
         }
 
         private static OverlayPanelLayout? Saved(OverlayPanelKind kind) =>
@@ -300,6 +399,7 @@ namespace Bloxstrap.UI.Elements.Overlay
             Persist();
 
             _presented = false;
+            SyncBrowserHost();
 
             bool minimised = _overlay?.IsGameMinimised() == true;
             bool hide = !_viewModel.HasPinnedPanels || minimised;
@@ -359,6 +459,8 @@ namespace Bloxstrap.UI.Elements.Overlay
             }
 
             ResetMotion();
+            SyncBrowserHost();
+            UpdateBrowserClip();
         }
 
         private void Enter(bool fromHidden, bool fromPinned, bool reversing)
@@ -422,6 +524,7 @@ namespace Bloxstrap.UI.Elements.Overlay
             Hide();
 
             ResetMotion();
+            SyncBrowserHost();
         }
 
         public void RefreshPinned()
@@ -435,6 +538,9 @@ namespace Bloxstrap.UI.Elements.Overlay
                 ShowPinnedView();
             else if (IsVisible)
                 Hide();
+
+            SyncBrowserHost();
+            UpdateBrowserClip();
         }
 
         private void ShowPinnedView()
@@ -443,6 +549,9 @@ namespace Bloxstrap.UI.Elements.Overlay
 
             if (!IsVisible)
                 Show();
+
+            SyncBrowserHost();
+            UpdateBrowserClip();
         }
 
         private void ScrimClicked(object sender, MouseButtonEventArgs e)
@@ -511,6 +620,8 @@ namespace Bloxstrap.UI.Elements.Overlay
             _presenting = true;
             _presented = true;
 
+            SyncBrowserHost();
+
             _viewModel.ShowingPinnedOnly = false;
 
             Enter(fromHidden, fromPinned, reversing);
@@ -533,7 +644,15 @@ namespace Bloxstrap.UI.Elements.Overlay
             Activate();
             Focus();
 
-            Dispatcher.BeginInvoke(new Action(() => _presenting = false), DispatcherPriority.ApplicationIdle);
+            SyncBrowserHost();
+            UpdateBrowserClip();
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                _presenting = false;
+                SyncBrowserHost();
+                UpdateBrowserClip();
+            }), DispatcherPriority.ApplicationIdle);
         }
 
         public void Reanchor()
@@ -547,6 +666,8 @@ namespace Bloxstrap.UI.Elements.Overlay
         {
             foreach (OverlayPanel panel in PanelSurface.Children.OfType<OverlayPanel>())
                 panel.Clamp();
+
+            QueueBrowserClipUpdate();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
