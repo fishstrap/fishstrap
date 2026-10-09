@@ -150,7 +150,7 @@ namespace Bloxstrap.UI.Elements.Overlay
 
         private void SyncBrowserHost()
         {
-            BrowserView.SetHostVisible(!_leaving && IsVisible);
+            BrowserView.SetHostVisible(IsVisible);
         }
 
         private void QueueBrowserClipUpdate()
@@ -399,7 +399,6 @@ namespace Bloxstrap.UI.Elements.Overlay
             Persist();
 
             _presented = false;
-            BrowserView.SetHostVisible(false);
 
             bool minimised = _overlay?.IsGameMinimised() == true;
             bool hide = !_viewModel.HasPinnedPanels || minimised;
