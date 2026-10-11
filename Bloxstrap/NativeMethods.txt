@@ -20,3 +20,7 @@ GetForegroundWindow
 GetWindowThreadProcessId
 GetClientRect
 ClientToScreen
+CreateRectRgn
+CombineRgn
+SetWindowRgn
+DeleteObject
