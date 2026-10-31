@@ -79,7 +79,7 @@
 
             if (String.IsNullOrEmpty(LogLocation))
             {
-                string logDirectory = Path.Combine(Paths.LocalAppData, "Roblox\\logs");
+                string logDirectory = Paths.RobloxLogs;
 
                 if (!Directory.Exists(logDirectory))
                     return;
@@ -94,7 +94,7 @@
                 {
                     logFileInfo = new DirectoryInfo(logDirectory)
                         .GetFiles()
-                        .Where(x => x.Name.Contains("Player", StringComparison.OrdinalIgnoreCase) && x.CreationTime <= DateTime.Now)
+                        .Where(x => x.Name.Contains("Player", StringComparison.OrdinalIgnoreCase) && !x.Name.Contains("CrashHandler", StringComparison.OrdinalIgnoreCase) && x.CreationTime <= DateTime.Now)
                         .OrderByDescending(x => x.CreationTime)
                         .First();
 

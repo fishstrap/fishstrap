@@ -798,7 +798,7 @@ namespace Bloxstrap
 
             string? logFileName = null;
 
-            string rbxLogDir = AppData.AppDataDirectory;
+            string rbxLogDir = Path.Combine(AppData.AppDataDirectory, "logs");
             Directory.CreateDirectory(rbxLogDir);
 
             var logWatcher = new FileSystemWatcher()
