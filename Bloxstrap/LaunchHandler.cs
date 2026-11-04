@@ -326,7 +326,10 @@ namespace Bloxstrap
                     App.Logger.WriteException(LOG_IDENT, t.Exception);
 
                 if (!t.IsCompletedSuccessfully || t.Result is null || !DiscordInvites.Join(t.Result))
-                    Frontend.ShowMessageBox(Strings.Dialog_DiscordInvites_JoinFailed, MessageBoxImage.Warning);
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "No invite to join, opening Roblox");
+                    Process.Start(Paths.Process, "-player");
+                }
 
                 App.Terminate();
             });

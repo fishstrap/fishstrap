@@ -676,9 +676,6 @@ Selecting 'No' will ignore this warning and continue installation.</value>
   <data name="Dialog.DiscordInvites.JoinRequest" xml:space="preserve">
     <value>{0} wants to join your game.</value>
   </data>
-  <data name="Dialog.DiscordInvites.JoinFailed" xml:space="preserve">
-    <value>Couldn't join from Discord. Make sure Discord is open and try again.</value>
-  </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Description" xml:space="preserve">
     <value>Shows the Roblox account you're playing with on your Discord profile.</value>
   </data>

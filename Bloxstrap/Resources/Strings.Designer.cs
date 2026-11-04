@@ -4664,15 +4664,6 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn't join from Discord. Make sure Discord is open and try again..
-        /// </summary>
-        public static string Dialog_DiscordInvites_JoinFailed {
-            get {
-                return ResourceManager.GetString("Dialog.DiscordInvites.JoinFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Shows the Roblox account you&apos;re playing with on your Discord profile..
         /// </summary>
         public static string Menu_Integrations_ShowAccountOnProfile_Description {

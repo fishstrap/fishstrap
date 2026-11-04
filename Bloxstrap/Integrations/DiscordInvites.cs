@@ -45,7 +45,9 @@ namespace Bloxstrap.Integrations
                 throw new NotSupportedException();
         }
 
-        private static readonly TimeSpan JoinTimeout = TimeSpan.FromSeconds(30);
+        private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(30);
+
+        private static readonly TimeSpan JoinTimeout = TimeSpan.FromSeconds(5);
 
         private static readonly Regex SecretPattern = new(@"^([0-9]{1,20}):([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$", RegexOptions.IgnoreCase);
 
@@ -122,10 +124,16 @@ namespace Bloxstrap.Integrations
             const string LOG_IDENT = "DiscordInvites::WaitForJoinSecret";
 
             var received = new TaskCompletionSource<string>();
+            var subscribed = new TaskCompletionSource();
 
             using var client = new DiscordRpcClient(DiscordRichPresence.ApplicationId);
 
             client.OnJoin += (_, e) => received.TrySetResult(e.Secret);
+            client.OnSubscribe += (_, e) =>
+            {
+                if (e.Event == EventType.Join)
+                    subscribed.TrySetResult();
+            };
             client.OnError += (_, e) => App.Logger.WriteLine(LOG_IDENT, $"An RPC error occurred - {e.Message}");
 
             if (!Register(client))
@@ -136,9 +144,17 @@ namespace Bloxstrap.Integrations
 
             App.Logger.WriteLine(LOG_IDENT, "Waiting for Discord to send the invite");
 
+            await Task.WhenAny(received.Task, subscribed.Task, Task.Delay(ConnectTimeout));
+
+            if (!received.Task.IsCompleted && !subscribed.Task.IsCompleted)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Timed out connecting to Discord");
+                return null;
+            }
+
             if (await Task.WhenAny(received.Task, Task.Delay(JoinTimeout)) != received.Task)
             {
-                App.Logger.WriteLine(LOG_IDENT, "Timed out waiting for the invite");
+                App.Logger.WriteLine(LOG_IDENT, "Discord didn't send an invite");
                 return null;
             }
 
