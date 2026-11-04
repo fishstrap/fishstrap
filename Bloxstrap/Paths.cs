@@ -24,15 +24,18 @@
         public static string Integrations { get; private set; } = "";
         public static string Versions { get; private set; } = "";
         public static string Modifications { get; private set; } = "";
-        public static string Roblox { get; private set; } = "";
         public static string CustomThemes { get; private set; } = "";
 
         // cleaner paths
-        public static string RobloxLogs { get; private set; } = "";
-        public static string RobloxCache { get; private set; } = "";
+        public static string RobloxCache => Path.Combine(Roblox, "rbx-storage");
         public static string RobloxStudioCache { get; private set; } = "";
 
         public static string Application { get; private set; } = "";
+
+        // different distributions have different appdatas
+        public static string Roblox => App.Distribution.RobloxPlayerData.AppDataDirectory;
+        public static string RobloxStudio => App.Distribution.RobloxStudioData.AppDataDirectory;
+        public static string RobloxLogs => Path.Combine(Roblox, "logs");
 
         public static string CustomFont => Path.Combine(Modifications, "content\\fonts\\CustomFont.ttf");
 
@@ -47,10 +50,7 @@
             Versions = Path.Combine(Base, "Versions");
             Modifications = Path.Combine(Base, "Modifications");
             CustomThemes = Path.Combine(Base, "CustomThemes");
-            Roblox = Path.Combine(LocalAppData, "Roblox"); // that was base before?
 
-            RobloxLogs = Path.Combine(Roblox, "logs");
-            RobloxCache = Path.Combine(Roblox, "rbx-storage");
             // "studio is still using the old path," return said. -Naveandice
             RobloxStudioCache = Path.Combine(Path.GetTempPath(), "Roblox");
 

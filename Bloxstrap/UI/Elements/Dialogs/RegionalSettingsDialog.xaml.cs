@@ -22,7 +22,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
     {
         public LanguageSelectorDialog()
         {
-            var viewModel = new LanguageSelectorViewModel();
+            var viewModel = new RegionalSettingsViewModel();
 
             DataContext = viewModel;
             InitializeComponent();

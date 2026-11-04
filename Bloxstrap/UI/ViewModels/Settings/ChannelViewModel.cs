@@ -108,6 +108,20 @@ namespace Bloxstrap.UI.ViewModels.Settings
             set => App.Settings.Prop.StaticDirectory = value;
         }
 
+        public static List<string> ClientDistributions => Distributions.GetDistributions();
+
+        public string SelectedDistribution
+        {
+            get => Distributions.ClientDistributions[App.Settings.Prop.DistributorType];
+            set
+            {
+                DistributorType distributor = Distributions.GetDistributionFromName(value);
+
+                Distributions.Set(distributor);
+                OnPropertyChanged(nameof(RobloxDomain));
+            }
+        }
+
         public string RobloxDomain
         {
             get => App.Settings.Prop.RobloxDomain;

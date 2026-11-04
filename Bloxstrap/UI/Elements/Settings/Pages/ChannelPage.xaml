@@ -47,6 +47,12 @@
             <ui:ToggleSwitch IsChecked="{Binding StaticDirectory, Mode=TwoWay}" />
         </controls:OptionControl>
 
+        <controls:OptionControl
+            Header="{x:Static resources:Strings.Menu_Channel_ClientDistribution_Title}"
+            Description="{x:Static resources:Strings.Menu_Channel_ClientDistribution_Description}">
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding ClientDistributions, Mode=OneTime}" Text="{Binding SelectedDistribution, Mode=TwoWay}" />
+        </controls:OptionControl>
+
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Channel_RobloxDomain_Title}"
             Description="{x:Static resources:Strings.Menu_Channel_RobloxDomain_Description}">
