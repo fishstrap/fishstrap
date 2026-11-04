@@ -16,6 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <FontFamily x:Key="Rubik">pack://application:,,,/Resources/Fonts/#Rubik Light</FontFamily>
+            <FontFamily x:Key="Inter">pack://application:,,,/Resources/Fonts/#Inter</FontFamily>
             <FontFamily x:Key="CascadiaCode">pack://application:,,,/Resources/Fonts/#Cascadia Code</FontFamily>
 
                 <Style TargetType="Hyperlink">
@@ -36,6 +37,8 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
             <converters:StringFormatConverter x:Key="StringFormatConverter" />
             <converters:RangeConverter x:Key="RangeConverter" />

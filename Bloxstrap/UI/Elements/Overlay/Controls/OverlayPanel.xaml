@@ -1,0 +1,133 @@
+<UserControl x:Class="Bloxstrap.UI.Elements.Overlay.Controls.OverlayPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:control="clr-namespace:Bloxstrap.UI.Elements.Overlay.Controls"
+             mc:Ignorable="d"
+             x:Name="Root"
+             d:DesignHeight="420" d:DesignWidth="620"
+             FontFamily="{StaticResource Inter}"
+             PreviewMouseLeftButtonDown="BringToFront">
+
+    <UserControl.Resources>
+        <Style x:Key="CaptionButton" TargetType="Button">
+            <Setter Property="Width" Value="44" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorTertiaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PanelResizeGrip" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border Background="Transparent" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Border CornerRadius="8" IsHitTestVisible="False"
+                Background="{ui:ThemeResource ApplicationBackgroundBrush}">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="24" ShadowDepth="4" Direction="270" Opacity="0.45" Color="Black" />
+            </Border.Effect>
+        </Border>
+
+        <Border x:Name="Frame" CornerRadius="8"
+                Background="{ui:ThemeResource ApplicationBackgroundBrush}"
+                BorderBrush="{ui:ThemeResource SurfaceStrokeColorDefaultBrush}"
+                BorderThickness="1">
+            <Grid x:Name="Body" SizeChanged="BodySizeChanged">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <control:PanelTitleBar x:Name="TitleBar" Grid.Row="0" Panel.ZIndex="1"
+                                       Style="{StaticResource {x:Type ui:TitleBar}}"
+                                       ShowMinimize="False" ShowMaximize="False" CanMaximize="False"
+                                       KeyboardNavigation.TabNavigation="None"
+                                       CloseClicked="CloseClicked"
+                                       MouseLeftButtonDown="TitleBarMouseDown"
+                                       MouseMove="TitleBarMouseMove"
+                                       MouseLeftButtonUp="TitleBarMouseUp">
+                    <control:PanelTitleBar.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ui:SymbolIcon x:Name="HeaderIcon" Grid.Column="0" FontSize="16"
+                                           Margin="12,0,8,0" VerticalAlignment="Center"
+                                           Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+
+                            <TextBlock x:Name="HeaderTitle" Grid.Column="1" Margin="0,8,8,8"
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+
+                            <Button x:Name="PinButton" Grid.Column="2" Style="{StaticResource CaptionButton}"
+                                    Click="PinClicked">
+                                <ui:SymbolIcon x:Name="PinIcon" Symbol="Pin24" FontSize="14" />
+                            </Button>
+                        </Grid>
+                    </control:PanelTitleBar.Header>
+                </control:PanelTitleBar>
+
+                <ContentPresenter x:Name="ContentHost" Grid.Row="1"
+                                  Content="{Binding PanelContent, ElementName=Root}" />
+            </Grid>
+        </Border>
+
+        <Thumb Style="{StaticResource PanelResizeGrip}" Tag="Left" Width="6" Margin="-3,10,0,10"
+               HorizontalAlignment="Left" VerticalAlignment="Stretch" Cursor="SizeWE" DragDelta="ResizeDragDelta" />
+        <Thumb Style="{StaticResource PanelResizeGrip}" Tag="Right" Width="6" Margin="0,10,-3,10"
+               HorizontalAlignment="Right" VerticalAlignment="Stretch" Cursor="SizeWE" DragDelta="ResizeDragDelta" />
+        <Thumb Style="{StaticResource PanelResizeGrip}" Tag="Top" Height="6" Margin="10,-3,10,0"
+               HorizontalAlignment="Stretch" VerticalAlignment="Top" Cursor="SizeNS" DragDelta="ResizeDragDelta" />
+        <Thumb Style="{StaticResource PanelResizeGrip}" Tag="Bottom" Height="6" Margin="10,0,10,-3"
+               HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Cursor="SizeNS" DragDelta="ResizeDragDelta" />
+
+        <Thumb Style="{StaticResource PanelResizeGrip}" Tag="TopLeft" Width="12" Height="12" Margin="-3,-3,0,0"
+               HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="SizeNWSE" DragDelta="ResizeDragDelta" />
+        <Thumb Style="{StaticResource PanelResizeGrip}" Tag="TopRight" Width="12" Height="12" Margin="0,-3,-3,0"
+               HorizontalAlignment="Right" VerticalAlignment="Top" Cursor="SizeNESW" DragDelta="ResizeDragDelta" />
+        <Thumb Style="{StaticResource PanelResizeGrip}" Tag="BottomLeft" Width="12" Height="12" Margin="-3,0,0,-3"
+               HorizontalAlignment="Left" VerticalAlignment="Bottom" Cursor="SizeNESW" DragDelta="ResizeDragDelta" />
+
+        <Thumb Tag="BottomRight" Width="16" Height="16" Margin="0,0,-2,-2"
+               HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="SizeNWSE" DragDelta="ResizeDragDelta">
+            <Thumb.Template>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid Background="Transparent">
+                        <Path Data="M 14,14 L 14,6 M 14,14 L 6,14 M 14,10 L 10,14"
+                              Stroke="{ui:ThemeResource TextFillColorTertiaryBrush}" StrokeThickness="1.5"
+                              HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,3" />
+                    </Grid>
+                </ControlTemplate>
+            </Thumb.Template>
+        </Thumb>
+    </Grid>
+</UserControl>

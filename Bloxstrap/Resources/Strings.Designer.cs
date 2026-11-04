@@ -4529,6 +4529,24 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable an Overlay with QOL features. Requires borderless or windowed mode. Its other settings are under the gear in the overlay&apos;s dock..
+        /// </summary>
+        public static string Menu_Integrations_EnableOverlay_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.EnableOverlay.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable in-game overlay.
+        /// </summary>
+        public static string Menu_Integrations_EnableOverlay_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.EnableOverlay.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lets Roblox start up with Windows and stay in the notification area after you close it..
         /// </summary>
         public static string Menu_Integrations_EnableRobloxBackgroundApp_Description {
@@ -4579,6 +4597,60 @@ namespace Bloxstrap.Resources {
         public static string Menu_Integrations_FakeVulkanBorderless_Title {
             get {
                 return ResourceManager.GetString("Menu.Integrations.FakeVulkanBorderless.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overlay.
+        /// </summary>
+        public static string Menu_Integrations_Overlay_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.Overlay.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The key combination that opens the overlay..
+        /// </summary>
+        public static string Menu_Integrations_OverlayHotkey_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.OverlayHotkey.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Ctrl, Alt or Win.
+        /// </summary>
+        public static string Menu_Integrations_OverlayHotkey_NeedsModifier {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.OverlayHotkey.NeedsModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press a shortcut….
+        /// </summary>
+        public static string Menu_Integrations_OverlayHotkey_Recording {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.OverlayHotkey.Recording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset shortcut.
+        /// </summary>
+        public static string Menu_Integrations_OverlayHotkey_Reset {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.OverlayHotkey.Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overlay shortcut.
+        /// </summary>
+        public static string Menu_Integrations_OverlayHotkey_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.OverlayHotkey.Title", resourceCulture);
             }
         }
         
@@ -4907,6 +4979,1641 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Earned.
+        /// </summary>
+        public static string Menu_Overlay_Badges_Earned {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Earned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Earned {0}.
+        /// </summary>
+        public static string Menu_Overlay_Badges_EarnedOn {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.EarnedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This experience has no badges..
+        /// </summary>
+        public static string Menu_Overlay_Badges_Empty {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not earned.
+        /// </summary>
+        public static string Menu_Overlay_Badges_NotEarned {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.NotEarned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join an experience to see its badges..
+        /// </summary>
+        public static string Menu_Overlay_Badges_NotInGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.NotInGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} of {1} earned.
+        /// </summary>
+        public static string Menu_Overlay_Badges_Progress {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} badges, progress unavailable.
+        /// </summary>
+        public static string Menu_Overlay_Badges_ProgressUnknown {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.ProgressUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rarity.
+        /// </summary>
+        public static string Menu_Overlay_Badges_Rarity {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Rarity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Menu_Overlay_Badges_Today {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string Menu_Overlay_Badges_Total {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search or enter an address.
+        /// </summary>
+        public static string Menu_Overlay_Browser_AddressPlaceholder {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Browser.AddressPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The browser couldn&apos;t start..
+        /// </summary>
+        public static string Menu_Overlay_Browser_Failed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Browser.Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forward.
+        /// </summary>
+        public static string Menu_Overlay_Browser_Forward {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Browser.Forward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Menu_Overlay_Browser_Home {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Browser.Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in your browser.
+        /// </summary>
+        public static string Menu_Overlay_Browser_OpenExternally {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Browser.OpenExternally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string Menu_Overlay_Browser_Stop {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Browser.Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t reach Roblox. Try again in a moment..
+        /// </summary>
+        public static string Menu_Overlay_Games_Failed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favorites.
+        /// </summary>
+        public static string Menu_Overlay_Games_Favorites {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.Favorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joining {0}….
+        /// </summary>
+        public static string Menu_Overlay_Games_Joining {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.Joining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join a game, or allow cookie access, to see your favorites..
+        /// </summary>
+        public static string Menu_Overlay_Games_NoAccount {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.NoAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No favorites yet. Favorite an experience on Roblox and it&apos;ll show up here..
+        /// </summary>
+        public static string Menu_Overlay_Games_NoFavorites {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.NoFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing found for &quot;{0}&quot;..
+        /// </summary>
+        public static string Menu_Overlay_Games_NoResults {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} playing.
+        /// </summary>
+        public static string Menu_Overlay_Games_Playing {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.Playing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Menu_Overlay_Games_Search {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search experiences.
+        /// </summary>
+        public static string Menu_Overlay_Games_SearchPlaceholder {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.SearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for an experience to jump into..
+        /// </summary>
+        public static string Menu_Overlay_Games_SearchPrompt {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.SearchPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No friends or chats yet..
+        /// </summary>
+        public static string Menu_Overlay_Messages_Empty {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick a friend to start chatting..
+        /// </summary>
+        public static string Menu_Overlay_Messages_PickConversation {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.PickConversation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search friends.
+        /// </summary>
+        public static string Menu_Overlay_Messages_Search {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Menu_Overlay_Messages_Send {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a message.
+        /// </summary>
+        public static string Menu_Overlay_Messages_Write {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Write", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The quick brown fox jumps over the lazy dog.
+        /// </summary>
+        public static string Menu_Overlay_Notes_Placeholder {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notes.Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved at {0}.
+        /// </summary>
+        public static string Menu_Overlay_Notes_SavedAt {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notes.SavedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not save.
+        /// </summary>
+        public static string Menu_Overlay_Notes_SaveFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notes.SaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsaved changes.
+        /// </summary>
+        public static string Menu_Overlay_Notes_Unsaved {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notes.Unsaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not in an experience.
+        /// </summary>
+        public static string Menu_Overlay_NotInGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.NotInGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin over the game.
+        /// </summary>
+        public static string Menu_Overlay_Pin {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Everyone.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Everyone {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Everyone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Friends {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Friends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends &amp; following.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_FriendsAndFollowing {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.FriendsAndFollowing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends, followers &amp; following.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_FriendsFollowingAndFollowers {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.FriendsFollowingAndFollowers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes your Roblox account setting. Anyone who can&apos;t see you&apos;re online can&apos;t join you either..
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Hint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved. Who can join you was narrowed to match..
+        /// </summary>
+        public static string Menu_Overlay_Privacy_JoinNarrowed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.JoinNarrowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t read your settings from Roblox. Try again in a moment..
+        /// </summary>
+        public static string Menu_Overlay_Privacy_LoadFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.LoadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking your settings….
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Loading {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow cookie access in Fishstrap&apos;s settings to change this from here..
+        /// </summary>
+        public static string Menu_Overlay_Privacy_NeedsCookies {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.NeedsCookies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No one.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_NoOne {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.NoOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox didn&apos;t accept that: {0}.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Rejected {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Rejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved..
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Saved {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Roblox didn&apos;t accept that. What&apos;s ticked is what your account has now..
+        /// </summary>
+        public static string Menu_Overlay_Privacy_SaveFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.SaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving….
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Saving {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Who can see you&apos;re online.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Title {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose who can see you&apos;re online.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_Tooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trusted friends.
+        /// </summary>
+        public static string Menu_Overlay_Privacy_TrustedFriends {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Privacy.TrustedFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Menu_Overlay_Refresh {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server.
+        /// </summary>
+        public static string Menu_Overlay_Server {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All regions.
+        /// </summary>
+        public static string Menu_Overlay_Servers_AllRegions {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.AllRegions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t copy.
+        /// </summary>
+        public static string Menu_Overlay_Servers_CopyFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.CopyFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy invite link.
+        /// </summary>
+        public static string Menu_Overlay_Servers_CopyLink {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.CopyLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;re here.
+        /// </summary>
+        public static string Menu_Overlay_Servers_Current {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Current", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No public servers found..
+        /// </summary>
+        public static string Menu_Overlay_Servers_Empty {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No servers running in {0} right now..
+        /// </summary>
+        public static string Menu_Overlay_Servers_EmptyRegion {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.EmptyRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide full servers.
+        /// </summary>
+        public static string Menu_Overlay_Servers_HideFull {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.HideFull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server hop.
+        /// </summary>
+        public static string Menu_Overlay_Servers_Hop {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Hop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hopping servers….
+        /// </summary>
+        public static string Menu_Overlay_Servers_Hopping {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Hopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join a random other server that has room.
+        /// </summary>
+        public static string Menu_Overlay_Servers_HopTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.HopTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instance ID copied.
+        /// </summary>
+        public static string Menu_Overlay_Servers_IdCopied {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.IdCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join.
+        /// </summary>
+        public static string Menu_Overlay_Servers_Join {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link copied.
+        /// </summary>
+        public static string Menu_Overlay_Servers_LinkCopied {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.LinkCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No other server with room.
+        /// </summary>
+        public static string Menu_Overlay_Servers_NoHopTarget {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.NoHopTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join an experience to browse its servers..
+        /// </summary>
+        public static string Menu_Overlay_Servers_NotInGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.NotInGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region.
+        /// </summary>
+        public static string Menu_Overlay_Servers_Region {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by players.
+        /// </summary>
+        public static string Menu_Overlay_Servers_SortByPlayers {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.SortByPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} servers.
+        /// </summary>
+        public static string Menu_Overlay_Servers_Summary {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~{0}.
+        /// </summary>
+        public static string Menu_Overlay_Servers_UptimeEstimate {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.UptimeEstimate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session.
+        /// </summary>
+        public static string Menu_Overlay_Session {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Session", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Badges.
+        /// </summary>
+        public static string Menu_Overlay_Tab_Badges {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Tab.Badges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browser.
+        /// </summary>
+        public static string Menu_Overlay_PrivateServers_NeedsCookies {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.NeedsCookies", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_None {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.None", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_LoadFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.LoadFailed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Untitled {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Untitled", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Capacity {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Capacity", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Configure {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Configure", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_GenerateLink {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.GenerateLink", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_CopyLink {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.CopyLink", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_AllowJoining {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.AllowJoining", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_LoadMore {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.LoadMore", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_CreateTitle {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.CreateTitle", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Create {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Create", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_CreateHint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.CreateHint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_CreateUnavailable {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.CreateUnavailable", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_CreateOpened {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.CreateOpened", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_ConfigureTitle {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.ConfigureTitle", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_BackToList {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.BackToList", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_ServerName {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.ServerName", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Experience {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Experience", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Price {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Price", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Free {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Free", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_PriceRobux {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.PriceRobux", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_AllowJoiningHint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.AllowJoiningHint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_FriendsAllowed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.FriendsAllowed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Members {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Members", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_AddPeople {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.AddPeople", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_AddPlaceholder {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.AddPlaceholder", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Add {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Add", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Remove {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Remove", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_MembersNone {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.MembersNone", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Link {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Link", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Regenerate {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Regenerate", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_TurnedOn {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.TurnedOn", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_TurnedOff {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.TurnedOff", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_LinkCopied {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.LinkCopied", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_NewLinkMade {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.NewLinkMade", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Added {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Added", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Removed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Removed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_NoSuchUser {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.NoSuchUser", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_AlreadyAdded {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.AlreadyAdded", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Saved {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Saved", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_SaveFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.SaveFailed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Rejected {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Rejected", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Renews {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Renews", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Ends {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Ends", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_PrivateServers_Expired {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.PrivateServers.Expired", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_PublicTab {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.PublicTab", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_PrivateTab {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.PrivateTab", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Capacity {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Capacity", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_CapacityUnknown {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.CapacityUnknown", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Performance {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Performance", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Version {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Version", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Share {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Share", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Id {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Id", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_HintTitle {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.HintTitle", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_Hint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.Hint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_HintTaken {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.HintTaken", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_FriendJoinedServer {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.FriendJoinedServer", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_FriendSameGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.FriendSameGame", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_FriendPlaying {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.FriendPlaying", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_BadgeEarned {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.BadgeEarned", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_BadgeRarity {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.BadgeRarity", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_RecentTab {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.RecentTab", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Recent_Empty {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Recent.Empty", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Recent_Today {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Recent.Today", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Recent_Yesterday {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Recent.Yesterday", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Recent_Played {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Recent.Played", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Recent_Running {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Recent.Running", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Recent_Missing {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Recent.Missing", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Recent_Checking {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Recent.Checking", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Full {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Full", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Closest {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Closest", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_ClosestTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.ClosestTooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_ClosestJoining {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.ClosestJoining", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_ClosestAlready {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.ClosestAlready", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_ClosestNone {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.ClosestNone", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_ClosestNeedsCookies {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.ClosestNeedsCookies", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_ClosestFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.ClosestFailed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Tab_Settings {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Tab.Settings", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Notifications {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Notifications", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Style {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Style", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_CornerRadius {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.CornerRadius", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Size {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Size", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Background {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Background", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Duration {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Duration", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Header {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Header", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_NotifyAbout {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.NotifyAbout", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_ServerDetails {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.ServerDetails", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_ServerDetailsHint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.ServerDetailsHint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Friends {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Friends", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_FriendsHint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.FriendsHint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Badges {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Badges", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_BadgesHint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.BadgesHint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_StartHint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.StartHint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Test {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Test", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Reset {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Reset", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_SampleTitle {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.SampleTitle", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_SampleMessage {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.SampleMessage", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Pixels {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Pixels", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Percent {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Percent", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Seconds {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Seconds", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastStyle_Corner {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastStyle.Corner", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastStyle_Floating {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastStyle.Floating", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Overlay {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Overlay", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_ShortcutTaken {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.ShortcutTaken", resourceCulture);
+            }
+        }
+
+        public static string ContextMenu_OpenOverlay {
+            get {
+                return ResourceManager.GetString("ContextMenu.OpenOverlay", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_HeaderOff {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.HeaderOff", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_HeaderServer {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.HeaderServer", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_HeaderFriends {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.HeaderFriends", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_HeaderBoth {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.HeaderBoth", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_HeaderHint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.HeaderHint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_SampleLocation {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.SampleLocation", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_SampleUptime {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.SampleUptime", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Animation {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Animation", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Replay {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Replay", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_Slide {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.Slide", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_SlideSide {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.SlideSide", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_Fade {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.Fade", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_Pop {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.Pop", resourceCulture);
+            }
+        }
+
+        public static string Enums_Overlay_ToastAnimation_None {
+            get {
+                return ResourceManager.GetString("Enums.Overlay.ToastAnimation.None", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_ClickToJoin {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.ClickToJoin", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_ClickToView {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.ClickToView", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionInGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionInGame", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionOnline {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionOnline", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionOffline {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionOffline", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_SectionGroups {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.SectionGroups", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Members {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Members", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_InAGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.InAGame", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Playing {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Playing", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_InStudio {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.InStudio", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Online {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Online", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Offline {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Offline", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NeedsCookies {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NeedsCookies", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Loading {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Loading", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_LoadFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.LoadFailed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_UnnamedGroup {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.UnnamedGroup", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NoMatches {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NoMatches", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NoHistory {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NoHistory", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_You {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.You", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Today {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Today", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Yesterday {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Yesterday", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_CouldntStart {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.CouldntStart", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Moderated {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Moderated", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_NotSent {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.NotSent", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_Join {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.Join", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Messages_ViewGame {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Messages.ViewGame", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_Credit {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.Credit", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Servers_CreditTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Servers.CreditTooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Tab_Browser {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Tab.Browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games.
+        /// </summary>
+        public static string Menu_Overlay_Tab_Games {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Tab.Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages.
+        /// </summary>
+        public static string Menu_Overlay_Tab_Messages {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Tab.Messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        public static string Menu_Overlay_Tab_Notes {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Tab.Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Servers.
+        /// </summary>
+        public static string Menu_Overlay_Tab_Servers {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Tab.Servers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unpin.
+        /// </summary>
+        public static string Menu_Overlay_Unpin {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Unpin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Menu_Save {
@@ -5102,6 +6809,144 @@ namespace Bloxstrap.Resources {
         public static string Uninstaller_Uninstall {
             get {
                 return ResourceManager.GetString("Uninstaller.Uninstall", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemoveTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemoveTooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_SelectTooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.SelectTooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_Selected {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Selected", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_SelectAll {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.SelectAll", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_ClearSelection {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.ClearSelection", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemoveSelected {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemoveSelected", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_Remove {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Remove", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_ConfirmOne {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.ConfirmOne", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_ConfirmMany {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.ConfirmMany", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_Removing {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.Removing", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemovedOne {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemovedOne", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemovedMany {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemovedMany", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Badges_RemoveFailed {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Badges.RemoveFailed", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Games_Continue {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Games.Continue", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_GamePrivacy_Title {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.GamePrivacy.Title", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_GamePrivacy_Hint {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.GamePrivacy.Hint", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_GamePrivacy_Tooltip {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.GamePrivacy.Tooltip", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Horizontal {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Horizontal", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_Vertical {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.Vertical", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Settings_TextSize {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Settings.TextSize", resourceCulture);
+            }
+        }
+
+        public static string Menu_Overlay_Notify_Dismiss {
+            get {
+                return ResourceManager.GetString("Menu.Overlay.Notify.Dismiss", resourceCulture);
+            }
+        }
+
+        public static string Enums_Order_Ascending {
+            get {
+                return ResourceManager.GetString("Enums.Order.Ascending", resourceCulture);
+            }
+        }
+
+        public static string Enums_Order_Descending {
+            get {
+                return ResourceManager.GetString("Enums.Order.Descending", resourceCulture);
             }
         }
     }

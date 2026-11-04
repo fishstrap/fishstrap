@@ -37,12 +37,15 @@ namespace Bloxstrap.UI.Elements.ContextMenu
                 _activityWatcher.OnGameJoin += ActivityWatcher_OnGameJoin;
                 _activityWatcher.OnGameLeave += ActivityWatcher_OnGameLeave;
 
-                if (!App.Settings.Prop.UseDisableAppPatch)
+                if (!App.Settings.Prop.UseDisableAppPatch && _watcher.Overlay is null)
                     GameHistoryMenuItem.Visibility = Visibility.Visible;
             }
 
             if (_watcher.RichPresence is not null)
                 RichPresenceMenuItem.Visibility = Visibility.Visible;
+
+            if (_watcher.Overlay is not null)
+                OpenOverlayMenuItem.Visibility = Visibility.Visible;
 
             VersionTextBlock.Text = $"{App.ProjectName} v{App.Version}";
         }
@@ -107,6 +110,8 @@ namespace Bloxstrap.UI.Elements.ContextMenu
         private void InviteDeeplinkMenuItem_Click(object sender, RoutedEventArgs e) => Clipboard.SetDataObject(_activityWatcher?.Data.GetInviteDeeplink());
 
         private void ServerDetailsMenuItem_Click(object sender, RoutedEventArgs e) => ShowServerInformationWindow();
+
+        private void OpenOverlayMenuItem_Click(object sender, RoutedEventArgs e) => _watcher.Overlay?.Open();
 
         private void LogTracerMenuItem_Click(object sender, RoutedEventArgs e)
         {

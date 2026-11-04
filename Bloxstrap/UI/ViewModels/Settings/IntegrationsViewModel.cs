@@ -12,6 +12,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public bool VulkanFullscreenAllowed => App.Settings.Prop.EnableWindowManipulation && (App.FastFlags.GetPreset("Rendering.Mode.Vulkan") ?? "False").Equals("True", StringComparison.OrdinalIgnoreCase);
 
+        public bool EnableOverlay
+        {
+            get => App.Settings.Prop.EnableOverlay;
+            set => App.Settings.Prop.EnableOverlay = value;
+        }
+
         public bool EnableRobloxBackgroundApp
         {
             get => App.Settings.Prop.EnableRobloxBackgroundApp;

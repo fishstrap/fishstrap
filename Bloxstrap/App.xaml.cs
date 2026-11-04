@@ -67,6 +67,10 @@ namespace Bloxstrap
 
         public static readonly CookiesManager Cookies = new();
 
+        public static readonly JsonManager<OverlayNotes> OverlayNotes = new();
+
+        public static readonly JsonManager<RecentServers> RecentServers = new();
+
         public static readonly HttpClient HttpClient = new(
             new HttpClientLoggingHandler(
                 new HttpClientHandler { AutomaticDecompression = DecompressionMethods.All }

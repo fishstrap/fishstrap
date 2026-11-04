@@ -1,5 +1,8 @@
 ﻿using DiscordRPC;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+
+using Bloxstrap.Enums.Overlay;
 
 namespace Bloxstrap.Models.Persistable
 {
@@ -54,6 +57,25 @@ namespace Bloxstrap.Models.Persistable
             "FishstrapLogs"
         };
         public bool EnableWindowManipulation { get; set; } = false;
+
+        public bool EnableOverlay { get; set; } = false;
+        public ModifierKeys OverlayHotkeyModifiers { get; set; } = OverlayHotkey.DefaultModifiers;
+        public Key OverlayHotkeyKey { get; set; } = OverlayHotkey.DefaultKey;
+        public bool OverlayStartHint { get; set; } = true;
+        public bool OverlayFriendNotifications { get; set; } = true;
+        public bool OverlayBadgeNotifications { get; set; } = true;
+        public bool OverlayServerToasts { get; set; } = true;
+        public bool OverlayToastHeaderServer { get; set; } = false;
+        public bool OverlayToastHeaderFriends { get; set; } = false;
+        public ToastStyle OverlayToastStyle { get; set; } = ToastStyle.Corner;
+        public double OverlayToastX { get; set; } = 1;
+        public double OverlayToastY { get; set; } = 1;
+        public double OverlayToastCornerRadius { get; set; } = 8;
+        public double OverlayToastScale { get; set; } = 1;
+        public double OverlayToastTextScale { get; set; } = 1;
+        public double OverlayToastOpacity { get; set; } = 1;
+        public int OverlayToastDuration { get; set; } = 6;
+        public ToastAnimation OverlayToastAnimation { get; set; } = ToastAnimation.Slide;
         public bool FakeBorderlessFullscreen { get; set; } = false;
         public bool EnableActivityTracking { get; set; } = true;
         public bool UseDiscordRichPresence { get; set; } = true;

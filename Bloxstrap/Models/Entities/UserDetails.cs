@@ -10,6 +10,58 @@ namespace Bloxstrap.Models.Entities
 
         public ThumbnailResponse Thumbnail { get; set; } = null!;
 
+        public static async Task<Dictionary<long, UserDetails>> FetchBatch(List<long> userIds)
+        {
+            var users = new Dictionary<long, UserDetails>();
+            var missing = new List<long>();
+
+            foreach (long userId in userIds.Distinct())
+            {
+                var cached = _cache.FirstOrDefault(x => x.Data?.Id == userId);
+
+                if (cached is not null)
+                    users[userId] = cached;
+                else
+                    missing.Add(userId);
+            }
+
+            if (!missing.Any())
+                return users;
+
+            var payload = new UserDetailsBatchRequest { UserIds = missing };
+
+            var usersResponse = await Http.SendJson<ApiArrayResponse<GetUserResponse>>(new HttpRequestMessage
+            {
+                RequestUri = UrlBuilder.BuildApiUrl("users", "v1/users"),
+                Method = HttpMethod.Post,
+                Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
+            });
+
+            if (usersResponse is null)
+                throw new InvalidHTTPResponseException("Roblox API for User Details returned invalid data");
+
+            var thumbnailResponse = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>(
+                UrlBuilder.BuildApiUrl("thumbnails", $"v1/users/avatar-headshot?userIds={String.Join(',', missing)}&size=180x180&format=Png&isCircular=false"));
+
+            if (thumbnailResponse is null)
+                throw new InvalidHTTPResponseException("Roblox API for Thumbnails returned invalid data");
+
+            foreach (var user in usersResponse.Data)
+            {
+                var thumbnail = thumbnailResponse.Data.FirstOrDefault(x => x.TargetId == user.Id);
+
+                if (thumbnail is null)
+                    continue;
+
+                var details = new UserDetails { Data = user, Thumbnail = thumbnail };
+
+                users[user.Id] = details;
+                _cache.Add(details);
+            }
+
+            return users;
+        }
+
         public static async Task<UserDetails> Fetch(long id)
         {
             var cacheQuery = _cache.Where(x => x.Data?.Id == id);

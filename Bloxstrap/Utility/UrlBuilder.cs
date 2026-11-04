@@ -17,6 +17,8 @@ namespace Bloxstrap.Utility
             return new(url);
         }
 
+        public static Uri BuildApisUrl(string path, bool secure = true) => BuildApiUrl("apis", path, secure);
+
         public static string BuildPlacelauncherUrl(long placeId, string? jobId)
         {
             string url = PlacelauncherBaseUrl;

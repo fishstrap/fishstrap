@@ -15,6 +15,8 @@ namespace Bloxstrap
 
         public readonly WindowManipulation? WindowManipulation;
 
+        public readonly Overlay? Overlay;
+
         public readonly DiscordRichPresence? RichPresence;
 
         public Watcher()
@@ -79,6 +81,9 @@ namespace Bloxstrap
                 }
             }
 
+            if (App.Settings.Prop.EnableOverlay && _watcherData.Handle != 0)
+                Overlay = new(_watcherData.Handle, _watcherData.ProcessId, ActivityWatcher);
+
             _notifyIcon = new(this);
         }
 
@@ -119,9 +124,12 @@ namespace Bloxstrap
 
             ActivityWatcher?.Start();
             WindowManipulation?.Start();
+            Overlay?.Start();
 
             while (Utilities.GetProcessesSafe().Any(x => x.Id == _watcherData.ProcessId))
                 await Task.Delay(1000);
+
+            Overlay?.Dispose();
 
             AppStorageManager.Apply();
 
