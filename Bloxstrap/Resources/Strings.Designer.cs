@@ -4637,6 +4637,42 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow Discord invites.
+        /// </summary>
+        public static string Menu_Integrations_DiscordInvites_Title {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.DiscordInvites.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets friends join you through Discord. Public servers only..
+        /// </summary>
+        public static string Menu_Integrations_DiscordInvites_Description {
+            get {
+                return ResourceManager.GetString("Menu.Integrations.DiscordInvites.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} wants to join your game..
+        /// </summary>
+        public static string Dialog_DiscordInvites_JoinRequest {
+            get {
+                return ResourceManager.GetString("Dialog.DiscordInvites.JoinRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn't join from Discord. Make sure Discord is open and try again..
+        /// </summary>
+        public static string Dialog_DiscordInvites_JoinFailed {
+            get {
+                return ResourceManager.GetString("Dialog.DiscordInvites.JoinFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shows the Roblox account you&apos;re playing with on your Discord profile..
         /// </summary>
         public static string Menu_Integrations_ShowAccountOnProfile_Description {

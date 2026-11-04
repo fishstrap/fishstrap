@@ -59,6 +59,7 @@ namespace Bloxstrap.Models.Persistable
         public bool UseDiscordRichPresence { get; set; } = true;
         public DiscordRPCStatusDisplay RichPresenceStatusDisplayType { get; set; } = DiscordRPCStatusDisplay.Name;
         public bool HideRPCButtons { get; set; } = true;
+        public bool AllowDiscordInvites { get; set; } = false;
         public bool ShowAccountOnRichPresence { get; set; } = false;
         public bool ShowServerDetails { get; set; } = false;
         public ObservableCollection<CustomIntegration> CustomIntegrations { get; set; } = new();
