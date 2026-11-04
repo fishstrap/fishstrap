@@ -32,6 +32,9 @@ namespace Bloxstrap.Integrations
                 if (activity["secrets"] is JObject secrets)
                     secrets.Remove("MatchSecret");
 
+                if (activity["party"] is JObject party)
+                    party.Remove("size");
+
                 if (value.HasSecrets())
                     activity["supported_platforms"] = new JArray("desktop");
 
@@ -56,8 +59,6 @@ namespace Bloxstrap.Integrations
         public static Party CreateParty(ActivityData activity) => new()
         {
             ID = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(activity.JobId)))[..32],
-            Size = 1,
-            Max = Math.Max(activity.UniverseDetails?.Data.MaxPlayers ?? 0, 2),
             Privacy = Party.PrivacySetting.Private
         };
 
