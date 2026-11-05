@@ -1899,4 +1899,25 @@ Agreeing VNGGames terms could cause irreversible changes to your Roblox account.
 
 Press cancel to go back.</value>
   </data>
+  <data name="Menu.Shortcuts.Game.Title" xml:space="preserve">
+    <value>Game shortcuts</value>
+  </data>
+  <data name="Menu.Shortcuts.Game.Description" xml:space="preserve">
+    <value>Paste a Roblox game link to add a shortcut for it to your desktop.</value>
+  </data>
+  <data name="Menu.Shortcuts.Game.Create" xml:space="preserve">
+    <value>Create shortcut</value>
+  </data>
+  <data name="Menu.Shortcuts.Game.Created" xml:space="preserve">
+    <value>Added {0} to your desktop.</value>
+  </data>
+  <data name="Menu.Shortcuts.Game.InvalidLink" xml:space="preserve">
+    <value>That isn't a Roblox game link.</value>
+  </data>
+  <data name="Menu.Shortcuts.Game.NotFound" xml:space="preserve">
+    <value>Couldn't find that game.</value>
+  </data>
+  <data name="Menu.Shortcuts.Game.Failed" xml:space="preserve">
+    <value>Couldn't create the shortcut.</value>
+  </data>
 </root>
