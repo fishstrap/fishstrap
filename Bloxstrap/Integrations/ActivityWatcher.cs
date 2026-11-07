@@ -3,7 +3,7 @@
     public class ActivityWatcher : IDisposable
     {
 
-        private const string GameMessageEntry                = "[FLog::Output] [BloxstrapRPC]";
+        private const string GameMessageEntry                = "[FLog::CreatorOutput] [BloxstrapRPC]";
         private const string GameJoiningEntry                = "[FLog::Output] ! Joining game";
 
         // these entries are technically volatile!
