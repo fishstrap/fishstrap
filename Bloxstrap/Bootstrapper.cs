@@ -940,7 +940,8 @@ namespace Bloxstrap
                     ProcessId = _appPid,
                     LogFile = logFileName,
                     AutoclosePids = autoclosePids,
-                    Handle = _appWindowHandle.ToInt64()
+                    Handle = _appWindowHandle.ToInt64(),
+                    PrivateServer = _joinData?.PrivateServer
                 };
 
                 string watcherDataArg = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(watcherData)));

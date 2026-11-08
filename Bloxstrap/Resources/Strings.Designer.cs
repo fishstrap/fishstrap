@@ -4646,7 +4646,7 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets friends join you through Discord. Public servers only..
+        ///   Looks up a localized string similar to Lets friends join you through Discord. Works in public servers and private servers you joined from the website..
         /// </summary>
         public static string Menu_Integrations_DiscordInvites_Description {
             get {

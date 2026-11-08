@@ -92,12 +92,14 @@ namespace Bloxstrap
                         joinData.JoinType = GameJoinType.RequestPrivateGame;
 
                         string accessCode = RegexMatchString(url, "accessCode=", commonIdPattern);
+                        string linkCode = RegexMatchString(url, "linkCode=", commonIdPattern);
                         long placeId = RegexMatchLong(url, "placeId=", commonIntPattern);
 
                         if (string.IsNullOrEmpty(accessCode) || placeId == 0) return joinData;
 
                         joinData.PlaceId = placeId;
                         joinData.AccessCode = accessCode;
+                        joinData.LinkCode = string.IsNullOrEmpty(linkCode) ? null : linkCode;
                         break;
                     }
                 case "RequestFollowUser":

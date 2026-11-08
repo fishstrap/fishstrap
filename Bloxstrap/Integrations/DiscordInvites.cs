@@ -32,9 +32,6 @@ namespace Bloxstrap.Integrations
                 if (activity["secrets"] is JObject secrets)
                     secrets.Remove("MatchSecret");
 
-                if (activity["party"] is JObject party)
-                    party.Remove("size");
-
                 if (value.HasSecrets())
                     activity["supported_platforms"] = new JArray("desktop");
 
@@ -49,25 +46,47 @@ namespace Bloxstrap.Integrations
 
         private static readonly TimeSpan JoinTimeout = TimeSpan.FromSeconds(5);
 
+        private const int MaxSecretLength = 128;
+
         private static readonly Regex SecretPattern = new(@"^([0-9]{1,20}):([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$", RegexOptions.IgnoreCase);
 
-        private static string JoinCommand => $"\"{Paths.Process}\" -discordjoin";
+        private static readonly Regex PrivateSecretPattern = new(@"^([0-9]{1,20}):private:([a-zA-Z0-9-]{1,64})(?::([a-zA-Z0-9-]{1,40}))?$");
+
+        private static readonly Regex CodePattern = new(@"^[a-zA-Z0-9-]{1,64}$");
+
+        private static string JoinCommand => $"\"{Paths.Application}\" -discordjoin";
 
         public static bool CanHost(ActivityData activity) =>
             App.Settings.Prop.AllowDiscordInvites
-            && activity.ServerType == ServerType.Public
-            && !String.IsNullOrEmpty(activity.JobId);
+            && !String.IsNullOrEmpty(activity.JobId)
+            && (activity.ServerType == ServerType.Public
+                || (activity.ServerType == ServerType.Private && CodePattern.IsMatch(activity.AccessCode)));
 
         public static Party CreateParty(ActivityData activity) => new()
         {
             ID = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(activity.JobId)))[..32],
+            Size = 1,
+            Max = Math.Max(activity.UniverseDetails?.Data.MaxPlayers ?? 0, 2),
             Privacy = Party.PrivacySetting.Private
         };
 
         public static Secrets CreateSecrets(ActivityData activity) => new()
         {
-            JoinSecret = $"{activity.PlaceId}:{activity.JobId}"
+            JoinSecret = CreateSecret(activity)
         };
+
+        private static string CreateSecret(ActivityData activity)
+        {
+            if (activity.ServerType != ServerType.Private)
+                return $"{activity.PlaceId}:{activity.JobId}";
+
+            string secret = $"{activity.PlaceId}:private:{activity.AccessCode}";
+
+            if (activity.LinkCode.Length <= 40 && CodePattern.IsMatch(activity.LinkCode) && secret.Length + activity.LinkCode.Length + 1 <= MaxSecretLength)
+                secret += $":{activity.LinkCode}";
+
+            return secret;
+        }
 
         public static bool Register(DiscordRpcClient client)
         {
@@ -93,17 +112,34 @@ namespace Bloxstrap.Integrations
 
             Match match = SecretPattern.Match(secret ?? "");
 
-            if (!match.Success)
+            if (match.Success)
             {
-                App.Logger.WriteLine(LOG_IDENT, "Received an invalid join secret");
-                return false;
+                App.Logger.WriteLine(LOG_IDENT, $"Joining {match.Groups[1].Value}/{match.Groups[2].Value} from a Discord invite");
+
+                Process.Start(Paths.Process, $"roblox://experiences/start?placeId={match.Groups[1].Value}&gameInstanceId={match.Groups[2].Value}");
+
+                return true;
             }
 
-            App.Logger.WriteLine(LOG_IDENT, $"Joining {match.Groups[1].Value}/{match.Groups[2].Value} from a Discord invite");
+            match = PrivateSecretPattern.Match(secret ?? "");
 
-            Process.Start(Paths.Process, $"roblox://experiences/start?placeId={match.Groups[1].Value}&gameInstanceId={match.Groups[2].Value}");
+            if (match.Success)
+            {
+                App.Logger.WriteLine(LOG_IDENT, $"Joining a private server in {match.Groups[1].Value} from a Discord invite");
 
-            return true;
+                string deeplink = $"roblox://experiences/start?placeId={match.Groups[1].Value}&accessCode={match.Groups[2].Value}";
+
+                if (match.Groups[3].Success)
+                    deeplink += $"&linkCode={match.Groups[3].Value}";
+
+                Process.Start(Paths.Process, deeplink);
+
+                return true;
+            }
+
+            App.Logger.WriteLine(LOG_IDENT, "Received an invalid join secret");
+
+            return false;
         }
 
         public static bool AskToJoin(JoinRequestMessage request)
