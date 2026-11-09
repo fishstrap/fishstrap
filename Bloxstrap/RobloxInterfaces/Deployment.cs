@@ -228,8 +228,14 @@
 
             string cacheKey = $"{channel}-{BinaryType}";
 
+            string path = $"v2/client-version/{BinaryType}";
+
+            if (!isDefaultChannel)
+                path += $"/channel/{channel}";
+
             HttpRequestMessage request = new() 
             {
+                RequestUri = UrlBuilder.BuildApiUrl("clientsettingscdn", path),
                 Method = HttpMethod.Get
             };
             
@@ -248,14 +254,8 @@
             }
             else
             {
-                string path = $"v2/client-version/{BinaryType}";
-
-                if (!isDefaultChannel)
-                    path += $"/channel/{channel}";
-
                 try
                 {
-                    request.RequestUri = UrlBuilder.BuildApiUrl("clientsettingscdn", path);
                     clientVersion = await Http.SendJson<ClientVersion>(request);
                 }
                 catch (HttpRequestException httpEx) 
@@ -270,7 +270,9 @@
 
                     try
                     {
+                        request = await Http.CloneHttpRequestMessageAsync(request);
                         request.RequestUri = UrlBuilder.BuildApiUrl("clientsettings", path);
+
                         clientVersion = await Http.SendJson<ClientVersion>(request);
                     }
                     catch (HttpRequestException httpEx)
