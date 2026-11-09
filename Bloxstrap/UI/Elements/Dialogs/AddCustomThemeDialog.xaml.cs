@@ -131,7 +131,13 @@ namespace Bloxstrap.UI.Elements.Dialogs
         {
             const string LOG_IDENT = "AddCustomThemeDialog::ValidateImport";
 
-            if (!_viewModel.FilePath.EndsWith(".zip"))
+            string fileName = Path.GetFileNameWithoutExtension(_viewModel.FilePath);
+
+            if (
+                !_viewModel.FilePath.EndsWith(".zip") ||
+                fileName.Contains('.') ||
+                string.IsNullOrWhiteSpace(fileName)
+                )
             {
                 _viewModel.FileError = Strings.CustomTheme_Add_Errors_FileNotZip;
                 return false;
@@ -204,6 +210,14 @@ namespace Bloxstrap.UI.Elements.Dialogs
             string name = GetUniqueName(fileName);
 
             string finalDir = Path.Combine(Paths.CustomThemes, name);
+            string root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(Paths.CustomThemes)) + Path.DirectorySeparatorChar;
+            string full = Path.TrimEndingDirectorySeparator(Path.GetFullPath(finalDir));
+
+            if (string.IsNullOrWhiteSpace(name) || !full.StartsWith(root, StringComparison.OrdinalIgnoreCase))
+                throw new UnauthorizedAccessException("Theme must be within Paths.CustomThemes");
+
+            finalDir = full;
+
             if (Directory.Exists(finalDir))
                 Directory.Delete(finalDir, true);
             Directory.CreateDirectory(finalDir);
@@ -231,7 +245,7 @@ namespace Bloxstrap.UI.Elements.Dialogs
                         if (Directory.Exists(entry))
                             Directory.Move(entry, dest);
                         else
-                            File.Copy(entry, dest, overwrite: true);
+                            File.Copy(entry, dest);
                     }
                 }
             }
