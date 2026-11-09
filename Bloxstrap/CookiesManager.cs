@@ -1,4 +1,5 @@
 ﻿using Bloxstrap.RobloxInterfaces;
+using System.Net.WebSockets;
 using System.Security.Cryptography;
 
 namespace Bloxstrap
@@ -18,10 +19,24 @@ namespace Bloxstrap
         public bool Loaded => Enabled && State == CookieState.Success;
         private bool Enabled => App.Settings.Prop.AllowCookieAccess;
 
+        public AuthenticatedUser? CurrentUser { get; private set; }
+
+        public bool IsAuthenticated => CurrentUser is not null;
+
         private string AuthCookie = string.Empty;
         private const string AuthCookieName = ".ROBLOSECURITY";
         private const string SupportedVersion = "1";
         private const string AuthPattern = $@"\t{AuthCookieName}\t(.+?)(;|$)";
+
+        private const string CsrfHeader = "x-csrf-token";
+
+        // tracker is needed for privacy related features like game presence privacy and user presence privacy
+        private const string TrackerCookieName = "RBXEventTrackerV2";
+        private const string TrackerPattern = $@"\t{TrackerCookieName}\t(.+?)(;|$)";
+
+        private string BrowserTracker = string.Empty;
+
+        private string _csrfToken = string.Empty;
         private string CookiesPath => Path.Combine(Paths.Roblox, "LocalStorage", Deployment.IsDefaultRobloxDomain ? "RobloxCookies.dat" : $"{Deployment.RobloxDomain}_RobloxCookies.dat");
         public async Task<HttpResponseMessage> AuthRequest(HttpRequestMessage request)
         {
@@ -40,14 +55,61 @@ namespace Bloxstrap
             if (!Enabled)
                 throw new NullReferenceException("Cookie access is not enabled");
 
-            request.Headers.Add("Cookie", $".ROBLOSECURITY={AuthCookie}");
-            var response = await App.HttpClient.SendAsync(request);
+            HttpResponseMessage response = await SendAuthenticated(request);
 
-            return response;
+            if (response.StatusCode != HttpStatusCode.Forbidden
+                || !response.Headers.TryGetValues(CsrfHeader, out IEnumerable<string>? tokens)
+                || tokens.FirstOrDefault() is not string token
+                || String.IsNullOrEmpty(token)
+                || token == _csrfToken)
+                return response;
+
+            _csrfToken = token;
+
+            response.Dispose();
+
+            return await SendAuthenticated(Repeat(request));
+        }
+
+        private async Task<HttpResponseMessage> SendAuthenticated(HttpRequestMessage request)
+        {
+            request.Headers.Remove(CsrfHeader);
+
+            if (!String.IsNullOrEmpty(_csrfToken))
+                request.Headers.Add(CsrfHeader, _csrfToken);
+
+            request.Headers.Remove("Cookie");
+            request.Headers.Add("Cookie", String.IsNullOrEmpty(BrowserTracker)
+                ? $".ROBLOSECURITY={AuthCookie}"
+                : $".ROBLOSECURITY={AuthCookie}; {TrackerCookieName}={BrowserTracker}");
+
+            return await App.HttpClient.SendAsync(request);
+        }
+
+        private static HttpRequestMessage Repeat(HttpRequestMessage request)
+        {
+            var repeat = new HttpRequestMessage(request.Method, request.RequestUri)
+            {
+                Content = request.Content,
+                Version = request.Version
+            };
+
+            foreach (KeyValuePair<string, IEnumerable<string>> header in request.Headers)
+                repeat.Headers.TryAddWithoutValidation(header.Key, header.Value);
+
+            return repeat;
         }
 
         public async Task<HttpResponseMessage> AuthGet(Uri? uri) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Method = HttpMethod.Get });
         public async Task<HttpResponseMessage> AuthPost(Uri? uri, HttpContent? content) => await AuthRequest(new HttpRequestMessage { RequestUri = uri, Content = content, Method = HttpMethod.Post });
+
+        public void AuthWebsocket(ClientWebSocket webSocket)
+        {
+            if (!Enabled)
+                throw new NullReferenceException("Cookie access is not enabled");
+
+            webSocket.Options.SetRequestHeader("Cookie", $".ROBLOSECURITY={AuthCookie}");
+        }
 
         public async Task<AuthenticatedUser?> GetAuthenticated()
         {
@@ -71,6 +133,17 @@ namespace Bloxstrap
             }
 
             return null;
+        }
+
+        public async Task<bool> EnsureLoadedAsync()
+        {
+            if (!Enabled)
+                return false;
+
+            if (!Loaded)
+                await Task.Run(LoadCookies);
+
+            return Loaded;
         }
 
         public async Task LoadCookies()
@@ -125,6 +198,13 @@ namespace Bloxstrap
                 string authCookie = authCookieMatch.Groups[1].Value;
                 AuthCookie = authCookie; // could use better naming
 
+                Match trackerMatch = Regex.Match(rawCookies, TrackerPattern);
+
+                if (trackerMatch.Success)
+                    BrowserTracker = trackerMatch.Groups[1].Value;
+
+                App.Logger.WriteLine(LOG_IDENT, trackerMatch.Success ? "Found a browser tracker" : "No browser tracker in the cookie store");
+
                 // we test the cookie to see if its valid
                 AuthenticatedUser? user = await GetAuthenticated();
                 if (user is null || user?.Id == 0)
@@ -135,6 +215,7 @@ namespace Bloxstrap
                 }
 
                 State = CookieState.Success;
+                CurrentUser = user;
             }
             catch (Exception ex)
             {

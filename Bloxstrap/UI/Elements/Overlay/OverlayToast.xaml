@@ -1,0 +1,24 @@
+<Window x:Class="Bloxstrap.UI.Elements.Overlay.OverlayToast"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:control="clr-namespace:Bloxstrap.UI.Elements.Overlay.Controls"
+        mc:Ignorable="d"
+        Title="Fishstrap Overlay Notification"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        Topmost="True"
+        WindowStartupLocation="Manual"
+        SizeToContent="WidthAndHeight"
+        FontFamily="{StaticResource Inter}"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="ClearType"
+        d:DesignWidth="400">
+
+    <control:ToastCard x:Name="CardView" Margin="24,24,0,0" />
+</Window>

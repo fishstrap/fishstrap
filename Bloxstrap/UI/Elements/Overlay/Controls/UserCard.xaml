@@ -1,0 +1,227 @@
+<UserControl x:Class="Bloxstrap.UI.Elements.Overlay.Controls.UserCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:resources="clr-namespace:Bloxstrap.Resources"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d"
+             d:DesignHeight="56" d:DesignWidth="700"
+             Background="Transparent"
+             FontFamily="{StaticResource Inter}">
+
+    <UserControl.Resources>
+        <Style x:Key="AccountButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="24" Padding="4,4,12,4">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding OnlineStatus.IsOpen}" Value="True">
+                    <Setter Property="IsHitTestVisible" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GameButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="10" Padding="4,4,12,4">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding GameStatus.IsOpen}" Value="True">
+                    <Setter Property="IsHitTestVisible" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="OptionRow" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="6" Padding="8,7">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="VisibilityMenu">
+            <Border Width="300" Margin="12" Padding="10,12,10,10" CornerRadius="10"
+                    Background="{DynamicResource SolidBackgroundFillColorTertiaryBrush}"
+                    BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="24" ShadowDepth="4" Direction="270" Opacity="0.5" Color="Black" />
+                </Border.Effect>
+
+                <StackPanel>
+                    <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="SemiBold"
+                               Margin="8,0,8,0" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <TextBlock Text="{Binding Hint}" FontSize="12" TextWrapping="Wrap"
+                               Margin="8,3,8,8" Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+
+                    <ItemsControl ItemsSource="{Binding Options}" IsEnabled="{Binding CanChange}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource OptionRow}" IsEnabled="{Binding IsAllowed}"
+                                        Command="{Binding DataContext.SetCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding Value}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="{Binding Label}" FontSize="13" VerticalAlignment="Center"
+                                                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+                                        <ui:SymbolIcon Grid.Column="1" Symbol="Checkmark16" FontSize="14" VerticalAlignment="Center"
+                                                       Foreground="{DynamicResource AccentFillColorDefaultBrush}"
+                                                       Visibility="{Binding IsCurrent, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="{Binding StatusText}" FontSize="12" TextWrapping="Wrap" Margin="8,8,8,0"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Visibility="{Binding HasStatus, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+        <Button x:Name="AccountButton" Style="{StaticResource AccountButton}"
+                Command="{Binding OnlineStatus.OpenCommand}"
+                ToolTip="{x:Static resources:Strings.Menu_Overlay_Privacy_Tooltip}">
+            <StackPanel Orientation="Horizontal">
+                <Border Width="40" Height="40" CornerRadius="20"
+                        Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                    <Grid>
+                        <ui:SymbolIcon Symbol="Person24" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}">
+                            <ui:SymbolIcon.Style>
+                                <Style TargetType="ui:SymbolIcon" BasedOn="{StaticResource {x:Type ui:SymbolIcon}}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ProfileIcon}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:SymbolIcon.Style>
+                        </ui:SymbolIcon>
+
+                        <Border CornerRadius="20">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding ProfileIcon}" Stretch="UniformToFill" />
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <StackPanel Margin="12,0,0,0" VerticalAlignment="Center"
+                            Visibility="{Binding HasProfileName, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="{Binding DisplayName}" FontSize="14" FontWeight="SemiBold"
+                               Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding Username}" FontSize="12" Margin="0,1,0,0"
+                               Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+
+                <ui:SymbolIcon Symbol="ChevronUp12" FontSize="10" Margin="10,0,0,0" VerticalAlignment="Center"
+                               Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
+        </Button>
+
+        <Popup IsOpen="{Binding OnlineStatus.IsOpen, Mode=TwoWay}" StaysOpen="False"
+               PlacementTarget="{Binding ElementName=AccountButton}" Placement="Top" VerticalOffset="-6"
+               AllowsTransparency="True" PopupAnimation="Fade">
+            <ContentPresenter Content="{Binding OnlineStatus}" ContentTemplate="{StaticResource VisibilityMenu}" />
+        </Popup>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding GameVisibility}">
+            <Rectangle Width="1" Height="28" Margin="20,0,16,0" Fill="{ui:ThemeResource DividerStrokeColorDefaultBrush}" />
+
+            <Button x:Name="GameButton" Style="{StaticResource GameButton}"
+                    Command="{Binding GameStatus.OpenCommand}"
+                    ToolTip="{x:Static resources:Strings.Menu_Overlay_GamePrivacy_Tooltip}">
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="36" Height="36" CornerRadius="6"
+                            Background="{ui:ThemeResource ControlFillColorDefaultBrush}">
+                        <Border CornerRadius="6">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding GameIcon}" Stretch="UniformToFill" />
+                            </Border.Background>
+                        </Border>
+                    </Border>
+
+                    <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Game}" FontSize="14" FontWeight="SemiBold" MaxWidth="260"
+                                   Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" TextTrimming="CharacterEllipsis" />
+                        <StackPanel Orientation="Horizontal" Margin="0,1,0,0">
+                            <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Session}" FontSize="12"
+                                       Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                            <TextBlock Text="{Binding TimePlayed}" FontSize="12" Margin="6,0,0,0"
+                                       FontFamily="{StaticResource CascadiaCode}"
+                                       Foreground="Lime" />
+
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding ServerUptimeVisibility}">
+                                <TextBlock Text="&#x00B7;" FontSize="12" Margin="6,0"
+                                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                <TextBlock Text="{x:Static resources:Strings.Menu_Overlay_Server}" FontSize="12"
+                                           Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                                <TextBlock Text="{Binding ServerUptime}" FontSize="12" Margin="6,0,0,0"
+                                           FontFamily="{StaticResource CascadiaCode}"
+                                           Foreground="Lime" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <ui:SymbolIcon Symbol="ChevronUp12" FontSize="10" Margin="10,0,0,0" VerticalAlignment="Center"
+                                   Foreground="{ui:ThemeResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </Button>
+
+            <Popup IsOpen="{Binding GameStatus.IsOpen, Mode=TwoWay}" StaysOpen="False"
+                   PlacementTarget="{Binding ElementName=GameButton}" Placement="Top" VerticalOffset="-6"
+                   AllowsTransparency="True" PopupAnimation="Fade">
+                <ContentPresenter Content="{Binding GameStatus}" ContentTemplate="{StaticResource VisibilityMenu}" />
+            </Popup>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

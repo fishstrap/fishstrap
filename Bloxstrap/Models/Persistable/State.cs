@@ -18,6 +18,8 @@ namespace Bloxstrap.Models.Persistable
 
         public WindowState SettingsWindow { get; set; } = new();
 
+        public Dictionary<string, OverlayPanelLayout> OverlayPanels { get; set; } = new();
+
         #region Deprecated properties
         /// <summary>
         /// Deprecated, use App.RobloxState.Player

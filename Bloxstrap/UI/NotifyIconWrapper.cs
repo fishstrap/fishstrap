@@ -83,13 +83,17 @@ namespace Bloxstrap.UI
             else
                 serverUptime = Strings.Common_Unknown; // this should never happen
 
+            string message = String.Format(
+                Strings.ContextMenu_ServerDetails_Notification_Text,
+                serverLocation,
+                serverUptime);
+
+            if (_watcher.Overlay?.ShowToast(title, message) == true)
+                return;
+
             ShowAlert(
                 title,
-                String.Format(
-                    Strings.ContextMenu_ServerDetails_Notification_Text,
-                    serverLocation,
-                    serverUptime
-                    ),
+                message,
                 10,
                 (_, _) => _menuContainer.ShowServerInformationWindow()
             );
