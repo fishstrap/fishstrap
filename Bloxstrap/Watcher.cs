@@ -60,7 +60,7 @@ namespace Bloxstrap
 
             if (App.Settings.Prop.EnableActivityTracking)
             {
-                ActivityWatcher = new(_watcherData.LogFile);
+                ActivityWatcher = new(_watcherData.LogFile) { PrivateServer = _watcherData.PrivateServer };
 
                 if (App.Settings.Prop.UseDisableAppPatch)
                 {

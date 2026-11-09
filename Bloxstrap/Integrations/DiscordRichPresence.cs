@@ -6,7 +6,13 @@ namespace Bloxstrap.Integrations
 {
     public class DiscordRichPresence : IDisposable
     {
-        private readonly DiscordRpcClient _rpcClient = new("1005469189907173486");
+        public const string ApplicationId = "1300914368070029433";
+
+        private const string DefaultActivityName = "Roblox";
+
+        public static string ActivityName { get; private set; } = DefaultActivityName;
+
+        private readonly DiscordRpcClient _rpcClient = new(ApplicationId);
         private readonly ActivityWatcher _activityWatcher;
         private readonly Queue<Message> _messageQueue = new();
 
@@ -50,7 +56,36 @@ namespace Bloxstrap.Integrations
             _rpcClient.OnClose += (_, e) =>
                 App.Logger.WriteLine(LOG_IDENT, $"Lost connection to Discord RPC - {e.Reason} ({e.Code})");
 
+            _rpcClient.OnJoin += (_, e) => DiscordInvites.Join(e.Secret);
+
+            _rpcClient.OnJoinRequested += (_, e) => Task.Run(() => RespondToJoinRequest(e));
+
+            bool registered = DiscordInvites.Register(_rpcClient);
+
             _rpcClient.Initialize();
+
+            if (registered)
+                _rpcClient.Subscribe(App.Settings.Prop.AllowDiscordInvites ? EventType.Join | EventType.JoinRequest : EventType.Join);
+        }
+
+        private void RespondToJoinRequest(DiscordRPC.Message.JoinRequestMessage request)
+        {
+            const string LOG_IDENT = "DiscordRichPresence::RespondToJoinRequest";
+
+            App.Logger.WriteLine(LOG_IDENT, "Received a request to join");
+
+            bool accepted = DiscordInvites.AskToJoin(request);
+
+            App.Logger.WriteLine(LOG_IDENT, accepted ? "Accepted the request" : "Declined the request");
+
+            try
+            {
+                _rpcClient.Respond(request, accepted);
+            }
+            catch (Exception ex)
+            {
+                App.Logger.WriteException(LOG_IDENT, ex);
+            }
         }
 
         public void ProcessRPCMessage(Message message, bool implicitUpdate = true)
@@ -329,6 +364,7 @@ namespace Bloxstrap.Integrations
             {
                 App.Logger.WriteLine(LOG_IDENT, "Not in game, clearing presence");
 
+                ActivityName = DefaultActivityName;
                 _currentPresence = _originalPresence =  null;
                 _messageQueue.Clear();
 
@@ -392,11 +428,13 @@ namespace Bloxstrap.Integrations
                 return false;
             }
 
-            string status = _activityWatcher.Data.ServerType switch
+            string creator = $"by {universeDetails.Data.Creator.Name}" + (universeDetails.Data.Creator.HasVerifiedBadge ? " ☑️" : "");
+
+            string? status = _activityWatcher.Data.ServerType switch
             {
                 ServerType.Private => "In a private server",
                 ServerType.Reserved => "In a reserved server",
-                _ => $"by {universeDetails.Data.Creator.Name}" + (universeDetails.Data.Creator.HasVerifiedBadge ? " ☑️" : ""),
+                _ => null
             };
 
             string universeName = universeDetails.Data.Name;
@@ -404,9 +442,11 @@ namespace Bloxstrap.Integrations
             if (universeName.Length < 2)
                 universeName = $"{universeName}\x2800\x2800\x2800";
 
+            ActivityName = universeName;
+
             _currentPresence = new DiscordRPC.RichPresence
             {
-                Details = universeName,
+                Details = creator,
                 StatusDisplay = App.Settings.Prop.RichPresenceStatusDisplayType.ToStatusDisplayType(),
                 State = status,
                 Timestamps = new Timestamps { Start = timeStarted.ToUniversalTime() },
@@ -419,6 +459,14 @@ namespace Bloxstrap.Integrations
                     SmallImageText = smallImageText
                 }
             };
+
+            if (DiscordInvites.CanHost(activity))
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Letting Discord friends join this server");
+
+                _currentPresence.Party = DiscordInvites.CreateParty(activity);
+                _currentPresence.Secrets = DiscordInvites.CreateSecrets(activity);
+            }
 
             // this is used for configuration from BloxstrapRPC
             _originalPresence = _currentPresence.Clone();
@@ -434,11 +482,14 @@ namespace Bloxstrap.Integrations
             return true;
         }
 
-        public Button[] GetButtons()
+        public Button[]? GetButtons()
         {
             var buttons = new List<Button>();
 
             var data = _activityWatcher.Data;
+
+            if (DiscordInvites.CanHost(data))
+                return null;
 
             if (!App.Settings.Prop.HideRPCButtons)
             {

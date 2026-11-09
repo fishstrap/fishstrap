@@ -667,6 +667,15 @@ Selecting 'No' will ignore this warning and continue installation.</value>
   <data name="Menu.Integrations.AllowActivityJoining.Title" xml:space="preserve">
     <value>Allow activity joining</value>
   </data>
+  <data name="Menu.Integrations.DiscordInvites.Title" xml:space="preserve">
+    <value>Allow Discord invites</value>
+  </data>
+  <data name="Menu.Integrations.DiscordInvites.Description" xml:space="preserve">
+    <value>Lets friends join you through Discord. Works in public servers and private servers you joined from the website.</value>
+  </data>
+  <data name="Dialog.DiscordInvites.JoinRequest" xml:space="preserve">
+    <value>{0} wants to join your game.</value>
+  </data>
   <data name="Menu.Integrations.ShowAccountOnProfile.Description" xml:space="preserve">
     <value>Shows the Roblox account you're playing with on your Discord profile.</value>
   </data>

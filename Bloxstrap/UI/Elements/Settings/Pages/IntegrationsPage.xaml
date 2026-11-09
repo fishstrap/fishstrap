@@ -71,6 +71,13 @@
             <ui:ToggleSwitch IsChecked="{Binding DiscordActivityJoinEnabled, Mode=TwoWay}" />
         </controls:OptionControl>
 
+        <controls:OptionControl
+            Header="{x:Static resources:Strings.Menu_Integrations_DiscordInvites_Title}"
+            Description="{x:Static resources:Strings.Menu_Integrations_DiscordInvites_Description}"
+            IsEnabled="{Binding InnerContent.IsChecked, ElementName=DiscordActivityOption, Mode=OneWay}">
+            <ui:ToggleSwitch IsChecked="{Binding DiscordInvitesEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
         <controls:OptionControl 
             Header="{x:Static resources:Strings.Menu_Integrations_ShowAccountOnProfile_Title}" 
             Description="{x:Static resources:Strings.Menu_Integrations_ShowAccountOnProfile_Description}"

@@ -9,5 +9,7 @@
         public List<int>? AutoclosePids { get; set; }
 
         public long Handle { get; set; }
+
+        public PrivateServerData? PrivateServer { get; set; }
     }
 }

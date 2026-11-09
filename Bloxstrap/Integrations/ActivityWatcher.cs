@@ -54,6 +54,10 @@
 
         public bool IsDisposed = false;
 
+        public PrivateServerData? PrivateServer { get; init; }
+
+        private bool _privateCodeUsed = false;
+
         public ActivityWatcher(string? logFile = null)
         {
             if (!String.IsNullOrEmpty(logFile))
@@ -230,7 +234,16 @@
                         string referral = loadTimeMatch.Groups[1].Value;
 
                         if (referral.Contains("RequestPrivateGame", StringComparison.OrdinalIgnoreCase) || referral.Contains("GameDetailPageJSHybridEvent", StringComparison.OrdinalIgnoreCase))
+                        {
                             Data.ServerType = ServerType.Private;
+
+                            if (!_privateCodeUsed && PrivateServer is not null && Data.PlaceId == PrivateServer.PlaceId)
+                            {
+                                Data.AccessCode = PrivateServer.AccessCode;
+                                Data.LinkCode = PrivateServer.LinkCode ?? string.Empty;
+                                _privateCodeUsed = true;
+                            }
+                        }
                     }
 
                     if (History.Any())

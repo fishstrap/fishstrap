@@ -64,6 +64,11 @@ namespace Bloxstrap
                 App.Logger.WriteLine(LOG_IDENT, "Opening background updater");
                 LaunchBackgroundUpdater();
             }
+            else if (App.LaunchSettings.DiscordJoinFlag.Active)
+            {
+                App.Logger.WriteLine(LOG_IDENT, "Joining from Discord");
+                LaunchDiscordJoin();
+            }
             else if (App.LaunchSettings.RobloxLaunchMode != LaunchMode.None)
             {
                 App.Logger.WriteLine(LOG_IDENT, $"Opening bootstrapper ({App.LaunchSettings.RobloxLaunchMode})");
@@ -306,6 +311,25 @@ namespace Bloxstrap
                 // shouldnt this be done after client closes?
                 if (App.Settings.Prop.CleanerOptions != CleanerOptions.Never)
                     Cleaner.DoCleaning();
+
+                App.Terminate();
+            });
+        }
+
+        public static void LaunchDiscordJoin()
+        {
+            const string LOG_IDENT = "LaunchHandler::LaunchDiscordJoin";
+
+            Task.Run(DiscordInvites.WaitForJoinSecret).ContinueWith(t =>
+            {
+                if (t.IsFaulted && t.Exception is not null)
+                    App.Logger.WriteException(LOG_IDENT, t.Exception);
+
+                if (!t.IsCompletedSuccessfully || t.Result is null || !DiscordInvites.Join(t.Result))
+                {
+                    App.Logger.WriteLine(LOG_IDENT, "No invite to join, opening Roblox");
+                    Process.Start(Paths.Process, "-player");
+                }
 
                 App.Terminate();
             });

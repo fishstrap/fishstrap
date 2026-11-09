@@ -125,8 +125,10 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 if (!value)
                 {
                     DiscordActivityJoinEnabled = value;
+                    DiscordInvitesEnabled = value;
                     DiscordAccountOnProfile = value;
                     OnPropertyChanged(nameof(DiscordActivityJoinEnabled));
+                    OnPropertyChanged(nameof(DiscordInvitesEnabled));
                     OnPropertyChanged(nameof(DiscordAccountOnProfile));
                 }
             }
@@ -143,6 +145,12 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             get => !App.Settings.Prop.HideRPCButtons;
             set => App.Settings.Prop.HideRPCButtons = !value;
+        }
+
+        public bool DiscordInvitesEnabled
+        {
+            get => App.Settings.Prop.AllowDiscordInvites;
+            set => App.Settings.Prop.AllowDiscordInvites = value;
         }
 
         public bool DiscordAccountOnProfile

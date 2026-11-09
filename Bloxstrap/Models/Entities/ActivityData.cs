@@ -40,7 +40,9 @@ namespace Bloxstrap.Models.Entities
         /// This will be empty unless the server joined is a private server
         /// </summary>
         public string AccessCode { get; set; } = string.Empty;
-        
+
+        public string LinkCode { get; set; } = string.Empty;
+
         public long UserId { get; set; } = 0;
 
         public string MachineAddress { get; set; } = string.Empty;
