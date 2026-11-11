@@ -32,7 +32,7 @@ namespace Bloxstrap.Utility
         {
             const string LOG_IDENT = "GameShortcut::Create";
 
-            var universe = await Http.GetJson<UniverseIdResponse>(UrlBuilder.BuildApiUrl("apis", $"universes/v1/places/{placeId}/universe"));
+            var universe = await Http.GetJson<UniverseIdResponse>(UrlBuilder.BuildApisUrl("universes", $"v1/places/{placeId}/universe"));
 
             if (universe.UniverseId is not long universeId)
                 return null;
