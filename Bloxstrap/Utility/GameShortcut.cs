@@ -11,7 +11,10 @@ namespace Bloxstrap.Utility
             new(@"^([0-9]+)$")
         };
 
-        private static string IconsFolder => Path.Combine(Paths.Base, "GameIcons");
+        // includes all of the icon data for game shortcuts
+        private static ReadOnlySpan<byte> IcoData => new byte[] { 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x20, 0x00 };
+
+        private const int IcoImageOffset = 0x16;
 
         public static long? ParsePlaceId(string link)
         {
@@ -37,60 +40,47 @@ namespace Bloxstrap.Utility
             if (universe.UniverseId is not long universeId)
                 return null;
 
+            // cant we check the cache status in UniverseDetails???
             if (UniverseDetails.LoadFromCache(universeId) is null)
-                await UniverseDetails.FetchSingle(universeId);
+                await UniverseDetails.FetchSingle(universeId, ThumbnailResolution.Res256);
 
-            string name = UniverseDetails.LoadFromCache(universeId)!.Data.Name;
-            string lnkPath = Path.Combine(Paths.Desktop, $"{FileName(name)}.lnk");
+            UniverseDetails universeData = UniverseDetails.LoadFromCache(universeId)!;
+            string gameName = FileName(universeData.Data.Name);
+            string gameIconUrl = universeData.Thumbnail.ImageUrl ?? "";
+            byte[] gameIcon = await App.HttpClient.GetByteArrayAsync(gameIconUrl);
+
+            string lnkPath = Path.Combine(Paths.Desktop, $"{gameName}.lnk");
+            string? lnkIcon = SaveIcon(universeId, gameIcon);
 
             if (File.Exists(lnkPath))
                 File.Delete(lnkPath);
 
-            Shortcut.Create(Paths.Application, $"roblox://experiences/start?placeId={placeId}", lnkPath, await SaveIcon(universeId));
+            Shortcut.Create(Paths.Application, $"roblox://experiences/start?placeId={placeId}", lnkPath, lnkIcon);
 
             if (!File.Exists(lnkPath))
                 throw new IOException("The shortcut was not created");
 
             App.Logger.WriteLine(LOG_IDENT, $"Created a desktop shortcut for place {placeId}");
 
-            return name;
+            return gameName;
         }
 
-        private static async Task<string?> SaveIcon(long universeId)
+        private static string? SaveIcon(long universeId, byte[] gameIcon)
         {
             const string LOG_IDENT = "GameShortcut::SaveIcon";
 
             try
             {
-                var response = await Http.GetJson<ApiArrayResponse<ThumbnailResponse>>(
-                    UrlBuilder.BuildApiUrl("thumbnails", $"v1/games/icons?universeIds={universeId}&returnPolicy=PlaceHolder&size=256x256&format=Png&isCircular=false"));
+                Directory.CreateDirectory(Paths.GameIcons);
 
-                string? url = response.Data.FirstOrDefault()?.ImageUrl;
-
-                if (String.IsNullOrEmpty(url))
-                    return null;
-
-                byte[] png = await App.HttpClient.GetByteArrayAsync(url);
-
-                Directory.CreateDirectory(IconsFolder);
-
-                string path = Path.Combine(IconsFolder, $"{universeId}.ico");
+                string path = Path.Combine(Paths.GameIcons, $"{universeId}.ico");
 
                 using var writer = new BinaryWriter(File.Create(path));
 
-                // what the fuck
-                writer.Write((short)0);
-                writer.Write((short)1);
-                writer.Write((short)1);
-                writer.Write((byte)0);
-                writer.Write((byte)0);
-                writer.Write((byte)0);
-                writer.Write((byte)0);
-                writer.Write((short)1);
-                writer.Write((short)32);
-                writer.Write(png.Length);
-                writer.Write(22);
-                writer.Write(png);
+                writer.Write(IcoData);
+                writer.Write(gameIcon.Length);
+                writer.Write(IcoImageOffset);
+                writer.Write(gameIcon);
 
                 return path;
             }
