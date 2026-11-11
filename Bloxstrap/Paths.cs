@@ -22,6 +22,7 @@
         public static string SavedFlagProfiles { get; private set; } = "";
         public static string Logs { get; private set; } = "";
         public static string Integrations { get; private set; } = "";
+        public static string GameIcons { get; private set; } = "";
         public static string Versions { get; private set; } = "";
         public static string Modifications { get; private set; } = "";
         public static string CustomThemes { get; private set; } = "";
@@ -47,6 +48,7 @@
             Downloads = Path.Combine(Base, "Downloads");
             Logs = Path.Combine(Base, "Logs");
             Integrations = Path.Combine(Base, "Integrations");
+            GameIcons = Path.Combine(Base, "GameIcons");
             Versions = Path.Combine(Base, "Versions");
             Modifications = Path.Combine(Base, "Modifications");
             CustomThemes = Path.Combine(Base, "CustomThemes");

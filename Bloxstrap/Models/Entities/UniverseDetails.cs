@@ -26,12 +26,13 @@ namespace Bloxstrap.Models.Entities
             return null;
         }
 
-        public static Task FetchSingle(long id) => FetchBulk(id.ToString());
+        public static Task FetchSingle(long id, ThumbnailResolution thumbnailResolution = ThumbnailResolution.Res128) => FetchBulk(id.ToString(), thumbnailResolution);
 
-        public static async Task FetchBulk(string ids)
+        public static async Task FetchBulk(string ids, ThumbnailResolution thumbnailResolution = ThumbnailResolution.Res128)
         {
+            string resolution = ThumbnailResolutionToString(thumbnailResolution);
             Uri gameDetailsUrl = UrlBuilder.BuildApiUrl("games", $"v1/games?universeIds={ids}");
-            Uri thumbnailsUrl = UrlBuilder.BuildApiUrl("thumbnails", $"v1/games/icons?universeIds={ids}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=false");
+            Uri thumbnailsUrl = UrlBuilder.BuildApiUrl("thumbnails", $"v1/games/icons?universeIds={ids}&returnPolicy=PlaceHolder&size={resolution}&format=Png&isCircular=false");
             ApiArrayResponse<GameDetailResponse> gameDetailResponse;
 
             // some universes can't be viewed by logged out user (ex. 18+)
@@ -57,6 +58,19 @@ namespace Bloxstrap.Models.Entities
                     Data = gameDetailResponse.Data.Where(x => x.Id == id).First(),
                     Thumbnail = universeThumbnailResponse.Data.Where(x => x.TargetId == id).First(),
                 });
+            }
+        }
+
+        private static string ThumbnailResolutionToString(ThumbnailResolution resolution)
+        {
+            switch (resolution)
+            {
+                case ThumbnailResolution.Res128:
+                    return "128x128";
+                case ThumbnailResolution.Res256:
+                    return "256x256";
+                default:
+                    return "128x128";
             }
         }
     }

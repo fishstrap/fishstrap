@@ -4970,6 +4970,69 @@ namespace Bloxstrap.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game shortcuts.
+        /// </summary>
+        public static string Menu_Shortcuts_Game_Title {
+            get {
+                return ResourceManager.GetString("Menu.Shortcuts.Game.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste a Roblox game link to add a shortcut for it to your desktop..
+        /// </summary>
+        public static string Menu_Shortcuts_Game_Description {
+            get {
+                return ResourceManager.GetString("Menu.Shortcuts.Game.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create shortcut.
+        /// </summary>
+        public static string Menu_Shortcuts_Game_Create {
+            get {
+                return ResourceManager.GetString("Menu.Shortcuts.Game.Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added {0} to your desktop..
+        /// </summary>
+        public static string Menu_Shortcuts_Game_Created {
+            get {
+                return ResourceManager.GetString("Menu.Shortcuts.Game.Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That isn't a Roblox game link..
+        /// </summary>
+        public static string Menu_Shortcuts_Game_InvalidLink {
+            get {
+                return ResourceManager.GetString("Menu.Shortcuts.Game.InvalidLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn't find that game..
+        /// </summary>
+        public static string Menu_Shortcuts_Game_NotFound {
+            get {
+                return ResourceManager.GetString("Menu.Shortcuts.Game.NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn't create the shortcut..
+        /// </summary>
+        public static string Menu_Shortcuts_Game_Failed {
+            get {
+                return ResourceManager.GetString("Menu.Shortcuts.Game.Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure how Fishstrap can be readily launched..
         /// </summary>
         public static string Menu_Shortcuts_Description {
