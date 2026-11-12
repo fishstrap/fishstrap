@@ -114,7 +114,32 @@
             <ui:Button Grid.Column="1" Content="{x:Static resources:Strings.Menu_Appearance_Preview}" HorizontalAlignment="Stretch" Margin="0,16,0,0" Command="{Binding PreviewBootstrapperCommand}" />
         </Grid>
         
-        <ui:CardExpander Margin="0,8,0,0" IsExpanded="{Binding Path=CustomThemesExpanded, Mode=OneWay}" Style="{StaticResource NoUserExpansionCardExpanderStyle}">
+        <controls:OptionControl Header="Animated video background" Description="Use a looping MP4 or MOV video behind the Roblox launch progress. MP4 is recommended; MOV playback depends on installed Windows codecs.">
+            <ui:ToggleSwitch IsChecked="{Binding AnimatedVideoEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl IsEnabled="{Binding AnimatedVideoEnabled}" Header="Video file" Description="Choose a local MP4 or MOV file. The video is checked when previewed or launched." >
+            <Grid Width="260">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ui:TextBox Grid.Column="0" IsReadOnly="True" Text="{Binding BootstrapperVideoPath, Mode=OneWay}" />
+                <ui:Button Grid.Column="1" Width="34" Height="30" Margin="4,0,0,0" Icon="Folder16" Command="{Binding BrowseBootstrapperVideoCommand}" />
+            </Grid>
+        </controls:OptionControl>
+
+        <controls:OptionControl IsEnabled="{Binding AnimatedVideoEnabled}" Header="Loading indicator" Description="Choose the indicator shown over your video.">
+            <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding VideoIndicatorStyles, Mode=OneTime}" SelectedItem="{Binding VideoIndicatorStyle, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=., Converter={StaticResource EnumNameConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </controls:OptionControl>
+
+        <ui:CardExpander Margin="0,8,0,0" IsEnabled="{Binding StandardBootstrapperSettingsEnabled}" IsExpanded="{Binding Path=CustomThemesExpanded, Mode=OneWay}" Style="{StaticResource NoUserExpansionCardExpanderStyle}">
             <ui:CardExpander.Header>
                 <Grid>
                     <Grid>
@@ -192,11 +217,11 @@
             </Grid>
         </ui:CardExpander>
 
-        <controls:OptionControl Header="{x:Static resources:Strings.Menu_Appearance_CustomisationTitle_Title}" Description="{x:Static resources:Strings.Menu_Appearance_CustomisationTitle_Description}">
+        <controls:OptionControl IsEnabled="{Binding StandardBootstrapperSettingsEnabled}" Header="{x:Static resources:Strings.Menu_Appearance_CustomisationTitle_Title}" Description="{x:Static resources:Strings.Menu_Appearance_CustomisationTitle_Description}">
             <ui:TextBox PlaceholderText="Fishstrap" Width="200" Text="{Binding Title, Mode=TwoWay}" />
         </controls:OptionControl>
 
-        <controls:OptionControl x:Name="IconSelector" Header="{x:Static resources:Strings.Menu_Appearance_Icon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_Icon_Description}" HelpLink="https://wiki.fishstrap.app/manual/appearance/#custom-icons">
+        <controls:OptionControl IsEnabled="{Binding StandardBootstrapperSettingsEnabled}" x:Name="IconSelector" Header="{x:Static resources:Strings.Menu_Appearance_Icon_Title}" Description="{x:Static resources:Strings.Menu_Appearance_Icon_Description}" HelpLink="https://wiki.fishstrap.app/manual/appearance/#custom-icons">
             <Grid Width="200" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
