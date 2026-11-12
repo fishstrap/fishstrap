@@ -20,6 +20,7 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ICommand PreviewBootstrapperCommand => new RelayCommand(PreviewBootstrapper);
         public ICommand BrowseCustomIconLocationCommand => new RelayCommand(BrowseCustomIconLocation);
         public ICommand BrowseCustomRobloxIconLocationCommand => new RelayCommand(BrowseCustomRobloxIconLocation);
+        public ICommand BrowseBootstrapperVideoCommand => new RelayCommand(BrowseBootstrapperVideo);
 
         public ICommand AddCustomThemeCommand => new RelayCommand(AddCustomTheme);
         public ICommand DeleteCustomThemeCommand => new RelayCommand(DeleteCustomTheme);
@@ -28,6 +29,39 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ICommand ExportCustomThemeCommand => new RelayCommand(ExportCustomTheme);
 
         public bool WindowManipulationEnabled => App.Settings.Prop.EnableWindowManipulation;
+        public bool StandardBootstrapperSettingsEnabled => !App.Settings.Prop.AnimatedBootstrapperVideoEnabled;
+        public IEnumerable<BootstrapperVideoIndicatorStyle> VideoIndicatorStyles { get; } = Enum.GetValues(typeof(BootstrapperVideoIndicatorStyle)).Cast<BootstrapperVideoIndicatorStyle>();
+
+        public bool AnimatedVideoEnabled
+        {
+            get => App.Settings.Prop.AnimatedBootstrapperVideoEnabled;
+            set
+            {
+                App.Settings.Prop.AnimatedBootstrapperVideoEnabled = value;
+                OnPropertyChanged(nameof(AnimatedVideoEnabled));
+                OnPropertyChanged(nameof(StandardBootstrapperSettingsEnabled));
+            }
+        }
+
+        public string BootstrapperVideoPath
+        {
+            get => App.Settings.Prop.BootstrapperVideoPath;
+            set
+            {
+                App.Settings.Prop.BootstrapperVideoPath = value;
+                OnPropertyChanged(nameof(BootstrapperVideoPath));
+            }
+        }
+
+        public BootstrapperVideoIndicatorStyle VideoIndicatorStyle
+        {
+            get => App.Settings.Prop.BootstrapperVideoIndicatorStyle;
+            set
+            {
+                App.Settings.Prop.BootstrapperVideoIndicatorStyle = value;
+                OnPropertyChanged(nameof(VideoIndicatorStyle));
+            }
+        }
 
         public void OnNavigatedTo() => OnPropertyChanged(nameof(WindowManipulationEnabled));
 
@@ -35,7 +69,19 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         private void PreviewBootstrapper()
         {
-            IBootstrapperDialog dialog = App.Settings.Prop.BootstrapperStyle.GetNew();
+            IBootstrapperDialog dialog;
+
+            if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled && File.Exists(App.Settings.Prop.BootstrapperVideoPath))
+            {
+                dialog = new AnimatedVideoDialog();
+            }
+            else
+            {
+                if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled)
+                    Frontend.ShowMessageBox("The selected bootstrapper video could not be found. Choose a valid MP4 or MOV file, or turn off Animated Video.", MessageBoxImage.Warning);
+
+                dialog = App.Settings.Prop.BootstrapperStyle.GetNew();
+            }
 
             if (App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.ByfronDialog)
                 dialog.Message = Strings.Bootstrapper_StylePreview_ImageCancel;
@@ -44,6 +90,22 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
             dialog.CancelEnabled = true;
             dialog.ShowBootstrapper();
+        }
+
+        private void BrowseBootstrapperVideo()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Video files (*.mp4;*.mov)|*.mp4;*.mov|MP4 video (*.mp4)|*.mp4|QuickTime video (*.mov)|*.mov"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            if (!File.Exists(dialog.FileName))
+                return;
+
+            BootstrapperVideoPath = dialog.FileName;
         }
 
         private void BrowseCustomIconLocation()
