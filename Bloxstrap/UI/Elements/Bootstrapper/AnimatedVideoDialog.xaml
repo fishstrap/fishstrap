@@ -22,6 +22,7 @@
                       LoadedBehavior="Manual"
                       UnloadedBehavior="Stop"
                       Stretch="UniformToFill"
+                      Volume="0"
                       MediaOpened="VideoSurface_MediaOpened"
                       MediaEnded="VideoSurface_MediaEnded"
                       MediaFailed="VideoSurface_MediaFailed" />
