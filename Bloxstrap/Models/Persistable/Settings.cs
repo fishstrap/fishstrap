@@ -12,7 +12,7 @@ namespace Bloxstrap.Models.Persistable
         public BootstrapperStyle BootstrapperStyle { get; set; } = BootstrapperStyle.FluentAeroDialog;
         public bool AnimatedBootstrapperVideoEnabled { get; set; } = false;
         public string BootstrapperVideoPath { get; set; } = "";
-        public BootstrapperVideoIndicatorStyle BootstrapperVideoIndicatorStyle { get; set; } = BootstrapperVideoIndicatorStyle.Windows11;
+        public BootstrapperVideoIndicatorStyle BootstrapperVideoIndicatorStyle { get; set; } = Bloxstrap.Enums.BootstrapperVideoIndicatorStyle.Windows11;
         public BootstrapperIcon BootstrapperIcon { get; set; } = BootstrapperIcon.IconBloxstrap;
         public string BootstrapperTitle { get; set; } = App.ProjectName;
         public string BootstrapperIconCustomLocation { get; set; } = "";
