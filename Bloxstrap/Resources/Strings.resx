@@ -807,7 +807,7 @@ Selecting 'No' will ignore this warning and continue installation.</value>
     <value>Settings saved!</value>
   </data>
   <data name="Menu.Title" xml:space="preserve">
-    <value>Fishstrap Settings</value>
+    <value>XPLSTRAP Settings</value>
   </data>
   <data name="Dialog.LanguageSelector.Header" xml:space="preserve">
     <value>Choose preferred language</value>
@@ -886,7 +886,7 @@ Some text might not be translated to preferred language.</value>
     <value>The entry for '{0}' is not valid as the place filter is not formatted correctly.</value>
   </data>
   <data name="Installer.Title" xml:space="preserve">
-    <value>Fishstrap Installer</value>
+    <value>XPLSTRAP Setup</value>
   </data>
   <data name="Installer.Welcome.Title" xml:space="preserve">
     <value>Welcome</value>
@@ -905,11 +905,11 @@ Some text might not be translated to preferred language.</value>
     <value>Next</value>
   </data>
 	<data name="Installer.Welcome.MainText" xml:space="preserve">
-    <value>Thank you for downloading Fishstrap. 
+    <value>Thank you for downloading XPLSTRAP. 
 
-The only official websites to download Fishstrap from are {0} and {1}, so please verify that you got it from an official source.
+The official XPLSTRAP download links are {0} and {1}, so please verify that you got it from an official source.
 
-This installation process will be quick and simple, and you will be able to configure any of Fishstrap's settings after installation.</value>
+This installation process will be quick and simple, and you will be able to configure any of XPLSTRAP's settings after installation.</value>
     <comment>{0} and {1} are URLs</comment>
   </data>
   <data name="Installer.Welcome.NextToContinue" xml:space="preserve">
