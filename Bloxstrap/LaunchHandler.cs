@@ -4,6 +4,7 @@ using Windows.Win32;
 using Windows.Win32.Foundation;
 
 using Bloxstrap.UI.Elements.Dialogs;
+using Bloxstrap.UI.Elements.Bootstrapper;
 using Bloxstrap.Integrations;
 
 namespace Bloxstrap
