@@ -6,19 +6,19 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
-    <ApplicationIcon>Bloxstrap.ico</ApplicationIcon>
+    <ApplicationIcon>XPLSTRAP.ico</ApplicationIcon>
     <Version>3.3.0</Version>
     <FileVersion>3.3.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-	<AssemblyName>Fishstrap</AssemblyName>
+	<AssemblyName>XPLSTRAP</AssemblyName>
     <Product>$(AssemblyName)</Product>
     <RootNamespace>Bloxstrap</RootNamespace>
   </PropertyGroup>
     
   <ItemGroup>
-    <Resource Include="Bloxstrap.ico" />
+    <Resource Include="XPLSTRAP.ico" />
     <Resource Include="Resources\BootstrapperStyles\TerminalDialog\Powershell.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\PlayerLogo.png" />
     <Resource Include="Resources\BootstrapperStyles\TwentyFiveDialog\Roblox.png" />
