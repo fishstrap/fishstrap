@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shell;
+using System.Windows.Forms;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using Bloxstrap.UI.Elements.Base;
 using Bloxstrap.UI.ViewModels.Bootstrapper;
