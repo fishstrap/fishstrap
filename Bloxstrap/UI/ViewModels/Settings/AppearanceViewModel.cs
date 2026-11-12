@@ -106,8 +106,14 @@ namespace Bloxstrap.UI.ViewModels.Settings
             if (dialog.ShowDialog() != true)
                 return;
 
-            if (!File.Exists(dialog.FileName))
+            string extension = Path.GetExtension(dialog.FileName);
+            if (!File.Exists(dialog.FileName) ||
+                (!extension.Equals(".mp4", StringComparison.OrdinalIgnoreCase) &&
+                 !extension.Equals(".mov", StringComparison.OrdinalIgnoreCase)))
+            {
+                Frontend.ShowMessageBox("Please choose a valid MP4 or MOV video file.", MessageBoxImage.Warning);
                 return;
+            }
 
             BootstrapperVideoPath = dialog.FileName;
         }
