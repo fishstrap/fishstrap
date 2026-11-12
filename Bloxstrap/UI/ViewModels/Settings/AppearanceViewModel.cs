@@ -83,10 +83,13 @@ namespace Bloxstrap.UI.ViewModels.Settings
                 dialog = App.Settings.Prop.BootstrapperStyle.GetNew();
             }
 
-            if (App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.ByfronDialog)
-                dialog.Message = Strings.Bootstrapper_StylePreview_ImageCancel;
-            else
-                dialog.Message = Strings.Bootstrapper_StylePreview_TextCancel;
+            if (dialog is not AnimatedVideoDialog)
+            {
+                if (App.Settings.Prop.BootstrapperStyle == BootstrapperStyle.ByfronDialog)
+                    dialog.Message = Strings.Bootstrapper_StylePreview_ImageCancel;
+                else
+                    dialog.Message = Strings.Bootstrapper_StylePreview_TextCancel;
+            }
 
             dialog.CancelEnabled = true;
             dialog.ShowBootstrapper();
