@@ -1,6 +1,9 @@
 name: CI (Release)
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,13 +25,13 @@ jobs:
       run: dotnet build -c Release --no-restore
 
     - name: Publish XPLSTRAP Setup
-      run: dotnet publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained true .\Bloxstrap\Bloxstrap.csproj
+      run: dotnet publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained true .\\Bloxstrap\\Bloxstrap.csproj
 
     - name: Upload XPLSTRAP Setup
       uses: actions/upload-artifact@v7
       with:
         name: XPLSTRAP-Setup
-        path: .\Bloxstrap\bin\Release\net6.0-windows\win-x64\publish\XPLSTRAP.exe
+        path: .\\Bloxstrap\\bin\\Release\\net6.0-windows\\win-x64\\publish\\XPLSTRAP.exe
         if-no-files-found: error
 
   release:
