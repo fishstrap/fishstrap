@@ -1,4 +1,5 @@
 name: CI (Release)
+
 on: [push, pull_request]
 
 jobs:
@@ -20,15 +21,15 @@ jobs:
     - name: Build
       run: dotnet build -c Release --no-restore
 
-    - name: Publish
-      run: dotnet publish -p:PublishSingleFile=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained false .\Bloxstrap\Bloxstrap.csproj
+    - name: Publish XPLSTRAP Setup
+      run: dotnet publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained true .\Bloxstrap\Bloxstrap.csproj
 
-    - name: Upload Artifact
+    - name: Upload XPLSTRAP Setup
       uses: actions/upload-artifact@v7
       with:
-        #name: Fishstrap (Release) (${{ github.sha }})
-        path: .\Bloxstrap\bin\Release\net6.0-windows\win-x64\publish\Fishstrap.exe
-        archive: false
+        name: XPLSTRAP-Setup
+        path: .\Bloxstrap\bin\Release\net6.0-windows\win-x64\publish\XPLSTRAP.exe
+        if-no-files-found: error
 
   release:
     needs: build
@@ -38,21 +39,18 @@ jobs:
       contents: write
 
     steps:
-      - name: Download artifact
+      - name: Download XPLSTRAP Setup
         uses: actions/download-artifact@v8
-        #with:
-        #  name: Fishstrap (Release) (${{ github.sha }})
-        #  path: release
-
-      #- name: Rename binaries
-      #  run: mv release/Fishstrap.exe Fishstrap.exe
+        with:
+          name: XPLSTRAP-Setup
+          path: release
 
       - name: Create release
         uses: softprops/action-gh-release@v3
         with:
           draft: true
-          files: Fishstrap.exe
-          name: Fishstrap ${{ github.ref_name }}
+          files: release/XPLSTRAP.exe
+          name: XPLSTRAP ${{ github.ref_name }}
           fail_on_unmatched_files: true
 
   release-test:
@@ -63,19 +61,16 @@ jobs:
       contents: write
 
     steps:
-      - name: Download artifact
+      - name: Download XPLSTRAP Setup
         uses: actions/download-artifact@v8
-        #with:
-        #  name: Fishstrap (Release) (${{ github.sha }})
-        #  path: release
+        with:
+          name: XPLSTRAP-Setup
+          path: release
 
-      #- name: Rename binaries
-      #  run: mv release/Fishstrap.exe Fishstrap.exe
-
-      - name: Create release
+      - name: Create test release
         uses: softprops/action-gh-release@v3
         with:
           draft: true
-          files: Fishstrap.exe
-          name: Fishstrap ${{ github.ref_name }}
+          files: release/XPLSTRAP.exe
+          name: XPLSTRAP Test ${{ github.ref_name }}
           fail_on_unmatched_files: true
