@@ -54,6 +54,26 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
         }
 
+        public bool BootstrapperVideoLoopEnabled
+        {
+            get => App.Settings.Prop.BootstrapperVideoLoopEnabled;
+            set
+            {
+                App.Settings.Prop.BootstrapperVideoLoopEnabled = value;
+                OnPropertyChanged(nameof(BootstrapperVideoLoopEnabled));
+            }
+        }
+
+        public bool BootstrapperVideoAudioEnabled
+        {
+            get => App.Settings.Prop.BootstrapperVideoAudioEnabled;
+            set
+            {
+                App.Settings.Prop.BootstrapperVideoAudioEnabled = value;
+                OnPropertyChanged(nameof(BootstrapperVideoAudioEnabled));
+            }
+        }
+
         public BootstrapperVideoIndicatorStyle VideoIndicatorStyle
         {
             get => App.Settings.Prop.BootstrapperVideoIndicatorStyle;
