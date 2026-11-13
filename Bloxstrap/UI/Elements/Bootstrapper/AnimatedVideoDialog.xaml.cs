@@ -105,22 +105,23 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         private void MediaPlayer_EndReached(object? sender, EventArgs e)
         {
             // LibVLC raises EndReached from a worker thread; marshal looping to WPF.
-            Dispatcher.BeginInvoke(() =>
+            Dispatcher.BeginInvoke(new Action(() =>
             {
                 if (!_isClosing && _mediaPlayer is not null)
                     _mediaPlayer.Play();
-            });
+            }));
         }
 
         private void MediaPlayer_EncounteredError(object? sender, EventArgs e)
         {
-            Dispatcher.BeginInvoke(() =>
-                ShowVideoFallback(new InvalidOperationException("The selected video could not be decoded by the VLC playback engine.")));
+            Dispatcher.BeginInvoke(new Action(() =>
+                ShowVideoFallback(new InvalidOperationException("The selected video could not be decoded by the VLC playback engine."))));
         }
 
         private void ShowVideoFallback(Exception exception)
         {
             App.Logger.WriteException("AnimatedVideoDialog::ShowVideoFallback", exception);
+            _mediaPlayer?.Stop();
             if (VideoSurface is not null)
                 VideoSurface.Visibility = Visibility.Collapsed;
             Windows11Indicator.Visibility = Visibility.Collapsed;
