@@ -19,8 +19,12 @@
         <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
     </Window.TaskbarItemInfo>
     <Grid Background="#FF080808">
-        <vlc:VideoView x:Name="VideoSurface" />
-        <Border Background="#66000000" VerticalAlignment="Bottom" Padding="22,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <vlc:VideoView x:Name="VideoSurface" Grid.Row="0" />
+        <Border Grid.Row="1" Background="#FF171717" Padding="22,16">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

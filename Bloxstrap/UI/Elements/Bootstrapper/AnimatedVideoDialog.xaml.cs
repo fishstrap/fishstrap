@@ -85,8 +85,11 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 // LibVLC ships its own codec stack, so playback does not depend on
                 // the Windows Media Foundation codecs installed on the user's PC.
                 Core.Initialize();
-                _libVlc = new LibVLC("--no-audio", "--quiet");
-                _mediaPlayer = new MediaPlayer(_libVlc);
+                _libVlc = new LibVLC("--quiet");
+                _mediaPlayer = new MediaPlayer(_libVlc)
+                {
+                    Mute = !App.Settings.Prop.BootstrapperVideoAudioEnabled
+                };
                 VideoSurface.MediaPlayer = _mediaPlayer;
 
                 _mediaPlayer.EndReached += MediaPlayer_EndReached;
@@ -107,7 +110,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             // LibVLC raises EndReached from a worker thread; marshal looping to WPF.
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                if (!_isClosing && _mediaPlayer is not null)
+                if (!_isClosing && _mediaPlayer is not null && App.Settings.Prop.BootstrapperVideoLoopEnabled)
                     _mediaPlayer.Play();
             }));
         }
