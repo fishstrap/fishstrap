@@ -130,6 +130,9 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         private void UiWindow_Closing(object sender, CancelEventArgs e)
         {
+            if (!_isClosing)
+                Bootstrapper?.Cancel();
+
             _isClosing = true;
             if (_mediaPlayer is not null)
             {
@@ -143,8 +146,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             _mediaPlayer?.Dispose();
             _libVlc?.Dispose();
 
-            if (!_isClosing || Bootstrapper is not null)
-                Bootstrapper?.Cancel();
         }
 
         public void ShowBootstrapper() => ShowDialog();
