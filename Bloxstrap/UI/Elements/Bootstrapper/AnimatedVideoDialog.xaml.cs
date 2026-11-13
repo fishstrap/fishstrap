@@ -16,6 +16,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         private MediaPlayer? _mediaPlayer;
         private Media? _media;
         private bool _isClosing;
+        private bool _playbackStarted;
 
         public Bloxstrap.Bootstrapper? Bootstrapper { get; set; }
 
@@ -95,9 +96,32 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 _mediaPlayer.EndReached += MediaPlayer_EndReached;
                 _mediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
 
-                _media = new Media(_libVlc, path, FromType.FromPath);
+                // Do not start VLC until the WPF VideoView has loaded and attached
+                // its native video host HWND. Starting earlier can make LibVLC
+                // create its own top-level video window instead of using the
+                // bootstrapper's embedded video surface.
+                VideoSurface.Loaded += VideoSurface_Loaded;
+            }
+            catch (Exception ex)
+            {
+                ShowVideoFallback(ex);
+            }
+        }
+
+        private void VideoSurface_Loaded(object sender, RoutedEventArgs e)
+        {
+            VideoSurface.Loaded -= VideoSurface_Loaded;
+
+            if (_isClosing || _playbackStarted || _libVlc is null || _mediaPlayer is null)
+                return;
+
+            try
+            {
+                _playbackStarted = true;
+                _media = new Media(_libVlc, App.Settings.Prop.BootstrapperVideoPath, FromType.FromPath);
+
                 if (!_mediaPlayer.Play(_media))
-                    throw new InvalidOperationException("VLC could not start the selected video.");
+                    throw new InvalidOperationException("VLC could not start the selected video in the embedded bootstrapper surface.");
             }
             catch (Exception ex)
             {
@@ -138,6 +162,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 Bootstrapper?.Cancel();
 
             _isClosing = true;
+            VideoSurface.Loaded -= VideoSurface_Loaded;
+
             if (_mediaPlayer is not null)
             {
                 _mediaPlayer.EndReached -= MediaPlayer_EndReached;
