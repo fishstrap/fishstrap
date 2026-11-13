@@ -129,6 +129,14 @@
             </Grid>
         </controls:OptionControl>
 
+        <controls:OptionControl IsEnabled="{Binding AnimatedVideoEnabled}" Header="Loop video" Description="Repeat the video continuously while Roblox is launching.">
+            <ui:ToggleSwitch IsChecked="{Binding BootstrapperVideoLoopEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
+        <controls:OptionControl IsEnabled="{Binding AnimatedVideoEnabled}" Header="Play audio" Description="Play the audio track included in your selected video.">
+            <ui:ToggleSwitch IsChecked="{Binding BootstrapperVideoAudioEnabled, Mode=TwoWay}" />
+        </controls:OptionControl>
+
         <controls:OptionControl IsEnabled="{Binding AnimatedVideoEnabled}" Header="Loading indicator" Description="Choose the indicator shown over your video.">
             <ComboBox Width="200" Padding="10,5,10,5" ItemsSource="{Binding VideoIndicatorStyles, Mode=OneTime}" SelectedItem="{Binding VideoIndicatorStyle, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
