@@ -5,6 +5,7 @@
     xmlns:base="clr-namespace:Bloxstrap.UI.Elements.Base"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:resources="clr-namespace:Bloxstrap.Resources"
+    xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
     Width="620"
     Height="360"
     MinWidth="420"
@@ -18,14 +19,7 @@
         <TaskbarItemInfo ProgressState="{Binding Path=TaskbarProgressState}" ProgressValue="{Binding Path=TaskbarProgressValue}" />
     </Window.TaskbarItemInfo>
     <Grid Background="#FF080808">
-        <MediaElement x:Name="VideoSurface"
-                      LoadedBehavior="Manual"
-                      UnloadedBehavior="Stop"
-                      Stretch="UniformToFill"
-                      Volume="0"
-                      MediaOpened="VideoSurface_MediaOpened"
-                      MediaEnded="VideoSurface_MediaEnded"
-                      MediaFailed="VideoSurface_MediaFailed" />
+        <vlc:VideoView x:Name="VideoSurface" />
         <Border Background="#66000000" VerticalAlignment="Bottom" Padding="22,16">
             <Grid>
                 <Grid.ColumnDefinitions>

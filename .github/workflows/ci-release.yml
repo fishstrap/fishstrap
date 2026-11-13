@@ -25,7 +25,7 @@ jobs:
       run: dotnet build -c Release --no-restore
 
     - name: Publish XPLSTRAP
-      run: dotnet publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained true .\\Bloxstrap\\Bloxstrap.csproj
+      run: dotnet publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Release --self-contained true .\\Bloxstrap\\Bloxstrap.csproj
 
     - name: Create dedicated setup executable
       shell: pwsh

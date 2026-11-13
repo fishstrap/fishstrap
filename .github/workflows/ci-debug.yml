@@ -21,7 +21,7 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Publish
-      run: dotnet publish -p:PublishSingleFile=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Debug --self-contained false .\\Bloxstrap\\Bloxstrap.csproj
+      run: dotnet publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true -p:CommitHash=${{ github.sha }} -p:CommitRef=${{ github.ref_type }}/${{ github.ref_name }} -r win-x64 -c Debug --self-contained false .\\Bloxstrap\\Bloxstrap.csproj
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v7

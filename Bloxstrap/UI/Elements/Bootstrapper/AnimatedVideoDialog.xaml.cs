@@ -1,16 +1,20 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Shell;
 using System.Windows.Forms;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using Bloxstrap.UI.Elements.Base;
 using Bloxstrap.UI.ViewModels.Bootstrapper;
+using LibVLCSharp.Shared;
 
 namespace Bloxstrap.UI.Elements.Bootstrapper
 {
     public partial class AnimatedVideoDialog : WpfUiWindow, IBootstrapperDialog
     {
         private readonly BootstrapperDialogViewModel _viewModel;
+        private LibVLC? _libVlc;
+        private MediaPlayer? _mediaPlayer;
+        private Media? _media;
         private bool _isClosing;
 
         public Bloxstrap.Bootstrapper? Bootstrapper { get; set; }
@@ -78,7 +82,19 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 if (!File.Exists(path))
                     throw new FileNotFoundException("The selected video file no longer exists.", path);
 
-                VideoSurface.Source = new Uri(path, UriKind.Absolute);
+                // LibVLC ships its own codec stack, so playback does not depend on
+                // the Windows Media Foundation codecs installed on the user's PC.
+                Core.Initialize();
+                _libVlc = new LibVLC("--no-audio", "--quiet");
+                _mediaPlayer = new MediaPlayer(_libVlc);
+                VideoSurface.MediaPlayer = _mediaPlayer;
+
+                _mediaPlayer.EndReached += MediaPlayer_EndReached;
+                _mediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
+
+                _media = new Media(_libVlc, path, FromType.FromPath);
+                if (!_mediaPlayer.Play(_media))
+                    throw new InvalidOperationException("VLC could not start the selected video.");
             }
             catch (Exception ex)
             {
@@ -86,27 +102,28 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             }
         }
 
-        private void VideoSurface_MediaOpened(object sender, RoutedEventArgs e)
+        private void MediaPlayer_EndReached(object? sender, EventArgs e)
         {
-            VideoSurface.Play();
+            // LibVLC raises EndReached from a worker thread; marshal looping to WPF.
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (!_isClosing && _mediaPlayer is not null)
+                    _mediaPlayer.Play();
+            }));
         }
 
-        private void VideoSurface_MediaEnded(object sender, RoutedEventArgs e)
+        private void MediaPlayer_EncounteredError(object? sender, EventArgs e)
         {
-            VideoSurface.Position = TimeSpan.Zero;
-            VideoSurface.Play();
-        }
-
-        private void VideoSurface_MediaFailed(object sender, ExceptionRoutedEventArgs e)
-        {
-            ShowVideoFallback(e.ErrorException);
+            Dispatcher.BeginInvoke(new Action(() =>
+                ShowVideoFallback(new InvalidOperationException("The selected video could not be decoded by the VLC playback engine."))));
         }
 
         private void ShowVideoFallback(Exception exception)
         {
             App.Logger.WriteException("AnimatedVideoDialog::ShowVideoFallback", exception);
-            VideoSurface.Stop();
-            VideoSurface.Visibility = Visibility.Collapsed;
+            _mediaPlayer?.Stop();
+            if (VideoSurface is not null)
+                VideoSurface.Visibility = Visibility.Collapsed;
             Windows11Indicator.Visibility = Visibility.Collapsed;
             Windows10Indicator.Visibility = Visibility.Collapsed;
             FallbackPanel.Visibility = Visibility.Visible;
@@ -114,9 +131,22 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
         private void UiWindow_Closing(object sender, CancelEventArgs e)
         {
-            VideoSurface.Stop();
             if (!_isClosing)
                 Bootstrapper?.Cancel();
+
+            _isClosing = true;
+            if (_mediaPlayer is not null)
+            {
+                _mediaPlayer.EndReached -= MediaPlayer_EndReached;
+                _mediaPlayer.EncounteredError -= MediaPlayer_EncounteredError;
+                _mediaPlayer.Stop();
+            }
+
+            VideoSurface.MediaPlayer = null;
+            _media?.Dispose();
+            _mediaPlayer?.Dispose();
+            _libVlc?.Dispose();
+
         }
 
         public void ShowBootstrapper() => ShowDialog();
