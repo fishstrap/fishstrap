@@ -257,12 +257,13 @@ namespace Bloxstrap
             if (!App.LaunchSettings.QuietFlag.Active)
             {
                 App.Logger.WriteLine(LOG_IDENT, "Initializing bootstrapper dialog");
-                if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled && File.Exists(App.Settings.Prop.BootstrapperVideoPath))
-                    dialog = new AnimatedVideoDialog();
+                string? videoPath = AnimatedVideoDialog.SelectVideoPath();
+                if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled && videoPath is not null)
+                    dialog = new AnimatedVideoDialog(videoPath);
                 else
                 {
                     if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled)
-                        App.Logger.WriteLine(LOG_IDENT, "Animated bootstrapper video is enabled but the configured file is missing; using the selected standard style");
+                        App.Logger.WriteLine(LOG_IDENT, "Animated bootstrapper video is enabled but no configured video file is available; using the selected standard style");
 
                     dialog = App.Settings.Prop.BootstrapperStyle.GetNew();
                 }
