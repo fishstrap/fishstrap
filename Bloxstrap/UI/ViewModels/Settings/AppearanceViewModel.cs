@@ -58,6 +58,17 @@ namespace Bloxstrap.UI.ViewModels.Settings
 
         public ObservableCollection<string> BootstrapperVideoPaths => App.Settings.Prop.BootstrapperVideoPaths;
 
+        private string? _selectedBootstrapperVideoPath;
+        public string? SelectedBootstrapperVideoPath
+        {
+            get => _selectedBootstrapperVideoPath;
+            set
+            {
+                _selectedBootstrapperVideoPath = value;
+                OnPropertyChanged(nameof(SelectedBootstrapperVideoPath));
+            }
+        }
+
         public bool BootstrapperVideoShuffleEnabled
         {
             get => App.Settings.Prop.BootstrapperVideoShuffleEnabled;
