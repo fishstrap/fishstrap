@@ -119,26 +119,19 @@
         </controls:OptionControl>
 
         <controls:OptionControl IsEnabled="{Binding AnimatedVideoEnabled}" Header="Video files" Description="Add multiple MP4 or MOV clips. One clip is selected for each Roblox launch.">
-            <StackPanel Width="340">
-                <ItemsControl ItemsSource="{Binding BootstrapperVideoPaths}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,2,0,2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <ui:TextBox Grid.Column="0" IsReadOnly="True" Text="{Binding}" />
-                                <ui:Button Grid.Column="1" Width="34" Height="30" Margin="4,0,0,0" Icon="Delete16"
-                                           ToolTip="Remove video"
-                                           Command="{Binding DataContext.RemoveBootstrapperVideoCommand, RelativeSource={RelativeSource AncestorType={x:Type ui:UiPage}}}"
-                                           CommandParameter="{Binding}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-                <ui:Button Margin="0,6,0,0" HorizontalAlignment="Left" Content="Add videos" Icon="Add16" Command="{Binding AddBootstrapperVideoCommand}" />
-            </StackPanel>
+            <Grid Width="340">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ListBox Grid.Row="0" Height="88" ItemsSource="{Binding BootstrapperVideoPaths}"
+                         SelectedItem="{Binding SelectedBootstrapperVideoPath, Mode=TwoWay}" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,6,0,0">
+                    <Button Content="Add videos" Command="{Binding AddBootstrapperVideoCommand}" Padding="10,5" />
+                    <Button Content="Remove selected" Command="{Binding RemoveBootstrapperVideoCommand}"
+                            CommandParameter="{Binding SelectedBootstrapperVideoPath}" Margin="6,0,0,0" Padding="10,5" />
+                </StackPanel>
+            </Grid>
         </controls:OptionControl>
 
         <controls:OptionControl IsEnabled="{Binding AnimatedVideoEnabled}" Header="Shuffle videos" Description="Choose a random video each time Roblox launches. Turn this off to always use the first video in the list.">
