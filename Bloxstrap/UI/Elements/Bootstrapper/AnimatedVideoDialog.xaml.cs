@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Shell;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Bloxstrap.UI.Elements.Bootstrapper.Base;
 using Bloxstrap.UI.Elements.Base;
 using Bloxstrap.UI.ViewModels.Bootstrapper;
@@ -17,6 +18,7 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
         private Media? _media;
         private bool _isClosing;
         private bool _playbackStarted;
+        private readonly string _videoPath;
 
         public Bloxstrap.Bootstrapper? Bootstrapper { get; set; }
 
@@ -67,8 +69,36 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             }
         }
 
-        public AnimatedVideoDialog()
+        public static string? SelectVideoPath()
         {
+            var settings = App.Settings.Prop;
+            IEnumerable<string> configuredPaths = settings.BootstrapperVideoPaths.Count > 0
+                ? settings.BootstrapperVideoPaths
+                : new[] { settings.BootstrapperVideoPath };
+
+            List<string> availablePaths = configuredPaths
+                .Where(path => !String.IsNullOrWhiteSpace(path) && File.Exists(path))
+                .Where(path =>
+                {
+                    string extension = Path.GetExtension(path);
+                    return extension.Equals(".mp4", StringComparison.OrdinalIgnoreCase)
+                        || extension.Equals(".mov", StringComparison.OrdinalIgnoreCase);
+                })
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            if (availablePaths.Count == 0)
+                return null;
+
+            if (settings.BootstrapperVideoShuffleEnabled && availablePaths.Count > 1)
+                return availablePaths[Random.Shared.Next(availablePaths.Count)];
+
+            return availablePaths[0];
+        }
+
+        public AnimatedVideoDialog(string videoPath)
+        {
+            _videoPath = videoPath;
             InitializeComponent();
             _viewModel = new BootstrapperDialogViewModel(this);
             DataContext = _viewModel;
@@ -79,9 +109,8 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
 
             try
             {
-                string path = App.Settings.Prop.BootstrapperVideoPath;
-                if (!File.Exists(path))
-                    throw new FileNotFoundException("The selected video file no longer exists.", path);
+                if (!File.Exists(_videoPath))
+                    throw new FileNotFoundException("The selected video file no longer exists.", _videoPath);
 
                 // LibVLC ships its own codec stack, so playback does not depend on
                 // the Windows Media Foundation codecs installed on the user's PC.
@@ -91,8 +120,6 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
                 {
                     Mute = !App.Settings.Prop.BootstrapperVideoAudioEnabled
                 };
-                VideoSurface.MediaPlayer = _mediaPlayer;
-
                 _mediaPlayer.EndReached += MediaPlayer_EndReached;
                 _mediaPlayer.EncounteredError += MediaPlayer_EncounteredError;
 
@@ -115,10 +142,22 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             if (_isClosing || _playbackStarted || _libVlc is null || _mediaPlayer is null)
                 return;
 
+            // Let WPF finish creating and attaching the native child video host before
+            // LibVLC starts. Loaded alone can fire before the host HWND is ready.
+            Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(StartPlayback));
+        }
+
+        private void StartPlayback()
+        {
+            if (_isClosing || _playbackStarted || _libVlc is null || _mediaPlayer is null)
+                return;
+
             try
             {
+                VideoSurface.UpdateLayout();
+                VideoSurface.MediaPlayer = _mediaPlayer;
+                _media = new Media(_libVlc, _videoPath, FromType.FromPath);
                 _playbackStarted = true;
-                _media = new Media(_libVlc, App.Settings.Prop.BootstrapperVideoPath, FromType.FromPath);
 
                 if (!_mediaPlayer.Play(_media))
                     throw new InvalidOperationException("VLC could not start the selected video in the embedded bootstrapper surface.");
@@ -134,8 +173,13 @@ namespace Bloxstrap.UI.Elements.Bootstrapper
             // LibVLC raises EndReached from a worker thread; marshal looping to WPF.
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                if (!_isClosing && _mediaPlayer is not null && App.Settings.Prop.BootstrapperVideoLoopEnabled)
-                    _mediaPlayer.Play();
+                if (_isClosing || _mediaPlayer is null || _media is null || !App.Settings.Prop.BootstrapperVideoLoopEnabled)
+                    return;
+
+                // Replay the same media explicitly; Play() without a media instance
+                // can leave the player stopped after EndReached on some VLC builds.
+                if (!_mediaPlayer.Play(_media))
+                    ShowVideoFallback(new InvalidOperationException("VLC could not restart the selected video."));
             }));
         }
 
