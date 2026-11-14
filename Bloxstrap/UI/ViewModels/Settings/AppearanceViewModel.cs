@@ -22,6 +22,8 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public ICommand BrowseCustomIconLocationCommand => new RelayCommand(BrowseCustomIconLocation);
         public ICommand BrowseCustomRobloxIconLocationCommand => new RelayCommand(BrowseCustomRobloxIconLocation);
         public ICommand BrowseBootstrapperVideoCommand => new RelayCommand(BrowseBootstrapperVideo);
+        public ICommand AddBootstrapperVideoCommand => new RelayCommand(AddBootstrapperVideos);
+        public ICommand RemoveBootstrapperVideoCommand => new RelayCommand<string>(RemoveBootstrapperVideo);
 
         public ICommand AddCustomThemeCommand => new RelayCommand(AddCustomTheme);
         public ICommand DeleteCustomThemeCommand => new RelayCommand(DeleteCustomTheme);
@@ -51,6 +53,18 @@ namespace Bloxstrap.UI.ViewModels.Settings
             {
                 App.Settings.Prop.BootstrapperVideoPath = value;
                 OnPropertyChanged(nameof(BootstrapperVideoPath));
+            }
+        }
+
+        public ObservableCollection<string> BootstrapperVideoPaths => App.Settings.Prop.BootstrapperVideoPaths;
+
+        public bool BootstrapperVideoShuffleEnabled
+        {
+            get => App.Settings.Prop.BootstrapperVideoShuffleEnabled;
+            set
+            {
+                App.Settings.Prop.BootstrapperVideoShuffleEnabled = value;
+                OnPropertyChanged(nameof(BootstrapperVideoShuffleEnabled));
             }
         }
 
@@ -136,6 +150,49 @@ namespace Bloxstrap.UI.ViewModels.Settings
             }
 
             BootstrapperVideoPath = dialog.FileName;
+            if (!BootstrapperVideoPaths.Contains(dialog.FileName, StringComparer.OrdinalIgnoreCase))
+                BootstrapperVideoPaths.Add(dialog.FileName);
+            OnPropertyChanged(nameof(BootstrapperVideoPaths));
+        }
+
+        private void AddBootstrapperVideos()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Multiselect = true,
+                Filter = "Video files (*.mp4;*.mov)|*.mp4;*.mov|MP4 video (*.mp4)|*.mp4|QuickTime video (*.mov)|*.mov"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            foreach (string path in dialog.FileNames)
+            {
+                string extension = Path.GetExtension(path);
+                if (!File.Exists(path) ||
+                    (!extension.Equals(".mp4", StringComparison.OrdinalIgnoreCase) &&
+                     !extension.Equals(".mov", StringComparison.OrdinalIgnoreCase)))
+                    continue;
+
+                if (!BootstrapperVideoPaths.Contains(path, StringComparer.OrdinalIgnoreCase))
+                    BootstrapperVideoPaths.Add(path);
+            }
+
+            BootstrapperVideoPath = BootstrapperVideoPaths.FirstOrDefault() ?? "";
+            OnPropertyChanged(nameof(BootstrapperVideoPaths));
+        }
+
+        private void RemoveBootstrapperVideo(string? path)
+        {
+            if (String.IsNullOrWhiteSpace(path))
+                return;
+
+            string? existing = BootstrapperVideoPaths.FirstOrDefault(x => String.Equals(x, path, StringComparison.OrdinalIgnoreCase));
+            if (existing is not null)
+                BootstrapperVideoPaths.Remove(existing);
+
+            BootstrapperVideoPath = BootstrapperVideoPaths.FirstOrDefault() ?? "";
+            OnPropertyChanged(nameof(BootstrapperVideoPaths));
         }
 
         private void BrowseCustomIconLocation()
@@ -169,6 +226,9 @@ namespace Bloxstrap.UI.ViewModels.Settings
         public AppearanceViewModel(Page page)
         {
             _page = page;
+
+            if (App.Settings.Prop.BootstrapperVideoPaths.Count == 0 && !String.IsNullOrWhiteSpace(App.Settings.Prop.BootstrapperVideoPath))
+                App.Settings.Prop.BootstrapperVideoPaths.Add(App.Settings.Prop.BootstrapperVideoPath);
 
             foreach (var entry in BootstrapperIconEx.Selections)
                 Icons.Add(new BootstrapperIconEntry { IconType = entry });
