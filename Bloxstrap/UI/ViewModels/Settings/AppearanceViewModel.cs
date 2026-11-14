@@ -106,14 +106,15 @@ namespace Bloxstrap.UI.ViewModels.Settings
         {
             IBootstrapperDialog dialog;
 
-            if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled && File.Exists(App.Settings.Prop.BootstrapperVideoPath))
+            string? videoPath = AnimatedVideoDialog.SelectVideoPath();
+            if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled && videoPath is not null)
             {
-                dialog = new AnimatedVideoDialog();
+                dialog = new AnimatedVideoDialog(videoPath);
             }
             else
             {
                 if (App.Settings.Prop.AnimatedBootstrapperVideoEnabled)
-                    Frontend.ShowMessageBox("The selected bootstrapper video could not be found. Choose a valid MP4 or MOV file, or turn off Animated Video.", MessageBoxImage.Warning);
+                    Frontend.ShowMessageBox("No configured bootstrapper video could be found. Add at least one valid MP4 or MOV file, or turn off Animated Video.", MessageBoxImage.Warning);
 
                 dialog = App.Settings.Prop.BootstrapperStyle.GetNew();
             }
