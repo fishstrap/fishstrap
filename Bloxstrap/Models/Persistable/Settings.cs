@@ -12,6 +12,8 @@ namespace Bloxstrap.Models.Persistable
         public BootstrapperStyle BootstrapperStyle { get; set; } = BootstrapperStyle.FluentAeroDialog;
         public bool AnimatedBootstrapperVideoEnabled { get; set; } = false;
         public string BootstrapperVideoPath { get; set; } = "";
+        public ObservableCollection<string> BootstrapperVideoPaths { get; set; } = new();
+        public bool BootstrapperVideoShuffleEnabled { get; set; } = true;
         public bool BootstrapperVideoLoopEnabled { get; set; } = true;
         public bool BootstrapperVideoAudioEnabled { get; set; } = false;
         public BootstrapperVideoIndicatorStyle BootstrapperVideoIndicatorStyle { get; set; } = Bloxstrap.Enums.BootstrapperVideoIndicatorStyle.Windows11;
