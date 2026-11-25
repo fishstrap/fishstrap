@@ -10,7 +10,7 @@ namespace Bloxstrap.Integrations
 
         private const string DefaultActivityName = "Roblox";
 
-        public static string ActivityName { get; private set; } = DefaultActivityName;
+        public static string ActivityName { get; } = DefaultActivityName;
 
         private readonly DiscordRpcClient _rpcClient = new(ApplicationId);
         private readonly ActivityWatcher _activityWatcher;
@@ -364,7 +364,6 @@ namespace Bloxstrap.Integrations
             {
                 App.Logger.WriteLine(LOG_IDENT, "Not in game, clearing presence");
 
-                ActivityName = DefaultActivityName;
                 _currentPresence = _originalPresence =  null;
                 _messageQueue.Clear();
 
@@ -428,13 +427,11 @@ namespace Bloxstrap.Integrations
                 return false;
             }
 
-            string creator = $"by {universeDetails.Data.Creator.Name}" + (universeDetails.Data.Creator.HasVerifiedBadge ? " ☑️" : "");
-
-            string? status = _activityWatcher.Data.ServerType switch
+            string status = _activityWatcher.Data.ServerType switch
             {
                 ServerType.Private => "In a private server",
                 ServerType.Reserved => "In a reserved server",
-                _ => null
+                _ => $"by {universeDetails.Data.Creator.Name}" + (universeDetails.Data.Creator.HasVerifiedBadge ? " ☑️" : "")
             };
 
             string universeName = universeDetails.Data.Name;
@@ -442,11 +439,9 @@ namespace Bloxstrap.Integrations
             if (universeName.Length < 2)
                 universeName = $"{universeName}\x2800\x2800\x2800";
 
-            ActivityName = universeName;
-
             _currentPresence = new DiscordRPC.RichPresence
             {
-                Details = creator,
+                Details = universeName,
                 StatusDisplay = App.Settings.Prop.RichPresenceStatusDisplayType.ToStatusDisplayType(),
                 State = status,
                 Timestamps = new Timestamps { Start = timeStarted.ToUniversalTime() },
